@@ -28,8 +28,8 @@ export default async (prevState: any, formData: FormData) => {
 
     console.log('??뭐냐');
     // const url = new URL('/api/member/register')
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/register`, {
-      method: 'post',
+      const response = await fetch(`${process.env.AUTH_URL}/api/member/register`, {
+      method: 'POST',
       body: formData,
       credentials: 'include',
     })
@@ -39,18 +39,18 @@ export default async (prevState: any, formData: FormData) => {
     }
     console.log('d뀨ㅠㄲ뀨zzzz',await response.json())
     shouldRedirect = true;
-    // await signIn("credentials", {
-    //   username: formData.get('id'),
-    //   password: formData.get('password'),
-    //   redirect: false,
-    // })
+    await signIn("credentials", {
+      username: formData.get('id'),
+      password: formData.get('password'),
+      redirect: false,
+    })
   } catch (err) {
     console.error(err);
     return {message: null};
   }
 
   if (shouldRedirect) {
-    // redirect('/login'); // try/catch문 안에서 X
+    redirect('/login'); // try/catch문 안에서 X
   }
   return {message: null};
 };
