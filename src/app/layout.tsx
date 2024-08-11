@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AuthSession from "@/components/AuthSession";
 import {SessionProvider} from "next-auth/react";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,20 +17,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-      <html lang="en">
-      <body className={inter.className}>
-      <AuthSession>
-          <Navbar/>
-              {children}
-          <Footer/>
-      </AuthSession>
-      </body>
-      </html>
-  );
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+    return (
+        <html lang="en">
+        <body className={inter.className} suppressHydrationWarning={true}>
+        <AuthSession>
+            {children}
+        </AuthSession>
+        </body>
+        </html>
+    );
+
+  // return (
+  //     <html lang="en">
+  //     <body className={inter.className}>
+  //     <AuthSession>
+  //         <Navbar/>
+  //             {children}
+  //         <Footer/>
+  //     </AuthSession>
+  //     </body>
+  //     </html>
+  // );
 }

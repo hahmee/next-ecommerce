@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NavIcons = () => {
-
-
   return (
       <div className="flex items-center gap-4 xl:gap-6 relative">
         <Image
@@ -16,19 +14,23 @@ const NavIcons = () => {
             height={22}
             className="cursor-pointer"
         />
-        
-            <div className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
+
+          <div
+              className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
               <Link href="/profile">Profile</Link>
               <div className="mt-2 cursor-pointer">
                   <Link href="/login">로그인</Link>
               </div>
-            </div>
-       
-        <Image
-            src="/notification.png"
-            alt=""
-            width={22}
-            height={22}
+              <div className="mt-2 cursor-pointer">
+                  <Link href="/admin">어드민</Link>
+              </div>
+          </div>
+
+          <Image
+              src="/notification.png"
+              alt=""
+              width={22}
+              height={22}
             className="cursor-pointer"
         />
         <div

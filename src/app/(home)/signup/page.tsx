@@ -1,7 +1,7 @@
 'use client';
 
 import {useFormState, useFormStatus} from "react-dom";
-import onSubmit from "../../lib/signup";
+import onSubmit from "../../../lib/signup";
 import {FormEventHandler, useState} from "react";
 import {useRouter} from "next/navigation";
 
