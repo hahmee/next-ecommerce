@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Product extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +25,29 @@ public class Product {
 
   private String pdesc;
 
+  private String happyTest;
+
   private boolean delFlag;
 
+  private String brand;
+
+  private String category;
+
+  private String sku;
+
+  private boolean inStock;
+
+  private String refundPolicy;
+
+  private String changePolicy;
+
+  @ManyToOne
+  @JoinColumn(name="member_owner")
+  private Member owner; // 유저
 
   public void changeDel(boolean delFlag) {
     this.delFlag = delFlag;
   }
-
 
   @ElementCollection
   @Builder.Default

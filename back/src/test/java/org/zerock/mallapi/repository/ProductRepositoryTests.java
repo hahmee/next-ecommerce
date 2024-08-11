@@ -1,5 +1,8 @@
 package org.zerock.mallapi.repository;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
@@ -11,8 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.mallapi.domain.Member;
+import org.zerock.mallapi.domain.MemberRole;
 import org.zerock.mallapi.domain.Product;
 
 import lombok.extern.log4j.Log4j2;
@@ -23,17 +29,26 @@ public class ProductRepositoryTests {
 
   @Autowired
   ProductRepository productRepository;
-  
+
+  @Autowired
+  private MemberRepository memberRepository;
+
   @Test
   public void testInsert() {
 
-    for (int i = 0; i < 30; i++) {
+    String email = "user1@aaa.com";
+    Member member = memberRepository.getWithRoles(email); //멤버 정보 가져옴
+    log.info("-----------------");
+    log.info(member);
+
+    for (int i = 0; i < 2; i++) {
 
       Product product = Product.builder()
-      .pname("상품"+i)
-      .price(100*i)
-      .pdesc("상품설명 " + i)
-      .build();
+              .pname("상품" + i)
+              .price(100 * i)
+              .owner(member)
+              .pdesc("상품설명 " + i).brand("브랜드예시").sku(UUID.randomUUID().toString()).category("카테고리").refundPolicy("환불정책예시").changePolicy("교환정책예시").inStock(true)
+              .build();
       
       //2개의 이미지 파일 추가 
       product.addImageString("IMAGE1.jpg");

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "E-Commerce Application",
   description: "A complete e-commerce application with Next.js",
   icons: {
-    icon: "./logo.png",
+    icon: "/logo.png",
   },
 };
 
