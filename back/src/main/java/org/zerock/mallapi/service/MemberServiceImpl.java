@@ -53,6 +53,20 @@ public class MemberServiceImpl implements MemberService {
       return returnMemberDTO;
   }
 
+    @Override
+    public MemberDTO get(String email) {
+
+      //현재 이메일 넣기
+
+      java.util.Optional<Member> result = Optional.ofNullable(memberRepository.getWithRoles(email));
+
+      Member member = result.orElseThrow();
+
+      MemberDTO memberDTO = entityToDTO(member);
+
+      return memberDTO;
+    }
+
 
     private Member dtoToEntity(MemberDTO memberDTO){
 

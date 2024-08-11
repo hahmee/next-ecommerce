@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import {cookies, headers} from 'next/headers'
-import cookie from 'cookie';
+import {cookies} from "next/headers";
 
 export const {
   handlers: { GET, POST },
@@ -65,7 +64,7 @@ export const {
         if (setCookie) {
           const oneDay = 24 * 60 * 60
           cookies().set('member', JSON.stringify(setCookie), {expires: Date.now() - oneDay}); // 브라우저에 쿠키를 심어주는 것
-          console.log('cookies().toString()', cookies().toString());
+          console.log('cookies입니다..', cookies().toString());
         }
 
         // let setCookie = authResponse.headers.get('Set-Cookie');

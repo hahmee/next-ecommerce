@@ -1,7 +1,21 @@
-import Link from "next/link";
 import UpdateButton from "@/components/UpdateButton";
+import {auth} from "@/auth";
+import {QueryClient} from "@tanstack/react-query";
+import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
 
-export default function ProfilePage()  {
+export default async function ProfilePage()  {
+
+    //유저 정보를 가져온다.
+    const session = await auth();
+    console.log('session----', session);
+    const queryClient = new QueryClient();
+    // 미리 가져온다.
+    // await queryClient.prefetchQuery('pots', getUserServer);
+
+    await queryClient.prefetchQuery({queryKey: ['profile'], queryFn: getUserServer})
+
+
+
     return (
         <div
             className="flex flex-col md:flex-row gap-24 md:h-[calc(100vh-180px)] items-center px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
@@ -44,7 +58,6 @@ export default function ProfilePage()  {
             </div>
             <div className="w-full md:w-1/2">
                 <h1 className="text-2xl">Orders</h1>
-
             </div>
         </div>);
 }

@@ -16,6 +16,8 @@ public interface MemberService {
 
   MemberDTO register(MemberDTO memberDTO);
 
+  MemberDTO get(String email);
+
   default MemberDTO entityToDTO(Member member) {
 
     MemberDTO dto = new MemberDTO(

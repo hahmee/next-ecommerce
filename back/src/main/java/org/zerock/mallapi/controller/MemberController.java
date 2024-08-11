@@ -2,6 +2,7 @@ package org.zerock.mallapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.dto.MemberDTO;
@@ -11,7 +12,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-public class AuthController {
+public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/api/member/register")
@@ -31,5 +32,25 @@ public class AuthController {
 
 
         return Map.of("result", registeredMemberDTO);
+    }
+
+
+    @GetMapping("/api/profile")
+    public Map<String, MemberDTO> profile(MemberDTO memberDTO){
+
+        log.info("profile: " + memberDTO);
+
+        //서비스 호출
+        MemberDTO profileDTO = memberService.get(memberDTO.getEmail());
+
+        try {
+            Thread.sleep(0);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        return Map.of("result", profileDTO);
     }
 }
