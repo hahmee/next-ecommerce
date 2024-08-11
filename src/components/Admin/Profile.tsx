@@ -1,11 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 
 const Profile: React.FC = () => {
     return (
         <>
             <div className="mx-auto max-w-242.5">
+                <Breadcrumb pageName="Profile" />
                 <div
                     className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div className="relative z-20 h-35 md:h-65">

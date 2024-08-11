@@ -5,83 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/best-value-banner.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/brand/brand-01.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/brand/brand-02.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/brand/brand-03.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/brand/brand-04.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/brand/brand-05.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cards/cards-01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cards/cards-02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cards/cards-03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cards/cards-04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cards/cards-05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cards/cards-06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/country/country-01.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/country/country-02.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/country/country-03.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/country/country-04.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/country/country-05.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/country/country-06.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/cover/cover-01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/icon/icon-arrow-down.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/icon/icon-calendar.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/icon/icon-copy-alt.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/icon/icon-moon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/icon/icon-sun.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/illustration/illustration-01.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/illustration/illustration-02.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/illustration/illustration-03.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/illustration/illustration-04.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/logo/logo-dark.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/logo/logo-icon.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/logo/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/product/product-01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/product/product-02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/product/product-03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/product/product-04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/product/product-thumb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/task/task-01.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-01.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-02.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-03.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-04.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-05.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-06.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-07.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-08.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-09.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-10.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-11.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-12.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/user/user-13.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/profile/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ClickOutside.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/DarkModeSwitcher.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/DropdownMessage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/DropdownNotification.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/DropdownUser.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Sidebar/SidebarDropdown.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Sidebar/SidebarItem.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UpdateButton.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useColorMode.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useLocalStorage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/tables/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Breadcrumbs/Breadcrumb.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/TableFour.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/TableOne.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/TableThree.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/TableTwo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/product.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/signup/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/SidebarItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/SidebarItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +49,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce/src/hooks",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce/src/types",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,11 +62,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce\src\types" />
+      <recent name="C:\dev\youtube\next-ecommerce\src\components" />
       <recent name="C:\dev\youtube\next-ecommerce\src\hooks" />
       <recent name="C:\dev\youtube\next-ecommerce\public" />
-      <recent name="C:\dev\youtube\next-ecommerce\src\components" />
       <recent name="C:\dev\youtube\next-ecommerce\public\logo" />
-      <recent name="C:\dev\youtube\next-ecommerce\src\components\Sidebar" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce\src\app\(home)" />
