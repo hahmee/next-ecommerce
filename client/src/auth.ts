@@ -1,6 +1,8 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import {cookies} from "next/headers";
+import cookie from 'cookie';
+import {setCookie} from "@/utils/cookieUtil";
 
 export const {
   handlers: { GET, POST },
@@ -12,12 +14,24 @@ export const {
     newUser: '/signup',
   },
   callbacks: {
-    jwt({ token}) {
+    jwt({ token, user}) {
       console.log('auth.ts jwt입니다.', token);
+      console.log('auth.ts jwt2222입니다.', user);
+
+      // if(user) {
+      //   //Intial Login에만 user가 존재
+      //   return {
+      //     ...user,
+      //     accessToken: user.accessToken,
+      //     expiresAt: Math.floor(Date.now() / 1000 + user.expiresIn),
+      //     refreshToken: user.refreshToken
+      //   };
+      //
+
       return token;
     },
     session({ session, newSession, user}) {
-      console.log('auth.ts session입니다.', session, newSession, user);
+      // console.log('auth.ts session입니다.', session, newSession, user);
       return session;
     }
   },
@@ -41,15 +55,13 @@ export const {
   },
   providers: [
       CredentialsProvider({
-      async authorize(credentials) {
+      async authorize(credentials) { //프로미스 반환
         console.log('credentials입니다...', credentials);
-
         const authResponse = await fetch(`${process.env.AUTH_URL}/api/member/login`, {
           method: "POST",
           headers:{
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-
           body: new URLSearchParams({
             username: credentials.username as string,
             password: credentials.password as string,
@@ -59,21 +71,9 @@ export const {
         const user = await authResponse.json();
         console.log('백엔드에서 받아온 결과로 만든 user입니다.', user);
 
-        let setCookie = user;
-
-        if (setCookie) {
-          const oneDay = 24 * 60 * 60
-          cookies().set('member', JSON.stringify(setCookie), {expires: Date.now() - oneDay}); // 브라우저에 쿠키를 심어주는 것
-          console.log('cookies입니다..', cookies().toString());
+        if (user) {
+          setCookie('member', JSON.stringify(user), 1);
         }
-
-        // let setCookie = authResponse.headers.get('Set-Cookie');
-        // console.log('set-cookie입니다.', setCookie);
-        // if (setCookie) {
-        //   const parsed = cookie.parse(setCookie);
-        //   cookies().set('connect.sid', parsed['connect.sid'], parsed); // 브라우저에 쿠키를 심어주는 것
-        // }
-
 
         if (!authResponse.ok) {
           return null
@@ -82,8 +82,8 @@ export const {
         return {
           email: user.email,
           name: user.nickname,
-          image: user.image,
-          ...user,
+          // image: user.image,
+          ...user, //JWT로 부호화 됨
         }
       },
     }),

@@ -1,7 +1,9 @@
-'use client';
+"use client";
 import {ChangeEventHandler, FormEventHandler, useState} from "react";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/navigation";
+import {setCookie} from "@/utils/cookieUtil";
+import {fetchWithInterceptor} from "@/utils/jwtUtils";
 export default function LoginPage() {
 
     const [email, setEmail] = useState('');
@@ -9,11 +11,53 @@ export default function LoginPage() {
     const [message, setMessage] = useState('');
     const router = useRouter();
 
-
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        setMessage('');
-        console.log('dddddddddddddddddddddddddddddd', email, password);
+        const formData = new FormData(e.currentTarget);
+        // setMessage('');
+        // try {
+            // const response = await fetchWithInterceptor(`/api/member/login`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded'
+            //     },
+            //     body: new URLSearchParams({
+            //         username: formData.get('username') as string,
+            //         password: formData.get('password') as string,
+            //     })
+            // });
+            // const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded'
+            //     },
+            //     body: new URLSearchParams({
+            //         username: formData.get('username') as string,
+            //         password: formData.get('password') as string,
+            //     })
+            // });
+            //
+            // if (!response?.ok) {
+            //     console.log('아이디와 비밀번호가 일치하지 않습니다.')
+            //     // setMessage('아이디와 비밀번호가 일치하지 않습니다.');
+            // } else {
+            //
+            //     const user = await response.json();
+            //     console.log('백엔드에서 받아온 결과로 만든 user입니다.', user);
+            //
+            //     if (user) {
+            //         // setCookie('member', JSON.stringify(user), 1);
+            //     }
+            //
+            //     router.replace('/');
+            // }
+
+        //
+        // } catch (err) {
+        //     console.error(err);
+        //     console.log('아이디와 비밀번호가 일치하지 않습니다.')
+        //     // setMessage('아이디와 비밀번호가 일치하지 않습니다.');
+        // }
 
         try {
             const response = await signIn("credentials", {
@@ -35,15 +79,13 @@ export default function LoginPage() {
         }
     };
 
-
     const handleSignup = () => {
         router.push('/signup');
     }
 
     return (
-
         <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
-            <form className="flex flex-col gap-8" onSubmit ={handleSubmit}>
+            <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
                 <h1 className="text-2xl font-semibold">로그인</h1>
                 <div className="flex flex-col gap-2">
                     <label className="text-sm text-gray-700">사용자 이메일</label>
@@ -86,9 +128,9 @@ export default function LoginPage() {
                 >
                     계정이 없으신가요?
                 </div>
-                {message && <div className="text-green-600 text-sm">{message}</div>}
+                {/*{message && <div className="text-green-600 text-sm">{message}</div>}*/}
 
             </form>
         </div>
-    )
+    );
 }

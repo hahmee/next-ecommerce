@@ -57,6 +57,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     String authHeaderStr = request.getHeader("Authorization");
 
     log.info("whatdfdfdkfdkf" + authHeaderStr);
+
     try {
       //Bearer accestoken...
       String accessToken = authHeaderStr.substring(7);

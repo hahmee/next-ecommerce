@@ -85,7 +85,7 @@ public class ProductController {
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") //임시로 권한 설정 
-  @GetMapping("/list")
+  @GetMapping("/list") // list?page=7
   public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
 
     log.info("list............." + pageRequestDTO);

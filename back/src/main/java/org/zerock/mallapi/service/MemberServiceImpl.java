@@ -54,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
     @Override
-    public MemberDTO get(String email) {
+    public MemberDTO getProfile(String email) {
 
       //현재 이메일 넣기
 
