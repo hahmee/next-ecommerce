@@ -48,7 +48,7 @@ export default function SignupPage() {
                     <label className="text-sm text-gray-700">비밀번호</label>
                     <input
                         type="password"
-                        name="pw"
+                        name="password"
                         placeholder="비밀번호"
                         className="ring-2 ring-gray-300 rounded-md p-4"
                         required={true}

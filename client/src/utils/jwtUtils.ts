@@ -5,11 +5,11 @@ const host = process.env.NEXT_PUBLIC_BASE_URL;
 interface IRequestInit {
     // url: string
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
-    body?: BodyInit
+    body?: BodyInit | null
     credentials?: RequestCredentials
     cache?: RequestCache
     next?: NextFetchRequestConfig | undefined
-    headers?: HeadersInit;
+    headers?: HeadersInit
 }
 
 //newAccessToken과 newRefreshToken 새로 발급
@@ -57,8 +57,8 @@ const beforeReq = async (requestInit: IRequestInit) => {
 
 
 //before return response 응답을 받기 전 실행된다.
-const beforeRes = async (response: any) => { // await fetch(`${host}/${url}`, others);
-    const data = response.json();
+const beforeRes = async (url:string, response: any) => { // await fetch(`${host}/${url}`, others);
+    const data = await response.json();
 
     if (data && data.error === 'ERROR_ACCESS_TOKEN') { //에러가 나면
         const memberCookieValue = getCookie('member');
@@ -84,19 +84,32 @@ const beforeRes = async (response: any) => { // await fetch(`${host}/${url}`, ot
 
         // headers: {Authorization: `Bearer ${accessToken}`}
 
-        return await fetch(originalRequest); //다시 호출
+        const fetchData = await fetch(url, originalRequest); //다시 정상 응답진행
+
+        const data = await fetchData.json();
+
+        return data;
+
     }
     //토큰이 다 괜찮으면
-    return response;
+    return data;
 };
 
 export const fetchWithInterceptor = async (url: string, requestInit: IRequestInit) => {
+    try {
 
-    const configData = await beforeReq(requestInit);
-    console.log('configData', configData);
-    const response = await fetch(`${host}/${url}`, requestInit);
-    const result = await beforeRes(response);
+        const configData = await beforeReq(requestInit); //헤더
+        console.log('configData', configData);
 
-    console.log('최종', result);
-    return result;
+        const response = await fetch(`${host}${url}`, configData);
+
+        const resultJson = await beforeRes(`${host}${url}`, response);
+
+        // console.log('최종', result);
+        return resultJson;
+
+    }catch(err) {
+        console.log('?errr??????????', err);
+    }
+
 };

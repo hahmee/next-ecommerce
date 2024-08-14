@@ -1,7 +1,6 @@
+/*
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import {cookies} from "next/headers";
-import cookie from 'cookie';
 import {setCookie} from "@/utils/cookieUtil";
 
 export const {
@@ -89,3 +88,4 @@ export const {
     }),
   ]
 });
+*/

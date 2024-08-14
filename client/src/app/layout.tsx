@@ -19,11 +19,11 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
     return (
         <html lang="en">
         <body className={inter.className} suppressHydrationWarning={true}>
-        <AuthSession>
+        {/*<AuthSession>*/}
             <RQProvider>
             {children}
             </RQProvider>
-        </AuthSession>
+        {/*</AuthSession>*/}
         </body>
         </html>
     );
