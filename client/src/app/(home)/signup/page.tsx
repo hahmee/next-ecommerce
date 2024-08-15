@@ -1,24 +1,22 @@
 'use client';
 
 import {useFormState, useFormStatus} from "react-dom";
-import onSubmit from "../../../lib/signup";
-import {FormEventHandler, useState} from "react";
+import signUp from "../../../lib/signup";
+import {useState} from "react";
 import {useRouter} from "next/navigation";
+import {showMessage} from "@/app/(home)/login/page";
 
 export default function SignupPage() {
     const [message, setMessage] = useState("");
     const router = useRouter();
-    const [state, formAction] = useFormState(onSubmit, {message:null});
+    const [state, formAction] = useFormState(signUp, {message:null});
     const {pending} = useFormStatus();
-    console.log('state', state);
+    console.log('state', state)
+
     const handleLogin = () => {
         router.push('/login');
     }
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault();
-        setMessage('');
-    };
     return (
         <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
             <form className="flex flex-col gap-8" action={formAction}>
@@ -66,36 +64,9 @@ export default function SignupPage() {
                     회원가입
                 </button>
 
-                {message && <div className="text-green-600 text-sm">{message}</div>}
+                {state.message && <div className="text-green-600 text-sm">{showMessage(state?.message)}</div>}
 
             </form>
         </div>);
 
 }
-
-//     return <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
-//         <form id="auth-form">
-//             <p>
-//                 <label htmlFor="email">Email</label>
-//                 <input type="email" name="email" id="email"/>
-//             </p>
-//
-//             <p>
-//                 <label htmlFor="nickname">닉네임</label>
-//                 <input id="nickname" name="nickname" type="text" placeholder="" required/>
-//             </p>
-//             <p>
-//                 <label htmlFor="pw">Password</label>
-//                 <input type="password" name="pw" id="pw"/>
-//             </p>
-//             <button type="submit">가입하기</button>
-//
-//
-//             <p>
-//
-//             </p>
-//         </form>
-//     </div>;
-//
-//
-// };

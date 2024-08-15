@@ -33,7 +33,6 @@ public class MemberController {
             e.printStackTrace();
         }
 
-
         return Map.of("result", registeredMemberDTO);
     }
 

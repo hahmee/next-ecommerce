@@ -7,7 +7,7 @@ public class MemberModifyDTO {
  
   private String email;
 
-  private String pw;
+  private String password;
 
   private String nickname; 
   

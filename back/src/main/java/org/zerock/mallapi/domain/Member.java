@@ -16,7 +16,7 @@ public class Member {
   @Id
   private String email;
 
-  private String pw;
+  private String password;
 
   private String nickname;
 
@@ -39,8 +39,8 @@ public class Member {
     this.nickname = nickname;
   }
 
-  public void changePw(String pw){
-    this.pw = pw;
+    public void changePassword(String password){
+    this.password = password;
   }
 
   public void changeSocial(boolean social) {

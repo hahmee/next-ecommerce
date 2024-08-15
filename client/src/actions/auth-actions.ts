@@ -30,7 +30,7 @@ export default async (prevState: any, formData: FormData) => {
 
     const data = await response.json();
 
-    if (data.error) { //에러가 있을 때
+    if (data && data.error) { //에러가 있을 때
       console.log('아이디와 비밀번호가 일치하지 않습니다.');
       return { message: 'no_authorized' };
 
@@ -41,7 +41,7 @@ export default async (prevState: any, formData: FormData) => {
 
   }catch (error) {
     console.error(error);
-    return { message: null };
+    return { message: 'unknown_error' };
   }
 
   if (shouldRedirect) {

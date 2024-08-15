@@ -13,8 +13,20 @@ export function showMessage(message: string | null) {
     if (message === 'no_password') {
         return '비밀번호를 입력하세요.';
     }
+    if (message === 'no_name') {
+        return '닉네임을 입력하세요.';
+    }
     if (message === 'no_authorized') {
         return '아이디와 비밀번호가 일치하지 않습니다.';
+    }
+    if(message === 'email_exists') {
+        return '이미 사용 중인 이메일입니다.';
+    }
+    if(message === 'nickname_exists') {
+        return '이미 사용 중인 닉네임입니다.';
+    }
+    if(message === 'unknown_error') {
+        return '알 수 없는 에러입니다.';
     }
     return '';
 }

@@ -36,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 
     MemberDTO memberDTO = new MemberDTO(
             member.getEmail(),
-            member.getPw(),
+            member.getPassword(),
             member.getNickname(),
             member.isSocial(),
             member.getMemberRoleList()

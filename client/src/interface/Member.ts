@@ -2,7 +2,7 @@ export interface Member {
   email: string;
   accessToken?: string;
   nickname?: string;
-  pw?: string;
+  password?: string;
   refreshToken?: string;
   roleNames?: [string];
   social?: false;

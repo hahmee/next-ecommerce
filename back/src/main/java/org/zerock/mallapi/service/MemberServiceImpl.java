@@ -24,6 +24,10 @@ import org.zerock.mallapi.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.zerock.mallapi.util.EmailDuplicateException;
+import org.zerock.mallapi.util.NicknameDuplicateException;
+
+import javax.swing.text.html.Option;
 
 @Service
 @RequiredArgsConstructor
@@ -40,10 +44,18 @@ public class MemberServiceImpl implements MemberService {
 
 
       //유효성 검사
-      //같은 이메일, 닉네임 있는지 검사
+      //이메일 검사
       if(memberRepository.existsById(memberDTO.getEmail())){
-          throw new RuntimeException("SAME EMAIL ID EXISTS");
+              throw new EmailDuplicateException("Email duplicated");
       }
+
+      //닉네임 검사
+      Optional<Member> usedNickname = memberRepository.findByNickname(memberDTO.getNickname());
+
+      if(usedNickname.isPresent()){  //문제
+          throw new NicknameDuplicateException("Nickname duplicated");
+      }
+
 
       Member member = dtoToEntity(memberDTO);
 
@@ -78,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = Member.builder()
                 .email(memberDTO.getEmail())
-                .pw(passwordEncoder.encode(memberDTO.getPw()))
+                .password(passwordEncoder.encode(memberDTO.getPassword()))
                 .nickname(memberDTO.getNickname())
                 .build();
 
@@ -165,7 +177,7 @@ public class MemberServiceImpl implements MemberService {
 
    Member member = Member.builder()
    .email(email)
-   .pw(passwordEncoder.encode(tempPassword))
+   .password(passwordEncoder.encode(tempPassword))
    .nickname(nickname)
    .social(true)
    .build();
@@ -195,7 +207,7 @@ public class MemberServiceImpl implements MemberService {
 
     Member member = result.orElseThrow();
 
-    member.changePw(passwordEncoder.encode(memberModifyDTO.getPw()));
+    member.changePassword(passwordEncoder.encode(memberModifyDTO.getPassword()));
     member.changeSocial(false);
     member.changeNickname(memberModifyDTO.getNickname());
 

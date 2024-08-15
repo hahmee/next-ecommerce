@@ -23,7 +23,7 @@ public interface MemberService {
 
     MemberDTO dto = new MemberDTO(
       member.getEmail(), 
-      member.getPw(), 
+      member.getPassword(),
       member.getNickname(), 
       member.isSocial(), 
       member.getMemberRoleList().stream().map(memberRole -> memberRole.name()).collect(Collectors.toList()));
