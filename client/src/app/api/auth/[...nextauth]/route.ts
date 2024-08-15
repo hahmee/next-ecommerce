@@ -10,6 +10,8 @@ const handler = NextAuth({
         newUser: '/signup',
     },
     callbacks: {
+        // 토큰 관련 action 시 호출되는 Callback
+        // useSession 이나 getSession 과 같은 함수를 호출할 때마다 jwt 콜백함
         async jwt({ token, user, account, profile, isNewUser }) {
             console.log('user뭐임', user);
             console.log('jwt뭐임', token);
@@ -39,8 +41,8 @@ const handler = NextAuth({
         async redirect({ url, baseUrl }) {
             return baseUrl
         },
-        async session({ session, user, token }) {
-            return session
+        async session({ session, user, token }) {//token은 위에 토큰 리턴 값임
+            return session;
         }
     },
     providers: [
@@ -55,6 +57,7 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
+                //signIn부르면 실행됨
                 console.log('ddddddddddddddddd', credentials);
 
                 const authResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
@@ -69,7 +72,7 @@ const handler = NextAuth({
                 });
 
                 const user = await authResponse.json();
-                // console.log('백엔드에서 받아온 결과로 만든 user입니다.', user);
+                console.log('백엔드에서 받아온 결과로 만든 user입니다.', user);
 
                 if (user) {
                     setCookie('member', JSON.stringify(user), 1);

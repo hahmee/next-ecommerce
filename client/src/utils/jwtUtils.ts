@@ -16,15 +16,21 @@ interface IRequestInit {
 const refreshJWT = async (accessToken: string, refreshToken: string) => {
     const header = {Authorization: `Bearer ${accessToken}`};
 
-    const res = await fetch(`${host}/api/member/refresh?refreshToken=${refreshToken}`, {
+    const response = await fetch(`${host}/api/member/refresh?refreshToken=${refreshToken}`, {
         method: 'GET',
         headers: header,
     });
 
-    console.log('뭐지?---------------');
-    console.log(res);
 
-    return res.json();
+    if (!response.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data');
+    }
+
+    // console.log('뭐지?---------------');
+    // console.log(res);
+
+    return response.json();
 };
 
 //before request -> 헤더에 accessToken 설정
@@ -46,12 +52,7 @@ const beforeReq = async (requestInit: IRequestInit) => {
     }
 
     return config;
-    // const response = await fetch(url, config);
-    //
-    // if (!response.ok) {
-    //     // This will activate the closest `error.js` Error Boundary
-    //     throw new Error('Failed to fetch data');
-    // }
+
 
 }
 
@@ -86,6 +87,11 @@ const beforeRes = async (url:string, response: any) => { // await fetch(`${host}
 
         const fetchData = await fetch(url, originalRequest); //다시 정상 응답진행
 
+        if (!fetchData.ok) {
+            // This will activate the closest `error.js` Error Boundary
+            throw new Error('Failed to fetch data');
+        }
+
         const data = await fetchData.json();
 
         return data;
@@ -99,7 +105,6 @@ export const fetchWithInterceptor = async (url: string, requestInit: IRequestIni
     try {
 
         const configData = await beforeReq(requestInit); //헤더
-        console.log('configData', configData);
 
         const response = await fetch(`${host}${url}`, configData);
 
@@ -108,8 +113,9 @@ export const fetchWithInterceptor = async (url: string, requestInit: IRequestIni
         // console.log('최종', result);
         return resultJson;
 
-    }catch(err) {
-        console.log('?errr??????????', err);
+    }catch(error) {
+        console.log('?errr??????????', error);
+        return { error: new Error(`Error: ${error}`) };
     }
 
 };

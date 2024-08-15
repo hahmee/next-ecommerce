@@ -6,7 +6,9 @@
 import {NextFetchEvent, NextRequest} from "next/server";
 
 export async function middleware(req: NextRequest, event: NextFetchEvent) {
-//     // console.log('middleware');
+
+    // 8080 찾아서 넣으면 되자나 ..?
+    //  console.log('middleware', req.method, req.url);
 //     // const member = getCookie("member");
 //     //
 //     // const requestHeaders = new Headers(req.headers);
@@ -69,6 +71,6 @@ export async function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 //
 // // See "Matching Paths" below to learn more
-// export const config = {
-//   // matcher: ['/profile'],
-// }
+export const config = {
+  matcher: ['/profile','/','/login'],
+}

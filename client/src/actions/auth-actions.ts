@@ -1,15 +1,23 @@
 'use server';
-import { redirect } from 'next/navigation';
+import {redirect} from 'next/navigation';
 import {setCookie} from "@/utils/cookieUtil";
 
-// export const login = async (prevState: any, formData: FormData) => {
+
 export default async (prevState: any, formData: FormData) => {
+
+  if (!formData.get('email') || !(formData.get('email') as string)?.trim()) {
+    return { message: 'no_email' };
+  }
+  if (!formData.get('password') || !(formData.get('password') as string)?.trim()) {
+    return { message: 'no_password' };
+  }
+
   const email = formData.get('email');
   const password = formData.get('password');
   let shouldRedirect = false;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -19,23 +27,26 @@ export default async (prevState: any, formData: FormData) => {
         password: password as string,
       })
     });
-    const result = await res.json();
-    if (!res?.ok) {
+
+    const data = await response.json();
+
+    if (data.error) { //에러가 있을 때
       console.log('아이디와 비밀번호가 일치하지 않습니다.');
-      return {message: '아이디와 비밀번호가 일치하지 않습니다.'};
+      return { message: 'no_authorized' };
+
     } else {
+      setCookie('member', JSON.stringify(data), 1);
       shouldRedirect = true;
-      setCookie('member', JSON.stringify(result), 1);
     }
 
   }catch (error) {
     console.error(error);
-    return {message: null};
+    return { message: null };
   }
 
   if (shouldRedirect) {
     redirect('/'); // try/catch문 안에서 X
   }
-  return {message: null};
+  return { message: null };
 
 };

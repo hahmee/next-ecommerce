@@ -8,17 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.zerock.mallapi.util.CustomJWTException;
 
 /**
  * CustomControllerAdvice
  */
-@RestControllerAdvice
+@RestControllerAdvice //전역범위 Exception 핸들링
 public class CustomControllerAdvice {
 
 
-  @ExceptionHandler(NoSuchElementException.class)
-  protected ResponseEntity<?> notExist(NoSuchElementException e) {
+    @ExceptionHandler(NoSuchElementException.class)
+    protected ResponseEntity<?> notExist(NoSuchElementException e) {
 
       String msg = e.getMessage();
 
