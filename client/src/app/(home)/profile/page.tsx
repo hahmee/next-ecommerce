@@ -17,15 +17,12 @@ export default async function ProfilePage()  {
 
     //유저 정보를 가져온다.
     // const session = await auth();
+
     const queryClient = new QueryClient();
     // 데이터를 미리 가져와 캐시에 넣는다.
     await queryClient.prefetchQuery({queryKey: ['users'], queryFn: () => getUserServer()})
 
     const dehydratedState = dehydrate(queryClient);
-
-
-    // const accessToken = JSON.parse(memberCookie?.value || "").accessToken;
-    // const email = JSON.parse(memberCookie?.value || "").email;
 
     return (
         <HydrationBoundary state={dehydratedState}>

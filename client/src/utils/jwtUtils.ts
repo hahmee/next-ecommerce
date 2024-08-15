@@ -14,6 +14,7 @@ interface IRequestInit {
 
 //newAccessToken과 newRefreshToken 새로 발급
 const refreshJWT = async (accessToken: string, refreshToken: string) => {
+
     const header = {Authorization: `Bearer ${accessToken}`};
 
     const response = await fetch(`${host}/api/member/refresh?refreshToken=${refreshToken}`, {
@@ -21,14 +22,10 @@ const refreshJWT = async (accessToken: string, refreshToken: string) => {
         headers: header,
     });
 
-
     if (!response.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data');
     }
-
-    // console.log('뭐지?---------------');
-    // console.log(res);
 
     return response.json();
 };
@@ -61,6 +58,9 @@ const beforeReq = async (requestInit: IRequestInit) => {
 const beforeRes = async (url:string, response: any) => { // await fetch(`${host}/${url}`, others);
     const data = await response.json();
 
+    const test = getCookie('member');
+    console.log('testeste.accessToken', test.accessToken);
+
     if (data && data.error === 'ERROR_ACCESS_TOKEN') { //에러가 나면
         const memberCookieValue = getCookie('member');
 
@@ -85,14 +85,14 @@ const beforeRes = async (url:string, response: any) => { // await fetch(`${host}
 
         // headers: {Authorization: `Bearer ${accessToken}`}
 
-        const fetchData = await fetch(url, originalRequest); //다시 정상 응답진행
+        const fetchResponse = await fetch(url, originalRequest); //다시 정상 응답진행
 
-        if (!fetchData.ok) {
+        if (!fetchResponse.ok) {
             // This will activate the closest `error.js` Error Boundary
             throw new Error('Failed to fetch data');
         }
 
-        const data = await fetchData.json();
+        const data = await fetchResponse.json();
 
         return data;
 
@@ -101,7 +101,7 @@ const beforeRes = async (url:string, response: any) => { // await fetch(`${host}
     return data;
 };
 
-export const fetchWithInterceptor = async (url: string, requestInit: IRequestInit) => {
+export const nextFetch = async (url: string, requestInit: IRequestInit) => {
     try {
 
         const configData = await beforeReq(requestInit); //헤더
@@ -110,7 +110,6 @@ export const fetchWithInterceptor = async (url: string, requestInit: IRequestIni
 
         const resultJson = await beforeRes(`${host}${url}`, response);
 
-        // console.log('최종', result);
         return resultJson;
 
     }catch(error) {

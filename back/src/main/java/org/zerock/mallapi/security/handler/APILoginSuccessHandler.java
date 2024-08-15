@@ -20,8 +20,7 @@ import lombok.extern.log4j.Log4j2;
 public class APILoginSuccessHandler implements AuthenticationSuccessHandler{
 
 @Override
-  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-      Authentication authentication) throws IOException, ServletException {
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
     log.info("-------------------------------------");
     log.info("-----authentication--------" + authentication);
@@ -31,7 +30,8 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler{
 
     Map<String, Object> claims = memberDTO.getClaims();
 
-    String accessToken = JWTUtil.generateToken(claims, 60);
+  // 토큰 종류(카테고리), 유저이름, 역할 등을 페이로드에 담는다.
+  String accessToken = JWTUtil.generateToken(claims, 60);
     String refreshToken = JWTUtil.generateToken(claims,60*24);
 
     claims.put("accessToken", accessToken);

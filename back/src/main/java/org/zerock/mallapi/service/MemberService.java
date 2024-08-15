@@ -2,6 +2,7 @@ package org.zerock.mallapi.service;
 
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.dto.MemberDTO;
@@ -16,7 +17,7 @@ public interface MemberService {
 
   MemberDTO register(MemberDTO memberDTO);
 
-  MemberDTO getProfile(String email);
+  MemberDTO getProfile(UserDetails userDetails);
 
   default MemberDTO entityToDTO(Member member) {
 

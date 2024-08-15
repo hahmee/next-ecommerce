@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.zerock.mallapi.dto.MemberDTO;
@@ -51,9 +52,11 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+    //인가과정
     log.info("------------------------JWTCheckFilter.......................");
 
+
+    //request에서 Authorization찾음
     String authHeaderStr = request.getHeader("Authorization");
 
     log.info("whatdfdfdkfdkf" + authHeaderStr);
@@ -61,7 +64,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     try {
       //Bearer accestoken...
       String accessToken = authHeaderStr.substring(7);
-      Map<String, Object> claims = JWTUtil.validateToken(accessToken);
+      Map<String, Object> claims = JWTUtil.validateToken(accessToken); //accessToken 검증
 
       log.info("JWT claims: dddddddd" + claims);
 
@@ -82,7 +85,13 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       UsernamePasswordAuthenticationToken authenticationToken
       = new UsernamePasswordAuthenticationToken(memberDTO, pw, memberDTO.getAuthorities());
 
+      //SecurityContextHolder에 정보를 저장한다.
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+      //확인용 -> 지우기
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      log.info("--------authentication : " + authentication);
+      log.info("--------principal : " + authentication.getPrincipal());
 
       filterChain.doFilter(request, response);
 

@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -54,9 +55,14 @@ public class MemberServiceImpl implements MemberService {
   }
 
     @Override
-    public MemberDTO getProfile(String email) {
+    public MemberDTO getProfile(UserDetails userDetails) {
 
-      //현재 이메일 넣기
+        log.info("--------------userDetails   " + userDetails);
+      //현재 접속자 이메일 넣기
+
+        String email = userDetails.getUsername();
+        log.info("--------------email      " + email);
+
 
       java.util.Optional<Member> result = Optional.ofNullable(memberRepository.getWithRoles(email));
 
