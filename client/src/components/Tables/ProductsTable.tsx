@@ -1,62 +1,60 @@
 "use client";
 import Image from "next/image";
-import {Product} from "@/types/product";
+// import {Product} from "@/types/product";
 import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
-import {useQuery} from "@tanstack/react-query";
+import {InfiniteData, useInfiniteQuery, useQuery} from "@tanstack/react-query";
+import { PageResponse } from "@/interface/PageResponse";
+import {Product} from "@/interface/Product";
+import {List} from "postcss/lib/list";
 
-const productData: Product[] = [
-    {
-        image: "/images/product/product-01.png",
-        name: "Apple Watch Series 7",
-        category: "Electronics",
-        price: 296,
-        sold: 22,
-        profit: 45,
-    },
-    {
-        image: "/images/product/product-02.png",
-        name: "Macbook Pro M1",
-        category: "Electronics",
-        price: 546,
-        sold: 12,
-        profit: 125,
-    },
-    {
-        image: "/images/product/product-03.png",
-        name: "Dell Inspiron 15",
-        category: "Electronics",
-        price: 443,
-        sold: 64,
-        profit: 247,
-    },
-    {
-        image: "/images/product/product-04.png",
-        name: "HP Probook 450",
-        category: "Electronics",
-        price: 499,
-        sold: 72,
-        profit: 103,
-    },
-];
+// const productData: Product[] = [
+    // {
+    //     image: "/images/product/product-01.png",
+    //     name: "Apple Watch Series 7",
+    //     category: "Electronics",
+    //     price: 296,
+    //     sold: 22,
+    //     profit: 45,
+    // },
+    // {
+    //     image: "/images/product/product-02.png",
+    //     name: "Macbook Pro M1",
+    //     category: "Electronics",
+    //     price: 546,
+    //     sold: 12,
+    //     profit: 125,
+    // },
+    // {
+    //     image: "/images/product/product-03.png",
+    //     name: "Dell Inspiron 15",
+    //     category: "Electronics",
+    //     price: 443,
+    //     sold: 64,
+    //     profit: 247,
+    // },
+    // {
+    //     image: "/images/product/product-04.png",
+    //     name: "HP Probook 450",
+    //     category: "Electronics",
+    //     price: 499,
+    //     sold: 72,
+    //     profit: 103,
+    // },
+// ];
 
 const ProductTable = () => {
 
-    const {data, error} = useQuery({
-        queryKey: ['adminProducts'],
-        queryFn: () => getProductsByEmail(),
+    const page = 1;
+    const size = 10;
+    const {isFetching, data, error, isError}  = useQuery<PageResponse<Product>>({
+        queryKey: ['adminProducts', {page, size}],
+        queryFn: () => getProductsByEmail({page, size}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-    });
+    })
 
-    // const {
-    //     data, error
-    // } = useQuery({
-    //     queryKey: ['adminProducts'],
-    //     queryFn: getProductsByEmail,
-    //     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
-    //     gcTime: 300 * 1000,
-    // })
-    console.log('data', data);
+    const productData = data?.dtoList;
+    console.log('serverData', productData);
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -87,7 +85,7 @@ const ProductTable = () => {
                 </div>
             </div>
 
-            {productData.map((product, key) => (
+            {productData?.map((product, key) => (
                 <div
                     className="grid grid-cols-6 border-t border-stroke px-4 py-3 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
                     key={key}
@@ -96,14 +94,15 @@ const ProductTable = () => {
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div className="h-12.5 w-15 rounded-md">
                                 <Image
-                                    src={product.image}
+                                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/view/${product.uploadFileNames?.[0]}`}
+                                    // src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/view/s_${product.uploadFileNames?.[0]}`}
                                     width={60}
                                     height={50}
                                     alt="Product"
                                 />
                             </div>
                             <p className="text-sm text-black dark:text-white">
-                                {product.name}
+                                {product.pname}
                             </p>
                         </div>
                     </div>
@@ -114,14 +113,14 @@ const ProductTable = () => {
                     </div>
                     <div className="col-span-1 flex items-center">
                         <p className="text-sm text-black dark:text-white">
-                            ${product.price}
+                            ${product.sku}
                         </p>
                     </div>
                     <div className="col-span-1 flex items-center">
-                        <p className="text-sm text-black dark:text-white">{product.sold}</p>
+                        <p className="text-sm text-black dark:text-white">{product.price}</p>
                     </div>
                     <div className="col-span-1 flex items-center">
-                        <p className="text-sm text-meta-3">${product.profit}</p>
+                        <p className="text-sm text-meta-3">{product.inStock ? 'YES' : 'NO'}</p>
                     </div>
                     <div className="col-span-1 flex items-center">
                         <p className="text-sm text-meta-3">

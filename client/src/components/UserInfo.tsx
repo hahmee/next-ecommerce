@@ -10,7 +10,7 @@ const UserInfo = () => {
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
     });
-    // console.log('data---------', data);
+    console.log('data---------', data);
     const user = data?.result;
     console.log('user', user);
     return (

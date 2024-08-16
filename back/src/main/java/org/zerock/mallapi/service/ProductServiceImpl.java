@@ -98,12 +98,20 @@ public class ProductServiceImpl implements ProductService{
               .pname(product.getPname())
               .pdesc(product.getPdesc())
               .price(product.getPrice())
+              .refundPolicy(product.getRefundPolicy())
+              .changePolicy(product.getChangePolicy())
+              .sku(product.getSku())
+              .brand(product.getBrand())
+              .category(product.getCategory())
+              .delFlag(product.isDelFlag()) // 원래 없었음
+              .inStock(product.isInStock())
               .build();
 
       String imageStr = productImage.getFileName();
       productDTO.setUploadFileNames(List.of(imageStr));
 
       return productDTO;
+
     }).collect(Collectors.toList());
 
     long totalCount = result.getTotalElements();

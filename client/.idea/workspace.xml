@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/_lib/getProductsByEmail.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/loading.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/ProducetTableSuspense.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/upload/IMAGE1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/upload/IMAGE2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/ProductRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/ProductRepositoryTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/_lib/getProductsByEmail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/_lib/getProductsByEmail.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/ProducetTableSuspense.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/ProducetTableSuspense.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interface/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Product.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +102,7 @@
       <workItem from="1723547579130" duration="10928000" />
       <workItem from="1723567085241" duration="1680000" />
       <workItem from="1723604830813" duration="32085000" />
-      <workItem from="1723683578105" duration="49972000" />
+      <workItem from="1723683578105" duration="57797000" />
     </task>
     <servers />
   </component>

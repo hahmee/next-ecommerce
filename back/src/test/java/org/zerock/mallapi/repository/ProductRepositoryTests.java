@@ -52,7 +52,7 @@ public class ProductRepositoryTests {
       
       //2개의 이미지 파일 추가 
       product.addImageString("IMAGE1.jpg");
-      product.addImageString("IMAGE2.jpg");
+        product.addImageString("IMAGE2.jpg");
       
       productRepository.save(product);
 

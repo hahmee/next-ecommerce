@@ -20,6 +20,18 @@ public class ProductDTO {
 
   private boolean delFlag;
 
+  private String brand;
+
+  private String category;
+
+  private String sku;
+
+  private boolean inStock;
+
+  private String refundPolicy;
+
+  private String changePolicy;
+
   @Builder.Default
   private List<MultipartFile> files = new ArrayList<>();
 
