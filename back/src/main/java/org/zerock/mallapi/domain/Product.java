@@ -25,8 +25,6 @@ public class Product extends BaseEntity {
 
   private String pdesc;
 
-  private String happyTest;
-
   private boolean delFlag;
 
   private String brand;

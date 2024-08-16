@@ -49,6 +49,7 @@ export default function SignupPage() {
                         name="password"
                         placeholder="비밀번호"
                         className="ring-2 ring-gray-300 rounded-md p-4"
+                        autoComplete="true"
                         required={true}
                     />
                 </div>

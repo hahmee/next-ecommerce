@@ -42,7 +42,6 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public MemberDTO register(MemberDTO memberDTO) {
 
-
       //유효성 검사
       //이메일 검사
       if(memberRepository.existsById(memberDTO.getEmail())){
@@ -58,6 +57,10 @@ public class MemberServiceImpl implements MemberService {
 
 
       Member member = dtoToEntity(memberDTO);
+
+
+      //역할 주기
+      member.addRole(MemberRole.USER);
 
       Member result = memberRepository.save(member);
 

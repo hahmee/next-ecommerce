@@ -1,24 +1,24 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import {Member} from "@/interface/Member";
 import React from "react";
-import {getUserServer, test} from "@/app/(home)/profile/_lib/getUserServer";
+import {logout} from "@/app/(home)/profile/_lib/getUserServer";
+import {useQueryClient} from "@tanstack/react-query";
 
 const NavIcons = (memberInfo : any) => { // 변경하기
+    const queryClient = useQueryClient();
 
     const onLogout = async () => {
 
-        await test();
-        // const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
-        //     method: "POST",
-        //     credentials: 'include'
-        // });
+        // `posts`로 시작하는 키로 모든 쿼리를 무효화함
+        queryClient.invalidateQueries({
+            queryKey: ["posts"],
+        });
+        queryClient.invalidateQueries({
+            queryKey: ["users"],
+        });
 
-
-        // removeCookie("member");
-
-
+        await logout();
     };
 
     return (
@@ -36,7 +36,6 @@ const NavIcons = (memberInfo : any) => { // 변경하기
                 <Link href="/profile">Profile</Link>
                 <div className="mt-2 cursor-pointer">
                     {
-                        // memberInfo && (<LogoutButton/>)
                         memberInfo && (<button onClick={onLogout}>로그아웃</button>)
                     }
                 </div>

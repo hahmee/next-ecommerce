@@ -142,6 +142,7 @@ export default function LoginPage() {
                         type="password"
                         name="password"
                         placeholder="비밀번호"
+                        autoComplete="true"
                         className="ring-2 ring-gray-300 rounded-md p-4"
                         onChange={(e) => setPassword(e.target.value)}
                         required={true}

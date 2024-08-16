@@ -45,7 +45,7 @@ export default async (prevState: any, formData: FormData) => {
   }
 
   if (shouldRedirect) {
-    redirect('/'); // try/catch문 안에서 X
+    redirect('/'); // try/catch문안에서 X
   }
   return { message: null };
 

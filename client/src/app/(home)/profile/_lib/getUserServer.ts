@@ -15,9 +15,9 @@ export const getUserServer = async () => {
     return resultJson;
 }
 
-export const test = async () => {
+export const logout = async () => {
 
-    const resultJson = await nextFetch(`/api/member/logout`, {
+    await nextFetch(`/api/member/logout`, {
         method: "POST",
         credentials: 'include'
     });

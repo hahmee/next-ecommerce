@@ -36,23 +36,6 @@ public class MemberController {
         return Map.of("result", registeredMemberDTO);
     }
 
-//    @PostMapping("/api/member/logout")
-//    public Map<String, MemberDTO> logout(){
-//
-//        //서비스 호출
-//        MemberDTO registeredMemberDTO = null;
-//
-//        try {
-//            Thread.sleep(0);
-//        } catch (InterruptedException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        return Map.of("result", registeredMemberDTO);
-//    }
-
-
     @GetMapping("/api/profile")
     public Map<String, MemberDTO> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
 
