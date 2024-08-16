@@ -50,19 +50,15 @@ const beforeReq = async (requestInit: IRequestInit) => {
 
     return config;
 
-
 }
-
 
 //before return response 응답을 받기 전 실행된다.
 const beforeRes = async (url:string, response: any) => { // await fetch(`${host}/${url}`, others);
     const data = await response.json();
 
-    const test = getCookie('member');
-    console.log('testeste.accessToken', test.accessToken);
 
     if (data && data.error === 'ERROR_ACCESS_TOKEN') { //에러가 나면
-        const memberCookieValue = getCookie('member');
+        const memberCookieValue = getCookie('member')!; //변수가 실제로 할당되었음
 
         //토큰이 없다면
         if (!memberCookieValue.accessToken || !memberCookieValue.refreshToken) {
@@ -113,7 +109,6 @@ export const nextFetch = async (url: string, requestInit: IRequestInit) => {
         return resultJson;
 
     }catch(error) {
-        console.log('?errr??????????', error);
         return { error: new Error(`Error: ${error}`) };
     }
 

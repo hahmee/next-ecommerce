@@ -2,6 +2,7 @@ package org.zerock.mallapi.config;
 
 import java.util.Arrays;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -17,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.mallapi.security.filter.JWTCheckFilter;
 import org.zerock.mallapi.security.handler.APILoginFailHandler;
 import org.zerock.mallapi.security.handler.APILoginSuccessHandler;
+import org.zerock.mallapi.security.handler.APILogoutSuccessHandler;
 import org.zerock.mallapi.security.handler.CustomAccessDeniedHandler;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +38,7 @@ public class CustomSecurityConfig {
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    
+
     log.info("---------------------security config---------------------------");
 
     http.cors(httpSecurityCorsConfigurer -> {
@@ -52,6 +54,21 @@ public class CustomSecurityConfig {
       config.successHandler(new APILoginSuccessHandler());
       config.failureHandler(new APILoginFailHandler());
     });
+
+    http.logout(config -> {
+      config.logoutUrl("/api/member/logout"); // 로그아웃 처리 url
+      config.invalidateHttpSession(true); //세션 무효화 처리
+
+//      config.logoutSuccessHandler(new APILogoutSuccessHandler());
+    });
+
+//    http.logout().logoutUrl("/api/member/login").addLogoutHandler((request, response, authentication) -> {
+//      HttpSession session = request.getSession();
+//      if (session != null) {
+//        session.invalidate();
+//      }
+//
+//    });
 
     http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); //JWT체크
 

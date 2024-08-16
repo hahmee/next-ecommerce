@@ -1,6 +1,6 @@
 "use server";
 
-import {getCookie} from "@/utils/cookieUtil";
+import {removeCookie} from "@/utils/cookieUtil";
 import {nextFetch} from "@/utils/jwtUtils";
 
 export const getUserServer = async () => {
@@ -13,4 +13,16 @@ export const getUserServer = async () => {
     console.log('왜안난와', resultJson);
 
     return resultJson;
+}
+
+export const test = async () => {
+
+    const resultJson = await nextFetch(`/api/member/logout`, {
+        method: "POST",
+        credentials: 'include'
+    });
+
+    removeCookie("member");
+
+    // return response;
 }

@@ -1,49 +1,69 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import {Member} from "@/interface/Member";
+import React from "react";
+import {getUserServer, test} from "@/app/(home)/profile/_lib/getUserServer";
 
-const NavIcons = () => {
-  return (
-      <div className="flex items-center gap-4 xl:gap-6 relative">
-        <Image
-            src="/profile.png"
-            alt=""
-            width={22}
-            height={22}
-            className="cursor-pointer"
-        />
+const NavIcons = (memberInfo : any) => { // 변경하기
 
-          <div
-              className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
-              <Link href="/profile">Profile</Link>
-              <div className="mt-2 cursor-pointer">
-                  <Link href="/login">로그인</Link>
-              </div>
-              <div className="mt-2 cursor-pointer">
-                  <Link href="/admin">어드민</Link>
-              </div>
-          </div>
+    const onLogout = async () => {
 
-          <Image
-              src="/notification.png"
-              alt=""
-              width={22}
-              height={22}
-            className="cursor-pointer"
-        />
-        <div
-            className="relative cursor-pointer"
-        >
-          <Image src="/cart.png" alt="" width={22} height={22} />
-          <div className="absolute -top-4 -right-4 w-6 h-6 bg-lama rounded-full text-white text-sm flex items-center justify-center">
-              10000
-          </div>
+        await test();
+        // const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+        //     method: "POST",
+        //     credentials: 'include'
+        // });
+
+
+        // removeCookie("member");
+
+
+    };
+
+    return (
+        <div className="flex items-center gap-4 xl:gap-6 relative">
+            <Image
+                src="/profile.png"
+                alt=""
+                width={22}
+                height={22}
+                className="cursor-pointer"
+            />
+
+            <div
+                className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
+                <Link href="/profile">Profile</Link>
+                <div className="mt-2 cursor-pointer">
+                    {
+                        // memberInfo && (<LogoutButton/>)
+                        memberInfo && (<button onClick={onLogout}>로그아웃</button>)
+                    }
+                </div>
+                <div className="mt-2 cursor-pointer">
+                    <Link href="/admin">어드민</Link>
+                </div>
+            </div>
+
+            <Image
+                src="/notification.png"
+                alt=""
+                width={22}
+                height={22}
+                className="cursor-pointer"
+            />
+            <div
+                className="relative cursor-pointer"
+            >
+                <Image src="/cart.png" alt="" width={22} height={22}/>
+                <div
+                    className="absolute -top-4 -right-4 w-6 h-6 bg-lama rounded-full text-white text-sm flex items-center justify-center">
+                    10000
+                </div>
+            </div>
+            {/*{isCartOpen && <CartModal />}*/}
         </div>
-        {/*{isCartOpen && <CartModal />}*/}
-      </div>
-  );
+    );
 };
 
 export default NavIcons;

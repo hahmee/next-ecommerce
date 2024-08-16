@@ -93,6 +93,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       log.info("--------authentication : " + authentication);
       log.info("--------principal : " + authentication.getPrincipal());
 
+
+
       filterChain.doFilter(request, response);
 
     }catch(Exception e){
