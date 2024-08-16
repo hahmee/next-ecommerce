@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -99,6 +101,24 @@ public class ProductController {
 
     return productService.getList(pageRequestDTO);
     
+  }
+
+  //ADMIN 페이지 추가
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/adminList") // adminList?page=7
+  public PageResponseDTO<ProductDTO> adminList(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
+
+    log.info("list............." + pageRequestDTO);
+
+    try {
+      Thread.sleep(0);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    return productService.getAdminList(pageRequestDTO, userDetails);
+
   }
 
   @GetMapping("/{pno}")

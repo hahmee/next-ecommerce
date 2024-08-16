@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Product;
@@ -66,6 +67,52 @@ public class ProductServiceImpl implements ProductService{
                 .totalCount(totalCount)
                 .pageRequestDTO(pageRequestDTO)
                 .build();
+  }
+
+  @Override
+  public PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails) {
+
+    log.info("getAdminList..............");
+
+    log.info("--------------userDetails   " + userDetails);
+    //현재 접속자 이메일 넣기
+    String email = userDetails.getUsername();
+
+    log.info("--------------email      " + email);
+
+    Pageable pageable = PageRequest.of(
+            pageRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            pageRequestDTO.getSize(),
+            Sort.by("pno").descending());
+
+    Page<Object[]> result = productRepository.selectAdminList(pageable, email); // 내 이메일 주소
+
+
+    List<ProductDTO> dtoList = result.get().map(arr -> {
+
+      Product product = (Product) arr[0];
+      ProductImage productImage = (ProductImage) arr[1];
+
+      ProductDTO productDTO = ProductDTO.builder()
+              .pno(product.getPno())
+              .pname(product.getPname())
+              .pdesc(product.getPdesc())
+              .price(product.getPrice())
+              .build();
+
+      String imageStr = productImage.getFileName();
+      productDTO.setUploadFileNames(List.of(imageStr));
+
+      return productDTO;
+    }).collect(Collectors.toList());
+
+    long totalCount = result.getTotalElements();
+
+    return PageResponseDTO.<ProductDTO>withAll()
+            .dtoList(dtoList)
+            .totalCount(totalCount)
+            .pageRequestDTO(pageRequestDTO)
+            .build();
   }
 
   @Override

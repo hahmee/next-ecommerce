@@ -1,5 +1,8 @@
+"use client";
 import Image from "next/image";
-import { Product } from "@/types/product";
+import {Product} from "@/types/product";
+import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
+import {useQuery} from "@tanstack/react-query";
 
 const productData: Product[] = [
     {
@@ -37,6 +40,24 @@ const productData: Product[] = [
 ];
 
 const ProductTable = () => {
+
+    const {data, error} = useQuery({
+        queryKey: ['adminProducts'],
+        queryFn: () => getProductsByEmail(),
+        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+        gcTime: 300 * 1000,
+    });
+
+    // const {
+    //     data, error
+    // } = useQuery({
+    //     queryKey: ['adminProducts'],
+    //     queryFn: getProductsByEmail,
+    //     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+    //     gcTime: 300 * 1000,
+    // })
+    console.log('data', data);
+
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="px-4 py-6 md:px-6 xl:px-7.5">

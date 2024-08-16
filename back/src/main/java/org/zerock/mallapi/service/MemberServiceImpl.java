@@ -73,9 +73,9 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO getProfile(UserDetails userDetails) {
 
         log.info("--------------userDetails   " + userDetails);
-      //현재 접속자 이메일 넣기
-
+       //현재 접속자 이메일 넣기
         String email = userDetails.getUsername();
+
         log.info("--------------email      " + email);
 
 

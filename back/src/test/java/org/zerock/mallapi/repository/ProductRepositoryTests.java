@@ -135,6 +135,20 @@ public class ProductRepositoryTests {
 
   }
 
+  @Test
+  public void testAdminList() {
+
+    //org.springframework.data.domain 패키지
+    Pageable pageable = PageRequest.of(0, 10, Sort.by("pno").descending());
+
+    String email = "user0@aaa.com";
+
+    Page<Object[]> result = productRepository.selectAdminList(pageable, email);
+
+    //java.util
+    result.getContent().forEach(arr -> log.info(Arrays.toString(arr)));
+
+  }
 
 
 }
