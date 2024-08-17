@@ -4,19 +4,20 @@ import Link from "next/link";
 import React from "react";
 import {logout} from "@/app/(home)/profile/_lib/getUserServer";
 import {useQueryClient} from "@tanstack/react-query";
+import {Member} from "@/interface/Member";
 
-const NavIcons = (memberInfo : any) => { // 변경하기
+const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     const queryClient = useQueryClient();
 
     const onLogout = async () => {
 
         // `posts`로 시작하는 키로 모든 쿼리를 무효화함
-        queryClient.invalidateQueries({
-            queryKey: ["posts"],
-        });
-        queryClient.invalidateQueries({
-            queryKey: ["users"],
-        });
+        // queryClient.invalidateQueries({
+        //     queryKey: ["posts"],
+        // });
+        // queryClient.invalidateQueries({
+        //     queryKey: ["users"],
+        // });
 
         await logout();
     };
@@ -35,9 +36,7 @@ const NavIcons = (memberInfo : any) => { // 변경하기
                 className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
                 <Link href="/profile">Profile</Link>
                 <div className="mt-2 cursor-pointer">
-                    {
-                        memberInfo && (<button onClick={onLogout}>로그아웃</button>)
-                    }
+                    <button onClick={onLogout}>로그아웃</button>
                 </div>
                 <div className="mt-2 cursor-pointer">
                     <Link href="/admin">어드민</Link>

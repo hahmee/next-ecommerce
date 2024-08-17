@@ -41,7 +41,7 @@ public class ProductRepositoryTests {
     log.info("-----------------");
     log.info(member);
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 2; i < 50; i++) {
 
       Product product = Product.builder()
               .pname("상품" + i)
@@ -49,11 +49,11 @@ public class ProductRepositoryTests {
               .owner(member)
               .pdesc("상품설명 " + i).brand("브랜드예시").sku(UUID.randomUUID().toString()).category("카테고리").refundPolicy("환불정책예시").changePolicy("교환정책예시").inStock(true)
               .build();
-      
-      //2개의 이미지 파일 추가 
+
+      //2개의 이미지 파일 추가
       product.addImageString("IMAGE1.jpg");
-        product.addImageString("IMAGE2.jpg");
-      
+      product.addImageString("IMAGE2.jpg");
+
       productRepository.save(product);
 
       log.info("-------------------");
