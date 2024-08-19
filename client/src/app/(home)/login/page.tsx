@@ -1,9 +1,8 @@
 "use client";
-import {FormEventHandler, useState} from "react";
+import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {useFormState} from "react-dom";
 import login from "@/actions/auth-actions";
-import {signIn} from "next-auth/react";
 
 export function showMessage(message: string | null) {
     console.log('message', message);

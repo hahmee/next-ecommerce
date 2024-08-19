@@ -1,183 +1,239 @@
-import React from "react";
+"use client";
+
+import React, {FormEvent} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
+import MultiSelect from "@/components/Admin/Product/MultiSelect";
+import RadioButton from "@/components/Admin/Product/RadioButton";
+import {Option} from "@/interface/Option";
+import Editor from "@/components/Admin/Product/Editor";
+import Link from "next/link";
+import BackButton from "@/components/Admin/Product/BackButton";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {nextFetch} from "@/utils/jwtUtils";
 
 const brandOptions: string[] = [
     'ddd',
     'sss',
     'ggg'
 ];
+const categoryOptions:string[] = [
+    'ddd',
+    'sss',
+    'ggg'
+]
+
+const salesOptions: Array<Option> = [
+    {id: 'inStock', content:'판매중'},
+    {id: 'outOfStock', content:'재고없음'},
+    {id: 'stop', content:'판매중지'},
+];
+
+
 const ProductForm:React.FC = () => {
 
-    return (<>
-        <div className="mx-auto">
-            <Breadcrumb pageName="제품 등록"/>
-            <div className="grid grid-cols-1 gap-9">
-                <div className="flex flex-col gap-9">
-                    <div
-                        className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                        <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                            <h3 className="font-medium text-black dark:text-white">
-                                이미지 및 동영상
-                            </h3>
-                        </div>
-                        <div className="p-6.5">
-                            <div className="mb-6">
-                                <ImageUploadForm/>
-                            </div>
 
+    const mutation = useMutation({
+        mutationFn: async (e: FormEvent) => {
+            console.log('e', e.target);
+
+            e.preventDefault();
+            const formData = new FormData(e.target as any);
+            const inputs = Object.fromEntries(formData);
+            console.log('inputs', inputs);
+            // images.forEach((p) => {
+            //     p && formData.append('images', p.file);
+            // })
+            // return nextFetch(`/api/posts`, {
+            //     method: 'POST',
+            //     credentials: 'include',
+            //     body: formData,
+            // });
+        },
+        async onSuccess(response, variable) {
+            // const newPost = await response.json();
+            // setContent('');
+            // setPreview([]);
+            // if (queryClient.getQueryData(['posts', 'recommends'])) {
+            //     queryClient.setQueryData(['posts', 'recommends'], (prevData: { pages: Post[][] }) => {
+            //         const shallow = {
+            //             ...prevData,
+            //             pages: [...prevData.pages],
+            //         };
+            //         shallow.pages[0] = [...shallow.pages[0]];
+            //         shallow.pages[0].unshift(newPost);
+            //         return shallow;
+            //     });
+            // }
+            // if (queryClient.getQueryData(['posts', 'followings'])) {
+            //     queryClient.setQueryData(['posts', 'followings'], (prevData: { pages: Post[][] }) => {
+            //         const shallow = {
+            //             ...prevData,
+            //             pages: [...prevData.pages],
+            //         };
+            //         shallow.pages[0] = [...shallow.pages[0]];
+            //         shallow.pages[0].unshift(newPost);
+            //         return shallow;
+            //     })
+            // }
+        },
+        onError(error) {
+            console.error(error);
+            alert('업로드 중 에러가 발생했습니다.');
+        }
+    });
+
+    return (
+        <>
+            <form onSubmit={mutation.mutate}>
+                <div className="mx-auto">
+                    <Breadcrumb pageName="제품 등록"/>
+                    <div className="mb-6 flex gap-3 justify-end sm:flex-row">
+                        <BackButton/>
+                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                            제출하기
+                        </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-9">
+                        <div className="flex flex-col gap-9">
+                            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                    <h3 className="font-medium text-black dark:text-white">
+                                        이미지 및 동영상
+                                    </h3>
+                                </div>
+                                <div className="p-6.5">
+                                    <div className="mb-6">
+                                        <ImageUploadForm/>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div className="flex flex-col gap-9">
+                            <div
+                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                    <h3 className="font-medium text-black dark:text-white">
+                                        기본정보
+                                    </h3>
+                                </div>
+                                <div className="p-6.5">
+                                    <div className="mb-4.5">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            상품명 <span className="text-meta-1">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            placeholder="상품명을 입력해주세요."
+                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        />
+                                    </div>
+                                    <div className="mb-4.5">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            판매상태 <span className="text-meta-1">*</span>
+                                        </label>
+                                        <RadioButton options={salesOptions} name="status"/>
+                                    </div>
+
+                                    <div className="mb-4.5">
+                                        <Select label={"브랜드"} options={brandOptions} defaultOption={"브랜드를 선택해주세요."}/>
+                                    </div>
+
+                                    <div className="mb-4.5">
+                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect" name="category"
+                                                     defaultOption={"카테고리를 선택해주세요."}/>
+                                    </div>
+
+                                    <div className="mb-4.5">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            판매 가격 <span className="text-meta-1">*</span>
+                                        </label>
+                                        <input
+                                            type="number"
+                                            id="price"
+                                            name="price"
+                                            placeholder="판매가격을 입력해주세요."
+                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        />
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            SKU <span className="text-meta-1">*</span>
+                                        </label>
+                                        <input
+                                            id="sku"
+                                            name="sku"
+                                            type="text"
+                                            placeholder="SKU를 입력해주세요."
+                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        />
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div className="flex flex-col gap-9">
+                            <div
+                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                    <h3 className="font-medium text-black dark:text-white">
+                                        상품 상세
+                                    </h3>
+                                </div>
+                                <div className="p-6.5">
+
+                                    <div className="mb-6">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            상품 설명 <span className="text-meta-1">*</span>
+                                        </label>
+                                        <Editor/>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            환불 정책
+                                        </label>
+                                        <textarea
+                                            id="refundPolicy"
+                                            name="refundPolicy"
+                                            rows={3}
+                                            placeholder="환불 정책을 입력해주세요."
+                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        ></textarea>
+                                    </div>
+
+                                    <div className="mb-6">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                            교환 정책
+                                        </label>
+                                        <textarea
+                                            id="changePolicy"
+                                            name="changePolicy"
+                                            rows={3}
+                                            placeholder="교환 정책을 입력해주세요."
+                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                        ></textarea>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
-                <div className="flex flex-col gap-9">
-                    <div
-                        className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                        <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                            <h3 className="font-medium text-black dark:text-white">
-                                기본정보
-                            </h3>
-                        </div>
-                        <form action="#">
-                            <div className="p-6.5">
-                                <div className="mb-4.5">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        상품명 <span className="text-meta-1">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email address"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    />
-                                </div>
-                                <div className="mb-4.5">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        판매상태<span className="text-meta-1">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email address"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    />
-                                </div>
-
-                                <div className="mb-4.5">
-                                    <Select label={"브랜드"} options ={brandOptions}/>
-                                    {/*<label className="mb-3 block text-sm font-medium text-black dark:text-white">*/}
-                                    {/*    브랜드 <span className="text-meta-1">*</span>*/}
-                                    {/*</label>*/}
-                                    {/*<input*/}
-                                    {/*    type="email"*/}
-                                    {/*    placeholder="Enter your email address"*/}
-                                    {/*    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"*/}
-                                    {/*/>*/}
-                                </div>
-
-                                <div className="mb-4.5">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        카테고리 <span className="text-meta-1">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email address"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    />
-                                </div>
-
-                                <div className="mb-4.5">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        판매 가격
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Select subject"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    />
-                                </div>
-
-                                <div className="mb-6">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        SKU
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Select subject"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    />
-                                </div>
-
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-
-                <div className="flex flex-col gap-9">
-                    <div
-                        className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                        <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                            <h3 className="font-medium text-black dark:text-white">
-                                상품 상세
-                            </h3>
-                        </div>
-                        <form action="#">
-                            <div className="p-6.5">
-                                <div className="mb-4.5">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        상품명 <span className="text-meta-1">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email address"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    />
-                                </div>
-
-
-                                <div className="mb-6">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        상품 설명
-                                    </label>
-                                    <textarea
-                                        rows={6}
-                                        placeholder="Type your message"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    ></textarea>
-                                </div>
-
-                                <div className="mb-6">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        환불 정보
-                                    </label>
-                                    <textarea
-                                        rows={6}
-                                        placeholder="Type your message"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    ></textarea>
-                                </div>
-
-                                <div className="mb-6">
-                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                        반품 정보
-                                    </label>
-                                    <textarea
-                                        rows={6}
-                                        placeholder="Type your message"
-                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    ></textarea>
-                                </div>
-
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </>);
+            </form>
+        </>
+    );
 };
 
 export default ProductForm;

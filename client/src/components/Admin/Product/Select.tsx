@@ -1,7 +1,14 @@
 "use client";
 import React, { useState } from "react";
 
-const Select = ({label, options}: { label: string, options: string[] }) => {
+
+interface SelectProps {
+    label:string,
+    options: string[];
+    defaultOption: string;
+}
+
+const Select = ({label, options,defaultOption}: SelectProps) => {
     const [selectedOption, setSelectedOption] = useState<string>("");
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -12,7 +19,7 @@ const Select = ({label, options}: { label: string, options: string[] }) => {
     return (
         <div>
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                {label}
+                {label} <span className="text-meta-1">*</span>
             </label>
 
             <div className="relative z-20 bg-white dark:bg-form-input">
@@ -28,11 +35,10 @@ const Select = ({label, options}: { label: string, options: string[] }) => {
                     }`}
                 >
                     <option value="" disabled className="text-body dark:text-bodydark">
-                        선택해주세요.
+                        {defaultOption}
                     </option>
                     {
-                        options.map(option => <option key={option} value={option}
-                                                      className="text-body dark:text-bodydark">
+                        options.map(option => <option key={option} value={option} className="text-body dark:text-bodydark">
                             {option}
                         </option>)
                     }

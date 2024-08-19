@@ -1,21 +1,25 @@
 "use client";
-import React, {useCallback, useState} from "react";
+import React, {ChangeEventHandler, useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
-import Image from "next/image";
+import {useProductImageStore} from "@/store/productImageStore";
 
 const ImageUploadForm: React.FC = () => {
 
+    const [images, setImages] = useState<Array<{ dataUrl: string, file: File } | null>>([]);
 
-    const [images, setImages] = useState<string[]>([]);
+    const productImageStore = useProductImageStore();
 
-    const handleImgChange = (event: React.ChangeEvent) => {
+    const handleImgChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+        event.preventDefault();
         const targetFiles = (event.target as HTMLInputElement).files as FileList;
         const targetFilesArray = Array.from(targetFiles); //유사 배열 객체를 배열로 만듦
-        const selectedFiles: string[] = targetFilesArray.map((file) => {
-            return URL.createObjectURL(file);
+        console.log('targetFiles', targetFiles);
+        console.log('targetFilesArray', targetFilesArray);
+
+        const selectedFiles = targetFilesArray.map((file, index) => {
+            return {dataUrl: URL.createObjectURL(file), file};
         });
 
-        console.log('selectedFiles', selectedFiles);
         setImages((prev) => prev.concat(selectedFiles));
 
     };
@@ -27,8 +31,8 @@ const ImageUploadForm: React.FC = () => {
 
     const deleteImage = useCallback((image: string) => {
 
-        const index = images.indexOf(image);
-
+        console.log('image', image);
+        const index = images.findIndex(img => img?.dataUrl === image);
         setImages((images) => {
             const prev = [...images];
             prev.splice(index, 1);
@@ -37,14 +41,24 @@ const ImageUploadForm: React.FC = () => {
 
     },[images]);
 
+    useEffect(() => {
+        // 언마운트 시 url 무효화
+        return () => {
+            if(images && images.length > 0) {
+                images.map(image => URL.revokeObjectURL(image?.dataUrl as string));
+            }
+        };
+    }, []);
+
     return (<div className="flex flex-col justify-center w-full gap-7">
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {
-                    images.map((image: string, index: number) => (
-                        <ImagePreview key={index} image={image} deleteImage={deleteImage} editImage={editImage}/>
+                    images?.map((image, index) => (
+                        <ImagePreview key={index} image={image?.dataUrl!} deleteImage={deleteImage} editImage={editImage}/>
                     ))
                 }
+
             </div>
 
 

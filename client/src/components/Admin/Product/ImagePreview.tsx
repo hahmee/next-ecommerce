@@ -1,15 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const ImagePreview = ({image, deleteImage, editImage}: { image: string; editImage: (image:string) => void, deleteImage: (image:string) => void}) => {
-
-    // const deleteImage = () => {
-    //     console.log('deleteImage');
-    //
-    // };
-
-    console.log('image', image);
-
+const ImagePreview = ({image, deleteImage, editImage}: { image: string, editImage: (image:string) => void, deleteImage: (image:string) => void}) => {
     return (
         <div>
             <div className="h-48 w-48 rounded-lg bg-black absolute bg-opacity-70">
