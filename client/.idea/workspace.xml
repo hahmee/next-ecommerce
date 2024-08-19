@@ -5,15 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interface/Paging.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/bigtree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/close.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/edit.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/edit2.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/add-product/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/Select.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/ActionButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/AddProductButton.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/FilterButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/_lib/getProductsByEmail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/_lib/getProductsByEmail.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/ProducetTableSuspense.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/ProductTableSuspense.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/profile/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/signup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/signup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/cookieUtil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/cookieUtil.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/jwtUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/jwtUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +56,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/interface",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/public/images/brand",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -57,13 +69,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\brand" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Tables" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\interface" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\products" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\actions" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\brand" />
       <recent name="C:\dev\youtube\next-ecommerce\src\app\(home)" />
       <recent name="C:\dev\youtube\next-ecommerce\src\app" />
     </key>
@@ -100,7 +114,9 @@
       <workItem from="1723567085241" duration="1680000" />
       <workItem from="1723604830813" duration="32085000" />
       <workItem from="1723683578105" duration="57879000" />
-      <workItem from="1723820007242" duration="15443000" />
+      <workItem from="1723820007242" duration="24610000" />
+      <workItem from="1723898270781" duration="44000" />
+      <workItem from="1723971624982" duration="18889000" />
     </task>
     <servers />
   </component>

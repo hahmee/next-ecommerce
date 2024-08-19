@@ -1,3 +1,5 @@
+"use server";
+
 import {getCookie, setCookie} from "@/utils/cookieUtil";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
@@ -21,6 +23,8 @@ const refreshJWT = async (accessToken: string, refreshToken: string) => {
         method: 'GET',
         headers: header,
     });
+
+    console.log('response입니다...', response.status);
 
     if (!response.ok) {
         // This will activate the closest `error.js` Error Boundary
@@ -53,7 +57,7 @@ const beforeReq = async (requestInit: IRequestInit) => {
 }
 
 //before return response 응답을 받기 전 실행된다.
-const beforeRes = async (url:string, response: any) => { // await fetch(`${host}/${url}`, others);
+const beforeRes = async (url:string, response: any) => {
     const data = await response.json();
 
 
@@ -66,18 +70,20 @@ const beforeRes = async (url:string, response: any) => { // await fetch(`${host}
         }
 
         //accessToken 과 refreshToken 둘 다 있으면
-        const result = await refreshJWT(memberCookieValue.accessToken, memberCookieValue.refreshToken); //새로 갱신
-        console.log('refreshJWT RESULT', result);
+        const newJWT = await refreshJWT(memberCookieValue.accessToken, memberCookieValue.refreshToken); //새로 갱신
 
-        memberCookieValue.accessToken = result.accessToken;
-        memberCookieValue.refreshToken = result.refreshToken;
+        memberCookieValue.accessToken = newJWT.accessToken;
+        memberCookieValue.refreshToken = newJWT.refreshToken;
 
+        console.log('HERE IS NEW JWT TOKEN', newJWT);
+
+        //Cookies can only be modified in a Server Action or Route Handler
         setCookie('member', JSON.stringify(memberCookieValue), 1);//새로 발급한 토큰 쿠키에 넣기
 
         //원래의 호출
         const originalRequest = response.config;
 
-        originalRequest.headers.Authorization = `Bearer ${result.accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newJWT.accessToken}`;
 
         // headers: {Authorization: `Bearer ${accessToken}`}
 

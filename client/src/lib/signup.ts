@@ -1,7 +1,6 @@
 "use server";
 
 import {redirect} from "next/navigation";
-import {setCookie} from "@/utils/cookieUtil";
 
 export default async (prevState: any, formData: FormData) => {
   console.log('formData', formData);

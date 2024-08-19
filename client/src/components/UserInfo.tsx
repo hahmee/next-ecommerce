@@ -5,7 +5,7 @@ import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
 
 const UserInfo = () => {
     const {data, error} = useQuery({
-        queryKey: ['users'],
+        queryKey: ['user'],
         queryFn: () => getUserServer(),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
