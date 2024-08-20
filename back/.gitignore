@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 ### application.properties AWS TOKEN ###
-application.properties
+!**/src/main/resources/
 
 ### STS ###
 .apt_generated
