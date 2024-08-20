@@ -36,9 +36,10 @@ public class ProductController {
   private final CustomFileUtil fileUtil;
 
   @PostMapping("/")
-  public Map<String, Long> register(ProductDTO productDTO){
-    
-    log.info("rgister: " + productDTO);
+  public Map<String, Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails){
+
+
+    log.info("register: ?????????????" + productDTO);
 
     List<MultipartFile> files = productDTO.getFiles();
 
@@ -49,7 +50,7 @@ public class ProductController {
     log.info(uploadFileNames);
 
     //서비스 호출 
-    Long pno = productService.register(productDTO);
+    Long pno = productService.register(productDTO, userDetails);
 
     try {
       Thread.sleep(0);

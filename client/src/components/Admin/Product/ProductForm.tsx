@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent} from "react";
+import React, {FormEvent, useMemo, useState} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
@@ -12,6 +12,7 @@ import Link from "next/link";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {nextFetch} from "@/utils/jwtUtils";
+import {useProductImageStore} from "@/store/productImageStore";
 
 const brandOptions: string[] = [
     'ddd',
@@ -33,23 +34,36 @@ const salesOptions: Array<Option> = [
 
 const ProductForm:React.FC = () => {
 
+    const productImageStore = useProductImageStore();
+
+
+    const [value, setValue] = useState<string>('asdfasdf');
+
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             console.log('e', e.target);
 
+            console.log('???', productImageStore.files);
             e.preventDefault();
             const formData = new FormData(e.target as any);
             const inputs = Object.fromEntries(formData);
             console.log('inputs', inputs);
-            // images.forEach((p) => {
-            //     p && formData.append('images', p.file);
-            // })
-            // return nextFetch(`/api/posts`, {
-            //     method: 'POST',
-            //     credentials: 'include',
-            //     body: formData,
-            // });
+            formData.append('pname', inputs.pname);
+            formData.append('pdesc','inputs.description');
+            formData.append('price', inputs.price.toString());
+
+            productImageStore.files.forEach((p) => {
+                p && formData.append('files', p.file);
+            });
+
+            console.log('formData', formData);
+
+            return nextFetch(`/api/products/`, {
+                method: 'POST',
+                credentials: 'include',
+                body: formData,
+            });
         },
         async onSuccess(response, variable) {
             // const newPost = await response.json();
@@ -83,6 +97,11 @@ const ProductForm:React.FC = () => {
             alert('업로드 중 에러가 발생했습니다.');
         }
     });
+
+
+    const onChange = (value: string) => {
+        console.log(value);
+    };
 
     return (
         <>
@@ -127,8 +146,8 @@ const ProductForm:React.FC = () => {
                                         </label>
                                         <input
                                             type="text"
-                                            id="name"
-                                            name="name"
+                                            id="pname"
+                                            name="pname"
                                             placeholder="상품명을 입력해주세요."
                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
@@ -141,7 +160,7 @@ const ProductForm:React.FC = () => {
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <Select label={"브랜드"} options={brandOptions} defaultOption={"브랜드를 선택해주세요."}/>
+                                        <Select label={"브랜드"} options={brandOptions} defaultOption={"브랜드를 선택해주세요."} name="brand"/>
                                     </div>
 
                                     <div className="mb-4.5">
@@ -195,7 +214,7 @@ const ProductForm:React.FC = () => {
                                         <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             상품 설명 <span className="text-meta-1">*</span>
                                         </label>
-                                        <Editor/>
+                                        <Editor name={"pdesc"} value={value} onChange={onChange}/>
                                     </div>
 
                                     <div className="mb-6">

@@ -13,7 +13,7 @@ public interface ProductService {
 
   PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails);
 
-  Long register(ProductDTO productDTO);
+  Long register(ProductDTO productDTO, UserDetails userDetails);
 
   ProductDTO get(Long pno);
 

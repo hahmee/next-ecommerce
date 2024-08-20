@@ -2,10 +2,16 @@
 import React, {ChangeEventHandler, useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useProductImageStore} from "@/store/productImageStore";
+import Image from "quill/formats/image";
+import productForm from "@/components/Admin/Product/ProductForm";
 
+export interface ImageType {
+    dataUrl: string;
+    file: File;
+}
 const ImageUploadForm: React.FC = () => {
 
-    const [images, setImages] = useState<Array<{ dataUrl: string, file: File } | null>>([]);
+    const [images, setImages] = useState<Array<ImageType>>([]);
 
     const productImageStore = useProductImageStore();
 
@@ -16,9 +22,15 @@ const ImageUploadForm: React.FC = () => {
         console.log('targetFiles', targetFiles);
         console.log('targetFilesArray', targetFilesArray);
 
-        const selectedFiles = targetFilesArray.map((file, index) => {
+        // let files: Array<File> = [];
+
+        const selectedFiles: Array<ImageType> = targetFilesArray.map((file, index) => {
+            // files = [...files, file];
             return {dataUrl: URL.createObjectURL(file), file};
         });
+
+        // productImageStore.setFiles(files);
+
 
         setImages((prev) => prev.concat(selectedFiles));
 
@@ -30,14 +42,27 @@ const ImageUploadForm: React.FC = () => {
     };
 
     const deleteImage = useCallback((image: string) => {
-
         console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
+
+        // let files = productImageStore.files;
+        // files.splice(index, 1);
+        // productImageStore.setFiles(files);
+
         setImages((images) => {
-            const prev = [...images];
+            const prev = [...images] as Array<ImageType>;
             prev.splice(index, 1);
             return prev;
         });
+
+
+
+    },[images]);
+
+
+    useEffect(() => {
+        console.log('images??', images);
+        productImageStore.setFiles(images);
 
     },[images]);
 
@@ -55,7 +80,8 @@ const ImageUploadForm: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {
                     images?.map((image, index) => (
-                        <ImagePreview key={index} image={image?.dataUrl!} deleteImage={deleteImage} editImage={editImage}/>
+                        <ImagePreview key={index} image={image?.dataUrl!} deleteImage={deleteImage}
+                                      editImage={editImage}/>
                     ))
                 }
 
@@ -78,7 +104,7 @@ const ImageUploadForm: React.FC = () => {
                     <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF
                         (MAX. 800x400px)</p>
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" multiple={true} onChange={handleImgChange}/>
+                <input id="dropzone-file" type="file" className="hidden" multiple={true} accept="image/*" onChange={handleImgChange}/>
             </label>
         </div>
     );

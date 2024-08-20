@@ -1,5 +1,6 @@
 package org.zerock.mallapi.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,8 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.domain.ProductImage;
+import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.dto.PageRequestDTO;
 import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
@@ -124,23 +127,33 @@ public class ProductServiceImpl implements ProductService{
   }
 
   @Override
-  public Long register(ProductDTO productDTO) {
+  public Long register(ProductDTO productDTO, UserDetails userDetails) {
 
-    Product product = dtoToEntity(productDTO);
+    //현재 접속자 이메일 넣기
+    String email = userDetails.getUsername();
+
+    Product product = dtoToEntity(productDTO, email);
+
+    //시간
+    product.setCreatedAt(LocalDateTime.now());
+    product.setUpdatedAt(LocalDateTime.now());
 
     Product result = productRepository.save(product);
     
     return result.getPno();
   }
 
-  private Product dtoToEntity(ProductDTO productDTO){
+  private Product dtoToEntity(ProductDTO productDTO, String email){
+
+    Member member = Member.builder().email(email).build();
 
     Product product = Product.builder()
-    .pno(productDTO.getPno())
-    .pname(productDTO.getPname())
-    .pdesc(productDTO.getPdesc())
-    .price(productDTO.getPrice())
-    .build();
+            .pno(productDTO.getPno())
+            .pname(productDTO.getPname())
+            .pdesc(productDTO.getPdesc())
+            .price(productDTO.getPrice())
+            .owner(member)
+            .build();
 
     //업로드 처리가 끝난 파일들의 이름 리스트 
     List<String> uploadFileNames = productDTO.getUploadFileNames();

@@ -1,50 +1,42 @@
 "use client";
 import 'react-quill/dist/quill.snow.css';
 import dynamic from "next/dynamic";
+import {useEffect, useState} from "react";
 
-const Editor = () => {
+interface EditorProps {
+    name: string;
+    value: string;
+    onChange: any;
+}
+
+const Editor = ({name, value, onChange} : EditorProps) => {
+
+
     const modules = {
         toolbar: [
-            [{ header: '1' }, { header: '2' }, { font: [] }],
-            [{ size: [] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [
-                { list: 'ordered' },
-                { list: 'bullet' },
-                { indent: '-1' },
-                { indent: '+1' },
-            ],
-            ['link', 'image', 'video'],
-            ['clean'],
+            [{ header: "1" }, { header: "2" }],
+            ["bold", "italic", "underline"],
+            [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
+            [{ color: [] }, { background: [] }],
+            ["link"],
+            ["clean"],
         ],
         clipboard: {
             // toggle to add extra line breaks when pasting HTML:
             matchVisual: false,
         },
-    }
+    };
 
-    const formats = [
-        'header',
-        'font',
-        'size',
-        'bold',
-        'italic',
-        'underline',
-        'strike',
-        'blockquote',
-        'list',
-        'bullet',
-        'indent',
-        'link',
-        'image',
-        'video',
-    ]
+    const formats = ["header", "bold", "italic", "underline", "list", "bullet", "indent", "background", "color", "link", "clean"];
+
+
     const QuillWrapper = dynamic(() => import('react-quill'), {
         ssr: false,
         loading: () => <p>불러오는 중입니다.</p>,
     })
 
-    return <QuillWrapper modules={modules} formats={formats} theme="snow" placeholder={"설명을 입력해주세요."} id="descrption" />;
+    return <QuillWrapper value={value} onChange={onChange} theme={"snow"} modules={modules} formats={formats} />;
+
 
 };
 export default Editor

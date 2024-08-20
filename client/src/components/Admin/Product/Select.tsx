@@ -6,9 +6,10 @@ interface SelectProps {
     label:string,
     options: string[];
     defaultOption: string;
+    name: string;
 }
 
-const Select = ({label, options,defaultOption}: SelectProps) => {
+const Select = ({label, options,defaultOption, name}: SelectProps) => {
     const [selectedOption, setSelectedOption] = useState<string>("");
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -30,6 +31,7 @@ const Select = ({label, options,defaultOption}: SelectProps) => {
                         setSelectedOption(e.target.value);
                         changeTextColor();
                     }}
+                    name={name}
                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
                         isOptionSelected ? "text-black dark:text-white" : ""
                     }`}

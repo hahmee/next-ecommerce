@@ -19,6 +19,9 @@ export const logout = async () => {
 
     await nextFetch(`/api/member/logout`, {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
         credentials: 'include'
     });
 
