@@ -46,7 +46,7 @@ public class ProductServiceTests {
         UUID.randomUUID()+"_" +"Test1.jpg",
         UUID.randomUUID()+"_" +"Test2.jpg"));
 
-    productService.register(productDTO);
+    productService.register(productDTO, null);
 
   }
 

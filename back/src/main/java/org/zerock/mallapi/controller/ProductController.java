@@ -21,6 +21,7 @@ import org.zerock.mallapi.dto.PageRequestDTO;
 import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
 import org.zerock.mallapi.service.ProductService;
+import org.zerock.mallapi.util.AwsFileUtil;
 import org.zerock.mallapi.util.CustomFileUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -34,16 +35,19 @@ public class ProductController {
 
   private final ProductService productService; //ProductServcie 주입 
   private final CustomFileUtil fileUtil;
+  private final AwsFileUtil awsFileUtil;
 
   @PostMapping("/")
   public Map<String, Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails){
-
 
     log.info("register: ?????????????" + productDTO);
 
     List<MultipartFile> files = productDTO.getFiles();
 
     List<String> uploadFileNames = fileUtil.saveFiles(files);
+
+    List<String> uploadFileNamesAws= awsFileUtil.saveFiles(files);
+
 
     productDTO.setUploadFileNames(uploadFileNames);
 
