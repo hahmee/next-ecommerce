@@ -61,7 +61,7 @@ const beforeRes = async (url:string, response: any) => {
     const data = await response.json();
 
 
-    if (data && data.error === 'ERROR_ACCESS_TOKEN') { //에러가 나면
+    if (data && data.error === 'ERROR_ACCESS_TOKEN') { //ERROR_ACCESS_TOKEN 에러가 리턴되면
         const memberCookieValue = getCookie('member')!; //변수가 실제로 할당되었음
 
         //토큰이 없다면

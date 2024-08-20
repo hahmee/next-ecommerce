@@ -36,17 +36,18 @@ public class ProductController {
   private final ProductService productService; //ProductServcie 주입 
   private final CustomFileUtil fileUtil;
   private final AwsFileUtil awsFileUtil;
+  private final String PRODUCT_IMG_DIR = "product";
 
   @PostMapping("/")
-  public Map<String, Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails){
+  public Map<String, Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
     log.info("register: ?????????????" + productDTO);
 
     List<MultipartFile> files = productDTO.getFiles();
 
-    List<String> uploadFileNames = fileUtil.saveFiles(files);
+//    List<String> uploadFileNames = fileUtil.saveFiles(files);
 
-    List<String> uploadFileNamesAws= awsFileUtil.saveFiles(files);
+    List<String> uploadFileNames= awsFileUtil.uploadFiles(files,PRODUCT_IMG_DIR );
 
 
     productDTO.setUploadFileNames(uploadFileNames);

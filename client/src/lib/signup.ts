@@ -28,8 +28,9 @@ export default async (prevState: any, formData: FormData) => {
     })
     const data = await response.json();
 
+      //다시 닉네임까지
     if (response.status === 403) {
-      if(data.msg === "Email duplicated") {
+      if(data.msg === "DUPLICATED_EMAIL") {
         return {message: 'email_exists'};
       }else {
         return {message: 'nickname_exists'};

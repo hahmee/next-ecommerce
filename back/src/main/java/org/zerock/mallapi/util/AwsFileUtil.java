@@ -1,23 +1,21 @@
 package org.zerock.mallapi.util;
 
-import jakarta.annotation.PostConstruct;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,101 +24,82 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AwsFileUtil {
 
-  @Value("${org.zerock.upload.path}")
-  private String uploadPath;
+  @Value("${cloud.aws.s3.bucket}")
+  private String bucket;
 
-  @PostConstruct
-  public void init() {
-    File tempFolder = new File(uploadPath);
+  private final AmazonS3 amazonS3;
 
-    if(tempFolder.exists() == false) {
-      tempFolder.mkdir();
-    }
+//  private String PROFILE_IMG_DIR = "profile";
+//  private String PRODUCT_IMG_DIR = "product";
 
-    uploadPath = tempFolder.getAbsolutePath();
 
-    log.info("-------------------------------------");
-    log.info(uploadPath);
-  }
-
-  public List<String> saveFiles(List<MultipartFile> files) throws RuntimeException{
+  /* 1. 파일 업로드 */
+  public List<String> uploadFiles(List<MultipartFile> files, String dirName) throws RuntimeException {
 
     if(files == null || files.size() == 0){
-      return null; 
+      return null;
     }
 
     List<String> uploadNames = new ArrayList<>();
 
-    for (MultipartFile multipartFile : files) {
-        
-      String savedName = UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
-      
-      Path savePath = Paths.get(uploadPath, savedName);
+    try {
+      for (MultipartFile multipartFile : files) {
+        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
 
-      try {
-        Files.copy(multipartFile.getInputStream(), savePath);
+        // 메타데이터 생성
+        ObjectMetadata objMeta = new ObjectMetadata();
+        objMeta.setContentType(multipartFile.getContentType());
+        objMeta.setContentLength(multipartFile.getInputStream().available());
+        // putObject(버킷명, 파일명, 파일데이터, 메타데이터)로 S3에 객체 등록
+        amazonS3.putObject(bucket, savedName, multipartFile.getInputStream(), objMeta);
 
-        String contentType = multipartFile.getContentType();
-
-        if(contentType != null && contentType.startsWith("image")){ //이미지여부 확인
-
-          Path thumbnailPath = Paths.get(uploadPath, "s_"+savedName);
-
-          Thumbnails.of(savePath.toFile())
-                  .size(400,400)
-                  .toFile(thumbnailPath.toFile());
-        }
-
-        uploadNames.add(savedName);
-      } catch (IOException e) {
-        throw new RuntimeException(e.getMessage());
+        // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
+        String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
+        log.info("Asdfasdfasdfasdfadsf" + url);
+        uploadNames.add(url);
       }
-    }//end for
+
+    }catch (IOException e) {
+      throw new RuntimeException(e.getMessage());
+    }
+
     return uploadNames;
+
   }
 
-  public ResponseEntity<Resource> getFile(String fileName) {
-    
-    Resource resource = new FileSystemResource(uploadPath+ File.separator + fileName);
-
-    if(!resource.exists()) {
-
-      resource = new FileSystemResource(uploadPath+ File.separator + "default.jpeg");
-    
+  /* 2. 파일 삭제 */
+  public void delete (String keyName) {
+    try {
+      // deleteObject(버킷명, 키값)으로 객체 삭제
+      amazonS3.deleteObject(bucket, keyName);
+    } catch (AmazonServiceException e) {
+      log.error(e.toString());
     }
-
-    HttpHeaders headers = new HttpHeaders();
-
-    try{
-        headers.add("Content-Type", Files.probeContentType( resource.getFile().toPath() ));
-    } catch(Exception e){
-        return ResponseEntity.internalServerError().build();
-    }
-    return ResponseEntity.ok().headers(headers).body(resource);
   }
 
+  /* 3. 파일의 presigned URL 반환 */
+  public String getPresignedURL (String keyName) {
+    String preSignedURL = "";
+    // presigned URL이 유효하게 동작할 만료기한 설정 (2분)
+    Date expiration = new Date();
+    Long expTimeMillis = expiration.getTime();
+    expTimeMillis += 1000 * 60 * 2;
+    expiration.setTime(expTimeMillis);
 
-  public void deleteFiles(List<String> fileNames) {
-
-    if(fileNames == null || fileNames.size() == 0){
-      return;
+    try {
+      // presigned URL 발급
+      GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket, keyName)
+              .withMethod(HttpMethod.GET)
+              .withExpiration(expiration);
+      URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
+      preSignedURL = url.toString();
+    } catch (Exception e) {
+      log.error(e.toString());
     }
 
-    fileNames.forEach(fileName -> {
-
-      //썸네일이 있는지 확인하고 삭제 
-      String thumbnailFileName = "s_" + fileName;
-      Path thumbnailPath = Paths.get(uploadPath, thumbnailFileName);
-      Path filePath = Paths.get(uploadPath, fileName);
-
-      try {
-        Files.deleteIfExists(filePath);
-        Files.deleteIfExists(thumbnailPath);
-      } catch (IOException e) {
-        throw new RuntimeException(e.getMessage());
-      }
-    });
+    return preSignedURL;
   }
+
 
 
 

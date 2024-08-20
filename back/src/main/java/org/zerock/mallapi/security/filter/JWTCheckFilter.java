@@ -5,11 +5,14 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.zerock.mallapi.dto.MemberDTO;
+import org.zerock.mallapi.util.CustomJWTException;
 import org.zerock.mallapi.util.JWTUtil;
 
 import com.google.gson.Gson;
@@ -93,13 +96,12 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       log.info("--------authentication : " + authentication);
       log.info("--------principal : " + authentication.getPrincipal());
 
-
-
       filterChain.doFilter(request, response);
 
-    }catch(Exception e){
+    } catch (CustomJWTException e){
 
-      log.error("JWT Check Error..............");
+      log.error("asdfasdfasdfadfa" + e);
+      log.error("JWT Check Error.............."); //JWT 아닌 것들도 다 여기로 들어와서 다시 리프레시 토큰 발급함...
       log.error(e.getMessage());
 
       Gson gson = new Gson();
@@ -110,8 +112,22 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       printWriter.println(msg);
       printWriter.close();
 
+    } catch(Exception e){
+
+      log.error("Error............." + e);
+      log.error(e.getMessage());
+      throw e;
+//
+//      Gson gson = new Gson();
+//      String msg = gson.toJson(Map.of("error", e.getMessage()));
+//      response.setContentType("application/json");
+//      PrintWriter printWriter = response.getWriter();
+//      printWriter.println(msg);
+//      printWriter.close();
+
     }
   }
+
 
 
 }

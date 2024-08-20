@@ -45,16 +45,15 @@ public class MemberServiceImpl implements MemberService {
       //유효성 검사
       //이메일 검사
       if(memberRepository.existsById(memberDTO.getEmail())){
-              throw new EmailDuplicateException("Email duplicated");
+          throw new EmailDuplicateException("DUPLICATED_EMAIL");
       }
 
       //닉네임 검사
       Optional<Member> usedNickname = memberRepository.findByNickname(memberDTO.getNickname());
 
       if(usedNickname.isPresent()){  //문제
-          throw new NicknameDuplicateException("Nickname duplicated");
+          throw new NicknameDuplicateException("DUPLICATED_NICKNAME");
       }
-
 
       Member member = dtoToEntity(memberDTO);
 
