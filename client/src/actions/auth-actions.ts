@@ -29,6 +29,7 @@ export default async (prevState: any, formData: FormData) => {
     });
 
     const data = await response.json();
+    console.log(data);
 
     if (data && data.error) { //에러가 있을 때
       console.log('아이디와 비밀번호가 일치하지 않습니다.');

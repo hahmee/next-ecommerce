@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.zerock.mallapi.exception.Code;
 import org.zerock.mallapi.util.CustomJWTException;
+import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.JWTUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -21,11 +23,11 @@ public class APIRefreshController {
   public Map<String, Object> refresh(@RequestHeader("Authorization") String authHeader, String refreshToken){
 
     if(refreshToken == null) {
-      throw new CustomJWTException("NULL_REFRASH");
+      throw new GeneralException(Code.TOKEN_NULL, "Refresh Token is null");
     }
     
     if(authHeader == null || authHeader.length() < 7) {
-      throw new CustomJWTException("INVALID_STRING");
+      throw new GeneralException(Code.TOKEN_INVALID, "Invalid string");
     }
 
     String accessToken = authHeader.substring(7);

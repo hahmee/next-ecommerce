@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.mallapi.dto.DataResponseDTO;
 import org.zerock.mallapi.dto.PageRequestDTO;
 import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
@@ -39,15 +40,15 @@ public class ProductController {
   private final String PRODUCT_IMG_DIR = "product";
 
   @PostMapping("/")
-  public Map<String, Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
     log.info("register: ?????????????" + productDTO);
 
     List<MultipartFile> files = productDTO.getFiles();
 
-//    List<String> uploadFileNames = fileUtil.saveFiles(files);
+//    List<String> uploadFileNames = fileUtil.saveFiles(files); //내부에 저장
 
-    List<String> uploadFileNames= awsFileUtil.uploadFiles(files,PRODUCT_IMG_DIR );
+    List<String> uploadFileNames= awsFileUtil.uploadFiles(files,PRODUCT_IMG_DIR ); //AWS에 저장
 
 
     productDTO.setUploadFileNames(uploadFileNames);
@@ -64,8 +65,7 @@ public class ProductController {
       e.printStackTrace();
     }
 
-
-    return Map.of("result", pno);
+    return DataResponseDTO.of(pno);
   }
 
   
@@ -85,16 +85,15 @@ public class ProductController {
   //   return Map.of("RESULT", "SUCCESS");
   // }
 
-  @GetMapping("/view/{fileName}")
+  @GetMapping("/view/{fileName}") //수정해야함 ResponseType
   public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName){
 
     return fileUtil.getFile(fileName);
-
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')") //임시로 권한 설정 
   @GetMapping("/list") // list?page=7
-  public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
+  public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageRequestDTO pageRequestDTO) {
 
     log.info("list............." + pageRequestDTO);
 
@@ -105,14 +104,14 @@ public class ProductController {
       e.printStackTrace();
     }
 
-    return productService.getList(pageRequestDTO);
+    return DataResponseDTO.of(productService.getList(pageRequestDTO));
     
   }
 
   //ADMIN 페이지 추가
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/adminList") // adminList?page=7
-  public PageResponseDTO<ProductDTO> adminList(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<PageResponseDTO<ProductDTO>> adminList(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
     log.info("list............." + pageRequestDTO);
 
@@ -123,12 +122,13 @@ public class ProductController {
       e.printStackTrace();
     }
 
-    return productService.getAdminList(pageRequestDTO, userDetails);
+//    return productService.getAdminList(pageRequestDTO, userDetails);
+    return DataResponseDTO.of(productService.getAdminList(pageRequestDTO, userDetails));
 
   }
 
   @GetMapping("/{pno}")
-  public ProductDTO read(@PathVariable(name="pno") Long pno) {
+  public DataResponseDTO<ProductDTO> read(@PathVariable(name="pno") Long pno) {
 
     try {
       Thread.sleep(0);
@@ -137,11 +137,13 @@ public class ProductController {
       e.printStackTrace();
     }
 
-    return productService.get(pno);
+    ProductDTO productDTO = productService.get(pno);
+
+    return DataResponseDTO.of(productDTO);
   }
 
   @PutMapping("/{pno}")
-  public Map<String, String> modify(@PathVariable(name="pno")Long pno, ProductDTO productDTO) {
+  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, ProductDTO productDTO) {
 
     productDTO.setPno(pno); 
 
@@ -179,11 +181,11 @@ public class ProductController {
       //실제 파일 삭제 
       fileUtil.deleteFiles(removeFiles);
     }
-    return Map.of("RESULT", "SUCCESS");
+    return DataResponseDTO.of( "SUCCESS");
   }
 
   @DeleteMapping("/{pno}")
-  public Map<String, String> remove(@PathVariable("pno") Long pno) {
+  public DataResponseDTO<String> remove(@PathVariable("pno") Long pno) {
 
     //삭제해야할 파일들 알아내기 
     List<String> oldFileNames =  productService.get(pno).getUploadFileNames();
@@ -192,8 +194,9 @@ public class ProductController {
 
     fileUtil.deleteFiles(oldFileNames);
 
-    return Map.of("RESULT", "SUCCESS");
+//    return Map.of("RESULT", "SUCCESS");
 
+    return DataResponseDTO.of("SUCCESS");
   }
 
 

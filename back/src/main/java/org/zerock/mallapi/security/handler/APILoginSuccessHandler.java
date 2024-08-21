@@ -22,35 +22,37 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler{
 @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-    log.info("-------------------------------------");
-    log.info("-----authentication--------" + authentication);
-    log.info("-------------------------------------");
+  log.info("-------------------------------------");
+  log.info("-----authentication--------" + authentication);
+  log.info("-------------------------------------");
 
-    MemberDTO memberDTO = (MemberDTO)authentication.getPrincipal();
+  MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
 
-    Map<String, Object> claims = memberDTO.getClaims();
+  Map<String, Object> claims = memberDTO.getClaims();
 
   // 토큰 종류(카테고리), 유저이름, 역할 등을 페이로드에 담는다.
   String accessToken = JWTUtil.generateToken(claims, 60);
-    String refreshToken = JWTUtil.generateToken(claims,60*24);
+  String refreshToken = JWTUtil.generateToken(claims, 60 * 24);
 
-    claims.put("accessToken", accessToken);
-    claims.put("refreshToken", refreshToken);
+  claims.put("accessToken", accessToken);
+  claims.put("refreshToken", refreshToken);
 
-    log.info("-------------accessToken" + accessToken);
+  log.info("-------------accessToken" + accessToken);
 
-    log.info("-------------refreshToken" + refreshToken);
+  log.info("-------------refreshToken" + refreshToken);
 
-    Gson gson = new Gson();
+  Map loginData =  Map.of("success", true, "code", 0, "message", "Ok", "data", claims);
 
-    String jsonStr = gson.toJson(claims);
+  Gson gson = new Gson();
 
-    response.setContentType("application/json; charset=UTF-8");
-    PrintWriter printWriter = response.getWriter();
-    printWriter.println(jsonStr);
-    printWriter.close();
+  String jsonStr = gson.toJson(loginData);
 
-  }
+  response.setContentType("application/json; charset=UTF-8");
+  PrintWriter printWriter = response.getWriter();
+  printWriter.println(jsonStr);
+  printWriter.close();
+
+}
 
   
 }

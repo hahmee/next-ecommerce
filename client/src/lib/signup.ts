@@ -20,13 +20,20 @@ export default async (prevState: any, formData: FormData) => {
 
   let shouldRedirect = false;
   try {
-    //회원가입
+      //회원가입
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/register`, {
       method: 'POST',
       body: formData,
       credentials: 'include',
     })
     const data = await response.json();
+    console.log('dataaaaaaaa', data);
+    console.log('response', response.status);
+    if (response.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      console.log('????');
+    }
+    console.log('response', response);
 
       //다시 닉네임까지
     if (response.status === 403) {

@@ -5,11 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/AwsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/advice/ExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/DataResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ErrorResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/exception/Code.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/GeneralException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/APIRefreshController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/APIRefreshController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/MemberController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/advice/CustomControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/advice/CustomControllerAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/handler/APILoginFailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/handler/APILoginFailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/AwsFileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/AwsFileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/EmailDuplicateException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/EmailDuplicateException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/JWTUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/JWTUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/auth-actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth-actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/signup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/signup.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +116,7 @@
       <workItem from="1723898270781" duration="44000" />
       <workItem from="1723971624982" duration="31884000" />
       <workItem from="1724066809850" duration="18823000" />
-      <workItem from="1724120722013" duration="14616000" />
+      <workItem from="1724120722013" duration="32417000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,7 @@
 package org.zerock.mallapi.service;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Optional;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,18 +14,14 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.MemberRole;
-import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.dto.MemberModifyDTO;
-import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.exception.Code;
 import org.zerock.mallapi.repository.MemberRepository;
+import org.zerock.mallapi.util.GeneralException;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.zerock.mallapi.util.EmailDuplicateException;
-import org.zerock.mallapi.util.NicknameDuplicateException;
-
-import javax.swing.text.html.Option;
+import java.util.LinkedHashMap;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,14 +39,14 @@ public class MemberServiceImpl implements MemberService {
       //유효성 검사
       //이메일 검사
       if(memberRepository.existsById(memberDTO.getEmail())){
-          throw new EmailDuplicateException("DUPLICATED_EMAIL");
+          throw new GeneralException(Code.USER_EMAIL_DUPLICATED);
       }
 
       //닉네임 검사
       Optional<Member> usedNickname = memberRepository.findByNickname(memberDTO.getNickname());
 
       if(usedNickname.isPresent()){  //문제
-          throw new NicknameDuplicateException("DUPLICATED_NICKNAME");
+          throw new GeneralException(Code.USER_NICKNAME_DUPLICATED);
       }
 
       Member member = dtoToEntity(memberDTO);
@@ -136,7 +130,7 @@ public class MemberServiceImpl implements MemberService {
     String kakaoGetUserURL = "https://kapi.kakao.com/v2/user/me";
 
     if(accessToken == null){
-      throw new RuntimeException("Access Token is null");
+        throw new GeneralException(Code.TOKEN_NULL, "Access Token is null");
     }
     RestTemplate restTemplate = new RestTemplate();
 

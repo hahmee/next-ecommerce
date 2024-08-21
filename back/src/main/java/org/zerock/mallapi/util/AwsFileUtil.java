@@ -50,17 +50,18 @@ public class AwsFileUtil {
         ObjectMetadata objMeta = new ObjectMetadata();
         objMeta.setContentType(multipartFile.getContentType());
         objMeta.setContentLength(multipartFile.getInputStream().available());
+
         // putObject(버킷명, 파일명, 파일데이터, 메타데이터)로 S3에 객체 등록
         amazonS3.putObject(bucket, savedName, multipartFile.getInputStream(), objMeta);
 
         // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
         String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
-        log.info("Asdfasdfasdfasdfadsf" + url);
+
         uploadNames.add(url);
       }
 
-    }catch (IOException e) {
-      throw new RuntimeException(e.getMessage());
+    } catch (IOException e) {
+      throw new GeneralException(e.getMessage());
     }
 
     return uploadNames;

@@ -2,7 +2,6 @@ package org.zerock.mallapi.config;
 
 import java.util.Arrays;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,10 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.mallapi.security.filter.JWTCheckFilter;
-import org.zerock.mallapi.security.handler.APILoginFailHandler;
-import org.zerock.mallapi.security.handler.APILoginSuccessHandler;
-import org.zerock.mallapi.security.handler.APILogoutSuccessHandler;
-import org.zerock.mallapi.security.handler.CustomAccessDeniedHandler;
+import org.zerock.mallapi.security.handler.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -53,6 +49,7 @@ public class CustomSecurityConfig {
       config.loginPage("/api/member/login");
       config.successHandler(new APILoginSuccessHandler());
       config.failureHandler(new APILoginFailHandler());
+
     });
 
     http.logout(config -> {

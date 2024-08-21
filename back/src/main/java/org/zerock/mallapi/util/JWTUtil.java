@@ -3,6 +3,7 @@ package org.zerock.mallapi.util;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
+import org.zerock.mallapi.exception.Code;
 
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -51,15 +52,15 @@ public class JWTUtil {
               .getBody();
               
     }catch(MalformedJwtException malformedJwtException){
-        throw new CustomJWTException("MalFormed");
+      throw new GeneralException(Code.TOKEN_INVALID, "MALFORMED");
     }catch(ExpiredJwtException expiredJwtException){
-        throw new CustomJWTException("Expired");
+      throw new GeneralException(Code.TOKEN_EXPIRED, "EXPIRED");
     }catch(InvalidClaimException invalidClaimException){
-        throw new CustomJWTException("Invalid");
+      throw new GeneralException(Code.TOKEN_INVALID, "INVALID");
     }catch(JwtException jwtException){
-        throw new CustomJWTException("JWTError");
+      throw new GeneralException(Code.TOKEN_INVALID, "JWT_ERROR");
     }catch(Exception e){
-        throw new CustomJWTException("Error");
+      throw new GeneralException(Code.TOKEN_INVALID, "ERROR");
     }
     return claim;
   }
