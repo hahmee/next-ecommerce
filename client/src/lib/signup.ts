@@ -1,6 +1,8 @@
 "use server";
 
 import {redirect} from "next/navigation";
+import {DataResponse} from "@/interface/DataResponse";
+import {Member} from "@/interface/Member";
 
 export default async (prevState: any, formData: FormData) => {
   console.log('formData', formData);
@@ -22,26 +24,17 @@ export default async (prevState: any, formData: FormData) => {
   try {
       //회원가입
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/register`, {
-      method: 'POST',
+      method: "POST",
       body: formData,
       credentials: 'include',
     })
-    const data = await response.json();
+    const data:DataResponse<Member> = await response.json();
+
     console.log('dataaaaaaaa', data);
     console.log('response', response.status);
-    if (response.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      console.log('????');
-    }
-    console.log('response', response);
 
-      //다시 닉네임까지
-    if (response.status === 403) {
-      if(data.msg === "DUPLICATED_EMAIL") {
-        return {message: 'email_exists'};
-      }else {
-        return {message: 'nickname_exists'};
-      }
+    if(!response.ok) {
+      return { message: data.message };
     }
 
     shouldRedirect = true;

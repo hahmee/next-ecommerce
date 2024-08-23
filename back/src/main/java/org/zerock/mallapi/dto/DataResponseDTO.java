@@ -1,7 +1,7 @@
 package org.zerock.mallapi.dto;
 
 import lombok.Getter;
-import org.zerock.mallapi.exception.Code;
+import org.zerock.mallapi.exception.ErrorCode;
 
 
 
@@ -24,12 +24,12 @@ public class DataResponseDTO<T> extends ResponseDTO {
     private final T data;
 
     private DataResponseDTO(T data) {
-        super(true, Code.OK.getCode(), Code.OK.getMessage());
+        super(true, ErrorCode.OK.getCode(), ErrorCode.OK.getMessage());
         this.data = data;
     }
 
     private DataResponseDTO(T data, String message) {
-        super(true, Code.OK.getCode(), message);
+        super(true, ErrorCode.OK.getCode(), message);
         this.data = data;
     }
 

@@ -10,6 +10,7 @@ import {Paging} from "@/interface/Paging";
 import AddProductButton from "@/components/Tables/AddProductButton";
 import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
+import {DataResponse} from "@/interface/DataResponse";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -24,22 +25,21 @@ const initalPagingData: Paging = {
 const ProductTable = ({page, size} : PageParam) => {
 
 
-    const {isFetching, data, error, isError}  = useQuery<PageResponse<Product>>({
+    const {isFetching, data, error, isError}  = useQuery<DataResponse<PageResponse<Product>>>({
         queryKey: ['adminProducts', {page, size}],
         queryFn: () => getProductsByEmail({page, size}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
     })
 
-    const productData = data?.dtoList;
+    const productData = data?.data.dtoList;
 
     let pagingData: Paging = initalPagingData;
 
     if(productData) {
-        const {dtoList, ...otherData } = data;
+        const {dtoList, ...otherData } = data.data;
         pagingData = otherData;
     }
-
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

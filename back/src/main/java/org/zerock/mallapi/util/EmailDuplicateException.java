@@ -1,7 +1,7 @@
 package org.zerock.mallapi.util;
 
 import lombok.Getter;
-import org.zerock.mallapi.exception.Code;
+import org.zerock.mallapi.exception.ErrorCode;
 
 @Getter
 public class EmailDuplicateException extends RuntimeException{
@@ -10,9 +10,9 @@ public class EmailDuplicateException extends RuntimeException{
 //      super(msg);
 //  }
 
-    private Code errorCode;
+    private ErrorCode errorCode;
 
-    public EmailDuplicateException(String msg,  Code errorCode){
+    public EmailDuplicateException(String msg,  ErrorCode errorCode){
         super(msg);
         this.errorCode = errorCode;
     }

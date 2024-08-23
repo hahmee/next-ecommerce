@@ -2,7 +2,7 @@
 import NextAuth from 'next-auth';
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import {setCookie} from "@/utils/cookieUtil";
+import {setCookie} from "@/utils/setCookieUtil";
 
 const handler = NextAuth({
     pages: {
@@ -75,7 +75,7 @@ const handler = NextAuth({
                 console.log('백엔드에서 받아온 결과로 만든 user입니다.', user);
 
                 if (user) {
-                    setCookie('member', JSON.stringify(user), 1);
+                    await setCookie('member', JSON.stringify(user), 1);
                 }
 
                 if (!authResponse.ok) {

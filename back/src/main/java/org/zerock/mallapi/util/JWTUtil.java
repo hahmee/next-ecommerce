@@ -3,12 +3,12 @@ package org.zerock.mallapi.util;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
-import org.zerock.mallapi.exception.Code;
-
-import java.time.ZonedDateTime;
-import java.util.*;
+import org.zerock.mallapi.exception.ErrorCode;
 
 import javax.crypto.SecretKey;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.Map;
 
 @Log4j2
 public class JWTUtil {
@@ -26,6 +26,7 @@ public class JWTUtil {
         throw new RuntimeException(e.getMessage());
     }
 
+
     String jwtStr = Jwts.builder()
             .setHeader(Map.of("typ","JWT"))
             .setClaims(valueMap)
@@ -34,11 +35,13 @@ public class JWTUtil {
             .signWith(key)
             .compact();
 
+
     return jwtStr;
   }
 
   public static Map<String, Object> validateToken(String token) {
 
+    log.info("token....." + token);
     Map<String, Object> claim = null;
     
     try{
@@ -50,18 +53,20 @@ public class JWTUtil {
               .build()
               .parseClaimsJws(token) // 파싱 및 검증, 실패 시 에러
               .getBody();
-              
+
+
     }catch(MalformedJwtException malformedJwtException){
-      throw new GeneralException(Code.TOKEN_INVALID, "MALFORMED");
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "MALFORMED");
     }catch(ExpiredJwtException expiredJwtException){
-      throw new GeneralException(Code.TOKEN_EXPIRED, "EXPIRED");
+      throw new GeneralException(ErrorCode.EXPIRED_TOKEN, "EXPIRED");
     }catch(InvalidClaimException invalidClaimException){
-      throw new GeneralException(Code.TOKEN_INVALID, "INVALID");
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "INVALID");
     }catch(JwtException jwtException){
-      throw new GeneralException(Code.TOKEN_INVALID, "JWT_ERROR");
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "JWT_ERROR");
     }catch(Exception e){
-      throw new GeneralException(Code.TOKEN_INVALID, "ERROR");
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "ERROR");
     }
+
     return claim;
   }
 

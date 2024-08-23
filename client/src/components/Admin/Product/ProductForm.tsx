@@ -13,6 +13,7 @@ import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {nextFetch} from "@/utils/jwtUtils";
 import {useProductImageStore} from "@/store/productImageStore";
+import {getCookie} from "@/utils/cookieUtil";
 
 const brandOptions: string[] = [
     'ddd',
@@ -60,13 +61,16 @@ const ProductForm:React.FC = () => {
             console.log('formData', formData);
 
             return nextFetch(`/api/products/`, {
-                method: 'POST',
+                method: "POST",
                 credentials: 'include',
                 body: formData,
-            });
+            }); // json 형태로 이미 반환
+
         },
         async onSuccess(response, variable) {
+            console.log(response);
             // const newPost = await response.json();
+            // console.log('newPost', newPost);
             // setContent('');
             // setPreview([]);
             // if (queryClient.getQueryData(['posts', 'recommends'])) {
@@ -94,6 +98,7 @@ const ProductForm:React.FC = () => {
         },
         onError(error) {
             console.error(error);
+            console.log('error입니다..', error);
             alert('업로드 중 에러가 발생했습니다.');
         }
     });

@@ -10,32 +10,28 @@ import java.util.function.Predicate;
 
 @AllArgsConstructor
 @Getter
-public enum Code {
-    // 충돌 방지를 위한 Code format
-    // X1XXX: 제이
-    // X2XXX: 셀리나
-    // X3XXX: 메이슨
-    // ex) 메이슨이 닉네임 중복 에러코드를 만든다면
-    // USER_NICKNAME_DUPLICATED(13010, HttpStatus.BAD_REQUEST, "User nickname duplicated"),
+public enum ErrorCode {
 
     OK(0, HttpStatus.OK, "Ok"),
 
-    BAD_REQUEST(400, HttpStatus.BAD_REQUEST, "Bad request"),
-    VALIDATION_ERROR(400, HttpStatus.BAD_REQUEST, "Validation error"),
-    NOT_FOUND(404, HttpStatus.NOT_FOUND, "Requested resource is not found"),
+    BAD_REQUEST(400, HttpStatus.BAD_REQUEST, "BAD_REQUEST"),
+    VALIDATION_ERROR(400, HttpStatus.BAD_REQUEST, "VALIDATION_ERROR"),
+    NOT_FOUND(404, HttpStatus.NOT_FOUND, "NOT_FOUND"),
 
     USER_EMAIL_DUPLICATED(401, HttpStatus.UNAUTHORIZED, "DUPLICATED_EMAIL"),
     USER_NICKNAME_DUPLICATED(401, HttpStatus.UNAUTHORIZED, "DUPLICATED_NICKNAME"),
 
-    TOKEN_EXPIRED(401, HttpStatus.UNAUTHORIZED, "TOKEN_ERROR"),
-    TOKEN_NULL(401, HttpStatus.UNAUTHORIZED, "TOKEN_NULL"),
-    TOKEN_INVALID(401, HttpStatus.UNAUTHORIZED, "TOKEN_INVALID"),
+    EXPIRED_TOKEN(401, HttpStatus.UNAUTHORIZED, "EXPIRED_TOKEN"),
+    NULL_TOKEN(401, HttpStatus.UNAUTHORIZED, "NULL_TOKEN"),
+    INVALID_TOKEN(401, HttpStatus.UNAUTHORIZED, "INVALID_TOKEN"),
 
 
     INTERNAL_ERROR(500, HttpStatus.INTERNAL_SERVER_ERROR, "INTERNAL_ERROR"),
     DATA_ACCESS_ERROR(500, HttpStatus.INTERNAL_SERVER_ERROR, "DATA_ACCESS_ERROR"),
 
-    UNAUTHORIZED(401, HttpStatus.UNAUTHORIZED, "USER_UNAUTHORIZED");
+    UNAUTHORIZED(401, HttpStatus.UNAUTHORIZED, "USER_UNAUTHORIZED"),
+
+    MAX_SIZE_EXCEED(400, HttpStatus.BAD_REQUEST ,"MAX_SIZE_EXCEED");
 
 
     private final Integer code;
@@ -53,7 +49,7 @@ public enum Code {
                 .orElse(this.getMessage());
     }
 
-    public static Code valueOf(HttpStatus httpStatus) {
+    public static ErrorCode valueOf(HttpStatus httpStatus) {
         if (httpStatus == null) {
             throw new GeneralException("HttpStatus is null.");
         }
@@ -63,11 +59,11 @@ public enum Code {
                 .findFirst()
                 .orElseGet(() -> {
                     if (httpStatus.is4xxClientError()) {
-                        return Code.BAD_REQUEST;
+                        return ErrorCode.BAD_REQUEST;
                     } else if (httpStatus.is5xxServerError()) {
-                        return Code.INTERNAL_ERROR;
+                        return ErrorCode.INTERNAL_ERROR;
                     } else {
-                        return Code.OK;
+                        return ErrorCode.OK;
                     }
                 });
     }

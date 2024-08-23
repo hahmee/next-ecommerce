@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.dto.MemberModifyDTO;
+import org.zerock.mallapi.dto.ProductDTO;
 
 @Transactional
 public interface MemberService {
@@ -18,6 +19,8 @@ public interface MemberService {
   MemberDTO register(MemberDTO memberDTO);
 
   MemberDTO getProfile(UserDetails userDetails);
+
+  MemberDTO get(String email);
 
   default MemberDTO entityToDTO(Member member) {
 

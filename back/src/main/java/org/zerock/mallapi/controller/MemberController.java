@@ -38,9 +38,9 @@ public class MemberController {
     @GetMapping("/api/profile")
     public DataResponseDTO<MemberDTO> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
 
-
         //서비스 호출
         MemberDTO profileDTO = memberService.getProfile(userDetails);
+
         try {
             Thread.sleep(0);
 

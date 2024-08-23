@@ -1,27 +1,23 @@
 package org.zerock.mallapi.security.filter;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.ErrorResponse;
-import org.springframework.web.filter.OncePerRequestFilter;
-import org.zerock.mallapi.dto.MemberDTO;
-import org.zerock.mallapi.util.CustomJWTException;
-import org.zerock.mallapi.util.JWTUtil;
-
 import com.google.gson.Gson;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.zerock.mallapi.dto.MemberDTO;
+import org.zerock.mallapi.util.GeneralException;
+import org.zerock.mallapi.util.JWTUtil;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public class JWTCheckFilter extends OncePerRequestFilter {
@@ -62,16 +58,14 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     //request에서 Authorization찾음
     String authHeaderStr = request.getHeader("Authorization");
 
-    log.info("whatdfdfdkfdkf" + authHeaderStr);
+    log.info("whatdfdfdkfdkf   " + authHeaderStr);
 
     try {
       //Bearer accestoken...
       String accessToken = authHeaderStr.substring(7);
-      Map<String, Object> claims = JWTUtil.validateToken(accessToken); //accessToken 검증
+      Map<String, Object> claims = JWTUtil.validateToken(accessToken); //accessToken 검증 -> 1분으로 했으니 당연히 예외 EXPIRED 뜨겠지?
 
       log.info("JWT claims: dddddddd" + claims);
-
-      //filterChain.doFilter(request, response); //이하 추가 
 
       String email = (String) claims.get("email");
       String password = (String) claims.get("password");
@@ -85,8 +79,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       log.info(memberDTO);
       log.info(memberDTO.getAuthorities());
 
-      UsernamePasswordAuthenticationToken authenticationToken
-      = new UsernamePasswordAuthenticationToken(memberDTO, password, memberDTO.getAuthorities());
+      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(memberDTO, password, memberDTO.getAuthorities());
 
       //SecurityContextHolder에 정보를 저장한다.
       SecurityContextHolder.getContext().setAuthentication(authenticationToken);
@@ -98,10 +91,10 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
       filterChain.doFilter(request, response);
 
-    } catch (CustomJWTException e){
+    } catch (GeneralException e){//CustomJWTException e
 
       log.error("asdfasdfasdfadfa" + e);
-      log.error("JWT Check Error.............."); //JWT 아닌 것들도 다 여기로 들어와서 다시 리프레시 토큰 발급함...
+      log.error("JWT Check Error.............."); //JWT 아닌 것들도 다 여기로 들어와서 다시 리프레시 토큰 발급함...(맥스사이즈)
       log.error(e.getMessage());
 
       Gson gson = new Gson();
@@ -112,20 +105,14 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       printWriter.println(msg);
       printWriter.close();
 
-    } catch(Exception e){
-
-      log.error("Error............." + e);
-      log.error(e.getMessage());
-      throw e;
-//
-//      Gson gson = new Gson();
-//      String msg = gson.toJson(Map.of("error", e.getMessage()));
-//      response.setContentType("application/json");
-//      PrintWriter printWriter = response.getWriter();
-//      printWriter.println(msg);
-//      printWriter.close();
-
     }
+//    catch(Exception e){
+//
+//      log.error("Error............." + e);
+//      log.error(e.getMessage());
+//      throw e;
+//
+//    }
   }
 
 

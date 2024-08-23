@@ -1,6 +1,8 @@
 'use server';
 import {redirect} from 'next/navigation';
-import {setCookie} from "@/utils/cookieUtil";
+import {DataResponse} from "@/interface/DataResponse";
+import {Member} from "@/interface/Member";
+import {setCookie} from "@/utils/setCookieUtil";
 
 
 export default async (prevState: any, formData: FormData) => {
@@ -28,17 +30,15 @@ export default async (prevState: any, formData: FormData) => {
       })
     });
 
-    const data = await response.json();
+    const data: DataResponse<Member> = await response.json();
     console.log(data);
 
-    if (data && data.error) { //에러가 있을 때
-      console.log('아이디와 비밀번호가 일치하지 않습니다.');
-      return { message: 'no_authorized' };
-
-    } else {
-      setCookie('member', JSON.stringify(data), 1);
-      shouldRedirect = true;
-    }
+   if(data.code != 0) { //에러있는 상황
+     return { message: data.message };
+   }else{
+     await setCookie('member', JSON.stringify(data.data), 1);
+     shouldRedirect = true;
+   }
 
   }catch (error) {
     console.error(error);

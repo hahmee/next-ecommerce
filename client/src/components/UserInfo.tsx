@@ -4,18 +4,23 @@ import {useQuery} from "@tanstack/react-query";
 import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
 
 const UserInfo = () => {
-    const {data, error} = useQuery({
+    const { isLoading, data, error} = useQuery({
         queryKey: ['user'],
         queryFn: () => getUserServer(),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
     });
+
+    if (isLoading) return 'Loading...:(';
+
     console.log('data---------', data);
-    const user = data?.result;
-    console.log('user', user);
+    //
+    if (error) return 'An error has occurred: ' + error.message;
+
+    const user = data.data;
+
     return (
-        <div
-            className="flex flex-col md:flex-row gap-24 md:h-[calc(100vh-180px)] items-center px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+        <div className="flex flex-col md:flex-row gap-24 md:h-[calc(100vh-180px)] items-center px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
             <div className="w-full md:w-1/2">
                 <h1 className="text-2xl">Profile</h1>
                 <form className="mt-12 flex flex-col gap-4">

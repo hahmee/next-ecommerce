@@ -10,7 +10,7 @@ export const getUserServer = async () => {
         cache: 'no-store',
     });
 
-    console.log('왜안난와', resultJson);
+    // console.log('왜안난와', resultJson);
 
     return resultJson;
 }

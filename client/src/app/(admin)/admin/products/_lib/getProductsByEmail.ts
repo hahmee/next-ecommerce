@@ -2,6 +2,9 @@
 
 import {nextFetch} from "@/utils/jwtUtils";
 import {PageParam} from "@/interface/PageParam";
+import {DataResponse} from "@/interface/DataResponse";
+import {PageResponse} from "@/interface/PageResponse";
+import {Product} from "@/interface/Product";
 
 export async function getProductsByEmail (pageParam: PageParam) {
 

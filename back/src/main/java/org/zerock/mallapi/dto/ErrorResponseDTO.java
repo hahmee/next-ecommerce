@@ -1,6 +1,6 @@
 package org.zerock.mallapi.dto;
 
-import org.zerock.mallapi.exception.Code;
+import org.zerock.mallapi.exception.ErrorCode;
 
 
 // 에러 응답 형식
@@ -13,28 +13,28 @@ import org.zerock.mallapi.exception.Code;
 
 public class ErrorResponseDTO extends ResponseDTO {
 
-    private ErrorResponseDTO(Code errorCode) {
+    private ErrorResponseDTO(ErrorCode errorCode) {
         super(false, errorCode.getCode(), errorCode.getMessage());
     }
 
-    private ErrorResponseDTO(Code errorCode, Exception e) {
+    private ErrorResponseDTO(ErrorCode errorCode, Exception e) {
         super(false, errorCode.getCode(), errorCode.getMessage(e));
     }
 
-    private ErrorResponseDTO(Code errorCode, String message) {
+    private ErrorResponseDTO(ErrorCode errorCode, String message) {
         super(false, errorCode.getCode(), errorCode.getMessage(message));
     }
 
 
-    public static ErrorResponseDTO of(Code errorCode) {
+    public static ErrorResponseDTO of(ErrorCode errorCode) {
         return new ErrorResponseDTO(errorCode);
     }
 
-    public static ErrorResponseDTO of(Code errorCode, Exception e) {
+    public static ErrorResponseDTO of(ErrorCode errorCode, Exception e) {
         return new ErrorResponseDTO(errorCode, e);
     }
 
-    public static ErrorResponseDTO of(Code errorCode, String message) {
+    public static ErrorResponseDTO of(ErrorCode errorCode, String message) {
         return new ErrorResponseDTO(errorCode, message);
     }
 }
