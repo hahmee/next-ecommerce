@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const slides = [
   {
@@ -42,6 +43,9 @@ const Slider = () => {
   //   return () => clearInterval(interval);
   // }, []);
 
+  const notify = () => toast.success('Here is your toast.');
+
+
   return (
     <div className="h-[calc(100vh-80px)] overflow-hidden">
       <div
@@ -62,7 +66,7 @@ const Slider = () => {
                 {slide.title}
               </h1>
               <Link href={slide.url}>
-                <button className="rounded-md bg-black text-white py-3 px-4 ">
+                <button className="rounded-md bg-black text-white py-3 px-4 " onClick={notify}>
                   SHOP NOW
                 </button>
               </Link>

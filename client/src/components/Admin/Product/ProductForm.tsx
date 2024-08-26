@@ -11,9 +11,10 @@ import Editor from "@/components/Admin/Product/Editor";
 import Link from "next/link";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {nextFetch} from "@/utils/jwtUtils";
+import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {useProductImageStore} from "@/store/productImageStore";
-import {getCookie} from "@/utils/cookieUtil";
+import {getCookie} from "@/utils/getCookieUtil";
+import toast from "react-hot-toast";
 
 const brandOptions: string[] = [
     'ddd',
@@ -38,7 +39,7 @@ const ProductForm:React.FC = () => {
     const productImageStore = useProductImageStore();
 
 
-    const [value, setValue] = useState<string>('asdfasdf');
+    const [value, setValue] = useState<string>('');
 
 
     const mutation = useMutation({
@@ -53,6 +54,13 @@ const ProductForm:React.FC = () => {
             formData.append('pname', inputs.pname);
             formData.append('pdesc','inputs.description');
             formData.append('price', inputs.price.toString());
+            formData.append('brand', inputs.brand);
+            formData.append('categoryList', inputs.category);
+            formData.append('sku', inputs.sku);
+            formData.append('inStock', inputs.inStock);
+            formData.append('refundPolicy', inputs.refundPolicy);
+            formData.append('changePolicy', inputs.changePolicy);
+
 
             productImageStore.files.forEach((p) => {
                 p && formData.append('files', p.file);
@@ -60,7 +68,7 @@ const ProductForm:React.FC = () => {
 
             console.log('formData', formData);
 
-            return nextFetch(`/api/products/`, {
+            return fetchWithAuth(`/api/products/`, {
                 method: "POST",
                 credentials: 'include',
                 body: formData,
@@ -68,7 +76,7 @@ const ProductForm:React.FC = () => {
 
         },
         async onSuccess(response, variable) {
-            console.log(response);
+            console.log('response', response);
             // const newPost = await response.json();
             // console.log('newPost', newPost);
             // setContent('');
@@ -95,14 +103,24 @@ const ProductForm:React.FC = () => {
             //         return shallow;
             //     })
             // }
+            // toast.success(TOAST_MESSAGE.Add_SUCCESS, TOAST_OPTION);
+            toast.success('업로드 성공했습니다.');
+
+
         },
         onError(error) {
-            console.error(error);
-            console.log('error입니다..', error);
-            alert('업로드 중 에러가 발생했습니다.');
+
+            console.log('error/....', error.message);
+            // console.log(typeof error)
+            // console.log(JSON.parse(error['message']));
+
+            // console.log('??', JSON.parse(error.toString()).message);
+
+            // const message = (error as Error).message;
+            toast.error(`업로드 중 에러가 발생했습니다.`);
+
         }
     });
-
 
     const onChange = (value: string) => {
         console.log(value);

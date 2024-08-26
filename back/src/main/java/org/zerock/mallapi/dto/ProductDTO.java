@@ -1,8 +1,14 @@
 package org.zerock.mallapi.dto;
 
-import lombok.*;
-import java.util.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.mallapi.domain.SalesStatus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,11 +28,11 @@ public class ProductDTO {
 
   private String brand;
 
-  private String category;
+  private List<String> categoryList;
 
   private String sku;
 
-  private boolean inStock;
+  private SalesStatus salesStatus;
 
   private String refundPolicy;
 

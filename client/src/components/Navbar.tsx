@@ -3,7 +3,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Menu from "@/components/Menu";
 import SearchBar from "@/components/SearchBar";
-import {getCookie} from "@/utils/cookieUtil";
+import {getCookie} from "@/utils/getCookieUtil";
 import {Member} from "@/interface/Member";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });

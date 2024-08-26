@@ -2,16 +2,11 @@ package org.zerock.mallapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.dto.MemberDTO;
-import org.zerock.mallapi.dto.MemberModifyDTO;
 import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.service.MemberService;
 import org.zerock.mallapi.util.GeneralException;
@@ -54,8 +49,7 @@ public class APIRefreshController {
     Map<String, Object> claims = checkRefreshToken(refreshToken); //null(refreshToken 만료됨)
 
     /* Access, Refresh 둘 다 만료 */
-    if (claims == null) { //refreshToken, accessToken 만료됨
-      // 둘 다 새로 발급 필요.
+    if (claims == null) {
 
       //이메일 받아서 정보 받기
       //서비스 호출
@@ -70,7 +64,7 @@ public class APIRefreshController {
       String newRefreshToken = JWTUtil.generateToken(claims, 60 * 24);
 
 
-      return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken); //accessToken만 새로 발급, refresh 토큰은 기존값
+      return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
 
 
     }else {  /* ACESS만료, Refresh 만료 X*/
@@ -118,8 +112,8 @@ public class APIRefreshController {
     Map<String, Object> claims = null;
 
     try {
-      claims = JWTUtil.validateToken(token);  //여기서 에러남
-    } catch (GeneralException ex) {//CustomJWTException
+      claims = JWTUtil.validateToken(token);
+    } catch (GeneralException ex) {
       if (ex.getMessage().equals("EXPIRED")) {//Expired
         return null;
       }

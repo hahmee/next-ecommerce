@@ -1,10 +1,10 @@
 "use server";
 
-import {removeCookie} from "@/utils/cookieUtil";
-import {nextFetch} from "@/utils/jwtUtils";
+import {removeCookie} from "@/utils/getCookieUtil";
+import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 export const getUserServer = async () => {
-    const resultJson = await nextFetch(`/api/profile`, {
+    const resultJson = await fetchWithAuth(`/api/profile`, {
         method: "GET",
         credentials: 'include', //cookie
         cache: 'no-store',
@@ -17,7 +17,7 @@ export const getUserServer = async () => {
 
 export const logout = async () => {
 
-    await nextFetch(`/api/member/logout`, {
+    await fetchWithAuth(`/api/member/logout`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

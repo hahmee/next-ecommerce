@@ -29,11 +29,13 @@ public class Product extends BaseEntity {
 
   private String brand;
 
-  private String category;
+  @ElementCollection(fetch = FetchType.LAZY)
+  @Builder.Default
+  private List<String> categoryList = new ArrayList<>();
 
   private String sku;
 
-  private boolean inStock;
+  private SalesStatus salesStatus;
 
   private String refundPolicy;
 
@@ -80,5 +82,9 @@ public class Product extends BaseEntity {
 
   public void clearList() {
       this.imageList.clear();
+  }
+
+  public void addCategoryString(String category){
+    categoryList.add(category);
   }
 }

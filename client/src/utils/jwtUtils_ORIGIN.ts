@@ -1,6 +1,6 @@
 "use server";
 
-import {getCookie} from "@/utils/cookieUtil";
+import {getCookie} from "@/utils/getCookieUtil";
 import {setCookie} from "@/utils/setCookieUtil";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;

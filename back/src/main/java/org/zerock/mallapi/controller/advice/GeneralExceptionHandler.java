@@ -33,6 +33,8 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request) {
+        log.info("1------------occurs Exception");
+
         return handleExceptionInternal(e, ErrorCode.VALIDATION_ERROR, request);
     }
 

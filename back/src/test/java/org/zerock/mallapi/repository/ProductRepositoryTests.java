@@ -1,12 +1,6 @@
 package org.zerock.mallapi.repository;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.UUID;
-
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,14 +8,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Member;
-import org.zerock.mallapi.domain.MemberRole;
 import org.zerock.mallapi.domain.Product;
+import org.zerock.mallapi.domain.SalesStatus;
 
-import lombok.extern.log4j.Log4j2;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.UUID;
 
 @SpringBootTest
 @Log4j2
@@ -41,14 +36,20 @@ public class ProductRepositoryTests {
     log.info("-----------------");
     log.info(member);
 
-    for (int i = 2; i < 50; i++) {
+    for (int i = 0; i < 4; i++) {
 
       Product product = Product.builder()
               .pname("상품" + i)
               .price(100 * i)
               .owner(member)
-              .pdesc("상품설명 " + i).brand("브랜드예시").sku(UUID.randomUUID().toString()).category("카테고리").refundPolicy("환불정책예시").changePolicy("교환정책예시").inStock(true)
+              .pdesc("상품설명 " + i).brand("브랜드예시").sku(UUID.randomUUID().toString()).refundPolicy("환불정책예시").changePolicy("교환정책예시").salesStatus(SalesStatus.ONSALE).brand("test-brand")
               .build();
+
+
+      //카테고리 추가
+      product.addCategoryString("test-category1");
+      product.addCategoryString("test-category2");
+
 
       //2개의 이미지 파일 추가
       product.addImageString("IMAGE1.jpg");

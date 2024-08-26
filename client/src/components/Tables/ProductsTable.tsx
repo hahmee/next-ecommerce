@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
-import {useQuery} from "@tanstack/react-query";
+import {QueryCache, QueryClient, useQuery} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
@@ -25,16 +25,38 @@ const initalPagingData: Paging = {
 const ProductTable = ({page, size} : PageParam) => {
 
 
-    const {isFetching, data, error, isError}  = useQuery<DataResponse<PageResponse<Product>>>({
+    const {isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>>({
         queryKey: ['adminProducts', {page, size}],
         queryFn: () => getProductsByEmail({page, size}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-    })
+        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
+        // throwOnError: (error) => error. >= 500,
+        throwOnError: false,
 
+    });
+
+
+    console.log('?zzzz', data);
+    console.log('??', error);
+
+
+    // return <div>ㅎㅎ</div>
+    // if(data?.message) {
+    // //리다이렉트
+    // return <div>dd</div>
+    // }
+    //
     const productData = data?.data.dtoList;
 
     let pagingData: Paging = initalPagingData;
+
+    // if (error) return 'An error has occurred: ' + error.message;
+    // React.useEffect(() => {
+    //     if (adminProducts.error) {
+    //         adminProducts.error(`Something went wrong: ${todos.error.message}`);
+    //     }
+    // }, [todos.error]);
 
     if(productData) {
         const {dtoList, ...otherData } = data.data;

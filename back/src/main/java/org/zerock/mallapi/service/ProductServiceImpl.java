@@ -105,9 +105,9 @@ public class ProductServiceImpl implements ProductService{
               .changePolicy(product.getChangePolicy())
               .sku(product.getSku())
               .brand(product.getBrand())
-              .category(product.getCategory())
+              .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
-              .inStock(product.isInStock())
+              .salesStatus(product.getSalesStatus())
               .build();
 
       String imageStr = productImage.getFileName();

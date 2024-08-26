@@ -1,8 +1,9 @@
 "use client";
 
 import React, {useState} from "react";
-import {QueryClientProvider, QueryClient} from "@tanstack/react-query";
+import {QueryClientProvider, QueryClient, QueryCache} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import toast from "react-hot-toast";
 
 type Props = {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ function RQProvider({children}: Props) {
           retry: false,
         },
       },
+
     })
   );
 
