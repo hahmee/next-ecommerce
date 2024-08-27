@@ -15,18 +15,18 @@ import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
 
-const brandOptions:  Array<Option<String>> = [
+export const brandOptions:  Array<Option<String>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
     {id: 'brand-option2', content:'브랜드 옵션2'},
     {id: 'brand-option3', content:'브랜드 옵션3'},
 ];
-const categoryOptions: Array<Option<String>> = [
+export const categoryOptions: Array<Option<String>> = [
     {id:'category-option1', content:'카테고리 옵션1'},
     {id:'category-option2', content:'카테고리 옵션2'},
     {id:'category-option3', content:'카테고리 옵션3'},
 ]
 
-const salesOptions: Array<Option<SalesStatus>> = [
+export const salesOptions: Array<Option<SalesStatus>> = [
     {id: SalesStatus.ONSALE, content:'판매중'},
     {id: SalesStatus.SOLDOUT, content:'재고없음'},
     {id: SalesStatus.STOPSALE, content:'판매중지'},
@@ -37,8 +37,8 @@ const ProductForm:React.FC = () => {
 
     const productImageStore = useProductImageStore();
 
-    const editorRef = useRef<HTMLDivElement>(null);
 
+    //type 변경하기
     const quillRef = useRef<any>(null);
 
 
@@ -47,7 +47,13 @@ const ProductForm:React.FC = () => {
             e.preventDefault();
 
 
-            const pdesc = quillRef?.current.value;
+            console.log('quillRef', quillRef);
+            let pdesc = "";
+
+            if(quillRef.current) {
+                pdesc = quillRef?.current?.value;
+            }
+            // const
 
             const formData = new FormData(e.target as HTMLFormElement);
             const inputs = Object.fromEntries(formData);
@@ -227,7 +233,7 @@ const ProductForm:React.FC = () => {
                                             상품 설명 <span className="text-meta-1">*</span>
                                         </label>
 
-                                        <QuillEditor quillRef={quillRef} name={"pdesc"}/>
+                                        <QuillEditor quillRef={quillRef} />
 
                                     </div>
 

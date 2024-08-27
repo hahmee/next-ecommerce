@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/QuillEditor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ProductDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/Editor.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/QuillEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/QuillEditor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interface/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Product.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +123,7 @@
       <workItem from="1724661920695" duration="3185000" />
       <workItem from="1724685721108" duration="3820000" />
       <workItem from="1724724628697" duration="17365000" />
-      <workItem from="1724755151074" duration="10502000" />
+      <workItem from="1724755151074" duration="14354000" />
     </task>
     <servers />
   </component>

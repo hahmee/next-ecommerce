@@ -1,3 +1,5 @@
+import {SalesStatus} from "@/types/salesStatus";
+
 export interface Product {
   pno: number;
   pname: string;
@@ -6,9 +8,9 @@ export interface Product {
   delFlag: boolean;
   uploadFileNames: string[] | null;
   brand: string;
-  category: string;
+  categoryList: string[];
   sku: string;
-  inStock: boolean;
+  salesStatus: SalesStatus;
   refundPolicy: string;
   changePolicy: string;
   files: string[] | null;

@@ -1,11 +1,10 @@
 "use client";
 import 'react-quill/dist/quill.snow.css';
 import dynamic from "next/dynamic";
-import React, {forwardRef, memo, RefObject, useEffect, useMemo, useRef} from "react";
+import React, {memo, RefObject} from "react";
 import ReactQuill, {ReactQuillProps} from 'react-quill';
 
 interface EditorProps {
-    name: string;
     quillRef: any;
 }
 
@@ -18,8 +17,8 @@ interface ReactQuillComponentProps {
     style?: any;
 }
 
-//memo를 안하면 계속 re-rendering 함
-const QuillEditor =  memo(({name,quillRef}: EditorProps) => {
+//memo를 안하면 계속 re-rendering 됨
+const QuillEditor =  memo(({quillRef}: EditorProps) => {
 
     const modules =  {
         toolbar: [
@@ -58,7 +57,7 @@ const QuillEditor =  memo(({name,quillRef}: EditorProps) => {
     );
 
     return (
-        <ReactQuillComponent  forwardedRef={quillRef}  placeholder="내용을 입력해주세요." theme="snow" modules={modules} formats={formats}  />
+        <ReactQuillComponent forwardedRef={quillRef}  placeholder="내용을 입력해주세요." theme="snow" modules={modules} formats={formats}  />
     );
 
 });

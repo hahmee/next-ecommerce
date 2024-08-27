@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
-import {QueryCache, QueryClient, useQuery} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
@@ -11,6 +11,9 @@ import AddProductButton from "@/components/Tables/AddProductButton";
 import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
 import {DataResponse} from "@/interface/DataResponse";
+import {useRouter} from "next/navigation";
+import {salesOptions} from "@/components/Admin/Product/ProductForm";
+import {SalesStatus} from "@/types/salesStatus";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -24,7 +27,6 @@ const initalPagingData: Paging = {
 }
 const ProductTable = ({page, size} : PageParam) => {
 
-
     const {isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>>({
         queryKey: ['adminProducts', {page, size}],
         queryFn: () => getProductsByEmail({page, size}),
@@ -36,10 +38,14 @@ const ProductTable = ({page, size} : PageParam) => {
 
     });
 
+    const router = useRouter();
 
     console.log('?zzzz', data);
     console.log('??', error);
 
+    const handleClick = (pno:number) => {
+        router.push(`/admin/product/${pno}`);
+    }
 
     // return <div>ㅎㅎ</div>
     // if(data?.message) {
@@ -57,6 +63,7 @@ const ProductTable = ({page, size} : PageParam) => {
     //         adminProducts.error(`Something went wrong: ${todos.error.message}`);
     //     }
     // }, [todos.error]);
+
 
     if(productData) {
         const {dtoList, ...otherData } = data.data;
@@ -111,11 +118,14 @@ const ProductTable = ({page, size} : PageParam) => {
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div className="h-12.5 w-15 rounded-md">
                                 <Image
-                                    src={`/images/product/product-01.png`}
+                                    // src={`/images/product/product-01.png`}
                                     // src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/view/${product.uploadFileNames?.[0]}`}
-                                    width={60}
-                                    height={50}
+                                    src={product.uploadFileNames?.[0]!}
+                                    width={500}
+                                    height={500}
+                                    style={{objectFit: "contain", height: "100%"}}
                                     alt="Product"
+                                    onClick={() => handleClick(product.pno)}
                                 />
                             </div>
                             <p className="text-sm text-black dark:text-white">
@@ -123,10 +133,13 @@ const ProductTable = ({page, size} : PageParam) => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-span-1 hidden items-center sm:flex">
-                        <p className="text-sm text-black dark:text-white">
-                            {product.category}
-                        </p>
+                    <div className="col-span-1 hidden  sm:flex flex-col">
+                        {product.categoryList.map((category, idx) => (
+                            <span key={idx}
+                                  className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 my-1">
+                                    {category}
+                                </span>
+                        ))}
                     </div>
                     <div className="col-span-2 flex items-center">
                         <p className="text-sm text-black dark:text-white">
@@ -140,7 +153,8 @@ const ProductTable = ({page, size} : PageParam) => {
                         <p className="text-sm text-black dark:text-white">{product.price}</p>
                     </div>
                     <div className="col-span-1 flex items-center">
-                        <p className="text-sm text-meta-3">{product.inStock ? 'YES' : 'NO'}</p>
+                        <div className={`inline-block w-4 h-4 mr-2 rounded-full ${ product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" :  product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400": "bg-yellow-300" }`}></div>
+                        <p className="text-sm text-black dark:text-white">{salesOptions.find(option => option.id === product.salesStatus)?.content }</p>
                     </div>
                     <div className="col-span-1 flex items-center justify-end">
                         <button id="apple-imac-27-dropdown-button"

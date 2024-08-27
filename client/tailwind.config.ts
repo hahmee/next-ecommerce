@@ -36,7 +36,8 @@ const config: Config = {
         bodydark: "#AEB7C0",
         bodydark1: "#DEE4EE",
         bodydark2: "#8A99AF",
-        primary: "#3C50E0",
+        // primary: "#3C50E0",
+        primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a","950":"#172554"},
         secondary: "#80CAEE",
         stroke: "#E2E8F0",
         gray: "#EFF4FB",
@@ -63,6 +64,7 @@ const config: Config = {
         success: "#219653",
         danger: "#D34053",
         warning: "#FFA70B",
+
       },
       fontSize: {
         "title-xxl": ["44px", "55px"],
