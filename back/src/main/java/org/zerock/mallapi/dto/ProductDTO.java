@@ -28,7 +28,7 @@ public class ProductDTO {
   private int price;
 
   @NotNull(message = "상품 설명은 필수값입니다.")
-  @Size(min = 1, max = 200, message = "상품 설명은 1~200 글자 이내여야 합니다.")
+  @Size(min = 1, message = "상품 설명은 한 글자 이상이여야 합니다.")
   private String pdesc;
 
   private boolean delFlag;

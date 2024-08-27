@@ -1,21 +1,19 @@
 "use client";
 
-import React, {FormEvent, useMemo, useState} from "react";
+import React, {FormEvent, useRef} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
 import RadioButton from "@/components/Admin/Product/RadioButton";
 import {Option} from "@/interface/Option";
-import Editor from "@/components/Admin/Product/Editor";
-import Link from "next/link";
 import BackButton from "@/components/Admin/Product/BackButton";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {useProductImageStore} from "@/store/productImageStore";
-import {getCookie} from "@/utils/getCookieUtil";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
+import QuillEditor from "@/components/Admin/Product/QuillEditor";
 
 const brandOptions:  Array<Option<String>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -39,8 +37,9 @@ const ProductForm:React.FC = () => {
 
     const productImageStore = useProductImageStore();
 
+    const editorRef = useRef<HTMLDivElement>(null);
 
-    const [value, setValue] = useState<string>('');
+    const quillRef = useRef<any>(null);
 
 
     const mutation = useMutation({
@@ -48,11 +47,13 @@ const ProductForm:React.FC = () => {
             e.preventDefault();
 
 
-
+            const pdesc = quillRef?.current.value;
 
             const formData = new FormData(e.target as HTMLFormElement);
             const inputs = Object.fromEntries(formData);
             console.log('eee', inputs.price);
+
+            formData.append("pdesc", pdesc);
 
             productImageStore.files.forEach((p) => {
                 p && formData.append('files', p.file);
@@ -111,10 +112,6 @@ const ProductForm:React.FC = () => {
 
         }
     });
-
-    const onChange = (value: string) => {
-        console.log(value);
-    };
 
     return (
         <>
@@ -178,8 +175,7 @@ const ProductForm:React.FC = () => {
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect" name="categoryList"
-                                                     defaultOption={"카테고리를 선택해주세요."}/>
+                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect" name="categoryList" defaultOption={"카테고리를 선택해주세요."}/>
                                     </div>
 
                                     <div className="mb-4.5">
@@ -230,7 +226,9 @@ const ProductForm:React.FC = () => {
                                         <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             상품 설명 <span className="text-meta-1">*</span>
                                         </label>
-                                        <Editor name={"pdesc"} value={value} onChange={onChange}/>
+
+                                        <QuillEditor quillRef={quillRef} name={"pdesc"}/>
+
                                     </div>
 
                                     <div className="mb-6">
