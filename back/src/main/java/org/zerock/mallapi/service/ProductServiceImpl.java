@@ -152,6 +152,12 @@ public class ProductServiceImpl implements ProductService{
             .pname(productDTO.getPname())
             .pdesc(productDTO.getPdesc())
             .price(productDTO.getPrice())
+            .brand(productDTO.getBrand())
+            .changePolicy(productDTO.getChangePolicy())
+            .refundPolicy(productDTO.getRefundPolicy())
+            .categoryList(productDTO.getCategoryList())
+            .sku(productDTO.getSku())
+            .salesStatus(productDTO.getSalesStatus())
             .owner(member)
             .build();
 
@@ -190,6 +196,12 @@ public class ProductServiceImpl implements ProductService{
     .pname(product.getPname())
     .pdesc(product.getPdesc())
     .price(product.getPrice())
+            .brand(product.getBrand())
+            .sku(product.getSku())
+            .changePolicy(product.getChangePolicy())
+            .refundPolicy(product.getRefundPolicy())
+            .salesStatus(product.getSalesStatus())
+            .categoryList(product.getCategoryList())
     .build();
 
     List<ProductImage> imageList = product.getImageList();

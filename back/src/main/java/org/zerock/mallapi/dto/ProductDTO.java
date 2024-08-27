@@ -1,5 +1,7 @@
 package org.zerock.mallapi.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,24 +20,35 @@ public class ProductDTO {
   
   private Long pno;
 
+  @NotNull(message = "상품명은 필수값입니다.")
+  @Size(min = 1, max = 20, message = "상품명은 1~20 글자여야 합니다.")
   private String pname;
 
+  @NotNull(message = "판매가격은 필수값입니다.")
   private int price;
 
+  @NotNull(message = "상품 설명은 필수값입니다.")
+  @Size(min = 1, max = 200, message = "상품 설명은 1~200 글자 이내여야 합니다.")
   private String pdesc;
 
   private boolean delFlag;
 
+  @NotNull(message = "브랜드는 필수값입니다.")
   private String brand;
 
+  @NotNull(message = "카테고리는 필수값입니다.")
   private List<String> categoryList;
 
+  @NotNull(message = "SKU는 필수값입니다.")
   private String sku;
 
+  @NotNull(message = "판매상태는 필수값입니다.")
   private SalesStatus salesStatus;
 
+  @NotNull(message = "환불정책은 필수값입니다.")
   private String refundPolicy;
 
+  @NotNull(message = "교환정책은 필수값입니다.")
   private String changePolicy;
 
   @Builder.Default

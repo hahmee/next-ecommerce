@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import jakarta.validation.Valid;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,7 +41,7 @@ public class ProductController {
   private final String PRODUCT_IMG_DIR = "product";
 
   @PostMapping("/")
-  public DataResponseDTO<Long> register(ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<Long> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
     log.info("register: ?????????????" + productDTO);
 
@@ -48,8 +49,7 @@ public class ProductController {
 
 //    List<String> uploadFileNames = fileUtil.saveFiles(files); //내부에 저장
 
-    List<String> uploadFileNames= awsFileUtil.uploadFiles(files,PRODUCT_IMG_DIR ); //AWS에 저장
-
+    List<String> uploadFileNames= awsFileUtil.uploadFiles(files,PRODUCT_IMG_DIR); //AWS에 저장
 
     productDTO.setUploadFileNames(uploadFileNames);
 

@@ -38,12 +38,15 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
             return Promise.reject({response: {data: {error: 'REQUIRE_LOGIN'}}}); //전달된 에러와 함께 프로미스를 거부합니다.
         }
 
+        console.log('requestInit입니다....', requestInit.body);
+
         const config = {
             ...requestInit,
             headers: {...headers, Authorization: `Bearer ${accessToken}`},
         }
 
         return config;
+
     }
 
     const refreshJWT = async () => {
@@ -74,12 +77,15 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
         console.log('원래 jwt..accessToken: ', accessToken);
         console.log('원래 jwt..refreshToken: ', refreshToken);
 
+        console.log('??requestInit', requestInit.body); // 두개씩 들어옴
         const configData = await getConfigData(requestInit);
 
 
-        // console.log('원래의 Token으로 만든 configData입니다.', configData);
+        console.log('...configData입니다.', configData.body);
 
+        // const response = await fetch(`${host}${url}`, configData);
         const response = await fetch(`${host}${url}`, configData);
+
 
         // console.log('response.status', response.status);
 

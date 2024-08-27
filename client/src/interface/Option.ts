@@ -1,4 +1,4 @@
-export interface Option {
-    id: string;
+export interface Option<T> {
+    id: T;
     content: string;
 }

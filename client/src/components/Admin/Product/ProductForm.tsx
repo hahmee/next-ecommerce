@@ -15,22 +15,23 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {useProductImageStore} from "@/store/productImageStore";
 import {getCookie} from "@/utils/getCookieUtil";
 import toast from "react-hot-toast";
+import {SalesStatus} from "@/types/salesStatus";
 
-const brandOptions: string[] = [
-    'ddd',
-    'sss',
-    'ggg'
+const brandOptions:  Array<Option<String>> = [
+    {id: 'brand-option1', content:'브랜드 옵션1'},
+    {id: 'brand-option2', content:'브랜드 옵션2'},
+    {id: 'brand-option3', content:'브랜드 옵션3'},
 ];
-const categoryOptions:string[] = [
-    'ddd',
-    'sss',
-    'ggg'
+const categoryOptions: Array<Option<String>> = [
+    {id:'category-option1', content:'카테고리 옵션1'},
+    {id:'category-option2', content:'카테고리 옵션2'},
+    {id:'category-option3', content:'카테고리 옵션3'},
 ]
 
-const salesOptions: Array<Option> = [
-    {id: 'inStock', content:'판매중'},
-    {id: 'outOfStock', content:'재고없음'},
-    {id: 'stop', content:'판매중지'},
+const salesOptions: Array<Option<SalesStatus>> = [
+    {id: SalesStatus.ONSALE, content:'판매중'},
+    {id: SalesStatus.SOLDOUT, content:'재고없음'},
+    {id: SalesStatus.STOPSALE, content:'판매중지'},
 ];
 
 
@@ -44,34 +45,18 @@ const ProductForm:React.FC = () => {
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
-            console.log('e', e.target);
-
-            console.log('???', productImageStore.files);
             e.preventDefault();
-            const formData = new FormData(e.target as any);
-            const inputs = Object.fromEntries(formData);
-            console.log('inputs', inputs);
-            formData.append('pname', inputs.pname);
-            formData.append('pdesc','inputs.description');
-            formData.append('price', inputs.price.toString());
-            formData.append('brand', inputs.brand);
-            formData.append('categoryList', inputs.category);
-            formData.append('sku', inputs.sku);
-            formData.append('inStock', inputs.inStock);
-            formData.append('refundPolicy', inputs.refundPolicy);
-            formData.append('changePolicy', inputs.changePolicy);
 
+            const formData = new FormData(e.target as HTMLFormElement);
 
             productImageStore.files.forEach((p) => {
                 p && formData.append('files', p.file);
             });
 
-            console.log('formData', formData);
-
             return fetchWithAuth(`/api/products/`, {
                 method: "POST",
                 credentials: 'include',
-                body: formData,
+                body: formData as FormData,
             }); // json 형태로 이미 반환
 
         },
@@ -179,7 +164,7 @@ const ProductForm:React.FC = () => {
                                         <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             판매상태 <span className="text-meta-1">*</span>
                                         </label>
-                                        <RadioButton options={salesOptions} name="status"/>
+                                        <RadioButton options={salesOptions} name="salesStatus"/>
                                     </div>
 
                                     <div className="mb-4.5">
@@ -187,7 +172,7 @@ const ProductForm:React.FC = () => {
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect" name="category"
+                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect" name="categoryList"
                                                      defaultOption={"카테고리를 선택해주세요."}/>
                                     </div>
 

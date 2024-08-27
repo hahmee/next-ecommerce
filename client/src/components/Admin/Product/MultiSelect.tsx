@@ -1,7 +1,8 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import {Option} from "@/interface/Option";
 
-interface Option {
+interface Options {
     value: string;
     text: string;
     selected: boolean;
@@ -12,12 +13,12 @@ interface DropdownProps {
     id: string;
     label: string;
     name: string;
-    optionList: string[];
+    optionList: Array<Option<String>>;
     defaultOption: string;
 }
 
 const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defaultOption }) => {
-    const [options, setOptions] = useState<Option[]>([]);
+    const [options, setOptions] = useState<Options[]>([]);
     const [selected, setSelected] = useState<number[]>([]);
     const [show, setShow] = useState(false);
     const dropdownRef = useRef<any>(null);
@@ -27,7 +28,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
         const loadOptions = () => {
             const select = document.getElementById(id) as HTMLSelectElement | null;
             if (select) {
-                const newOptions: Option[] = [];
+                const newOptions: Options[] = [];
                 for (let i = 0; i < select.options.length; i++) {
                     newOptions.push({
                         value: select.options[i].value,
@@ -106,16 +107,17 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
             <div>
                 <select className="hidden" id={id}>
                     {
-                        optionList.map((option) => <option value={option} key={option}>{option}</option>)
+                        optionList.map((option) => <option value={option.id as string} key={option.id as string}>{option.content}</option>)
                     }
                 </select>
 
                 <div className="flex flex-col items-center">
-                    <input name={name} type="hidden" defaultValue={selectedValues()} />
+                    <input name={name} type="hidden" defaultValue={selectedValues()}/>
                     <div className="relative z-20 inline-block w-full">
                         <div className="relative flex flex-col items-center">
                             <div ref={trigger} onClick={open} className="w-full">
-                                <div className="mb-2 flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+                                <div
+                                    className="mb-2 flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                                     <div className="flex flex-auto flex-wrap gap-3">
                                         {selected.map((index) => (
                                             <div

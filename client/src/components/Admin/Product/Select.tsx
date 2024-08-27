@@ -1,15 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import {Option} from "@/interface/Option";
 
 
 interface SelectProps {
     label:string,
-    options: string[];
+    options: Array<Option<String>>;
     defaultOption: string;
     name: string;
 }
 
-const Select = ({label, options,defaultOption, name}: SelectProps) => {
+const Select = ({label, options, defaultOption, name}: SelectProps) => {
     const [selectedOption, setSelectedOption] = useState<string>("");
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -40,11 +41,10 @@ const Select = ({label, options,defaultOption, name}: SelectProps) => {
                         {defaultOption}
                     </option>
                     {
-                        options.map(option => <option key={option} value={option} className="text-body dark:text-bodydark">
-                            {option}
+                        options.map(option => <option key={option.id as string} value={option.id as string} className="text-body dark:text-bodydark">
+                            {option.content}
                         </option>)
                     }
-
                 </select>
 
                 <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
