@@ -47,7 +47,12 @@ const ProductForm:React.FC = () => {
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
 
+
+
+
             const formData = new FormData(e.target as HTMLFormElement);
+            const inputs = Object.fromEntries(formData);
+            console.log('eee', inputs.price);
 
             productImageStore.files.forEach((p) => {
                 p && formData.append('files', p.file);
@@ -157,6 +162,7 @@ const ProductForm:React.FC = () => {
                                             id="pname"
                                             name="pname"
                                             placeholder="상품명을 입력해주세요."
+                                            required
                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
                                     </div>
@@ -184,6 +190,7 @@ const ProductForm:React.FC = () => {
                                             type="number"
                                             id="price"
                                             name="price"
+                                            required
                                             placeholder="판매가격을 입력해주세요."
                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
@@ -197,6 +204,7 @@ const ProductForm:React.FC = () => {
                                             id="sku"
                                             name="sku"
                                             type="text"
+                                            required
                                             placeholder="SKU를 입력해주세요."
                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
@@ -234,6 +242,7 @@ const ProductForm:React.FC = () => {
                                             name="refundPolicy"
                                             rows={3}
                                             placeholder="환불 정책을 입력해주세요."
+                                            required
                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         ></textarea>
                                     </div>
@@ -247,6 +256,7 @@ const ProductForm:React.FC = () => {
                                             name="changePolicy"
                                             rows={3}
                                             placeholder="교환 정책을 입력해주세요."
+                                            required
                                             className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         ></textarea>
                                     </div>

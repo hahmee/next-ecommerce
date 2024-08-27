@@ -38,7 +38,6 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
             return Promise.reject({response: {data: {error: 'REQUIRE_LOGIN'}}}); //전달된 에러와 함께 프로미스를 거부합니다.
         }
 
-        console.log('requestInit입니다....', requestInit.body);
 
         const config = {
             ...requestInit,
@@ -74,14 +73,9 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
     try {
 
 
-        console.log('원래 jwt..accessToken: ', accessToken);
-        console.log('원래 jwt..refreshToken: ', refreshToken);
 
-        console.log('??requestInit', requestInit.body); // 두개씩 들어옴
         const configData = await getConfigData(requestInit);
 
-
-        console.log('...configData입니다.', configData.body);
 
         // const response = await fetch(`${host}${url}`, configData);
         const response = await fetch(`${host}${url}`, configData);
@@ -139,6 +133,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
         if (!response.ok) {
 
+            console.log('data?????????', data);
             await getReject(data.message);
             // return { error: new Error(`Error: ${data.message}`) };
 
@@ -146,9 +141,9 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
     }
     catch (error) {
 
-        // console.log('error---', error);
+        console.log('error---', error);
         const message = (error as Error | any).message;
-        // console.log('meesage....', message);
+        console.log('meesage....', message);
         // return new Error(message);
         throw error;
         // return { message: "No credentials provided", statusCode: 401 };

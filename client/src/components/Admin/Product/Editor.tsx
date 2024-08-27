@@ -35,7 +35,7 @@ const Editor = ({name, value, onChange} : EditorProps) => {
         loading: () => <p>불러오는 중입니다.</p>,
     })
 
-    return <QuillWrapper value={value} onChange={onChange} theme={"snow"} modules={modules} formats={formats}  />;
+    return <QuillWrapper value={value} onChange={onChange} theme={"snow"} modules={modules} formats={formats}   />;
 
 
 };

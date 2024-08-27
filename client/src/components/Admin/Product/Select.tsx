@@ -33,6 +33,7 @@ const Select = ({label, options, defaultOption, name}: SelectProps) => {
                         changeTextColor();
                     }}
                     name={name}
+                    required
                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
                         isOptionSelected ? "text-black dark:text-white" : ""
                     }`}
