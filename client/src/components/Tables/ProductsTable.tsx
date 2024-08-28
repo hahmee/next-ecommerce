@@ -14,6 +14,8 @@ import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
+import {useState} from "react";
+import Link from "next/link";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -38,13 +40,15 @@ const ProductTable = ({page, size} : PageParam) => {
 
     });
 
+    const [currentPno, setCurrentPno] = useState<number>(-1);
+
     const router = useRouter();
 
     console.log('?zzzz', data);
     console.log('??', error);
 
     const handleClick = (pno:number) => {
-        router.push(`/admin/product/${pno}`);
+        router.push(`/admin/products/${pno}`);
     }
 
     // return <div>ㅎㅎ</div>
@@ -64,6 +68,10 @@ const ProductTable = ({page, size} : PageParam) => {
     //     }
     // }, [todos.error]);
 
+    const handleOpenMenu = (pno:number) => {
+        console.log(pno);
+        setCurrentPno(pno);
+    }
 
     if(productData) {
         const {dtoList, ...otherData } = data.data;
@@ -133,12 +141,12 @@ const ProductTable = ({page, size} : PageParam) => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-span-1 hidden  sm:flex flex-col">
+                    <div className="col-span-1 hidden  sm:flex flex-col ">
                         {product.categoryList.map((category, idx) => (
                             <span key={idx}
                                   className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 my-1">
-                                    {category}
-                                </span>
+                                {category}
+                            </span>
                         ))}
                     </div>
                     <div className="col-span-2 flex items-center">
@@ -153,14 +161,14 @@ const ProductTable = ({page, size} : PageParam) => {
                         <p className="text-sm text-black dark:text-white">{product.price}</p>
                     </div>
                     <div className="col-span-1 flex items-center">
-                        <div className={`inline-block w-4 h-4 mr-2 rounded-full ${ product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" :  product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400": "bg-yellow-300" }`}></div>
-                        <p className="text-sm text-black dark:text-white">{salesOptions.find(option => option.id === product.salesStatus)?.content }</p>
+                        <div
+                            className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400" : "bg-yellow-300"}`}></div>
+                        <p className="text-sm text-black dark:text-white">{salesOptions.find(option => option.id === product.salesStatus)?.content}</p>
                     </div>
                     <div className="col-span-1 flex items-center justify-end">
-                        <button id="apple-imac-27-dropdown-button"
-                                data-dropdown-toggle="apple-imac-27-dropdown"
+                        <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown"
                                 className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                type="button">
+                                type="button" onClick={() => handleOpenMenu(product.pno)}>
                             <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -168,24 +176,27 @@ const ProductTable = ({page, size} : PageParam) => {
                             </svg>
                         </button>
 
-                        <div id="apple-imac-27-dropdown"
-                             className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="apple-imac-27-dropdown-button">
-                                <li>
-                                    <a href="#"
-                                       className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                </li>
-                            </ul>
-                            <div className="py-1">
-                                <a href="#"
-                                   className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                            </div>
-                        </div>
+                        {
+                            currentPno === product.pno && (
+                                <div id="apple-imac-27-dropdown" className="absolute z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="apple-imac-27-dropdown-button">
+                                        <li>
+                                            <Link href="/"
+                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="/"
+                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
+                                        </li>
+                                    </ul>
+                                    <div className="py-1">
+                                        <Link href="/"
+                                           className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">삭제하기</Link>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             ))}

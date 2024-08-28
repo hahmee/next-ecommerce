@@ -126,7 +126,7 @@ const ProductForm:React.FC = () => {
                     <Breadcrumb pageName="제품 등록"/>
                     <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                         <BackButton/>
-                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                             제출하기
                         </button>
                     </div>
