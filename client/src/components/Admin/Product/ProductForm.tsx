@@ -33,13 +33,21 @@ export const salesOptions: Array<Option<SalesStatus>> = [
 ];
 
 
-const ProductForm:React.FC = () => {
+interface Props {
+    type: string;
+    id?: string;
+}
+const ProductForm = ({type}:Props) => {
 
     const productImageStore = useProductImageStore();
 
 
     //type 변경하기
     const quillRef = useRef<any>(null);
+
+    // modify일 때 getProduct
+
+
 
 
     const mutation = useMutation({
@@ -50,7 +58,7 @@ const ProductForm:React.FC = () => {
             console.log('quillRef', quillRef);
             let pdesc = "";
 
-            if(quillRef.current) {
+            if (quillRef.current) {
                 pdesc = quillRef?.current?.value;
             }
             // const
@@ -123,17 +131,21 @@ const ProductForm:React.FC = () => {
         <>
             <form onSubmit={mutation.mutate}>
                 <div className="mx-auto">
-                    <Breadcrumb pageName="제품 등록"/>
+                    <Breadcrumb pageName={ type === "add" ? "제품 등록": "제품 수정"}/>
                     <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                         <BackButton/>
-                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
-                            제출하기
+                        <button type="submit"
+                                className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                            {
+                                type === "add" ? "저장하기" : "수정하기"
+                            }
                         </button>
                     </div>
 
                     <div className="grid grid-cols-1 gap-9">
                         <div className="flex flex-col gap-9">
-                            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                            <div
+                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                 <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         이미지 및 동영상
@@ -177,11 +189,13 @@ const ProductForm:React.FC = () => {
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <Select label={"브랜드"} options={brandOptions} defaultOption={"브랜드를 선택해주세요."} name="brand"/>
+                                        <Select label={"브랜드"} options={brandOptions} defaultOption={"브랜드를 선택해주세요."}
+                                                name="brand"/>
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect" name="categoryList" defaultOption={"카테고리를 선택해주세요."}/>
+                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect"
+                                                     name="categoryList" defaultOption={"카테고리를 선택해주세요."}/>
                                     </div>
 
                                     <div className="mb-4.5">
@@ -233,7 +247,7 @@ const ProductForm:React.FC = () => {
                                             상품 설명 <span className="text-meta-1">*</span>
                                         </label>
 
-                                        <QuillEditor quillRef={quillRef} />
+                                        <QuillEditor quillRef={quillRef}/>
 
                                     </div>
 

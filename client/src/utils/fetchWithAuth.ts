@@ -1,7 +1,7 @@
 "use server";
 
 import {getCookie} from "@/utils/getCookieUtil";
-import {setCookie} from "@/utils/setCookieUtil";
+import {cookies} from "next/headers";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -16,10 +16,17 @@ interface IRequestInit {
 
 export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
-    const memberCookie = getCookie('member');
-    const accessToken = await memberCookie?.accessToken;
-    const refreshToken = memberCookie?.refreshToken;
+    //쿠키 가져오기
+    const authResponse = await fetch("http://localhost:3000/api/auth", {
+        method: "GET",
+        headers: {Cookie: cookies().toString()},  //필수 이걸 넣어야지 route에서 쿠키 값 인식
+    });
 
+    const cookieJson = await authResponse.json();
+
+    const memberCookie = cookieJson.member;
+
+    const {accessToken, refreshToken, email} = memberCookie;
 
     const getReject = async (errorMessage: string) => {
         return Promise.reject({message: errorMessage}); //전달된 에러와 함께 프로미스를 거부합니다.
@@ -28,8 +35,6 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
     const getConfigData = async (requestInit: IRequestInit) => {
 
         const {headers} = requestInit;
-
-        console.log('memberCookie', memberCookie);
 
         //쿠키에 유저 정보 있는지 확인
         if (!memberCookie || !accessToken || !refreshToken) {
@@ -50,10 +55,9 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
     const refreshJWT = async () => {
         const authorization = {Authorization: `Bearer ${accessToken}`};
-        const email = memberCookie?.email;
 
         const response = await fetch(`${host}/api/member/refresh?refreshToken=${refreshToken}`, {
-            method: "POST", //GET?
+            method: "POST",
             headers: {
                 ...authorization,
                 "Content-Type": "application/json",
@@ -73,15 +77,9 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
     try {
 
 
-
         const configData = await getConfigData(requestInit);
 
-
-        // const response = await fetch(`${host}${url}`, configData);
         const response = await fetch(`${host}${url}`, configData);
-
-
-        // console.log('response.status', response.status);
 
         const data = await response.json();
 
@@ -97,12 +95,15 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                 // console.log('HERE IS NEW JWT TOKEN', newJWT);
                 //새로 발급한 토큰 쿠키에 넣기
                 // Error - Cookies can only be modified in a Server Action or Route Handler.
-                await setCookie('member', JSON.stringify(newCookie), 1);
-                //이걸 미들웨어에서하려면
-                // 미들웨어에서 그럼 api 보낼때마다 확인해주기..?
+                // await setCookie('member', JSON.stringify(newCookie), 1);
 
 
-                // console.log('그럼 새로 온 쿠키는?', getCookie('member'));
+                /*해결법- api route에서 set Cookie 한다.*/
+                await fetch("http://localhost:3000/api/auth", {
+                    method: "POST",
+                    body: JSON.stringify({accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken}),
+                    headers: { Cookie: cookies().toString() },  //필수 이걸 넣어야지 route에서 쿠키 값 인식
+                });
 
                 const newConfigData = {
                     ...configData,

@@ -5,16 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Tables/TableExample.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/dragable.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/_lib/getProductServer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/auth/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/auth/session.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/saveUserTokens.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/tables/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/tables/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/auth-actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth-actions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/add-product/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/add-product/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/auth/[...nextauth]/route.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interface/Member.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Member.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/getCookieUtil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/getCookieUtil.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/setCookieUtil.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/setCookieUtil.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +77,11 @@
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\brand" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api\auth" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\brand" />
-      <recent name="C:\dev\youtube\next-ecommerce\src\app\(home)" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -128,7 +137,9 @@
       <workItem from="1724685721108" duration="3820000" />
       <workItem from="1724724628697" duration="17365000" />
       <workItem from="1724755151074" duration="14393000" />
-      <workItem from="1724810396855" duration="11944000" />
+      <workItem from="1724810396855" duration="40827000" />
+      <workItem from="1724862839046" duration="3714000" />
+      <workItem from="1724895912344" duration="3029000" />
     </task>
     <servers />
   </component>

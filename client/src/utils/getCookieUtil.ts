@@ -9,8 +9,10 @@ export const getCookie = (name: string): Member | undefined => {
 
   const memberInfo = cookieStore?.get(name)?.value;
 
+  console.log('memberInfo.....', memberInfo);
   if(memberInfo) {
-    return JSON.parse(memberInfo); // 값이 무조건 할당되었다고 전달
+    // return JSON.parse(JSON.stringify(memberInfo));
+    return JSON.parse(memberInfo);
   }else {
     return undefined;
   }

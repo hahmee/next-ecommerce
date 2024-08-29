@@ -2,7 +2,8 @@
 import {redirect} from 'next/navigation';
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
-import {setCookie} from "@/utils/setCookieUtil";
+import { setCookie } from 'cookies-next';
+import {cookies} from "next/headers";
 
 
 export default async (prevState: any, formData: FormData) => {
@@ -31,12 +32,30 @@ export default async (prevState: any, formData: FormData) => {
     });
 
     const data: DataResponse<Member> = await response.json();
-    console.log(data);
 
+    console.log('data...!!!', data);
    if(data.code != 0) { //에러있는 상황
      return { message: data.message };
    }else{
-     await setCookie('member', JSON.stringify(data.data), 1);
+     // await setCookie('member', JSON.stringify(data.data), 1);
+
+     // setCookie("member", data.data,{
+     //     path: '/',
+     //     maxAge: 60 * 60 * 24, //1일?
+     //     httpOnly: false,
+     //     // secure: process.env.NODE_ENV === 'production',
+     //     sameSite: 'lax',
+     // });
+
+     const expires = new Date();
+     expires.setUTCDate(expires.getUTCDate() + 1);
+     cookies().set("member", JSON.stringify(data.data), {expires: expires, httpOnly: false});
+
+     // await fetch("http://localhost:3000/api/auth", {
+     //   method: "POST",
+     //   body: JSON.stringify(data.data),
+     // });
+
      shouldRedirect = true;
    }
 

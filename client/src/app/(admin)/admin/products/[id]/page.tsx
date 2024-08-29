@@ -1,16 +1,24 @@
+import React from "react";
+import ProductForm from "@/components/Admin/Product/ProductForm";
+import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
+import {getProductServer} from "@/app/(admin)/admin/products/[id]/_lib/getProductServer";
 
 interface Props {
     params: {id: string }
 }
 
 
-export default function Page({params}: Props) {
+export default async function ModifyProductPage({params}: Props) {
     const {id} = params;
 
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery({queryKey: ['pno', id], queryFn: getProductServer});
+    const dehydratedState = dehydrate(queryClient);
+
     return (
-        <div>
-            {id}
-        </div>
+        <HydrationBoundary state={dehydratedState}>
+            <ProductForm type={"modify"} id={id}/>
+        </HydrationBoundary>
     );
 
 }
