@@ -2,14 +2,12 @@
 
 import {cookies} from 'next/headers'
 import {Member} from "@/interface/Member";
-import {NextRequest} from "next/server";
 
 //쿠키 세팅
 export async function POST(request: Request) {
     try {
         const body = await request.json();
         const {accessToken, refreshToken} = body as Member;
-        // console.log('member ; ))))))))))))))))))))))', body.accessToken);
 
         if (accessToken && refreshToken) {
 
@@ -17,12 +15,8 @@ export async function POST(request: Request) {
             const cookieStore = cookies();
             const memberCookie = cookieStore.get("member")?.value!;
 
-            // console.log('memberCookiememberCookie', memberCookie);
-
-            console.log('...................', JSON.parse(memberCookie))
             //어세스, 리프레시 토큰 제외한 값은 유지
             const newCookie = {...JSON.parse(memberCookie), accessToken, refreshToken} as Member;
-            //
 
             const expires = new Date();
             expires.setUTCDate(expires.getUTCDate() + 1);

@@ -15,14 +15,19 @@ interface DropdownProps {
     name: string;
     optionList: Array<Option<String>>;
     defaultOption: string;
+    originalData: string[] | undefined
 }
 
-const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defaultOption }) => {
+const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defaultOption, originalData }) => {
     const [options, setOptions] = useState<Options[]>([]);
     const [selected, setSelected] = useState<number[]>([]);
     const [show, setShow] = useState(false);
     const dropdownRef = useRef<any>(null);
     const trigger = useRef<any>(null);
+
+    useEffect(() => {
+        console.log('selected', selected);
+    }, [selected]);
 
     useEffect(() => {
         const loadOptions = () => {
@@ -52,6 +57,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     };
 
     const select = (index: number, event: React.MouseEvent) => {
+        console.log('??');
         const newOptions = [...options];
 
         if (!newOptions[index].selected) {
@@ -81,7 +87,11 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     };
 
     const selectedValues = () => {
-        return selected.map((option) => options[option].value);
+        console.log('selected', selected);
+        const data = selected.map((option) => options[option].value);
+        console.log('datadatadata', data);
+
+        return data;
     };
 
     useEffect(() => {

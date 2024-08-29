@@ -8,10 +8,11 @@ interface SelectProps {
     options: Array<Option<String>>;
     defaultOption: string;
     name: string;
+    originalData: string | undefined;
 }
 
-const Select = ({label, options, defaultOption, name}: SelectProps) => {
-    const [selectedOption, setSelectedOption] = useState<string>("");
+const Select = ({label, options, defaultOption, name, originalData}: SelectProps) => {
+    const [selectedOption, setSelectedOption] = useState<string>(originalData ? originalData : "");
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
     const changeTextColor = () => {

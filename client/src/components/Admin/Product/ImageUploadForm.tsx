@@ -3,11 +3,13 @@ import React, {useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useProductImageStore} from "@/store/productImageStore";
 import {useDropzone} from "react-dropzone";
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 
+interface Props {
+    originalData: string[] | null | undefined;
+}
 export interface ImageType {
     dataUrl: string;
-    file: File;
+    file: File | undefined;
 }
 
 const imageList = [
@@ -23,7 +25,7 @@ const imageList = [
     "https://dummyimage.com/250x150/9966cc/fff",
     "https://dummyimage.com/450x350/00cccc/000",
 ];
-const ImageUploadForm: React.FC = () => {
+const ImageUploadForm = ({originalData}:Props) => {
 
     const [images, setImages] = useState<Array<ImageType>>([]);
     const [hoveredImg, setHoveredImg] = useState<string>('');
@@ -104,6 +106,14 @@ const ImageUploadForm: React.FC = () => {
     },[images]);
 
     useEffect(() => {
+
+        if(originalData) {
+            originalData.map((file) => {
+                console.log(file);
+                setImages((prev) => prev.concat({dataUrl: file, file: undefined}))
+            })
+        }
+
         // 언마운트 시 url 무효화
         return () => {
             if(images && images.length > 0) {

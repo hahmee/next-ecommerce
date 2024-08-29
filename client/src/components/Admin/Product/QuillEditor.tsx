@@ -6,6 +6,7 @@ import ReactQuill, {ReactQuillProps} from 'react-quill';
 
 interface EditorProps {
     quillRef: any;
+    originalData: string | undefined;
 }
 
 interface ReactQuillComponentProps {
@@ -15,12 +16,13 @@ interface ReactQuillComponentProps {
     formats: Array<string>;
     modules: object;
     style?: any;
+    defaultValue: string;
 }
 
 //memo를 안하면 계속 re-rendering 됨
-const QuillEditor =  memo(({quillRef}: EditorProps) => {
+const QuillEditor = ({quillRef, originalData}: EditorProps) => {
 
-    const modules =  {
+    const modules = {
         toolbar: [
             [{header: "1"}, {header: "2"}],
             ["bold", "italic", "underline"],
@@ -44,7 +46,7 @@ const QuillEditor =  memo(({quillRef}: EditorProps) => {
             const {default: RQ} = await import('react-quill');
 
             const Component = ({forwardedRef, ...props}: ReactQuillComponentProps) => (
-                <RQ ref={forwardedRef} {...props} />
+                <RQ ref={forwardedRef} {...props}/>
             );
 
             Component.displayName = 'ReactQuillComponent';
@@ -57,11 +59,11 @@ const QuillEditor =  memo(({quillRef}: EditorProps) => {
     );
 
     return (
-        <ReactQuillComponent forwardedRef={quillRef}  placeholder="내용을 입력해주세요." theme="snow" modules={modules} formats={formats}  />
+        <ReactQuillComponent forwardedRef={quillRef} placeholder="내용을 입력해주세요." theme="snow" modules={modules}
+                             formats={formats} defaultValue={originalData || ""}/>
     );
 
-});
+};
 
-QuillEditor.displayName = "QuillEditor";
 
 export default QuillEditor;

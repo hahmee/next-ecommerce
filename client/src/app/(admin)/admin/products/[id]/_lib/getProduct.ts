@@ -1,8 +1,8 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
-export const getProductServer = async ({queryKey}: { queryKey: [string, string] }) => {
+export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, pno] = queryKey;
-    console.log('pno', pno);
+
     const res = await fetchWithAuth(`/api/products/${pno}`, {
         next: {
             tags: ['pno', pno],
@@ -10,9 +10,8 @@ export const getProductServer = async ({queryKey}: { queryKey: [string, string] 
         method: "GET",
         credentials: 'include',
         cache: 'no-store',
-        // headers: {Cookie: cookies().toString()},
     });
-    console.log('res', res);
+    console.log('getProductServerRes.....', res);
     return res;
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

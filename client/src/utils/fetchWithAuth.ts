@@ -1,6 +1,5 @@
 "use server";
 
-import {getCookie} from "@/utils/getCookieUtil";
 import {cookies} from "next/headers";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
@@ -67,8 +66,6 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
             }),
         });
 
-        // console.log('NEWJWT response입니다...', response.status);
-
         const newJWT = await response.json();
 
         return newJWT;
@@ -90,13 +87,9 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                 //다시 발급
                 const newJWT = await refreshJWT();
 
-                const newCookie = {...memberCookie, accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken};
-
-                // console.log('HERE IS NEW JWT TOKEN', newJWT);
                 //새로 발급한 토큰 쿠키에 넣기
                 // Error - Cookies can only be modified in a Server Action or Route Handler.
                 // await setCookie('member', JSON.stringify(newCookie), 1);
-
 
                 /*해결법- api route에서 set Cookie 한다.*/
                 await fetch("http://localhost:3000/api/auth", {
@@ -121,8 +114,6 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                     // return new Error(data.message);
 
                 }
-
-                // console.log('reData', reData);
 
                 return reData;
 

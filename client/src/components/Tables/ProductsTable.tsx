@@ -37,7 +37,6 @@ const ProductTable = ({page, size} : PageParam) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: false,
-
     });
 
     const [currentPno, setCurrentPno] = useState<number>(-1);

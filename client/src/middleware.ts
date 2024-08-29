@@ -32,13 +32,12 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     //오직 MANAGER과 ADMIN만 들어갈 수 있다
     // return NextResponse.redirect(new URL('/', request.url)); // 접근 할 수 없는 페이지입니다. 만들어서 넣기
     return Response.json(
-        { success: false, message: "authentication failed" },
-        { status: 401 }
+        {success: false, message: "authentication failed"},
+        {status: 401}
     );
 
 
   }
-
 
   return NextResponse.next();
 

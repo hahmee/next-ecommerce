@@ -1,12 +1,5 @@
-
-
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {PageParam} from "@/interface/PageParam";
-import {DataResponse} from "@/interface/DataResponse";
-import {PageResponse} from "@/interface/PageResponse";
-import {Product} from "@/interface/Product";
-import fetchWithCredentials from "@/utils/fetchWithCredentials";
-import {NextRequest} from "next/server";
 
 export async function getProductsByEmail (pageParam: PageParam) {
 
