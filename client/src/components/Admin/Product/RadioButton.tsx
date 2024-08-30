@@ -11,8 +11,6 @@ interface CheckboxProps {
 
 const RadioButton = memo(({options, name, originalData}: CheckboxProps) => {
     const [checkedValue, setCheckedValue] = useState<string>();
-    console.log('originalData', originalData);
-    console.log('options', options);
 
 
     return (

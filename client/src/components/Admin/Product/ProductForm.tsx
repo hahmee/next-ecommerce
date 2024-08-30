@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useRef} from "react";
+import React, {FormEvent, useEffect, useRef} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
@@ -15,9 +15,7 @@ import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {DataResponse} from "@/interface/DataResponse";
-import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 
 export const brandOptions:  Array<Option<String>> = [
@@ -48,6 +46,7 @@ const ProductForm = ({type, id}: Props) => {
     //type 변경하기
     const quillRef = useRef<any>(null);
 
+
     // modify일 때만 getProduct하기
     const {
         isLoading, data, error
@@ -62,29 +61,39 @@ const ProductForm = ({type, id}: Props) => {
     });
 
 
-
-    // if (error) return 'An error has occurred: ' + error.message;
-
-
     const originalData = data?.data;
-    console.log('originalData---------------------------', originalData);
+    console.log('originalData...', originalData);
+    //productImageStore에 이전 파일 데이터 담아준다.
+    //ERROR 발생
+    // productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
+    // productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
+
+    //수정 시, 예전에 올렸던 이미지 리스트
+    const originalImageNames = productImageStore.uploadFileKeys as string[];
+    const originalImageKeys = productImageStore.uploadFileKeys as string[];
+
+    useEffect(() => {
+
+        productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
+        productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
+
+    }, []);
+
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
             let pdesc = "";
 
-            if(type==="add") {
-                console.log('quillRef', quillRef);
+            if (quillRef.current) {
+                pdesc = quillRef?.current?.value;
+            }
+            if (type === "add") {
 
-                if (quillRef.current) {
-                    pdesc = quillRef?.current?.value;
-                }
                 // const
 
                 const formData = new FormData(e.target as HTMLFormElement);
                 const inputs = Object.fromEntries(formData);
-                console.log('eee', inputs);
 
                 formData.append("pdesc", pdesc);
 
@@ -98,76 +107,51 @@ const ProductForm = ({type, id}: Props) => {
                     body: formData as FormData,
                 }); // json 형태로 이미 반환
 
-            }else{
-
-                if (quillRef.current) {
-                    pdesc = quillRef?.current?.value;
-                }
+            } else {
                 // const
 
                 const formData = new FormData(e.target as HTMLFormElement);
                 const inputs = Object.fromEntries(formData);
-                console.log('eee', inputs);
 
+                console.log('inputs', inputs);
                 formData.append("pdesc", pdesc);
 
+
+                //새로 업로드한 파일들
                 productImageStore.files.forEach((p) => {
-                    p && formData.append('uploadFileNames', p.dataUrl);
+                    p && formData.append('files', p.file!);
+                });
+
+
+                //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
+                originalImageNames?.forEach((i) => {
+                    formData.append('uploadFileNames', i);
+                });
+
+                originalImageKeys?.forEach((i) => {
+                    formData.append('uploadFileKeys', i);
                 });
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData as FormData,
+                    // headers: { 'Content-Type': 'multipart/form-data' }
                 }); // json 형태로 이미 반환
             }
 
 
         },
         async onSuccess(response, variable) {
-            console.log('response', response);
-            const data = await response.json();
-            console.log('data...', data);
-            // const newPost = await response.json();
-            // console.log('newPost', newPost);
-            // setContent('');
-            // setPreview([]);
-            // if (queryClient.getQueryData(['posts', 'recommends'])) {
-            //     queryClient.setQueryData(['posts', 'recommends'], (prevData: { pages: Post[][] }) => {
-            //         const shallow = {
-            //             ...prevData,
-            //             pages: [...prevData.pages],
-            //         };
-            //         shallow.pages[0] = [...shallow.pages[0]];
-            //         shallow.pages[0].unshift(newPost);
-            //         return shallow;
-            //     });
-            // }
-            // if (queryClient.getQueryData(['posts', 'followings'])) {
-            //     queryClient.setQueryData(['posts', 'followings'], (prevData: { pages: Post[][] }) => {
-            //         const shallow = {
-            //             ...prevData,
-            //             pages: [...prevData.pages],
-            //         };
-            //         shallow.pages[0] = [...shallow.pages[0]];
-            //         shallow.pages[0].unshift(newPost);
-            //         return shallow;
-            //     })
-            // }
-            // toast.success(TOAST_MESSAGE.Add_SUCCESS, TOAST_OPTION);
+            // console.log('response', response);
+            // console.log('data...', data);
+
             toast.success('업로드 성공했습니다.');
 
 
         },
         onError(error) {
-
             console.log('error/....', error.message);
-            // console.log(typeof error)
-            // console.log(JSON.parse(error['message']));
-
-            // console.log('??', JSON.parse(error.toString()).message);
-
-            // const message = (error as Error).message;
             toast.error(`업로드 중 에러가 발생했습니다.`);
 
         }
@@ -202,7 +186,7 @@ const ProductForm = ({type, id}: Props) => {
                                 </div>
                                 <div className="p-6.5">
                                     <div className="mb-6">
-                                        <ImageUploadForm originalData={originalData?.uploadFileNames}/>
+                                        <ImageUploadForm/>
                                     </div>
                                 </div>
                             </div>
@@ -235,7 +219,8 @@ const ProductForm = ({type, id}: Props) => {
                                         <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             판매상태 <span className="text-meta-1">*</span>
                                         </label>
-                                        <RadioButton options={salesOptions} name="salesStatus" originalData={originalData?.salesStatus}/>
+                                        <RadioButton options={salesOptions} name="salesStatus"
+                                                     originalData={originalData?.salesStatus}/>
                                     </div>
 
                                     <div className="mb-4.5">

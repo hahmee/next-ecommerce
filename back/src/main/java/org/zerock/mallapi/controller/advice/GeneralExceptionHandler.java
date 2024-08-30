@@ -35,7 +35,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         String errorMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-        log.info("===================errorMessage " + errorMessage); //상품 설명은 필수값입니다.
+        log.info("===================errorMessage " + errorMessage);
 
         return super.handleExceptionInternal(
                 ex,

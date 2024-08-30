@@ -52,8 +52,10 @@ public class ProductRepositoryTests {
 
 
       //2개의 이미지 파일 추가
-      product.addImageString("IMAGE1.jpg");
-      product.addImageString("IMAGE2.jpg");
+//      product.addImageString("IMAGE1.jpg");
+//      product.addImageString("IMAGE2.jpg");
+      product.addImageString("IMAGE1.jpg","IMAGE1.jpg");
+      product.addImageString("IMAGE2.jpg","IMAGE2.jpg");
 
       productRepository.save(product);
 
@@ -115,9 +117,9 @@ public class ProductRepositoryTests {
     //첨부파일 수정 
     product.clearList();
 
-    product.addImageString(UUID.randomUUID().toString()+"_"+"NEWIMAGE1.jpg");
-    product.addImageString(UUID.randomUUID().toString()+"_"+"NEWIMAGE2.jpg");
-    product.addImageString(UUID.randomUUID().toString()+"_"+"NEWIMAGE3.jpg");
+    product.addImageString(UUID.randomUUID().toString()+"_"+"NEWIMAGE1.jpg",UUID.randomUUID().toString()+"_"+"NEWIMAGE1.jpg");
+    product.addImageString(UUID.randomUUID().toString()+"_"+"NEWIMAGE2.jpg",UUID.randomUUID().toString()+"_"+"NEWIMAGE2.jpg");
+    product.addImageString(UUID.randomUUID().toString()+"_"+"NEWIMAGE3.jpg",UUID.randomUUID().toString()+"_"+"NEWIMAGE3.jpg");
 
     productRepository.save(product);
 

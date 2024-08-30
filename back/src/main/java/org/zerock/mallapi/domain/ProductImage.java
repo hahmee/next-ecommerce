@@ -11,7 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 public class ProductImage {
 
-    private String fileName; 
+    private String fileName; //전체 url
+
+    private String fileKey; //이름만(for s3)
 
     private int ord;
 

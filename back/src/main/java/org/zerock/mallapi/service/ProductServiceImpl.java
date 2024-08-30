@@ -2,6 +2,7 @@ package org.zerock.mallapi.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -164,13 +165,18 @@ public class ProductServiceImpl implements ProductService{
     //업로드 처리가 끝난 파일들의 이름 리스트 
     List<String> uploadFileNames = productDTO.getUploadFileNames();
 
+    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
+
     if(uploadFileNames == null){
       return product;
     }
 
     uploadFileNames.stream().forEach(uploadName -> {
-    
-      product.addImageString(uploadName);
+
+      int index = uploadFileNames.indexOf(uploadName);
+      product.addImageString(uploadName, uploadFileKeys.get(index));
+
+//      product.addImageString(uploadName);
     });
 
     return product;
@@ -213,7 +219,12 @@ public class ProductServiceImpl implements ProductService{
     List<String> fileNameList = imageList.stream().map(productImage -> 
       productImage.getFileName()).toList();
 
+    List<String> fileKeyList = imageList.stream().map(productImage ->
+            productImage.getFileKey()).toList();
+
     productDTO.setUploadFileNames(fileNameList);
+
+    productDTO.setUploadFileKeys(fileKeyList);
 
     return productDTO;
   }
@@ -226,10 +237,17 @@ public class ProductServiceImpl implements ProductService{
 
     Product product = result.orElseThrow();
 
-    //change pname, pdesc, price
+    //change pname, pdesc, price, ...etc
     product.changeName(productDTO.getPname());
     product.changeDesc(productDTO.getPdesc());
     product.changePrice(productDTO.getPrice());
+    product.changeChangePolicy(productDTO.getChangePolicy());
+    product.changeRefundPolicy(productDTO.getRefundPolicy());
+    product.changeSku(productDTO.getSku());
+    product.changeBrand(productDTO.getBrand());
+    product.changeCategoryList(productDTO.getCategoryList());
+    product.changeSalesStatus(productDTO.getSalesStatus());
+
 
     //upload File -- clear first
     product.clearList();
@@ -237,11 +255,16 @@ public class ProductServiceImpl implements ProductService{
     //이미지 처리
     List<String> uploadFileNames = productDTO.getUploadFileNames();
 
-    if(uploadFileNames != null && uploadFileNames.size() > 0 ){
-      uploadFileNames.stream().forEach(uploadName -> {
-        product.addImageString(uploadName);
-      });
-    }
+    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
+
+      if(uploadFileNames != null && uploadFileNames.size() > 0 ){
+          uploadFileNames.stream().forEach(uploadName -> {
+            int index = uploadFileNames.indexOf(uploadName);
+            product.addImageString(uploadName, uploadFileKeys.get(index));
+          });
+      }
+
+
     productRepository.save(product);
   }
 

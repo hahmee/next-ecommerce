@@ -7,6 +7,7 @@ export interface Product {
   pdesc: string;
   delFlag: boolean;
   uploadFileNames: string[] | null;
+  uploadFileKeys: string[] | null;
   brand: string;
   categoryList: string[];
   sku: string;

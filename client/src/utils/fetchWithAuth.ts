@@ -68,6 +68,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
         const newJWT = await response.json();
 
+        console.log("잘 만들어졌습니다. ", newJWT);
         return newJWT;
     };
 
@@ -109,7 +110,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                 const reData = await reResponse.json();
 
                 if (!reResponse.ok) {
-                    // console.log('!reResponse.ok')
+                    console.log('!reResponse.ok')
                     await getReject(reData.message);
                     // return new Error(data.message);
 

@@ -11,7 +11,7 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
         credentials: 'include',
         cache: 'no-store',
     });
-    console.log('getProductServerRes.....', res);
+    // console.log('getProductServerRes.....', res);
     return res;
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

@@ -26,10 +26,6 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     const trigger = useRef<any>(null);
 
     useEffect(() => {
-        console.log('selected', selected);
-    }, [selected]);
-
-    useEffect(() => {
         const loadOptions = () => {
             const select = document.getElementById(id) as HTMLSelectElement | null;
             if (select) {
@@ -57,7 +53,6 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     };
 
     const select = (index: number, event: React.MouseEvent) => {
-        console.log('??');
         const newOptions = [...options];
 
         if (!newOptions[index].selected) {
@@ -87,9 +82,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     };
 
     const selectedValues = () => {
-        console.log('selected', selected);
         const data = selected.map((option) => options[option].value);
-        console.log('datadatadata', data);
 
         return data;
     };

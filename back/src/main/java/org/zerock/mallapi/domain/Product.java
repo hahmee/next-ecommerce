@@ -65,16 +65,41 @@ public class Product extends BaseEntity {
       this.pname = name;
   }
 
+  public void changeChangePolicy(String changePolicy){
+    this.changePolicy = changePolicy;
+  }
+
+  public void changeRefundPolicy(String changePolicy){
+    this.refundPolicy = refundPolicy;
+  }
+
+  public void changeSku(String sku){
+    this.sku = sku;
+  }
+
+  public void changeBrand(String brand){
+    this.brand = brand;
+  }
+
+  public void changeCategoryList(List<String> categoryList){
+    this.categoryList = categoryList;
+  }
+
+  public void changeSalesStatus(SalesStatus salesStatus){
+    this.salesStatus = salesStatus;
+  }
+
+
   public void addImage(ProductImage image) {
 
       image.setOrd(this.imageList.size());
       imageList.add(image);
   }
 
-  public void addImageString(String fileName){
+  public void addImageString(String fileName, String fileKey){
 
     ProductImage productImage = ProductImage.builder()
-    .fileName(fileName)
+    .fileName(fileName).fileKey(fileKey)
     .build();
     addImage(productImage);
 

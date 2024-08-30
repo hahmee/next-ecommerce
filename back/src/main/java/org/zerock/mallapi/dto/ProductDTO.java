@@ -52,9 +52,12 @@ public class ProductDTO {
   private String changePolicy;
 
   @Builder.Default
-  private List<MultipartFile> files = new ArrayList<>();
+  private List<MultipartFile> files = new ArrayList<>(); //파일 객체 배열 (수정 시 새로운 파일들)
 
   @Builder.Default
-  private List<String> uploadFileNames = new ArrayList<>();
+  private List<String> uploadFileNames = new ArrayList<>(); // 이름들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
+
+  @Builder.Default
+  private List<String> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
 
 }

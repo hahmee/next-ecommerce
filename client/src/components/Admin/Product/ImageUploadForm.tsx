@@ -4,9 +4,7 @@ import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useProductImageStore} from "@/store/productImageStore";
 import {useDropzone} from "react-dropzone";
 
-interface Props {
-    originalData: string[] | null | undefined;
-}
+
 export interface ImageType {
     dataUrl: string;
     file: File | undefined;
@@ -25,7 +23,12 @@ const imageList = [
     "https://dummyimage.com/250x150/9966cc/fff",
     "https://dummyimage.com/450x350/00cccc/000",
 ];
-const ImageUploadForm = ({originalData}:Props) => {
+
+const ImageUploadForm = () => {
+    const productImageStore = useProductImageStore();
+    const uploadFileNames = productImageStore.uploadFileNames;
+    console.log('uploadFileNames..', uploadFileNames);
+    const uploadFileKeys = productImageStore.uploadFileKeys;
 
     const [images, setImages] = useState<Array<ImageType>>([]);
     const [hoveredImg, setHoveredImg] = useState<string>('');
@@ -37,17 +40,14 @@ const ImageUploadForm = ({originalData}:Props) => {
         maxFiles:10,
         // maxSize:2000000,
         onDrop: acceptedFiles => {
-            console.log(acceptedFiles);
             setImages((prev) => {
                 return prev.concat(acceptedFiles.map(file => Object.assign(file, {
-                    dataUrl: URL.createObjectURL(file), file
+                    dataUrl: URL.createObjectURL(file), file,
+
                 })));
             });
         }
     });
-
-
-    const productImageStore = useProductImageStore();
 
     /*
     const handleImgChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -73,12 +73,19 @@ const ImageUploadForm = ({originalData}:Props) => {
     };
 
     const deleteImage = useCallback((image: string) => {
-        console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
 
-        // let files = productImageStore.files;
-        // files.splice(index, 1);
-        // productImageStore.setFiles(files);
+        //예전에 있었던 이미지라면, originalImageKeys, originalImageNames 에서도 지워줘야함
+        if(images[index].dataUrl === undefined) {
+
+            const newFileNames = uploadFileNames.splice(index, 1);
+            const newFileKeys = uploadFileKeys.splice(index, 1);
+
+            productImageStore.setUploadFileNames(newFileNames);
+            productImageStore.setUploadFileKeys(newFileKeys);
+
+        }
+
 
         setImages((images) => {
             const prev = [...images] as Array<ImageType>;
@@ -86,9 +93,8 @@ const ImageUploadForm = ({originalData}:Props) => {
             return prev;
         });
 
-
-
     },[images]);
+
 
     const handleMouseOver= (image: string)=> {
         setHoveredImg(image)
@@ -100,18 +106,20 @@ const ImageUploadForm = ({originalData}:Props) => {
     }
 
     useEffect(() => {
-        console.log('images??', images);
         productImageStore.setFiles(images);
 
     },[images]);
 
     useEffect(() => {
 
-        if(originalData) {
-            originalData.map((file) => {
-                console.log(file);
+
+        if (uploadFileNames && uploadFileNames.length > 0) {
+
+            uploadFileNames.map((file) => {
                 setImages((prev) => prev.concat({dataUrl: file, file: undefined}))
-            })
+            });
+
+
         }
 
         // 언마운트 시 url 무효화

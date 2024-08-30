@@ -14,10 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 @Log4j2
@@ -29,22 +26,24 @@ public class AwsFileUtil {
 
   private final AmazonS3 amazonS3;
 
-//  private String PROFILE_IMG_DIR = "profile";
-//  private String PRODUCT_IMG_DIR = "product";
-
 
   /* 1. 파일 업로드 */
-  public List<String> uploadFiles(List<MultipartFile> files, String dirName) throws RuntimeException {
+  public Map<String, List<String>> uploadFiles(List<MultipartFile> files, String dirName) throws RuntimeException {
 
-    if(files == null || files.size() == 0){
+    if (files == null || files.size() == 0) {
       return null;
     }
 
     List<String> uploadNames = new ArrayList<>();
+    List<String> uploadKeys = new ArrayList<>();
 
     try {
       for (MultipartFile multipartFile : files) {
+
+        //키 값
         String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
+
+        log.info("savedName......" + savedName);
 
         // 메타데이터 생성
         ObjectMetadata objMeta = new ObjectMetadata();
@@ -58,17 +57,35 @@ public class AwsFileUtil {
         String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
 
         uploadNames.add(url);
+        uploadKeys.add(savedName);
+
       }
 
     } catch (IOException e) {
       throw new GeneralException(e.getMessage());
     }
 
-    return uploadNames;
+//    return uploadNames;
+    return Map.of("uploadNames", uploadNames, "uploadKeys", uploadKeys);
 
   }
 
-  /* 2. 파일 삭제 */
+  /* 2. 파일 여러개 삭제 */
+  public void deleteFiles (List<String> fileKeys) {
+    try {
+
+      // deleteObject(버킷명, 키값)으로 객체 삭제
+      fileKeys.forEach(fileKey -> {
+        amazonS3.deleteObject(bucket, fileKey);
+      } );
+
+    } catch (AmazonServiceException e) {
+      log.error(e.toString());
+      throw new GeneralException(e.getMessage());
+    }
+  }
+
+  /* 3. 파일 한개만 삭제 */
   public void delete (String keyName) {
     try {
       // deleteObject(버킷명, 키값)으로 객체 삭제
