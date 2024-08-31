@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useDropzone} from "react-dropzone";
-import {UseProductImageStore} from "@/store/productImageStore";
+import {useProductImageStore} from "@/store/productImageStore";
 
 
 export interface ImageType {
@@ -25,7 +25,7 @@ const imageList = [
 ];
 
 const ImageUploadForm = () => {
-    const productImageStore = UseProductImageStore();
+    const productImageStore = useProductImageStore();
     const uploadFileNames = productImageStore.uploadFileNames;
     const uploadFileKeys = productImageStore.uploadFileKeys;
     const [images, setImages] = useState<Array<ImageType>>([]);
@@ -71,19 +71,19 @@ const ImageUploadForm = () => {
     };
 
     const deleteImage = useCallback((image: string) => {
+        console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
 
-        //예전에 있었던 이미지라면, originalImageKeys, originalImageNames 에서도 지워줘야함
-        if(images[index].dataUrl === undefined) {
+        const uploadFileNamesIdx = uploadFileNames.findIndex(files => files === image);
 
-            const newFileNames = uploadFileNames.splice(index, 1);
-            const newFileKeys = uploadFileKeys.splice(index, 1);
+        //예전에 있었던 이미지라면, originalImageKeys, originalImageNames 에서도 지워줘야함
+        if(images[index].file  === undefined) {
+            const newFileNames = uploadFileNames.filter((names, index) => index !== uploadFileNamesIdx);
+            const newFileKeys = uploadFileKeys.filter((names, index) => index !== uploadFileNamesIdx);
 
             productImageStore.setUploadFileNames(newFileNames);
             productImageStore.setUploadFileKeys(newFileKeys);
-
         }
-
 
         setImages((images) => {
             const prev = [...images] as Array<ImageType>;
@@ -123,6 +123,8 @@ const ImageUploadForm = () => {
             if(images && images.length > 0) {
                 images.map(image => URL.revokeObjectURL(image?.dataUrl as string));
             }
+
+            productImageStore.clear();
         };
     }, []);
 

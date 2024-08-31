@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/_lib/getProduct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/_lib/getProduct.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/productImageStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/productImageStore.ts" afterDir="false" />
@@ -132,7 +131,7 @@
       <workItem from="1725016592136" duration="66000" />
       <workItem from="1725033224543" duration="2475000" />
       <workItem from="1725072530205" duration="3046000" />
-      <workItem from="1725118533913" duration="1290000" />
+      <workItem from="1725118533913" duration="9079000" />
     </task>
     <servers />
   </component>

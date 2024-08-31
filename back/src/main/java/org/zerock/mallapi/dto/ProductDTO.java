@@ -1,5 +1,6 @@
 package org.zerock.mallapi.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class ProductDTO {
   private String brand;
 
   @NotNull(message = "카테고리는 필수값입니다.")
+  @Size(min = 1, message = "카테고리는 필수값입니다.")
   private List<String> categoryList;
 
   @NotNull(message = "SKU는 필수값입니다.")
@@ -51,7 +53,7 @@ public class ProductDTO {
   @NotNull(message = "교환정책은 필수값입니다.")
   private String changePolicy;
 
-  @Builder.Default
+  @Builder.Default //특정 필드를 특정 값으로 초기화
   private List<MultipartFile> files = new ArrayList<>(); //파일 객체 배열 (수정 시 새로운 파일들)
 
   @Builder.Default

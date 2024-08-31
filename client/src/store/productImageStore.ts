@@ -11,6 +11,7 @@ type Action = {
     setFiles: (files: Array<ImageType>) => void;
     setUploadFileNames: (files: Array<string>) => void;
     setUploadFileKeys: (files: Array<string>) => void;
+    clear: () => void
 }
 
 
@@ -23,7 +24,7 @@ type Action = {
 //     setUploadFileKeys: (files: Array<string>) => void;
 // }
 
-export const UseProductImageStore = create<State & Action>((set) => ({
+export const useProductImageStore = create<State & Action>((set) => ({
     files:[],
     setFiles: (files) => {
         set({files});
@@ -35,6 +36,9 @@ export const UseProductImageStore = create<State & Action>((set) => ({
     uploadFileKeys: [],
     setUploadFileKeys: (keys) => {
         set({uploadFileKeys: keys});
+    },
+    clear: ()=>{
+        set({uploadFileKeys: [], uploadFileNames: [], files:[]});
     }
 
 }));

@@ -153,7 +153,7 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/{pno}")
-  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, @Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
     log.info("==============pno " + pno);
 
@@ -172,58 +172,58 @@ public class ProductController {
     log.info("--------------oldFileNames" + oldFileNames);
     log.info("--------------oldFileKeys" + oldFileKeys);
 
-//
-//    //화면에서 변화 없이 계속 유지된 파일들
-//    List<String> uploadedFileNames = productDTO.getUploadFileNames();// 원래 있던 파일들 중 삭제 하지 않은 파일들 이름들 가져온다
-//    List<String> uploadedFileKeys = productDTO.getUploadFileKeys();// 원래 있던 파일들 중 삭제 하지 않은 파일들 키들 가져온다
-//
-//
-//    //새로 업로드 해야 하는 파일들
-//    List<MultipartFile> files = productDTO.getFiles();//새로 업로드한 파일들..
-//
-//    if (files != null && files.size() > 0) {
-//
-//      Map<String, List<String>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
-//
-//      log.info("awsResults.............." + awsResults);
-//
-//      //새로 업로드되어서 만들어진 파일 이름들
-//      List<String> currentUploadFileNames = awsResults.get("uploadNames");
-//      List<String> currentUploadFileKeys = awsResults.get("uploadKeys");
-//
-//
-//      //유지되는 파일들  + 새로 업로드된 파일 이름들이 저장해야 하는 파일 목록이 됨
-//      if(currentUploadFileNames != null && currentUploadFileNames.size() > 0) { //새로 업로드한 파일들이 하나라도 있으면
-//
-//        uploadedFileNames.addAll(currentUploadFileNames); // 새로 업로드한 파일들을 (원래 있던 파일들 중 삭제하지 않은 이름들) 배열에 추가한다. 새로업로드한 파일들 + 원래 있던 파일들 중 삭제하지 않은 파일들 다 모아놓음
-//        uploadedFileKeys.addAll(currentUploadFileKeys);
-//
-//      }
-//
-//      //새로업로드한 파일들 + 원래 있던 파일들 중 삭제하지 않은 파일들 다 모아놓음
-//
-//    }
-//
-//
-//    //수정 작업
-//    productService.modify(productDTO);
-//
-//
-//    // 예전에 저장했던 파일들이 한개라도 있다면
-//    if(oldFileKeys != null && oldFileKeys.size() > 0){ //예전에 저장했던 파일들이 한개라도 있다면
-//
-//      //지워야 하는 파일 목록 찾기
-//      //예전 파일들 중에서 지워져야 하는 파일이름들
-//      List<String> removeFiles =  oldFileKeys.stream().filter(fileKey -> uploadedFileKeys.indexOf(fileKey) == -1).collect(Collectors.toList());
-//      //예전 파일들 배열을 돌면서 합쳐진 리스트에 있는 이름들 중에 없다면 삭제한다..
-//
-//      log.info("removeFiles................" + removeFiles);
-//
-//      //실제 파일 삭제
-//      awsFileUtil.deleteFiles(removeFiles);
-//
-//
-//    }
+
+    //화면에서 변화 없이 계속 유지된 파일들
+    List<String> uploadedFileNames = productDTO.getUploadFileNames();// 원래 있던 파일들 중 삭제 하지 않은 파일들 이름들 가져온다
+    List<String> uploadedFileKeys = productDTO.getUploadFileKeys();// 원래 있던 파일들 중 삭제 하지 않은 파일들 키들 가져온다
+
+
+    //새로 업로드 해야 하는 파일들
+    List<MultipartFile> files = productDTO.getFiles();//새로 업로드한 파일들..
+
+    if (files != null && files.size() > 0) {
+
+      Map<String, List<String>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
+
+      log.info("awsResults.............." + awsResults);
+
+      //새로 업로드되어서 만들어진 파일 이름들
+      List<String> currentUploadFileNames = awsResults.get("uploadNames");
+      List<String> currentUploadFileKeys = awsResults.get("uploadKeys");
+
+
+      //유지되는 파일들  + 새로 업로드된 파일 이름들이 저장해야 하는 파일 목록이 됨
+      if(currentUploadFileNames != null && currentUploadFileNames.size() > 0) { //새로 업로드한 파일들이 하나라도 있으면
+
+        uploadedFileNames.addAll(currentUploadFileNames); // 새로 업로드한 파일들을 (원래 있던 파일들 중 삭제하지 않은 이름들) 배열에 추가한다. 새로업로드한 파일들 + 원래 있던 파일들 중 삭제하지 않은 파일들 다 모아놓음
+        uploadedFileKeys.addAll(currentUploadFileKeys);
+
+      }
+
+      //새로업로드한 파일들 + 원래 있던 파일들 중 삭제하지 않은 파일들 다 모아놓음
+
+    }
+
+
+    //수정 작업
+    productService.modify(productDTO);
+
+
+    // 예전에 저장했던 파일들이 한개라도 있다면
+    if(oldFileKeys != null && oldFileKeys.size() > 0){ //예전에 저장했던 파일들이 한개라도 있다면
+
+      //지워야 하는 파일 목록 찾기
+      //예전 파일들 중에서 지워져야 하는 파일이름들
+      List<String> removeFiles =  oldFileKeys.stream().filter(fileKey -> uploadedFileKeys.indexOf(fileKey) == -1).collect(Collectors.toList());
+      //예전 파일들 배열을 돌면서 합쳐진 리스트에 있는 이름들 중에 없다면 삭제한다..
+
+      log.info("removeFiles................" + removeFiles);
+
+      //실제 파일 삭제
+      awsFileUtil.deleteFiles(removeFiles);
+
+
+    }
     return DataResponseDTO.of( "SUCCESS");
   }
 

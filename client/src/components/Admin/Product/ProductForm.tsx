@@ -10,7 +10,7 @@ import {Option} from "@/interface/Option";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
-import {UseProductImageStore} from "@/store/productImageStore";
+import {useProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
@@ -42,7 +42,7 @@ interface Props {
 }
 
 const ProductForm = ({type, id}: Props) => {
-    const productImageStore = UseProductImageStore();
+    const productImageStore = useProductImageStore();
     //type 변경하기
     const quillRef = useRef<any>(null);
 
@@ -75,9 +75,9 @@ const ProductForm = ({type, id}: Props) => {
 
 
 
-    //수정 시, 예전에 올렸던 이미지 리스트
-    const originalImageNames: string[] = [];
-    const originalImageKeys: string[] = [];
+    // //수정 시, 예전에 올렸던 이미지 리스트
+    // const originalImageNames: string[] = [];
+    // const originalImageKeys: string[] = [];
 
 
     const mutation = useMutation({
@@ -108,7 +108,6 @@ const ProductForm = ({type, id}: Props) => {
                 }); // json 형태로 이미 반환
 
             } else {
-                // const
 
                 const formData = new FormData(e.target as HTMLFormElement);
                 const inputs = Object.fromEntries(formData);
@@ -116,21 +115,33 @@ const ProductForm = ({type, id}: Props) => {
                 console.log('inputs', inputs);
                 formData.append("pdesc", pdesc);
 
-
+                console.log('productImageStore.files', productImageStore.files); // 남아있는 파일들
+                // debugger;
                 //새로 업로드한 파일들
                 productImageStore.files.forEach((p) => {
-                    p && formData.append('files', p.file!);
+                    if(p.file != undefined) {
+                        p && formData.append('files', p.file!);
+                    }
                 });
 
+                console.log('??뭐야', productImageStore.uploadFileNames)
+                console.log('??뭐야', productImageStore.uploadFileKeys)
 
                 //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
-                originalImageNames?.forEach((i) => {
+                productImageStore.uploadFileNames.forEach((i) => {
                     formData.append('uploadFileNames', i);
                 });
 
-                originalImageKeys?.forEach((i) => {
+                productImageStore.uploadFileKeys.forEach((i) => {
                     formData.append('uploadFileKeys', i);
                 });
+
+                // debugger;
+
+                // 구조분해를 활용하면 key와 value를 동시에 출력하는 것도 가능하다
+                for (const [key, value] of formData.entries() as any) {
+                    console.log(key, value);
+                };
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",
