@@ -1,7 +1,9 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {UseProductImageStore} from "@/store/productImageStore";
 
 export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, pno] = queryKey;
+    // const productImageStore = UseProductImageStore();
 
     const res = await fetchWithAuth(`/api/products/${pno}`, {
         next: {
@@ -11,6 +13,12 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
         credentials: 'include',
         cache: 'no-store',
     });
+
+    //스토어에 담는다.
+    // productImageStore.setUploadFileNames(res.data.uploadFileNames || []);
+    // productImageStore.setUploadFileKeys(res.data.uploadFileKeys || []);
+
+
     // console.log('getProductServerRes.....', res);
     return res;
     // The return value is *not* serialized

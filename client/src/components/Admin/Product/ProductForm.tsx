@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useEffect, useRef} from "react";
+import React, {FormEvent, useCallback, useEffect, useRef} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
@@ -10,7 +10,7 @@ import {Option} from "@/interface/Option";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
-import {useProductImageStore} from "@/store/productImageStore";
+import {UseProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
@@ -42,15 +42,13 @@ interface Props {
 }
 
 const ProductForm = ({type, id}: Props) => {
-    const productImageStore = useProductImageStore();
+    const productImageStore = UseProductImageStore();
     //type 변경하기
     const quillRef = useRef<any>(null);
 
 
     // modify일 때만 getProduct하기
-    const {
-        isLoading, data, error
-    } = useQuery<DataResponse<Product>, Object, DataResponse<Product>, [_1: string, _2: string]>({
+    const {isLoading, data: originalData, error} = useQuery<DataResponse<Product>, Object, Product, [_1: string, _2: string]>({
         queryKey: ['productSingle', id!],
         queryFn: getProduct,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -58,26 +56,28 @@ const ProductForm = ({type, id}: Props) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
+
+        select: useCallback((data: DataResponse<Product>) => {
+            productImageStore.setUploadFileNames(data.data.uploadFileNames || []);
+            productImageStore.setUploadFileKeys(data.data.uploadFileKeys || []);
+            return data.data
+        }, []),
+
     });
 
-
-    const originalData = data?.data;
+    // const originalData = data?.data;
     console.log('originalData...', originalData);
     //productImageStore에 이전 파일 데이터 담아준다.
     //ERROR 발생
     // productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
     // productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
 
+
+
+
     //수정 시, 예전에 올렸던 이미지 리스트
-    const originalImageNames = productImageStore.uploadFileKeys as string[];
-    const originalImageKeys = productImageStore.uploadFileKeys as string[];
-
-    useEffect(() => {
-
-        productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
-        productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
-
-    }, []);
+    const originalImageNames: string[] = [];
+    const originalImageKeys: string[] = [];
 
 
     const mutation = useMutation({
@@ -148,7 +148,6 @@ const ProductForm = ({type, id}: Props) => {
 
             toast.success('업로드 성공했습니다.');
 
-
         },
         onError(error) {
             console.log('error/....', error.message);
@@ -156,6 +155,7 @@ const ProductForm = ({type, id}: Props) => {
 
         }
     });
+
 
     if (isLoading) return "Loading...";
     if (error) return 'An error has occurred: ' + error;

@@ -1,8 +1,8 @@
 "use client";
 import React, {useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
-import {useProductImageStore} from "@/store/productImageStore";
 import {useDropzone} from "react-dropzone";
+import {UseProductImageStore} from "@/store/productImageStore";
 
 
 export interface ImageType {
@@ -25,11 +25,9 @@ const imageList = [
 ];
 
 const ImageUploadForm = () => {
-    const productImageStore = useProductImageStore();
+    const productImageStore = UseProductImageStore();
     const uploadFileNames = productImageStore.uploadFileNames;
-    console.log('uploadFileNames..', uploadFileNames);
     const uploadFileKeys = productImageStore.uploadFileKeys;
-
     const [images, setImages] = useState<Array<ImageType>>([]);
     const [hoveredImg, setHoveredImg] = useState<string>('');
 
@@ -112,16 +110,14 @@ const ImageUploadForm = () => {
 
     useEffect(() => {
 
+        console.log('uploadFileNames....', uploadFileNames);
+            if (uploadFileNames && uploadFileNames.length > 0) {
 
-        if (uploadFileNames && uploadFileNames.length > 0) {
+                uploadFileNames.map((file) => {
+                    setImages((prev) => prev.concat({dataUrl: file, file: undefined}))
+                });
 
-            uploadFileNames.map((file) => {
-                setImages((prev) => prev.concat({dataUrl: file, file: undefined}))
-            });
-
-
-        }
-
+            }
         // 언마운트 시 url 무효화
         return () => {
             if(images && images.length > 0) {
@@ -129,6 +125,7 @@ const ImageUploadForm = () => {
             }
         };
     }, []);
+
 
     const onDragEnd =( ) => {
 
