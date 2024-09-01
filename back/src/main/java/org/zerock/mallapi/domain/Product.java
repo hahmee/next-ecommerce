@@ -69,7 +69,7 @@ public class Product extends BaseEntity {
     this.changePolicy = changePolicy;
   }
 
-  public void changeRefundPolicy(String changePolicy){
+  public void changeRefundPolicy(String refundPolicy){
     this.refundPolicy = refundPolicy;
   }
 

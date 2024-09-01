@@ -91,11 +91,13 @@ public class ProductServiceImpl implements ProductService{
 
     Page<Object[]> result = productRepository.selectAdminList(pageable, email); // 내 이메일 주소
 
+    log.info("........result " + result);
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
+      log.info("productImageproductImage " + productImage); //null
 
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
@@ -111,12 +113,39 @@ public class ProductServiceImpl implements ProductService{
               .salesStatus(product.getSalesStatus())
               .build();
 
-      String imageStr = productImage.getFileName();
-      productDTO.setUploadFileNames(List.of(imageStr));
+      if(productImage !=null ) {
+
+        String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
+        String imageKeyStr = productImage.getFileKey();
+
+        log.info("imageNameStrimageNameStr " + imageNameStr);
+
+        log.info("imageKeyStrimageKeyStr " + imageKeyStr);
+
+        productDTO.setUploadFileNames(List.of(imageNameStr));
+        productDTO.setUploadFileKeys(List.of(imageKeyStr));
+      }
+
+
+
+//      String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
+//      String imageKeyStr = productImage.getFileKey();
+//
+//      log.info("imageNameStrimageNameStr " + imageNameStr);
+//
+//      log.info("imageKeyStrimageKeyStr " + imageKeyStr);
+//
+//      productDTO.setUploadFileNames(List.of(imageNameStr));
+//      productDTO.setUploadFileKeys(List.of(imageKeyStr));
+
 
       return productDTO;
 
     }).collect(Collectors.toList());
+
+
+    log.info("........dtoList.. " + dtoList);
+
 
     long totalCount = result.getTotalElements();
 

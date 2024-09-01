@@ -125,9 +125,7 @@ const ProductTable = ({page, size} : PageParam) => {
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div className="h-12.5 w-15 rounded-md">
                                 <Image
-                                    // src={`/images/product/product-01.png`}
-                                    // src={`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/view/${product.uploadFileNames?.[0]}`}
-                                    src={product.uploadFileNames?.[0]!}
+                                    src={product.uploadFileNames?.[0] ||`/images/product/no_image.svg` }
                                     width={500}
                                     height={500}
                                     style={{objectFit: "contain", height: "100%"}}
