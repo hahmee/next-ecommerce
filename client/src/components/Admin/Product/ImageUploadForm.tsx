@@ -3,25 +3,15 @@ import React, {useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useDropzone} from "react-dropzone";
 import {useProductImageStore} from "@/store/productImageStore";
-import Draggable from "react-draggable";
+import {DndProvider} from "react-dnd";
 
 
 export interface ImageType {
     dataUrl: string;
     file: File | undefined;
+    id: number; //drag and drop
 }
 
-const imageList = [
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-
-];
 
 const ImageUploadForm = () => {
     const productImageStore = useProductImageStore();
@@ -29,6 +19,7 @@ const ImageUploadForm = () => {
     const uploadFileKeys = productImageStore.uploadFileKeys;
     const [images, setImages] = useState<Array<ImageType>>([]);
     const [hoveredImg, setHoveredImg] = useState<string>('');
+    const [imgIdxEnd, setImgIdxEnd] = useState<number>(0);
 
     const {getRootProps, getInputProps, open} = useDropzone({
         accept: {
@@ -38,10 +29,13 @@ const ImageUploadForm = () => {
         // maxSize:2000000,
         onDrop: acceptedFiles => {
             setImages((prev) => {
-                return prev.concat(acceptedFiles.map(file => Object.assign(file, {
-                    dataUrl: URL.createObjectURL(file), file,
-
-                })));
+                console.log('?')
+                return prev.concat(acceptedFiles.map((file, index) => {
+                        return Object.assign(file, {
+                            dataUrl: URL.createObjectURL(file), file, id: imgIdxEnd + index,
+                        })
+                    }
+                ));
             });
         }
     });
@@ -94,18 +88,23 @@ const ImageUploadForm = () => {
 
 
     const handleMouseOver= (image: string)=> {
-        console.log(image)
-        setHoveredImg(image)
+        setHoveredImg(image);
     }
 
     const handleMouseOut= (image: string)=> {
-        console.log(image)
-
-        setHoveredImg('')
-
+        setHoveredImg('');
     }
 
+    const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+        console.log(dragIndex);
+        console.log(hoverIndex);
+    }, [])
+
+
+
     useEffect(() => {
+        console.log('image', images);
+        setImgIdxEnd(images.length);
         productImageStore.setFiles(images);
 
     },[images]);
@@ -115,9 +114,10 @@ const ImageUploadForm = () => {
         console.log('uploadFileNames....', uploadFileNames);
             if (uploadFileNames && uploadFileNames.length > 0) {
 
-                uploadFileNames.map((file) => {
-                    setImages((prev) => prev.concat({dataUrl: file, file: undefined}))
+                uploadFileNames.map((file,index) => {
+                    setImages((prev) => prev.concat({dataUrl: file, file: undefined, id:index}))
                 });
+
 
             }
         // 언마운트 시 url 무효화
@@ -151,18 +151,24 @@ const ImageUploadForm = () => {
             {/*</div>*/}
 
 
-            <div className="grid grid-cols-auto-fill-100 gap-2">
-
+            <div className="grid grid-cols-auto-fill-100 gap-4">
+                <DndProvider>
                 {
                     images?.map((image, index) => (
-                        <ImagePreview key={index} index={index} image={image?.dataUrl!} deleteImage={deleteImage}
-                                      editImage={editImage} hoveredImg={hoveredImg} handleMouseOver={handleMouseOver}
+                        <ImagePreview key={index}
+                                      moveCard={moveCard}
+                                      id={image.id}
+                                      index={index}
+                                      image={image?.dataUrl!}
+                                      deleteImage={deleteImage}
+                                      editImage={editImage} hoveredImg={hoveredImg}
+                                      handleMouseOver={handleMouseOver}
                                       handleMouseOut={handleMouseOut}/>
                     ))
                 }
+
+                </DndProvider>
             </div>
-
-
 
 
             <section>
@@ -188,6 +194,7 @@ const ImageUploadForm = () => {
                     </div>
                 </div>
             </section>
+
 
         </div>
     );

@@ -42,10 +42,7 @@ const ProductTable = ({page, size} : PageParam) => {
     const [currentPno, setCurrentPno] = useState<number>(-1);
 
     const router = useRouter();
-
-    console.log('?zzzz', data);
-    console.log('??', error);
-
+    
     const handleClick = (pno:number) => {
         router.push(`/admin/products/${pno}`);
     }
@@ -183,8 +180,7 @@ const ProductTable = ({page, size} : PageParam) => {
                                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</Link>
                                         </li>
                                         <li>
-                                            <Link href="/"
-                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
+                                            <Link href={`/admin/products/${product.pno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
                                         </li>
                                     </ul>
                                     <div className="py-1">
