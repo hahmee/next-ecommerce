@@ -3,6 +3,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useDropzone} from "react-dropzone";
 import {useProductImageStore} from "@/store/productImageStore";
+import Draggable from "react-draggable";
 
 
 export interface ImageType {
@@ -12,16 +13,14 @@ export interface ImageType {
 
 const imageList = [
     "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
-    "https://dummyimage.com/550x350/3399ff/000",
-    "https://dummyimage.com/750x550/996633/fff",
-    "https://dummyimage.com/950x750/cc9966/fff",
-    "https://dummyimage.com/100x100/6699cc/000",
-    "https://dummyimage.com/300x250/663366/fff",
-    "https://dummyimage.com/850x650/339966/fff",
-    "https://dummyimage.com/700x500/ff6600/fff",
-    "https://dummyimage.com/900x700/663399/fff",
-    "https://dummyimage.com/250x150/9966cc/fff",
-    "https://dummyimage.com/450x350/00cccc/000",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085",
+
 ];
 
 const ImageUploadForm = () => {
@@ -95,10 +94,13 @@ const ImageUploadForm = () => {
 
 
     const handleMouseOver= (image: string)=> {
+        console.log(image)
         setHoveredImg(image)
     }
 
     const handleMouseOut= (image: string)=> {
+        console.log(image)
+
         setHoveredImg('')
 
     }
@@ -129,64 +131,45 @@ const ImageUploadForm = () => {
     }, []);
 
 
-    const onDragEnd =( ) => {
-
-    }
-
     return (
         <div className="flex flex-col justify-center w-full gap-7">
-            <div className="flex gap-4 flex-wrap">
 
+            {/*<div className="grid grid-cols-auto-fill-100 gap-4">*/}
+            {/*    <div className="w-58 h-58 col-span-2 row-span-2 flex rounded overflow-hidden">*/}
+            {/*        <img src={imageList[0]} alt="Main Image" className="w-full h-full object-cover"/>*/}
+            {/*    </div>*/}
+            {/*    {*/}
+            {/*        imageList.map((image, index) => {*/}
+            {/*            return (*/}
+            {/*                <div key={index} className="w-25 h-25 rounded overflow-hidden flex ">*/}
+            {/*                    <img src={image} alt="Image 1" className="w-full h-full object-cover"/>*/}
+            {/*                </div>*/}
+            {/*            );*/}
+            {/*        })*/}
+            {/*    }*/}
+
+            {/*</div>*/}
+
+
+            <div className="grid grid-cols-auto-fill-100 gap-2">
 
                 {
                     images?.map((image, index) => (
-                        <ImagePreview key={index} index={index} image={image?.dataUrl!} deleteImage={deleteImage} editImage={editImage} hoveredImg={hoveredImg} handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut}/>
+                        <ImagePreview key={index} index={index} image={image?.dataUrl!} deleteImage={deleteImage}
+                                      editImage={editImage} hoveredImg={hoveredImg} handleMouseOver={handleMouseOver}
+                                      handleMouseOut={handleMouseOut}/>
                     ))
                 }
-
-                {/*<DragDropContext onDragEnd={onDragEnd}>*/}
-                {/*    <Droppable droppableId="droppable">*/}
-                {/*        {(provided, snapshot) => (*/}
-                {/*            <div*/}
-                {/*                {...provided.droppableProps}*/}
-                {/*                ref={provided.innerRef}*/}
-                {/*            >*/}
-                {/*                {imageList.map((item, index) => (*/}
-                {/*                    <Draggable key={item} draggableId={item} index={index}>*/}
-                {/*                        {(provided, snapshot) => (*/}
-                {/*                            <div*/}
-                {/*                                ref={provided.innerRef}*/}
-                {/*                                {...provided.draggableProps}*/}
-                {/*                                {...provided.dragHandleProps}*/}
-                {/*                            >*/}
-                {/*                                <img src={item}/>*/}
-                {/*                            </div>*/}
-                {/*                        )}*/}
-                {/*                    </Draggable>*/}
-                {/*                ))}*/}
-                {/*                {provided.placeholder}*/}
-                {/*            </div>*/}
-                {/*        )}*/}
-                {/*    </Droppable>*/}
-                {/*</DragDropContext>*/}
-
-
-                {/*{*/}
-                {/*    imageList.map((image, index) => (*/}
-                {/*        <ImagePreview key={index} index={index} image={image} deleteImage={deleteImage}*/}
-                {/*                      editImage={editImage} hoveredImg={hoveredImg}*/}
-                {/*                      handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut}/>*/}
-                {/*    ))*/}
-                {/*}*/}
-
-
             </div>
+
+
+
 
             <section>
                 <div {...getRootProps({className: 'dropzone'})}>
                     <input {...getInputProps()} />
                     <div
-                        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        className="flex flex-col items-center justify-center w-full h-64 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                                  xmlns="http://www.w3.org/2000/svg" fill="none"

@@ -66,7 +66,6 @@ const ProductForm = ({type, id}: Props) => {
     });
 
     // const originalData = data?.data;
-    console.log('originalData...', originalData);
     //productImageStore에 이전 파일 데이터 담아준다.
     //ERROR 발생
     // productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
@@ -112,20 +111,14 @@ const ProductForm = ({type, id}: Props) => {
                 const formData = new FormData(e.target as HTMLFormElement);
                 const inputs = Object.fromEntries(formData);
 
-                console.log('inputs', inputs);
                 formData.append("pdesc", pdesc);
 
-                console.log('productImageStore.files', productImageStore.files); // 남아있는 파일들
-                // debugger;
                 //새로 업로드한 파일들
                 productImageStore.files.forEach((p) => {
                     if(p.file != undefined) {
                         p && formData.append('files', p.file!);
                     }
                 });
-
-                console.log('??뭐야', productImageStore.uploadFileNames)
-                console.log('??뭐야', productImageStore.uploadFileKeys)
 
                 //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
                 productImageStore.uploadFileNames.forEach((i) => {
@@ -136,12 +129,6 @@ const ProductForm = ({type, id}: Props) => {
                     formData.append('uploadFileKeys', i);
                 });
 
-                // debugger;
-
-                // 구조분해를 활용하면 key와 value를 동시에 출력하는 것도 가능하다
-                for (const [key, value] of formData.entries() as any) {
-                    console.log(key, value);
-                };
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",
@@ -154,8 +141,6 @@ const ProductForm = ({type, id}: Props) => {
 
         },
         async onSuccess(response, variable) {
-            // console.log('response', response);
-            // console.log('data...', data);
 
             toast.success('업로드 성공했습니다.');
 

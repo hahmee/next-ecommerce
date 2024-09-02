@@ -18,6 +18,9 @@ const config: Config = {
       ...defaultTheme.screens,
     },
     extend: {
+      gridTemplateColumns: {
+        'auto-fill-100': 'repeat(auto-fill, 100px)',
+      },
       backgroundImage: {
         video: "url('../images/video/video.png')",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -64,7 +67,6 @@ const config: Config = {
         success: "#219653",
         danger: "#D34053",
         warning: "#FFA70B",
-
       },
       fontSize: {
         "title-xxl": ["44px", "55px"],
