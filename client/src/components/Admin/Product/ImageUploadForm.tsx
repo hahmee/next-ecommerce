@@ -4,6 +4,7 @@ import ImagePreview from "@/components/Admin/Product/ImagePreview";
 import {useDropzone} from "react-dropzone";
 import {useProductImageStore} from "@/store/productImageStore";
 import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 
 export interface ImageType {
@@ -96,8 +97,32 @@ const ImageUploadForm = () => {
     }
 
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-        console.log(dragIndex);
-        console.log(hoverIndex);
+        console.log('dragIndex', dragIndex); //
+        console.log('hoverIndex',hoverIndex); // 놓을 거 (결과)
+
+
+        //삭제 & 삽입
+        setImages((prevImage) => {
+
+            const drag = prevImage[dragIndex];
+            const hover = prevImage[hoverIndex];
+            prevImage.splice(dragIndex, 1);
+
+            prevImage.splice(hoverIndex, 0, drag);
+
+
+            return prevImage;
+
+        });
+
+        // setCards((prevCards: Item[]) =>
+        //         update(prevCards, {
+        //           $splice: [
+        //             [dragIndex, 1],
+        //             [hoverIndex, 0, prevCards[dragIndex] as Item],
+        //           ],
+        //         }),
+        //       )
     }, [])
 
 
@@ -152,7 +177,7 @@ const ImageUploadForm = () => {
 
 
             <div className="grid grid-cols-auto-fill-100 gap-4">
-                <DndProvider>
+                <DndProvider backend={HTML5Backend}>
                 {
                     images?.map((image, index) => (
                         <ImagePreview key={index}
