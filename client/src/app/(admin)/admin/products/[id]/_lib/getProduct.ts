@@ -1,5 +1,4 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
-import {UseProductImageStore} from "@/store/productImageStore";
 
 export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, pno] = queryKey;

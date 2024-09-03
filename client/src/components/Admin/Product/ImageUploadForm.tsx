@@ -30,7 +30,7 @@ const ImageUploadForm = () => {
         // maxSize:2000000,
         onDrop: acceptedFiles => {
             setImages((prev) => {
-                console.log('?')
+                console.log('?');
                 return prev.concat(acceptedFiles.map((file, index) => {
                         return Object.assign(file, {
                             dataUrl: URL.createObjectURL(file), file, id: imgIdxEnd + index,
@@ -68,15 +68,16 @@ const ImageUploadForm = () => {
         console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
 
-        const uploadFileNamesIdx = uploadFileNames.findIndex(files => files === image);
+        const uploadFileNamesIdx = uploadFileNames.findIndex(files => files.file === image);
 
         //예전에 있었던 이미지라면, originalImageKeys, originalImageNames 에서도 지워줘야함
         if(images[index].file  === undefined) {
             const newFileNames = uploadFileNames.filter((names, index) => index !== uploadFileNamesIdx);
             const newFileKeys = uploadFileKeys.filter((names, index) => index !== uploadFileNamesIdx);
 
-            productImageStore.setUploadFileNames(newFileNames);
-            productImageStore.setUploadFileKeys(newFileKeys);
+            console.log('newFileNames', newFileNames);
+            // productImageStore.setUploadFileNames(newFileNames);
+            // productImageStore.setUploadFileKeys(newFileKeys);
         }
 
         setImages((images) => {
@@ -105,15 +106,13 @@ const ImageUploadForm = () => {
         setImages((prevImage) => {
 
             const drag = prevImage[dragIndex];
-            const hover = prevImage[hoverIndex];
             prevImage.splice(dragIndex, 1);
-
             prevImage.splice(hoverIndex, 0, drag);
-
-
             return prevImage;
 
         });
+
+
 
         // setCards((prevCards: Item[]) =>
         //         update(prevCards, {
@@ -125,26 +124,25 @@ const ImageUploadForm = () => {
         //       )
     }, [])
 
-
-
     useEffect(() => {
         console.log('image', images);
         setImgIdxEnd(images.length);
-        productImageStore.setFiles(images);
+        productImageStore.setFiles(images); //files에 저장됨 ..
 
     },[images]);
 
     useEffect(() => {
 
         console.log('uploadFileNames....', uploadFileNames);
-            if (uploadFileNames && uploadFileNames.length > 0) {
+        if (uploadFileNames && uploadFileNames.length > 0) {
 
-                uploadFileNames.map((file,index) => {
-                    setImages((prev) => prev.concat({dataUrl: file, file: undefined, id:index}))
-                });
+            uploadFileNames.map((file,index) => {
+                console.log(file);
+                setImages((prev) => prev.concat({dataUrl: file.file, file: undefined, id:index}))
+            });
 
 
-            }
+        }
         // 언마운트 시 url 무효화
         return () => {
             if(images && images.length > 0) {
@@ -178,19 +176,19 @@ const ImageUploadForm = () => {
 
             <div className="grid grid-cols-auto-fill-100 gap-4">
                 <DndProvider backend={HTML5Backend}>
-                {
-                    images?.map((image, index) => (
-                        <ImagePreview key={index}
-                                      moveCard={moveCard}
-                                      id={image.id}
-                                      index={index}
-                                      image={image?.dataUrl!}
-                                      deleteImage={deleteImage}
-                                      editImage={editImage} hoveredImg={hoveredImg}
-                                      handleMouseOver={handleMouseOver}
-                                      handleMouseOut={handleMouseOut}/>
-                    ))
-                }
+                    {
+                        images?.map((image, index) => (
+                            <ImagePreview key={index}
+                                          moveCard={moveCard}
+                                          id={image.id}
+                                          index={index}
+                                          image={image?.dataUrl!}
+                                          deleteImage={deleteImage}
+                                          editImage={editImage} hoveredImg={hoveredImg}
+                                          handleMouseOver={handleMouseOver}
+                                          handleMouseOut={handleMouseOut}/>
+                        ))
+                    }
 
                 </DndProvider>
             </div>

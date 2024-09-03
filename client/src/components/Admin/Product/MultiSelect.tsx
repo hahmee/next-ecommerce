@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import {Option} from "@/interface/Option";
+import {categoryOptions} from "@/components/Admin/Product/ProductForm";
 
 interface Options {
     value: string;
@@ -15,15 +16,18 @@ interface DropdownProps {
     name: string;
     optionList: Array<Option<String>>;
     defaultOption: string;
-    originalData: string[] | undefined
+    originalData: string[] | undefined;
 }
 
 const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defaultOption, originalData }) => {
     const [options, setOptions] = useState<Options[]>([]);
-    const [selected, setSelected] = useState<number[]>([]);
+    const initOptionNumberList = originalData?.map(data => categoryOptions.findIndex(option => option.id === data));
+    const [selected, setSelected] = useState<number[]>(initOptionNumberList || []);
     const [show, setShow] = useState(false);
     const dropdownRef = useRef<any>(null);
     const trigger = useRef<any>(null);
+
+
 
     useEffect(() => {
         const loadOptions = () => {
@@ -82,7 +86,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     };
 
     const selectedValues = () => {
-        const data = selected.map((option) => options[option].value);
+        const data = selected.map((option) => options[option]?.value);
 
         return data;
     };
@@ -128,7 +132,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                                                 className="my-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray px-2.5 py-1.5 text-sm font-medium dark:border-strokedark dark:bg-white/30"
                                             >
                                                 <div className="max-w-full flex-initial">
-                                                    {options[index].text}
+                                                    {options[index]?.text}
                                                 </div>
                                                 <div className="flex flex-auto flex-row-reverse">
                                                     <div

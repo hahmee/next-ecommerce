@@ -35,7 +35,6 @@ const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMou
             }
         },
         hover(item: DragItem, monitor) {
-            console.log('???')
             if (!ref.current) {
                 return
             }
@@ -151,5 +150,4 @@ const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMou
 };
 
 export default ImagePreview;
-
 

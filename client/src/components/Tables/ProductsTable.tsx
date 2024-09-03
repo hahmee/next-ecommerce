@@ -16,6 +16,7 @@ import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
 import {useState} from "react";
 import Link from "next/link";
+import TableSearch from "@/components/Tables/TableSearch";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -76,14 +77,26 @@ const ProductTable = ({page, size} : PageParam) => {
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="px-4 py-6 md:px-6 xl:px-7.5">
-                <h4 className="text-xl font-semibold text-black dark:text-white">
-                    Top Products
-                </h4>
+            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
 
-                <AddProductButton/>
-                <ActionButton/>
-                <FilterButton/>
+
+                <div className="w-full md:w-1/2 relative">
+                    <TableSearch/>
+                </div>
+                <div
+                    className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                    <AddProductButton/>
+                    <div className="flex items-center space-x-3 w-full md:w-auto">
+                        <ActionButton/>
+                        <FilterButton/>
+                    </div>
+
+                </div>
+
+
+                {/*<AddProductButton/>*/}
+                {/*<ActionButton/>*/}
+                {/*<FilterButton/>*/}
 
             </div>
 
@@ -121,14 +134,20 @@ const ProductTable = ({page, size} : PageParam) => {
                     <div className="col-span-2 flex items-center">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div className="h-12.5 w-15 rounded-md">
-                                <Image
-                                    src={product.uploadFileNames?.[0] ||`/images/product/no_image.svg` }
-                                    width={500}
-                                    height={500}
-                                    style={{objectFit: "contain", height: "100%"}}
-                                    alt="Product"
-                                    onClick={() => handleClick(product.pno)}
-                                />
+                                {
+                                    product.uploadFileNames?.[0] &&
+                                    <Image
+                                        src={product.uploadFileNames?.[0]}
+                                        // src={product.uploadFileNames?.[0] ||`/images/product/no_image.svg` }
+                                        width={500}
+                                        height={500}
+                                        style={{objectFit: "contain", height: "100%"}}
+                                        alt="Product"
+                                        onClick={() => handleClick(product.pno)}
+                                    />
+
+                                }
+
                             </div>
                             <p className="text-sm text-black dark:text-white">
                                 {product.pname}
@@ -145,7 +164,7 @@ const ProductTable = ({page, size} : PageParam) => {
                     </div>
                     <div className="col-span-2 flex items-center">
                         <p className="text-sm text-black dark:text-white">
-                            ${product.sku}
+                            {product.sku}
                         </p>
                     </div>
                     {/*<div className="col-span-1 flex items-center">*/}
@@ -172,20 +191,22 @@ const ProductTable = ({page, size} : PageParam) => {
 
                         {
                             currentPno === product.pno && (
-                                <div id="apple-imac-27-dropdown" className="absolute z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                <div id="apple-imac-27-dropdown"
+                                     className="absolute z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                     <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="apple-imac-27-dropdown-button">
                                         <li>
                                             <Link href="/"
-                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</Link>
+                                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</Link>
                                         </li>
                                         <li>
-                                            <Link href={`/admin/products/${product.pno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
+                                            <Link href={`/admin/products/${product.pno}`}
+                                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
                                         </li>
                                     </ul>
                                     <div className="py-1">
                                         <Link href="/"
-                                           className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">삭제하기</Link>
+                                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">삭제하기</Link>
                                     </div>
                                 </div>
                             )

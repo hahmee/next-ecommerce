@@ -58,9 +58,23 @@ const ProductForm = ({type, id}: Props) => {
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
 
         select: useCallback((data: DataResponse<Product>) => {
-            productImageStore.setUploadFileNames(data.data.uploadFileNames || []);
-            productImageStore.setUploadFileKeys(data.data.uploadFileKeys || []);
-            return data.data
+
+            console.log('data?', data.data);
+            const fileNames = data.data.uploadFileNames;
+
+            const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
+                return {id: idx, file: name};
+            });
+
+            const uploadFileKeys= data.data.uploadFileNames?.map((name, idx) => {
+                return {id: idx, file: name};
+            });
+
+            productImageStore.setUploadFileNames(uploadFileNames || []);
+            productImageStore.setUploadFileKeys(uploadFileKeys || []);
+            // productImageStore.setUploadFileNames(data.data.uploadFileNames || []);
+            // productImageStore.setUploadFileKeys(data.data.uploadFileKeys || []);
+            return data.data;
         }, []),
 
     });
@@ -70,7 +84,7 @@ const ProductForm = ({type, id}: Props) => {
     //ERROR 발생
     // productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
     // productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
-
+    console.log('originalData', originalData);
 
 
 
@@ -115,20 +129,45 @@ const ProductForm = ({type, id}: Props) => {
 
                 //새로 업로드한 파일들
                 productImageStore.files.forEach((p) => {
-                    if(p.file != undefined) {
+                    if (p.file != undefined) {
                         p && formData.append('files', p.file!);
                     }
                 });
 
                 //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
                 productImageStore.uploadFileNames.forEach((i) => {
-                    formData.append('uploadFileNames', i);
+
+                    formData.append('uploadFileNames', i.file);
                 });
+
+                console.log('....', productImageStore.files);
+                console.log('....2', productImageStore.uploadFileNames);
+
+                const newArr = productImageStore.uploadFileNames.sort((a, b) => (b.id - a.id)); //
+
+
+                console.log('newArr', newArr);
+                // console.log('....3', productImageStore.files);
+
+                // console.log('....', productImageStore.files);
+                // console.log('....', productImageStore.files);
+
+                // console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
+
+                //
 
                 productImageStore.uploadFileKeys.forEach((i) => {
-                    formData.append('uploadFileKeys', i);
+                    formData.append('uploadFileKeys', i.file);
                 });
 
+                // Display the key/value pairs
+                // for (const pair of formData.entries() as any) {
+                //     console.log(pair[0]+ ', ' + pair[1]);
+                // }
+
+                productImageStore.uploadFileNames.map(name => {
+                    console.log(name);
+                })
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",
@@ -163,8 +202,7 @@ const ProductForm = ({type, id}: Props) => {
                     <Breadcrumb pageName={type === "add" ? "제품 등록" : "제품 수정"}/>
                     <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                         <BackButton/>
-                        <button type="submit"
-                                className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                             {
                                 type === "add" ? "저장하기" : "수정하기"
                             }
