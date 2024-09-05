@@ -14,9 +14,10 @@ import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import TableSearch from "@/components/Tables/TableSearch";
+import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -30,7 +31,7 @@ const initalPagingData: Paging = {
 }
 const ProductTable = ({page, size} : PageParam) => {
 
-    const {isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>>({
+    const {isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
         queryKey: ['adminProducts', {page, size}],
         queryFn: () => getProductsByEmail({page, size}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -38,9 +39,20 @@ const ProductTable = ({page, size} : PageParam) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: false,
+        select: (data) => data.data,
+        // {
+        //     setProductData(data.data);
+        //     const {dtoList, ...otherData} = data.data;
+        //     setPaging(otherData);
+        //     return data.data;
+        // },
     });
 
     const [currentPno, setCurrentPno] = useState<number>(-1);
+    const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
+    // const [searchResults, setSearchResults] = useState<PageResponse<Product>>();  // 검색 결과 상태
+    const [productData, setProductData] = useState<PageResponse<Product>>();
+    const [paging, setPaging] = useState<Paging>(initalPagingData);
 
     const router = useRouter();
     
@@ -48,15 +60,24 @@ const ProductTable = ({page, size} : PageParam) => {
         router.push(`/admin/products/${pno}`);
     }
 
+    useEffect(() => {
+        setProductData(data);
+        if(data) {
+            const {dtoList, ...otherData} = data;
+            setPaging(otherData);
+        }
+    }, [data]);
+
     // return <div>ㅎㅎ</div>
     // if(data?.message) {
     // //리다이렉트
     // return <div>dd</div>
     // }
     //
-    const productData = data?.data.dtoList;
+    // const productData = data?.data.dtoList;
+    // const productData = null;
 
-    let pagingData: Paging = initalPagingData;
+
 
     // if (error) return 'An error has occurred: ' + error.message;
     // React.useEffect(() => {
@@ -70,38 +91,49 @@ const ProductTable = ({page, size} : PageParam) => {
         setCurrentPno(pno);
     }
 
-    if(productData) {
-        const {dtoList, ...otherData } = data.data;
-        pagingData = otherData;
-    }
+    const handleSearch = (value:string) => {
+        setSearchTerm(value);  // 검색어 업데이트
+    };
+
+    // 검색어 변경 시 검색 API 호출
+    useEffect(() => {
+        if (searchTerm) {
+            const fetchSearchResults = async () => {
+                const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=1&size=10&search=${searchTerm}`, {
+                    method: "GET",
+                    credentials: 'include',
+                    cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
+                });
+                console.log('resultJson', resultJson);
+                // setSearchResults(resultJson.data);
+                setProductData(resultJson.data);
+                const {dtoList, ...otherData} = resultJson.data;
+                setPaging(otherData);
+            };
+            fetchSearchResults();
+        }
+    }, [searchTerm]);
+
+    // const productData = searchTerm ? searchResults?.dtoList : data?.dtoList;
+
+    console.log('productData', productData);
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-
-
                 <div className="w-full md:w-1/2 relative">
-                    <TableSearch/>
+                    <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
-                <div
-                    className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <AddProductButton/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
                         <FilterButton/>
                     </div>
-
                 </div>
-
-
-                {/*<AddProductButton/>*/}
-                {/*<ActionButton/>*/}
-                {/*<FilterButton/>*/}
-
             </div>
 
-            <div
-                className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5  bg-gray-700 dark:bg-meta-4">
+            <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5  bg-gray-700 dark:bg-meta-4">
                 <div className="col-span-2 flex items-center">
                     <p className="font-medium">상품이름</p>
                 </div>
@@ -126,7 +158,7 @@ const ProductTable = ({page, size} : PageParam) => {
                 </div>
             </div>
 
-            {productData?.map((product, key) => (
+            {productData?.dtoList?.map((product, key) => (
                 <div
                     className="grid grid-cols-6 border-t border-stroke px-4 py-3 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
                     key={key}
@@ -216,7 +248,7 @@ const ProductTable = ({page, size} : PageParam) => {
             ))}
 
             <div className="px-4 py-6 md:px-6 xl:px-7.5">
-                <PageComponent pagingData={pagingData} size={size}/>
+                <PageComponent pagingData={paging} size={size}/>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.dto.PageRequestDTO;
 import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.dto.SearchRequestDTO;
 
 @Transactional
 public interface ProductService {
@@ -12,6 +13,8 @@ public interface ProductService {
   PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO);
 
   PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails);
+
+  PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails);
 
   Long register(ProductDTO productDTO, UserDetails userDetails);
 

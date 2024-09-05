@@ -10,18 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.mallapi.dto.DataResponseDTO;
-import org.zerock.mallapi.dto.PageRequestDTO;
-import org.zerock.mallapi.dto.PageResponseDTO;
-import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.util.AwsFileUtil;
 import org.zerock.mallapi.util.CustomFileUtil;
@@ -131,10 +122,22 @@ public class ProductController {
       e.printStackTrace();
     }
 
-//    return productService.getAdminList(pageRequestDTO, userDetails);
     return DataResponseDTO.of(productService.getAdminList(pageRequestDTO, userDetails));
 
   }
+
+
+  //ADMIN 페이지 추가
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/searchAdminList") // searchAdminList?search=검색어&page=1&size=10
+  public DataResponseDTO<PageResponseDTO<ProductDTO>> searchAdminList(SearchRequestDTO searchRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
+
+    log.info("search............" + searchRequestDTO); // 왜 안뜨냐,,
+
+
+    return DataResponseDTO.of(productService.getSearchAdminList(searchRequestDTO, userDetails));
+  }
+
 
   @GetMapping("/{pno}")
   public DataResponseDTO<ProductDTO> read(@PathVariable(name="pno") Long pno) {

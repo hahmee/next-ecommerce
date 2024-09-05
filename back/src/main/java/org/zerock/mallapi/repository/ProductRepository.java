@@ -25,9 +25,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("select p, pi from Product p left join p.imageList pi where pi.ord = 0 and p.delFlag = false ")
   Page<Object[]> selectList(Pageable pageable);
 
-//  @Query("select p, pi  from Product p left join p.imageList pi where pi.ord = 0 and p.delFlag = false and p.owner.email = :email")
-//    @Query("select p from Product p left join ProductImage pi on p.pno = pi.product_pno union select p from Product p right join ProductImage pi on p.pno = pi.product_pno where pi.ord = 0 and p.delFlag = false and p.owner.email = :email")
-//  @Query("select p, pi from Product p left join p.imageList pi union select p, pi from Product p right join p.imageList pi")
   @Query("select p, pi from Product p left join p.imageList pi where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
   Page<Object[]> selectAdminList(Pageable pageable, @Param("email") String email);
+
+  @Query("select p, pi from Product p left join p.imageList pi where p.pname = :search  and (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
+  Page<Object[]> searchAdminList(Pageable pageable, String search, @Param("email") String email);
+
+
+
 }

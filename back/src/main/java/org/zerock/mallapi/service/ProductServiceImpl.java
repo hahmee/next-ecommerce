@@ -1,11 +1,7 @@
 package org.zerock.mallapi.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,14 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.domain.ProductImage;
-import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.dto.PageRequestDTO;
 import org.zerock.mallapi.dto.PageResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.dto.SearchRequestDTO;
 import org.zerock.mallapi.repository.ProductRepository;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -154,6 +152,82 @@ public class ProductServiceImpl implements ProductService{
             .totalCount(totalCount)
             .pageRequestDTO(pageRequestDTO)
             .build();
+  }
+
+  @Override
+  public PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails) {
+
+    log.info("getAdminList..............");
+
+    log.info("--------------userDetails   " + userDetails);
+
+    //현재 접속자 이메일 넣기
+    String email = userDetails.getUsername();
+
+    log.info("--------------email      " + email);
+
+    Pageable pageable = PageRequest.of(
+            searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            searchRequestDTO.getSize(),
+            Sort.by("pno").descending());
+
+    String search = searchRequestDTO.getSearch();
+
+
+    log.info("--------------pageable      " + pageable);
+
+    Page<Object[]> result = productRepository.searchAdminList(pageable,search , email); // 내 이메일 주소
+
+    log.info("........result " + result);
+
+    List<ProductDTO> dtoList = result.get().map(arr -> {
+
+      Product product = (Product) arr[0];
+      ProductImage productImage = (ProductImage) arr[1];
+      log.info("productImageproductImage " + productImage); //null
+
+      ProductDTO productDTO = ProductDTO.builder()
+              .pno(product.getPno())
+              .pname(product.getPname())
+              .pdesc(product.getPdesc())
+              .price(product.getPrice())
+              .refundPolicy(product.getRefundPolicy())
+              .changePolicy(product.getChangePolicy())
+              .sku(product.getSku())
+              .brand(product.getBrand())
+              .categoryList(product.getCategoryList())
+              .delFlag(product.isDelFlag()) // 원래 없었음
+              .salesStatus(product.getSalesStatus())
+              .build();
+
+      if(productImage !=null ) {
+
+        String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
+        String imageKeyStr = productImage.getFileKey();
+
+        productDTO.setUploadFileNames(List.of(imageNameStr));
+        productDTO.setUploadFileKeys(List.of(imageKeyStr));
+      }
+
+
+      return productDTO;
+
+    }).collect(Collectors.toList());
+
+
+    log.info("........dtoList.. " + dtoList);
+
+
+    long totalCount = result.getTotalElements();
+
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
+
+    return PageResponseDTO.<ProductDTO>withAll()
+            .dtoList(dtoList)
+            .totalCount(totalCount)
+            .pageRequestDTO(pageRequestDTO)
+            .build();
+
   }
 
   @Override
