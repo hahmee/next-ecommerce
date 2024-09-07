@@ -40,17 +40,10 @@ const ProductTable = ({page, size} : PageParam) => {
         // throwOnError: (error) => error. >= 500,
         throwOnError: false,
         select: (data) => data.data,
-        // {
-        //     setProductData(data.data);
-        //     const {dtoList, ...otherData} = data.data;
-        //     setPaging(otherData);
-        //     return data.data;
-        // },
     });
 
     const [currentPno, setCurrentPno] = useState<number>(-1);
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
-    // const [searchResults, setSearchResults] = useState<PageResponse<Product>>();  // 검색 결과 상태
     const [productData, setProductData] = useState<PageResponse<Product>>();
     const [paging, setPaging] = useState<Paging>(initalPagingData);
 
@@ -97,7 +90,8 @@ const ProductTable = ({page, size} : PageParam) => {
 
     // 검색어 변경 시 검색 API 호출
     useEffect(() => {
-        if (searchTerm) {
+        console.log('searchTerm', searchTerm);
+        // if (searchTerm) {
             const fetchSearchResults = async () => {
                 const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=1&size=10&search=${searchTerm}`, {
                     method: "GET",
@@ -111,12 +105,8 @@ const ProductTable = ({page, size} : PageParam) => {
                 setPaging(otherData);
             };
             fetchSearchResults();
-        }
+        // }
     }, [searchTerm]);
-
-    // const productData = searchTerm ? searchResults?.dtoList : data?.dtoList;
-
-    console.log('productData', productData);
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

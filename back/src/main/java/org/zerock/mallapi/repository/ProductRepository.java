@@ -28,8 +28,8 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("select p, pi from Product p left join p.imageList pi where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
   Page<Object[]> selectAdminList(Pageable pageable, @Param("email") String email);
 
-  @Query("select p, pi from Product p left join p.imageList pi where p.pname = :search  and (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
-  Page<Object[]> searchAdminList(Pageable pageable, String search, @Param("email") String email);
+  @Query("select p, pi from Product p left join p.imageList pi where p.pname LIKE CONCAT('%',:search,'%') and (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
+  Page<Object[]> searchAdminList(Pageable pageable, @Param("search") String search, @Param("email") String email);
 
 
 

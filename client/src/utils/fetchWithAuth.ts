@@ -74,7 +74,6 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
     try {
 
-
         const configData = await getConfigData(requestInit);
 
         const response = await fetch(`${host}${url}`, configData);

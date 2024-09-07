@@ -2,7 +2,6 @@
 import {redirect} from 'next/navigation';
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
-import { setCookie } from 'cookies-next';
 import {cookies} from "next/headers";
 
 
@@ -20,7 +19,7 @@ export default async (prevState: any, formData: FormData) => {
   let shouldRedirect = false;
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+    const response = await fetch(`/api/member/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

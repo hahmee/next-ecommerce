@@ -176,7 +176,7 @@ public class ProductServiceImpl implements ProductService{
 
     log.info("--------------pageable      " + pageable);
 
-    Page<Object[]> result = productRepository.searchAdminList(pageable,search , email); // 내 이메일 주소
+    Page<Object[]> result = productRepository.searchAdminList(pageable, search, email); // 내 이메일 주소
 
     log.info("........result " + result);
 

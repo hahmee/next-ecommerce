@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false,
+    reactStrictMode: true,
+    async rewrites() {
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'http://localhost:8080/api/:path*', // 실제 백엔드 서버 주소
+            },
+        ];
+    },
     images: {
         // domains: ['127.0.0.1'],
         remotePatterns: [

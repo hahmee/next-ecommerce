@@ -6,26 +6,40 @@ import {Member} from "@/interface/Member";
 //쿠키 세팅
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
-        const {accessToken, refreshToken} = body as Member;
+        console.log('??!dd');
+        const originalCookie = await request.json();
+
+        console.log('body', originalCookie);
+        const {accessToken, refreshToken} = originalCookie as Member;
+
+        console.log('accessToken', accessToken);
+        console.log('refreshToken', refreshToken);
 
         if (accessToken && refreshToken) {
 
             //원래 쿠키값 가져오기
             const cookieStore = cookies();
-            const memberCookie = cookieStore.get("member")?.value!;
 
-            //어세스, 리프레시 토큰 제외한 값은 유지
-            const newCookie = {...JSON.parse(memberCookie), accessToken, refreshToken} as Member;
+            const memberCookie = cookieStore.get("member")?.value;
+            console.log('memberCookie', memberCookie);
 
             const expires = new Date();
             expires.setUTCDate(expires.getUTCDate() + 1);
 
-            cookies().set("member", JSON.stringify(newCookie), {expires: expires});
+            if(memberCookie) { //로그인 아니고, 멤버 쿠키가 이미 있음
+                //어세스, 리프레시 토큰 제외한 값은 유지
+                const newCookie = {...JSON.parse(memberCookie), accessToken, refreshToken} as Member;
+                cookies().set("member", JSON.stringify(newCookie), {expires: expires});
 
-            return new Response('Setting Cookie Completed', {
-                status: 200,
-            });
+                //새로 세팅된 쿠키 값
+                return Response.json({member: newCookie });
+
+            }else { //처음 로그인
+                cookies().set("member", JSON.stringify(originalCookie), {expires: expires});
+
+                //새로 세팅된 쿠키 값
+                return Response.json({member: originalCookie });
+            }
 
         } else {
             return new Response('Setting Cookie has a problem', {
