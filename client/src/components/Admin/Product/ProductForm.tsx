@@ -59,14 +59,13 @@ const ProductForm = ({type, id}: Props) => {
 
         select: useCallback((data: DataResponse<Product>) => {
 
-            console.log('data?', data.data);
             const fileNames = data.data.uploadFileNames;
 
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
                 return {id: idx, file: name};
             });
 
-            const uploadFileKeys= data.data.uploadFileNames?.map((name, idx) => {
+            const uploadFileKeys= data.data.uploadFileKeys?.map((name, idx) => {
                 return {id: idx, file: name};
             });
 
@@ -84,7 +83,6 @@ const ProductForm = ({type, id}: Props) => {
     //ERROR 발생
     // productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
     // productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
-    console.log('originalData', originalData);
 
 
 
@@ -123,51 +121,38 @@ const ProductForm = ({type, id}: Props) => {
             } else {
 
                 const formData = new FormData(e.target as HTMLFormElement);
-                const inputs = Object.fromEntries(formData);
 
                 formData.append("pdesc", pdesc);
 
+                console.log('productImageStore.files', productImageStore.files);
                 //새로 업로드한 파일들
                 productImageStore.files.forEach((p) => {
                     if (p.file != undefined) {
-                        p && formData.append('files', p.file!);
+                        console.log('?', p.file);
+                        p && formData.append('files', p.file);
                     }
                 });
 
+                console.log('???zzz')
+
+                console.log('productImageStore.uploadFileNames', productImageStore.uploadFileNames);
                 //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
                 productImageStore.uploadFileNames.forEach((i) => {
-
-                    formData.append('uploadFileNames', i.file);
+                    console.log('!', i)
+                    if(i!=undefined) {
+                        formData.append('uploadFileNames', i.file);
+                    }
                 });
 
-                console.log('....', productImageStore.files);
-                console.log('....2', productImageStore.uploadFileNames);
 
-                const newArr = productImageStore.uploadFileNames.sort((a, b) => (b.id - a.id)); //
-
-
-                console.log('newArr', newArr);
-                // console.log('....3', productImageStore.files);
-
-                // console.log('....', productImageStore.files);
-                // console.log('....', productImageStore.files);
-
-                // console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
-
-                //
+                console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
 
                 productImageStore.uploadFileKeys.forEach((i) => {
-                    formData.append('uploadFileKeys', i.file);
+                    if(i!=undefined) {
+                        formData.append('uploadFileKeys', i.file);
+
+                    }
                 });
-
-                // Display the key/value pairs
-                // for (const pair of formData.entries() as any) {
-                //     console.log(pair[0]+ ', ' + pair[1]);
-                // }
-
-                productImageStore.uploadFileNames.map(name => {
-                    console.log(name);
-                })
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",

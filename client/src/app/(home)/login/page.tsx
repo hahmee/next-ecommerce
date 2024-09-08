@@ -1,8 +1,10 @@
 "use client";
-import {FormEvent, useState} from "react";
+import {FormEvent, FormEventHandler, useState} from "react";
 import {useRouter} from "next/navigation";
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
+import {useFormState} from "react-dom";
+import login from "@/actions/auth-actions";
 
 export function showMessage (message: string | null) {
     console.log('message', message);
@@ -33,14 +35,15 @@ export default function LoginPage() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const router = useRouter();
-    // const [state, formAction] = useFormState(login, {message:null});
     const [message, setMessage] = useState<string>("");
+    // const [state, formAction] = useFormState(login, {message:null});
 
-    const onSubmit = async (event: FormEvent) => {
+    const onSubmit: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
         try {
             event.preventDefault();
 
-            const response = await fetch(`http://localhost:8080/api/member/login`, {
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -52,110 +55,27 @@ export default function LoginPage() {
             });
 
             const data: DataResponse<Member> = await response.json();
-            console.log('data', data);
             if (data.code != 0) { //에러있는 상황
                 setMessage(data.message);
-                // return {message: data.message} // catch로 잡히나?
             } else {
                 /*해결법- api route에서 set Cookie 한다.*/
-                await fetch("http://localhost:3000/api/auth", {
+                await fetch("/api/auth", {
                     method: "POST",
                     body: JSON.stringify(data.data),
                 });
 
-
                 router.replace('/');
-
-                //
             }
         } catch (error) {
             console.error(error);
-            // return {message: 'unknown_error'};
             setMessage("unknown_error")
         }
     };
 
-            //
-            // const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-            //     e.preventDefault();
-            //     // const formData = new FormData(e.currentTarget);
-            //
-            //     try {
-            //
-            //         const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
-            //             method: "POST",
-            //             headers:{
-            //                 'Content-Type': 'application/x-www-form-urlencoded'
-            //             },
-            //             body: new URLSearchParams({
-            //                 username:  email,
-            //                 password: password,
-            //             })
-            //         });
-            //
-            //         const result = await res.json();
-            //         console.log('result입니다만...', result);
-            //
-            //         if (!res?.ok) {
-            //             console.log('아이디와 비밀번호가 일치하지 않습니다.');
-            //             setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-            //         } else {
-            //             // setCookie("member", result, 1);
-            //             router.replace('/');
-            //         }
-            //
-            //     }catch(err){
-            //         console.error(err);
-            //         console.log('아이디와 비밀번호가 일치하지 않습니다.')
-            //         setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-            //     }
-            //
-            // }
-            //     // setMessage('');
-            //
-            // //     try {
-            // //         const response = await signIn("credentials", {
-            // //             username:email,
-            // //             password:password,
-            // //             redirect: false,
-            // //         })
-            // //         console.log('response입니다만...', response);
-            // //         if (!response?.ok) {
-            // //             console.log('아이디와 비밀번호가 일치하지 않습니다.')
-            // //             setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-            // //         } else {
-            // //             router.replace('/');
-            // //         }
-            // //     } catch (err) {
-            // //         console.error(err);
-            // //         console.log('아이디와 비밀번호가 일치하지 않습니다.')
-            // //         setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-            // //     }
-            // // };
 
-            const handleSignup = () => {
-                router.push('/signup');
-            }
-
-            // const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-            //     e.preventDefault();
-            //     setMessage('');
-            //     try {
-            //         const response = await signIn("credentials", {
-            //             username: email,
-            //             password,
-            //         })
-            //         if (!response?.ok) {
-            //             setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-            //         } else {
-            //             // router.replace('/');
-            //         }
-            //     } catch (err) {
-            //         console.error(err);
-            //         setMessage('아이디와 비밀번호가 일치하지 않습니다.');
-            //     }
-            // };
-
+    const handleSignup = () => {
+        router.push('/signup');
+    }
 
     return (
         <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
@@ -207,4 +127,4 @@ export default function LoginPage() {
             </form>
         </div>
     );
-        }
+};

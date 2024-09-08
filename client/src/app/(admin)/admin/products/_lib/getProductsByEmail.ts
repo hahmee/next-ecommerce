@@ -11,10 +11,10 @@ export async function getProductsByEmail (pageParam: PageParam) {
 
 
     // const resultJson = await fetchWithCredentials(`/api/error/exception`, undefined);
-    const resultJson = await fetchWithAuth(`/api/products/adminList?page=${pageParam.page}&size=${pageParam.size}`, {
+    const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
         credentials: 'include',
-        cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
+        // cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
     });
 
     console.log('왜안난와22', resultJson);

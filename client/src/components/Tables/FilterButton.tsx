@@ -68,26 +68,26 @@ const FilterButton= () => {
                 </ul>
             </div>
 
-            {/*<div id="filterDropdown" className="z-10 w-48 p-3 rounded-lg shadow dark:bg-gray-700">*/}
-            {/*    <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">고르세요</h6>*/}
-            {/*    <ul className="space-y-2 text-sm" aria-labelledby="filterDropdownButton">*/}
-            {/*        <Link href={`${pathname}?page=1&size=10`}>*/}
-            {/*            <div className="flex items-center">*/}
-            {/*                10*/}
-            {/*            </div>*/}
-            {/*        </Link>*/}
-            {/*        <Link href={`${pathname}?page=1&size=20`}>*/}
-            {/*            <div className="flex items-center">*/}
-            {/*                20*/}
-            {/*            </div>*/}
-            {/*        </Link>*/}
-            {/*        <Link href={`${pathname}?page=1&size=30`}>*/}
-            {/*            <div className="flex items-center">*/}
-            {/*                30*/}
-            {/*            </div>*/}
-            {/*        </Link>*/}
-            {/*    </ul>*/}
-            {/*</div>*/}
+            <div id="filterDropdown" className="z-10 w-48 p-3 rounded-lg shadow dark:bg-gray-700">
+                <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">고르세요</h6>
+                <ul className="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
+                    <Link href={`${pathname}?page=1&size=1`}>
+                        <div className="flex items-center">
+                            1
+                        </div>
+                    </Link>
+                    <Link href={`${pathname}?page=1&size=20`}>
+                        <div className="flex items-center">
+                            20
+                        </div>
+                    </Link>
+                    <Link href={`${pathname}?page=1&size=30`}>
+                        <div className="flex items-center">
+                            30
+                        </div>
+                    </Link>
+                </ul>
+            </div>
         </>
     );
 }

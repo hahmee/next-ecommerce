@@ -26,6 +26,7 @@ export const ItemTypes = {
 }
 
 const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMouseOut, hoveredImg, index, moveCard, id}: Props) => {
+
     const ref = useRef<HTMLDivElement>(null);
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.IMAGE,

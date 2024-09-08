@@ -172,8 +172,6 @@ public class ProductController {
 
     List<String> oldFileKeys = oldProductDTO.getUploadFileKeys();//원래 있던 파일들 키 값
 
-    log.info("--------------oldFileNames" + oldFileNames);
-    log.info("--------------oldFileKeys" + oldFileKeys);
 
 
     //화면에서 변화 없이 계속 유지된 파일들

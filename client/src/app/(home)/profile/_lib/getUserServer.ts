@@ -7,10 +7,8 @@ export const getUserServer = async () => {
     const resultJson = await fetchWithAuth(`/api/profile`, {
         method: "GET",
         credentials: 'include', //cookie
-        cache: 'no-store',
+        // cache: 'no-store',
     });
-
-    // console.log('왜안난와', resultJson);
 
     return resultJson;
 }

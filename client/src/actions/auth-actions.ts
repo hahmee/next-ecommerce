@@ -19,7 +19,8 @@ export default async (prevState: any, formData: FormData) => {
   let shouldRedirect = false;
 
   try {
-    const response = await fetch(`/api/member/login`, {
+    // 폼이 기본적으로 Next.js 서버(3000번 포트)로 데이터를 전송함.
+    const response = await fetch(`http://localhost:8080/api/member/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'

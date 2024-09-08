@@ -19,16 +19,6 @@ type Action = {
     clear: () => void
 }
 
-
-// interface ImageState {
-//     files: Array<ImageType>;
-//     setFiles: (files: Array<ImageType>) => void;
-//     uploadFileNames: Array<string>; // 수정 시 원래 있었던 파일들 이름 값...
-//     setUploadFileNames: (files: Array<string>) => void;
-//     uploadFileKeys: Array<string>; // 수정 시 원래 있었던 파일들 key값..
-//     setUploadFileKeys: (files: Array<string>) => void;
-// }
-
 export const useProductImageStore = create<State & Action>((set) => ({
     files:[],
     setFiles: (files) => {

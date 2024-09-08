@@ -334,6 +334,8 @@ public class ProductServiceImpl implements ProductService{
 
   @Override
   public void modify(ProductDTO productDTO) {
+
+    log.info("--------modify+ " + productDTO);
     
     //step1 read
     Optional<Product> result = productRepository.findById(productDTO.getPno());
@@ -360,12 +362,15 @@ public class ProductServiceImpl implements ProductService{
 
     List<String> uploadFileKeys = productDTO.getUploadFileKeys();
 
-      if(uploadFileNames != null && uploadFileNames.size() > 0 ){
-          uploadFileNames.stream().forEach(uploadName -> {
-            int index = uploadFileNames.indexOf(uploadName);
-            product.addImageString(uploadName, uploadFileKeys.get(index));
-          });
-      }
+
+    if (uploadFileNames != null && uploadFileNames.size() > 0) {
+
+      uploadFileNames.stream().forEach(uploadName -> {
+        int index = uploadFileNames.indexOf(uploadName);
+        product.addImageString(uploadName, uploadFileKeys.get(index));
+      });
+    }
+
 
 
     productRepository.save(product);

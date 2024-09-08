@@ -10,7 +10,7 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
         },
         method: "GET",
         credentials: 'include',
-        cache: 'no-store',
+        // cache: 'no-store',
     });
 
     //스토어에 담는다.

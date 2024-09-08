@@ -8,7 +8,7 @@ export const queryErrorHandler = (error:Error) => {
     toast(`데이터를 가져오지 못했습니다! ${error.message}`);
 };
 
-export default async function ProductTableSuspense({page, size} : PageParam) {
+export default async function ProductTableSuspense({page, size,search} : PageParam) {
 
 
     // const queryClient = new QueryClient();
@@ -21,8 +21,8 @@ export default async function ProductTableSuspense({page, size} : PageParam) {
 
 
     await queryClient.prefetchQuery({
-        queryKey: ['adminProducts', {page, size}],
-        queryFn: () => getProductsByEmail({page, size}),
+        queryKey: ['adminProducts', {page, size, search}],
+        queryFn: () => getProductsByEmail({page, size,search}),
     })
 
     const dehydratedState = dehydrate(queryClient)

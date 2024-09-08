@@ -3,7 +3,6 @@
 import {cookies} from "next/headers";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
-
 interface IRequestInit {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
     body?: BodyInit | null
@@ -16,39 +15,39 @@ interface IRequestInit {
 export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
     //쿠키 가져오기
-    const authResponse = await fetch("http://localhost:3000/api/auth", {
+    const authResponse = await fetch(`${process.env.AUTH_URL}/api/auth`, {
         method: "GET",
         headers: {Cookie: cookies().toString()},  //필수 이걸 넣어야지 route에서 쿠키 값 인식
     });
 
     const cookieJson = await authResponse.json();
-
     const memberCookie = cookieJson.member;
+
+    if (!memberCookie) {
+        return Promise.reject({ message: 'No member cookie found' });
+    }
 
     const {accessToken, refreshToken, email} = memberCookie;
 
-    const getReject = async (errorMessage: string) => {
-        return Promise.reject({message: errorMessage}); //전달된 에러와 함께 프로미스를 거부합니다.
-    }
+    // const getReject = async (errorMessage: string) => {
+    //     return Promise.reject({message: errorMessage}); //전달된 에러와 함께 프로미스를 거부합니다.
+    // }
 
     const getConfigData = async (requestInit: IRequestInit) => {
 
         const {headers} = requestInit;
 
         //쿠키에 유저 정보 있는지 확인
-        if (!memberCookie || !accessToken || !refreshToken) {
+        if (!accessToken || !refreshToken) {
             // console.log('Member NOT FOUND');
             //로그인 창으로 보내버리기. 로그인해주세요.
             return Promise.reject({response: {data: {error: 'REQUIRE_LOGIN'}}}); //전달된 에러와 함께 프로미스를 거부합니다.
         }
 
-
-        const config = {
+        return {
             ...requestInit,
             headers: {...headers, Authorization: `Bearer ${accessToken}`},
-        }
-
-        return config;
+        };
 
     }
 
@@ -61,14 +60,25 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                 ...authorization,
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                email
-            }),
+            body: JSON.stringify({email}),
         });
 
-        const newJWT = await response.json();
 
-        console.log("잘 만들어졌습니다. ", newJWT);
+        const newJWT = await response.json();
+        console.log("New JWT created: ", newJWT);
+
+        //새로 발급한 토큰 쿠키에 넣기
+        // Error - Cookies can only be modified in a Server Action or Route Handler.
+        // await setCookie('member', JSON.stringify(newCookie), 1);
+
+        /*해결법- api route에서 set Cookie 한다.*/
+        await fetch(`${process.env.AUTH_URL}/api/auth`, {
+            method: "POST",
+            body: JSON.stringify({accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken}),
+            headers: { Cookie: cookies().toString() },  //필수 이걸 넣어야지 route에서 쿠키 값 인식
+        });
+
+
         return newJWT;
     };
 
@@ -87,17 +97,6 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                 //다시 발급
                 const newJWT = await refreshJWT();
 
-                //새로 발급한 토큰 쿠키에 넣기
-                // Error - Cookies can only be modified in a Server Action or Route Handler.
-                // await setCookie('member', JSON.stringify(newCookie), 1);
-
-                /*해결법- api route에서 set Cookie 한다.*/
-                await fetch("http://localhost:3000/api/auth", {
-                    method: "POST",
-                    body: JSON.stringify({accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken}),
-                    headers: { Cookie: cookies().toString() },  //필수 이걸 넣어야지 route에서 쿠키 값 인식
-                });
-
                 const newConfigData = {
                     ...configData,
                     headers: {...configData.headers, Authorization: `Bearer ${newJWT.accessToken}`}
@@ -110,35 +109,23 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
                 if (!reResponse.ok) {
                     console.log('!reResponse.ok')
-                    await getReject(reData.message);
-                    // return new Error(data.message);
-
+                    return Promise.reject({ message: reData.message });
                 }
-
                 return reData;
-
-
             }
-
             return data;
+        }else {
+            return Promise.reject({ message: data.message });
         }
 
-        if (!response.ok) {
-
-            console.log('data?????????', data);
-            await getReject(data.message);
-            // return { error: new Error(`Error: ${data.message}`) };
-
-        }
     }
     catch (error) {
 
         console.log('error---', error);
         const message = (error as Error | any).message;
         console.log('meesage....', message);
-        // return new Error(message);
-        throw error;
-        // return { message: "No credentials provided", statusCode: 401 };
+        throw error;//해당 에러는 fetchWithAuth를 호출한 곳으로 전달
+
     }
 
 

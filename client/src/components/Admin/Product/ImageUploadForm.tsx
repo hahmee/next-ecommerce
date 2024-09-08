@@ -99,7 +99,7 @@ const ImageUploadForm = () => {
 
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
         console.log('dragIndex', dragIndex); //
-        console.log('hoverIndex',hoverIndex); // 놓을 거 (결과)
+        console.log('hoverIndex', hoverIndex); // 놓을 거 (결과)
 
 
         //삭제 & 삽입
@@ -111,18 +111,30 @@ const ImageUploadForm = () => {
             return prevImage;
 
         });
+        //
+        // 원래 있었던 이미지 move한거라면.. uploadfiles id 변경
+        if(uploadFileNames && uploadFileNames.length  > 0) {
+            const newUploadFileNames = uploadFileNames;
+
+            const drag = uploadFileNames[dragIndex];
+            newUploadFileNames.splice(dragIndex, 1);
+            newUploadFileNames.splice(hoverIndex, 0, drag);
+
+            productImageStore.setUploadFileNames(newUploadFileNames);
+
+            const newUploadFileKeys = uploadFileKeys;
+            const dragKey = uploadFileKeys[dragIndex];
+            newUploadFileKeys.splice(dragIndex, 1);
+            newUploadFileKeys.splice(hoverIndex, 0, dragKey);
+
+            productImageStore.setUploadFileKeys(newUploadFileKeys);
+
+        }
+        console.log('sdf', uploadFileNames);
 
 
 
-        // setCards((prevCards: Item[]) =>
-        //         update(prevCards, {
-        //           $splice: [
-        //             [dragIndex, 1],
-        //             [hoverIndex, 0, prevCards[dragIndex] as Item],
-        //           ],
-        //         }),
-        //       )
-    }, [])
+    }, [images]);
 
     useEffect(() => {
         console.log('image', images);
@@ -133,11 +145,11 @@ const ImageUploadForm = () => {
 
     useEffect(() => {
 
+        //수정 시
         console.log('uploadFileNames....', uploadFileNames);
         if (uploadFileNames && uploadFileNames.length > 0) {
 
             uploadFileNames.map((file,index) => {
-                console.log(file);
                 setImages((prev) => prev.concat({dataUrl: file.file, file: undefined, id:index}))
             });
 

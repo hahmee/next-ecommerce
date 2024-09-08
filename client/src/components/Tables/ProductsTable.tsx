@@ -29,11 +29,11 @@ const initalPagingData: Paging = {
     next: false,
     pageNumList: [0],
 }
-const ProductTable = ({page, size} : PageParam) => {
+const ProductTable = ({page, size, search} : PageParam) => {
 
-    const {isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
-        queryKey: ['adminProducts', {page, size}],
-        queryFn: () => getProductsByEmail({page, size}),
+    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
+        queryKey: ['adminProducts', {page, size, search}],
+        queryFn: () => getProductsByEmail({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
@@ -48,14 +48,17 @@ const ProductTable = ({page, size} : PageParam) => {
     const [paging, setPaging] = useState<Paging>(initalPagingData);
 
     const router = useRouter();
-    
+
     const handleClick = (pno:number) => {
         router.push(`/admin/products/${pno}`);
     }
 
     useEffect(() => {
+
+        console.log('data', data);
+        console.log('search', search);
         setProductData(data);
-        if(data) {
+        if (data) {
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
         }
@@ -90,18 +93,20 @@ const ProductTable = ({page, size} : PageParam) => {
 
     // 검색어 변경 시 검색 API 호출
     useEffect(() => {
+
         console.log('searchTerm', searchTerm);
         // if (searchTerm) {
             const fetchSearchResults = async () => {
-                const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=1&size=10&search=${searchTerm}`, {
+                const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=${page}&size=${size}&search=${searchTerm}`, {
                     method: "GET",
                     credentials: 'include',
-                    cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
+                    // cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
                 });
                 console.log('resultJson', resultJson);
                 // setSearchResults(resultJson.data);
                 setProductData(resultJson.data);
                 const {dtoList, ...otherData} = resultJson.data;
+                console.log('otherData', otherData);
                 setPaging(otherData);
             };
             fetchSearchResults();
@@ -238,7 +243,7 @@ const ProductTable = ({page, size} : PageParam) => {
             ))}
 
             <div className="px-4 py-6 md:px-6 xl:px-7.5">
-                <PageComponent pagingData={paging} size={size}/>
+                <PageComponent pagingData={paging} size={size} search={searchTerm}/>
             </div>
         </div>
     );

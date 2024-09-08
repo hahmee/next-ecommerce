@@ -6,15 +6,8 @@ import {Member} from "@/interface/Member";
 //쿠키 세팅
 export async function POST(request: Request) {
     try {
-        console.log('??!dd');
         const originalCookie = await request.json();
-
-        console.log('body', originalCookie);
         const {accessToken, refreshToken} = originalCookie as Member;
-
-        console.log('accessToken', accessToken);
-        console.log('refreshToken', refreshToken);
-
         if (accessToken && refreshToken) {
 
             //원래 쿠키값 가져오기
@@ -32,14 +25,17 @@ export async function POST(request: Request) {
                 cookies().set("member", JSON.stringify(newCookie), {expires: expires});
 
                 //새로 세팅된 쿠키 값
-                return Response.json({member: newCookie });
+                // return Response.json({member: newCookie });
 
             }else { //처음 로그인
                 cookies().set("member", JSON.stringify(originalCookie), {expires: expires});
-
                 //새로 세팅된 쿠키 값
-                return Response.json({member: originalCookie });
+                // return Response.json({member: originalCookie });
             }
+            return new Response('Setting Cookie Completed', {
+                status: 200,
+            })
+
 
         } else {
             return new Response('Setting Cookie has a problem', {
