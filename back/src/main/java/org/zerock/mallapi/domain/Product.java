@@ -2,6 +2,7 @@ package org.zerock.mallapi.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Log4j2
 public class Product extends BaseEntity {
 
   @Id
@@ -51,6 +53,7 @@ public class Product extends BaseEntity {
 
   @ElementCollection
   @Builder.Default
+  @OrderBy("ord ASC") // ord 필드 기준으로 오름차순 정렬
   private List<ProductImage> imageList = new ArrayList<>();
 
   public void changePrice(int price) {
@@ -92,15 +95,14 @@ public class Product extends BaseEntity {
 
   public void addImage(ProductImage image) {
 
-      image.setOrd(this.imageList.size());
       imageList.add(image);
   }
 
-  public void addImageString(String fileName, String fileKey){
+  public void addImageString(String fileName, String fileKey, int ord){
 
     ProductImage productImage = ProductImage.builder()
-    .fileName(fileName).fileKey(fileKey)
-    .build();
+    .fileName(fileName).fileKey(fileKey).ord(ord)
+            .build();
     addImage(productImage);
 
   }

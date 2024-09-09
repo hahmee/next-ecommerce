@@ -169,6 +169,7 @@ public class ProductController {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
     log.info("==============pno " + pno);
 
+
     productDTO.setPno(pno);
 
     //이미 저장되었던 파일들 가져온다.
@@ -224,8 +225,9 @@ public class ProductController {
 
       //지워야 하는 파일 목록 찾기
       //예전 파일들 중에서 지워져야 하는 파일이름들
-      List<FileDTO<String>> removeFiles =  oldFileKeys.stream().filter(fileKey -> uploadedFileKeys.indexOf(fileKey) == -1).collect(Collectors.toList());
+//      List<FileDTO<String>> removeFiles =  oldFileKeys.stream().filter(fileKey -> uploadedFileKeys.indexOf(fileKey) == -1).collect(Collectors.toList());
       //예전 파일들 배열을 돌면서 합쳐진 리스트에 있는 이름들 중에 없다면 삭제한다..
+      List<FileDTO<String>> removeFiles = oldFileKeys.stream().filter(oldKey -> uploadedFileKeys.stream().noneMatch(uploadedKey -> uploadedKey.getFile().equals(oldKey.getFile()))).collect(Collectors.toList());
 
       log.info("removeFiles................" + removeFiles);
 

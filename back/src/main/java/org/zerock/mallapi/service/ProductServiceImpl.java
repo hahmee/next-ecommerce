@@ -69,7 +69,6 @@ public class ProductServiceImpl implements ProductService{
       productDTO.setUploadFileNames(List.of(uploadFileName));
       productDTO.setUploadFileKeys(List.of(uploadFileKey));
 
-//      productDTO.setUploadFileNames(List.of(imageStr));
 
       return productDTO;
     }).collect(Collectors.toList());
@@ -141,21 +140,11 @@ public class ProductServiceImpl implements ProductService{
         productDTO.setUploadFileKeys(List.of(uploadFileKey));
 
 
-//        productDTO.setUploadFileNames(List.of(imageNameStr));
-//        productDTO.setUploadFileKeys(List.of(imageKeyStr));
       }
 
 
 
-//      String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
-//      String imageKeyStr = productImage.getFileKey();
-//
-//      log.info("imageNameStrimageNameStr " + imageNameStr);
-//
-//      log.info("imageKeyStrimageKeyStr " + imageKeyStr);
-//
-//      productDTO.setUploadFileNames(List.of(imageNameStr));
-//      productDTO.setUploadFileKeys(List.of(imageKeyStr));
+
 
 
       return productDTO;
@@ -235,8 +224,7 @@ public class ProductServiceImpl implements ProductService{
         productDTO.setUploadFileNames(List.of(uploadFileName));
         productDTO.setUploadFileKeys(List.of(uploadFileKey));
 
-//        productDTO.setUploadFileNames(List.of(imageNameStr));
-//        productDTO.setUploadFileKeys(List.of(imageKeyStr));
+
       }
 
 
@@ -295,10 +283,7 @@ public class ProductServiceImpl implements ProductService{
             .owner(member)
             .build();
 
-    //업로드 처리가 끝난 파일들의 이름 리스트 
-//    List<String> uploadFileNames = productDTO.getUploadFileNames();
-//
-//    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
+    //업로드 처리가 끝난 파일들의 이름 리스트
 
     List<FileDTO<String>> uploadFileNames = productDTO.getUploadFileNames();
 
@@ -311,9 +296,7 @@ public class ProductServiceImpl implements ProductService{
     uploadFileNames.stream().forEach(uploadName -> {
 
       int index = uploadFileNames.indexOf(uploadName);
-      product.addImageString(uploadName.getFile(), uploadFileKeys.get(index).getFile());
-
-//      product.addImageString(uploadName, uploadFileKeys.get(index));
+      product.addImageString(uploadName.getFile(), uploadFileKeys.get(index).getFile(), uploadName.getOrd());
 
 
     });
@@ -350,18 +333,13 @@ public class ProductServiceImpl implements ProductService{
     .build();
 
     List<ProductImage> imageList = product.getImageList();
-    
+
+    log.info("imageListimageListimageList" + imageList);
+
     if(imageList == null || imageList.size() == 0 ){
       return productDTO;
     }
 
-//    List<String> fileNameList = imageList.stream().map(productImage -> productImage.getFileName()).toList();
-
-//    List<String> fileKeyList = imageList.stream().map(productImage -> productImage.getFileKey()).toList();
-
-//    productDTO.setUploadFileNames(fileNameList);
-//
-//    productDTO.setUploadFileKeys(fileKeyList);
 
     List<FileDTO<String>> fileNameList = imageList.stream().map(productImage -> {
 
@@ -428,22 +406,18 @@ public class ProductServiceImpl implements ProductService{
     product.clearList();
 
     //이미지 처리
-//    List<String> uploadFileNames = productDTO.getUploadFileNames();
-//
-//    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
 
     List<FileDTO<String>> uploadFileNames = productDTO.getUploadFileNames();
 
     List<FileDTO<String>> uploadFileKeys = productDTO.getUploadFileKeys();
 
 
+
     if (uploadFileNames != null && uploadFileNames.size() > 0) {
 
       uploadFileNames.stream().forEach(uploadName -> {
         int index = uploadFileNames.indexOf(uploadName);
-        product.addImageString(uploadName.getFile(), uploadFileKeys.get(index).getFile());
-        //product.addImageString(uploadName, uploadFileKeys.get(index));
-
+        product.addImageString(uploadName.getFile(), uploadFileKeys.get(index).getFile(), uploadName.getOrd());
 
       });
     }

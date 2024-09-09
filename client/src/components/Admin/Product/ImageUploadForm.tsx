@@ -43,28 +43,6 @@ const ImageUploadForm = () => {
         }
     });
 
-    /*
-    const handleImgChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-        event.preventDefault();
-        const targetFiles = (event.target as HTMLInputElement).files as FileList;
-        const targetFilesArray = Array.from(targetFiles); //유사 배열 객체를 배열로 만듦
-        console.log('targetFiles', targetFiles);
-        console.log('targetFilesArray', targetFilesArray);
-
-
-        const selectedFiles: Array<ImageType> = targetFilesArray.map((file, index) => {
-            // files = [...files, file];
-            return {dataUrl: URL.createObjectURL(file), file};
-        });
-
-        setImages((prev) => prev.concat(selectedFiles));
-
-    };
-    */
-
-    const editImage = (image: string) => {
-        //이미지 창이 다시 열린다.
-    };
 
     const deleteImage = useCallback((image: string) => {
         console.log('image', image);
@@ -103,51 +81,21 @@ const ImageUploadForm = () => {
         console.log('dragIndex', dragIndex); //
         console.log('hoverIndex', hoverIndex); // 놓을 거 (결과)
 
-
         //삭제 & 삽입
         setImages((prevImage) => {
-
             const drag = prevImage[dragIndex];
-            prevImage.splice(dragIndex, 1);
-            prevImage.splice(hoverIndex, 0, drag);
+            prevImage.splice(dragIndex, 1); //없애기
+            prevImage.splice(hoverIndex, 0, drag); // 놓을 곳에 하나 추가하기
             console.log('prevImage', prevImage);
-
             return prevImage;
-
         });
-
-        if(uploadFileNames && uploadFileNames.length  > 0) {
-
-
-        }
-
-        //
-        // 원래 있었던 이미지 move한거라면.. uploadfiles id 변경
-        // if(uploadFileNames && uploadFileNames.length  > 0) {
-        //     const newUploadFileNames = uploadFileNames;
-        //
-        //     const drag = uploadFileNames[dragIndex];
-        //     newUploadFileNames.splice(dragIndex, 1);
-        //     newUploadFileNames.splice(hoverIndex, 0, drag);
-        //
-        //     productImageStore.setUploadFileNames(newUploadFileNames);
-        //
-        //     const newUploadFileKeys = uploadFileKeys;
-        //     const dragKey = uploadFileKeys[dragIndex];
-        //     newUploadFileKeys.splice(dragIndex, 1);
-        //     newUploadFileKeys.splice(hoverIndex, 0, dragKey);
-        //
-        //     productImageStore.setUploadFileKeys(newUploadFileKeys);
-        //
-        // }
-        // console.log('sdf', uploadFileNames);
 
 
 
     }, [images]);
 
     useEffect(() => {
-        console.log('????')
+        console.log('????');
         console.log('images', images);
         setImgIdxEnd(images.length);
         productImageStore.setFiles(images); //files에 저장됨 ..
@@ -207,7 +155,7 @@ const ImageUploadForm = () => {
                                           index={index}
                                           image={image?.dataUrl!}
                                           deleteImage={deleteImage}
-                                          editImage={editImage} hoveredImg={hoveredImg}
+                                          hoveredImg={hoveredImg}
                                           handleMouseOver={handleMouseOver}
                                           handleMouseOut={handleMouseOut}/>
                         ))

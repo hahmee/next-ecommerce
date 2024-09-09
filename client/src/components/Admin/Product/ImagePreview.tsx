@@ -4,7 +4,6 @@ import {Identifier, XYCoord} from "dnd-core";
 
 interface Props {
     image: string;
-    editImage: (image: string) => void;
     deleteImage: (image: string) => void;
     handleMouseOver: (image: string) => void;
     handleMouseOut: (image: string) => void;
@@ -25,7 +24,7 @@ export const ItemTypes = {
     IMAGE: 'image',
 }
 
-const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMouseOut, hoveredImg, index, moveImage, id}: Props) => {
+const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hoveredImg, index, moveImage, id}: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
@@ -100,7 +99,7 @@ const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMou
     const hoverActionComponent = () => {
         return (
             <div className="flex justify-end items-center w-48 gap-2 mt-2">
-                <div onClick={() => editImage(image)}>
+                <div>
                     <img src={"/edit.svg"} alt="close" className="h-4 w-4"/>
                 </div>
                 <div className="mr-2" onClick={() => deleteImage(image)}>

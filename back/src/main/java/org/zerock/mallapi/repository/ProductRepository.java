@@ -13,6 +13,8 @@ import org.zerock.mallapi.domain.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
+//  @Query("select p, pi from Product p left join p.imageList pi where p.pno = :pno")
+
   @EntityGraph(attributePaths = "imageList")
   @Query("select p from Product p where p.pno = :pno")
   Optional<Product> selectOne(@Param("pno") Long pno);

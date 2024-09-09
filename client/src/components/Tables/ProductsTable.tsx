@@ -161,20 +161,17 @@ const ProductTable = ({page, size, search} : PageParam) => {
                     <div className="col-span-2 flex items-center">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div className="h-12.5 w-15 rounded-md">
-                                {/*{*/}
-                                {/*    (product.uploadFileNames && product.uploadFileNames.length > 0) &&*/}
-                                {/*    <Image*/}
-                                {/*        src={product.uploadFileNames[0].file}*/}
-                                {/*        // src={product.uploadFileNames?.[0] ||`/images/product/no_image.svg` }*/}
-                                {/*        width={500}*/}
-                                {/*        height={500}*/}
-                                {/*        style={{objectFit: "contain", height: "100%"}}*/}
-                                {/*        alt="Product"*/}
-                                {/*        onClick={() => handleClick(product.pno)}*/}
-                                {/*    />*/}
-
-                                {/*}*/}
-
+                                {
+                                    (product.uploadFileNames && product.uploadFileNames.length > 0) &&
+                                    <Image
+                                        src={product.uploadFileNames[0]?.file}
+                                        width={500}
+                                        height={500}
+                                        style={{objectFit: "contain", height: "100%"}}
+                                        alt="Product"
+                                        onClick={() => handleClick(product.pno)}
+                                    />
+                                }
                             </div>
                             <p className="text-sm text-black dark:text-white">
                                 {product.pname}

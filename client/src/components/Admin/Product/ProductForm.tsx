@@ -72,6 +72,7 @@ const ProductForm = ({type, id}: Props) => {
 
             productImageStore.setUploadFileNames(uploadFileNames || []);
             productImageStore.setUploadFileKeys(uploadFileKeys || []);
+
             // productImageStore.setUploadFileNames(data.data.uploadFileNames || []);
             // productImageStore.setUploadFileKeys(data.data.uploadFileKeys || []);
             return data.data;
@@ -106,20 +107,14 @@ const ProductForm = ({type, id}: Props) => {
 
                 formData.append("pdesc", pdesc);
 
-
                 productImageStore.files.forEach((p,index) => {
 
                     formData.append(`files[${index}].file`, p.file!); // 실제 파일 객체
-                    formData.append(`files[${index}].ord`, index as any); // 파일 순서
+                    formData.append(`files[${index}].ord`, index.toString()); // 파일 순서
 
                     // const fileDto: FileDTO<File> = {file: p.file!, ord: index};
-                    //
-                    //
                     // console.log('fileDto..', fileDto);
                     // p && formData.append('files', fileDto as any);
-
-
-                    // p && formData.append('files', p.file!);
                 });
 
                 console.log('asdfasdf', productImageStore.files);
@@ -137,40 +132,34 @@ const ProductForm = ({type, id}: Props) => {
                 formData.append("pdesc", pdesc);
 
                 console.log('productImageStore.files', productImageStore.files);
+
+                let newFileIdx = 0;
+                let uploadIdx = 0;
                 //새로 업로드한 파일들
-                productImageStore.files.forEach((p) => {
+                productImageStore.files.forEach((p, index) => {
 
-                    if(p.file === undefined) {  // 이전에 올렸던 파일들 중 살릴 것들 (삭제 안 한 것들)
+                    if (p.file === undefined) {  // 이전에 올렸던 파일들 중 살릴 것들 (삭제 안 한 것들)
 
-                        formData.append('uploadFileNames', p.dataUrl);
-                        formData.append('uploadFileKeys', p.uploadKey!); //변경하기
+                        formData.append(`uploadFileNames[${uploadIdx}].file`, p.dataUrl); // 실제 파일 객체
+                        formData.append(`uploadFileNames[${uploadIdx}].ord`, index.toString()); // 파일 순서
+                        formData.append(`uploadFileKeys[${uploadIdx}].file`, p.uploadKey!); // 실제 파일 객체
+                        formData.append(`uploadFileKeys[${uploadIdx}].ord`, index.toString()); // 파일 순서
 
-                    }else{ // 새로 올릴거
-                        p && formData.append('files', p.file);
-
+                        uploadIdx++;
+                    } else { // 새로 올릴거
+                        formData.append(`files[${newFileIdx}].file`, p.file!); // 실제 파일 객체
+                        formData.append(`files[${newFileIdx}].ord`, index.toString()); // 파일 순서
+                        newFileIdx++;
                     }
 
                 });
 
+                // 구조분해를 활용하면 key와 value를 동시에 출력하는 것도 가능하다
+                for (const [key, value] of formData.entries() as any) {
+                    console.log(key, value);
+                };
 
-                // console.log('productImageStore.uploadFileNames', productImageStore.uploadFileNames);
-                //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
-                // productImageStore.uploadFileNames.forEach((i) => {
-                //     console.log('!', i)
-                //     if(i!=undefined) {
-                //         formData.append('uploadFileNames', i.file);
-                //     }
-                // });
-
-
-                // console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
-
-                // productImageStore.uploadFileKeys.forEach((i) => {
-                //     if(i!=undefined) {
-                //         formData.append('uploadFileKeys', i.file);
-                //
-                //     }
-                // });
+                console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",

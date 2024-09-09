@@ -45,7 +45,7 @@ public class AwsFileUtil {
 
     try {
 
-      int index = 0;
+//      int index = 0;
 //      for (MultipartFile multipartFile : files) {
       for (FileDTO<MultipartFile> multipartFile : files) {
 
@@ -70,17 +70,17 @@ public class AwsFileUtil {
         String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
 
         FileDTO<String> resultNames = new FileDTO<>();
-        resultNames.setOrd(index);
+        resultNames.setOrd(multipartFile.getOrd());
         resultNames.setFile(url);
 
         FileDTO<String> resultKeys = new FileDTO<>();
-        resultNames.setOrd(index);
-        resultNames.setFile(savedName);
+        resultKeys.setOrd(multipartFile.getOrd());
+        resultKeys.setFile(savedName);
 
         uploadNames.add(resultNames);
         uploadKeys.add(resultKeys);
 
-        index++;
+//        index++;
 
       }
 

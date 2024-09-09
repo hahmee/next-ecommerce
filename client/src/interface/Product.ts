@@ -7,8 +7,8 @@ export interface Product {
   price: number;
   pdesc: string;
   delFlag: boolean;
-  uploadFileNames: FileDTO<any>[] | null;
-  uploadFileKeys: FileDTO<any>[] | null;
+  uploadFileNames: FileDTO<string>[] | null;
+  uploadFileKeys: FileDTO<string>[] | null;
   // uploadFileNames: string[] | null;
   // uploadFileKeys: string[] | null;
   brand: string;
@@ -17,6 +17,6 @@ export interface Product {
   salesStatus: SalesStatus;
   refundPolicy: string;
   changePolicy: string;
-  files: FileDTO<any>[] | null;
+  files: FileDTO<string>[] | null;
   // files: string[] | null;
 }
