@@ -2,7 +2,7 @@
 
 import React, {FormEvent, useCallback, useEffect, useRef} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import ImageUploadForm from "@/components/Admin/Product/ImageUploadForm";
+import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
 import RadioButton from "@/components/Admin/Product/RadioButton";
@@ -60,37 +60,33 @@ const ProductForm = ({type, id}: Props) => {
 
         select: useCallback((data: DataResponse<Product>) => {
 
+            console.log('data..', data);
             const fileNames = data.data.uploadFileNames;
 
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
-                return {id: idx, file: name};
+                // return {id: idx, file: name};
+
+                return { dataUrl:name.file, file: undefined , uploadKey: data.data.uploadFileKeys?.[idx].file, id:name.ord} as ImageType;
             });
 
             const uploadFileKeys= data.data.uploadFileKeys?.map((name, idx) => {
                 return {id: idx, file: name};
             });
 
-            productImageStore.setUploadFileNames(uploadFileNames || []);
-            productImageStore.setUploadFileKeys(uploadFileKeys || []);
+            // productImageStore.setUploadFileNames(uploadFileNames || []);
+            // productImageStore.setUploadFileKeys(uploadFileKeys || []);
 
-            // productImageStore.setUploadFileNames(data.data.uploadFileNames || []);
-            // productImageStore.setUploadFileKeys(data.data.uploadFileKeys || []);
+            // dataUrl: string;
+            // uploadKey?: string;
+            // file: File | undefined;
+            // id: number; //drag and drop
+
+            productImageStore.setFiles(uploadFileNames || []);
+
             return data.data;
         }, []),
 
     });
-
-    // const originalData = data?.data;
-    //productImageStore에 이전 파일 데이터 담아준다.
-    //ERROR 발생
-    // productImageStore.setUploadFileNames(originalData?.uploadFileNames || []);
-    // productImageStore.setUploadFileKeys(originalData?.uploadFileKeys || []);
-
-
-
-    // //수정 시, 예전에 올렸던 이미지 리스트
-    // const originalImageNames: string[] = [];
-    // const originalImageKeys: string[] = [];
 
 
     const mutation = useMutation({
@@ -112,12 +108,8 @@ const ProductForm = ({type, id}: Props) => {
                     formData.append(`files[${index}].file`, p.file!); // 실제 파일 객체
                     formData.append(`files[${index}].ord`, index.toString()); // 파일 순서
 
-                    // const fileDto: FileDTO<File> = {file: p.file!, ord: index};
-                    // console.log('fileDto..', fileDto);
-                    // p && formData.append('files', fileDto as any);
                 });
 
-                console.log('asdfasdf', productImageStore.files);
 
                 return fetchWithAuth(`/api/products/`, {
                     method: "POST",
@@ -154,12 +146,6 @@ const ProductForm = ({type, id}: Props) => {
 
                 });
 
-                // 구조분해를 활용하면 key와 value를 동시에 출력하는 것도 가능하다
-                for (const [key, value] of formData.entries() as any) {
-                    console.log(key, value);
-                };
-
-                console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",

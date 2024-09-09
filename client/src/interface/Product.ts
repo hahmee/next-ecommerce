@@ -7,16 +7,13 @@ export interface Product {
   price: number;
   pdesc: string;
   delFlag: boolean;
-  uploadFileNames: FileDTO<string>[] | null;
-  uploadFileKeys: FileDTO<string>[] | null;
-  // uploadFileNames: string[] | null;
-  // uploadFileKeys: string[] | null;
+  uploadFileNames: Array<FileDTO<string>> | null;
+  uploadFileKeys: Array<FileDTO<string>> | null;
   brand: string;
   categoryList: string[];
   sku: string;
   salesStatus: SalesStatus;
   refundPolicy: string;
   changePolicy: string;
-  files: FileDTO<string>[] | null;
-  // files: string[] | null;
+  files:Array<FileDTO<string>>  | null;
 }

@@ -13,12 +13,6 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
         // cache: 'no-store',
     });
 
-    //스토어에 담는다.
-    // productImageStore.setUploadFileNames(res.data.uploadFileNames || []);
-    // productImageStore.setUploadFileKeys(res.data.uploadFileKeys || []);
-
-
-    // console.log('getProductServerRes.....', res);
     return res;
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.

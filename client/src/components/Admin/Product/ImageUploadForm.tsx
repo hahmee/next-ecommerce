@@ -8,8 +8,8 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 
 
 export interface ImageType {
-    dataUrl: string;
-    uploadKey?: string;
+    dataUrl: string; //blob or aws full path
+    uploadKey?: string; //file key
     file: File | undefined;
     id: number; //drag and drop
 }
@@ -17,8 +17,6 @@ export interface ImageType {
 
 const ImageUploadForm = () => {
     const productImageStore = useProductImageStore();
-    const uploadFileNames = productImageStore.uploadFileNames;
-    const uploadFileKeys = productImageStore.uploadFileKeys;
     const [images, setImages] = useState<Array<ImageType>>([]);
     const [hoveredImg, setHoveredImg] = useState<string>('');
     const [imgIdxEnd, setImgIdxEnd] = useState<number>(0);
@@ -48,17 +46,6 @@ const ImageUploadForm = () => {
         console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
 
-        const uploadFileNamesIdx = uploadFileNames.findIndex(files => files.file.file === image);
-
-        //예전에 있었던 이미지라면, originalImageKeys, originalImageNames 에서도 지워줘야함
-        if(images[index].file  === undefined) {
-            const newFileNames = uploadFileNames.filter((names, index) => index !== uploadFileNamesIdx);
-            const newFileKeys = uploadFileKeys.filter((names, index) => index !== uploadFileNamesIdx);
-
-            console.log('newFileNames', newFileNames);
-            // productImageStore.setUploadFileNames(newFileNames);
-            // productImageStore.setUploadFileKeys(newFileKeys);
-        }
 
         setImages((images) => {
             const prev = [...images] as Array<ImageType>;
@@ -95,8 +82,7 @@ const ImageUploadForm = () => {
     }, [images]);
 
     useEffect(() => {
-        console.log('????');
-        console.log('images', images);
+        console.log('images!', images);
         setImgIdxEnd(images.length);
         productImageStore.setFiles(images); //files에 저장됨 ..
 
@@ -104,17 +90,9 @@ const ImageUploadForm = () => {
 
     useEffect(() => {
 
-        //수정 시
-        console.log('uploadFileNames....', uploadFileNames);
-        if (uploadFileNames && uploadFileNames.length > 0) {
+        console.log('asdfa', productImageStore.files);
+        setImages(productImageStore.files);
 
-            uploadFileNames.map((file,index) => {
-                setImages((prev) => prev.concat({dataUrl: file.file.file, file: undefined, id:index, uploadKey: uploadFileKeys[index].file.file}))
-            });
-
-
-        }
-        // 언마운트 시 url 무효화
         return () => {
             if(images && images.length > 0) {
                 images.map(image => URL.revokeObjectURL(image?.dataUrl as string));
