@@ -10,7 +10,7 @@ interface Props {
     handleMouseOut: (image: string) => void;
     hoveredImg: string;
     index: number;
-    moveCard: (dragIndex:number, hoverIndex:number) => void
+    moveImage: (dragIndex:number, hoverIndex:number) => void
     id: number;
 
 }
@@ -25,7 +25,7 @@ export const ItemTypes = {
     IMAGE: 'image',
 }
 
-const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMouseOut, hoveredImg, index, moveCard, id}: Props) => {
+const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMouseOut, hoveredImg, index, moveImage, id}: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
@@ -74,7 +74,7 @@ const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMou
             }
 
             // Time to actually perform the action
-            moveCard(dragIndex, hoverIndex)
+            moveImage(dragIndex, hoverIndex)
 
             // Note: we're mutating the monitor item here!
             // Generally it's better to avoid mutations,
@@ -139,7 +139,7 @@ const ImagePreview = ({image, deleteImage, editImage, handleMouseOver, handleMou
                             hoveredImg === image &&
                             <div className="h-25 w-25 rounded bg-black absolute bg-opacity-70">
                                 {
-                                    // hoverActionComponent()
+                                    hoverActionComponent()
                                 }
                             </div>
                         }

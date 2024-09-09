@@ -1,9 +1,11 @@
 import {create} from "zustand";
 import {ImageType} from "@/components/Admin/Product/ImageUploadForm";
+import {FileDTO} from "@/interface/FileDTO";
 
 export interface UploadFile {
     id: number; //순서
-    file: string; // 파일이름 or 파일 키
+    // file: string; // 파일이름 or 파일 키
+    file: FileDTO<string>;
 }
 
 type State = {

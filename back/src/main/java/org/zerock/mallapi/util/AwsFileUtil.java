@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.mallapi.dto.FileDTO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,36 +29,58 @@ public class AwsFileUtil {
 
 
   /* 1. 파일 업로드 */
-  public Map<String, List<String>> uploadFiles(List<MultipartFile> files, String dirName) throws RuntimeException {
+  public Map<String, List<FileDTO<String>>> uploadFiles(List<FileDTO<MultipartFile>> files, String dirName) throws RuntimeException {
 
     if (files == null || files.size() == 0) {
       return null;
     }
+//
+//    List<String> uploadNames = new ArrayList<>();
+//    List<String> uploadKeys = new ArrayList<>();
 
-    List<String> uploadNames = new ArrayList<>();
-    List<String> uploadKeys = new ArrayList<>();
+
+    List<FileDTO<String>> uploadNames = new ArrayList<>();
+    List<FileDTO<String>> uploadKeys = new ArrayList<>();
+
 
     try {
-      for (MultipartFile multipartFile : files) {
+
+      int index = 0;
+//      for (MultipartFile multipartFile : files) {
+      for (FileDTO<MultipartFile> multipartFile : files) {
 
         //키 값
-        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
+//        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
+        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getFile().getOriginalFilename();
 
         log.info("savedName......" + savedName);
 
         // 메타데이터 생성
         ObjectMetadata objMeta = new ObjectMetadata();
-        objMeta.setContentType(multipartFile.getContentType());
-        objMeta.setContentLength(multipartFile.getInputStream().available());
+//        objMeta.setContentType(multipartFile.getContentType());
+//        objMeta.setContentLength(multipartFile.getInputStream().available());
+
+        objMeta.setContentType(multipartFile.getFile().getContentType());
+        objMeta.setContentLength(multipartFile.getFile().getInputStream().available());
 
         // putObject(버킷명, 파일명, 파일데이터, 메타데이터)로 S3에 객체 등록
-        amazonS3.putObject(bucket, savedName, multipartFile.getInputStream(), objMeta);
+        amazonS3.putObject(bucket, savedName, multipartFile.getFile().getInputStream(), objMeta);
 
         // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
         String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
 
-        uploadNames.add(url);
-        uploadKeys.add(savedName);
+        FileDTO<String> resultNames = new FileDTO<>();
+        resultNames.setOrd(index);
+        resultNames.setFile(url);
+
+        FileDTO<String> resultKeys = new FileDTO<>();
+        resultNames.setOrd(index);
+        resultNames.setFile(savedName);
+
+        uploadNames.add(resultNames);
+        uploadKeys.add(resultKeys);
+
+        index++;
 
       }
 
@@ -71,12 +94,12 @@ public class AwsFileUtil {
   }
 
   /* 2. 파일 여러개 삭제 */
-  public void deleteFiles (List<String> fileKeys) {
+  public void deleteFiles (List<FileDTO<String>> fileKeys) {
     try {
 
       // deleteObject(버킷명, 키값)으로 객체 삭제
       fileKeys.forEach(fileKey -> {
-        amazonS3.deleteObject(bucket, fileKey);
+        amazonS3.deleteObject(bucket, fileKey.getFile());
       } );
 
     } catch (AmazonServiceException e) {

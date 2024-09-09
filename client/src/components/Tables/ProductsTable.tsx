@@ -115,11 +115,13 @@ const ProductTable = ({page, size, search} : PageParam) => {
 
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div
+                className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2 relative">
                     <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
-                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                <div
+                    className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <AddProductButton/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
@@ -128,7 +130,8 @@ const ProductTable = ({page, size, search} : PageParam) => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5  bg-gray-700 dark:bg-meta-4">
+            <div
+                className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5  bg-gray-700 dark:bg-meta-4">
                 <div className="col-span-2 flex items-center">
                     <p className="font-medium">상품이름</p>
                 </div>
@@ -138,9 +141,6 @@ const ProductTable = ({page, size, search} : PageParam) => {
                 <div className="col-span-2 flex items-center">
                     <p className="font-medium">SKU</p>
                 </div>
-                {/*<div className="col-span-1 flex items-center">*/}
-                {/*    <p className="font-medium">브랜드</p>*/}
-                {/*</div>*/}
                 <div className="col-span-1 flex items-center">
                     <p className="font-medium">가격</p>
                 </div>
@@ -161,19 +161,19 @@ const ProductTable = ({page, size, search} : PageParam) => {
                     <div className="col-span-2 flex items-center">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <div className="h-12.5 w-15 rounded-md">
-                                {
-                                    product.uploadFileNames?.[0] &&
-                                    <Image
-                                        src={product.uploadFileNames?.[0]}
-                                        // src={product.uploadFileNames?.[0] ||`/images/product/no_image.svg` }
-                                        width={500}
-                                        height={500}
-                                        style={{objectFit: "contain", height: "100%"}}
-                                        alt="Product"
-                                        onClick={() => handleClick(product.pno)}
-                                    />
+                                {/*{*/}
+                                {/*    (product.uploadFileNames && product.uploadFileNames.length > 0) &&*/}
+                                {/*    <Image*/}
+                                {/*        src={product.uploadFileNames[0].file}*/}
+                                {/*        // src={product.uploadFileNames?.[0] ||`/images/product/no_image.svg` }*/}
+                                {/*        width={500}*/}
+                                {/*        height={500}*/}
+                                {/*        style={{objectFit: "contain", height: "100%"}}*/}
+                                {/*        alt="Product"*/}
+                                {/*        onClick={() => handleClick(product.pno)}*/}
+                                {/*    />*/}
 
-                                }
+                                {/*}*/}
 
                             </div>
                             <p className="text-sm text-black dark:text-white">

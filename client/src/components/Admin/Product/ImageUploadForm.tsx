@@ -9,6 +9,7 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 
 export interface ImageType {
     dataUrl: string;
+    uploadKey?: string;
     file: File | undefined;
     id: number; //drag and drop
 }
@@ -33,7 +34,8 @@ const ImageUploadForm = () => {
                 console.log('?');
                 return prev.concat(acceptedFiles.map((file, index) => {
                         return Object.assign(file, {
-                            dataUrl: URL.createObjectURL(file), file, id: imgIdxEnd + index,
+                            dataUrl: URL.createObjectURL(file), file, id: imgIdxEnd + index
+
                         })
                     }
                 ));
@@ -68,7 +70,7 @@ const ImageUploadForm = () => {
         console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
 
-        const uploadFileNamesIdx = uploadFileNames.findIndex(files => files.file === image);
+        const uploadFileNamesIdx = uploadFileNames.findIndex(files => files.file.file === image);
 
         //예전에 있었던 이미지라면, originalImageKeys, originalImageNames 에서도 지워줘야함
         if(images[index].file  === undefined) {
@@ -97,7 +99,7 @@ const ImageUploadForm = () => {
         setHoveredImg('');
     }
 
-    const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+    const moveImage = useCallback((dragIndex: number, hoverIndex: number) => {
         console.log('dragIndex', dragIndex); //
         console.log('hoverIndex', hoverIndex); // 놓을 거 (결과)
 
@@ -108,36 +110,45 @@ const ImageUploadForm = () => {
             const drag = prevImage[dragIndex];
             prevImage.splice(dragIndex, 1);
             prevImage.splice(hoverIndex, 0, drag);
+            console.log('prevImage', prevImage);
+
             return prevImage;
 
         });
-        //
-        // 원래 있었던 이미지 move한거라면.. uploadfiles id 변경
+
         if(uploadFileNames && uploadFileNames.length  > 0) {
-            const newUploadFileNames = uploadFileNames;
 
-            const drag = uploadFileNames[dragIndex];
-            newUploadFileNames.splice(dragIndex, 1);
-            newUploadFileNames.splice(hoverIndex, 0, drag);
-
-            productImageStore.setUploadFileNames(newUploadFileNames);
-
-            const newUploadFileKeys = uploadFileKeys;
-            const dragKey = uploadFileKeys[dragIndex];
-            newUploadFileKeys.splice(dragIndex, 1);
-            newUploadFileKeys.splice(hoverIndex, 0, dragKey);
-
-            productImageStore.setUploadFileKeys(newUploadFileKeys);
 
         }
-        console.log('sdf', uploadFileNames);
+
+        //
+        // 원래 있었던 이미지 move한거라면.. uploadfiles id 변경
+        // if(uploadFileNames && uploadFileNames.length  > 0) {
+        //     const newUploadFileNames = uploadFileNames;
+        //
+        //     const drag = uploadFileNames[dragIndex];
+        //     newUploadFileNames.splice(dragIndex, 1);
+        //     newUploadFileNames.splice(hoverIndex, 0, drag);
+        //
+        //     productImageStore.setUploadFileNames(newUploadFileNames);
+        //
+        //     const newUploadFileKeys = uploadFileKeys;
+        //     const dragKey = uploadFileKeys[dragIndex];
+        //     newUploadFileKeys.splice(dragIndex, 1);
+        //     newUploadFileKeys.splice(hoverIndex, 0, dragKey);
+        //
+        //     productImageStore.setUploadFileKeys(newUploadFileKeys);
+        //
+        // }
+        // console.log('sdf', uploadFileNames);
 
 
 
     }, [images]);
 
     useEffect(() => {
-        console.log('image', images);
+        console.log('????')
+        console.log('images', images);
         setImgIdxEnd(images.length);
         productImageStore.setFiles(images); //files에 저장됨 ..
 
@@ -150,7 +161,7 @@ const ImageUploadForm = () => {
         if (uploadFileNames && uploadFileNames.length > 0) {
 
             uploadFileNames.map((file,index) => {
-                setImages((prev) => prev.concat({dataUrl: file.file, file: undefined, id:index}))
+                setImages((prev) => prev.concat({dataUrl: file.file.file, file: undefined, id:index, uploadKey: uploadFileKeys[index].file.file}))
             });
 
 
@@ -191,7 +202,7 @@ const ImageUploadForm = () => {
                     {
                         images?.map((image, index) => (
                             <ImagePreview key={index}
-                                          moveCard={moveCard}
+                                          moveImage={moveImage}
                                           id={image.id}
                                           index={index}
                                           image={image?.dataUrl!}

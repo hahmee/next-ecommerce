@@ -12,14 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.domain.ProductImage;
-import org.zerock.mallapi.dto.PageRequestDTO;
-import org.zerock.mallapi.dto.PageResponseDTO;
-import org.zerock.mallapi.dto.ProductDTO;
-import org.zerock.mallapi.dto.SearchRequestDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.ProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,8 +54,22 @@ public class ProductServiceImpl implements ProductService{
       .price(product.getPrice())
       .build();
 
-      String imageStr = productImage.getFileName();
-      productDTO.setUploadFileNames(List.of(imageStr));
+      String imageNameStr = productImage.getFileName();
+      String imageKeyStr = productImage.getFileKey();
+
+
+      FileDTO<String> uploadFileName = new FileDTO<>();
+      uploadFileName.setFile(imageNameStr);
+
+      FileDTO<String> uploadFileKey = new FileDTO<>();
+      uploadFileKey.setFile(imageKeyStr);
+
+
+
+      productDTO.setUploadFileNames(List.of(uploadFileName));
+      productDTO.setUploadFileKeys(List.of(uploadFileKey));
+
+//      productDTO.setUploadFileNames(List.of(imageStr));
 
       return productDTO;
     }).collect(Collectors.toList());
@@ -116,12 +128,21 @@ public class ProductServiceImpl implements ProductService{
         String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
         String imageKeyStr = productImage.getFileKey();
 
-        log.info("imageNameStrimageNameStr " + imageNameStr);
 
-        log.info("imageKeyStrimageKeyStr " + imageKeyStr);
+        FileDTO<String> uploadFileName = new FileDTO<>();
+        uploadFileName.setFile(imageNameStr);
 
-        productDTO.setUploadFileNames(List.of(imageNameStr));
-        productDTO.setUploadFileKeys(List.of(imageKeyStr));
+        FileDTO<String> uploadFileKey = new FileDTO<>();
+        uploadFileKey.setFile(imageKeyStr);
+
+
+
+        productDTO.setUploadFileNames(List.of(uploadFileName));
+        productDTO.setUploadFileKeys(List.of(uploadFileKey));
+
+
+//        productDTO.setUploadFileNames(List.of(imageNameStr));
+//        productDTO.setUploadFileKeys(List.of(imageKeyStr));
       }
 
 
@@ -205,8 +226,17 @@ public class ProductServiceImpl implements ProductService{
         String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
         String imageKeyStr = productImage.getFileKey();
 
-        productDTO.setUploadFileNames(List.of(imageNameStr));
-        productDTO.setUploadFileKeys(List.of(imageKeyStr));
+        FileDTO<String> uploadFileName = new FileDTO<>();
+        uploadFileName.setFile(imageNameStr);
+
+        FileDTO<String> uploadFileKey = new FileDTO<>();
+        uploadFileKey.setFile(imageKeyStr);
+
+        productDTO.setUploadFileNames(List.of(uploadFileName));
+        productDTO.setUploadFileKeys(List.of(uploadFileKey));
+
+//        productDTO.setUploadFileNames(List.of(imageNameStr));
+//        productDTO.setUploadFileKeys(List.of(imageKeyStr));
       }
 
 
@@ -266,9 +296,13 @@ public class ProductServiceImpl implements ProductService{
             .build();
 
     //업로드 처리가 끝난 파일들의 이름 리스트 
-    List<String> uploadFileNames = productDTO.getUploadFileNames();
+//    List<String> uploadFileNames = productDTO.getUploadFileNames();
+//
+//    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
 
-    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
+    List<FileDTO<String>> uploadFileNames = productDTO.getUploadFileNames();
+
+    List<FileDTO<String>> uploadFileKeys = productDTO.getUploadFileKeys();
 
     if(uploadFileNames == null){
       return product;
@@ -277,9 +311,11 @@ public class ProductServiceImpl implements ProductService{
     uploadFileNames.stream().forEach(uploadName -> {
 
       int index = uploadFileNames.indexOf(uploadName);
-      product.addImageString(uploadName, uploadFileKeys.get(index));
+      product.addImageString(uploadName.getFile(), uploadFileKeys.get(index).getFile());
 
-//      product.addImageString(uploadName);
+//      product.addImageString(uploadName, uploadFileKeys.get(index));
+
+
     });
 
     return product;
@@ -319,15 +355,49 @@ public class ProductServiceImpl implements ProductService{
       return productDTO;
     }
 
-    List<String> fileNameList = imageList.stream().map(productImage -> 
-      productImage.getFileName()).toList();
+//    List<String> fileNameList = imageList.stream().map(productImage -> productImage.getFileName()).toList();
 
-    List<String> fileKeyList = imageList.stream().map(productImage ->
-            productImage.getFileKey()).toList();
+//    List<String> fileKeyList = imageList.stream().map(productImage -> productImage.getFileKey()).toList();
+
+//    productDTO.setUploadFileNames(fileNameList);
+//
+//    productDTO.setUploadFileKeys(fileKeyList);
+
+    List<FileDTO<String>> fileNameList = imageList.stream().map(productImage -> {
+
+      String file = productImage.getFileName();
+      int ord =  productImage.getOrd();
+
+      FileDTO<String> result = new FileDTO<>();
+
+      result.setFile(file);
+      result.setOrd(ord);
+
+      return result;
+
+
+    }).toList();
+
+
+    List<FileDTO<String>> fileKeyList = imageList.stream().map(productImage -> {
+
+      String file = productImage.getFileKey();
+      int ord =  productImage.getOrd();
+
+      FileDTO<String> result = new FileDTO<>();
+      result.setFile(file);
+      result.setOrd(ord);
+
+      return result;
+
+
+    }).toList();
+
 
     productDTO.setUploadFileNames(fileNameList);
 
     productDTO.setUploadFileKeys(fileKeyList);
+
 
     return productDTO;
   }
@@ -358,16 +428,23 @@ public class ProductServiceImpl implements ProductService{
     product.clearList();
 
     //이미지 처리
-    List<String> uploadFileNames = productDTO.getUploadFileNames();
+//    List<String> uploadFileNames = productDTO.getUploadFileNames();
+//
+//    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
 
-    List<String> uploadFileKeys = productDTO.getUploadFileKeys();
+    List<FileDTO<String>> uploadFileNames = productDTO.getUploadFileNames();
+
+    List<FileDTO<String>> uploadFileKeys = productDTO.getUploadFileKeys();
 
 
     if (uploadFileNames != null && uploadFileNames.size() > 0) {
 
       uploadFileNames.stream().forEach(uploadName -> {
         int index = uploadFileNames.indexOf(uploadName);
-        product.addImageString(uploadName, uploadFileKeys.get(index));
+        product.addImageString(uploadName.getFile(), uploadFileKeys.get(index).getFile());
+        //product.addImageString(uploadName, uploadFileKeys.get(index));
+
+
       });
     }
 

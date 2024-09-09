@@ -1,5 +1,6 @@
 package org.zerock.mallapi.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,19 +37,27 @@ public class ProductController {
 
     log.info("register: ?????????????" + productDTO);
 
-    List<MultipartFile> files = productDTO.getFiles();//파일 객체들
+    List<FileDTO<MultipartFile>> files = productDTO.getFiles();//파일 객체들
+
 
     if (files != null && files.size() > 0) {
 
       //List<String> uploadFileNames = fileUtil.saveFiles(files); //내부에 저장하고 이름들을 반환한다.
-      Map<String, List<String>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
+      Map<String, List<FileDTO<String>>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
 
       log.info("awsResults.............." + awsResults);
-      List<String> uploadFileNames = awsResults.get("uploadNames");
-      List<String> uploadFileKeys = awsResults.get("uploadKeys");
+
+      List<FileDTO<String>> uploadFileNames = awsResults.get("uploadNames");
+      List<FileDTO<String>> uploadFileKeys = awsResults.get("uploadKeys");
 
       log.info("잘 나오나.." + uploadFileNames);
       log.info("잘 나오나..2" + uploadFileKeys);
+
+//      productDTO.setUploadFileNames(uploadFileNames);
+//      productDTO.setUploadFileKeys(uploadFileKeys);
+
+      FileDTO<String> uploadFileNameList = new FileDTO<>();
+
 
       productDTO.setUploadFileNames(uploadFileNames);
       productDTO.setUploadFileKeys(uploadFileKeys);
@@ -168,29 +177,29 @@ public class ProductController {
     log.info("--------------oldProductDTO" + oldProductDTO);
 
     //기존의 파일들 (데이터베이스에 존재하는 파일들 - 수정 과정에서 삭제되었을 수 있음)
-    List<String> oldFileNames = oldProductDTO.getUploadFileNames();//원래 있던 파일들 // []
+    List<FileDTO<String>> oldFileNames = oldProductDTO.getUploadFileNames();//원래 있던 파일들 // []
 
-    List<String> oldFileKeys = oldProductDTO.getUploadFileKeys();//원래 있던 파일들 키 값
+    List<FileDTO<String>> oldFileKeys = oldProductDTO.getUploadFileKeys();//원래 있던 파일들 키 값
 
 
 
     //화면에서 변화 없이 계속 유지된 파일들
-    List<String> uploadedFileNames = productDTO.getUploadFileNames();// 원래 있던 파일들 중 삭제 하지 않은 파일들 이름들 가져온다
-    List<String> uploadedFileKeys = productDTO.getUploadFileKeys();// 원래 있던 파일들 중 삭제 하지 않은 파일들 키들 가져온다
+    List<FileDTO<String>> uploadedFileNames = productDTO.getUploadFileNames();// 원래 있던 파일들 중 삭제 하지 않은 파일들 이름들 가져온다
+    List<FileDTO<String>> uploadedFileKeys = productDTO.getUploadFileKeys();// 원래 있던 파일들 중 삭제 하지 않은 파일들 키들 가져온다
 
 
     //새로 업로드 해야 하는 파일들
-    List<MultipartFile> files = productDTO.getFiles();//새로 업로드한 파일들..
+    List<FileDTO<MultipartFile>> files = productDTO.getFiles();//새로 업로드한 파일들..
 
     if (files != null && files.size() > 0) {
 
-      Map<String, List<String>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
+      Map<String, List<FileDTO<String>>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
 
       log.info("awsResults.............." + awsResults);
 
       //새로 업로드되어서 만들어진 파일 이름들
-      List<String> currentUploadFileNames = awsResults.get("uploadNames");
-      List<String> currentUploadFileKeys = awsResults.get("uploadKeys");
+      List<FileDTO<String>> currentUploadFileNames = awsResults.get("uploadNames");
+      List<FileDTO<String>> currentUploadFileKeys = awsResults.get("uploadKeys");
 
 
       //유지되는 파일들  + 새로 업로드된 파일 이름들이 저장해야 하는 파일 목록이 됨
@@ -215,7 +224,7 @@ public class ProductController {
 
       //지워야 하는 파일 목록 찾기
       //예전 파일들 중에서 지워져야 하는 파일이름들
-      List<String> removeFiles =  oldFileKeys.stream().filter(fileKey -> uploadedFileKeys.indexOf(fileKey) == -1).collect(Collectors.toList());
+      List<FileDTO<String>> removeFiles =  oldFileKeys.stream().filter(fileKey -> uploadedFileKeys.indexOf(fileKey) == -1).collect(Collectors.toList());
       //예전 파일들 배열을 돌면서 합쳐진 리스트에 있는 이름들 중에 없다면 삭제한다..
 
       log.info("removeFiles................" + removeFiles);
@@ -279,11 +288,11 @@ public class ProductController {
   public DataResponseDTO<String> remove(@PathVariable("pno") Long pno) {
 
     //삭제해야할 파일들 알아내기 
-    List<String> oldFileNames =  productService.get(pno).getUploadFileNames();
+    List<FileDTO<String>> oldFileNames =  productService.get(pno).getUploadFileNames();
 
     productService.remove(pno);
 
-    fileUtil.deleteFiles(oldFileNames);
+//    fileUtil.deleteFiles(oldFileNames);
 
 //    return Map.of("RESULT", "SUCCESS");
 

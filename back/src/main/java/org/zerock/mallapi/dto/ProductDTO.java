@@ -53,13 +53,23 @@ public class ProductDTO {
   @NotNull(message = "교환정책은 필수값입니다.")
   private String changePolicy;
 
-  @Builder.Default //특정 필드를 특정 값으로 초기화
-  private List<MultipartFile> files = new ArrayList<>(); //파일 객체 배열 (수정 시 새로운 파일들)
+  private List<FileDTO<MultipartFile>> files; //파일 객체 배열 (수정 시 새로운 파일들)
 
   @Builder.Default
-  private List<String> uploadFileNames = new ArrayList<>(); // 이름들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
+  private List<FileDTO<String>> uploadFileNames = new ArrayList<>(); // 이름들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
+
 
   @Builder.Default
-  private List<String> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
+  private List<FileDTO<String>> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
+
+
+//  @Builder.Default //특정 필드를 특정 값으로 초기화
+//  private List<MultipartFile> files = new ArrayList<>(); //파일 객체 배열 (수정 시 새로운 파일들)
+//
+//  @Builder.Default
+//  private List<String> uploadFileNames = new ArrayList<>(); // 이름들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
+//
+//  @Builder.Default
+//  private List<String> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
 
 }

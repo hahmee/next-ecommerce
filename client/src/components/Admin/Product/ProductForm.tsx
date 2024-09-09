@@ -17,6 +17,7 @@ import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
+import {FileDTO} from "@/interface/FileDTO";
 
 export const brandOptions:  Array<Option<String>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -101,16 +102,27 @@ const ProductForm = ({type, id}: Props) => {
             }
             if (type === "add") {
 
-                // const
-
                 const formData = new FormData(e.target as HTMLFormElement);
-                const inputs = Object.fromEntries(formData);
 
                 formData.append("pdesc", pdesc);
 
-                productImageStore.files.forEach((p) => {
-                    p && formData.append('files', p.file!);
+
+                productImageStore.files.forEach((p,index) => {
+
+                    formData.append(`files[${index}].file`, p.file!); // 실제 파일 객체
+                    formData.append(`files[${index}].ord`, index as any); // 파일 순서
+
+                    // const fileDto: FileDTO<File> = {file: p.file!, ord: index};
+                    //
+                    //
+                    // console.log('fileDto..', fileDto);
+                    // p && formData.append('files', fileDto as any);
+
+
+                    // p && formData.append('files', p.file!);
                 });
+
+                console.log('asdfasdf', productImageStore.files);
 
                 return fetchWithAuth(`/api/products/`, {
                     method: "POST",
@@ -127,32 +139,38 @@ const ProductForm = ({type, id}: Props) => {
                 console.log('productImageStore.files', productImageStore.files);
                 //새로 업로드한 파일들
                 productImageStore.files.forEach((p) => {
-                    if (p.file != undefined) {
-                        console.log('?', p.file);
+
+                    if(p.file === undefined) {  // 이전에 올렸던 파일들 중 살릴 것들 (삭제 안 한 것들)
+
+                        formData.append('uploadFileNames', p.dataUrl);
+                        formData.append('uploadFileKeys', p.uploadKey!); //변경하기
+
+                    }else{ // 새로 올릴거
                         p && formData.append('files', p.file);
+
                     }
+
                 });
 
-                console.log('???zzz')
 
-                console.log('productImageStore.uploadFileNames', productImageStore.uploadFileNames);
+                // console.log('productImageStore.uploadFileNames', productImageStore.uploadFileNames);
                 //이전에 올렸던 파일들 중에 살릴 것들 (삭제 안 한 것들)
-                productImageStore.uploadFileNames.forEach((i) => {
-                    console.log('!', i)
-                    if(i!=undefined) {
-                        formData.append('uploadFileNames', i.file);
-                    }
-                });
+                // productImageStore.uploadFileNames.forEach((i) => {
+                //     console.log('!', i)
+                //     if(i!=undefined) {
+                //         formData.append('uploadFileNames', i.file);
+                //     }
+                // });
 
 
-                console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
+                // console.log('productImageStore.uploadFileKeys', productImageStore.uploadFileKeys);
 
-                productImageStore.uploadFileKeys.forEach((i) => {
-                    if(i!=undefined) {
-                        formData.append('uploadFileKeys', i.file);
-
-                    }
-                });
+                // productImageStore.uploadFileKeys.forEach((i) => {
+                //     if(i!=undefined) {
+                //         formData.append('uploadFileKeys', i.file);
+                //
+                //     }
+                // });
 
                 return fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",
