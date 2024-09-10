@@ -55,8 +55,6 @@ const ProductTable = ({page, size, search} : PageParam) => {
 
     useEffect(() => {
 
-        console.log('data', data);
-        console.log('search', search);
         setProductData(data);
         if (data) {
             const {dtoList, ...otherData} = data;
@@ -83,7 +81,6 @@ const ProductTable = ({page, size, search} : PageParam) => {
     // }, [todos.error]);
 
     const handleOpenMenu = (pno:number) => {
-        console.log(pno);
         setCurrentPno(pno);
     }
 
@@ -94,7 +91,6 @@ const ProductTable = ({page, size, search} : PageParam) => {
     // 검색어 변경 시 검색 API 호출
     useEffect(() => {
 
-        console.log('searchTerm', searchTerm);
         // if (searchTerm) {
             const fetchSearchResults = async () => {
                 const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=${page}&size=${size}&search=${searchTerm}`, {
@@ -102,11 +98,9 @@ const ProductTable = ({page, size, search} : PageParam) => {
                     credentials: 'include',
                     // cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
                 });
-                console.log('resultJson', resultJson);
                 // setSearchResults(resultJson.data);
                 setProductData(resultJson.data);
                 const {dtoList, ...otherData} = resultJson.data;
-                console.log('otherData', otherData);
                 setPaging(otherData);
             };
             fetchSearchResults();

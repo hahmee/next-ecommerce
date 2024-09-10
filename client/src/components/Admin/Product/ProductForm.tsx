@@ -60,26 +60,10 @@ const ProductForm = ({type, id}: Props) => {
 
         select: useCallback((data: DataResponse<Product>) => {
 
-            console.log('data..', data);
-            const fileNames = data.data.uploadFileNames;
-
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
-                // return {id: idx, file: name};
 
                 return { dataUrl:name.file, file: undefined , uploadKey: data.data.uploadFileKeys?.[idx].file, id:name.ord} as ImageType;
             });
-
-            const uploadFileKeys= data.data.uploadFileKeys?.map((name, idx) => {
-                return {id: idx, file: name};
-            });
-
-            // productImageStore.setUploadFileNames(uploadFileNames || []);
-            // productImageStore.setUploadFileKeys(uploadFileKeys || []);
-
-            // dataUrl: string;
-            // uploadKey?: string;
-            // file: File | undefined;
-            // id: number; //drag and drop
 
             productImageStore.setFiles(uploadFileNames || []);
 

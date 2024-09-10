@@ -76,7 +76,6 @@ const ImageUploadForm = () => {
         });
 
 
-
     }, [images]);
 
     useEffect(() => {
