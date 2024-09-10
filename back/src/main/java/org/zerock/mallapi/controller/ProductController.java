@@ -291,12 +291,15 @@ public class ProductController {
 
     //삭제해야할 파일들 알아내기 
     List<FileDTO<String>> oldFileNames =  productService.get(pno).getUploadFileNames();
+    List<FileDTO<String>> oldFileKeys = productService.get(pno).getUploadFileKeys();
+
+    log.info("oldFileNames======" + oldFileNames);
+    log.info("oldFileKeys======" + oldFileKeys);
 
     productService.remove(pno);
 
-//    fileUtil.deleteFiles(oldFileNames);
+    awsFileUtil.deleteFiles(oldFileKeys);
 
-//    return Map.of("RESULT", "SUCCESS");
 
     return DataResponseDTO.of("SUCCESS");
   }

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
@@ -18,6 +18,7 @@ import {useEffect, useState} from "react";
 import Link from "next/link";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import Dialog from "@/components/Admin/Dialog";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -31,6 +32,10 @@ const initalPagingData: Paging = {
 }
 const ProductTable = ({page, size, search} : PageParam) => {
 
+    const [paging, setPaging] = useState<Paging>(initalPagingData);
+
+    const queryClient = useQueryClient();
+
     const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
         queryKey: ['adminProducts', {page, size, search}],
         queryFn: () => getProductsByEmail({page, size, search}),
@@ -39,14 +44,17 @@ const ProductTable = ({page, size, search} : PageParam) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: false,
-        select: (data) => data.data,
+        select: (data) => {
+            return data.data;
+        }
     });
 
     const [currentPno, setCurrentPno] = useState<number>(-1);
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
     const [productData, setProductData] = useState<PageResponse<Product>>();
-    const [paging, setPaging] = useState<Paging>(initalPagingData);
 
+    const [deleteId, setDeleteId] = useState<number>(-1);
+    const [showDialog, setShowDialog] = useState<boolean>(false);
     const router = useRouter();
 
     const handleClick = (pno:number) => {
@@ -54,6 +62,7 @@ const ProductTable = ({page, size, search} : PageParam) => {
     }
 
     useEffect(() => {
+        console.log('data!!!', data);
 
         setProductData(data);
         if (data) {
@@ -88,6 +97,7 @@ const ProductTable = ({page, size, search} : PageParam) => {
         setSearchTerm(value);  // 검색어 업데이트
     };
 
+
     // 검색어 변경 시 검색 API 호출
     useEffect(() => {
 
@@ -107,8 +117,43 @@ const ProductTable = ({page, size, search} : PageParam) => {
         // }
     }, [searchTerm]);
 
+    const mutation = useMutation({
+        mutationFn: async (pno: number) => {
+            return fetchWithAuth(`/api/products/${pno}`, {
+                method: "DELETE",
+                credentials: 'include',
+            });
+        },
+        onSuccess: (data) => {
+            console.log('data...', data);
+            clickModal();
+
+            //데이터 리프레시
+            // await fetchProducts();
+
+            //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
+            // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
+            queryClient.invalidateQueries(['adminProducts', { page, size, search:searchTerm}] as any);
+        }
+
+    });
+
+    // if(mutation.isSuccess) {
+    //     router.replace("/admin/products?page=1&size=10");
+    // }
+
+    // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
+    const clickModal = () => setShowDialog(!setShowDialog);
+
+    //삭제
+    const deleteProduct = () => {
+        mutation.mutate(deleteId);
+    }
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
+                                   doAction={deleteProduct}/>}
+
             <div
                 className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2 relative">
@@ -223,9 +268,16 @@ const ProductTable = ({page, size, search} : PageParam) => {
                                         </li>
                                     </ul>
                                     <div className="py-1">
-                                        <Link href="/"
-                                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">삭제하기</Link>
+                                        <div
+                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                            onClick={() => {
+                                                setShowDialog(true);
+                                                setDeleteId(product.pno);
+                                            }}>삭제하기
+
+                                        </div>
                                     </div>
+
                                 </div>
                             )
                         }

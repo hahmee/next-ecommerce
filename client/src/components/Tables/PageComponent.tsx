@@ -9,6 +9,7 @@ const PageComponent = ({pagingData, size, search}: { pagingData: Paging, size: n
 
     const router = useRouter();
     console.log('pagingData', pagingData);
+
     return (
         <>
             <div className="flex flex-1 justify-between sm:hidden">
