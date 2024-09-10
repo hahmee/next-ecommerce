@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useDrag, useDrop} from "react-dnd";
 import {Identifier, XYCoord} from "dnd-core";
 
@@ -27,6 +27,7 @@ export const ItemTypes = {
 const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hoveredImg, index, moveImage, id}: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
+
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.IMAGE,
         collect(monitor) {
@@ -92,7 +93,7 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
         }),
     });
 
-    const opacity = isDragging ? 0 : 1
+    const opacity = isDragging ? 0 : 1;
 
     drag(drop(ref));
 
@@ -122,7 +123,9 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
         <>
             {
                 index === 0 ?
-                    <div ref={ref} data-handler-id={handlerId} className=" cursor-move col-span-2 row-span-2 h-54 w-54 flex rounded overflow-hidden" onMouseOver={() => handleMouseOver(image)} onMouseOut={() => handleMouseOut(image)}>
+                    <div ref={ref} data-handler-id={handlerId}
+                         className={`cursor-move col-span-2 row-span-2 h-54 w-54 flex rounded overflow-hidden`}
+                         onMouseOver={() => handleMouseOver(image)} onMouseOut={() => handleMouseOut(image)}>
                         {
                             hoveredImg === image && <div className="h-54 w-54 rounded bg-black absolute bg-opacity-70">
                                 {
@@ -133,7 +136,9 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
                         <img src={image} alt="Main_Image" className="w-full h-full object-cover"/>
                     </div>
                     :
-                    <div ref={ref} data-handler-id={handlerId} key={index} className="cursor-move w-25 h-25 rounded overflow-hidden flex" onMouseOver={() => handleMouseOver(image)} onMouseOut={() => handleMouseOut(image)}>
+                    <div ref={ref} data-handler-id={handlerId} key={index}
+                         className={`cursor-move w-25 h-25 rounded overflow-hidden flex `}
+                         onMouseOver={() => handleMouseOver(image)} onMouseOut={() => handleMouseOut(image)}>
                         {
                             hoveredImg === image &&
                             <div className="h-25 w-25 rounded bg-black absolute bg-opacity-70">

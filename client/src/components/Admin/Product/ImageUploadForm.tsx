@@ -29,7 +29,7 @@ const ImageUploadForm = () => {
         // maxSize:2000000,
         onDrop: acceptedFiles => {
             setImages((prev) => {
-                console.log('?');
+
                 return prev.concat(acceptedFiles.map((file, index) => {
                         return Object.assign(file, {
                             dataUrl: URL.createObjectURL(file), file, id: imgIdxEnd + index
@@ -43,7 +43,6 @@ const ImageUploadForm = () => {
 
 
     const deleteImage = useCallback((image: string) => {
-        console.log('image', image);
         const index = images.findIndex(img => img?.dataUrl === image);
 
 
@@ -65,16 +64,15 @@ const ImageUploadForm = () => {
     }
 
     const moveImage = useCallback((dragIndex: number, hoverIndex: number) => {
-        console.log('dragIndex', dragIndex); //
-        console.log('hoverIndex', hoverIndex); // 놓을 거 (결과)
 
         //삭제 & 삽입
         setImages((prevImage) => {
-            const drag = prevImage[dragIndex];
-            prevImage.splice(dragIndex, 1); //없애기
-            prevImage.splice(hoverIndex, 0, drag); // 놓을 곳에 하나 추가하기
-            console.log('prevImage', prevImage);
-            return prevImage;
+            //불변성 유지
+            const updatedImages = [...prevImage]; // 배열을 복사해서 새로운 배열을 생성
+            const [draggedItem] = updatedImages.splice(dragIndex, 1); // 복사된 배열에서 항목을 제거
+            updatedImages.splice(hoverIndex, 0, draggedItem); // 새로운 배열에 항목을 추가
+            return updatedImages;  // 복사된 새로운 배열을 반환
+
         });
 
 
@@ -82,7 +80,6 @@ const ImageUploadForm = () => {
     }, [images]);
 
     useEffect(() => {
-        console.log('images!', images);
         setImgIdxEnd(images.length);
         productImageStore.setFiles(images); //files에 저장됨 ..
 
@@ -90,7 +87,6 @@ const ImageUploadForm = () => {
 
     useEffect(() => {
 
-        console.log('asdfa', productImageStore.files);
         setImages(productImageStore.files);
 
         return () => {
