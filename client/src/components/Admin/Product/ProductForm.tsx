@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useCallback, useEffect, useRef} from "react";
+import React, {FormEvent, useCallback, useRef} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUploadForm";
 import Select from "@/components/Admin/Product/Select";
@@ -17,7 +17,8 @@ import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
-import {FileDTO} from "@/interface/FileDTO";
+import {Size} from "@/types/size";
+import TagSelect from "@/components/Admin/Product/TagSelect";
 
 export const brandOptions:  Array<Option<String>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -29,6 +30,17 @@ export const categoryOptions: Array<Option<String>> = [
     {id:'category-option2', content:'카테고리 옵션2'},
     {id:'category-option3', content:'카테고리 옵션3'},
 ]
+
+export const sizeOptions: Array<Option<Size>> = [
+    {id: Size.XS, content: 'XS'},
+    {id: Size.S, content: 'S'},
+    {id: Size.M, content: 'M'},
+    {id: Size.L, content: 'L'},
+    {id: Size.XL, content: 'XL'},
+    {id: Size.XXL, content: '2XL'},
+    {id: Size.XXXL, content: '3XL'},
+    {id: Size.FREE, content: 'FREE'},
+];
 
 export const salesOptions: Array<Option<SalesStatus>> = [
     {id: SalesStatus.ONSALE, content:'판매중'},
@@ -164,18 +176,55 @@ const ProductForm = ({type, id}: Props) => {
                     <Breadcrumb pageName={type === "add" ? "제품 등록" : "제품 수정"}/>
                     <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                         <BackButton/>
-                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                        <button type="submit"
+                                className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                             {
                                 type === "add" ? "저장하기" : "수정하기"
                             }
                         </button>
                     </div>
 
+                    <div className="flex flex-col gap-9">
+                        <div
+                            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <h3 className="font-medium text-black dark:text-white">
+                                    추가정보
+                                </h3>
+                            </div>
+                            <div className="p-6.5">
+                                <div className="mb-4.5">
+                                    <MultiSelect label={"사이즈"}
+                                                 optionList={sizeOptions}
+                                                 id="multiSizeSelect"
+                                                 originalData={originalData?.sizeList}
+                                                 name="sizeList"
+                                                 defaultOption={"사이즈를 선택해주세요."}/>
+                                </div>
+                                <div className="mb-4.5">
+                                    <TagSelect label={"컬러"}
+                                                 id="multiColorSelect"
+                                                 originalData={originalData?.colorList}
+                                                 name="colorList"
+                                                 defaultOption={"컬러를 선택해주세요."}/>
+                                    {/*<label>선택 옵션 입력</label>*/}
+                                    {/*<ReactTags*/}
+                                    {/*    tags={tags}*/}
+                                    {/*    handleDelete={handleDelete}*/}
+                                    {/*    handleAddition={handleAddition}*/}
+                                    {/*    inputFieldPosition="top"*/}
+                                    {/*    autocomplete*/}
+                                    {/*/>*/}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="grid grid-cols-1 gap-9">
                         <div className="flex flex-col gap-9">
                             <div
                                 className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <div
+                                    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         이미지 및 동영상
                                     </h3>
@@ -191,14 +240,16 @@ const ProductForm = ({type, id}: Props) => {
                         <div className="flex flex-col gap-9">
                             <div
                                 className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <div
+                                    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         기본정보
                                     </h3>
                                 </div>
                                 <div className="p-6.5">
                                     <div className="mb-4.5">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             상품명 <span className="text-meta-1">*</span>
                                         </label>
                                         <input
@@ -212,7 +263,8 @@ const ProductForm = ({type, id}: Props) => {
                                         />
                                     </div>
                                     <div className="mb-4.5">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             판매상태 <span className="text-meta-1">*</span>
                                         </label>
                                         <RadioButton options={salesOptions} name="salesStatus"
@@ -220,19 +272,23 @@ const ProductForm = ({type, id}: Props) => {
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <Select label={"브랜드"} options={brandOptions} defaultOption={"브랜드를 선택해주세요."}
+                                        <Select label={"브랜드"} options={brandOptions}
+                                                defaultOption={"브랜드를 선택해주세요."}
                                                 originalData={originalData?.brand}
                                                 name="brand"/>
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <MultiSelect label={"카테고리"} optionList={categoryOptions} id="multiSelect"
+                                        <MultiSelect label={"카테고리"} optionList={categoryOptions}
+                                                     id="multiSelect"
                                                      originalData={originalData?.categoryList}
-                                                     name="categoryList" defaultOption={"카테고리를 선택해주세요."}/>
+                                                     name="categoryList"
+                                                     defaultOption={"카테고리를 선택해주세요."}/>
                                     </div>
 
                                     <div className="mb-4.5">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             판매 가격 <span className="text-meta-1">*</span>
                                         </label>
                                         <input
@@ -247,7 +303,8 @@ const ProductForm = ({type, id}: Props) => {
                                     </div>
 
                                     <div className="mb-6">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             SKU <span className="text-meta-1">*</span>
                                         </label>
                                         <input
@@ -270,7 +327,8 @@ const ProductForm = ({type, id}: Props) => {
                         <div className="flex flex-col gap-9">
                             <div
                                 className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <div
+                                    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         상품 상세
                                     </h3>
@@ -278,16 +336,19 @@ const ProductForm = ({type, id}: Props) => {
                                 <div className="p-6.5">
 
                                     <div className="mb-6">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             상품 설명 <span className="text-meta-1">*</span>
                                         </label>
 
-                                        <QuillEditor quillRef={quillRef} originalData={originalData?.pdesc}/>
+                                        <QuillEditor quillRef={quillRef}
+                                                     originalData={originalData?.pdesc}/>
 
                                     </div>
 
                                     <div className="mb-6">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             환불 정책
                                         </label>
                                         <textarea
@@ -302,7 +363,8 @@ const ProductForm = ({type, id}: Props) => {
                                     </div>
 
                                     <div className="mb-6">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label
+                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             교환 정책
                                         </label>
                                         <textarea

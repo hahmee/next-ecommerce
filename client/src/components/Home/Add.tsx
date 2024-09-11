@@ -2,15 +2,16 @@
 
 
 import {useState} from "react";
+import {SalesStatus, SalesStatusKor} from "@/types/salesStatus";
 
 const Add = ({
                  productId,
                  variantId,
-                 stockNumber,
+                 salesStatus,
              }: {
     productId: number;
     variantId: string;
-    stockNumber: number;
+    salesStatus: SalesStatus;
 }) => {
     const [quantity, setQuantity] = useState(1);
 
@@ -21,11 +22,10 @@ const Add = ({
         if (type === "d" && quantity > 1) {
             setQuantity((prev) => prev - 1);
         }
-        if (type === "i" && quantity < stockNumber) {
-            setQuantity((prev) => prev + 1);
-        }
+        // if (type === "i" && quantity < stockNumber) {
+        //     setQuantity((prev) => prev + 1);
+        // }
     };
-
 
 
     return (
@@ -37,7 +37,7 @@ const Add = ({
                         <button
                             className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
                             onClick={() => handleQuantity("d")}
-                            disabled={quantity===1}
+                            disabled={quantity === 1}
                         >
                             -
                         </button>
@@ -45,20 +45,16 @@ const Add = ({
                         <button
                             className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
                             onClick={() => handleQuantity("i")}
-                            disabled={quantity===stockNumber}
+                            // disabled={quantity===stockNumber}
+                            disabled={salesStatus != SalesStatus.ONSALE}
                         >
                             +
                         </button>
                     </div>
-                    {stockNumber < 1 ? (
-                        <div className="text-xs">Product is out of stock</div>
-                    ) : (
-                        <div className="text-xs">
-                            Only <span className="text-orange-500">{stockNumber} items</span>{" "}
-                            left!
-                            <br /> {"Don't"} miss it
-                        </div>
-                    )}
+
+                    <div className="text-xs">{SalesStatusKor[salesStatus]}</div>
+
+
                 </div>
                 <button
 

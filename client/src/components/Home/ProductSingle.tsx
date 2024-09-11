@@ -3,9 +3,11 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
-import {useCallback} from "react";
+import {Suspense, useCallback} from "react";
 import ProductImages from "@/components/Home/ProductImags";
 import Add from "@/components/Home/Add";
+import Reviews from "@/components/Home/Reviews";
+import {SalesStatus} from "@/types/salesStatus";
 
 interface Props {
     id: string;
@@ -54,7 +56,7 @@ const ProductSingle = ({id}: Props) => {
                 <Add
                     productId={product?.pno!}
                     variantId="00000000-0000-0000-0000-000000000000"
-                    stockNumber={0}
+                    salesStatus={product?.salesStatus || SalesStatus.ONSALE}
                 />
 
 
@@ -70,9 +72,13 @@ const ProductSingle = ({id}: Props) => {
                 <div className="h-[2px] bg-gray-100"/>
                 {/* REVIEWS */}
                 <h1 className="text-2xl">User Reviews</h1>
-                {/*<Suspense fallback="Loading...">*/}
-                {/*    <Reviews productId={product._id!}/>*/}
-                {/*</Suspense>*/}
+                {
+                    product?.pno &&
+                    <Suspense fallback="Loading...">
+                        <Reviews productId={product.pno}/>
+                    </Suspense>
+                }
+
             </div>
         </div>
     );

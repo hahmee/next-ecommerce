@@ -11,6 +11,8 @@ export interface Product {
   uploadFileKeys: Array<FileDTO<string>> | null;
   brand: string;
   categoryList: string[];
+  sizeList: string[];
+  colorList: string[];
   sku: string;
   salesStatus: SalesStatus;
   refundPolicy: string;
