@@ -3,20 +3,20 @@ import React, {useEffect, useState} from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
-export default function AdminLayout({children, modal}: { children: React.ReactNode, modal: React.ReactNode }) {
+export default function AdminLayout({children}: { children: React.ReactNode }) {
 
 
     const [loading, setLoading] = useState<boolean>(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    useEffect(() => {
-        setTimeout(() => setLoading(false), 1000);
-    }, []);
+    // useEffect(() => {
+    //     setTimeout(() => setLoading(false), 1000);
+    // }, []);
 
     return (
 
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">4
-            {modal}
+        <div className="dark:bg-boxdark-2 dark:text-bodydark">
+            {/*{modal}*/}
             {/*{loading ? <Loader/> : children}*/}
 
             {/* <!-- ===== Page Wrapper Start ===== --> */}

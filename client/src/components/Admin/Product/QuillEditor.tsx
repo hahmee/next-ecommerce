@@ -1,7 +1,7 @@
 "use client";
 import 'react-quill/dist/quill.snow.css';
 import dynamic from "next/dynamic";
-import React, {memo, RefObject} from "react";
+import React, {RefObject} from "react";
 import ReactQuill, {ReactQuillProps} from 'react-quill';
 
 interface EditorProps {
