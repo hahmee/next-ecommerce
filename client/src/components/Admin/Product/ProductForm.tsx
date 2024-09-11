@@ -104,7 +104,13 @@ const ProductForm = ({type, id}: Props) => {
 
                 formData.append("pdesc", pdesc);
 
-                formData.append("colorList", tagStore.tags as any);
+                // formData.append("colorList", tagStore.tags as any);
+                tagStore.tags.forEach((t, index) => {
+
+                    formData.append(`colorList[${index}].text`, t.text);
+                    formData.append(`colorList[${index}].color`, t.color);
+
+                });
 
                 productImageStore.files.forEach((p,index) => {
 

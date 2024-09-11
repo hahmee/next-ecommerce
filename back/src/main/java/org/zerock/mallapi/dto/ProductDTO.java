@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.domain.SalesStatus;
 
 import java.util.ArrayList;
@@ -45,7 +44,8 @@ public class ProductDTO {
   private List<String> sizeList;
 
   @NotNull(message = "색상은 필수값입니다.")
-  private List<ColorTagDTO> colorList;
+  @Builder.Default
+  private List<ColorTagDTO> colorList = new ArrayList<>();
 
   @NotNull(message = "SKU는 필수값입니다.")
   private String sku;

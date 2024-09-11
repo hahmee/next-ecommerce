@@ -44,15 +44,6 @@ public class Product extends BaseEntity {
   @Builder.Default
   private List<ColorTag> colorList = new ArrayList<>();
 
-//  @ManyToOne
-//  @JoinColumn(name = "colortag_id")
-//  private List<ColorTag> colorList = new ArrayList<>();
-
-//  @ManyToOne
-//  @JoinColumn(name="member_owner")
-//  private Member owner; // 유저
-
-
   private String sku;
 
   private SalesStatus salesStatus;
@@ -120,7 +111,6 @@ public class Product extends BaseEntity {
 
 
   public void addImage(ProductImage image) {
-
       imageList.add(image);
   }
 
@@ -136,6 +126,20 @@ public class Product extends BaseEntity {
   public void clearList() {
       this.imageList.clear();
   }
+
+
+  public void addColorTag(String color, String text){
+
+    ColorTag colorTag = ColorTag.builder()
+            .text(text)
+            .color(color)
+            .build();
+
+    colorList.add(colorTag);
+
+  }
+
+  public void clearColorList() {this.colorList.clear();}
 
   public void addCategoryString(String category){
     categoryList.add(category);

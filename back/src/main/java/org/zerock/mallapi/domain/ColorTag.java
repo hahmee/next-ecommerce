@@ -6,8 +6,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "tbl_color_tag")
+@Builder
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -18,5 +18,6 @@ public class ColorTag {
     private Long id;
     private String text;
     private String color;
+
 
 }

@@ -51,14 +51,9 @@ public class ProductController {
       log.info("잘 나오나.." + uploadFileNames);
       log.info("잘 나오나..2" + uploadFileKeys);
 
-//      productDTO.setUploadFileNames(uploadFileNames);
-//      productDTO.setUploadFileKeys(uploadFileKeys);
-
-
       productDTO.setUploadFileNames(uploadFileNames);
       productDTO.setUploadFileKeys(uploadFileKeys);
     }
-
 
     //서비스 호출 
     Long pno = productService.register(productDTO, userDetails);

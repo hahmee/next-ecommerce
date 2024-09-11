@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.domain.ProductImage;
@@ -279,14 +280,22 @@ public class ProductServiceImpl implements ProductService{
             .refundPolicy(productDTO.getRefundPolicy())
             .categoryList(productDTO.getCategoryList())
             .sizeList(productDTO.getSizeList())
-            .colorList(productDTO.getColorList())
+//            .colorList(productDTO.getColorList())
             .sku(productDTO.getSku())
             .salesStatus(productDTO.getSalesStatus())
             .owner(member)
             .build();
 
-    //업로드 처리가 끝난 파일들의 이름 리스트
 
+    //색상 태그 넣기
+    List<ColorTagDTO> colorList = productDTO.getColorList();
+
+    colorList.stream().forEach(color -> {
+      product.addColorTag(color.getColor(), color.getText());
+    });
+
+
+    //업로드 처리가 끝난 파일들의 이름 리스트
     List<FileDTO<String>> uploadFileNames = productDTO.getUploadFileNames();
 
     List<FileDTO<String>> uploadFileKeys = productDTO.getUploadFileKeys();
@@ -333,12 +342,29 @@ public class ProductServiceImpl implements ProductService{
             .salesStatus(product.getSalesStatus())
             .categoryList(product.getCategoryList())
             .sizeList(product.getSizeList())
-            .colorList(product.getColorList())
     .build();
+
+    //태그
+    List<ColorTag> colorTagList = product.getColorList();
+
+    List<ColorTagDTO> colorTagDTOList = colorTagList.stream().map(colorTag -> {
+
+      String text =  colorTag.getText();
+      String color = colorTag.getColor();
+
+      ColorTagDTO result = new ColorTagDTO();
+
+      result.setColor(color);
+      result.setText(text);
+
+      return result;
+    }).toList();
+
+    productDTO.setColorList(colorTagDTOList);
+
 
     List<ProductImage> imageList = product.getImageList();
 
-    log.info("imageListimageListimageList" + imageList);
 
     if(imageList == null || imageList.size() == 0 ){
       return productDTO;
@@ -404,8 +430,19 @@ public class ProductServiceImpl implements ProductService{
     product.changeBrand(productDTO.getBrand());
     product.changeCategoryList(productDTO.getCategoryList());
     product.changeSizeList(productDTO.getSizeList());
-    product.changeColorList(productDTO.getColorList());
     product.changeSalesStatus(productDTO.getSalesStatus());
+
+
+    //upload File -- clear first
+    product.clearColorList();
+
+    //색상 태그 처리
+    List<ColorTagDTO> colorTagList = productDTO.getColorList();
+
+    colorTagList.stream().forEach(colorTag -> {
+      product.addColorTag(colorTag.getColor(), colorTag.getText());
+
+    });
 
 
     //upload File -- clear first
@@ -427,7 +464,6 @@ public class ProductServiceImpl implements ProductService{
 
       });
     }
-
 
 
     productRepository.save(product);
