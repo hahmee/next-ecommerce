@@ -1,5 +1,6 @@
 import {SalesStatus} from "@/types/salesStatus";
 import {FileDTO} from "@/interface/FileDTO";
+import {ColorTag} from "@/interface/ColorTag";
 
 export interface Product {
   pno: number;
@@ -12,7 +13,7 @@ export interface Product {
   brand: string;
   categoryList: string[];
   sizeList: string[];
-  colorList: string[];
+  colorList: Array<ColorTag>;
   sku: string;
   salesStatus: SalesStatus;
   refundPolicy: string;

@@ -35,6 +35,24 @@ public class Product extends BaseEntity {
   @Builder.Default
   private List<String> categoryList = new ArrayList<>();
 
+  @ElementCollection(fetch = FetchType.LAZY)
+  @Builder.Default
+  private List<String> sizeList = new ArrayList<>();
+
+  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_id")
+  @Builder.Default
+  private List<ColorTag> colorList = new ArrayList<>();
+
+//  @ManyToOne
+//  @JoinColumn(name = "colortag_id")
+//  private List<ColorTag> colorList = new ArrayList<>();
+
+//  @ManyToOne
+//  @JoinColumn(name="member_owner")
+//  private Member owner; // 유저
+
+
   private String sku;
 
   private SalesStatus salesStatus;
@@ -47,14 +65,14 @@ public class Product extends BaseEntity {
   @JoinColumn(name="member_owner")
   private Member owner; // 유저
 
-  public void changeDel(boolean delFlag) {
-    this.delFlag = delFlag;
-  }
-
   @ElementCollection
   @Builder.Default
   @OrderBy("ord ASC") // ord 필드 기준으로 오름차순 정렬
   private List<ProductImage> imageList = new ArrayList<>();
+
+  public void changeDel(boolean delFlag) {
+    this.delFlag = delFlag;
+  }
 
   public void changePrice(int price) {
     this.price = price;
@@ -86,6 +104,14 @@ public class Product extends BaseEntity {
 
   public void changeCategoryList(List<String> categoryList){
     this.categoryList = categoryList;
+  }
+
+  public void changeSizeList(List<String> sizeList){
+    this.sizeList = sizeList;
+  }
+
+  public void changeColorList(List<ColorTag> colorList){
+    this.colorList = colorList;
   }
 
   public void changeSalesStatus(SalesStatus salesStatus){

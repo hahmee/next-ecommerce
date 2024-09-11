@@ -278,6 +278,8 @@ public class ProductServiceImpl implements ProductService{
             .changePolicy(productDTO.getChangePolicy())
             .refundPolicy(productDTO.getRefundPolicy())
             .categoryList(productDTO.getCategoryList())
+            .sizeList(productDTO.getSizeList())
+            .colorList(productDTO.getColorList())
             .sku(productDTO.getSku())
             .salesStatus(productDTO.getSalesStatus())
             .owner(member)
@@ -330,6 +332,8 @@ public class ProductServiceImpl implements ProductService{
             .refundPolicy(product.getRefundPolicy())
             .salesStatus(product.getSalesStatus())
             .categoryList(product.getCategoryList())
+            .sizeList(product.getSizeList())
+            .colorList(product.getColorList())
     .build();
 
     List<ProductImage> imageList = product.getImageList();
@@ -399,6 +403,8 @@ public class ProductServiceImpl implements ProductService{
     product.changeSku(productDTO.getSku());
     product.changeBrand(productDTO.getBrand());
     product.changeCategoryList(productDTO.getCategoryList());
+    product.changeSizeList(productDTO.getSizeList());
+    product.changeColorList(productDTO.getColorList());
     product.changeSalesStatus(productDTO.getSalesStatus());
 
 

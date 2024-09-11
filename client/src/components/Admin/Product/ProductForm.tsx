@@ -19,6 +19,9 @@ import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import {Size} from "@/types/size";
 import TagSelect from "@/components/Admin/Product/TagSelect";
+import {useTagStore} from "@/store/tagStore";
+import tagSelect from "@/components/Admin/Product/TagSelect";
+import {ColorTag} from "@/interface/ColorTag";
 
 export const brandOptions:  Array<Option<String>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -56,9 +59,10 @@ interface Props {
 
 const ProductForm = ({type, id}: Props) => {
     const productImageStore = useProductImageStore();
+    const tagStore = useTagStore();
+
     //type 변경하기
     const quillRef = useRef<any>(null);
-
 
     // modify일 때만 getProduct하기
     const {isLoading, data: originalData, error} = useQuery<DataResponse<Product>, Object, Product, [_1: string, _2: string]>({
@@ -95,9 +99,12 @@ const ProductForm = ({type, id}: Props) => {
             }
             if (type === "add") {
 
+                console.log('tagStore', tagStore.tags);
                 const formData = new FormData(e.target as HTMLFormElement);
 
                 formData.append("pdesc", pdesc);
+
+                formData.append("colorList", tagStore.tags as any);
 
                 productImageStore.files.forEach((p,index) => {
 
@@ -118,6 +125,9 @@ const ProductForm = ({type, id}: Props) => {
                 const formData = new FormData(e.target as HTMLFormElement);
 
                 formData.append("pdesc", pdesc);
+
+                formData.append("colorList", tagStore.tags as any);
+
 
                 console.log('productImageStore.files', productImageStore.files);
 
@@ -207,14 +217,6 @@ const ProductForm = ({type, id}: Props) => {
                                                  originalData={originalData?.colorList}
                                                  name="colorList"
                                                  defaultOption={"컬러를 선택해주세요."}/>
-                                    {/*<label>선택 옵션 입력</label>*/}
-                                    {/*<ReactTags*/}
-                                    {/*    tags={tags}*/}
-                                    {/*    handleDelete={handleDelete}*/}
-                                    {/*    handleAddition={handleAddition}*/}
-                                    {/*    inputFieldPosition="top"*/}
-                                    {/*    autocomplete*/}
-                                    {/*/>*/}
                                 </div>
                             </div>
                         </div>

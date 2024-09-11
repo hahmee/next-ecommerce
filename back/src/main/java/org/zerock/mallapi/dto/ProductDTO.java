@@ -1,6 +1,5 @@
 package org.zerock.mallapi.dto;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.domain.SalesStatus;
 
 import java.util.ArrayList;
@@ -41,6 +41,12 @@ public class ProductDTO {
   @Size(min = 1, message = "카테고리는 필수값입니다.")
   private List<String> categoryList;
 
+  @NotNull(message = "사이즈는 필수값입니다.")
+  private List<String> sizeList;
+
+  @NotNull(message = "색상은 필수값입니다.")
+  private List<ColorTagDTO> colorList;
+
   @NotNull(message = "SKU는 필수값입니다.")
   private String sku;
 
@@ -58,18 +64,7 @@ public class ProductDTO {
   @Builder.Default
   private List<FileDTO<String>> uploadFileNames = new ArrayList<>(); // 이름들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
 
-
   @Builder.Default
   private List<FileDTO<String>> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
-
-
-//  @Builder.Default //특정 필드를 특정 값으로 초기화
-//  private List<MultipartFile> files = new ArrayList<>(); //파일 객체 배열 (수정 시 새로운 파일들)
-//
-//  @Builder.Default
-//  private List<String> uploadFileNames = new ArrayList<>(); // 이름들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
-//
-//  @Builder.Default
-//  private List<String> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
 
 }

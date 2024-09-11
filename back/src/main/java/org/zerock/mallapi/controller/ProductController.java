@@ -1,11 +1,8 @@
 package org.zerock.mallapi.controller;
 
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,8 +15,9 @@ import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.util.AwsFileUtil;
 import org.zerock.mallapi.util.CustomFileUtil;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -55,8 +53,6 @@ public class ProductController {
 
 //      productDTO.setUploadFileNames(uploadFileNames);
 //      productDTO.setUploadFileKeys(uploadFileKeys);
-
-      FileDTO<String> uploadFileNameList = new FileDTO<>();
 
 
       productDTO.setUploadFileNames(uploadFileNames);
