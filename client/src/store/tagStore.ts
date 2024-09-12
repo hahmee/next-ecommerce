@@ -16,7 +16,10 @@ export const useTagStore = create<TagStore>((set) => ({
     })),
     setTagColor: (index, color) => set((state) => {
         const updatedTags = [...state.tags];
+        // if(updatedTags && updatedTags.length > 0) {
         updatedTags[index].color = color;
-        return { tags: updatedTags };
+        console.log('updatedTags', updatedTags);
+        // }
+        return {tags: updatedTags};
     }),
 }));

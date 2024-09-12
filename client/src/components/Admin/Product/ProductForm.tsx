@@ -18,23 +18,21 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import {Size} from "@/types/size";
-import TagSelect from "@/components/Admin/Product/TagSelect";
 import {useTagStore} from "@/store/tagStore";
-import tagSelect from "@/components/Admin/Product/TagSelect";
-import {ColorTag} from "@/interface/ColorTag";
+import TagSelect from "@/components/Admin/Product/TagSelect";
 
-export const brandOptions:  Array<Option<String>> = [
+export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
     {id: 'brand-option2', content:'브랜드 옵션2'},
     {id: 'brand-option3', content:'브랜드 옵션3'},
 ];
-export const categoryOptions: Array<Option<String>> = [
+export const categoryOptions: Array<Option<string>> = [
     {id:'category-option1', content:'카테고리 옵션1'},
     {id:'category-option2', content:'카테고리 옵션2'},
     {id:'category-option3', content:'카테고리 옵션3'},
 ]
 
-export const sizeOptions: Array<Option<Size>> = [
+export const sizeOptions: Array<Option<string>> = [
     {id: Size.XS, content: 'XS'},
     {id: Size.S, content: 'S'},
     {id: Size.M, content: 'M'},
@@ -73,7 +71,6 @@ const ProductForm = ({type, id}: Props) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
-
         select: useCallback((data: DataResponse<Product>) => {
 
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
@@ -83,6 +80,7 @@ const ProductForm = ({type, id}: Props) => {
 
             productImageStore.setFiles(uploadFileNames || []);
 
+            console.log('ddd.', data.data);
             return data.data;
         }, []),
 
@@ -210,12 +208,12 @@ const ProductForm = ({type, id}: Props) => {
                             </div>
                             <div className="p-6.5">
                                 <div className="mb-4.5">
-                                    <MultiSelect label={"사이즈"}
-                                                 optionList={sizeOptions}
-                                                 id="multiSizeSelect"
-                                                 originalData={originalData?.sizeList}
-                                                 name="sizeList"
-                                                 defaultOption={"사이즈를 선택해주세요."}/>
+                                    {/*<MultiSelect label={"사이즈"}*/}
+                                    {/*             optionList={sizeOptions}*/}
+                                    {/*             id="multiSizeSelect"*/}
+                                    {/*             originalData={originalData?.sizeList}*/}
+                                    {/*             name="sizeList"*/}
+                                    {   /*             defaultOption={"사이즈를 선택해주세요."}/>*/}
                                 </div>
                                 <div className="mb-4.5">
                                     <TagSelect label={"컬러"}

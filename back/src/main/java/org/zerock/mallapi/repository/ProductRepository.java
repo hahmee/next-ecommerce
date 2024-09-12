@@ -15,14 +15,15 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
 //  @Query("select p, pi from Product p left join p.imageList pi where p.pno = :pno")
 
-  @EntityGraph(attributePaths = {"imageList", "colorList"})
-  @Query("select p from Product p where p.pno = :pno")
+
+//  @EntityGraph(attributePaths = "imageList")
+//  @Query("select p from Product p where p.pno = :pno")
+  @Query("select p from Product p left join p.imageList left join p.colorList where p.pno = :pno")
   Optional<Product> selectOne(@Param("pno") Long pno);
 
   @Modifying
   @Query("update Product p set p.delFlag = :flag where p.pno = :pno")
   void updateToDelete(@Param("pno") Long pno , @Param("flag") boolean flag);
-
 
   @Query("select p, pi from Product p left join p.imageList pi where pi.ord = 0 and p.delFlag = false ")
   Page<Object[]> selectList(Pageable pageable);

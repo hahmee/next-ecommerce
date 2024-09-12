@@ -1,5 +1,5 @@
 "use client";
-import React, { KeyboardEvent, useState } from "react";
+import React, {KeyboardEvent, useEffect, useState} from "react";
 import { ChromePicker } from "react-color";
 import {useTagStore} from "@/store/tagStore";
 import {ColorTag} from "@/interface/ColorTag";
@@ -12,19 +12,25 @@ interface DropdownProps {
     originalData: ColorTag[] | undefined;
 }
 
-const TagSelect: React.FC<DropdownProps> = ({ id, label, name, defaultOption, originalData }) => {
-    const { tags, addTag, removeTag, setTagColor } = useTagStore();
+const TagSelect: React.FC<DropdownProps> = ({id, label, name, defaultOption, originalData}) => {
+    const {tags, addTag, removeTag, setTagColor} = useTagStore();
     const [inputValue, setInputValue] = useState('');
     const [selectedTagIndex, setSelectedTagIndex] = useState<number | null>(null);
     const [selectedColor, setSelectedColor] = useState('#000000');
     const [showColorPicker, setShowColorPicker] = useState(false);
+
+    useEffect(() => {
+        if (originalData && originalData.length > 0) {
+            originalData.forEach((tag) => addTag(tag));
+        }
+    }, [originalData, addTag]);
 
     // Handle tag addition on Enter or Comma key press
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' || e.key === ',') {
             e.preventDefault();
             if (inputValue.trim()) {
-                const newTag = { text: inputValue.trim(), color: '#000000' }; // Default color is black
+                const newTag = {text: inputValue.trim(), color: '#000000'}; // Default color is black
                 addTag(newTag);
                 setInputValue('');
                 setSelectedTagIndex(tags.length); // Select the new tag for color picker
@@ -74,7 +80,7 @@ const TagSelect: React.FC<DropdownProps> = ({ id, label, name, defaultOption, or
                         >
               <span
                   className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: tag.color }}
+                  style={{backgroundColor: tag.color}}
               ></span>
                             <span>{tag.text}</span>
                             <span
@@ -92,7 +98,7 @@ const TagSelect: React.FC<DropdownProps> = ({ id, label, name, defaultOption, or
             {showColorPicker && selectedTagIndex !== null && (
                 <div className="relative inline-block z-50">
                     <div className="absolute top-0 left-0 bg-white p-4 shadow-lg rounded-lg">
-                        <ChromePicker color={selectedColor} onChange={handleColorChange} />
+                        <ChromePicker color={selectedColor} onChange={handleColorChange}/>
                         <div className="flex justify-between mt-2">
                             <button
                                 onClick={closeColorPicker}

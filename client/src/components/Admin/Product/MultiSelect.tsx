@@ -38,7 +38,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                     newOptions.push({
                         value: select.options[i].value,
                         text: select.options[i].innerText,
-                        selected: select.options[i].hasAttribute("selected"),
+                        selected:true //select.options[i].hasAttribute("selected"),
                     });
                 }
                 setOptions(newOptions);
@@ -126,17 +126,17 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                                 <div
                                     className="mb-2 flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                                     <div className="flex flex-auto flex-wrap gap-3">
-                                        {selected.map((index) => (
+                                        {selected.map((selectedIndex, idx) => (
                                             <div
-                                                key={index}
+                                                key={idx}
                                                 className="my-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray px-2.5 py-1.5 text-sm font-medium dark:border-strokedark dark:bg-white/30"
                                             >
                                                 <div className="max-w-full flex-initial">
-                                                    {options[index]?.text}
+                                                    {options[selectedIndex]?.text}
                                                 </div>
                                                 <div className="flex flex-auto flex-row-reverse">
                                                     <div
-                                                        onClick={() => remove(index)}
+                                                        onClick={() => remove(selectedIndex)}
                                                         className="cursor-pointer pl-2 hover:text-danger"
                                                     >
                                                         <svg

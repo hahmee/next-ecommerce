@@ -5,7 +5,9 @@ import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_product")
@@ -43,6 +45,7 @@ public class Product extends BaseEntity {
   @JoinColumn(name = "product_id")
   @Builder.Default
   private List<ColorTag> colorList = new ArrayList<>();
+//  private Set<ColorTag> colorList = new HashSet<>();
 
   private String sku;
 
@@ -53,13 +56,15 @@ public class Product extends BaseEntity {
   private String changePolicy;
 
   @ManyToOne
-  @JoinColumn(name="member_owner")
+  @JoinColumn(name = "member_owner")
   private Member owner; // 유저
 
   @ElementCollection
   @Builder.Default
   @OrderBy("ord ASC") // ord 필드 기준으로 오름차순 정렬
   private List<ProductImage> imageList = new ArrayList<>();
+//  private Set<ProductImage> imageList = new HashSet<>();
+
 
   public void changeDel(boolean delFlag) {
     this.delFlag = delFlag;
@@ -69,66 +74,62 @@ public class Product extends BaseEntity {
     this.price = price;
   }
 
-  public void changeDesc(String desc){
-      this.pdesc = desc;
+  public void changeDesc(String desc) {
+    this.pdesc = desc;
   }
 
-  public void changeName(String name){
-      this.pname = name;
+  public void changeName(String name) {
+    this.pname = name;
   }
 
-  public void changeChangePolicy(String changePolicy){
+  public void changeChangePolicy(String changePolicy) {
     this.changePolicy = changePolicy;
   }
 
-  public void changeRefundPolicy(String refundPolicy){
+  public void changeRefundPolicy(String refundPolicy) {
     this.refundPolicy = refundPolicy;
   }
 
-  public void changeSku(String sku){
+  public void changeSku(String sku) {
     this.sku = sku;
   }
 
-  public void changeBrand(String brand){
+  public void changeBrand(String brand) {
     this.brand = brand;
   }
 
-  public void changeCategoryList(List<String> categoryList){
+  public void changeCategoryList(List<String> categoryList) {
     this.categoryList = categoryList;
   }
 
-  public void changeSizeList(List<String> sizeList){
+  public void changeSizeList(List<String> sizeList) {
     this.sizeList = sizeList;
   }
 
-  public void changeColorList(List<ColorTag> colorList){
-    this.colorList = colorList;
-  }
-
-  public void changeSalesStatus(SalesStatus salesStatus){
+  public void changeSalesStatus(SalesStatus salesStatus) {
     this.salesStatus = salesStatus;
   }
 
 
   public void addImage(ProductImage image) {
-      imageList.add(image);
+    imageList.add(image);
   }
 
-  public void addImageString(String fileName, String fileKey, int ord){
+  public void addImageString(String fileName, String fileKey, int ord) {
 
     ProductImage productImage = ProductImage.builder()
-    .fileName(fileName).fileKey(fileKey).ord(ord)
+            .fileName(fileName).fileKey(fileKey).ord(ord)
             .build();
     addImage(productImage);
 
   }
 
   public void clearList() {
-      this.imageList.clear();
+    this.imageList.clear();
   }
 
 
-  public void addColorTag(String color, String text){
+  public void addColorTag(String color, String text) {
 
     ColorTag colorTag = ColorTag.builder()
             .text(text)
@@ -139,9 +140,11 @@ public class Product extends BaseEntity {
 
   }
 
-  public void clearColorList() {this.colorList.clear();}
+  public void clearColorList() {
+    this.colorList.clear();
+  }
 
-  public void addCategoryString(String category){
+  public void addCategoryString(String category) {
     categoryList.add(category);
   }
 }
