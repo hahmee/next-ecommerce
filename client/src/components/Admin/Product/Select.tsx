@@ -5,7 +5,7 @@ import {Option} from "@/interface/Option";
 
 interface SelectProps {
     label:string,
-    options: Array<Option<String>>;
+    options: Array<Option<string>>;
     defaultOption: string;
     name: string;
     originalData: string | undefined;

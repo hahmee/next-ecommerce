@@ -3,9 +3,7 @@
 import React, {FormEvent, useCallback, useRef} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUploadForm";
-import Select from "@/components/Admin/Product/Select";
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
-import RadioButton from "@/components/Admin/Product/RadioButton";
 import {Option} from "@/interface/Option";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQuery} from "@tanstack/react-query";
@@ -13,13 +11,15 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {useProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
-import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import {Size} from "@/types/size";
 import {useTagStore} from "@/store/tagStore";
 import TagSelect from "@/components/Admin/Product/TagSelect";
+import RadioButton from "@/components/Admin/Product/RadioButton";
+import Select from "@/components/Admin/Product/Select";
+import QuillEditor from "@/components/Admin/Product/QuillEditor";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -80,7 +80,6 @@ const ProductForm = ({type, id}: Props) => {
 
             productImageStore.setFiles(uploadFileNames || []);
 
-            console.log('ddd.', data.data);
             return data.data;
         }, []),
 
@@ -130,8 +129,13 @@ const ProductForm = ({type, id}: Props) => {
 
                 formData.append("pdesc", pdesc);
 
-                formData.append("colorList", tagStore.tags as any);
+                // formData.append("colorList", tagStore.tags as any);
+                tagStore.tags.forEach((t, index) => {
 
+                    formData.append(`colorList[${index}].text`, t.text);
+                    formData.append(`colorList[${index}].color`, t.color);
+
+                });
 
                 console.log('productImageStore.files', productImageStore.files);
 
@@ -208,19 +212,17 @@ const ProductForm = ({type, id}: Props) => {
                             </div>
                             <div className="p-6.5">
                                 <div className="mb-4.5">
-                                    {/*<MultiSelect label={"사이즈"}*/}
-                                    {/*             optionList={sizeOptions}*/}
-                                    {/*             id="multiSizeSelect"*/}
-                                    {/*             originalData={originalData?.sizeList}*/}
-                                    {/*             name="sizeList"*/}
-                                    {   /*             defaultOption={"사이즈를 선택해주세요."}/>*/}
+                                    <MultiSelect label={"사이즈"}
+                                                 optionList={sizeOptions}
+                                                 id="multiSizeSelect"
+                                                 originalData={originalData?.sizeList}
+                                                 name="sizeList"
+                                                 defaultOption={"사이즈를 선택해주세요."}/>
                                 </div>
                                 <div className="mb-4.5">
                                     <TagSelect label={"컬러"}
-                                                 id="multiColorSelect"
-                                                 originalData={originalData?.colorList}
-                                                 name="colorList"
-                                                 defaultOption={"컬러를 선택해주세요."}/>
+                                               originalData={originalData?.colorList}
+                                               defaultOption={"컬러를 선택해주세요."}/>
                                 </div>
                             </div>
                         </div>

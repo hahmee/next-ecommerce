@@ -5,15 +5,13 @@ import {useTagStore} from "@/store/tagStore";
 import {ColorTag} from "@/interface/ColorTag";
 
 interface DropdownProps {
-    id: string;
     label: string;
-    name: string;
     defaultOption: string;
     originalData: ColorTag[] | undefined;
 }
 
-const TagSelect: React.FC<DropdownProps> = ({id, label, name, defaultOption, originalData}) => {
-    const {tags, addTag, removeTag, setTagColor} = useTagStore();
+const TagSelect: React.FC<DropdownProps> = ({label, defaultOption, originalData}) => {
+    const {tags, addTag, removeTag, setTagColor, clear} = useTagStore();
     const [inputValue, setInputValue] = useState('');
     const [selectedTagIndex, setSelectedTagIndex] = useState<number | null>(null);
     const [selectedColor, setSelectedColor] = useState('#000000');
@@ -23,6 +21,7 @@ const TagSelect: React.FC<DropdownProps> = ({id, label, name, defaultOption, ori
         if (originalData && originalData.length > 0) {
             originalData.forEach((tag) => addTag(tag));
         }
+        return () => clear();
     }, [originalData, addTag]);
 
     // Handle tag addition on Enter or Comma key press
@@ -61,7 +60,7 @@ const TagSelect: React.FC<DropdownProps> = ({id, label, name, defaultOption, ori
             <div>
                 <input
                     type="text"
-                    placeholder="색상을 입력해주세요."
+                    placeholder={defaultOption}
                     value={inputValue}
                     onChange={(e) => {
                         setInputValue(e.target.value);

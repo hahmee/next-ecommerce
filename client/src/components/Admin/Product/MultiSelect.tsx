@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Option} from "@/interface/Option";
-import {categoryOptions} from "@/components/Admin/Product/ProductForm";
 
 interface Options {
     value: string;
@@ -14,19 +13,18 @@ interface DropdownProps {
     id: string;
     label: string;
     name: string;
-    optionList: Array<Option<String>>;
+    optionList: Array<Option<string>>;
     defaultOption: string;
     originalData: string[] | undefined;
 }
 
 const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defaultOption, originalData }) => {
     const [options, setOptions] = useState<Options[]>([]);
-    const initOptionNumberList = originalData?.map(data => categoryOptions.findIndex(option => option.id === data));
+    const initOptionNumberList = originalData?.map(data => optionList.findIndex(option => option.id === data));
     const [selected, setSelected] = useState<number[]>(initOptionNumberList || []);
     const [show, setShow] = useState(false);
     const dropdownRef = useRef<any>(null);
     const trigger = useRef<any>(null);
-
 
 
     useEffect(() => {
@@ -38,14 +36,26 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                     newOptions.push({
                         value: select.options[i].value,
                         text: select.options[i].innerText,
-                        selected:true //select.options[i].hasAttribute("selected"),
+                        selected:select.options[i].hasAttribute("selected"),
                     });
                 }
                 setOptions(newOptions);
             }
         };
 
-        loadOptions();
+        if(originalData) { //수정일 때
+            const newOptions: Options[] = optionList.map(option => ({
+                selected: originalData.includes(option.id),
+                value:option.id,
+                text:option.content
+            }));
+
+            setOptions(newOptions);
+
+        }else{ // 생성일때
+            loadOptions();
+        }
+
     }, [id]);
 
     const open = () => {
@@ -75,8 +85,8 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     };
 
     const remove = (index: number) => {
-        const newOptions = [...options];
-        const selectedIndex = selected.indexOf(index);
+        const newOptions = [...options]; //
+        const selectedIndex = selected.indexOf(index); // [1,2,3]
 
         if (selectedIndex !== -1) {
             newOptions[index].selected = false;

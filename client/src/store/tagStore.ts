@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from "zustand";
 import {ColorTag} from "@/interface/ColorTag";
 
 interface TagStore {
@@ -6,6 +6,7 @@ interface TagStore {
     addTag: (tag: ColorTag) => void;
     removeTag: (index: number) => void;
     setTagColor: (index: number, color: string) => void;
+    clear: () => void;
 }
 
 export const useTagStore = create<TagStore>((set) => ({
@@ -16,10 +17,11 @@ export const useTagStore = create<TagStore>((set) => ({
     })),
     setTagColor: (index, color) => set((state) => {
         const updatedTags = [...state.tags];
-        // if(updatedTags && updatedTags.length > 0) {
         updatedTags[index].color = color;
-        console.log('updatedTags', updatedTags);
-        // }
         return {tags: updatedTags};
     }),
+    clear: () => {
+        set({tags: []});
+    }
+
 }));

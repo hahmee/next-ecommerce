@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MultiSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MultiSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/Select.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/Select.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/TagSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/TagSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/tagStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/tagStore.ts" afterDir="false" />
     </list>
