@@ -156,7 +156,7 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/{pno}")
-  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, @Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+    public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, @Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
     log.info("==============pno " + pno);
 

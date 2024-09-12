@@ -8,6 +8,7 @@ import ProductImages from "@/components/Home/ProductImags";
 import Add from "@/components/Home/Add";
 import Reviews from "@/components/Home/Reviews";
 import {SalesStatus} from "@/types/salesStatus";
+import OptionSelect from "@/components/Home/OptionSelect";
 
 interface Props {
     id: string;
@@ -28,16 +29,15 @@ const ProductSingle = ({id}: Props) => {
 
     const product = data?.data;
 
+    console.log('product',product)
 
     return (
         <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
             {/* IMG */}
             <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">
                 {
-
                     product?.uploadFileNames &&
                     <ProductImages items={product.uploadFileNames}/>
-
                 }
             </div>
             {/* TEXTS */}
@@ -53,8 +53,10 @@ const ProductSingle = ({id}: Props) => {
 
                 <div className="h-[2px] bg-gray-100"/>
 
+
+                <OptionSelect colorList={product?.colorList || []} sizeList={product?.sizeList|| []}/>
                 <Add
-                    productId={product?.pno!}
+                    pno={Number(id)}
                     variantId="00000000-0000-0000-0000-000000000000"
                     salesStatus={product?.salesStatus || SalesStatus.ONSALE}
                 />

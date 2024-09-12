@@ -1,13 +1,17 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {logout} from "@/app/(home)/profile/_lib/getUserServer";
 import {useQueryClient} from "@tanstack/react-query";
 import {Member} from "@/interface/Member";
+import CartModal from "@/components/Home/CartModal";
+import {useCartStore} from "@/store/cartStore";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     const queryClient = useQueryClient();
+    const [isCartOpen, setIsCartOpen] = useState(false);
+    const { cart, counter, getCart } = useCartStore();
 
     const onLogout = async () => {
 
@@ -21,6 +25,11 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
 
         await logout();
     };
+
+    useEffect(() => {
+        getCart();
+    }, []);
+
 
     return (
         <div className="flex items-center gap-4 xl:gap-6 relative">
@@ -52,14 +61,15 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
             />
             <div
                 className="relative cursor-pointer"
+                onClick={() => setIsCartOpen((prev) => !prev)}
             >
                 <Image src="/cart.png" alt="" width={22} height={22}/>
                 <div
                     className="absolute -top-4 -right-4 w-6 h-6 bg-lama rounded-full text-white text-sm flex items-center justify-center">
-                    10000
+                    {counter}
                 </div>
             </div>
-            {/*{isCartOpen && <CartModal />}*/}
+            {isCartOpen && <CartModal />}
         </div>
     );
 };

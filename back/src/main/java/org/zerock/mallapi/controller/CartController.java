@@ -35,7 +35,7 @@ public class CartController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/items")
     public List<CartItemListDTO> getCartItems(Principal principal) {
 
