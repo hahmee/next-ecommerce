@@ -30,11 +30,10 @@ const Navbar = () => {
               <div className="text-2xl tracking-wide">E-COM</div>
             </Link>
             <div className="hidden xl:flex gap-4">
-              <Link href="/">Homepage</Link>
-              <Link href="/">Shop</Link>
-              <Link href="/">Deals</Link>
-              <Link href="/">About</Link>
-              <Link href="/">Contact</Link>
+              <Link href="/">Men</Link>
+              <Link href="/">Women</Link>
+              <Link href="/">Beauty</Link>
+              <Link href="/">Sport</Link>
             </div>
           </div>
           {/* RIGHT */}

@@ -47,7 +47,7 @@ const menuGroups = [
         ),
         label: "쇼핑몰 제품",
         route: "/admin",
-        children: [{ label: "제품", route: "/admin/products?page=1&size=10" },{ label: "재고", route: "/" },{ label: "카테고리", route: "/" }],
+        children: [{ label: "제품", route: "/admin/products?page=1&size=10" },{ label: "재고", route: "/" },{ label: "카테고리", route: "/admin/category" }],
       },
       {
         icon: (

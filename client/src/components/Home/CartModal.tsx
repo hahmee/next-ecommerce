@@ -4,11 +4,13 @@ import Image from "next/image";
 import {useCartStore} from "@/store/cartStore";
 import {useMemo, useState} from "react";
 import CartItem from "@/components/Home/CartItem";
+import {useRouter} from "next/navigation";
 
 
 const  CartModal = () => {
 
     const { cart, isLoading, removeItem } = useCartStore();
+    const router = useRouter();
 
     console.log('cart..........', cart);
 
@@ -59,7 +61,7 @@ const  CartModal = () => {
                             Shipping and taxes calculated at checkout.
                         </p>
                         <div className="flex justify-between text-sm">
-                            <button className="rounded-md py-3 px-4 ring-1 ring-gray-300">
+                            <button className="rounded-md py-3 px-4 ring-1 ring-gray-300" onClick={()=>router.replace("/cart")}>
                                 View Cart
                             </button>
                             <button

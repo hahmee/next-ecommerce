@@ -33,9 +33,8 @@ const AddCart = ({
     };
 
     const handleClickAddCart = () => {
-        console.log('cart', cart);
-        console.log('options', options);
-        const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id); // or use item.color.name === options.color.name);
+
+        const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
 
         //해당하는 cino 의 개수를 바꿔야함
         if (result && result.length > 0) { // 담겨있었음
@@ -95,10 +94,7 @@ const AddCart = ({
 
                 </div>
                 <button
-                    // onClick={() => addItem(wixClient, productId, variantId, quantity)}
-                    // onClick={() => changeCart()}
                     onClick={handleClickAddCart}
-
                     disabled={isLoading}
                     className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                 >
