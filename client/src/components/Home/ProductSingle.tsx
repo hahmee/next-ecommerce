@@ -28,7 +28,7 @@ const ProductSingle = ({id}: Props) => {
     });
 
     const product = data?.data;
-
+    console.log('product', product);
     //초기값 세팅
     const [color, setColor] = useState<ColorTag>({ id: 0, text: '', color: '' });
     const [size, setSize] = useState<string>("");

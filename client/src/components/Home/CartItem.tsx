@@ -1,11 +1,11 @@
 import {FC} from "react";
 import Image from "next/image";
-import exp from "node:constants";
 import {useCartStore} from "@/store/cartStore";
+import {CartItemList} from "@/interface/CartItemList";
 
 interface Props {
 
-    item: any;
+    item: CartItemList;
 
 }
 
@@ -52,7 +52,7 @@ const CartItem: FC<Props> = ({item}) => {
                     <span
                         className="text-blue-500"
                         style={{cursor: isLoading ? "not-allowed" : "pointer"}}
-                        // onClick={() => removeItem(wixClient, item._id!)}
+                        onClick={() => removeItem(item.cino)}
                     >Remove</span>
                 </div>
             </div>

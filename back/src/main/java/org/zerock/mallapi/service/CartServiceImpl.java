@@ -66,6 +66,9 @@ public class CartServiceImpl implements CartService {
         //이미 동일한 상품이 담긴적이 있을 수 있으므로
         cartItem = cartItemRepository.getItemOfPno(email, pno, size, colorId);
 
+        log.info("=================^^^ " + cartItem);
+        log.info("=================qty" + qty);
+
         if(cartItem == null){
             Product product = Product.builder().pno(pno).build();
             ColorTag colorTag = ColorTag.builder().id(colorId).build();
@@ -109,9 +112,6 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItemListDTO> getCartItems(String email) {
-
-        List<CartItemListDTO> result = cartItemRepository.getItemsOfCartDTOByEmail(email);
-        log.info("result.................." + result);
 
         return cartItemRepository.getItemsOfCartDTOByEmail(email);
     }

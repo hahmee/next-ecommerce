@@ -22,12 +22,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
             " order by ci desc ")
     public List<CartItemListDTO> getItemsOfCartDTOByEmail(@Param("email") String email);
 
-//    @Query("select" +
-//            " ci "+
-//            " from " +
-//            "   CartItem ci inner join Cart c on ci.cart = c " +
-//            " where " +
-//            "   c.owner.email = :email and ci.product.pno = :pno")
+
     @Query("select" +
             " ci "+
            " from " +
@@ -45,7 +40,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
     public Long getCartFromItem( @Param("cino") Long cino);
 
 
-    @Query("select new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price , pi.fileName )  " +
+    @Query("select new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price , pi.fileName, ci.size, new org.zerock.mallapi.dto.ColorTagDTO(ci.color.id, ci.color.text, ci.color.color) )  " +
             " from " +
             "   CartItem ci inner join Cart mc on ci.cart = mc " +
             "   left join Product p on ci.product = p " +

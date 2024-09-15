@@ -5,27 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/domain/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/domain/CartItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CartItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CartItemDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CartItemListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CartItemListDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CartItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CartItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CartServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Add.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/OptionSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/OptionSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductImags.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductImags.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductSingle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/CartItem.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/CartItem.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/CartItemList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/CartItemList.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/ColorTag.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/ColorTag.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/cartStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/cartStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +170,7 @@
       <workItem from="1726150713126" duration="6637000" />
       <workItem from="1726191860970" duration="4151000" />
       <workItem from="1726203565573" duration="11516000" />
-      <workItem from="1726367552711" duration="5898000" />
+      <workItem from="1726367552711" duration="11374000" />
     </task>
     <servers />
   </component>

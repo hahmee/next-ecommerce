@@ -33,11 +33,12 @@ const AddCart = ({
     };
 
     const handleClickAddCart = () => {
-        const result = cart.filter((item: CartItemList) => item.pno === pno);
+        console.log('cart', cart);
+        console.log('options', options);
+        const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id); // or use item.color.name === options.color.name);
 
-        console.log('result', result);
-
-        if (result && result.length > 0) {
+        //해당하는 cino 의 개수를 바꿔야함
+        if (result && result.length > 0) { // 담겨있었음
             const cartItemChange: CartItem = {
                 email: member.email,
                 pno: pno,
@@ -46,7 +47,9 @@ const AddCart = ({
                 size: options.size,
             };
             changeCart(cartItemChange); // 수량만 추가
-        } else {
+        }
+
+        else { //아무것도 안담겨있었음
             const cartItem: CartItem = {
                 email: member.email,
                 pno: pno,
@@ -96,7 +99,7 @@ const AddCart = ({
                     // onClick={() => changeCart()}
                     onClick={handleClickAddCart}
 
-                    // disabled={isLoading}
+                    disabled={isLoading}
                     className="w-36 text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                 >
                     Add to Cart

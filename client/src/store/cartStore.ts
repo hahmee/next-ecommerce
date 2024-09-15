@@ -23,7 +23,6 @@ export const useCartStore = create<CartState>((set) => ({
         method: "GET",
         credentials: 'include',
       });
-      console.log('result', cart.data);
 
       set({
         cart: cart.data || [],
@@ -36,9 +35,9 @@ export const useCartStore = create<CartState>((set) => ({
     }
   },
   changeCart: async (cartItem) => {
-    console.log('cartItem', cartItem);
+    set((state) => ({ ...state, isLoading: true }));
 
-    const response = await fetchWithAuth(`/api/cart/change`, {
+    const cart = await fetchWithAuth(`/api/cart/change`, {
       method: "POST",
       credentials: 'include',
       headers: {
@@ -46,6 +45,12 @@ export const useCartStore = create<CartState>((set) => ({
       },
       body: JSON.stringify(cartItem),
     })
+
+    set({
+      cart: cart.data || [],
+      isLoading: false,
+      counter: cart.data.length || 0,
+    });
 
     // set((state) => ({ ...state, isLoading: true }));
     // const response = await wixClient.currentCart.addToCurrentCart({
@@ -69,16 +74,18 @@ export const useCartStore = create<CartState>((set) => ({
   },
 
   removeItem: async (cino) => {
-    // set((state) => ({ ...state, isLoading: true }));
-    // const response = await wixClient.currentCart.removeLineItemsFromCurrentCart(
-    //   [itemId]
-    // );
-    //
-    // set({
-    //   cart: response.cart,
-    //   counter: response.cart?.lineItems.length,
-    //   isLoading: false,
-    // });
+    set((state) => ({ ...state, isLoading: true }));
+
+    const response = await fetchWithAuth(`/api/cart/${cino}`, {
+      method: "DELETE",
+      credentials: 'include',
+    })
+
+    set({
+      cart: response.data || [],
+      isLoading: false,
+      counter: response.data.length || 0,
+    });
   },
 
 }));

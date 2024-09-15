@@ -45,12 +45,11 @@ public class CartController {
 
         return DataResponseDTO.of(cartService.getCartItems(email));
 
-
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @DeleteMapping("/{cino}")
-    public DataResponseDTO<List<CartItemListDTO>> removeFromCart( @PathVariable("cino") Long cino){
+    public DataResponseDTO<List<CartItemListDTO>> removeFromCart(@PathVariable("cino") Long cino){
 
         log.info("cart item no: " + cino);
 
