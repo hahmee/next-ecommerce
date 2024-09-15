@@ -1,6 +1,7 @@
 "use server";
 
 import {cookies} from "next/headers";
+import {getCookie} from "cookies-next";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
 interface IRequestInit {
@@ -23,10 +24,16 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
     const cookieJson = await authResponse.json();
     const memberCookie = cookieJson.member;
 
+    // const test = getCookie("member"); //undefined
+
+    // console.log('...뭘까?!!',test)
+
     if (!memberCookie) {
         return Promise.reject({ message: 'No member cookie found' });
     }
+    console.log('memberCookie', memberCookie);
 
+    // const {accessToken, refreshToken, email} = JSON.parse(memberCookie);
     const {accessToken, refreshToken, email} = memberCookie;
 
     // const getReject = async (errorMessage: string) => {

@@ -18,30 +18,35 @@ export const useCartStore = create<CartState>((set) => ({
   counter: 0,
   getCart: async () => {
 
-    const resultJson = await fetchWithAuth(`/api/cart/items`, {
-      method: "GET",
-      credentials: 'include',
-      // body: formData as FormData,
-      // headers: { 'Content-Type': 'multipart/form-data' }
-    }); // json 형태로 이미 반환
-    console.log('result', resultJson);
-    // try {
-    //
-    //   // console.log('ddd', wixClient.currentCart.getCurrentCart());
-    //   // const cart = await wixClient.currentCart.getCurrentCart();
-    //   // const cart = [];
-    //   //
-    //   // console.log('cart', cart);
-    //   // set({
-    //   //   cart: cart || [],
-    //   //   isLoading: false,
-    //   //   counter: cart?.lineItems.length || 0,
-    //   // });
-    // } catch (err) {
-    //   // set((prev) => ({ ...prev, isLoading: false }));
-    // }
+    try {
+      const cart = await fetchWithAuth(`/api/cart/items`, {
+        method: "GET",
+        credentials: 'include',
+      });
+      console.log('result', cart.data);
+
+      set({
+        cart: cart.data || [],
+        isLoading: false,
+        counter: cart.data.length || 0,
+      });
+
+    }catch (err) {
+      set((prev) => ({ ...prev, isLoading: false }));
+    }
   },
   changeCart: async (cartItem) => {
+    console.log('cartItem', cartItem);
+
+    const response = await fetchWithAuth(`/api/cart/change`, {
+      method: "POST",
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cartItem),
+    })
+
     // set((state) => ({ ...state, isLoading: true }));
     // const response = await wixClient.currentCart.addToCurrentCart({
     //   lineItems: [

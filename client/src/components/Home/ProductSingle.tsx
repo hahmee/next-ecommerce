@@ -3,12 +3,13 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
-import {Suspense, useCallback} from "react";
+import {Suspense, useEffect, useState} from "react";
 import ProductImages from "@/components/Home/ProductImags";
-import Add from "@/components/Home/Add";
 import Reviews from "@/components/Home/Reviews";
 import {SalesStatus} from "@/types/salesStatus";
 import OptionSelect from "@/components/Home/OptionSelect";
+import {ColorTag} from "@/interface/ColorTag";
+import AddCart from "@/components/Home/AddCart";
 
 interface Props {
     id: string;
@@ -26,10 +27,18 @@ const ProductSingle = ({id}: Props) => {
 
     });
 
-
     const product = data?.data;
 
-    console.log('product',product)
+    //초기값 세팅
+    const [color, setColor] = useState<ColorTag>({ id: 0, text: '', color: '' });
+    const [size, setSize] = useState<string>("");
+
+    useEffect(() => {
+        if (product) {
+            setColor(product.colorList[0]);
+            setSize(product.sizeList[0]);
+        }
+    }, [product]);
 
     return (
         <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
@@ -53,12 +62,16 @@ const ProductSingle = ({id}: Props) => {
 
                 <div className="h-[2px] bg-gray-100"/>
 
-
-                <OptionSelect colorList={product?.colorList || []} sizeList={product?.sizeList|| []}/>
-                <Add
+                {
+                    (product && product.colorList && product.sizeList) &&
+                    <OptionSelect colorList={product.colorList} sizeList={product.sizeList}
+                                  size={size || product.sizeList[0]} setSize={setSize}
+                                  color={color || product.colorList[0]} setColor={setColor}/>
+                }
+                <AddCart
                     pno={Number(id)}
-                    variantId="00000000-0000-0000-0000-000000000000"
                     salesStatus={product?.salesStatus || SalesStatus.ONSALE}
+                    options={{size: size, color: color}}
                 />
 
 

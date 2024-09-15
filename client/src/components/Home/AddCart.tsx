@@ -1,30 +1,30 @@
 "use client";
 
-
 import {useState} from "react";
 import {SalesStatus, SalesStatusKor} from "@/types/salesStatus";
 import {CartItemList} from "@/interface/CartItemList";
 import {useCartStore} from "@/store/cartStore";
 import {CartItem} from "@/interface/CartItem";
-import {cookies} from "next/headers";
+import {ColorTag} from "@/interface/ColorTag";
+import {getCookie} from "cookies-next";
 
-const Add = ({
-                 pno,
-                 variantId,
-                 salesStatus,
-             }: {
+const AddCart = ({
+                     pno,
+                     salesStatus,
+                     options
+                 }: {
     pno: number;
-    variantId: string;
     salesStatus: SalesStatus;
+    options: { color: ColorTag, size: string; }
 }) => {
-    const [quantity, setQuantity] = useState(1);
-    const { cart, changeCart, isLoading } = useCartStore();
 
-    // // TEMPORARY
-    // const stock = 4;
+    const [quantity, setQuantity] = useState(1);
+    const {cart, changeCart, isLoading} = useCartStore();
+    const memberInfo = getCookie('member');
+    const member = JSON.parse(memberInfo as string);
 
     const handleQuantity = (type: "i" | "d") => {
-        if (type === "d" ) {
+        if (type === "d") {
             setQuantity((prev) => prev - 1);
         }
         if (type === "i") {
@@ -39,19 +39,27 @@ const Add = ({
 
         if (result && result.length > 0) {
             const cartItemChange: CartItem = {
-                email: "use1@aaa.com",//loginState.email,
+                email: member.email,
                 pno: pno,
-                qty: result[0].qty + 1,
+                qty: result[0].qty + quantity,
+                color: options.color,
+                size: options.size,
             };
             changeCart(cartItemChange); // 수량만 추가
         } else {
             const cartItem: CartItem = {
-                email: "use1@aaa.com", // loginState.email,
+                email: member.email,
                 pno: pno,
-                qty: 1,
+                qty: quantity,
+                color: options.color,
+                size: options.size,
             };
-            changeCart(cartItem);
+            changeCart(cartItem); //새로 담기
         }
+
+        //스낵바 "장바구니 담겼습니다."
+
+
     };
 
 
@@ -98,4 +106,4 @@ const Add = ({
     );
 };
 
-export default Add;
+export default AddCart;

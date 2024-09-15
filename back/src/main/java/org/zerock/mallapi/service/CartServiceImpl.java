@@ -22,6 +22,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartItemListDTO> addOrModify(CartItemDTO cartItemDTO) {
 
+
+        log.info("이게 뭐가 나오려나??" + cartItemDTO);
         String email = cartItemDTO.getEmail();
 
         Long pno = cartItemDTO.getPno();
@@ -30,8 +32,16 @@ public class CartServiceImpl implements CartService {
 
         Long cino = cartItemDTO.getCino();
 
+        ColorTagDTO colorTagDTO = cartItemDTO.getColor();
+
+        Long colorId = colorTagDTO.getId();
+
+        String size = cartItemDTO.getSize();
+
         log.info("======================================================");
         log.info(cartItemDTO.getCino() == null);
+
+        // 색 또는 사이즈가 다르면 다른 카트 아이템으로 취급
 
         if(cino != null) { //장바구니 아이템 번호가 있어서 수량만 변경하는 경우
 
@@ -54,11 +64,12 @@ public class CartServiceImpl implements CartService {
         CartItem cartItem = null;
 
         //이미 동일한 상품이 담긴적이 있을 수 있으므로
-        cartItem = cartItemRepository.getItemOfPno(email, pno);
+        cartItem = cartItemRepository.getItemOfPno(email, pno, size, colorId);
 
         if(cartItem == null){
             Product product = Product.builder().pno(pno).build();
-            cartItem = CartItem.builder().product(product).cart(cart).qty(qty).build();
+            ColorTag colorTag = ColorTag.builder().id(colorId).build();
+            cartItem = CartItem.builder().product(product).cart(cart).qty(qty).color(colorTag).size(size).build();
 
         }else {
             cartItem.changeQty(qty);
@@ -98,6 +109,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItemListDTO> getCartItems(String email) {
+
+        List<CartItemListDTO> result = cartItemRepository.getItemsOfCartDTOByEmail(email);
+        log.info("result.................." + result);
 
         return cartItemRepository.getItemsOfCartDTOByEmail(email);
     }

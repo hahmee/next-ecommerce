@@ -22,38 +22,40 @@ public class CartController {
 
     @PreAuthorize("#itemDTO.email == authentication.name")
     @PostMapping("/change")
-    public List<CartItemListDTO> changeCart( @RequestBody CartItemDTO itemDTO){
+    public DataResponseDTO<List<CartItemListDTO>> changeCart(@RequestBody CartItemDTO itemDTO){
 
-        log.info(itemDTO);
+        log.info("itemDTO............................." + itemDTO);
 
         if(itemDTO.getQty() <= 0) {
-            return cartService.remove(itemDTO.getCino());
+            return DataResponseDTO.of(cartService.remove(itemDTO.getCino()));
         }
 
+        return DataResponseDTO.of(cartService.addOrModify(itemDTO));
 
-        return cartService.addOrModify(itemDTO);
     }
 
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/items")
-    public List<CartItemListDTO> getCartItems(Principal principal) {
+    public DataResponseDTO<List<CartItemListDTO>> getCartItems(Principal principal) {
 
         String email = principal.getName();
         log.info("--------------------------------------------");
         log.info("email: " + email );
 
-        return cartService.getCartItems(email);
+        return DataResponseDTO.of(cartService.getCartItems(email));
+
 
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @DeleteMapping("/{cino}")
-    public List<CartItemListDTO> removeFromCart( @PathVariable("cino") Long cino){
+    public DataResponseDTO<List<CartItemListDTO>> removeFromCart( @PathVariable("cino") Long cino){
 
         log.info("cart item no: " + cino);
 
-        return cartService.remove(cino);
+        return DataResponseDTO.of(cartService.remove(cino));
+
     }
 
 

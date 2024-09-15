@@ -13,4 +13,8 @@ public class CartItemDTO {
 
     private Long cino;
 
+    private ColorTagDTO color;
+
+    private String size;
+
 }

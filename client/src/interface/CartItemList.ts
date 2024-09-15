@@ -1,3 +1,5 @@
+import {ColorTag} from "@/interface/ColorTag";
+
 export interface CartItemList {
   cino: number;
   qty: number;
@@ -5,4 +7,6 @@ export interface CartItemList {
   pname: string;
   price: number;
   imageFile: string;
+  size: string;
+  color: ColorTag;
 }

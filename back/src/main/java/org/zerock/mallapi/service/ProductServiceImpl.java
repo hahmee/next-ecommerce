@@ -345,11 +345,13 @@ public class ProductServiceImpl implements ProductService{
 
     List<ColorTagDTO> colorTagDTOList = colorTagList.stream().map(colorTag -> {
 
+      Long id = colorTag.getId();
       String text =  colorTag.getText();
       String color = colorTag.getColor();
 
       ColorTagDTO result = new ColorTagDTO();
 
+      result.setId(id);
       result.setColor(color);
       result.setText(text);
 

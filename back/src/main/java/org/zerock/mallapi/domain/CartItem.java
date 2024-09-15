@@ -29,6 +29,12 @@ public class CartItem {
 
     private int qty;
 
+    @ManyToOne
+    @JoinColumn(name = "color_id")
+    private ColorTag color;
+
+    private String size;
+
     public void changeQty(int qty){
         this.qty = qty;
     }

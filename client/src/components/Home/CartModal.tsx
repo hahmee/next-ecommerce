@@ -2,11 +2,26 @@
 
 import Image from "next/image";
 import {useCartStore} from "@/store/cartStore";
+import {useMemo, useState} from "react";
+import CartItem from "@/components/Home/CartItem";
 
 
 const  CartModal = () => {
 
     const { cart, isLoading, removeItem } = useCartStore();
+
+    console.log('cart..........', cart);
+
+    const subtotal = useMemo(() => {
+        let total = 0;
+
+        for (const item of cart) {
+            total += item.qty * item.price;
+        }
+
+        return total;
+    }, [cart]);
+
 
     const handleCheckout = async () => {
         try {
@@ -28,61 +43,17 @@ const  CartModal = () => {
                     {/* LIST */}
                     <div className="flex flex-col gap-8">
                         {/* ITEM */}
-                        {cart.map((item, idx) => (
-                            <div className="flex gap-4" key={item.pno}>
-                                {item.imageFile && (
-                                    <Image
-                                        src={"/dragable.svg"}
-                                        alt=""
-                                        width={72}
-                                        height={96}
-                                        className="object-cover rounded-md"
-                                    />
-                                )}
-                                <div className="flex flex-col justify-between w-full">
-                                    {/* TOP */}
-                                    <div className="">
-                                        {/* TITLE */}
-                                        <div className="flex items-center justify-between gap-8">
-                                            <h3 className="font-semibold">
-                                                {item.pname}
-                                            </h3>
-                                            <div className="p-1 bg-gray-50 rounded-sm flex items-center gap-2">
-                                                {/*{item.quantity && item.quantity > 1 && (*/}
-                                                {/*    <div className="text-xs text-green-500">*/}
-                                                {/*        {item.quantity} x{" "}*/}
-                                                {/*    </div>*/}
-                                                {/*)}*/}
-                                                {/*${item.price?.amount}*/}
-                                            </div>
-                                        </div>
-                                        {/* DESC */}
-                                        <div className="text-sm text-gray-500">
-                                            {/*{item.availability?.status}*/}
-                                        </div>
-                                    </div>
-                                    {/* BOTTOM */}
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-gray-500">Qty. sd</span>
-
-                                        {/*<span className="text-gray-500">Qty. {item.quantity}</span>*/}
-                                        <span
-                                            className="text-blue-500"
-                                            style={{cursor: isLoading ? "not-allowed" : "pointer"}}
-                                            // onClick={() => removeItem(wixClient, item._id!)}
-                                        >
-                                      Remove
-                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+                        {
+                            cart.map((item) => (
+                                <CartItem key={item.cino} item={item}/>
+                            ))
+                        }
                     </div>
                     {/* BOTTOM */}
                     <div className="">
                         <div className="flex items-center justify-between font-semibold">
                             <span className="">Subtotal</span>
-                            <span className="">sdfasdf</span>
+                            <span className="">{subtotal}</span>
                         </div>
                         <p className="text-gray-500 text-sm mt-2 mb-4">
                             Shipping and taxes calculated at checkout.
