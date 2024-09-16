@@ -1,14 +1,14 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React from "react";
-import CategoryTable from "@/components/Tables/CategoryTable";
+import StockTable from "@/components/Tables/StockTable";
 
-export default function CategoryPage() {
+export default function StockPage() {
 
     return (
         <div className="mx-auto">
             <Breadcrumb pageName="Categories"/>
             <div className="flex flex-col gap-10">
-             <CategoryTable/>
+                <StockTable/>
             </div>
         </div>
     );
