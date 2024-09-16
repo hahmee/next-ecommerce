@@ -27,9 +27,9 @@ export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option3', content:'브랜드 옵션3'},
 ];
 export const categoryOptions: Array<Option<string>> = [
-    {id:'category-option1', content:'카테고리 옵션1'},
-    {id:'category-option2', content:'카테고리 옵션2'},
-    {id:'category-option3', content:'카테고리 옵션3'},
+    {id:'(.)category-option1', content:'카테고리 옵션1'},
+    {id:'(.)category-option2', content:'카테고리 옵션2'},
+    {id:'(.)category-option3', content:'카테고리 옵션3'},
 ]
 
 export const sizeOptions: Array<Option<string>> = [

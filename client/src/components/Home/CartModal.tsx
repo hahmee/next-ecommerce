@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import {useCartStore} from "@/store/cartStore";
-import {useMemo, useState} from "react";
+import {useMemo} from "react";
 import CartItem from "@/components/Home/CartItem";
 import {useRouter} from "next/navigation";
 

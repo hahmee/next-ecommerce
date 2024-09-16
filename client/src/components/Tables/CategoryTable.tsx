@@ -1,5 +1,6 @@
 "use client";
 import { Fragment, useState } from "react";
+import {useRouter} from "next/navigation";
 
 // 카테고리 인터페이스 정의
 interface Category {
@@ -64,6 +65,7 @@ const CategoryTable = () => {
     const [newCategory, setNewCategory] = useState({ name: "", description: "" });
     const [parentCategoryId, setParentCategoryId] = useState<number | null>(null);
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
+    const router = useRouter();
 
     // 행 클릭 시 확장 여부 토글
     const toggleRow = (id: number) => {
@@ -111,18 +113,6 @@ const CategoryTable = () => {
             })
             .filter((category) => category !== null) as Category[];
     };
-
-    // const filterCategories = (categories: Category[]): Category[] => {
-    //     return categories
-    //         .filter((category) =>
-    //             category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    //             category.description.toLowerCase().includes(searchTerm.toLowerCase())
-    //         )
-    //         .map((category) => ({
-    //             ...category,
-    //             subCategories: category.subCategories ? filterCategories(category.subCategories) : [],
-    //         }));
-    // };
 
     // 재귀적으로 하위 카테고리를 렌더링하는 함수
     const renderCategoryRows = (categories: Category[], depth: number = 0) => {
@@ -206,7 +196,8 @@ const CategoryTable = () => {
 
             {/* 카테고리 추가 버튼 */}
             <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => router.push(`/admin/category/add-category`)}
+                // onClick={() => setIsModalOpen(true)}
                 className="mb-4 px-4 py-2 text-sm font-medium text-white bg-primary-700 rounded-lg hover:bg-primary-800"
             >
                 카테고리 추가
