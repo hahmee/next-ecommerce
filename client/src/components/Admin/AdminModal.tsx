@@ -26,9 +26,6 @@ const AdminModal = ({children, clickModal, modalTitle}: { children: React.ReactN
                         </button>
                     </div>
                     {children}
-                    {/*<div className="p-4 md:p-5 space-y-4">*/}
-                    {/*   */}
-                    {/*</div>*/}
                     <div
                         className="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
                         <button  onClick={clickModal}  data-modal-hide="large-modal" type="button"

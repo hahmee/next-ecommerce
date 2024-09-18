@@ -4,7 +4,6 @@ import AdminModal from "@/components/Admin/AdminModal";
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {Category, initialCategories} from "@/components/Tables/CategoryTable";
-import {Simulate} from "react-dom/test-utils";
 import CategoryBreadcrumb from "@/components/Admin/CategoryBreadcrumb";
 
 export default function CategoryModal() {
@@ -13,7 +12,7 @@ export default function CategoryModal() {
     const [categories, setCategories] = useState<Category[]>(initialCategories);
     const [parentCategoryId, setParentCategoryId] = useState<number | null>(null);
     const [clickedCt, setClickedCt] = useState<Category>(initialCategories[0]);
-
+    const [name, setName] = useState("");
     // 카테고리를 평탄화하여 선택 목록에 사용
     const flattenCategories = (categories: Category[], depth: number = 0, prefix: string = ""): { id: number; name: string, category: Category }[] => {
         return categories.reduce<{ id: number; name: string; category:Category }[]>((acc, category) => {
@@ -26,7 +25,6 @@ export default function CategoryModal() {
         }, []);
     };
 
-    console.log(flattenCategories(categories));
     const closeModal =() => {
         router.push(`/admin/category`);
     }
@@ -34,7 +32,6 @@ export default function CategoryModal() {
     const clickCategory = (category: Category) => {
         // console.log('id', id);
         //재귀로 subCategories까지 id 찾기
-        console.log('category', category);
         setClickedCt(category || initialCategories[0]);
     };
 
@@ -47,10 +44,9 @@ export default function CategoryModal() {
 
                     {/* Left side: Category List */}
                     <div className="w-1/3 border-r pr-1">
-                        {/*<h2 className="text-lg font-semibold mb-4">새 카테고리</h2>*/}
                         <ul className="space-y-2">
                             {flattenCategories(categories).map((cat) => (
-                                <li key={cat.id} className={`pl-1 flex ${cat.id === clickedCt.id && 'bg-violet-500 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300'}`} onClick={()=>clickCategory(cat.category)} >
+                                <li key={cat.id} className={`pl-1 flex ${cat.id === clickedCt.id && 'bg-violet-500 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300'}`} onClick={() => clickCategory(cat.category)}>
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/>
@@ -69,13 +65,16 @@ export default function CategoryModal() {
                     <div className="w-2/3 pl-6">
                         {/*BreadCrumps..*/}
                         <div>
-                            <CategoryBreadcrumb pageName="Products" clickedCt={clickedCt} categories={categories}/>
+                            <CategoryBreadcrumb pageName="Products" clickedCt={clickedCt} categories={categories} name={name}/>
                         </div>
                         <input
                             type="text"
                             placeholder="새 카테고리 이름을 입력해주세요."
                             // value={clickedCt.name}
-                            onChange={(e) => setClickedCt({...clickedCt, name: e.target.value})}
+                            onChange={(e) => {
+                                setClickedCt({...clickedCt, name: e.target.value})
+                                setName(e.target.value);
+                            }}
                             className="mb-3 w-full p-2 border border-gray-300 rounded"
                         />
                         <textarea
