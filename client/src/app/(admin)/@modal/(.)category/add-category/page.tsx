@@ -1,10 +1,15 @@
-"use client";
-
+'use client';
 import AdminModal from "@/components/Admin/AdminModal";
 import React, {FormEvent, useState} from "react";
-import {useRouter} from "next/navigation";
-import {Category, initialCategories} from "@/components/Tables/CategoryTable";
+import { useRouter } from "next/navigation";
+import { Category, initialCategories } from "@/components/Tables/CategoryTable";
 import CategoryBreadcrumb from "@/components/Admin/CategoryBreadcrumb";
+
+export enum Mode {
+    ROOT = 'root',
+    ADD = 'add',
+    EDIT = 'edit',
+}
 
 export default function CategoryModal() {
     const router = useRouter();
@@ -13,9 +18,8 @@ export default function CategoryModal() {
     const [parentCategoryId, setParentCategoryId] = useState<number | null>(null);
     const [clickedCt, setClickedCt] = useState<Category | null>(null);
     const [isInputField, setIsInputField] = useState(false);
-    const [editMode, setEditMode] = useState(false); // 수정 모드 상태 추가
+    const [mode, setMode] = useState(Mode.ROOT);
 
-    // 카테고리를 평탄화하여 선택 목록에 사용
     const flattenCategories = (categories: Category[], depth: number = 0, prefix: string = ""): {
         id: number;
         name: string,
@@ -34,7 +38,6 @@ export default function CategoryModal() {
 
     const [newCategoryId, setNewCategoryId] = useState<number>(flattenCategories(categories).length + 2);
 
-    // 특정 카테고리를 찾아 서브 카테고리를 추가하는 함수
     const addSubCategory = (categories: Category[], parentId: number, newCategory: Category): Category[] => {
         return categories.map(category => {
             if (category.id === parentId) {
@@ -55,7 +58,6 @@ export default function CategoryModal() {
         });
     };
 
-    // 카테고리 추가 함수
     const addNewCategory = () => {
         if (newCategory.name.trim() === "" || newCategory.description.trim() === "") {
             alert("카테고리명과 설명을 입력해주세요.");
@@ -63,63 +65,93 @@ export default function CategoryModal() {
         }
 
         const newCategoryObj: Category = {
-            id: newCategoryId, // 유니크한 ID
+            id: newCategoryId,
             name: newCategory.name,
             description: newCategory.description,
             subCategories: [],
         };
 
         if (parentCategoryId === null) {
-            setCategories([...categories, newCategoryObj]); // 최상위 카테고리로 추가
+            setCategories([...categories, newCategoryObj]);
         } else {
             const updatedCategories = addSubCategory(categories, parentCategoryId, newCategoryObj);
-            setCategories(updatedCategories); // 서브 카테고리로 추가
+            setCategories(updatedCategories);
         }
 
         setNewCategoryId(prev => prev + 1);
         setNewCategory({ id: null, name: "", description: "" });
     };
 
-    // 카테고리 수정 함수
     const editCategory = () => {
         if (clickedCt?.name.trim() === "" || clickedCt?.description.trim() === "") {
             alert("카테고리명과 설명을 입력해주세요.");
             return;
         }
 
-        const updatedCategories = categories.map(category => {
-            if (category.id === clickedCt?.id) {
-                return { ...clickedCt }; // 선택된 카테고리 업데이트
-            }
-            if (category.subCategories) {
-                return {
-                    ...category,
-                    subCategories: category.subCategories.map(sub => sub.id === clickedCt?.id ? clickedCt : sub),
-                };
-            }
-            return category;
-        });
+        const updateCategory = (categories: Category[], updatedCategory: Category| null): Category[] => {
+            return categories.map(category => {
+                if (category.id === updatedCategory?.id) {
+                    return { ...updatedCategory };
+                }
 
+                if (category.subCategories) {
+                    return {
+                        ...category,
+                        subCategories: updateCategory(category.subCategories, updatedCategory),
+                    };
+                }
+
+                return category;
+            });
+        };
+
+        const updatedCategories = updateCategory(categories, clickedCt);
         setCategories(updatedCategories);
         setNewCategory({ id: null, name: "", description: "" });
     };
 
+
     const closeModal = () => {
         router.push(`/admin/category`);
+    };
+
+    const deleteCategory = () => {
+        if (!clickedCt) {
+            alert("삭제할 카테고리를 선택해 주세요.");
+            return;
+        }
+
+        const deleteCategoryFromList = (categories: Category[], categoryId: number): Category[] => {
+            return categories
+                .filter(category => category.id !== categoryId) // 해당 ID를 가진 카테고리 삭제
+                .map(category => ({
+                    ...category,
+                    subCategories: category.subCategories ? deleteCategoryFromList(category.subCategories, categoryId) : [],
+                }));
+        };
+
+        // 선택한 카테고리의 ID를 이용해 카테고리 삭제
+        const updatedCategories = deleteCategoryFromList(categories, clickedCt.id);
+
+        setCategories(updatedCategories);
+        setClickedCt(null); // 삭제 후 선택된 카테고리 초기화
     };
 
     const clickCategory = (category: Category) => {
         setClickedCt(category);
         setParentCategoryId(category.id);
         setIsInputField(true);
-        // setEditMode(true);
+        setMode(Mode.EDIT);
     };
 
-    const addRootCateogry =() => {
-
+    const addRootCateogry = () => {
         setIsInputField(true);
-        setEditMode(false);
-    }
+        setParentCategoryId(null);
+        setClickedCt({ id: -1, name: "", description: "" });
+        setNewCategory({ id: null, name: "", description: "" });
+        console.log(newCategoryId);
+        setMode(Mode.ROOT);
+    };
 
     const handleAddCategory = () => {
         if (newCategory.name.trim() === "" || newCategory.description.trim() === "") {
@@ -144,6 +176,7 @@ export default function CategoryModal() {
         setNewCategory({ id: null, name: "", description: "" });
         setParentCategoryId(null);
         setNewCategoryId(prev => prev + 1);
+        setMode(Mode.ADD);
     };
 
     const handleEditCategory = () => {
@@ -152,43 +185,42 @@ export default function CategoryModal() {
             return;
         }
 
-        const updatedCategories = categories.map(cat =>
-            cat.id === clickedCt?.id
-                ? { ...cat, name: clickedCt.name, description: clickedCt.description }
-                : cat
-        );
+        const updateCategory = (categories: Category[], updatedCategory: Category|null): Category[] => {
+            return categories.map(cat =>
+                cat.id === updatedCategory?.id
+                    ? { ...cat, name: updatedCategory.name, description: updatedCategory.description }
+                    : {
+                        ...cat,
+                        subCategories: cat.subCategories ? updateCategory(cat.subCategories, updatedCategory) : [],
+                    }
+            );
+        };
 
-        console.log('updatedCategories',updatedCategories)
+        const updatedCategories = updateCategory(categories, clickedCt);
         setCategories(updatedCategories);
-        setEditMode(false);
         setNewCategory({ id: null, name: "", description: "" });
+        setMode(Mode.EDIT);
     };
+
+
     const handleFormSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log('editMode',editMode)
-        editMode ? handleEditCategory() : handleAddCategory();
+        console.log(mode);
+        if (mode === Mode.EDIT) {
+            handleEditCategory();
+        } else {
+            handleAddCategory();
+        }
     };
 
-    // 모달 구현
     return (
         <AdminModal clickModal={closeModal} modalTitle={"카테고리 관리"}>
             <div className="p-4 md:p-5 space-y-4">
-
                 <div className="p-2 flex">
-                    {/* Left side: Category List */}
                     <div className="w-1/3 border-r pr-1">
                         <ul className="space-y-2">
                             <li className={`pl-1 flex items-center`} onClick={addRootCateogry}>
                                 <span className="pl-2">루트 카테고리 추가</span>
-                                {/* Add button */}
-                                {/*<span onClick={addNewCategory}>*/}
-                                {/*            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"*/}
-                                {/*                 strokeWidth={1.5} stroke="currentColor" className="size-5">*/}
-                                {/*                <path strokeLinecap="round" strokeLinejoin="round"*/}
-                                {/*                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>*/}
-                                {/*            </svg>*/}
-                                {/*        </span>*/}
-
                             </li>
                             {flattenCategories(categories).map((cat) => (
                                 <li key={cat.id}
@@ -217,71 +249,96 @@ export default function CategoryModal() {
                                         <span className="pl-2">
                                             {cat.name}
                                         </span>
-                                        {/* Add button */}
-                                        <span onClick={() => setEditMode(false)}>
+                                        {/*Add button*/}
+                                        <span onClick={(e) => {
+                                            e.stopPropagation(); //이벤트 전파 막음
+                                            setMode(Mode.ADD);
+                                            setIsInputField(true);
+
+                                        }}
+                                        >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="size-5">
+                                                 strokeWidth="1.5" stroke="currentColor" className="size-5">
                                                 <path strokeLinecap="round" strokeLinejoin="round"
                                                       d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                             </svg>
                                         </span>
-                                        {/* Edit button */}
-                                        <span onClick={() => setEditMode(true)}>
+                                        {/*Edit button*/}
+                                        <span onClick={(e) => {
+                                            e.stopPropagation(); //이벤트 전파 막음
+                                            setMode(Mode.EDIT);
+                                            setIsInputField(true);
+
+                                        }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="size-5">
+                                                 strokeWidth="1.5" stroke="currentColor" className="size-5">
                                                 <path strokeLinecap="round" strokeLinejoin="round"
                                                       d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
                                             </svg>
+                                        </span>
+                                        {/*Remove Button*/}
+                                        <span onClick={(e) => {
+                                            e.stopPropagation(); //이벤트 전파 막음
+                                            deleteCategory();
+
+
+                                        }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                 strokeWidth={1.5} stroke="currentColor" className="size-5">
+                                              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                            </svg>
+
                                         </span>
                                     </span>
                                 </li>
                             ))}
                         </ul>
                     </div>
-
-                    {/* Right side: Category Details */}
                     <div className="w-2/3 pl-6">
                         <div>
-                            {
-                                clickedCt &&
-                                <CategoryBreadcrumb clickedCt={clickedCt} categories={categories} newCategory={newCategory}/>
-                            }
+                            {mode === Mode.EDIT ? "카테고리 수정" : "카테고리 추가"}
                         </div>
-                        {/*input field*/}
+                        <div>
+                            <CategoryBreadcrumb clickedCt={clickedCt} categories={categories} newCategory={newCategory}
+                                                mode={mode}/>
+                        </div>
                         <div className={`${!isInputField && 'hidden'}`}>
                             <form onSubmit={handleFormSubmit}>
                                 <input
                                     type="text"
-                                    placeholder="카테고리 이름"
-                                    value={editMode ? clickedCt?.name : newCategory.name}
+                                    placeholder="새 카테고리 이름을 입력해주세요."
+                                    value={mode === Mode.EDIT ? clickedCt?.name : newCategory.name}
                                     onChange={(e) => {
-                                        editMode ? setClickedCt({
-                                            ...clickedCt,
-                                            name: e.target.value
-                                        } as any) : setNewCategory({...newCategory, name: e.target.value})
+                                        mode === Mode.EDIT
+                                            ? setClickedCt({
+                                                ...clickedCt,
+                                                name: e.target.value
+                                            } as any)
+                                            : setNewCategory({...newCategory, name: e.target.value});
                                     }}
                                     className={`mb-3 w-full p-2 border border-gray-300 rounded`}
                                 />
                                 <textarea
-                                    placeholder="카테고리 설명"
-                                    value={editMode ? clickedCt?.description : newCategory.description}
+                                    placeholder="새 카테고리 설명을 입력해주세요."
+                                    value={mode === Mode.EDIT ? clickedCt?.description : newCategory.description}
                                     onChange={(e) => {
-                                        editMode ? setClickedCt({
-                                            ...clickedCt,
-                                            description: e.target.value
-                                        } as any) : setNewCategory({...newCategory, description: e.target.value})
+                                        mode === Mode.EDIT
+                                            ? setClickedCt({
+                                                ...clickedCt,
+                                                description: e.target.value
+                                            } as any)
+                                            : setNewCategory({...newCategory, description: e.target.value});
                                     }}
                                     className="mb-3 w-full p-2 border border-gray-300 rounded"
                                 />
                                 <button
                                     type="submit"
                                     className="bg-blue-500 text-white px-4 py-2 rounded">
-                                    {editMode ? "카테고리 수정" : "카테고리 추가"}
+                                    {mode === Mode.EDIT ? "카테고리 수정" : "카테고리 추가"}
                                 </button>
                             </form>
                         </div>
                     </div>
-
                 </div>
             </div>
         </AdminModal>

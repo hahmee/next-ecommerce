@@ -8,7 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)category/add-category/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)category/add-category/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/CategoryBreadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/CategoryBreadcrumb.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +174,7 @@
       <workItem from="1726623879113" duration="10605000" />
       <workItem from="1726645696864" duration="7296000" />
       <workItem from="1726712298495" duration="1932000" />
-      <workItem from="1726716342685" duration="9758000" />
+      <workItem from="1726716342685" duration="14915000" />
     </task>
     <servers />
   </component>
