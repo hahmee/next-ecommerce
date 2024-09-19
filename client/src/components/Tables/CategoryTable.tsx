@@ -201,7 +201,7 @@
                     onClick={() => router.push(`/admin/category/add-category`)}
                     className="mb-4 px-4 py-2 text-sm font-medium text-white bg-primary-700 rounded-lg hover:bg-primary-800"
                 >
-                    카테고리 추가
+                    카테고리 관리
                 </button>
 
                 {/* 모달 */}

@@ -1,17 +1,13 @@
 import {Category} from "@/components/Tables/CategoryTable";
-import {Simulate} from "react-dom/test-utils";
-import click = Simulate.click;
-import {categoryOptions} from "@/components/Admin/Product/ProductForm";
-import {Fragment} from "react";
 
 interface BreadcrumbProps {
-    pageName: string;
     clickedCt: Category;
     categories: Category[];
-    name: string;
+    newCategory: { name: string, description:string };
+
 }
 
-const CategoryBreadcrumb = ({pageName, clickedCt, categories, name}: BreadcrumbProps) => {
+const CategoryBreadcrumb = ({clickedCt, categories, newCategory}: BreadcrumbProps) => {
 
     // 카테고리를 평탄화하여 자식 부모 카테고리가 있을 시 찾기
     const flattenCategories = (categories: Category[], depth: number = 0, prefix: string = ""): {
@@ -60,7 +56,7 @@ const CategoryBreadcrumb = ({pageName, clickedCt, categories, name}: BreadcrumbP
             <nav>
                 <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     {
-                        findParents(categories, clickedCt.id)?.map((category: Category, idx: number) => (
+                        findParents(categories, clickedCt?.id)?.map((category: Category, idx: number) => (
                             <li className="inline-flex items-center" key={category.id}>
                                 <div
                                     className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -91,7 +87,7 @@ const CategoryBreadcrumb = ({pageName, clickedCt, categories, name}: BreadcrumbP
                     }
 
                     {
-                        name &&
+                        newCategory.name &&
                         <li className="inline-flex items-center">
                             <div
                                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -104,7 +100,7 @@ const CategoryBreadcrumb = ({pageName, clickedCt, categories, name}: BreadcrumbP
                                           d="m1 9 4-4-4-4"/>
                                 </svg>
                                 {
-                                    name
+                                    newCategory.name
                                 }
                             </div>
                         </li>
