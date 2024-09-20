@@ -26,7 +26,8 @@ public class CategoryDTO {
 
   private boolean delFlag;
 
-  private Long parentId;
+  //  private Long parentId;
+  private CategoryDTO parentCategory;
 
   private List<CategoryDTO> subCategories;
 
