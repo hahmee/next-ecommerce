@@ -5,9 +5,7 @@ import lombok.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "tbl_product")
@@ -109,7 +107,6 @@ public class Product extends BaseEntity {
   public void changeSalesStatus(SalesStatus salesStatus) {
     this.salesStatus = salesStatus;
   }
-
 
   public void addImage(ProductImage image) {
     imageList.add(image);

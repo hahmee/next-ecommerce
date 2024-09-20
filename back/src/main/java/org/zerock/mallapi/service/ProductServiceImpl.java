@@ -276,7 +276,6 @@ public class ProductServiceImpl implements ProductService{
             .refundPolicy(productDTO.getRefundPolicy())
             .categoryList(productDTO.getCategoryList())
             .sizeList(productDTO.getSizeList())
-//            .colorList(productDTO.getColorList())
             .sku(productDTO.getSku())
             .salesStatus(productDTO.getSalesStatus())
             .owner(member)
