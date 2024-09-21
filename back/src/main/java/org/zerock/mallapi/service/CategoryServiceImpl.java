@@ -55,6 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
     //여기에서 subCategory있으면 넣어주기
     List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
 
+    log.info("===============responseDTO "  + responseDTO);
 
     return responseDTO;
 

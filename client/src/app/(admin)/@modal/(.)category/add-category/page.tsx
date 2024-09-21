@@ -1,9 +1,9 @@
 'use client';
 import AdminModal from "@/components/Admin/AdminModal";
 import React, {FormEvent, useState} from "react";
-import { useRouter } from "next/navigation";
-import { Category, initialCategories } from "@/components/Tables/CategoryTable";
+import {useRouter} from "next/navigation";
 import CategoryBreadcrumb from "@/components/Admin/CategoryBreadcrumb";
+import {Category} from "@/interface/Category";
 
 export enum Mode {
     ROOT = 'root',
@@ -12,22 +12,22 @@ export enum Mode {
 }
 
 export default function CategoryModal() {
-    const router = useRouter();
-    const [newCategory, setNewCategory] = useState({ id: null, name: "", description: "" });
-    const [categories, setCategories] = useState<Category[]>(initialCategories);
+    const [newCategory, setNewCategory] = useState({ cno: null, cname: "", cdesc: "" });
+    const [categories, setCategories] = useState<Category[]>();
     const [parentCategoryId, setParentCategoryId] = useState<number | null>(null);
     const [clickedCt, setClickedCt] = useState<Category | null>(null);
     const [isInputField, setIsInputField] = useState(false);
     const [mode, setMode] = useState(Mode.ROOT);
+    const router = useRouter();
 
     const flattenCategories = (categories: Category[], depth: number = 0, prefix: string = ""): {
-        id: number;
-        name: string,
+        cno: number;
+        cname: string,
         category: Category,
         depth: number;
     }[] => {
-        return categories.reduce<{ id: number; name: string; category: Category, depth: number }[]>((acc, category) => {
-            acc.push({ id: category.id, name: `${prefix}${category.name}`, category, depth });
+        return categories.reduce<{ cno: number; cname: string; category: Category, depth: number }[]>((acc, category) => {
+            acc.push({ cno: category.cno, cname: `${prefix}${category.cname}`, category, depth });
 
             if (category.subCategories && category.subCategories.length > 0) {
                 acc = acc.concat(flattenCategories(category.subCategories, depth + 1, `${prefix}`));
@@ -40,7 +40,7 @@ export default function CategoryModal() {
 
     const addSubCategory = (categories: Category[], parentId: number, newCategory: Category): Category[] => {
         return categories.map(category => {
-            if (category.id === parentId) {
+            if (category.cno === parentId) {
                 return {
                     ...category,
                     subCategories: category.subCategories
@@ -59,15 +59,15 @@ export default function CategoryModal() {
     };
 
     const addNewCategory = () => {
-        if (newCategory.name.trim() === "" || newCategory.description.trim() === "") {
+        if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
             alert("카테고리명과 설명을 입력해주세요.");
             return;
         }
 
         const newCategoryObj: Category = {
-            id: newCategoryId,
-            name: newCategory.name,
-            description: newCategory.description,
+            cno: newCategoryId,
+            cname: newCategory.cname,
+            cdesc: newCategory.cdesc,
             subCategories: [],
         };
 
@@ -79,18 +79,18 @@ export default function CategoryModal() {
         }
 
         setNewCategoryId(prev => prev + 1);
-        setNewCategory({ id: null, name: "", description: "" });
+        setNewCategory({ cno: null, cname: "", cdesc: "" });
     };
 
     const editCategory = () => {
-        if (clickedCt?.name.trim() === "" || clickedCt?.description.trim() === "") {
+        if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
             alert("카테고리명과 설명을 입력해주세요.");
             return;
         }
 
         const updateCategory = (categories: Category[], updatedCategory: Category| null): Category[] => {
             return categories.map(category => {
-                if (category.id === updatedCategory?.id) {
+                if (category.cno === updatedCategory?.cno) {
                     return { ...updatedCategory };
                 }
 
@@ -107,7 +107,7 @@ export default function CategoryModal() {
 
         const updatedCategories = updateCategory(categories, clickedCt);
         setCategories(updatedCategories);
-        setNewCategory({ id: null, name: "", description: "" });
+        setNewCategory({ cno: null, cname: "", cdesc: "" });
     };
 
 
@@ -123,7 +123,7 @@ export default function CategoryModal() {
 
         const deleteCategoryFromList = (categories: Category[], categoryId: number): Category[] => {
             return categories
-                .filter(category => category.id !== categoryId) // 해당 ID를 가진 카테고리 삭제
+                .filter(category => category.cno !== categoryId) // 해당 ID를 가진 카테고리 삭제
                 .map(category => ({
                     ...category,
                     subCategories: category.subCategories ? deleteCategoryFromList(category.subCategories, categoryId) : [],
@@ -131,7 +131,7 @@ export default function CategoryModal() {
         };
 
         // 선택한 카테고리의 ID를 이용해 카테고리 삭제
-        const updatedCategories = deleteCategoryFromList(categories, clickedCt.id);
+        const updatedCategories = deleteCategoryFromList(categories, clickedCt.cno);
 
         setCategories(updatedCategories);
         setClickedCt(null); // 삭제 후 선택된 카테고리 초기화
@@ -139,7 +139,7 @@ export default function CategoryModal() {
 
     const clickCategory = (category: Category) => {
         setClickedCt(category);
-        setParentCategoryId(category.id);
+        setParentCategoryId(category.cno);
         setIsInputField(true);
         setMode(Mode.EDIT);
     };
@@ -147,22 +147,22 @@ export default function CategoryModal() {
     const addRootCateogry = () => {
         setIsInputField(true);
         setParentCategoryId(null);
-        setClickedCt({ id: -1, name: "", description: "" });
-        setNewCategory({ id: null, name: "", description: "" });
+        setClickedCt({ cno: -1, cname: "", cdesc: "" });
+        setNewCategory({ cno: null, cname: "", cdesc: "" });
         console.log(newCategoryId);
         setMode(Mode.ROOT);
     };
 
     const handleAddCategory = () => {
-        if (newCategory.name.trim() === "" || newCategory.description.trim() === "") {
+        if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
             alert("카테고리명과 설명을 입력해주세요.");
             return;
         }
 
         const newCategoryObj: Category = {
-            id: newCategoryId,
-            name: newCategory.name,
-            description: newCategory.description,
+            cno: newCategoryId,
+            cname: newCategory.cname,
+            cdesc: newCategory.cdesc,
             subCategories: [],
         };
 
@@ -173,22 +173,22 @@ export default function CategoryModal() {
             setCategories(updatedCategories);
         }
 
-        setNewCategory({ id: null, name: "", description: "" });
+        setNewCategory({ cno: null, cname: "", cdesc: "" });
         setParentCategoryId(null);
         setNewCategoryId(prev => prev + 1);
         setMode(Mode.ADD);
     };
 
     const handleEditCategory = () => {
-        if (clickedCt?.name.trim() === "" || clickedCt?.description.trim() === "") {
+        if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
             alert("카테고리명과 설명을 입력해주세요.");
             return;
         }
 
         const updateCategory = (categories: Category[], updatedCategory: Category|null): Category[] => {
             return categories.map(cat =>
-                cat.id === updatedCategory?.id
-                    ? { ...cat, name: updatedCategory.name, description: updatedCategory.description }
+                cat.cno === updatedCategory?.cno
+                    ? { ...cat, name: updatedCategory.cname, description: updatedCategory?.cdesc }
                     : {
                         ...cat,
                         subCategories: cat.subCategories ? updateCategory(cat.subCategories, updatedCategory) : [],
@@ -198,7 +198,7 @@ export default function CategoryModal() {
 
         const updatedCategories = updateCategory(categories, clickedCt);
         setCategories(updatedCategories);
-        setNewCategory({ id: null, name: "", description: "" });
+        setNewCategory({ cno: null, cname: "", cdesc: "" });
         setMode(Mode.EDIT);
     };
 
@@ -223,8 +223,8 @@ export default function CategoryModal() {
                                 <span className="pl-2">루트 카테고리 추가</span>
                             </li>
                             {flattenCategories(categories).map((cat) => (
-                                <li key={cat.id}
-                                    className={`pl-1 flex items-center ${cat.id === clickedCt?.id && 'bg-violet-500 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300'}`}
+                                <li key={cat.cno}
+                                    className={`pl-1 flex items-center ${cat.cno === clickedCt?.cno && 'bg-violet-500 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300'}`}
                                     onClick={() => clickCategory(cat.category)}>
                                     <span>
                                         {cat.depth === 0 && (
@@ -247,7 +247,7 @@ export default function CategoryModal() {
                                             </svg>
                                         )}
                                         <span className="pl-2">
-                                            {cat.name}
+                                            {cat.cname}
                                         </span>
                                         {/*Add button*/}
                                         <span onClick={(e) => {
@@ -299,35 +299,35 @@ export default function CategoryModal() {
                             {mode === Mode.EDIT ? "카테고리 수정" : "카테고리 추가"}
                         </div>
                         <div>
-                            <CategoryBreadcrumb clickedCt={clickedCt} categories={categories} newCategory={newCategory}
-                                                mode={mode}/>
+                            {/*<CategoryBreadcrumb clickedCt={clickedCt} categories={categories} newCategory={newCategory}*/}
+                            {/*                    mode={mode}/>*/}
                         </div>
                         <div className={`${!isInputField && 'hidden'}`}>
                             <form onSubmit={handleFormSubmit}>
                                 <input
                                     type="text"
                                     placeholder="새 카테고리 이름을 입력해주세요."
-                                    value={mode === Mode.EDIT ? clickedCt?.name : newCategory.name}
+                                    value={mode === Mode.EDIT ? clickedCt?.cname : newCategory.cname}
                                     onChange={(e) => {
                                         mode === Mode.EDIT
                                             ? setClickedCt({
                                                 ...clickedCt,
                                                 name: e.target.value
                                             } as any)
-                                            : setNewCategory({...newCategory, name: e.target.value});
+                                            : setNewCategory({...newCategory, cname: e.target.value});
                                     }}
                                     className={`mb-3 w-full p-2 border border-gray-300 rounded`}
                                 />
                                 <textarea
                                     placeholder="새 카테고리 설명을 입력해주세요."
-                                    value={mode === Mode.EDIT ? clickedCt?.description : newCategory.description}
+                                    value={mode === Mode.EDIT ? clickedCt?.cdesc : newCategory.cdesc}
                                     onChange={(e) => {
                                         mode === Mode.EDIT
                                             ? setClickedCt({
                                                 ...clickedCt,
-                                                description: e.target.value
+                                                cdesc: e.target.value
                                             } as any)
-                                            : setNewCategory({...newCategory, description: e.target.value});
+                                            : setNewCategory({...newCategory, cdesc: e.target.value});
                                     }}
                                     className="mb-3 w-full p-2 border border-gray-300 rounded"
                                 />

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/categories")
+@RequestMapping("/api/category")
 public class CategoryController {
 
   private final CategoryService categoryService;
@@ -36,6 +36,13 @@ public class CategoryController {
     return DataResponseDTO.of(pno);
   }
 
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/")
+  public DataResponseDTO<List<CategoryDTO>> list() {
+    return DataResponseDTO.of(categoryService.getAllCategories());
+
+  }
 
 
 
