@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryClosureRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/CategoryServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../back/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/domain/CategoryClosureId.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/domain/CategoryClosureId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CategoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryClosureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryClosureRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CartRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CartRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CategoryRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CategoryRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/ProductRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/ProductRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/ProductServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/ProductServiceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +190,11 @@
       <workItem from="1726733998873" duration="6697000" />
       <workItem from="1726797784321" duration="758000" />
       <workItem from="1726798935512" duration="17000" />
-      <workItem from="1726802913389" duration="1187000" />
+      <workItem from="1726802913389" duration="2911000" />
+      <workItem from="1726808139580" duration="5000" />
+      <workItem from="1726810084365" duration="1796000" />
+      <workItem from="1726816358526" duration="5906000" />
+      <workItem from="1726902793109" duration="2428000" />
     </task>
     <servers />
   </component>

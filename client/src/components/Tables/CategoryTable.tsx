@@ -23,11 +23,11 @@
                     name: "컴퓨터",
                     description: "컴퓨터 설명",
                     subCategories: [
-                        { id: 9, name: "노트북", description: "노트북 설명" },
-                        { id: 10, name: "데스크탑", description: "데스크탑 설명" }
+                        {id: 9, name: "노트북", description: "노트북 설명"},
+                        {id: 10, name: "데스크탑", description: "데스크탑 설명"}
                     ]
                 },
-                { id: 3, name: "스마트폰", description: "스마트폰 설명" },
+                {id: 3, name: "스마트폰", description: "스마트폰 설명"},
             ],
         },
         {
@@ -54,7 +54,7 @@
                         }
                     ]
                 },
-                { id: 6, name: "냉장고", description: "냉장고 설명" },
+                {id: 6, name: "냉장고", description: "냉장고 설명"},
             ],
         },
     ];

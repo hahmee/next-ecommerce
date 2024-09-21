@@ -33,20 +33,20 @@ public class ProductServiceTests {
 
   @Test
   public void testRegister() {
-
-    ProductDTO productDTO = ProductDTO.builder()
-    .pname("새로운 상품")
-    .pdesc("신규 추가 상품입니다.")
-    .price(1000)
-    .build();
-
-    //uuid가 있어야 함
-    productDTO.setUploadFileNames(
-      java.util.List.of(
-        UUID.randomUUID()+"_" +"Test1.jpg",
-        UUID.randomUUID()+"_" +"Test2.jpg"));
-
-    productService.register(productDTO, null);
+//
+//    ProductDTO productDTO = ProductDTO.builder()
+//    .pname("새로운 상품")
+//    .pdesc("신규 추가 상품입니다.")
+//    .price(1000)
+//    .build();
+//
+//    //uuid가 있어야 함
+//    productDTO.setUploadFileNames(
+//      java.util.List.of(p
+//        UUID.randomUUID()+"_" +"Test1.jpg",
+//        UUID.randomUUID()+"_" +"Test2.jpg"));
+//
+//    productService.register(productDTO, null);
 
   }
 

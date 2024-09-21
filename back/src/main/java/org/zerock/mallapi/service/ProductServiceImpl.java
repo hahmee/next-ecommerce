@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService{
       pageRequestDTO.getSize(), 
       Sort.by("pno").descending());
     
-    Page<Object[]>  result = productRepository.selectList(pageable);
+    Page<Object[]> result = productRepository.selectList(pageable);
 
     
     List<ProductDTO> dtoList = result.get().map(arr -> {

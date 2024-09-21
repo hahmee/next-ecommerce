@@ -5,7 +5,6 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 //복합키 설정
 @Getter
