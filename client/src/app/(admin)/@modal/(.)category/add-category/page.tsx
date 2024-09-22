@@ -19,7 +19,6 @@ export default function CategoryModal() {
     const [newCategory, setNewCategory] = useState({ cno: null, cname: "", cdesc: "" });
     // const [categories, setCategories] = useState<Category[]>();
     //지울 것
-    const [parentCategoryId, setParentCategoryId] = useState<number | null>(null);
     const [parentCategory, setParentCategory] = useState<Category | null>(null);
     const [clickedCt, setClickedCt] = useState<Category | null>(null);
     const [isInputField, setIsInputField] = useState(false);
@@ -70,27 +69,6 @@ export default function CategoryModal() {
         router.push(`/admin/category`);
     };
 
-    const deleteCategory2 = () => {
-        if (!clickedCt) {
-            alert("삭제할 카테고리를 선택해 주세요.");
-            return;
-        }
-
-        const deleteCategoryFromList = (categories: Category[], categoryId: number): Category[] => {
-            return categories
-                .filter(category => category.cno !== categoryId) // 해당 ID를 가진 카테고리 삭제
-                .map(category => ({
-                    ...category,
-                    subCategories: category.subCategories ? deleteCategoryFromList(category.subCategories, categoryId) : [],
-                }));
-        };
-
-        // 선택한 카테고리의 ID를 이용해 카테고리 삭제
-        const updatedCategories = deleteCategoryFromList(categories, clickedCt.cno);
-
-        setCategories(updatedCategories);
-        setClickedCt(null); // 삭제 후 선택된 카테고리 초기화
-    };
 
     const deleteCategory = async () => {
         if (!clickedCt) {
@@ -107,11 +85,11 @@ export default function CategoryModal() {
         toast.success('삭제되었습니다..');
 
         await queryClient.invalidateQueries({queryKey: ['categories']});
+        setClickedCt(null); // 삭제 후 선택된 카테고리 초기화
     };
 
     const clickCategory = (category: Category) => {
         setClickedCt(category);
-        setParentCategoryId(category.cno);
         setParentCategory(category);
         setIsInputField(true);
         setMode(Mode.EDIT);
@@ -119,7 +97,6 @@ export default function CategoryModal() {
 
     const addRootCateogry = () => {
         setIsInputField(true);
-        setParentCategoryId(null);
         setParentCategory(null);
         setClickedCt({ cno: -1, cname: "", cdesc: "" });
         setNewCategory({ cno: null, cname: "", cdesc: "" });
@@ -127,76 +104,16 @@ export default function CategoryModal() {
         setMode(Mode.ROOT);
     };
 
-    // const handleAddCategory = () => {
-    //     if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
-    //         alert("카테고리명과 설명을 입력해주세요.");
-    //         return;
-    //     }
-    //
-    //     const newCategoryObj: Category = {
-    //         cno: newCategoryId,
-    //         cname: newCategory.cname,
-    //         cdesc: newCategory.cdesc,
-    //         subCategories: [],
-    //     };
-    //
-    //     if (parentCategoryId === null) {
-    //         setCategories([...categories, newCategoryObj]);
-    //     } else {
-    //         const updatedCategories = addSubCategory(categories, parentCategoryId, newCategoryObj);
-    //         setCategories(updatedCategories);
-    //     }
-    //
-    //     setNewCategory({ cno: null, cname: "", cdesc: "" });
-    //     setParentCategoryId(null);
-    //     setParentCategory(null);
-    //     setNewCategoryId(prev => prev + 1);
-    //     setMode(Mode.ADD);
-    // };
-
-    // const handleEditCategory = () => {
-    //     if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
-    //         alert("카테고리명과 설명을 입력해주세요.");
-    //         return;
-    //     }
-    //
-    //     const updateCategory = (categories: Category[], updatedCategory: Category|null): Category[] => {
-    //         return categories.map(cat =>
-    //             cat.cno === updatedCategory?.cno
-    //                 ? { ...cat, name: updatedCategory.cname, description: updatedCategory?.cdesc }
-    //                 : {
-    //                     ...cat,
-    //                     subCategories: cat.subCategories ? updateCategory(cat.subCategories, updatedCategory) : [],
-    //                 }
-    //         );
-    //     };
-    //
-    //     const updatedCategories = updateCategory(categories, clickedCt);
-    //     setCategories(updatedCategories);
-    //     setNewCategory({ cno: null, cname: "", cdesc: "" });
-    //     setMode(Mode.EDIT);
-    // };
-    //
-    //
-    // const handleFormSubmit = (e: FormEvent) => {
-    //     e.preventDefault();
-    //     console.log(mode);
-    //     if (mode === Mode.EDIT) {
-    //         handleEditCategory();
-    //     } else {
-    //         handleAddCategory();
-    //     }
-    // };
-
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
             console.log('categoryStore', categories);
 
-            if (mode ===  Mode.ADD) {
+            if (mode ===  Mode.ADD || mode === Mode.ROOT) {
                 if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
-                    alert("카테고리명과 설명을 입력해주세요.");
-                    return;
+                    // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
+                    return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
+
                 }
 
                 console.log('parentCategory,,', parentCategory);
@@ -224,8 +141,7 @@ export default function CategoryModal() {
 
             } else {
                 if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
-                    alert("카테고리명과 설명을 입력해주세요.");
-                    return;
+                    return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
                 }
 
                 console.log('clickedCt', clickedCt);
@@ -251,17 +167,16 @@ export default function CategoryModal() {
 
             toast.success('업로드 성공했습니다.');
             //최신 카테고리 목록
-           await queryClient.invalidateQueries({queryKey: ['categories']});
+            await queryClient.invalidateQueries({queryKey: ['categories']});
 
            },
+
         onError(error) {
             console.log('error/....', error.message);
-            toast.error(`업로드 중 에러가 발생했습니다.`);
+            toast.error(error.message);
 
         }
     });
-
-
 
     return (
         <AdminModal clickModal={closeModal} modalTitle={"카테고리 관리"}>
