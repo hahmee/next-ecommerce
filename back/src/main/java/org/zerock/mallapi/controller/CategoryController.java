@@ -4,16 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.dto.CategoryDTO;
+import org.zerock.mallapi.dto.DataResponseDTO;
 import org.zerock.mallapi.service.CategoryService;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,7 +21,7 @@ public class CategoryController {
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
   @PostMapping("/")
-  public DataResponseDTO<Long> register(@Valid CategoryDTO categoryDTO) {
+  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
 
     log.info("register: ?????????????" + categoryDTO);
 
@@ -40,6 +36,7 @@ public class CategoryController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/")
   public DataResponseDTO<List<CategoryDTO>> list() {
+    log.info("categoryService.getAllCategories() " + categoryService.getAllCategories());
     return DataResponseDTO.of(categoryService.getAllCategories());
 
   }

@@ -1,5 +1,4 @@
 import {create} from "zustand";
-import {CartItem} from "@/interface/CartItem";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {Category} from "@/interface/Category";
 

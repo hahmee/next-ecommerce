@@ -4,6 +4,10 @@ import React, {FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
 import CategoryBreadcrumb from "@/components/Admin/CategoryBreadcrumb";
 import {Category} from "@/interface/Category";
+import {useCategoryStore} from "@/store/categoryStore";
+import {useMutation} from "@tanstack/react-query";
+import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import toast from "react-hot-toast";
 
 export enum Mode {
     ROOT = 'root',
@@ -13,12 +17,15 @@ export enum Mode {
 
 export default function CategoryModal() {
     const [newCategory, setNewCategory] = useState({ cno: null, cname: "", cdesc: "" });
-    const [categories, setCategories] = useState<Category[]>();
+    // const [categories, setCategories] = useState<Category[]>();
+    //지울 것
     const [parentCategoryId, setParentCategoryId] = useState<number | null>(null);
+    const [parentCategory, setParentCategory] = useState<Category | null>(null);
     const [clickedCt, setClickedCt] = useState<Category | null>(null);
     const [isInputField, setIsInputField] = useState(false);
     const [mode, setMode] = useState(Mode.ROOT);
     const router = useRouter();
+    const {categories, setCategories} = useCategoryStore();
 
     const flattenCategories = (categories: Category[], depth: number = 0, prefix: string = ""): {
         cno: number;
@@ -57,60 +64,7 @@ export default function CategoryModal() {
             return category;
         });
     };
-
-    const addNewCategory = () => {
-        if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
-            alert("카테고리명과 설명을 입력해주세요.");
-            return;
-        }
-
-        const newCategoryObj: Category = {
-            cno: newCategoryId,
-            cname: newCategory.cname,
-            cdesc: newCategory.cdesc,
-            subCategories: [],
-        };
-
-        if (parentCategoryId === null) {
-            setCategories([...categories, newCategoryObj]);
-        } else {
-            const updatedCategories = addSubCategory(categories, parentCategoryId, newCategoryObj);
-            setCategories(updatedCategories);
-        }
-
-        setNewCategoryId(prev => prev + 1);
-        setNewCategory({ cno: null, cname: "", cdesc: "" });
-    };
-
-    const editCategory = () => {
-        if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
-            alert("카테고리명과 설명을 입력해주세요.");
-            return;
-        }
-
-        const updateCategory = (categories: Category[], updatedCategory: Category| null): Category[] => {
-            return categories.map(category => {
-                if (category.cno === updatedCategory?.cno) {
-                    return { ...updatedCategory };
-                }
-
-                if (category.subCategories) {
-                    return {
-                        ...category,
-                        subCategories: updateCategory(category.subCategories, updatedCategory),
-                    };
-                }
-
-                return category;
-            });
-        };
-
-        const updatedCategories = updateCategory(categories, clickedCt);
-        setCategories(updatedCategories);
-        setNewCategory({ cno: null, cname: "", cdesc: "" });
-    };
-
-
+    
     const closeModal = () => {
         router.push(`/admin/category`);
     };
@@ -140,6 +94,7 @@ export default function CategoryModal() {
     const clickCategory = (category: Category) => {
         setClickedCt(category);
         setParentCategoryId(category.cno);
+        setParentCategory(category);
         setIsInputField(true);
         setMode(Mode.EDIT);
     };
@@ -147,6 +102,7 @@ export default function CategoryModal() {
     const addRootCateogry = () => {
         setIsInputField(true);
         setParentCategoryId(null);
+        setParentCategory(null);
         setClickedCt({ cno: -1, cname: "", cdesc: "" });
         setNewCategory({ cno: null, cname: "", cdesc: "" });
         console.log(newCategoryId);
@@ -175,6 +131,7 @@ export default function CategoryModal() {
 
         setNewCategory({ cno: null, cname: "", cdesc: "" });
         setParentCategoryId(null);
+        setParentCategory(null);
         setNewCategoryId(prev => prev + 1);
         setMode(Mode.ADD);
     };
@@ -212,6 +169,59 @@ export default function CategoryModal() {
             handleAddCategory();
         }
     };
+
+    const mutation = useMutation({
+        mutationFn: async (e: FormEvent) => {
+            e.preventDefault();
+            console.log('categoryStore', categories);
+
+            if (mode ===  Mode.ADD) {
+                if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
+                    alert("카테고리명과 설명을 입력해주세요.");
+                    return;
+                }
+
+                console.log('parentCategory,,', parentCategory);
+
+                //새로운 카테고리
+                const newCategoryObj: Category = {
+                    cno: newCategoryId,
+                    cname: newCategory.cname,
+                    cdesc: newCategory.cdesc,
+                    subCategories: [],
+                    parentCategory: parentCategory,
+                };
+
+                return fetchWithAuth(`/api/category/`, {
+                    method: "POST",
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newCategoryObj),
+                }); // json 형태로 이미 반환
+
+
+            } else {
+
+
+            }
+
+
+        },
+        async onSuccess(response, variable) {
+
+            toast.success('업로드 성공했습니다.');
+
+        },
+        onError(error) {
+            console.log('error/....', error.message);
+            toast.error(`업로드 중 에러가 발생했습니다.`);
+
+        }
+    });
+
+
 
     return (
         <AdminModal clickModal={closeModal} modalTitle={"카테고리 관리"}>
@@ -254,7 +264,6 @@ export default function CategoryModal() {
                                             e.stopPropagation(); //이벤트 전파 막음
                                             setMode(Mode.ADD);
                                             setIsInputField(true);
-
                                         }}
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -303,7 +312,7 @@ export default function CategoryModal() {
                             {/*                    mode={mode}/>*/}
                         </div>
                         <div className={`${!isInputField && 'hidden'}`}>
-                            <form onSubmit={handleFormSubmit}>
+                            <form onSubmit={mutation.mutate}>
                                 <input
                                     type="text"
                                     placeholder="새 카테고리 이름을 입력해주세요."
