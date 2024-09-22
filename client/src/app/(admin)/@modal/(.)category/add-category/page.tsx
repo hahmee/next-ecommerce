@@ -192,6 +192,8 @@ export default function CategoryModal() {
                     parentCategory: parentCategory,
                 };
 
+                // setMode(Mode.ADD);
+
                 return fetchWithAuth(`/api/category/`, {
                     method: "POST",
                     credentials: 'include',
@@ -203,9 +205,27 @@ export default function CategoryModal() {
 
 
             } else {
+                if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
+                    alert("카테고리명과 설명을 입력해주세요.");
+                    return;
+                }
 
+                console.log('clickedCt', clickedCt);
+
+                return fetchWithAuth(`/api/category/${clickedCt?.cno}`, {
+                    method: "PUT",
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(clickedCt),
+                }); // json 형태로 이미 반환
 
             }
+            // setMode(Mode.EDIT);
+            // setNewCategory({ cno: null, cname: "", cdesc: "" });
+            // setParentCategoryId(null);
+            // setParentCategory(null);
 
 
         },
@@ -321,7 +341,7 @@ export default function CategoryModal() {
                                         mode === Mode.EDIT
                                             ? setClickedCt({
                                                 ...clickedCt,
-                                                name: e.target.value
+                                                cname: e.target.value
                                             } as any)
                                             : setNewCategory({...newCategory, cname: e.target.value});
                                     }}

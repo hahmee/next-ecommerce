@@ -429,6 +429,8 @@ public class ProductServiceImpl implements ProductService{
     product.changeSizeList(productDTO.getSizeList());
     product.changeSalesStatus(productDTO.getSalesStatus());
 
+    //시간도 변경
+    product.setUpdatedAt(LocalDateTime.now());
 
     //upload File -- clear first
     product.clearColorList();

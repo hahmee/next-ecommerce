@@ -26,5 +26,18 @@ public class AdminCategory extends BaseEntity {
 
   //순서도 추가
 
+  public void changeName(String cname) {
+    this.cname = cname;
+  }
+
+  public void changeDesc(String cdesc) {
+    this.cdesc = cdesc;
+  }
+
+  public void changeDelFlag(boolean delFlag) {
+    this.delFlag = delFlag;
+  }
+
+
 }
 

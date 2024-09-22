@@ -3,17 +3,14 @@ package org.zerock.mallapi.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.zerock.mallapi.domain.AdminCategory;
-import org.zerock.mallapi.domain.CategoryClosure;
-import org.zerock.mallapi.domain.CategoryClosureId;
-import org.zerock.mallapi.dto.CategoryDTO;
-import org.zerock.mallapi.dto.PageResponseDTO;
-import org.zerock.mallapi.dto.TodoDTO;
+import org.zerock.mallapi.domain.*;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,6 +55,51 @@ public class CategoryServiceImpl implements CategoryService {
     log.info("===============responseDTO "  + responseDTO);
 
     return responseDTO;
+
+  }
+
+  @Override
+  public CategoryDTO get(Long cno) {
+    java.util.Optional<AdminCategory> result = categoryRepository.selectOne(cno);
+
+    AdminCategory category = result.orElseThrow();
+
+    CategoryDTO categoryDTO = entityToDTO(category);
+
+    return categoryDTO;
+
+  }
+
+  private CategoryDTO entityToDTO(AdminCategory category){
+
+    CategoryDTO categoryDTO = CategoryDTO.builder()
+            .cno(category.getCno())
+            .cname(category.getCname())
+            .cdesc(category.getCdesc())
+            .build();
+
+    return categoryDTO;
+  }
+
+  @Override
+  public void modify(CategoryDTO categoryDTO) {
+
+    log.info("=================categoryDTO " + categoryDTO);
+
+    //step1 read
+    Optional<AdminCategory> result = categoryRepository.findById(categoryDTO.getCno());
+
+    AdminCategory adminCategory = result.orElseThrow();
+
+
+    //change pname, pdesc, price, ...etc
+    adminCategory.changeName(categoryDTO.getCname());
+    adminCategory.changeDesc(categoryDTO.getCdesc());
+
+    //시간도 변경
+    adminCategory.setUpdatedAt(LocalDateTime.now());
+
+    categoryRepository.save(adminCategory);
 
   }
 

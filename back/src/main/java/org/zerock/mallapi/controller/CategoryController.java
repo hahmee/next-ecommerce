@@ -4,9 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.mallapi.dto.CategoryDTO;
 import org.zerock.mallapi.dto.DataResponseDTO;
+import org.zerock.mallapi.dto.ProductDTO;
 import org.zerock.mallapi.service.CategoryService;
 
 import java.util.List;
@@ -41,7 +44,20 @@ public class CategoryController {
 
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @PutMapping("/{cno}")
+  public DataResponseDTO<CategoryDTO> modify(@PathVariable(name="cno")Long cno, @Valid @RequestBody CategoryDTO categoryDTO) {
+    log.info("==============categoryDTO " + categoryDTO);
+    log.info("==============cno " + cno);
 
+    //수정 작업
+    categoryService.modify(categoryDTO);
 
+    CategoryDTO modifiedCategoryDTO = categoryService.get(cno);
+
+    return DataResponseDTO.of(modifiedCategoryDTO);
+
+  }
 
 }
+
