@@ -17,17 +17,17 @@ public interface CategoryClosureRepository extends JpaRepository<CategoryClosure
     @Query("SELECT cc FROM CategoryClosure cc WHERE cc.id.descendant = :descendant AND cc.depth = 1")
     Optional<CategoryClosure> findAncestorByDescendant(@Param("descendant") AdminCategory descendant);
 
-    // 자식 카테고리들 찾기
-    @Query("SELECT cc FROM CategoryClosure cc WHERE cc.id.ancestor = :ancestor AND cc.depth = 1")
+    // 바로 밑 자식 카테고리들 찾기
+    @Query("SELECT cc FROM CategoryClosure cc WHERE cc.id.ancestor = :ancestor AND cc.depth = 1 and cc.id.descendant.delFlag = false")
     List<CategoryClosure> findDescendantsByAncestor(@Param("ancestor") AdminCategory ancestor);
 
     //특정 카테고리의 모든 조상 찾기
-    @Query("SELECT c FROM CategoryClosure c WHERE c.id.descendant = :descendant ORDER BY c.depth ASC")
-    List<CategoryClosure> findAncestors(@Param("descendant") AdminCategory descendant);
+    @Query("SELECT c FROM CategoryClosure c WHERE c.id.descendant = :adminCategory ORDER BY c.depth ASC")
+    List<CategoryClosure> findAncestors(@Param("adminCategory") AdminCategory adminCategory);
 
 
-    // 특정 카테고리의 모든 후손 찾기
-    @Query("SELECT c FROM CategoryClosure c WHERE c.id.descendant = :descendant")
-    List<CategoryClosure> findDescendants(@Param("descendant") AdminCategory descendant);
+    // 특정 카테고리의 모든 후손 찾기 (depth 1,2,3...)
+    @Query("SELECT c FROM CategoryClosure c WHERE c.id.ancestor = :adminCategory and c.depth !=0")
+    List<CategoryClosure> findDescendants(@Param("adminCategory") AdminCategory adminCategory);
 
 }

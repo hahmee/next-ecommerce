@@ -131,7 +131,10 @@ const ProductTable = ({page, size, search} : PageParam) => {
 
             //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
             // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
-            queryClient.invalidateQueries(['adminProducts', { page, size, search:searchTerm}] as any);
+
+            queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search: searchTerm}]});
+            // queryClient.invalidateQueries(['adminProducts', { page, size, search:searchTerm}]);
+
         }
 
     });

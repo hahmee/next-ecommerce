@@ -1,6 +1,7 @@
 package org.zerock.mallapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.mallapi.domain.AdminCategory;
@@ -21,13 +22,16 @@ public interface CategoryRepository extends JpaRepository<AdminCategory, Long> {
     List<AdminCategory> findAllCategoriesByTree();
 
 
-    @Query("SELECT c FROM AdminCategory c WHERE c.cno NOT IN (SELECT cc.id.descendant.cno FROM CategoryClosure cc WHERE cc.depth = 1)")
+    @Query("SELECT c FROM AdminCategory c WHERE c.cno NOT IN (SELECT cc.id.descendant.cno FROM CategoryClosure cc WHERE cc.depth = 1) and c.delFlag = false")
     List<AdminCategory> findRootCategories();
 
-    @Query("select c from AdminCategory c where c.cno = :cno")
+    @Query("select c from AdminCategory c where c.cno = :cno and c.delFlag = false")
     Optional<AdminCategory> selectOne(@Param("cno") Long cno);
 
 
+    @Modifying
+    @Query("update AdminCategory c set c.delFlag = :flag where c.cno = :cno")
+    void updateToDelete(@Param("cno") Long cno , @Param("flag") boolean flag);
 
 
 }

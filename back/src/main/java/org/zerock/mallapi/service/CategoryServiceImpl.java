@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
   // 카테고리 및 자식 카테고리들 조회 및 변환 로직
   public CategoryDTO convertToDTO(AdminCategory category) {
 
-    // 해당 카테고리의 자식 카테고리들 찾기
+    // 해당 카테고리의 자식 카테고리들  찾기
     List<AdminCategory> subCategories = categoryClosureRepository
             .findDescendantsByAncestor(category)
             .stream()
@@ -184,6 +184,32 @@ public class CategoryServiceImpl implements CategoryService {
 
   }
 
+  @Override
+  public void remove(Long cno) {
+
+    //cno로 해당하는 AdminCategory찾기
+    //step1 read
+    Optional<AdminCategory> result = categoryRepository.findById(cno);
+
+    AdminCategory adminCategory = result.orElseThrow();
+
+    //만약, 자식이 있다면 해당하는 모든 자식들까지 true로 만들기
+    List<CategoryClosure> descendants =  findDescendants(adminCategory);
+
+    log.info("=========descendants " + descendants);
+
+    //자신 삭제
+    categoryRepository.updateToDelete(cno, true);
+
+    //후손들 cno 찾아서 삭제
+    for(CategoryClosure descendant: descendants) {
+      Long descendantCno = descendant.getId().getDescendant().getCno();
+      log.info("descendantCnodescendantCnodescendantCno.." + descendantCno);
+      categoryRepository.updateToDelete(descendantCno, true);
+    }
+
+  }
+
 
   public List<CategoryClosure> findAncestors(AdminCategory category) {
     return categoryClosureRepository.findAncestors(category);
@@ -204,6 +230,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     return adminCategory;
   }
+
+
 
 
 

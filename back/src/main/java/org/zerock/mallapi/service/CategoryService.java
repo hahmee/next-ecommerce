@@ -16,4 +16,6 @@ public interface CategoryService {
   CategoryDTO get(Long cno);
 
   void modify(CategoryDTO categoryDTO);
+
+  void remove(Long cno);
 }

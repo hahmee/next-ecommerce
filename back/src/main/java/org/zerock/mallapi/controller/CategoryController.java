@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.mallapi.dto.CategoryDTO;
 import org.zerock.mallapi.dto.DataResponseDTO;
+import org.zerock.mallapi.dto.FileDTO;
 import org.zerock.mallapi.dto.ProductDTO;
 import org.zerock.mallapi.service.CategoryService;
 
@@ -58,6 +59,16 @@ public class CategoryController {
     return DataResponseDTO.of(modifiedCategoryDTO);
 
   }
+
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  @DeleteMapping("/{cno}")
+  public DataResponseDTO<String> remove(@PathVariable("cno") Long cno) {
+
+    categoryService.remove(cno);
+
+    return DataResponseDTO.of("SUCCESS");
+  }
+
 
 }
 
