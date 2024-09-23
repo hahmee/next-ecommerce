@@ -1,17 +1,24 @@
     "use client";
     import {Fragment, useEffect, useState} from "react";
     import {useRouter} from "next/navigation";
-    import {useQuery} from "@tanstack/react-query";
+    import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
     import {DataResponse} from "@/interface/DataResponse";
     import {Category} from "@/interface/Category";
     import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
     import {useCategoryStore} from "@/store/categoryStore";
     import Link from "next/link";
+    import Dialog from "@/components/Admin/Dialog";
+    import {fetchWithAuth} from "@/utils/fetchWithAuth";
+    import toast from "react-hot-toast";
 
 
     const CategoryTable = () => {
         const [expandedRows, setExpandedRows] = useState<number[]>([]);
         const [dropdownOpen, setDropdownOpen] = useState<{ [key: number]: boolean }>({}); // manage dropdown state
+        const queryClient = useQueryClient();
+
+        const [deleteId, setDeleteId] = useState<number>(-1);
+        const [showDialog, setShowDialog] = useState<boolean>(false);
 
         const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
         const router = useRouter();
@@ -35,6 +42,35 @@
                 setCategories(data);  // Zustand 스토어에 상태 저장
             }
         }, [data, setCategories]); // data가 업데이트될 때마다 setCategories 실행
+
+
+        const mutation = useMutation({
+            mutationFn: async (cno: number) => {
+                return fetchWithAuth(`/api/category/${cno}`, {
+                    method: "DELETE",
+                    credentials: 'include',
+                });
+            },
+            onSuccess: (data) => {
+                console.log('data...', data);
+                clickModal();
+                toast.success('삭제되었습니다..');
+                //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
+                // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
+                queryClient.invalidateQueries({queryKey: ['categories']});
+
+
+            }
+
+        });
+
+        // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
+        const clickModal = () => setShowDialog(!setShowDialog);
+
+        //삭제
+        const deleteProduct = () => {
+            mutation.mutate(deleteId);
+        }
 
         // 행 클릭 시 확장 여부 토글
         const toggleRow = (id: number) => {
@@ -120,7 +156,10 @@
                                         </Link>
                                     </ul>
                                     <div className="py-1">
-                                        <div className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                        <div className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"   onClick={() => {
+                                            setShowDialog(true);
+                                            setDeleteId(category.cno);
+                                        }}>
                                             삭제
                                         </div>
                                     </div>
@@ -174,6 +213,9 @@
                 >
                     메인 카테고리 추가
                 </button>
+
+                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
+                                       doAction={deleteProduct}/>}
 
                 {/* 카테고리 테이블 */}
                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

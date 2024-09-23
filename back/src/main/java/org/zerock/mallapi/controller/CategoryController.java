@@ -45,10 +45,21 @@ public class CategoryController {
 
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/{cno}")
+  public DataResponseDTO<CategoryDTO> read(@PathVariable(name="cno") Long cno) {
+
+    CategoryDTO categoryDTO = categoryService.get(cno);
+
+    log.info("categoryDTO========== " + categoryDTO);
+    return DataResponseDTO.of(categoryDTO);
+  }
+
+
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @PutMapping("/{cno}")
   public DataResponseDTO<CategoryDTO> modify(@PathVariable(name="cno")Long cno, @Valid @RequestBody CategoryDTO categoryDTO) {
-    log.info("==============categoryDTO " + categoryDTO);
+    log.info("==============categoryDTO답이 이것입니다.... " + categoryDTO);
     log.info("==============cno " + cno);
 
     //수정 작업

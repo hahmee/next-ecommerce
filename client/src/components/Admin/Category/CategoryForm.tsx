@@ -1,13 +1,13 @@
 'use client';
 import CategoryBreadcrumb from "@/components/Admin/CategoryBreadcrumb";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useCallback} from "react";
 import {Mode} from "@/types/mode";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Category} from "@/interface/Category";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import toast from "react-hot-toast";
-import {useCategoryStore} from "@/store/categoryStore";
-import {useRouter} from "next/navigation";
+import {DataResponse} from "@/interface/DataResponse";
+import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
 
 interface Props {
     type: Mode;
@@ -15,124 +15,48 @@ interface Props {
 }
 
 const CategoryForm = ({type, id}: Props) => {
-    const [newCategory, setNewCategory] = useState({ cno: null, cname: "", cdesc: "" });
-    // const [categories, setCategories] = useState<Category[]>();
-    //지울 것
-    const [parentCategory, setParentCategory] = useState<Category | null>(null);
-    const [clickedCt, setClickedCt] = useState<Category | null>(null);
-    const [isInputField, setIsInputField] = useState(false);
-    const [mode, setMode] = useState(Mode.ROOT);
-    const router = useRouter();
-
-    const {categories, setCategories} = useCategoryStore();
     const queryClient = useQueryClient();
 
+    // edit일 때만 getCategory하기
+    const {isLoading, data: originalData, error} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
+        queryKey: ['category', id!],
+        queryFn: getCategory,
+        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+        gcTime: 300 * 1000,
+        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
+        // throwOnError: (error) => error. >= 500,
+        enabled: type === Mode.EDIT, //
+        select: useCallback((data: DataResponse<Category>) => {
+            return data.data;
+        }, []),
 
-    const flattenCategories = (categories: Category[], depth: number = 0, prefix: string = ""): {
-        cno: number;
-        cname: string,
-        category: Category,
-        depth: number;
-    }[] => {
-        return categories.reduce<{ cno: number; cname: string; category: Category, depth: number }[]>((acc, category) => {
-            acc.push({ cno: category.cno, cname: `${prefix}${category.cname}`, category, depth });
-
-            if (category.subCategories && category.subCategories.length > 0) {
-                acc = acc.concat(flattenCategories(category.subCategories, depth + 1, `${prefix}`));
-            }
-            return acc;
-        }, []);
-    };
-
-    const [newCategoryId, setNewCategoryId] = useState<number>(flattenCategories(categories).length + 2);
-
-    const addSubCategory = (categories: Category[], parentId: number, newCategory: Category): Category[] => {
-        return categories.map(category => {
-            if (category.cno === parentId) {
-                return {
-                    ...category,
-                    subCategories: category.subCategories
-                        ? [...category.subCategories, newCategory]
-                        : [newCategory],
-                };
-            }
-            if (category.subCategories) {
-                return {
-                    ...category,
-                    subCategories: addSubCategory(category.subCategories, parentId, newCategory),
-                };
-            }
-            return category;
-        });
-    };
-
-    const closeModal = () => {
-        router.push(`/admin/category`);
-    };
-
-
-    const deleteCategory = async () => {
-        if (!clickedCt) {
-            alert("삭제할 카테고리를 선택해 주세요.");
-            return;
-        }
-
-        const response = await fetchWithAuth(`/api/category/${clickedCt.cno}`, {
-            method: "DELETE",
-            credentials: 'include',
-        });
-
-        console.log('response', response);
-        toast.success('삭제되었습니다..');
-
-        await queryClient.invalidateQueries({queryKey: ['categories']});
-        setClickedCt(null); // 삭제 후 선택된 카테고리 초기화
-    };
-
-    const clickCategory = (category: Category) => {
-        setClickedCt(category);
-        setParentCategory(category);
-        setIsInputField(true);
-        setMode(Mode.EDIT);
-    };
-
-    const addRootCateogry = () => {
-        setIsInputField(true);
-        setParentCategory(null);
-        setClickedCt({ cno: -1, cname: "", cdesc: "" });
-        setNewCategory({ cno: null, cname: "", cdesc: "" });
-        console.log(newCategoryId);
-        setMode(Mode.ROOT);
-    };
+    });
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
-            console.log('e.target',e.target)
-            console.log('categoryStore', categories);
+            // console.log('e.target', e.target);
             const formData = new FormData(e.target as HTMLFormElement);
+            const cname = formData.get('cname') || ""; // input의 name 속성
+            const cdesc = formData.get('cdesc') || ""; // input의 name 속성
 
-            console.log('formData', formData);
-            if (mode ===  Mode.ADD || mode === Mode.ROOT) {
-                if (newCategory.cname.trim() === "" || newCategory.cdesc.trim() === "") {
+            console.log('formData', cname);
+            console.log('formData', cdesc);
+
+            if (type ===  Mode.ADD) {
+                if (cname === "" || cdesc === "") {
                     // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
                     return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
-
                 }
 
-
-                console.log('parentCategory,,', parentCategory);
-
                 //새로운 카테고리
-                const newCategoryObj: Category = {
-                    cno: newCategoryId,
-                    cname: newCategory.cname,
-                    cdesc: newCategory.cdesc,
+                const newCategoryObj = {
+                    // cno: null,
+                    cname: cname as string,
+                    cdesc: cdesc as string,
                     subCategories: [],
-                    parentCategoryId: parentCategory?.cno,
+                    parentCategoryId: Number(id) || null,
                 };
-
-                // setMode(Mode.ADD);
 
                 return fetchWithAuth(`/api/category/`, {
                     method: "POST",
@@ -145,26 +69,31 @@ const CategoryForm = ({type, id}: Props) => {
 
 
             } else {
-                if (clickedCt?.cname.trim() === "" || clickedCt?.cdesc.trim() === "") {
+                if (cname === "" || cdesc === "") {
+                    // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
                     return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
+
                 }
 
-                console.log('clickedCt', clickedCt);
+                //수정된 카테고리
+                const editCategoryObj: Category = {
+                    cno: Number(id),
+                    cname: cname as string,
+                    cdesc: cdesc as string,
+                };
 
-                return fetchWithAuth(`/api/category/${clickedCt?.cno}`, {
+                console.log('editCategoryObj', editCategoryObj);
+                return fetchWithAuth(`/api/category/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(clickedCt),
-                }); // json 형태로 이미 반환
+                    body: JSON.stringify(editCategoryObj),
+                });
 
             }
-            // setMode(Mode.EDIT);
-            // setNewCategory({ cno: null, cname: "", cdesc: "" });
-            // setParentCategoryId(null);
-            // setParentCategory(null);
+
 
 
         },
@@ -184,7 +113,6 @@ const CategoryForm = ({type, id}: Props) => {
     });
 
 
-    console.log('??',id)
     return (
         <form className="p-4 md:p-5" onSubmit={mutation.mutate}>
             <div className="grid gap-4 mb-4 grid-cols-2">
@@ -202,6 +130,7 @@ const CategoryForm = ({type, id}: Props) => {
                         name="cname"
                         placeholder="카테고리명을 입력해주세요."
                         required
+                        defaultValue={ type === Mode.EDIT ? originalData?.cname : ""}
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                 </div>
@@ -209,13 +138,14 @@ const CategoryForm = ({type, id}: Props) => {
                 <div className="col-span-2">
                     <label
                         className="mb-3 block text-sm font-medium text-black dark:text-white">
-                        카테고리설명
+                        카테고리 설명
                     </label>
                     <textarea
                         id="cdesc"
                         name="cdesc"
                         placeholder="카테고리 설명을 입력해주세요."
                         required
+                        defaultValue={ type === Mode.EDIT ? originalData?.cdesc : ""}
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                 </div>
@@ -237,12 +167,23 @@ const CategoryForm = ({type, id}: Props) => {
             </div>
             <button type="submit"
                     className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd"
-                          d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                          clipRule="evenodd"></path>
-                </svg>
+                {
+                    type === Mode.ADD ?
+                        <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd"
+                                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                  clipRule="evenodd"></path>
+                        </svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="me-1 -ms-1 w-5 h-5">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                  d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/>
+                        </svg>
+
+                }
+
+
                 {type === Mode.ADD ? "카테고리 추가" : "카테고리 수정"}
             </button>
         </form>

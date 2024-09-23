@@ -13,7 +13,7 @@ export default async function CategoryEditModalSuspense({params}: Props) {
 
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery({queryKey: ['cno', id],  queryFn: getCategory});
+    await queryClient.prefetchQuery({queryKey: ['category', id],  queryFn: getCategory});
     const dehydratedState = dehydrate(queryClient);
 
     return (

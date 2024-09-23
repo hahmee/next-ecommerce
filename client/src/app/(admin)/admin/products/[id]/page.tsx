@@ -15,7 +15,7 @@ export default async function ModifyProductPage({params}: Props) {
 
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery({queryKey: ['id', id], queryFn: getProduct});
+    await queryClient.prefetchQuery({queryKey: ['productSingle', id], queryFn: getProduct});
     const dehydratedState = dehydrate(queryClient);
 
 

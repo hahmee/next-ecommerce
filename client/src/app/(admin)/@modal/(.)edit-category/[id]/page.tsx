@@ -1,4 +1,3 @@
-// 'use client';
 import AdminModal from "@/components/Admin/AdminModal";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
@@ -15,7 +14,6 @@ export default function CategoryEditModal({params}: Props) {
             <Suspense fallback={<Loading/>}>
                 <CategoryEditModalSuspense params={params}/>
             </Suspense>
-            {/*<CategoryForm type={Mode.EDIT} id={id}/>*/}
         </AdminModal>
     );
 
