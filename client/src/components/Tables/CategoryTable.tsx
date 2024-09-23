@@ -112,10 +112,10 @@
                                 <div className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
                                     <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby={`category-dropdown-${category.cno}`}>
-                                        <Link href={"/admin/category/add-category"} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <Link href={`/admin/category/add-category/${category.cno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                 서브 카테고리 추가
                                         </Link>
-                                        <Link href={"/admin/category/edit-category"} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <Link href={`/admin/category/edit-category/${category.cno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                 수정
                                         </Link>
                                     </ul>
@@ -174,13 +174,6 @@
                 >
                     메인 카테고리 추가
                 </button>
-
-                {/*<button*/}
-                {/*    onClick={() => router.push(`/admin/category/add-category2`)}*/}
-                {/*    className="mb-4 px-4 py-2 text-sm font-medium text-white bg-primary-700 rounded-lg hover:bg-primary-800"*/}
-                {/*>*/}
-                {/*    카테고리 관리*/}
-                {/*</button>*/}
 
                 {/* 카테고리 테이블 */}
                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

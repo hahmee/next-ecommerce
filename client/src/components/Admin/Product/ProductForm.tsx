@@ -20,6 +20,7 @@ import TagSelect from "@/components/Admin/Product/TagSelect";
 import RadioButton from "@/components/Admin/Product/RadioButton";
 import Select from "@/components/Admin/Product/Select";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
+import {Mode} from "@/types/mode";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -51,7 +52,7 @@ export const salesOptions: Array<Option<SalesStatus>> = [
 
 
 interface Props {
-    type: string;
+    type: Mode;
     id?: string;
 }
 
@@ -94,7 +95,7 @@ const ProductForm = ({type, id}: Props) => {
             if (quillRef.current) {
                 pdesc = quillRef?.current?.value;
             }
-            if (type === "add") {
+            if (type === Mode.ADD) {
 
                 console.log('tagStore', tagStore.tags);
                 const formData = new FormData(e.target as HTMLFormElement);
@@ -191,13 +192,13 @@ const ProductForm = ({type, id}: Props) => {
         <>
             <form onSubmit={mutation.mutate}>
                 <div className="mx-auto">
-                    <Breadcrumb pageName={type === "add" ? "제품 등록" : "제품 수정"}/>
+                    <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>
                     <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                         <BackButton/>
                         <button type="submit"
                                 className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                             {
-                                type === "add" ? "저장하기" : "수정하기"
+                                type === Mode.ADD ? "저장하기" : "수정하기"
                             }
                         </button>
                     </div>

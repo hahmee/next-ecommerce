@@ -125,11 +125,17 @@ public class CategoryServiceImpl implements CategoryService {
     //부모 카테고리
     AdminCategory parentCategory = null;
 
-    if(categoryDTO.getParentCategory() != null) {
-      parentCategory = dtoToEntity(categoryDTO.getParentCategory());
+    if(categoryDTO.getParentCategoryId() != null) {
+      Long parentId = categoryDTO.getParentCategoryId();
+
+      //부모 카테고리 데이터 조회
+      java.util.Optional<AdminCategory> result = categoryRepository.selectOne(parentId);
+      parentCategory = result.orElseThrow();
+//      parentCategory = dtoToEntity(categoryDTO.getParentCategory());
 
     }
 
+    log.info("parentCategory====== " + parentCategory);
     // 새로운 카테고리의 트리 관계 설정
     if(parentCategory != null) {
       // 부모 카테고리와의 관계를 설정
