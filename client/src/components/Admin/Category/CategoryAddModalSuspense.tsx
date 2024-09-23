@@ -11,10 +11,10 @@ interface Props {
 export default async function CategoryAddModalSuspense({params}: Props) {
     // const {id} = params;
 
-    const id = params.id ||  ;
+    const id = params.id;
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery({queryKey: ['category', id],  queryFn: getCategory});
+    await queryClient.prefetchQuery({queryKey: ['parentCategory', id],  queryFn: getCategory});
     const dehydratedState = dehydrate(queryClient);
 
     return (

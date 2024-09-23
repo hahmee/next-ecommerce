@@ -9,6 +9,7 @@ import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -67,6 +68,29 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryDTO categoryDTO = entityToDTO(category);
 
     return categoryDTO;
+
+  }
+
+  @Override
+  public List<String> getAllCategoryPaths(Long cno) {
+
+    //step1 read
+    Optional<AdminCategory> result = categoryRepository.findById(cno);
+
+    AdminCategory adminCategory = result.orElseThrow();
+
+    List<CategoryClosure> ancestors = categoryClosureRepository.findAncestorsDesc(adminCategory);
+
+    List<String> categoryPaths = ancestors.stream()
+            .map(ancestor -> {
+              AdminCategory ancestorCategory = ancestor.getId().getAncestor();
+              log.info("AncestorCategory: " + ancestorCategory);
+              return ancestorCategory.getCname();
+            })
+            .collect(Collectors.toList());
+
+
+    return categoryPaths;
 
   }
 
@@ -236,7 +260,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     return adminCategory;
   }
-
 
 
 

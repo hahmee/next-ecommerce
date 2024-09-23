@@ -13,6 +13,8 @@ public interface CategoryService {
 
   List<CategoryDTO> getAllCategories();
 
+  List<String> getAllCategoryPaths(Long cno);
+
   CategoryDTO get(Long cno);
 
   void modify(CategoryDTO categoryDTO);

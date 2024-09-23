@@ -5,22 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/add-category/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/category/add-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/add-category/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/category/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/CategoryBreadcrumb2.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryAddModalSuspense.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryAddModalSuspense.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryEditModalSuspense.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryEditModalSuspense.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/mode.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/mode.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/CategoryBreadcrumb.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/CategoryBreadcrumb.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +47,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(admin)/admin/category/add-category",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(admin)/admin/category/edit-category/[id]/_lib",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -69,11 +60,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\category\edit-category\[id]\_lib" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\category\add-category" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Category" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\category\edit-category\[id]" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\@modal" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\category\@modal\(.)edit-category" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\@modal\(.)add-category\[id]" />
@@ -201,7 +192,8 @@
       <workItem from="1726902793109" duration="15087000" />
       <workItem from="1726968042293" duration="1775000" />
       <workItem from="1726978602596" duration="25275000" />
-      <workItem from="1727056350611" duration="24916000" />
+      <workItem from="1727056350611" duration="25582000" />
+      <workItem from="1727087148573" duration="6312000" />
     </task>
     <servers />
   </component>

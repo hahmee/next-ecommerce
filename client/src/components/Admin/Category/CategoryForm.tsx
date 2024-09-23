@@ -8,6 +8,7 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
+import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
 
 interface Props {
     type: Mode;
@@ -17,7 +18,6 @@ interface Props {
 const CategoryForm = ({type, id}: Props) => {
     const queryClient = useQueryClient();
 
-    // edit일 때만 getCategory하기
     const {isLoading, data: originalData, error} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', id!],
         queryFn: getCategory,
@@ -31,6 +31,21 @@ const CategoryForm = ({type, id}: Props) => {
         }, []),
 
     });
+
+    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<String[]>, Object, String[], [_1: string, _2: string]>({
+        queryKey: ['categoryPaths', id!],
+        queryFn: getCategoryPaths,
+        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+        gcTime: 300 * 1000,
+        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
+        // throwOnError: (error) => error. >= 500,
+        select: useCallback((data: DataResponse<String[]>) => {
+            return data.data;
+        }, []),
+
+    });
+
+    console.log('categoryPaths', categoryPaths);
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
@@ -117,7 +132,7 @@ const CategoryForm = ({type, id}: Props) => {
         <form className="p-4 md:p-5" onSubmit={mutation.mutate}>
             <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
-                    <CategoryBreadcrumb/>
+                    <CategoryBreadcrumb categoryPaths={categoryPaths}/>
                 </div>
 
                 <div className="col-span-2">
