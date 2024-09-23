@@ -1,11 +1,10 @@
     "use client";
-    import {Fragment, useEffect, useState} from "react";
+    import {Fragment, useState} from "react";
     import {useRouter} from "next/navigation";
     import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
     import {DataResponse} from "@/interface/DataResponse";
     import {Category} from "@/interface/Category";
     import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
-    import {useCategoryStore} from "@/store/categoryStore";
     import Link from "next/link";
     import Dialog from "@/components/Admin/Dialog";
     import {fetchWithAuth} from "@/utils/fetchWithAuth";
@@ -22,7 +21,6 @@
 
         const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
         const router = useRouter();
-        const {categories, setCategories} = useCategoryStore();
 
         const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
             queryKey: ['categories'],
@@ -36,13 +34,13 @@
             }
         });
 
-        // useEffect를 사용해 데이터를 가져온 후 상태 업데이트
-        useEffect(() => {
-            if (data) {
-                setCategories(data);  // Zustand 스토어에 상태 저장
-            }
-        }, [data, setCategories]); // data가 업데이트될 때마다 setCategories 실행
-
+        // // useEffect를 사용해 데이터를 가져온 후 상태 업데이트
+        // useEffect(() => {
+        //     if (data) {
+        //         setCategories(data);  // Zustand 스토어에 상태 저장
+        //     }
+        // }, [data, setCategories]); // data가 업데이트될 때마다 setCategories 실행
+        //
 
         const mutation = useMutation({
             mutationFn: async (cno: number) => {
@@ -119,8 +117,11 @@
         const renderCategoryRows = (categories: Category[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
-                    <tr className="cursor-pointer hover:bg-meta-4 dark:hover:bg-gray-700" onClick={() => toggleRow(category.cno)}>
-                        <td scope="row" className=" flex items-center px-4 py-3 font-medium text-gray-900 dark:text-white" style={{paddingLeft: `${depth * 20}px`}}>
+                    <tr className="cursor-pointer hover:bg-meta-4 dark:hover:bg-gray-700"
+                        onClick={() => toggleRow(category.cno)}>
+                        <td scope="row"
+                            className=" flex items-center px-4 py-3 font-medium text-gray-900 dark:text-white"
+                            style={{paddingLeft: `${depth * 20}px`}}>
                             <img
                                 src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png"
                                 alt="iMac Front Image" className="w-auto h-8 mr-3"/>
@@ -129,6 +130,9 @@
                         <td className="px-4 py-3">{category.cdesc}</td>
                         <td className="px-4 py-3">
                             {category.subCategories ? category.subCategories.length : "-"}
+                        </td>
+                        <td className="px-4 py-3">
+                           사용중
                         </td>
                         <td className="px-4 py-3 flex items-center justify-end">
                             <button
@@ -145,21 +149,26 @@
                             </button>
                             {/* Dropdown Modal */}
                             {dropdownOpen[category.cno] && (
-                                <div className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
+                                <div
+                                    className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
                                     <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby={`category-dropdown-${category.cno}`}>
-                                        <Link href={`/admin/category/add-category/${category.cno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                서브 카테고리 추가
+                                        <Link href={`/admin/category/add-category/${category.cno}`}
+                                              className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                            서브 카테고리 추가
                                         </Link>
-                                        <Link href={`/admin/category/edit-category/${category.cno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                수정
+                                        <Link href={`/admin/category/edit-category/${category.cno}`}
+                                              className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                            수정
                                         </Link>
                                     </ul>
                                     <div className="py-1">
-                                        <div className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"   onClick={() => {
-                                            setShowDialog(true);
-                                            setDeleteId(category.cno);
-                                        }}>
+                                        <div
+                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                            onClick={() => {
+                                                setShowDialog(true);
+                                                setDeleteId(category.cno);
+                                            }}>
                                             삭제
                                         </div>
                                     </div>
@@ -226,6 +235,7 @@
                                 <th scope="col" className="px-4 py-3">카테고리명</th>
                                 <th scope="col" className="px-4 py-3">설명</th>
                                 <th scope="col" className="px-4 py-3">서브 카테고리</th>
+                                <th scope="col" className="px-4 py-3">사용 여부</th>
                                 <th scope="col" className="px-4 py-3">
                                     <span className="sr-only">Actions</span>
                                 </th>

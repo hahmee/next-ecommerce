@@ -45,7 +45,6 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public List<CategoryDTO> getAllCategories() {
 
-
     List<AdminCategory> categories = categoryRepository.findRootCategories();
 
     log.info("===============categories "  + categories);

@@ -84,7 +84,6 @@ public class CategoryController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/paths/{cno}")
   public DataResponseDTO<List<String>> pathList(@PathVariable("cno") Long cno) {
-    log.info("categoryService.getAllCategories() " + categoryService.getAllCategoryPaths(cno));
     return DataResponseDTO.of(categoryService.getAllCategoryPaths(cno));
 
   }

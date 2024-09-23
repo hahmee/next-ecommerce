@@ -10,9 +10,7 @@ const AdminModal = ({children, modalTitle}: { children: React.ReactNode, modalTi
     };
 
     return (
-        <div id="crud-modal" tabIndex={-1} onClick={closeModal}
-             aria-hidden="true"
-             className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div id="crud-modal" tabIndex={-1} onClick={closeModal} className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div className="relative p-4 w-full max-w-md max-h-full" onClick={(e) => e.stopPropagation()}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-boxdark">
                     <div

@@ -26,7 +26,6 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
     const dropdownRef = useRef<any>(null);
     const trigger = useRef<any>(null);
 
-
     useEffect(() => {
         const loadOptions = () => {
             const select = document.getElementById(id) as HTMLSelectElement | null;
@@ -173,7 +172,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                                             <div className="flex-1">
                                                 <input
                                                     placeholder={defaultOption}
-                                                    className="h-full w-full appearance-none bg-transparent p-1 px-2 outline-none"
+                                                    className="h-full w-full appearance-none bg-transparent p-1 px-2 outline-none "
                                                     defaultValue={selectedValues()}
                                                 />
                                             </div>

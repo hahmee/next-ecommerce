@@ -1,7 +1,7 @@
 import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
 import {Mode} from "@/types/mode";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
+import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
 
 interface Props {
     params: {id?: string }
@@ -9,12 +9,14 @@ interface Props {
 
 
 export default async function CategoryAddModalSuspense({params}: Props) {
-    // const {id} = params;
+    const {id} = params;
 
-    const id = params.id;
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery({queryKey: ['parentCategory', id],  queryFn: getCategory});
+    if(id) { //서브카테고리 추가일때
+        await queryClient.prefetchQuery({queryKey: ['categoryPaths', id],  queryFn: getCategoryPaths});
+    }
+
     const dehydratedState = dehydrate(queryClient);
 
     return (

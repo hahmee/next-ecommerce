@@ -25,21 +25,22 @@ const CategoryForm = ({type, id}: Props) => {
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
-        enabled: type === Mode.EDIT, //
+        enabled: type === Mode.EDIT && !!id,
         select: useCallback((data: DataResponse<Category>) => {
             return data.data;
         }, []),
 
     });
 
-    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<String[]>, Object, String[], [_1: string, _2: string]>({
+    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<string[]>, Object, string[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', id!],
         queryFn: getCategoryPaths,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
-        select: useCallback((data: DataResponse<String[]>) => {
+        enabled: !!id, //id 있을때만(서브 카테고리일떄만)
+        select: useCallback((data: DataResponse<string[]>) => {
             return data.data;
         }, []),
 
@@ -106,11 +107,7 @@ const CategoryForm = ({type, id}: Props) => {
                     },
                     body: JSON.stringify(editCategoryObj),
                 });
-
             }
-
-
-
         },
         async onSuccess(response, variable) {
 
@@ -132,7 +129,7 @@ const CategoryForm = ({type, id}: Props) => {
         <form className="p-4 md:p-5" onSubmit={mutation.mutate}>
             <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
-                    <CategoryBreadcrumb categoryPaths={categoryPaths}/>
+                    <CategoryBreadcrumb categoryPaths={categoryPaths ?? []}/>
                 </div>
 
                 <div className="col-span-2">

@@ -8,8 +8,6 @@ type CategoryState = {
   getCategories: () => void;
   setCategories: (categories:Category[]) => void;
   clear: () => void;
-  // changeCart: (cartItem: CartItem) => void;
-  // removeItem: (cino: number) => void;
 };
 
 
@@ -34,7 +32,6 @@ export const useCategoryStore = create<CategoryState>((set) => ({
       },
       setCategories: (categories) => {
           set({categories});
-          console.log('categories', categories);
       },
       clear: () => {
         set({categories: []});
