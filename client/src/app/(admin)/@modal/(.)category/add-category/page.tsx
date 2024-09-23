@@ -8,6 +8,7 @@ import {useCategoryStore} from "@/store/categoryStore";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import toast from "react-hot-toast";
+import CategoryForm from "@/components/Admin/Category/CategoryForm";
 
 export enum Mode {
     ROOT = 'root',
@@ -15,7 +16,12 @@ export enum Mode {
     EDIT = 'edit',
 }
 
-export default function CategoryModal() {
+interface Props {
+    type: string;
+    id?: string;
+}
+
+export default function CategoryAddModal() {
     const [newCategory, setNewCategory] = useState({ cno: null, cname: "", cdesc: "" });
     // const [categories, setCategories] = useState<Category[]>();
     //지울 것
@@ -179,130 +185,8 @@ export default function CategoryModal() {
     });
 
     return (
-        <AdminModal clickModal={closeModal} modalTitle={"카테고리 관리"}>
-            <div className="p-4 md:p-5 space-y-4">
-                <div className="p-2 flex">
-                    <div className="w-1/3 border-r pr-1">
-                        <ul className="space-y-2">
-                            <li className={`pl-1 flex items-center`} onClick={addRootCateogry}>
-                                <span className="pl-2">루트 카테고리 추가</span>
-                            </li>
-                            {flattenCategories(categories).map((cat) => (
-                                <li key={cat.cno}
-                                    className={`pl-1 flex items-center ${cat.cno === clickedCt?.cno && 'bg-violet-500 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300'}`}
-                                    onClick={() => clickCategory(cat.category)}>
-                                    <span>
-                                        {cat.depth === 0 && (
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth="1.5" stroke="currentColor" className="size-4">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/>
-                                            </svg>
-                                        )}
-                                    </span>
-                                    <span className="cursor-pointer flex items-center">
-                                        {Array.from({length: cat.depth}).map((_, index) => (
-                                            <span key={index}>&ensp;&ensp;</span>
-                                        ))}
-                                        {cat.depth !== 0 && (
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="size-4">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499"/>
-                                            </svg>
-                                        )}
-                                        <span className="pl-2">
-                                            {cat.cname}
-                                        </span>
-                                        {/*Add button*/}
-                                        <span onClick={(e) => {
-                                            e.stopPropagation(); //이벤트 전파 막음
-                                            setMode(Mode.ADD);
-                                            setIsInputField(true);
-                                        }}
-                                        >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth="1.5" stroke="currentColor" className="size-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                            </svg>
-                                        </span>
-                                        {/*Edit button*/}
-                                        <span onClick={(e) => {
-                                            e.stopPropagation(); //이벤트 전파 막음
-                                            setMode(Mode.EDIT);
-                                            setIsInputField(true);
-
-                                        }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth="1.5" stroke="currentColor" className="size-5">
-                                                <path strokeLinecap="round" strokeLinejoin="round"
-                                                      d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
-                                            </svg>
-                                        </span>
-                                        {/*Remove Button*/}
-                                        <span onClick={(e) => {
-                                            e.stopPropagation(); //이벤트 전파 막음
-                                            deleteCategory();
-                                        }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                 strokeWidth={1.5} stroke="currentColor" className="size-5">
-                                              <path strokeLinecap="round" strokeLinejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                            </svg>
-
-                                        </span>
-                                    </span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="w-2/3 pl-6">
-                        <div>
-                            {mode === Mode.EDIT ? "카테고리 수정" : "카테고리 추가"}
-                        </div>
-                        <div>
-                            {/*<CategoryBreadcrumb clickedCt={clickedCt} categories={categories} newCategory={newCategory}*/}
-                            {/*                    mode={mode}/>*/}
-                        </div>
-                        <div className={`${!isInputField && 'hidden'}`}>
-                            <form onSubmit={mutation.mutate}>
-                                <input
-                                    type="text"
-                                    placeholder="새 카테고리 이름을 입력해주세요."
-                                    value={mode === Mode.EDIT ? clickedCt?.cname : newCategory.cname}
-                                    onChange={(e) => {
-                                        mode === Mode.EDIT
-                                            ? setClickedCt({
-                                                ...clickedCt,
-                                                cname: e.target.value
-                                            } as any)
-                                            : setNewCategory({...newCategory, cname: e.target.value});
-                                    }}
-                                    className={`mb-3 w-full p-2 border border-gray-300 rounded`}
-                                />
-                                <textarea
-                                    placeholder="새 카테고리 설명을 입력해주세요."
-                                    value={mode === Mode.EDIT ? clickedCt?.cdesc : newCategory.cdesc}
-                                    onChange={(e) => {
-                                        mode === Mode.EDIT
-                                            ? setClickedCt({
-                                                ...clickedCt,
-                                                cdesc: e.target.value
-                                            } as any)
-                                            : setNewCategory({...newCategory, cdesc: e.target.value});
-                                    }}
-                                    className="mb-3 w-full p-2 border border-gray-300 rounded"
-                                />
-                                <button
-                                    type="submit"
-                                    className="bg-blue-500 text-white px-4 py-2 rounded">
-                                    {mode === Mode.EDIT ? "카테고리 수정" : "카테고리 추가"}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <AdminModal clickModal={closeModal} modalTitle={"상품 카테고리 추가"}>
+           <CategoryForm type={"add"}/>
         </AdminModal>
     );
 }

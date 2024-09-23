@@ -1,13 +1,12 @@
 import React from "react";
 import CategoryPage from "@/app/(admin)/admin/category/page";
-import CategoryAddModal from "@/app/(admin)/@modal/(.)category/add-category/page";
+import CategoryEditModal from "@/app/(admin)/@modal/(.)category/edit-category/[id]/page";
 
 export default function AddCategoryPage() {
     return (
         <>
             <CategoryPage/>
-            {/*<CategoryModal2/>*/}
-            <CategoryAddModal/>
+            <CategoryEditModal/>
         </>);
 
 }
