@@ -9,10 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.mallapi.domain.ColorTag;
-import org.zerock.mallapi.domain.Member;
-import org.zerock.mallapi.domain.Product;
-import org.zerock.mallapi.domain.ProductImage;
+import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.ProductRepository;
 
@@ -265,6 +262,7 @@ public class ProductServiceImpl implements ProductService{
   private Product dtoToEntity(ProductDTO productDTO, String email){
 
     Member member = Member.builder().email(email).build();
+    AdminCategory category = AdminCategory.builder().cno(productDTO.getCategoryId()).build();
 
     Product product = Product.builder()
             .pno(productDTO.getPno())
@@ -277,6 +275,7 @@ public class ProductServiceImpl implements ProductService{
             .categoryList(productDTO.getCategoryList())
             .sizeList(productDTO.getSizeList())
             .sku(productDTO.getSku())
+            .adminCategory(category)
             .salesStatus(productDTO.getSalesStatus())
             .owner(member)
             .build();

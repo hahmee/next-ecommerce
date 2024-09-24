@@ -43,7 +43,6 @@ public class Product extends BaseEntity {
   @JoinColumn(name = "product_id")
   @Builder.Default
   private List<ColorTag> colorList = new ArrayList<>();
-//  private Set<ColorTag> colorList = new HashSet<>();
 
   private String sku;
 
@@ -54,6 +53,10 @@ public class Product extends BaseEntity {
   private String changePolicy;
 
   @ManyToOne
+  @JoinColumn(name = "admin_category")
+  private AdminCategory adminCategory; //제일 하위 카테고리
+
+  @ManyToOne
   @JoinColumn(name = "member_owner")
   private Member owner; // 유저
 
@@ -61,8 +64,6 @@ public class Product extends BaseEntity {
   @Builder.Default
   @OrderBy("ord ASC") // ord 필드 기준으로 오름차순 정렬
   private List<ProductImage> imageList = new ArrayList<>();
-//  private Set<ProductImage> imageList = new HashSet<>();
-
 
   public void changeDel(boolean delFlag) {
     this.delFlag = delFlag;
@@ -79,7 +80,6 @@ public class Product extends BaseEntity {
   public void changeName(String name) {
     this.pname = name;
   }
-
   public void changeChangePolicy(String changePolicy) {
     this.changePolicy = changePolicy;
   }

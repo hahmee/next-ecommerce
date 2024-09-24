@@ -2,18 +2,24 @@ import { Category } from "@/interface/Category";
 import { useState } from "react";
 import CategoryList from "@/components/Admin/Product/CategoryList";
 
-const CategorySelect = ({ categories }: { categories: Category[] | [] }) => {
+const CategorySelect = ({categories, setSelectedCategory}: { categories: Category[] | [], setSelectedCategory:(category: Category) => void; }) => {
+
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
     const handleCategorySelect = (category: Category, level: number) => {
         const updatedCategories = [...selectedCategories];
         updatedCategories[level] = category;
         setSelectedCategories(updatedCategories.slice(0, level + 1));
+
+        //부모에게 보내줄 최하위 카테고리
+        if (category.subCategories === null) {
+            setSelectedCategory(category);
+        }
     };
 
     return (
-        <div className="overflow-x-auto w-full">
-            <div className="flex space-x-4">
+        <div className="w-full">
+            <div className="flex flex-nowrap overflow-x-auto">
                 <CategoryList
                     categories={categories}
                     level={0}

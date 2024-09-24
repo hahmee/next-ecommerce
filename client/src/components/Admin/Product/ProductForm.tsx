@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useCallback, useRef} from "react";
+import React, {FormEvent, useCallback, useRef, useState} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUploadForm";
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
@@ -57,17 +57,13 @@ interface Props {
     type: Mode;
     id?: string;
 }
-const categories1 = [
-    { id: 1, name: 'Fashion', subcategories: ['Clothing', 'Accessories', 'Footwear'] },
-    { id: 2, name: 'Electronics', subcategories: ['Mobile Phones', 'Laptops', 'Headphones'] },
-    { id: 3, name: 'Home & Living', subcategories: ['Furniture', 'Decor', 'Kitchenware'] },
-    // Add more categories as needed
-];
+
 
 const ProductForm = ({type, id}: Props) => {
     console.log('type', type);
     const productImageStore = useProductImageStore();
     const tagStore = useTagStore();
+    const [selectedCategory, setSelectedCategory] = useState<Category>();
 
     //type 변경하기
     const quillRef = useRef<any>(null);
@@ -119,11 +115,14 @@ const ProductForm = ({type, id}: Props) => {
                 pdesc = quillRef?.current?.value;
             }
             if (type === Mode.ADD) {
-
+                if(!selectedCategory) {
+                    return Promise.reject(new Error("카테고리를 선택해야합니다.")); // 에러 처리
+                }
                 console.log('tagStore', tagStore.tags);
                 const formData = new FormData(e.target as HTMLFormElement);
 
                 formData.append("pdesc", pdesc);
+                formData.append("categoryId", selectedCategory.cno.toString());
 
                 // formData.append("colorList", tagStore.tags as any);
                 tagStore.tags.forEach((t, index) => {
@@ -132,6 +131,7 @@ const ProductForm = ({type, id}: Props) => {
                     formData.append(`colorList[${index}].color`, t.color);
 
                 });
+
 
                 productImageStore.files.forEach((p,index) => {
 
@@ -202,8 +202,7 @@ const ProductForm = ({type, id}: Props) => {
         },
         onError(error) {
             console.log('error/....', error.message);
-            toast.error(`업로드 중 에러가 발생했습니다.`);
-
+            toast.error(`업로드 중 에러가 발생했습니다. ${error.message}`);
         }
     });
 
@@ -231,53 +230,23 @@ const ProductForm = ({type, id}: Props) => {
                         <div className="flex flex-col gap-9">
                             <div
                                 className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                {/*<div*/}
-                                {/*    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">*/}
-                                {/*    <h3 className="font-medium text-black dark:text-white">*/}
-                                {/*        이미지*/}
-                                {/*    </h3>*/}
-                                {/*</div>*/}
-
-                                {/*<div className="max-w-4xl mx-auto p-4">*/}
-                                {/*    <h1 className="text-2xl font-bold mb-4">Choose a Category</h1>*/}
-                                {/*    <div className="flex space-x-4">*/}
-                                {/*        {categories1.map((category) => (*/}
-                                {/*            <div key={category.id} className="bg-white shadow-md rounded-md w-64">*/}
-                                {/*                /!*<div className="flex justify-between items-center p-4 border-b">*!/*/}
-                                {/*                /!*    <span className="font-semibold">{category.name}</span>*!/*/}
-                                {/*                /!*    <button className="text-blue-500">Select</button>*!/*/}
-                                {/*                /!*</div>*!/*/}
-                                {/*                <ul className="p-2 space-y-2">*/}
-                                {/*                    {category.subcategories.map((sub) => (*/}
-                                {/*                        <li key={sub} className="flex justify-between items-center">*/}
-                                {/*                            <span>{sub}</span>*/}
-                                {/*                            <button className="text-blue-500">Select</button>*/}
-                                {/*                        </li>*/}
-                                {/*                    ))}*/}
-                                {/*                </ul>*/}
-                                {/*            </div>*/}
-                                {/*        ))}*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-
-                                <div className="overflow-x-auto p-6.5">
-                                    <div className="mb-6">
-                                        {/*<div className="bg-amber-700  w-full min-w-96">*/}
-                                        {/*    <div className="">*/}
-                                        {/*        asdfasd*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
-                                        <CategorySelect categories={categories || []}/>
-                                    </div>
+                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                    <h3 className="font-medium text-black dark:text-white">
+                                        카테고리
+                                    </h3>
                                 </div>
+                                <div className="p-6.5 mb-6">
+                                    <CategorySelect categories={categories || []}
+                                                    setSelectedCategory={setSelectedCategory}/>
+                                </div>
+
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-9">
                             <div
                                 className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div
-                                    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         이미지
                                     </h3>

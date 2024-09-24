@@ -26,9 +26,7 @@ public class CategoryDTO {
 
   private boolean delFlag;
 
-  //  private CategoryDTO parentCategory; // 바로 위의 부모
   private Long parentCategoryId; // 바로 위의 부모 id
-
 
   private List<CategoryDTO> subCategories;
 

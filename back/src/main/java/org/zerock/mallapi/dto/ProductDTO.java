@@ -59,6 +59,9 @@ public class ProductDTO {
   @NotNull(message = "교환정책은 필수값입니다.")
   private String changePolicy;
 
+  @NotNull(message = "카테고리 선택은 필수값입니다.")
+  private Long categoryId; // 최하위 카테고리값
+
   private List<FileDTO<MultipartFile>> files; //파일 객체 배열 (수정 시 새로운 파일들)
 
   @Builder.Default

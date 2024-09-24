@@ -15,8 +15,8 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories, level, onSelect
     }
 
     return (
-        <div className="w-64 border shadow-md bg-gray-100">
-            <ul className="divide-y divide-gray-200">
+        <div className="w-64 shadow-md bg-gray-2 p-2 m-2.5 rounded min-w-64">
+            <ul>
                 {categories.map((category) => (
                     <CategoryItem
                         key={category.cno}
