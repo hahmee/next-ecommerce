@@ -3,7 +3,6 @@ export type Category = {
   cname: string;
   cdesc: string;
   delFlag?: boolean;
-  // parentCategory?: Category | null;
   parentCategoryId?: number | null;
   subCategories?: Array<Category>;
 };
