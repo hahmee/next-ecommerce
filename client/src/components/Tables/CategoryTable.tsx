@@ -15,10 +15,8 @@
         const [expandedRows, setExpandedRows] = useState<number[]>([]);
         const [dropdownOpen, setDropdownOpen] = useState<{ [key: number]: boolean }>({}); // manage dropdown state
         const queryClient = useQueryClient();
-
         const [deleteId, setDeleteId] = useState<number>(-1);
         const [showDialog, setShowDialog] = useState<boolean>(false);
-
         const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
         const router = useRouter();
 
@@ -33,14 +31,6 @@
                 return data.data;
             }
         });
-
-        // // useEffect를 사용해 데이터를 가져온 후 상태 업데이트
-        // useEffect(() => {
-        //     if (data) {
-        //         setCategories(data);  // Zustand 스토어에 상태 저장
-        //     }
-        // }, [data, setCategories]); // data가 업데이트될 때마다 setCategories 실행
-        //
 
         const mutation = useMutation({
             mutationFn: async (cno: number) => {

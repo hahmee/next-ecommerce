@@ -2,6 +2,8 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, pno] = queryKey;
+    console.log('????????????????',_);
+    console.log('????????????????',pno);
     // const productImageStore = UseProductImageStore();
 
     const res = await fetchWithAuth(`/api/products/${pno}`, {

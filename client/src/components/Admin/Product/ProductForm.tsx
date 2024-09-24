@@ -22,6 +22,8 @@ import Select from "@/components/Admin/Product/Select";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {Mode} from "@/types/mode";
 import CategorySelect from "@/components/Admin/Product/CategorySelect";
+import {Category} from "@/interface/Category";
+import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -51,13 +53,13 @@ export const salesOptions: Array<Option<SalesStatus>> = [
     {id: SalesStatus.STOPSALE, content:'판매중지'},
 ];
 
-
 interface Props {
     type: Mode;
     id?: string;
 }
 
 const ProductForm = ({type, id}: Props) => {
+    console.log('type', type);
     const productImageStore = useProductImageStore();
     const tagStore = useTagStore();
 
@@ -72,7 +74,7 @@ const ProductForm = ({type, id}: Props) => {
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
-        enabled: !!id, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
+        enabled: !!id && type === Mode.EDIT, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
         select: useCallback((data: DataResponse<Product>) => {
 
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
@@ -87,6 +89,20 @@ const ProductForm = ({type, id}: Props) => {
 
     });
 
+    //카테고리 가져오기
+    const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+        queryKey: ['categories'],
+        queryFn: () => getCategories(),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: false,
+        select: (data) => {
+            // 데이터 가공 로직만 처리
+            return data.data;
+        }
+    });
+
+    console.log('categories', categories);
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {

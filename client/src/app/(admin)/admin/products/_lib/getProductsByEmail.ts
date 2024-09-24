@@ -17,7 +17,7 @@ export async function getProductsByEmail (pageParam: PageParam) {
         // cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
     });
 
-    console.log('왜안난와22', resultJson);
+    // console.log('왜안난와22', resultJson);
 
     return resultJson;
 

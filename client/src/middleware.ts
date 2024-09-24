@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
   const member = getCookie("member");
 
-  console.log('middleware-----------------------------------', request.method, request.url);
+  // console.log('middleware-----------------------------------', request.method, request.url);
 
   // if (!member) { //로그인 안되어있으면
   //   console.log('User not authenticated, redirecting to login');

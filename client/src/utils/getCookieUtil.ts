@@ -9,7 +9,7 @@ export const getCookie = (name: string): Member | undefined => {
 
   const memberInfo = cookieStore?.get(name)?.value;
 
-  console.log('memberInfo.....', memberInfo);
+  // console.log('memberInfo.....', memberInfo);
   if(memberInfo) {
     // return JSON.parse(JSON.stringify(memberInfo));
     return JSON.parse(memberInfo);

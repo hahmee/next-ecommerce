@@ -9,16 +9,11 @@ export const queryErrorHandler = (error:Error) => {
 };
 
 export default async function ProductTableSuspense({page, size,search} : PageParam) {
-
-
-    // const queryClient = new QueryClient();
     const queryClient = new QueryClient({
-
         queryCache: new QueryCache({
             onError: (error, query) => queryErrorHandler,
         }),
     });
-
 
     await queryClient.prefetchQuery({
         queryKey: ['adminProducts', {page, size, search}],

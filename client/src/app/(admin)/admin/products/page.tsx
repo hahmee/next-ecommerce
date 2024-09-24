@@ -7,8 +7,6 @@ export default function ProductsPage({params, searchParams}: {
     params: { slug: string },
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
-
-
     return (
         <div className="mx-auto">
             <Breadcrumb pageName="Products"/>

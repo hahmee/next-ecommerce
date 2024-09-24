@@ -1,28 +1,47 @@
-import React from "react";
+"use server";
+
+import React, {Suspense} from "react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
-import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
-import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import {Mode} from "@/types/mode";
+import Loading from "@/app/(admin)/admin/products/loading";
+import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
+import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 
 interface Props {
     params: {id: string }
 }
 
-
-
 export default async function ModifyProductPage({params}: Props) {
     const {id} = params;
 
-    const queryClient = new QueryClient();
+    const prefetchOptions = [
+        {
+            queryKey: ['productSingle', id],
+            queryFn: () => getProduct({queryKey: ['productSingle', id]}), // queryKey를 전달하여 호출
+        },
+        {
+            queryKey: ['categories'],
+            queryFn: () => getCategories()
+        }
+    ];
 
-    await queryClient.prefetchQuery({queryKey: ['productSingle', id], queryFn: getProduct});
-    const dehydratedState = dehydrate(queryClient);
+    // const prefetchOptions =
+    //     {
+    //         queryKey: ['productSingle', id],
+    //         queryFn: () => getProduct({queryKey: ['productSingle', id]}), // queryKey를 전달하여 호출
+    //     };
 
 
     return (
-        <HydrationBoundary state={dehydratedState}>
-            <ProductForm type={Mode.EDIT} id={id}/>
-         </HydrationBoundary>
+        <Suspense fallback={<Loading/>}>
+            {/*<PrefetchBoundary prefetchOptions={allMemosQueryOptions(id)}>*/}
+            <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                <ProductForm type={Mode.EDIT} id={id}/>
+            </PrefetchBoundary>
+        </Suspense>
+
     );
 
 }
+

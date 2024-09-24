@@ -31,7 +31,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
     if (!memberCookie) {
         return Promise.reject({ message: 'No member cookie found' });
     }
-    console.log('memberCookie', memberCookie);
+    // console.log('memberCookie', memberCookie);
 
     // const {accessToken, refreshToken, email} = JSON.parse(memberCookie);
     const {accessToken, refreshToken, email} = memberCookie;
@@ -72,7 +72,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
 
 
         const newJWT = await response.json();
-        console.log("New JWT created: ", newJWT);
+        // console.log("New JWT created: ", newJWT);
 
         //새로 발급한 토큰 쿠키에 넣기
         // Error - Cookies can only be modified in a Server Action or Route Handler.
@@ -115,7 +115,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                 const reData = await reResponse.json();
 
                 if (!reResponse.ok) {
-                    console.log('!reResponse.ok')
+                    // console.log('!reResponse.ok')
                     return Promise.reject({ message: reData.message });
                 }
                 return reData;

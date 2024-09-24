@@ -1,9 +1,24 @@
-import React from "react";
+import React, {Suspense} from "react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
+import Loading from "@/app/(admin)/admin/products/loading";
+import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 
 export default function AddProductPage() {
+
+    const prefetchOptions = [
+        {
+            queryKey: ['categories'],
+            queryFn: () => getCategories()
+        }
+    ];
+
     return (
-        <ProductForm type={Mode.ADD}/>
+        <Suspense fallback={<Loading/>}>
+            <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                 <ProductForm type={Mode.ADD}/>
+            </PrefetchBoundary>
+        </Suspense>
     );
 }
