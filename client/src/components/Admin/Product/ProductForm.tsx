@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useCallback, useRef, useState} from "react";
+import React, {FormEvent, useCallback, useEffect, useRef, useState} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUploadForm";
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
@@ -24,6 +24,7 @@ import {Mode} from "@/types/mode";
 import CategorySelect from "@/components/Admin/Product/CategorySelect";
 import {Category} from "@/interface/Category";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
+import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -60,13 +61,15 @@ interface Props {
 
 
 const ProductForm = ({type, id}: Props) => {
-    console.log('type', type);
     const productImageStore = useProductImageStore();
     const tagStore = useTagStore();
-    const [selectedCategory, setSelectedCategory] = useState<Category>();
+    //최하위 카테고리
+    const [selectedCategory, setSelectedCategory] = useState<Category|null>();
 
     //type 변경하기
     const quillRef = useRef<any>(null);
+
+
 
     // edit일 때만 getProduct하기
     const {isLoading, data: originalData, error} = useQuery<DataResponse<Product>, Object, Product, [_1: string, _2: string]>({
@@ -86,10 +89,28 @@ const ProductForm = ({type, id}: Props) => {
 
             productImageStore.setFiles(uploadFileNames || []);
 
+
+
             return data.data;
         }, []),
 
     });
+
+    // 선택했던 카테고리들을 가져온다.
+    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
+        queryKey: ['categoryPaths', originalData ? originalData.categoryId.toString() : '-1'],
+        queryFn: getCategoryPaths,
+        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+        gcTime: 300 * 1000,
+        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
+        // throwOnError: (error) => error. >= 500,
+        enabled: !!id && type === Mode.EDIT,
+        select: useCallback((data: DataResponse<Category[]>) => {
+            return data.data;
+        }, []),
+
+    });
+
 
     //카테고리 가져오기
     const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
@@ -104,7 +125,15 @@ const ProductForm = ({type, id}: Props) => {
         }
     });
 
-    console.log('categories', categories);
+
+    useEffect(() => {
+        //최하단 카테고리를 저장한다.
+        if(categoryPaths) {
+            setSelectedCategory(categoryPaths[categoryPaths.length - 1]);
+        }
+
+    }, [categoryPaths]);
+
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
@@ -114,11 +143,46 @@ const ProductForm = ({type, id}: Props) => {
             if (quillRef.current) {
                 pdesc = quillRef?.current?.value;
             }
+
+            console.log('selectedCategory', selectedCategory);
+
+            if (!selectedCategory) {
+                return Promise.reject(new Error("카테고리를 선택해야합니다.....ns")); // 에러 처리
+            }
+
             if (type === Mode.ADD) {
-                if(!selectedCategory) {
-                    return Promise.reject(new Error("카테고리를 선택해야합니다.")); // 에러 처리
-                }
-                console.log('tagStore', tagStore.tags);
+
+                const formData = new FormData(e.target as HTMLFormElement);
+
+                console.log('selectedCategory', selectedCategory);
+                formData.append("pdesc", pdesc);
+                formData.append("categoryId", selectedCategory.cno.toString());
+
+                // formData.append("colorList", tagStore.tags as any);
+                tagStore.tags.forEach((t, index) => {
+
+                    formData.append(`colorList[${index}].text`, t.text);
+                    formData.append(`colorList[${index}].color`, t.color);
+
+                });
+
+
+                productImageStore.files.forEach((p, index) => {
+
+                    formData.append(`files[${index}].file`, p.file!); // 실제 파일 객체
+                    formData.append(`files[${index}].ord`, index.toString()); // 파일 순서
+
+                });
+
+
+                return await fetchWithAuth(`/api/products/`, {
+                    method: "POST",
+                    credentials: 'include',
+                    body: formData as FormData,
+                }); // json 형태로 이미 반환
+
+            } else {
+
                 const formData = new FormData(e.target as HTMLFormElement);
 
                 formData.append("pdesc", pdesc);
@@ -132,36 +196,6 @@ const ProductForm = ({type, id}: Props) => {
 
                 });
 
-
-                productImageStore.files.forEach((p,index) => {
-
-                    formData.append(`files[${index}].file`, p.file!); // 실제 파일 객체
-                    formData.append(`files[${index}].ord`, index.toString()); // 파일 순서
-
-                });
-
-
-                return fetchWithAuth(`/api/products/`, {
-                    method: "POST",
-                    credentials: 'include',
-                    body: formData as FormData,
-                }); // json 형태로 이미 반환
-
-            } else {
-
-                const formData = new FormData(e.target as HTMLFormElement);
-
-                formData.append("pdesc", pdesc);
-
-                // formData.append("colorList", tagStore.tags as any);
-                tagStore.tags.forEach((t, index) => {
-
-                    formData.append(`colorList[${index}].text`, t.text);
-                    formData.append(`colorList[${index}].color`, t.color);
-
-                });
-
-                console.log('productImageStore.files', productImageStore.files);
 
                 let newFileIdx = 0;
                 let uploadIdx = 0;
@@ -181,11 +215,9 @@ const ProductForm = ({type, id}: Props) => {
                         formData.append(`files[${newFileIdx}].ord`, index.toString()); // 파일 순서
                         newFileIdx++;
                     }
-
                 });
 
-
-                return fetchWithAuth(`/api/products/${id}`, {
+                return await fetchWithAuth(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData as FormData,
@@ -196,16 +228,21 @@ const ProductForm = ({type, id}: Props) => {
 
         },
         async onSuccess(response, variable) {
-
+            console.log('response', response)
             toast.success('업로드 성공했습니다.');
-
         },
         onError(error) {
-            console.log('error/....', error.message);
-            toast.error(`업로드 중 에러가 발생했습니다. ${error.message}`);
+            // console.log('error/....', error);
+
+            console.log('error....',  error.message);
+            const errorMessage = error?.message || '알 수 없는 오류가 발생했습니다.';
+
+            console.log('errorMessage', errorMessage);
+            // const errorObj = JSON.parse(error);
+            // console.log('errorObj', errorObj.message);
+            toast.error(`업로드 중 에러가 발생했습니다. ${error}`);
         }
     });
-
 
     if (isLoading) return "Loading...";
     if (error) return 'An error has occurred: ' + error;
@@ -236,10 +273,8 @@ const ProductForm = ({type, id}: Props) => {
                                     </h3>
                                 </div>
                                 <div className="p-6.5 mb-6">
-                                    <CategorySelect categories={categories || []}
-                                                    setSelectedCategory={setSelectedCategory}/>
+                                    <CategorySelect categories={categories || []} setSelectedCategory={setSelectedCategory} categoryPaths={categoryPaths || []}/>
                                 </div>
-
                             </div>
                         </div>
 

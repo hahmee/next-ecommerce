@@ -1,10 +1,17 @@
 import { Category } from "@/interface/Category";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import CategoryList from "@/components/Admin/Product/CategoryList";
 
-const CategorySelect = ({categories, setSelectedCategory}: { categories: Category[] | [], setSelectedCategory:(category: Category) => void; }) => {
-
+const CategorySelect = ({categories, setSelectedCategory, categoryPaths}: { categories: Category[] | [], setSelectedCategory:(category: Category | null) => void, categoryPaths:Category[] | []  } ) => {
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        if (categoryPaths && categoryPaths.length > 0) {
+            console.log('categoryPaths',categoryPaths)
+            setSelectedCategories(categoryPaths);
+        }
+    }, [categoryPaths]);
+
 
     const handleCategorySelect = (category: Category, level: number) => {
         const updatedCategories = [...selectedCategories];
@@ -14,8 +21,12 @@ const CategorySelect = ({categories, setSelectedCategory}: { categories: Categor
         //부모에게 보내줄 최하위 카테고리
         if (category.subCategories === null) {
             setSelectedCategory(category);
+        }else{
+            setSelectedCategory(null);
         }
     };
+
+
 
     return (
         <div className="w-full">

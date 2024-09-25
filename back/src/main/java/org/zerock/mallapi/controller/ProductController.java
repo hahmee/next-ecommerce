@@ -151,6 +151,8 @@ public class ProductController {
 
     ProductDTO productDTO = productService.get(pno);
 
+    log.info("productDTO....." + productDTO);
+
     return DataResponseDTO.of(productDTO);
   }
 

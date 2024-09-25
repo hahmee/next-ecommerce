@@ -7,7 +7,7 @@ export async function getCategories () {
         credentials: 'include',
     });
 
-    console.log('resultJson', resultJson);
+    // console.log('resultJson', resultJson);
 
     return resultJson;
 

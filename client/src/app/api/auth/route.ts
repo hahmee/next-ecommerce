@@ -14,7 +14,7 @@ export async function POST(request: Request) {
             const cookieStore = cookies();
 
             const memberCookie = cookieStore.get("member")?.value;
-            console.log('memberCookie', memberCookie);
+            // console.log('memberCookie', memberCookie);
 
             const expires = new Date();
             expires.setUTCDate(expires.getUTCDate() + 1);

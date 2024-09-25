@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public List<String> getAllCategoryPaths(Long cno) {
+  public List<CategoryDTO> getAllCategoryPaths(Long cno) {
 
     //step1 read
     Optional<AdminCategory> result = categoryRepository.findById(cno);
@@ -80,14 +80,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     List<CategoryClosure> ancestors = categoryClosureRepository.findAncestorsDesc(adminCategory);
 
-    List<String> categoryPaths = ancestors.stream()
+    //    List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+//    List<CategoryDTO> categoryPaths = ancestors.stream()
+//            .map(ancestor -> {
+//              AdminCategory ancestorCategory = ancestor.getId().getAncestor();
+//              log.info("AncestorCategory: " + ancestorCategory);
+//              CategoryDTO ancestorCategoryDTO = entityToDTO(ancestorCategory);
+//              return ancestorCategoryDTO;
+//            })
+//            .collect(Collectors.toList());
+
+
+    List<CategoryDTO> categoryPaths = ancestors.stream()
             .map(ancestor -> {
               AdminCategory ancestorCategory = ancestor.getId().getAncestor();
-              log.info("AncestorCategory: " + ancestorCategory);
-              return ancestorCategory.getCname();
+              CategoryDTO ancestorCategoryDTO =  convertToDTO(ancestorCategory);
+              return ancestorCategoryDTO;
             })
             .collect(Collectors.toList());
 
+
+    log.info("categoryPathszcategoryPathsz.... " + categoryPaths);
 
     return categoryPaths;
 
@@ -118,6 +132,7 @@ public class CategoryServiceImpl implements CategoryService {
     //change pname, pdesc, price, ...etc
     adminCategory.changeName(categoryDTO.getCname());
     adminCategory.changeDesc(categoryDTO.getCdesc());
+
 
     //시간도 변경
     adminCategory.setUpdatedAt(LocalDateTime.now());

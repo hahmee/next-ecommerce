@@ -32,7 +32,7 @@ const CategoryForm = ({type, id}: Props) => {
 
     });
 
-    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<string[]>, Object, string[], [_1: string, _2: string]>({
+    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', id!],
         queryFn: getCategoryPaths,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -40,7 +40,7 @@ const CategoryForm = ({type, id}: Props) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         enabled: !!id, //id 있을때만(서브 카테고리일떄만)
-        select: useCallback((data: DataResponse<string[]>) => {
+        select: useCallback((data: DataResponse<Category[]>) => {
             return data.data;
         }, []),
 

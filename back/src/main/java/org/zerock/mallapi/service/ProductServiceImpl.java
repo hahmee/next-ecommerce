@@ -15,9 +15,7 @@ import org.zerock.mallapi.repository.ProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -336,6 +334,7 @@ public class ProductServiceImpl implements ProductService{
             .salesStatus(product.getSalesStatus())
             .categoryList(product.getCategoryList())
             .sizeList(product.getSizeList())
+            .categoryId(product.getAdminCategory().getCno())
     .build();
 
     //태그
@@ -413,9 +412,16 @@ public class ProductServiceImpl implements ProductService{
     
     //step1 read
     Optional<Product> result = productRepository.findById(productDTO.getPno());
-
     Product product = result.orElseThrow();
 
+//    Optional<AdminCategory> adminCategoryResult = categoryRepository.findById(productDTO.getCategoryId());
+//    AdminCategory adminCategory = adminCategoryResult.orElseThrow();
+
+    AdminCategory adminCategory = AdminCategory.builder()
+            .cno(productDTO.getCategoryId())
+            .build();
+
+    log.info("adminCategory...." + adminCategory);
     //change pname, pdesc, price, ...etc
     product.changeName(productDTO.getPname());
     product.changeDesc(productDTO.getPdesc());
@@ -427,6 +433,8 @@ public class ProductServiceImpl implements ProductService{
     product.changeCategoryList(productDTO.getCategoryList());
     product.changeSizeList(productDTO.getSizeList());
     product.changeSalesStatus(productDTO.getSalesStatus());
+    product.changeAdminCategory(adminCategory);
+
 
     //시간도 변경
     product.setUpdatedAt(LocalDateTime.now());

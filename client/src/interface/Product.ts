@@ -18,5 +18,6 @@ export interface Product {
   salesStatus: SalesStatus;
   refundPolicy: string;
   changePolicy: string;
+  categoryId: number;
   files:Array<FileDTO<string>>  | null;
 }

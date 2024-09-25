@@ -13,10 +13,10 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelect
     return (
         <li
             onClick={onClick}
-            className={`cursor-pointer p-2 rounded ${
+            className={`cursor-pointer p-2 rounded m-1.5 ${
                 isSelected
                     ? "bg-blue-400 text-white"
-                    : "bg-white text-black hover:bg-blue-100"
+                    : "text-black hover:bg-blue-100"
             }`}
 
         >

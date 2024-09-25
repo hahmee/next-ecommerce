@@ -34,6 +34,7 @@ public class AdminCategory extends BaseEntity {
     this.cdesc = cdesc;
   }
 
+
   public void changeDelFlag(boolean delFlag) {
     this.delFlag = delFlag;
   }

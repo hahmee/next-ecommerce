@@ -108,6 +108,10 @@ public class Product extends BaseEntity {
     this.salesStatus = salesStatus;
   }
 
+  public void changeAdminCategory(AdminCategory adminCategory) {
+    this.adminCategory = adminCategory;
+  }
+
   public void addImage(ProductImage image) {
     imageList.add(image);
   }

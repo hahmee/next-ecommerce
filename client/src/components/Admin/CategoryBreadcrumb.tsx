@@ -1,6 +1,7 @@
+import {Category} from "@/interface/Category";
 
 interface BreadcrumbProps {
-    categoryPaths: string[];
+    categoryPaths: Category[];
 }
 
 const CategoryBreadcrumb = ({categoryPaths}:BreadcrumbProps) => {
@@ -38,7 +39,7 @@ const CategoryBreadcrumb = ({categoryPaths}:BreadcrumbProps) => {
             <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 {
                     categoryPaths.map((path, i) => (
-                        <li key={i} className="inline-flex items-center">
+                        <li key={path.cno} className="inline-flex items-center">
                             <div
                                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                                 {
@@ -57,7 +58,7 @@ const CategoryBreadcrumb = ({categoryPaths}:BreadcrumbProps) => {
                                                   d="m1 9 4-4-4-4"/>
                                         </svg>
                                 }
-                                {path}
+                                {path.cname}
                             </div>
                         </li>
                     ))
