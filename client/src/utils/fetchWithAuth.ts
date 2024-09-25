@@ -49,8 +49,8 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
                     // console.log('!esrers입니다...', reResponse);
 
                     console.log('reData.message', reData.message);
-                    return Promise.reject(new Error(reData.message));
-                    // return Promise.reject({ message: reData.message || 'Unknown error occurred' });
+                    // return Promise.reject(new Error(reData.message));
+                    return Promise.reject({ message: reData.message || 'Unknown error occurred' });
                 }
                 return reData;
             }

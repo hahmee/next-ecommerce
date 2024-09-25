@@ -6,7 +6,7 @@ import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUpload
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
 import {Option} from "@/interface/Option";
 import BackButton from "@/components/Admin/Product/BackButton";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {useProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
@@ -61,6 +61,8 @@ interface Props {
 
 
 const ProductForm = ({type, id}: Props) => {
+    const queryClient = useQueryClient();
+
     const productImageStore = useProductImageStore();
     const tagStore = useTagStore();
     //최하위 카테고리
@@ -230,6 +232,10 @@ const ProductForm = ({type, id}: Props) => {
         async onSuccess(response, variable) {
             console.log('response', response)
             toast.success('업로드 성공했습니다.');
+            await queryClient.invalidateQueries({queryKey: ['categories']});
+            await queryClient.invalidateQueries({queryKey: ['productSingle',id]});
+            await queryClient.invalidateQueries({queryKey: ['categoryPaths',id]});
+
         },
         onError(error) {
             // console.log('error/....', error);
