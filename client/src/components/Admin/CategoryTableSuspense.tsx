@@ -1,6 +1,4 @@
 import {dehydrate, HydrationBoundary, QueryCache, QueryClient} from "@tanstack/react-query";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
-import {PageParam} from "@/interface/PageParam";
 import toast from "react-hot-toast";
 import CategoryTable from "@/components/Tables/CategoryTable";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";

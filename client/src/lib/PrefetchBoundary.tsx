@@ -1,18 +1,36 @@
 "use server";
-import {dehydrate, FetchQueryOptions, HydrationBoundary, QueryClient} from "@tanstack/react-query";
+import {
+    dehydrate,
+    FetchInfiniteQueryOptions,
+    FetchQueryOptions,
+    HydrationBoundary,
+    QueryClient
+} from "@tanstack/react-query";
 
 type Props = {
-    prefetchOptions: FetchQueryOptions[] | FetchQueryOptions;
+    prefetchOptions?: FetchQueryOptions[] | FetchQueryOptions;
+    prefetchInfiniteOptions?: FetchInfiniteQueryOptions[] | FetchInfiniteQueryOptions;
     children: React.ReactNode;
 };
 
-export async function PrefetchBoundary({prefetchOptions, children}: Props) {
+export async function PrefetchBoundary({prefetchOptions,prefetchInfiniteOptions, children}: Props) {
     const queryClient = new QueryClient();
 
-    // console.log('prefetchOptionsprefetchOptions입니다..', prefetchOptions);
-    Array.isArray(prefetchOptions)
-        ? await Promise.all(prefetchOptions.map((prefetchOption) => queryClient.prefetchQuery(prefetchOption)))
-        : await queryClient.prefetchQuery(prefetchOptions);
+    if (prefetchOptions) {
+        Array.isArray(prefetchOptions)
+            ? await Promise.all(prefetchOptions.map((prefetchOption) => queryClient.prefetchQuery(prefetchOption)))
+            : await queryClient.prefetchQuery(prefetchOptions);
+    }
+
+    //무한 스크롤링일 때
+    if(prefetchInfiniteOptions) {
+        Array.isArray(prefetchInfiniteOptions)
+            ? await Promise.all(prefetchInfiniteOptions.map((prefetchOption) => queryClient.prefetchInfiniteQuery(prefetchOption)))
+            : await queryClient.prefetchInfiniteQuery(prefetchInfiniteOptions);
+    }
 
     return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
+
+
+
 }

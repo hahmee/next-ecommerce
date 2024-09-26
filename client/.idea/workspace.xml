@@ -5,12 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useSearchProductQuery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/CategoryTableSuspense.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/CategoryTableSuspense.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/PrefetchBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/PrefetchBoundary.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +35,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 3
+  &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2k8DhlLlF4qqcpCb95q7uKlvBcb" />
   <component name="ProjectLevelVcsManager">
@@ -46,7 +51,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/src/utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/src/app/(home)/list&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -59,11 +64,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\list" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\utils" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\lib" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\category\edit-category\[id]\_lib" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\category\add-category" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Category" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\@modal\(.)add-category\[id]" />
@@ -198,7 +203,10 @@
       <workItem from="1727194670822" duration="2333000" />
       <workItem from="1727231776842" duration="14488000" />
       <workItem from="1727247147269" duration="3829000" />
-      <workItem from="1727264733936" duration="6345000" />
+      <workItem from="1727264733936" duration="6478000" />
+      <workItem from="1727314476599" duration="792000" />
+      <workItem from="1727318448589" duration="12534000" />
+      <workItem from="1727339342531" duration="2230000" />
     </task>
     <servers />
   </component>

@@ -45,26 +45,39 @@ public class ProductServiceImpl implements ProductService{
       ProductImage productImage = (ProductImage) arr[1];
 
       ProductDTO productDTO = ProductDTO.builder()
-      .pno(product.getPno())
-      .pname(product.getPname())
-      .pdesc(product.getPdesc())
-      .price(product.getPrice())
-      .build();
-
-      String imageNameStr = productImage.getFileName();
-      String imageKeyStr = productImage.getFileKey();
-
-
-      FileDTO<String> uploadFileName = new FileDTO<>();
-      uploadFileName.setFile(imageNameStr);
-
-      FileDTO<String> uploadFileKey = new FileDTO<>();
-      uploadFileKey.setFile(imageKeyStr);
+              .pno(product.getPno())
+              .pname(product.getPname())
+              .pdesc(product.getPdesc())
+              .price(product.getPrice())
+              .refundPolicy(product.getRefundPolicy())
+              .changePolicy(product.getChangePolicy())
+              .sku(product.getSku())
+              .brand(product.getBrand())
+              .categoryList(product.getCategoryList())
+              .delFlag(product.isDelFlag()) // 원래 없었음
+              .salesStatus(product.getSalesStatus())
+              .build();
 
 
+      if(productImage !=null ) {
 
-      productDTO.setUploadFileNames(List.of(uploadFileName));
-      productDTO.setUploadFileKeys(List.of(uploadFileKey));
+        String imageNameStr = productImage.getFileName();
+        String imageKeyStr = productImage.getFileKey();
+
+
+        FileDTO<String> uploadFileName = new FileDTO<>();
+        uploadFileName.setFile(imageNameStr);
+
+        FileDTO<String> uploadFileKey = new FileDTO<>();
+        uploadFileKey.setFile(imageKeyStr);
+
+
+
+        productDTO.setUploadFileNames(List.of(uploadFileName));
+        productDTO.setUploadFileKeys(List.of(uploadFileKey));
+
+      }
+
 
 
       return productDTO;
@@ -82,13 +95,10 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails) {
 
-    log.info("getAdminList..............");
 
-    log.info("--------------userDetails   " + userDetails);
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();
 
-    log.info("--------------email      " + email);
 
     Pageable pageable = PageRequest.of(
             pageRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
@@ -97,13 +107,11 @@ public class ProductServiceImpl implements ProductService{
 
     Page<Object[]> result = productRepository.selectAdminList(pageable, email); // 내 이메일 주소
 
-    log.info("........result " + result);
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
-      log.info("productImageproductImage " + productImage); //null
 
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
@@ -143,8 +151,6 @@ public class ProductServiceImpl implements ProductService{
 
     }).collect(Collectors.toList());
 
-
-    log.info("........dtoList.. " + dtoList);
 
 
     long totalCount = result.getTotalElements();
