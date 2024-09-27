@@ -16,8 +16,6 @@ export default async function ListPage() {
         },
     ];
 
-    // queryFn: () => getProductList({queryKey: ['products'], page:1, row:1}),
-
     return (
         <Suspense fallback={<Loading/>}>
             <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions}>

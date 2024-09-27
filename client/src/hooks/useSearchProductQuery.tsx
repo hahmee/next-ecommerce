@@ -1,6 +1,7 @@
 import {useMemo} from "react";
 import {QueryFunctionContext, useInfiniteQuery} from "@tanstack/react-query";
 
+//사용 x
 interface useSearchProductQueryProps {
     rowsPerPage: number; // 한 페이지당 불러올 상품개수
     queryFn: (context?: QueryFunctionContext) => Promise<any>;

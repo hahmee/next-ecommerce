@@ -115,12 +115,10 @@ const ProductList = () => {
     const {data: products, hasNextPage, isFetching, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
         queryKey: ['products'],
         queryFn: ({pageParam=1, meta}) => {
-            // console.log('pageParam', pageParam);
             return getProductList({queryKey: ['products'], page: pageParam, row: ROWS_PER_PAGE });
         },
         getNextPageParam: (lastPage, allPages) => {
-            console.log('lastPage', lastPage);
-            console.log('allPages',allPages)
+
             return lastPage.data.current + 1;
         },
         initialPageParam: 1,
@@ -157,8 +155,6 @@ const ProductList = () => {
             <></>
         );
     }
-
-    // console.log('products,', products);
 
     return (
         <div className="bg-white">
@@ -313,47 +309,20 @@ const ProductList = () => {
 
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
-
-                                {/*{*/}
-                                {/*    products.dtoList.map((product:Product,i:number) => {*/}
-                                {/*        return (*/}
-                                {/*            <div key={i} className="group relative border rounded-lg p-4">*/}
-                                {/*                <div className="aspect-w-1 aspect-h-1">*/}
-                                {/*                    {*/}
-                                {/*                        (product.uploadFileNames && product.uploadFileNames.length > 0) &&*/}
-                                {/*                        <Image*/}
-                                {/*                            src={product.uploadFileNames[0]?.file}*/}
-                                {/*                            width={500}*/}
-                                {/*                            height={500}*/}
-                                {/*                            className="h-full w-full object-cover rounded-md"*/}
-                                {/*                            alt="Product"*/}
-                                {/*                        />*/}
-                                {/*                    }*/}
-                                {/*                </div>*/}
-                                {/*                <h3 className="mt-2 text-lg font-semibold text-gray-900">Product {i + 1}</h3>*/}
-                                {/*                <p className="mt-1 text-sm text-gray-500">Description for*/}
-                                {/*                    Product {i + 1}</p>*/}
-                                {/*                <p className="mt-1 text-lg font-bold text-gray-900">$20.00</p>*/}
-                                {/*            </div>*/}
-                                {/*        );*/}
-
-                                {/*    })*/}
-                                {/*}*/}
-
-                                {/*{products.map((product, index: number) => {*/}
-                                {/*    <ProductCard key={index} product={product}/>*/}
-                                {/*})}*/}
-
-                                {products?.pages.map((page, index) => (
-                                    <Fragment key={index}>
-                                        {page?.data?.dtoList.map((product: Product) => (
-                                            <ProductCard key={product.pno} product={product} />
-                                        ))}
-                                    </Fragment>
-                                ))}
+                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+                                    {products?.pages.map((page, index) => (
+                                        <Fragment key={index}>
+                                            {page?.data?.dtoList.map((product: Product) => (
+                                                <ProductCard key={product.pno} product={product} />
+                                            ))}
+                                        </Fragment>
+                                    ))}
+                                </div>
 
 
-                                {isFetchingNextPage ? (<div>Skelton</div>) : (<div ref={ref}>마지막 페이지입니다.</div>)}
+
+
+                                {isFetchingNextPage ? (<div>Skelton</div>) : (<div ref={ref}></div>)}
                             </div>
                         </div>
                     </section>

@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/PrefetchBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/PrefetchBoundary.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useSearchProductQuery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useSearchProductQuery.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +201,8 @@
       <workItem from="1727318448589" duration="12534000" />
       <workItem from="1727339342531" duration="12415000" />
       <workItem from="1727408242549" duration="8209000" />
-      <workItem from="1727416953038" duration="3680000" />
+      <workItem from="1727416953038" duration="4678000" />
+      <workItem from="1727422239431" duration="2698000" />
     </task>
     <servers />
   </component>
