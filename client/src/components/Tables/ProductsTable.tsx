@@ -64,6 +64,8 @@ const ProductTable = ({page, size, search} : PageParam) => {
     useEffect(() => {
         setProductData(data);
         if (data) {
+            console.log('data', data);
+
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
         }

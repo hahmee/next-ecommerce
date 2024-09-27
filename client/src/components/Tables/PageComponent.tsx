@@ -8,7 +8,6 @@ import {useRouter} from "next/navigation";
 const PageComponent = ({pagingData, size, search}: { pagingData: Paging, size: number, search: string }) => {
 
     const router = useRouter();
-    console.log('pagingData', pagingData);
 
     return (
         <>

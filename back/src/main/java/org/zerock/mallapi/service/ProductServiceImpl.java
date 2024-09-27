@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO) {
 
-    log.info("getList..............");
+    log.info("getList.............." + pageRequestDTO);
 
     Pageable pageable = PageRequest.of( 
       pageRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로 
@@ -38,7 +38,8 @@ public class ProductServiceImpl implements ProductService{
     
     Page<Object[]> result = productRepository.selectList(pageable);
 
-    
+    log.info("........result " + result);
+
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
       Product product = (Product) arr[0];
@@ -57,7 +58,6 @@ public class ProductServiceImpl implements ProductService{
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
               .build();
-
 
       if(productImage !=null ) {
 
@@ -78,12 +78,12 @@ public class ProductServiceImpl implements ProductService{
 
       }
 
-
-
       return productDTO;
     }).collect(Collectors.toList());
     
     long totalCount = result.getTotalElements();
+
+    log.info("??... " + pageable);
 
     return PageResponseDTO.<ProductDTO>withAll()
                 .dtoList(dtoList)
@@ -96,6 +96,7 @@ public class ProductServiceImpl implements ProductService{
   public PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails) {
 
 
+    log.info("pageRequestDTO...." + pageRequestDTO);
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();
 
@@ -165,7 +166,7 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails) {
 
-    log.info("getAdminList..............");
+    log.info("getAdminList.............." + searchRequestDTO);
 
     log.info("--------------userDetails   " + userDetails);
 

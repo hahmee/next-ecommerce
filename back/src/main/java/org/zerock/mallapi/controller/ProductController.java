@@ -92,7 +92,7 @@ public class ProductController {
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
-  @GetMapping("/list") // list?page=7
+  @GetMapping("/list") // list?page=7&size=2
   public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageRequestDTO pageRequestDTO) {
 
     log.info("list............." + pageRequestDTO);

@@ -2,12 +2,12 @@
 
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from "@heroicons/react/20/solid";
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {useInView} from "react-intersection-observer";
-import useSearchProductQuery from "@/hooks/useSearchProductQuery";
 import {useInfiniteQuery} from "@tanstack/react-query";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
+import ProductCard from "@/components/Home/ProductCard";
+import {Product} from "@/interface/Product";
 
 type SortOption = {
     name: string;
@@ -86,7 +86,7 @@ const filters: FilterSection[] = [
     },
 ];
 
-const ROWS_PER_PAGE = 10; // 한 페이지당 불러올 상품개수
+export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
 const ProductList = () => {
 
@@ -110,72 +110,55 @@ const ProductList = () => {
         }
     };
 
-    // const {products, isLoading, isError, fetchNextPage, isFetchingNextPage} = useSearchProductQuery({
-    //     rowsPerPage: ROWS_PER_PAGE,
-    //     queryFn: () => getProductList({queryKey: ['products'], startCount: 1, row: 1})
-    // });
+    const [isPrefetchData, setIsPrefetchData] = useState(false);
 
-    // const {products, isLoading, isError, fetchNextPage, isFetchingNextPage} = useSearchProductQuery({
-    //     rowsPerPage: ROWS_PER_PAGE,
-    //     queryFn: getProductList,
-    //     // queryFn: () => getProductList({queryKey: ['products'], startCount: 2 * ROWS_PER_PAGE, row: ROWS_PER_PAGE})
-    // });
-
-    // const {
-    //     data,
-    //     error,
-    //     fetchNextPage,
-    //     hasNextPage,
-    //     isFetching,
-    //     isFetchingNextPage,
-    //     status,
-    // } = useInfiniteQuery({
-    //     queryKey: ['products'],
-    //     queryFn: getProductsByEmail,
-    //     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
-    // })
-
-    const {data, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
+    const {data: products, hasNextPage, isFetching, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
         queryKey: ['products'],
-        queryFn: () => getProductList({queryKey: ['products'], startCount: 1, row: 1}),
-        initialPageParam: 0,
-        getNextPageParam: (lastPage, allPages) => {
-            const nextPage = allPages.length + 1;
-
-            return lastPage.nextCursor;
-
-            //상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            // return lastPage?.data.count === 0 || lastPage?.data.count < 1 ? undefined : nextPage;
+        queryFn: ({pageParam=1, meta}) => {
+            // console.log('pageParam', pageParam);
+            return getProductList({queryKey: ['products'], page: pageParam, row: ROWS_PER_PAGE });
         },
+        getNextPageParam: (lastPage, allPages) => {
+            console.log('lastPage', lastPage);
+            console.log('allPages',allPages)
+            return lastPage.data.current + 1;
+        },
+        initialPageParam: 1,
+        staleTime: 60 * 1000,
         retry: 0,
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
     });
 
+    const {ref, inView} = useInView();
 
-    console.log('products,', data);
-    // const {ref, inView} = useInView();
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     if (inView) {
-    //         fetchNextPage();
-    //     }
-    // }, [inView]);
-    //
-    // if (isLoading) {
-    //     return (
-    //         <div>
-    //             {/*<Skeleton />*/}
-    //         </div>
-    //     );
-    // }
-    //
-    // if (isError) {
-    //     return (
-    //         <></>
-    //     );
-    // }
+        const inViewFunc = async () => {
+            await fetchNextPage();
+        };
+        if(inView && hasNextPage)
+            inViewFunc();
+
+    }, [inView]);
+
+    if (isLoading) {
+        return (
+            <div>
+                스켈레톤...
+                {/*<Skeleton />*/}
+            </div>
+        );
+    }
+
+    if (isError) {
+        return (
+            <></>
+        );
+    }
+
+    // console.log('products,', products);
 
     return (
         <div className="bg-white">
@@ -330,22 +313,47 @@ const ProductList = () => {
 
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
-                                {/* 여기에서 제품을 표시하는 로직을 추가하세요 */}
-                                {/* 예를 들어, 다음과 같이 반복문을 통해 제품을 표시할 수 있습니다 */}
-                                {Array.from({length: 8}, (_, i) => (
-                                    <div key={i} className="group relative border rounded-lg p-4">
-                                        <div className="aspect-w-1 aspect-h-1">
-                                            <img
-                                                src={`https://via.placeholder.com/150?text=Product+${i + 1}`}
-                                                alt={`Product ${i + 1}`}
-                                                className="h-full w-full object-cover rounded-md"
-                                            />
-                                        </div>
-                                        <h3 className="mt-2 text-lg font-semibold text-gray-900">Product {i + 1}</h3>
-                                        <p className="mt-1 text-sm text-gray-500">Description for Product {i + 1}</p>
-                                        <p className="mt-1 text-lg font-bold text-gray-900">$20.00</p>
-                                    </div>
+
+                                {/*{*/}
+                                {/*    products.dtoList.map((product:Product,i:number) => {*/}
+                                {/*        return (*/}
+                                {/*            <div key={i} className="group relative border rounded-lg p-4">*/}
+                                {/*                <div className="aspect-w-1 aspect-h-1">*/}
+                                {/*                    {*/}
+                                {/*                        (product.uploadFileNames && product.uploadFileNames.length > 0) &&*/}
+                                {/*                        <Image*/}
+                                {/*                            src={product.uploadFileNames[0]?.file}*/}
+                                {/*                            width={500}*/}
+                                {/*                            height={500}*/}
+                                {/*                            className="h-full w-full object-cover rounded-md"*/}
+                                {/*                            alt="Product"*/}
+                                {/*                        />*/}
+                                {/*                    }*/}
+                                {/*                </div>*/}
+                                {/*                <h3 className="mt-2 text-lg font-semibold text-gray-900">Product {i + 1}</h3>*/}
+                                {/*                <p className="mt-1 text-sm text-gray-500">Description for*/}
+                                {/*                    Product {i + 1}</p>*/}
+                                {/*                <p className="mt-1 text-lg font-bold text-gray-900">$20.00</p>*/}
+                                {/*            </div>*/}
+                                {/*        );*/}
+
+                                {/*    })*/}
+                                {/*}*/}
+
+                                {/*{products.map((product, index: number) => {*/}
+                                {/*    <ProductCard key={index} product={product}/>*/}
+                                {/*})}*/}
+
+                                {products?.pages.map((page, index) => (
+                                    <Fragment key={index}>
+                                        {page?.data?.dtoList.map((product: Product) => (
+                                            <ProductCard key={product.pno} product={product} />
+                                        ))}
+                                    </Fragment>
                                 ))}
+
+
+                                {isFetchingNextPage ? (<div>Skelton</div>) : (<div ref={ref}>마지막 페이지입니다.</div>)}
                             </div>
                         </div>
                     </section>

@@ -1,15 +1,10 @@
 "use server";
-import {
-    dehydrate,
-    FetchInfiniteQueryOptions,
-    FetchQueryOptions,
-    HydrationBoundary,
-    QueryClient
-} from "@tanstack/react-query";
+import {dehydrate, FetchQueryOptions, HydrationBoundary, QueryClient} from "@tanstack/react-query";
 
 type Props = {
     prefetchOptions?: FetchQueryOptions[] | FetchQueryOptions;
-    prefetchInfiniteOptions?: FetchInfiniteQueryOptions[] | FetchInfiniteQueryOptions;
+    // prefetchInfiniteOptions?: FetchInfiniteQueryOptions[] | FetchInfiniteQueryOptions;
+    prefetchInfiniteOptions?: any;
     children: React.ReactNode;
 };
 

@@ -1,12 +1,13 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 //
-export const getProductList = async ({queryKey, startCount, row} : {queryKey: [string] ,startCount:number, row: number}) => {
+export const getProductList = async ({queryKey, page, row} : {queryKey: [string] ,page:number, row: number}) => {
 
     console.log('queryKey', queryKey);
-    console.log('queryKey', startCount);
+    console.log('page', page);
+    console.log('row', row);
 
-    const res = await fetchWithAuth(`/api/products/list?page=${1}&size=${10}`, {
+    const res = await fetchWithAuth(`/api/products/list?page=${page}&size=${row}`, {
         method: "GET",
         credentials: 'include',
         // cache: 'no-store',
