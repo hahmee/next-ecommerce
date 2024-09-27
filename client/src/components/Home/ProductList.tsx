@@ -88,7 +88,7 @@ const filters: FilterSection[] = [
 
 export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
-const ProductList = () => {
+const ProductList = ({categoryId}: {categoryId:string}) => {
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -110,12 +110,10 @@ const ProductList = () => {
         }
     };
 
-    const [isPrefetchData, setIsPrefetchData] = useState(false);
-
     const {data: products, hasNextPage, isFetching, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
-        queryKey: ['products'],
+        queryKey: ['products',categoryId],
         queryFn: ({pageParam=1, meta}) => {
-            return getProductList({queryKey: ['products'], page: pageParam, row: ROWS_PER_PAGE });
+            return getProductList({queryKey: ['products'], page: pageParam, row: ROWS_PER_PAGE, categoryId:categoryId });
         },
         getNextPageParam: (lastPage, allPages) => {
 

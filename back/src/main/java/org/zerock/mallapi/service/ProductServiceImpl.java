@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.ProductRepository;
 
 import java.time.LocalDateTime;
@@ -26,17 +27,38 @@ public class ProductServiceImpl implements ProductService{
 
   private final ProductRepository productRepository;
 
+  private final CategoryClosureRepository categoryClosureRepository;
+
   @Override
-  public PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO) {
+  public PageResponseDTO<ProductDTO> getList(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
-    log.info("getList.............." + pageRequestDTO);
+    log.info("getList.............." + pageCategoryRequestDTO);
 
-    Pageable pageable = PageRequest.of( 
-      pageRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로 
-      pageRequestDTO.getSize(), 
+    Pageable pageable = PageRequest.of(
+            pageCategoryRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            pageCategoryRequestDTO.getSize(),
       Sort.by("pno").descending());
-    
-    Page<Object[]> result = productRepository.selectList(pageable);
+
+    //categoryId의 본인을 포함한, 하위 카테고리를 모두 찾아서 select의 where문에 포함시켜야한다.
+
+//    Optional<AdminCategory> result = categoryRepository.findById(cno);
+//
+//    AdminCategory adminCategory = result.orElseThrow();
+
+    AdminCategory adminCategory = AdminCategory.builder().cno(pageCategoryRequestDTO.getCategoryId()).build();
+
+    List<CategoryClosure> categoryClosures = categoryClosureRepository.findDescendantsAndMe(adminCategory);
+
+    log.info("categoryClosures./.." + categoryClosures);
+
+    List<Long> categoryClosureAncestorIds = categoryClosures.stream()
+            .map(categoryClosure -> categoryClosure.getId().getDescendant().getCno())  // ancestor의 id(Cno) 추출
+            .collect(Collectors.toList());  // 리스트로 수집
+
+    log.info("categoryClosureIds: " + categoryClosureAncestorIds);
+
+
+    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds);
 
     log.info("........result " + result);
 
@@ -84,6 +106,9 @@ public class ProductServiceImpl implements ProductService{
     long totalCount = result.getTotalElements();
 
     log.info("??... " + pageable);
+
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(pageCategoryRequestDTO.getPage()).size(pageCategoryRequestDTO.getSize()).build();
+
 
     return PageResponseDTO.<ProductDTO>withAll()
                 .dtoList(dtoList)

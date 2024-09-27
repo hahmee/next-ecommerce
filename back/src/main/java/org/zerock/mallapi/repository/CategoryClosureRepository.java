@@ -25,7 +25,7 @@ public interface CategoryClosureRepository extends JpaRepository<CategoryClosure
     @Query("SELECT c FROM CategoryClosure c WHERE c.id.descendant = :adminCategory ORDER BY c.depth ASC")
     List<CategoryClosure> findAncestors(@Param("adminCategory") AdminCategory adminCategory);
 
-    //특정 카테고리의 모든 조상 찾기 - 거꾸로
+    //특정 카테고리의 모든 조상 찾기 - 역순
     @Query("SELECT c FROM CategoryClosure c WHERE c.id.descendant = :adminCategory ORDER BY c.depth DESC")
     List<CategoryClosure> findAncestorsDesc(@Param("adminCategory") AdminCategory adminCategory);
 
@@ -33,5 +33,9 @@ public interface CategoryClosureRepository extends JpaRepository<CategoryClosure
     // 특정 카테고리의 모든 후손 찾기 (depth 1,2,3...)
     @Query("SELECT c FROM CategoryClosure c WHERE c.id.ancestor = :adminCategory and c.depth !=0")
     List<CategoryClosure> findDescendants(@Param("adminCategory") AdminCategory adminCategory);
+
+    // 특정 카테고리의 모든 후손 찾기 (depth 1,2,3...)
+    @Query("SELECT c FROM CategoryClosure c WHERE c.id.ancestor = :adminCategory")
+    List<CategoryClosure> findDescendantsAndMe(@Param("adminCategory") AdminCategory adminCategory);
 
 }

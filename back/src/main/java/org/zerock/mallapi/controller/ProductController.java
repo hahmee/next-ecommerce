@@ -92,10 +92,10 @@ public class ProductController {
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
-  @GetMapping("/list") // list?page=7&size=2
-  public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageRequestDTO pageRequestDTO) {
+  @GetMapping("/list") // list?page=7&size=2&categoryId=1
+  public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
-    log.info("list............." + pageRequestDTO);
+    log.info("list............." + pageCategoryRequestDTO);
 
     try {
       Thread.sleep(0);
@@ -104,7 +104,7 @@ public class ProductController {
       e.printStackTrace();
     }
 
-    return DataResponseDTO.of(productService.getList(pageRequestDTO));
+    return DataResponseDTO.of(productService.getList(pageCategoryRequestDTO));
     
   }
 

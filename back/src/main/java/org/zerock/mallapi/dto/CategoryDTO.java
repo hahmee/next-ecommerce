@@ -21,7 +21,7 @@ public class CategoryDTO {
   private String cname;
 
   @NotNull(message = "카테고리 설명은 필수값입니다.")
-  @Size(min = 1, max = 20, message = "카테고리 설명은 1~20 글자여야 합니다.")
+  @Size(min = 1, max = 200, message = "카테고리 설명은 1~200 글자여야 합니다.")
   private String cdesc;
 
   private boolean delFlag;
