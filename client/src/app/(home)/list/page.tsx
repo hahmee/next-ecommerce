@@ -3,6 +3,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import ProductList, {ROWS_PER_PAGE} from "@/components/Home/ProductList";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
+import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
@@ -26,9 +27,16 @@ export default async function ListPage({searchParams}: Props) {
         },
     ];
 
+    const prefetchOptions = [
+        {
+            queryKey: ['categories'],
+            queryFn: () => getCategories()
+        }
+    ];
+
     return (
         <Suspense fallback={<Loading/>}>
-            <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions}>
+            <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions} prefetchOptions={prefetchOptions}>
                 <ProductList categoryId={categoryId}/>
             </PrefetchBoundary>
         </Suspense>

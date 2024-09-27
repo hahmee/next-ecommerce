@@ -5,28 +5,32 @@ import {FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from "@heroicons/react/
 import React, {Fragment, useEffect, useState} from "react";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {useInView} from "react-intersection-observer";
-import {useInfiniteQuery} from "@tanstack/react-query";
+import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import ProductCard from "@/components/Home/ProductCard";
 import {Product} from "@/interface/Product";
+import ProductFilters from "@/components/Home/ProductFilters";
+import {DataResponse} from "@/interface/DataResponse";
+import {Category} from "@/interface/Category";
+import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 
-type SortOption = {
+export type SortOption = {
     name: string;
     href: string;
     current: boolean;
 };
 
-type SubCategory = {
+export type SubCategory = {
     name: string;
     href: string;
 };
 
-type FilterOption = {
+export type FilterOption = {
     value: string;
     label: string;
     checked: boolean;
 };
 
-type FilterSection = {
+export type FilterSection = {
     id: string;
     name: string;
     options: FilterOption[];
@@ -126,6 +130,20 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
     });
+
+    const {data: categories,} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+        queryKey: ['categories'],
+        queryFn: () => getCategories(),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: false,
+        select: (data) => {
+            // 데이터 가공 로직만 처리
+            return data.data;
+        }
+    });
+
+    console.log('categories', categories);
 
     const {ref, inView} = useInView();
 
@@ -265,45 +283,7 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
 
                         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                             {/* Filters */}
-                            <form className="hidden lg:block">
-                                <h3 className="sr-only">Categories</h3>
-                                <ul role="list"
-                                    className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                    {subCategories.map((category) => (
-                                        <li key={category.name}>
-                                            <a href={category.href}>{category.name}</a>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                {filters.map((section) => (
-                                    <div key={section.id} className="border-b border-gray-200 py-6">
-                                        <h3 className="flex justify-between">
-                                            <span className="font-medium text-gray-900">{section.name}</span>
-                                        </h3>
-                                        <div className="space-y-4 pt-6">
-                                            {section.options.map((option) => (
-                                                <div key={option.value} className="flex items-center">
-                                                    <input
-                                                        checked={filterStates[section.id].find(o => o.value === option.value)?.checked}
-                                                        id={`filter-${section.id}-${option.value}`}
-                                                        name={`${section.id}[]`}
-                                                        type="checkbox"
-                                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                        onChange={() => toggleFilter(section.id, option.value)}
-                                                    />
-                                                    <label
-                                                        htmlFor={`filter-${section.id}-${option.value}`}
-                                                        className="ml-3 text-gray-500"
-                                                    >
-                                                        {option.label}
-                                                    </label>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
-                            </form>
+                         <ProductFilters subCategories={subCategories} filters={filters} categories={categories||[]}/>
 
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
@@ -316,8 +296,6 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
                                         </Fragment>
                                     ))}
                                 </div>
-
-
 
 
                                 {isFetchingNextPage ? (<div>Skelton</div>) : (<div ref={ref}></div>)}

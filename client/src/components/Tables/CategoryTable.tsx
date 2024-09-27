@@ -46,8 +46,6 @@
                 //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
                 // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
                 queryClient.invalidateQueries({queryKey: ['categories']});
-
-
             }
 
         });
@@ -81,9 +79,9 @@
         const filterCategories = (categories: Category[] = []): Category[] => {
             return categories.map((category) => {
                 // 하위 카테고리도 필터링
-                const filteredSubCategories = category.subCategories
-                    ? filterCategories(category.subCategories)
-                    : [];
+                    const filteredSubCategories = category.subCategories
+                        ? filterCategories(category.subCategories)
+                        : [];
 
                 // 현재 카테고리와 필터링된 하위 카테고리를 포함
                 if (

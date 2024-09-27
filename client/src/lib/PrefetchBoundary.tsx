@@ -8,7 +8,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-export async function PrefetchBoundary({prefetchOptions,prefetchInfiniteOptions, children}: Props) {
+export async function PrefetchBoundary({prefetchOptions, prefetchInfiniteOptions, children}: Props) {
     const queryClient = new QueryClient();
 
     if (prefetchOptions) {
@@ -18,14 +18,13 @@ export async function PrefetchBoundary({prefetchOptions,prefetchInfiniteOptions,
     }
 
     //무한 스크롤링일 때
-    if(prefetchInfiniteOptions) {
+    if (prefetchInfiniteOptions) {
         Array.isArray(prefetchInfiniteOptions)
             ? await Promise.all(prefetchInfiniteOptions.map((prefetchOption) => queryClient.prefetchInfiniteQuery(prefetchOption)))
             : await queryClient.prefetchInfiniteQuery(prefetchInfiniteOptions);
     }
 
     return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
-
 
 
 }
