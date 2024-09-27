@@ -4,6 +4,8 @@ import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import ProductList, {ROWS_PER_PAGE} from "@/components/Home/ProductList";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
+import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
+import {id} from "postcss-selector-parser";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
@@ -31,6 +33,10 @@ export default async function ListPage({searchParams}: Props) {
         {
             queryKey: ['categories'],
             queryFn: () => getCategories()
+        },
+        {
+            queryKey: ['category', categoryId],
+            queryFn: () => getCategory({queryKey: ['category', categoryId]}),
         }
     ];
 

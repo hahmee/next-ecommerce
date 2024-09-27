@@ -1,16 +1,16 @@
 import React, {Fragment, useState} from "react";
 import {FilterOption, FilterSection, SubCategory} from "@/components/Home/ProductList";
 import {Category} from "@/interface/Category";
-import {FunnelIcon, MinusIcon, PlusIcon, ChevronDownIcon} from "@heroicons/react/20/solid";
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
 import {useRouter} from "next/navigation";
 
 type Props = {
-    subCategories: SubCategory[];
     filters: FilterSection[];
     categories: Category[];
 };
 
-const ProductFilters: React.FC<Props> = ({subCategories,filters,categories}: Props) => {
+const ProductFilters: React.FC<Props> = ({filters, categories}: Props) => {
+
     const router = useRouter();
 
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -45,9 +45,22 @@ const ProductFilters: React.FC<Props> = ({subCategories,filters,categories}: Pro
     const renderCategoryRows = (categories: Category[], depth: number = 0) => {
         return categories.map((category) => (
             <Fragment key={category.cno}>
-                <li className="flex items-center cursor-pointer justify-between" style={{paddingLeft: `${depth * 20}px`}} onClick={()=>router.push(`/list?categoryId=${category.cno}`)}>
-                    <div >{category.cname}</div>
-                    {category.subCategories && <ChevronDownIcon className="h-5 w-5 group-open:block" onClick={(e) => { e.stopPropagation(); toggleRow(category.cno)}}/>}
+                <li className="flex items-center cursor-pointer justify-between"
+                    style={{paddingLeft: `${depth * 20}px`}}
+                    onClick={() => router.push(`/list?categoryId=${category.cno}`)}>
+                    <div>{category.cname}</div>
+                    {category.subCategories && (
+                        <div onClick={(e) => {
+                            e.stopPropagation(); // 부모 onClick 이벤트 방지
+                            toggleRow(category.cno); // toggleRow 함수 호출
+                        }}>
+                            {expandedRows.includes(category.cno) ? (
+                                <ChevronUpIcon className="h-5 w-5"/>
+                            ) : (
+                                <ChevronDownIcon className="h-5 w-5"/>
+                            )}
+                        </div>
+                    )}
                 </li>
                 {expandedRows.includes(category.cno) && category.subCategories && (
                     renderCategoryRows(category.subCategories, depth + 1)
