@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react'
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
-import ProductList, {ROWS_PER_PAGE} from "@/components/Home/ProductList";
+import ProductList from "@/components/Home/ProductList";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
@@ -18,12 +18,14 @@ export default async function ListPage({searchParams}: Props) {
         ? searchParams.category_id[0]  // 배열인 경우 첫 번째 값을 사용
         : searchParams.category_id || ''; // undefined면 빈 문자열 처리
 
-    console.log('searchParams', categoryId);
+    const {color} = searchParams;
+    console.log('color...', color);
+
 
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
             queryKey: ['products', categoryId],
-            queryFn: ({pageParam = 1}) => getProductList({queryKey: ['products'], page: pageParam as number, row: ROWS_PER_PAGE, categoryId: categoryId }),
+            queryFn: ({pageParam = 1}) => getProductList({queryKey: ['products'], page: pageParam as number, row: 3 , categoryId: categoryId, colors:color }),
             initialPageParam: 1,
             staleTime: 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },

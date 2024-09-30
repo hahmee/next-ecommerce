@@ -19,4 +19,8 @@ public class PageCategoryRequestDTO {
 
   @Builder.Default
   private int size = 10;
+
+  private String color;
+
+  private String productSize;
 }

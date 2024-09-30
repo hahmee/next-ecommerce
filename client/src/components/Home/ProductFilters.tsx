@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {FilterOption, FilterSection} from "@/components/Home/ProductList";
 import {Category} from "@/interface/Category";
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
@@ -12,10 +12,6 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
-
-    // const [searchParams, setSearchParams] = useSearchParams();
-
-
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
         color: filters[0].options,
         category: filters[1].options,
@@ -24,7 +20,46 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
 
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
+    useEffect(() => {
+        // 쿼리 문자열에서 필터 값을 가져와서 필터 상태를 업데이트
+        const newFilterStates = { ...filterStates };
+
+        filters.forEach(section => {
+            const currentFilters = searchParams.getAll(section.id);
+            newFilterStates[section.id] = section.options.map(option => ({
+                ...option,
+                checked: currentFilters.includes(option.value),
+            }));
+        });
+
+        setFilterStates(newFilterStates);
+    }, [searchParams, filters]);
+
     const toggleFilter = (sectionId: string, value?: string) => {
+        if (value) {
+            const params = new URLSearchParams(searchParams.toString());
+
+            // console.log('params...', params);
+            // 현재 필터가 적용되어 있는지 확인
+            const currentFilters = params.getAll(sectionId);
+
+            if (currentFilters.includes(value)) {
+                // 필터가 이미 적용되어 있으면 제거
+                params.delete(sectionId);
+                currentFilters.filter((filter) => filter !== value).forEach((filter) => params.append(sectionId, filter));
+            } else {
+                // 필터가 적용되어 있지 않으면 추가
+                params.append(sectionId, value);
+            }
+
+            // console.log('params...toString()', params.toString());
+
+            // 새 쿼리스트링으로 URL 업데이트
+            router.push(`/list?${params.toString()}`);
+        }
+    };
+
+    const toggleFilter2 = (sectionId: string, value?: string) => {
         // if (value) {
         //     setFilterStates((prev) => ({
         //         ...prev,
@@ -37,9 +72,11 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
         if (value) {
             const params = new URLSearchParams(searchParams.toString());
 
-            console.log('params...',params)
+            // console.log('params....입니다....',params)
             // Check if the filter is already in the query params
             const currentFilters = params.get(sectionId)?.split(",") || [];
+
+            // console.log('currentFilters...', currentFilters);
             if (currentFilters.includes(value)) {
                 // Remove the filter if it's already applied
                 const updatedFilters = currentFilters.filter((filter) => filter !== value);

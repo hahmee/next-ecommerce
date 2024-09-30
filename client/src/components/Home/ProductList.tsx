@@ -1,7 +1,6 @@
 "use client";
 
-import {XMarkIcon} from "@heroicons/react/24/outline";
-import {FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon} from "@heroicons/react/20/solid";
+import {FunnelIcon, Squares2X2Icon} from "@heroicons/react/20/solid";
 import React, {Fragment, useCallback, useEffect, useState} from "react";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {useInView} from "react-intersection-observer";
@@ -13,8 +12,8 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
-import {Mode} from "@/types/mode";
 import ProductCategories from "@/components/Home/ProductCategories";
+import {useSearchParams} from "next/navigation";
 
 export type SortOption = {
     name: string;
@@ -62,7 +61,7 @@ const filters: FilterSection[] = [
         options: [
             {value: 'white', label: 'White', checked: false},
             {value: 'beige', label: 'Beige', checked: false},
-            {value: 'blue', label: 'Blue', checked: true},
+            {value: 'blue', label: 'Blue', checked: false},
             {value: 'brown', label: 'Brown', checked: false},
             {value: 'green', label: 'Green', checked: false},
             {value: 'purple', label: 'Purple', checked: false},
@@ -93,10 +92,11 @@ const filters: FilterSection[] = [
     },
 ];
 
-export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
+// export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
 const ProductList = ({categoryId}: {categoryId:string}) => {
-
+    const searchParams = useSearchParams();
+    const colors = searchParams.getAll("color");
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
         color: filters[0].options,
@@ -120,7 +120,7 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
     const {data: products, hasNextPage, isFetching, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
         queryKey: ['products',categoryId],
         queryFn: ({pageParam=1, meta}) => {
-            return getProductList({queryKey: ['products'], page: pageParam, row: ROWS_PER_PAGE, categoryId:categoryId });
+            return getProductList({queryKey: ['products'], page: pageParam, row:3,categoryId:categoryId, colors });
         },
         getNextPageParam: (lastPage, allPages) => {
 
@@ -145,8 +145,6 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
             return data.data;
         }
     });
-
-    console.log('categories', categories);
 
     const { data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', categoryId],
