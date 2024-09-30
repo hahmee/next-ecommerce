@@ -1,33 +1,61 @@
 import React, {Fragment, useState} from "react";
-import {FilterOption, FilterSection, SubCategory} from "@/components/Home/ProductList";
+import {FilterOption, FilterSection} from "@/components/Home/ProductList";
 import {Category} from "@/interface/Category";
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
 type Props = {
     filters: FilterSection[];
-    categories: Category[];
 };
 
-const ProductFilters: React.FC<Props> = ({filters, categories}: Props) => {
+const ProductFilters: React.FC<Props> = ({filters}: Props) => {
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // const [searchParams, setSearchParams] = useSearchParams();
+
 
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
         color: filters[0].options,
         category: filters[1].options,
         size: filters[2].options,
     });
+
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
     const toggleFilter = (sectionId: string, value?: string) => {
+        // if (value) {
+        //     setFilterStates((prev) => ({
+        //         ...prev,
+        //         [sectionId]: prev[sectionId].map(option =>
+        //             option.value === value ? {...option, checked: !option.checked} : option
+        //         ),
+        //     }));
+        // }
+
         if (value) {
-            setFilterStates((prev) => ({
-                ...prev,
-                [sectionId]: prev[sectionId].map(option =>
-                    option.value === value ? {...option, checked: !option.checked} : option
-                ),
-            }));
+            const params = new URLSearchParams(searchParams.toString());
+
+            console.log('params...',params)
+            // Check if the filter is already in the query params
+            const currentFilters = params.get(sectionId)?.split(",") || [];
+            if (currentFilters.includes(value)) {
+                // Remove the filter if it's already applied
+                const updatedFilters = currentFilters.filter((filter) => filter !== value);
+                if (updatedFilters.length > 0) {
+                    params.set(sectionId, updatedFilters.join(","));
+                } else {
+                    params.delete(sectionId);
+                }
+            } else {
+                // Add the filter if it's not applied
+                currentFilters.push(value);
+                params.set(sectionId, currentFilters.join(","));
+            }
+
+            // Update the URL with the new query string
+            router.push(`/list?${params.toString()}`);
         }
     };
 
@@ -47,7 +75,7 @@ const ProductFilters: React.FC<Props> = ({filters, categories}: Props) => {
             <Fragment key={category.cno}>
                 <li className="flex items-center cursor-pointer justify-between"
                     style={{paddingLeft: `${depth * 20}px`}}
-                    onClick={() => router.push(`/list?categoryId=${category.cno}`)}>
+                    onClick={() => router.push(`/list?category_id=${category.cno}`)}>
                     <div>{category.cname}</div>
                     {category.subCategories && (
                         <div onClick={(e) => {
@@ -70,12 +98,7 @@ const ProductFilters: React.FC<Props> = ({filters, categories}: Props) => {
     };
 
     return (
-        <form className="hidden lg:block">
-            <h3 className="sr-only">Categories</h3>
-            <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                {categories && renderCategoryRows(categories)}
-            </ul>
-
+        <>
             {filters.map((section) => (
                 <div key={section.id} className="border-b border-gray-200 py-6">
                     <h3 className="flex justify-between">
@@ -103,7 +126,7 @@ const ProductFilters: React.FC<Props> = ({filters, categories}: Props) => {
                     </div>
                 </div>
             ))}
-        </form>
+        </>
     );
 
 };

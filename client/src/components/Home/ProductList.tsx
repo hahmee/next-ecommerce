@@ -14,6 +14,7 @@ import {Category} from "@/interface/Category";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
 import {Mode} from "@/types/mode";
+import ProductCategories from "@/components/Home/ProductCategories";
 
 export type SortOption = {
     name: string;
@@ -84,7 +85,7 @@ const filters: FilterSection[] = [
         options: [
             {value: '2l', label: '2L', checked: false},
             {value: '6l', label: '6L', checked: false},
-            {value: '12l', label: '12L', checked: false},
+            {value: '12l', label: '12L', checked: true},
             {value: '18l', label: '18L', checked: false},
             {value: '20l', label: '20L', checked: false},
             {value: '40l', label: '40L', checked: true},
@@ -298,15 +299,18 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
 
                         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                             {/* Filters */}
-                         <ProductFilters filters={filters} categories={categories||[]}/>
-
+                            <form className="hidden lg:block">
+                                <ProductCategories categories={categories || []}/>
+                                <ProductFilters filters={filters}/>
+                            </form>
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
-                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+                                <div
+                                    className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
                                     {products?.pages.map((page, index) => (
                                         <Fragment key={index}>
                                             {page?.data?.dtoList.map((product: Product) => (
-                                                <ProductCard key={product.pno} product={product} />
+                                                <ProductCard key={product.pno} product={product}/>
                                             ))}
                                         </Fragment>
                                     ))}
