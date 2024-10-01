@@ -18,14 +18,14 @@ export default async function ListPage({searchParams}: Props) {
         ? searchParams.category_id[0]  // 배열인 경우 첫 번째 값을 사용
         : searchParams.category_id || ''; // undefined면 빈 문자열 처리
 
-    const {color} = searchParams;
+    const {color, size} = searchParams;
     console.log('color...', color);
 
 
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
             queryKey: ['products', categoryId],
-            queryFn: ({pageParam = 1}) => getProductList({queryKey: ['products'], page: pageParam as number, row: 3 , categoryId: categoryId, colors:color }),
+            queryFn: ({pageParam = 1}) => getProductList({queryKey: ['products'], page: pageParam as number, row: 3 , categoryId: categoryId, colors:color, productSizes:size}),
             initialPageParam: 1,
             staleTime: 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },

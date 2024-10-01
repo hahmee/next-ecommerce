@@ -23,15 +23,23 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("update Product p set p.delFlag = :flag where p.pno = :pno")
   void updateToDelete(@Param("pno") Long pno , @Param("flag") boolean flag);
 
-//  @Query("select p, pi from Product p left join p.imageList pi where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.adminCategory.cno =:categoryId")
-//  Page<Object[]> selectList(Pageable pageable, @Param("categoryId") Long categoryId);
+
 
   @Query("select p, pi from Product p left join p.imageList pi " +
+          "left join p.sizeList ps " +
           "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
           "and p.delFlag = false " +
-          "and p.adminCategory.cno IN :categoryIds")
-  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds);
+          "and (:productSizes IS NULL or ps IN :productSizes) " +
+          "and p.adminCategory.cno IN :categoryIds " +
+          "GROUP BY p.pno")
+  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("productSizes") List<String> productSizes);
+  // @Param("colors") List<String> colors,
 
+//  @Query("select p, pi from Product p left join p.imageList pi " +
+//          "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
+//          "and p.delFlag = false " +
+//          "and p.adminCategory.cno IN :categoryIds")
+//  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds);
 
   @Query("select p, pi from Product p left join p.imageList pi where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
   Page<Object[]> selectAdminList(Pageable pageable, @Param("email") String email);

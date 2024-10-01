@@ -142,10 +142,11 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                         <span className="font-medium text-gray-900">{section.name}</span>
                     </h3>
                     <div className="space-y-4 pt-6">
-                        {section.options.map((option) => (
-                            <div key={option.value} className="flex items-center">
+                        {section.options.map((option, index) => (
+                            <div key={index} className="flex items-center">
                                 <input
-                                    checked={filterStates[section.id].find(o => o.value === option.value)?.checked}
+                                    checked={filterStates[section.id].find(o => o.value === option.value)?.checked || false}
+                                    // checked={filterStates[section.id].find(o => o.value === option.value)?.checked}
                                     id={`filter-${section.id}-${option.value}`}
                                     name={`${section.id}[]`}
                                     type="checkbox"

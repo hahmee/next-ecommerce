@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PageCategoryRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PageCategoryRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" afterDir="false" />
@@ -210,7 +211,10 @@
       <workItem from="1727596080091" duration="4608000" />
       <workItem from="1727661299064" duration="7504000" />
       <workItem from="1727669425263" duration="3261000" />
-      <workItem from="1727675733786" duration="4577000" />
+      <workItem from="1727675733786" duration="9625000" />
+      <workItem from="1727693390560" duration="2330000" />
+      <workItem from="1727708683343" duration="3374000" />
+      <workItem from="1727748190249" duration="9064000" />
     </task>
     <servers />
   </component>

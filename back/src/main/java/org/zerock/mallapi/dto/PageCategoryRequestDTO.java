@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -20,7 +22,7 @@ public class PageCategoryRequestDTO {
   @Builder.Default
   private int size = 10;
 
-  private String color;
+  private List<String> color;
 
-  private String productSize;
+  private List<String> productSize;
 }

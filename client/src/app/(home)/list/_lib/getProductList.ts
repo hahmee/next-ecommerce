@@ -1,12 +1,13 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 
-export const getProductList = async ({queryKey, page, row, categoryId, colors}: {
+export const getProductList = async ({queryKey, page, row, categoryId, colors, productSizes}: {
     queryKey: [string],
     page: number,
     row: number,
     categoryId: string,
     colors: string | string[] | undefined;
+    productSizes: string | string[] | undefined;
 }) => {
 
     const params = new URLSearchParams();
@@ -24,6 +25,13 @@ export const getProductList = async ({queryKey, page, row, categoryId, colors}: 
         }
     }
 
+    if(productSizes) {
+        if (Array.isArray(productSizes)) { //배열이라면
+            productSizes.forEach((productSize) => params.append("productSize", productSize));
+        } else { //string 타입
+            params.append("productSize", productSizes);
+        }
+    }
 
     const res = await fetchWithAuth(`/api/products/list?${params.toString()}`, {
         method: "GET",

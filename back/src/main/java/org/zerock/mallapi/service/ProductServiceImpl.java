@@ -15,6 +15,7 @@ import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.ProductRepository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,15 +42,11 @@ public class ProductServiceImpl implements ProductService{
 
     //categoryId의 본인을 포함한, 하위 카테고리를 모두 찾아서 select의 where문에 포함시켜야한다.
 
-//    Optional<AdminCategory> result = categoryRepository.findById(cno);
-//
-//    AdminCategory adminCategory = result.orElseThrow();
-
     AdminCategory adminCategory = AdminCategory.builder().cno(pageCategoryRequestDTO.getCategoryId()).build();
 
     List<CategoryClosure> categoryClosures = categoryClosureRepository.findDescendantsAndMe(adminCategory);
 
-    log.info("categoryClosures./.." + categoryClosures);
+    log.info("categoryClosures..." + categoryClosures);
 
     List<Long> categoryClosureAncestorIds = categoryClosures.stream()
             .map(categoryClosure -> categoryClosure.getId().getDescendant().getCno())  // ancestor의 id(Cno) 추출
@@ -57,8 +54,16 @@ public class ProductServiceImpl implements ProductService{
 
     log.info("categoryClosureIds: " + categoryClosureAncestorIds);
 
+    // color와 productSize 필터링 처리
+    List<String> colors = pageCategoryRequestDTO.getColor();
+    List<String> productSizes = pageCategoryRequestDTO.getProductSize();
 
-    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds);
+    log.info("colors... " + colors);
+    log.info("productSizes... " + productSizes);
+
+
+    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, productSizes);
+
 
     log.info("........result " + result);
 
@@ -81,7 +86,7 @@ public class ProductServiceImpl implements ProductService{
               .salesStatus(product.getSalesStatus())
               .build();
 
-      if(productImage !=null ) {
+      if(productImage !=null) {
 
         String imageNameStr = productImage.getFileName();
         String imageKeyStr = productImage.getFileKey();
@@ -102,6 +107,8 @@ public class ProductServiceImpl implements ProductService{
 
       return productDTO;
     }).collect(Collectors.toList());
+
+    log.info("-------dtoList " + dtoList);
     
     long totalCount = result.getTotalElements();
 

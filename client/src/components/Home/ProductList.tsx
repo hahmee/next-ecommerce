@@ -14,6 +14,7 @@ import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
 import ProductCategories from "@/components/Home/ProductCategories";
 import {useSearchParams} from "next/navigation";
+import {Size} from "@/types/size";
 
 export type SortOption = {
     name: string;
@@ -68,6 +69,20 @@ const filters: FilterSection[] = [
         ],
     },
     {
+        id: 'size',
+        name: 'Size',
+        options: [
+            {value: Size.XS, label: 'XS', checked: false},
+            {value: Size.S, label: 'S', checked: false},
+            {value: Size.M, label: 'M', checked: false},
+            {value: Size.L, label: 'L', checked: false},
+            {value: Size.XL, label: 'XL', checked: false},
+            {value: Size.XXL, label: '2XL', checked: false},
+            {value: Size.XXXL, label: '3XL', checked: false},
+            {value: Size.FREE, label: 'FREE', checked: false},
+        ],
+    },
+    {
         id: 'category',
         name: 'Category',
         options: [
@@ -78,18 +93,7 @@ const filters: FilterSection[] = [
             {value: 'accessories', label: 'Accessories', checked: false},
         ],
     },
-    {
-        id: 'size',
-        name: 'Size',
-        options: [
-            {value: '2l', label: '2L', checked: false},
-            {value: '6l', label: '6L', checked: false},
-            {value: '12l', label: '12L', checked: true},
-            {value: '18l', label: '18L', checked: false},
-            {value: '20l', label: '20L', checked: false},
-            {value: '40l', label: '40L', checked: true},
-        ],
-    },
+
 ];
 
 // export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
@@ -97,6 +101,9 @@ const filters: FilterSection[] = [
 const ProductList = ({categoryId}: {categoryId:string}) => {
     const searchParams = useSearchParams();
     const colors = searchParams.getAll("color");
+    const productSizes = searchParams.getAll("size");
+
+    console.log('productSizes', productSizes);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
         color: filters[0].options,
@@ -120,7 +127,7 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
     const {data: products, hasNextPage, isFetching, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
         queryKey: ['products',categoryId],
         queryFn: ({pageParam=1, meta}) => {
-            return getProductList({queryKey: ['products'], page: pageParam, row:3,categoryId:categoryId, colors });
+            return getProductList({queryKey: ['products'], page: pageParam, row:3,categoryId:categoryId, colors,productSizes });
         },
         getNextPageParam: (lastPage, allPages) => {
 
