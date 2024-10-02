@@ -14,7 +14,7 @@ export default function AdminLayout({children, modal}: { children: React.ReactNo
     // }, []);
 
     return (
-        <div className="dark:bg-boxdark-2 dark:text-bodydark">
+        <div className="dark:bg-boxdark-2 dark:text-bodydark bg-graylight">
             {modal}
             {/*{loading ? <Loader/> : children}*/}
 

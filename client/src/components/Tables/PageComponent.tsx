@@ -47,7 +47,7 @@ const PageComponent = ({pagingData, size, search}: { pagingData: Paging, size: n
 
             <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 dark:text-gray-200">
                         Showing <span className="font-medium">{pagingData.current}</span> to <span
                         className="font-medium">{pagingData.totalPage}</span> of{' '}
                         <span className="font-medium">{pagingData.totalCount}</span> results

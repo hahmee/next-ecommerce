@@ -19,8 +19,7 @@ const StockTable = () => {
                         </div>
                         <div
                             className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-                            <button type="button"
-                                    className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                            <button type="button" className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                                 <svg className="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                      xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                     <path clipRule="evenodd" fillRule="evenodd"
@@ -70,7 +69,7 @@ const StockTable = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr className="border-b dark:border-gray-600 hover:bg-meta-4 dark :hover:bg-gray-700">
+                            <tr className="border-b dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700">
                                 <td className="w-4 px-4 py-3">
                                     <div className="flex items-center">
                                         <input id="checkbox-table-search-1" type="checkbox"

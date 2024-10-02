@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -7,34 +6,30 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
-    fontFamily: {
-      satoshi: ["Satoshi", "sans-serif"],
-    },
-    screens: {
-      "2xsm": "375px",
-      xsm: "425px",
-      "3xl": "2000px",
-      ...defaultTheme.screens,
-    },
+    // extend: {
+    //   backgroundImage: {
+    //     "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+    //     "gradient-conic":
+    //         "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+    //   },
+    //   colors: {
+    //     ecom: "#F35C7A",
+    //   },
+
+    // },
+
     extend: {
-      gridTemplateColumns: {
-        'auto-fill-100': 'repeat(auto-fill, 100px)',
-      },
-      backgroundImage: {
-        video: "url('../images/video/video.png')",
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-            "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        lama: "#F35C7A",
+        ecom: "#F35C7A",
         current: "currentColor",
         transparent: "transparent",
-        white: "#FFFFFF",
+        // white: "#FFFFFF",
         black: "#1C2434",
+        black2: "#000000",
         red: "#FB5454",
-        "black-2": "#010101",
+        // "black-2": "#010101",
         body: "#64748B",
         bodydark: "#AEB7C0",
         bodydark1: "#DEE4EE",
@@ -43,10 +38,11 @@ const config: Config = {
         primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a","950":"#172554"},
         secondary: "#80CAEE",
         stroke: "#E2E8F0",
-        gray: "#EFF4FB",
+        // gray: "#EFF4FB",
+        graylight: "#EFF4FB",
         graydark: "#333A48",
-        "gray-2": "#F7F9FC",
-        "gray-3": "#FAFAFA",
+        // "gray-2": "#F7F9FC",
+        // "gray-3": "#FAFAFA",
         whiten: "#F1F5F9",
         whiter: "#F5F7FD",
         boxdark: "#24303F",
@@ -234,9 +230,9 @@ const config: Config = {
         "4/3": "4 / 3",
         "21/9": "21 / 9",
       },
-      // backgroundImage: {
-      //   video: "url('../images/video/video.png')",
-      // },
+      backgroundImage: {
+        video: "url('../images/video/video.png')",
+      },
       content: {
         "icon-copy": 'url("../images/icon/icon-copy-alt.svg")',
       },
@@ -250,9 +246,7 @@ const config: Config = {
         default: "0px 8px 13px -3px rgba(0, 0, 0, 0.07)",
         card: "0px 1px 3px rgba(0, 0, 0, 0.12)",
         "card-2": "0px 1px 2px rgba(0, 0, 0, 0.05)",
-        switcher:
-            "0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)",
-        "switch-1": "0px 0px 5px rgba(0, 0, 0, 0.15)",
+        switcher: "0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)", "switch-1": "0px 0px 5px rgba(0, 0, 0, 0.15)",
         1: "0px 1px 3px rgba(0, 0, 0, 0.08)",
         2: "0px 1px 4px rgba(0, 0, 0, 0.12)",
         3: "0px 1px 5px rgba(0, 0, 0, 0.14)",

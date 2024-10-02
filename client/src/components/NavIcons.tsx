@@ -10,8 +10,8 @@ import {useCartStore} from "@/store/cartStore";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     const queryClient = useQueryClient();
-    const [isCartOpen, setIsCartOpen] = useState(false);
-    const { cart, counter, getCart } = useCartStore();
+    // const [isCartOpen, setIsCartOpen] = useState(false);
+    const { cart, counter, getCart, changeOpen, open } = useCartStore();
 
     const onLogout = async () => {
 
@@ -62,15 +62,15 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
             />
             <div
                 className="relative cursor-pointer"
-                onClick={() => setIsCartOpen((prev) => !prev)}
+                onClick={() => changeOpen(!open)}
             >
                 <Image src="/cart.png" alt="" width={22} height={22}/>
                 <div
-                    className="absolute -top-4 -right-4 w-6 h-6 bg-lama rounded-full text-white text-sm flex items-center justify-center">
+                    className="absolute -top-4 -right-4 w-6 h-6 bg-ecom rounded-full text-white text-sm flex items-center justify-center">
                     {counter}
                 </div>
             </div>
-            {isCartOpen && <CartModal />}
+            {open && <CartModal />}
         </div>
     );
 };

@@ -112,7 +112,7 @@ export default function LoginPage() {
                     비밀번호를 잃어버렸나요?
                 </div>
                 <button
-                    className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
+                    className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
                     disabled={false}
                 >
                     로그인

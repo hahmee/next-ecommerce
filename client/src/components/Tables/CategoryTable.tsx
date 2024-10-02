@@ -105,7 +105,7 @@
         const renderCategoryRows = (categories: Category[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
-                    <tr className="cursor-pointer hover:bg-meta-4 dark:hover:bg-gray-700"
+                    <tr className="cursor-pointer hover:dark:bg-meta-4 hover:bg-gray-50"
                         onClick={() => toggleRow(category.cno)}>
                         <td scope="row"
                             className=" flex items-center px-4 py-3 font-medium text-gray-900 dark:text-white"

@@ -8,7 +8,7 @@ import {useRouter} from "next/navigation";
 
 const  CartModal = () => {
 
-    const { cart, isLoading, removeItem } = useCartStore();
+    const { cart, isLoading } = useCartStore();
     const router = useRouter();
 
     console.log('cart..........', cart);
@@ -40,7 +40,7 @@ const  CartModal = () => {
                 <div className="">Cart is Empty</div>
             ) : (
                 <>
-                    <h2 className="text-xl">Shopping Cart</h2>
+                    <h2 className="text-xl font-semibold">Shopping Cart</h2>
                     {/* LIST */}
                     <div className="flex flex-col gap-8">
                         {/* ITEM */}

@@ -15,13 +15,14 @@ type ProductCardProps = {
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const {cart, changeCart, isLoading} = useCartStore();
+    const {cart, changeCart, isLoading, changeOpen} = useCartStore();
     // const [isAddedToCart, setIsAddedToCart] = useState(false); // 아이콘 상태 관리
     const [color, setColor] = useState<ColorTag>(product.colorList[0]);
     const memberInfo = getCookie('member');
     const member = JSON.parse(memberInfo as string);
 
     const handleClickAddCart = (pno:number,options: { color: ColorTag, size: string; }) => {
+        changeOpen(true);
         const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
         //해당하는 cino 의 개수를 바꿔야함
             if (result && result.length > 0) { // 담겨있었음
@@ -83,7 +84,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         {
                             product.sizeList.map((size, index) => (
                                 <button key={index}
-                                        className="content-center items-center justify-center flex w-11 h-11 font-bold text-sm bg-white rounded-xl shadow-2xl hover:bg-black-2 hover:text-white"
+                                        className="content-center items-center justify-center flex w-11 h-11 font-bold text-sm bg-white rounded-xl shadow-2xl hover:bg-black2 hover:text-white"
                                         onClick={(e) => {
                                             e.preventDefault(); // 페이지 이동 방지
                                             e.stopPropagation();// 부모로의 이벤트 전파 방지

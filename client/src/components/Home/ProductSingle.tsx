@@ -55,12 +55,11 @@ const ProductSingle = ({id}: Props) => {
                 {product?.pdesc && (
                     <div dangerouslySetInnerHTML={{__html: product.pdesc}} className="text-gray-500"/>
                 )}
-                <div className="h-[2px] bg-gray-100"/>
-
+                <div className="h-[1px] bg-gray-100"/>
 
                 <h2 className="font-medium text-2xl">${product?.price}</h2>
 
-                <div className="h-[2px] bg-gray-100"/>
+                <div className="h-[1px] bg-gray-100"/>
 
                 {
                     (product && product.colorList && product.sizeList) &&
@@ -75,7 +74,7 @@ const ProductSingle = ({id}: Props) => {
                 />
 
 
-                <div className="h-[2px] bg-gray-100"/>
+                <div className="h-[1px] bg-gray-100"/>
                 <div className="text-sm">
                     <h4 className="font-medium mb-4">교환정책</h4>
                     <p>{product?.changePolicy}</p>
@@ -84,7 +83,7 @@ const ProductSingle = ({id}: Props) => {
                     <h4 className="font-medium mb-4">환불정책</h4>
                     <p>{product?.refundPolicy}</p>
                 </div>
-                <div className="h-[2px] bg-gray-100"/>
+                <div className="h-[1px] bg-gray-100"/>
                 {/* REVIEWS */}
                 <h1 className="text-2xl">User Reviews</h1>
                 {

@@ -60,7 +60,7 @@ export default function SignupPage() {
                     계정이 있으신가요?
                 </div>
                 <button
-                    className="bg-lama text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
+                    className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
                     disabled={false}>
                     회원가입
                 </button>

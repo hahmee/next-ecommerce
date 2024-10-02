@@ -39,7 +39,7 @@ const OptionSelect = ({colorList, sizeList, size, setSize, color, setColor}:Prop
                 <h4 className="font-medium">Choose a size: {size}</h4>
                 <ul className="flex items-center gap-3">
                     {
-                        sizeList.map((value, index) => <li key={index} onClick={()=>setSize(value)} className={`ring-1 ring-lama rounded-md py-1 px-4 text-sm cursor-pointer ${value === size ? 'text-white bg-lama' :'text-lama'}`}>{value}</li>)
+                        sizeList.map((value, index) => <li key={index} onClick={()=>setSize(value)} className={`ring-1 ring-ecom rounded-md py-1 px-4 text-sm cursor-pointer ${value === size ? 'text-white bg-ecom' :'text-ecom'}`}>{value}</li>)
                     }
                 </ul>
             </div>

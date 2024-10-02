@@ -10,14 +10,19 @@ type CartState = {
   getCart: () => void;
   changeCart: (cartItem: CartItem) => void;
   removeItem: (cino: number) => void;
+  open:boolean,
+  changeOpen: (isOpen:boolean) => void
 };
 
 export const useCartStore = create<CartState>((set) => ({
   cart: [],
   isLoading: true,
   counter: 0,
+  open:false,
+  changeOpen: (isOpen:boolean) => {
+    set({open: isOpen})
+  },
   getCart: async () => {
-
     try {
       const cart = await fetchWithAuth(`/api/cart/items`, {
         method: "GET",
@@ -52,25 +57,6 @@ export const useCartStore = create<CartState>((set) => ({
       counter: cart.data.length || 0,
     });
 
-    // set((state) => ({ ...state, isLoading: true }));
-    // const response = await wixClient.currentCart.addToCurrentCart({
-    //   lineItems: [
-    //     {
-    //       catalogReference: {
-    //         appId: process.env.NEXT_PUBLIC_WIX_APP_ID!,
-    //         catalogItemId: productId,
-    //         ...(variantId && { options: { variantId } }),
-    //       },
-    //       quantity: quantity,
-    //     },
-    //   ],
-    // });
-    //
-    // set({
-    //   cart: response.cart,
-    //   counter: response.cart?.lineItems.length,
-    //   isLoading: false,
-    // });
   },
 
   removeItem: async (cino) => {

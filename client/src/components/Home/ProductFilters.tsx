@@ -156,7 +156,7 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                 <div className="space-y-4 pt-6">
                     <PriceRange min={0} max={1000000} onChange={onChangePrice}/>
                     <button type="button"
-                            className="w-full text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
+                            className="w-full text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                             onClick={onClickPrice}>검색</button>
                 </div>
             </div>

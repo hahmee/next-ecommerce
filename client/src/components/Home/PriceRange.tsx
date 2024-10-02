@@ -28,7 +28,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
                         {...props}
                         className="h-1.5 bg-gray-200 rounded-full"
                         style={{
-                            background: `linear-gradient(to right, #eeeeee ${((values[0] - min) / (max - min)) * 100}%, #78ff8e ${((values[0] - min) / (max - min)) * 100}%, #78ff8e ${((values[1] - min) / (max - min)) * 100}%, #eeeeee ${((values[1] - min) / (max - min)) * 100}%)`,
+                            background: `linear-gradient(to right, #eeeeee ${((values[0] - min) / (max - min)) * 100}%, #FF6766 ${((values[0] - min) / (max - min)) * 100}%, #FF6766 ${((values[1] - min) / (max - min)) * 100}%, #eeeeee ${((values[1] - min) / (max - min)) * 100}%)`,
                         }}
                     >
                         {children}
@@ -37,7 +37,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
                 renderThumb={({ props }) => (
                     <div
                         {...props}
-                        className="w-4 h-4 bg-white rounded-full shadow-lg border-2 border-green-500 "
+                        className="w-4 h-4 bg-white rounded-full shadow-lg border-2 border-ecom "
                         key={props.key}
                     />
                 )}
@@ -46,14 +46,14 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
 
                 <div className="flex flex-col justify-between gap-2 mt-5">
                     <div className="text-sm text-neutral-800">Min price</div>
-                    <div className="border-stroke rounded-3xl border py-2 w-30 flex justify-evenly items-center">
+                    <div className="border-stroke rounded-3xl border py-2 w-28 flex justify-evenly items-center">
                         <span>{values[0]}</span>
                         <span className="text-sm text-neutral-500">원</span>
                     </div>
                 </div>
                 <div className="flex flex-col justify-between gap-2 mt-5">
                     <div className="text-sm text-neutral-800">Max price</div>
-                    <div className="border-stroke rounded-3xl border py-2  w-30 flex justify-evenly items-center">
+                    <div className="border-stroke rounded-3xl border py-2 w-28 flex justify-evenly items-center">
                         <span>{values[1]}</span>
                         <span className="text-sm text-neutral-500">원</span>
                     </div>
