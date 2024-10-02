@@ -160,7 +160,6 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => 
             return data.data;
         }
     });
-    console.log('products',products)
 
     const {data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', categoryId],

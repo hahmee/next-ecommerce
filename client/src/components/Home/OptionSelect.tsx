@@ -24,12 +24,11 @@ const OptionSelect = ({colorList, sizeList, size, setSize, color, setColor}:Prop
                             return (
                                 <li key={index}
                                     onClick={()=>setColor(value)}
-                                    className="w-8 h-8 rounded-full ring-1 ring-gray-300 cursor-pointer relative"
+                                    className="w-8 h-8 rounded-full ring-gray-300 cursor-pointer relative"
                                     style={{backgroundColor: value.color}}>
                                     {
                                         value.id === color.id &&
-                                        <div
-                                            className="absolute w-10 h-10 rounded-full ring-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
+                                        <div className="absolute w-10 h-10 rounded-full ring-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"/>
                                     }
                                 </li>);
                         })

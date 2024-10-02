@@ -18,7 +18,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
     return (
         <div>
             <Range
-                step={1}
+                step={1000}
                 min={min}
                 max={max}
                 values={values}
@@ -48,14 +48,14 @@ const PriceRange: React.FC<PriceRangeProps> = ({ min, max, onChange }) => {
                     <div className="text-sm text-neutral-800">Min price</div>
                     <div className="border-stroke rounded-3xl border py-2 w-30 flex justify-evenly items-center">
                         <span>{values[0]}</span>
-                        <span className="text-sm text-neutral-500">만원</span>
+                        <span className="text-sm text-neutral-500">원</span>
                     </div>
                 </div>
                 <div className="flex flex-col justify-between gap-2 mt-5">
                     <div className="text-sm text-neutral-800">Max price</div>
                     <div className="border-stroke rounded-3xl border py-2  w-30 flex justify-evenly items-center">
                         <span>{values[1]}</span>
-                        <span className="text-sm text-neutral-500">만원</span>
+                        <span className="text-sm text-neutral-500">원</span>
                     </div>
                 </div>
             </div>

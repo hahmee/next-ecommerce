@@ -10,8 +10,7 @@ type Props = {
     filters: FilterSection[];
 };
 
-const min = 0;
-const max = 100;
+
 const ProductFilters: React.FC<Props> = ({filters}: Props) => {
 
     const router = useRouter();
@@ -21,7 +20,7 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
         category: filters[1].options,
         size: filters[2].options,
     });
-    const [values, setValues] = useState([min, max]);
+    const [values, setValues] = useState([0, 200]);
 
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
@@ -155,8 +154,10 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                     <span className="font-medium text-gray-900">Price range</span>
                 </h3>
                 <div className="space-y-4 pt-6">
-                    <PriceRange min={0} max={100} onChange={onChangePrice}/>
-                    <button type="button" className="w-full bg-blue-600 text-white py-1.5 rounded-md mt-6 hover:bg-blue-700" onClick={onClickPrice}>검색</button>
+                    <PriceRange min={0} max={1000000} onChange={onChangePrice}/>
+                    <button type="button"
+                            className="w-full text-sm rounded-3xl ring-1 ring-lama text-lama py-2 px-4 hover:bg-lama hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
+                            onClick={onClickPrice}>검색</button>
                 </div>
             </div>
         </>
