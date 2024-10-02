@@ -41,13 +41,6 @@ export const getProductList = async ({queryKey, page, row, categoryId, colors, p
     });
 
 
-    // const res = await fetchWithAuth(`/api/products/list?page=${page}&size=${row}&categoryId=${categoryId}`, {
-    //     method: "GET",
-    //     credentials: 'include',
-    //     // cache: 'no-store',
-    // });
-
-
     return res;
 
 };

@@ -71,6 +71,16 @@ public class ProductServiceImpl implements ProductService{
 
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
+      List<ColorTag> colorTagList = product.getColorList();
+
+      //colorTagList를 DTO로 변경하기
+      List<ColorTagDTO> colorTagDTOList =  colorTagList.stream().map(colorTag -> ColorTagDTO.builder()
+              .id(colorTag.getId())
+              .text(colorTag.getText())
+              .color(colorTag.getColor())
+              .build())
+              .collect(Collectors.toList());
+
 
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
@@ -84,6 +94,8 @@ public class ProductServiceImpl implements ProductService{
               .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
+              .colorList(colorTagDTOList)
+              .sizeList(product.getSizeList())
               .build();
 
       if(productImage !=null) {

@@ -169,6 +169,7 @@ const ProductList = ({categoryId, colors, sizes}: Props) => {
             return data.data;
         }
     });
+    console.log('products',products)
 
     const {data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', categoryId],
@@ -337,8 +338,6 @@ const ProductList = ({categoryId, colors, sizes}: Props) => {
                                         </Fragment>
                                     ))}
                                 </div>
-
-
                                 {isFetchingNextPage ? (<div>Skelton</div>) : (<div ref={ref}></div>)}
                             </div>
                         </div>

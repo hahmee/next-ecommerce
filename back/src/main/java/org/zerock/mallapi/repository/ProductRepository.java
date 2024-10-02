@@ -35,7 +35,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "and p.adminCategory.cno IN :categoryIds " +
           "GROUP BY p.pno")
   Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("colors") List<String> colors, @Param("productSizes") List<String> productSizes);
-  // @Param("colors") List<String> colors,
 
 //  @Query("select p, pi from Product p left join p.imageList pi " +
 //          "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
