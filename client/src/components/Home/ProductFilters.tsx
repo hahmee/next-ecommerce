@@ -36,9 +36,10 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
     }, [searchParams, filters]);
 
     const toggleFilter = (sectionId: string, value?: string) => {
+        console.log('sectionId', sectionId, 'value', value);
         if (value) {
             const params = new URLSearchParams(searchParams.toString());
-
+            // console.log('params', params);
             // console.log('params...', params);
             // 현재 필터가 적용되어 있는지 확인
             const currentFilters = params.getAll(sectionId);
@@ -52,10 +53,11 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                 params.append(sectionId, value);
             }
 
-            // console.log('params...toString()', params.toString());
+            console.log('params...toString()...   ', params.toString()); //계속 변함
 
             // 새 쿼리스트링으로 URL 업데이트
             router.push(`/list?${params.toString()}`);
+            // router
         }
     };
 

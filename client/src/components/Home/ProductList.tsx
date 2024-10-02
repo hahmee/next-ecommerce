@@ -13,7 +13,6 @@ import {Category} from "@/interface/Category";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
 import ProductCategories from "@/components/Home/ProductCategories";
-import {useSearchParams} from "next/navigation";
 import {Size} from "@/types/size";
 
 export type SortOption = {
@@ -61,6 +60,7 @@ const filters: FilterSection[] = [
         name: 'Color',
         options: [
             {value: 'white', label: 'White', checked: false},
+            {value: 'red', label: 'Red', checked: false},
             {value: 'beige', label: 'Beige', checked: false},
             {value: 'blue', label: 'Blue', checked: false},
             {value: 'brown', label: 'Brown', checked: false},
@@ -98,12 +98,14 @@ const filters: FilterSection[] = [
 
 // export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
-const ProductList = ({categoryId}: {categoryId:string}) => {
-    const searchParams = useSearchParams();
-    const colors = searchParams.getAll("color");
-    const productSizes = searchParams.getAll("size");
+interface Props {
+    categoryId: string,
+    colors: string[];
+    sizes: string[];
+}
 
-    console.log('productSizes', productSizes);
+const ProductList = ({categoryId, colors, sizes}: Props) => {
+
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
         color: filters[0].options,
@@ -124,13 +126,28 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
         }
     };
 
-    const {data: products, hasNextPage, isFetching, isLoading, fetchNextPage, isError, isFetchingNextPage, status,} = useInfiniteQuery({
-        queryKey: ['products',categoryId],
-        queryFn: ({pageParam=1, meta}) => {
-            return getProductList({queryKey: ['products'], page: pageParam, row:3,categoryId:categoryId, colors,productSizes });
+    const {
+        data: products,
+        hasNextPage,
+        isFetching,
+        isLoading,
+        fetchNextPage,
+        isError,
+        isFetchingNextPage,
+        status,
+    } = useInfiniteQuery({
+        queryKey: ['products', categoryId, colors, sizes],
+        queryFn: ({pageParam = 0, meta}) => {
+            return getProductList({
+                queryKey: ['products', categoryId, colors, sizes],
+                page: pageParam,
+                row: 3,
+                categoryId: categoryId,
+                colors: colors,
+                productSizes: sizes
+            });
         },
         getNextPageParam: (lastPage, allPages) => {
-
             return lastPage.data.current + 1;
         },
         initialPageParam: 1,
@@ -153,7 +170,7 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
         }
     });
 
-    const { data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
+    const {data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', categoryId],
         queryFn: getCategory,
         staleTime: 60 * 1000,
@@ -172,7 +189,7 @@ const ProductList = ({categoryId}: {categoryId:string}) => {
         const inViewFunc = async () => {
             await fetchNextPage();
         };
-        if(inView && hasNextPage)
+        if (inView && hasNextPage)
             inViewFunc();
 
     }, [inView]);

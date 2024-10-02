@@ -12,7 +12,7 @@ export const getCategory = async ({queryKey}: { queryKey: [string, string] }) =>
         // cache: 'no-store',
     });
 
-    console.log('res...', res);
+    // console.log('res...', res);
     return res;
 
 }

@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService{
     log.info("productSizes... " + productSizes);
 
 
-    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, productSizes);
+    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes);
 
 
     log.info("........result " + result);

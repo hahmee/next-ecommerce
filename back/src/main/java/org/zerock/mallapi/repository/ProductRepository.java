@@ -27,12 +27,14 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
   @Query("select p, pi from Product p left join p.imageList pi " +
           "left join p.sizeList ps " +
+          "left join p.colorList pc " +
           "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
           "and p.delFlag = false " +
           "and (:productSizes IS NULL or ps IN :productSizes) " +
+          "and (:colors IS NULL or pc.text IN :colors) " +
           "and p.adminCategory.cno IN :categoryIds " +
           "GROUP BY p.pno")
-  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("productSizes") List<String> productSizes);
+  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("colors") List<String> colors, @Param("productSizes") List<String> productSizes);
   // @Param("colors") List<String> colors,
 
 //  @Query("select p, pi from Product p left join p.imageList pi " +

@@ -1,8 +1,9 @@
+"use server";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 
 export const getProductList = async ({queryKey, page, row, categoryId, colors, productSizes}: {
-    queryKey: [string],
+    queryKey: [string, string, string[], string[]],
     page: number,
     row: number,
     categoryId: string,
@@ -33,6 +34,7 @@ export const getProductList = async ({queryKey, page, row, categoryId, colors, p
         }
     }
 
+    console.log('...........', params.toString());
     const res = await fetchWithAuth(`/api/products/list?${params.toString()}`, {
         method: "GET",
         credentials: 'include',
