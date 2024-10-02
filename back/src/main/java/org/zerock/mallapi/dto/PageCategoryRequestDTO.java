@@ -25,4 +25,8 @@ public class PageCategoryRequestDTO {
   private List<String> color;
 
   private List<String> productSize;
+
+  private Long minPrice;
+
+  private Long maxPrice;
 }

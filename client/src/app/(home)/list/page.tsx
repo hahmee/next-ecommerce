@@ -19,15 +19,21 @@ export default async function ListPage({searchParams}: Props) {
         ? searchParams.category_id[0]  // 배열인 경우 첫 번째 값을 사용
         : searchParams.category_id || ''; // undefined면 빈 문자열 처리
 
-
     const colors = Array.isArray(searchParams.color) ? searchParams.color : searchParams.color ? [searchParams.color] : [];
     const sizes = Array.isArray(searchParams.size) ? searchParams.size : searchParams.size ? [searchParams.size] : [];
 
+    const minPrice = Array.isArray(searchParams.minPrice)
+        ? searchParams.minPrice[0]  // 배열인 경우 첫 번째 값을 사용
+        : searchParams.minPrice || ''; // undefined면 빈 문자열 처리
+
+    const maxPrice = Array.isArray(searchParams.maxPrice)
+        ? searchParams.maxPrice[0]  // 배열인 경우 첫 번째 값을 사용
+        : searchParams.maxPrice || ''; // undefined면 빈 문자열 처리
 
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
-            queryKey: ['products', categoryId, colors, sizes],
-            queryFn: ({pageParam = 0}) => getProductList({queryKey: ['products', categoryId, colors, sizes], page: pageParam as number, row: 3 , categoryId: categoryId, colors, productSizes:sizes}),
+            queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice],
+            queryFn: ({pageParam = 0}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice], page: pageParam as number, row: 3 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice}),
             initialPageParam: 0,
             staleTime: 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },
@@ -47,7 +53,7 @@ export default async function ListPage({searchParams}: Props) {
     return (
         <Suspense fallback={<Loading/>}>
             <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions} prefetchOptions={prefetchOptions}>
-                <ProductList categoryId={categoryId} colors={colors} sizes={sizes} />
+                <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice} maxPrice={maxPrice}/>
             </PrefetchBoundary>
         </Suspense>
     )

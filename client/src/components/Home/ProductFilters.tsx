@@ -3,11 +3,15 @@ import {FilterOption, FilterSection} from "@/components/Home/ProductList";
 import {Category} from "@/interface/Category";
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
+import {Range} from "react-range";
+import PriceRange from "@/components/Home/PriceRange";
 
 type Props = {
     filters: FilterSection[];
 };
 
+const min = 0;
+const max = 100;
 const ProductFilters: React.FC<Props> = ({filters}: Props) => {
 
     const router = useRouter();
@@ -17,6 +21,7 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
         category: filters[1].options,
         size: filters[2].options,
     });
+    const [values, setValues] = useState([min, max]);
 
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
@@ -36,7 +41,6 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
     }, [searchParams, filters]);
 
     const toggleFilter = (sectionId: string, value?: string) => {
-        console.log('sectionId', sectionId, 'value', value);
         if (value) {
             const params = new URLSearchParams(searchParams.toString());
             // console.log('params', params);
@@ -53,47 +57,7 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                 params.append(sectionId, value);
             }
 
-            console.log('params...toString()...   ', params.toString()); //계속 변함
-
             // 새 쿼리스트링으로 URL 업데이트
-            router.push(`/list?${params.toString()}`);
-            // router
-        }
-    };
-
-    const toggleFilter2 = (sectionId: string, value?: string) => {
-        // if (value) {
-        //     setFilterStates((prev) => ({
-        //         ...prev,
-        //         [sectionId]: prev[sectionId].map(option =>
-        //             option.value === value ? {...option, checked: !option.checked} : option
-        //         ),
-        //     }));
-        // }
-
-        if (value) {
-            const params = new URLSearchParams(searchParams.toString());
-
-            // console.log('params....입니다....',params)
-            // Check if the filter is already in the query params
-            const currentFilters = params.get(sectionId)?.split(",") || [];
-
-            // console.log('currentFilters...', currentFilters);
-            if (currentFilters.includes(value)) {
-                // Remove the filter if it's already applied
-                const updatedFilters = currentFilters.filter((filter) => filter !== value);
-                if (updatedFilters.length > 0) {
-                    params.set(sectionId, updatedFilters.join(","));
-                } else {
-                    params.delete(sectionId);
-                }
-            } else {
-                // Add the filter if it's not applied
-                currentFilters.push(value);
-                params.set(sectionId, currentFilters.join(","));
-            }
-
-            // Update the URL with the new query string
             router.push(`/list?${params.toString()}`);
         }
     };
@@ -136,6 +100,26 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
         ));
     };
 
+    const onChangePrice =(values:number[]) => {
+        console.log('values', values);
+        setValues(values);
+
+    }
+
+    const onClickPrice = () =>{
+        const params = new URLSearchParams(searchParams.toString());
+
+        // 기존 maxPrice, minPrice 필터 삭제
+        params.delete("maxPrice");
+        params.delete("minPrice");
+
+        // 새로운 maxPrice, minPrice 추가
+        params.append("minPrice", values[0].toString());  // 최소값
+        params.append("maxPrice", values[1].toString());  // 최대값
+
+        router.push(`/list?${params.toString()}`);
+    }
+
     return (
         <>
             {filters.map((section) => (
@@ -148,7 +132,6 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                             <div key={index} className="flex items-center">
                                 <input
                                     checked={filterStates[section.id].find(o => o.value === option.value)?.checked || false}
-                                    // checked={filterStates[section.id].find(o => o.value === option.value)?.checked}
                                     id={`filter-${section.id}-${option.value}`}
                                     name={`${section.id}[]`}
                                     type="checkbox"
@@ -166,6 +149,16 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                     </div>
                 </div>
             ))}
+            {/*Price range*/}
+            <div className="border-b border-gray-200 py-6">
+                <h3 className="flex justify-between">
+                    <span className="font-medium text-gray-900">Price range</span>
+                </h3>
+                <div className="space-y-4 pt-6">
+                    <PriceRange min={0} max={100} onChange={onChangePrice}/>
+                    <button type="button" className="w-full bg-blue-600 text-white py-1.5 rounded-md mt-6 hover:bg-blue-700" onClick={onClickPrice}>검색</button>
+                </div>
+            </div>
         </>
     );
 

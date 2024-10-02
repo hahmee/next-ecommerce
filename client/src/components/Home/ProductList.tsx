@@ -21,10 +21,6 @@ export type SortOption = {
     current: boolean;
 };
 
-export type SubCategory = {
-    name: string;
-    href: string;
-};
 
 export type FilterOption = {
     value: string;
@@ -35,7 +31,7 @@ export type FilterOption = {
 export type FilterSection = {
     id: string;
     name: string;
-    options: FilterOption[];
+    options: FilterOption[] ;
 };
 
 const sortOptions: SortOption[] = [
@@ -44,14 +40,6 @@ const sortOptions: SortOption[] = [
     {name: 'Newest', href: '#', current: false},
     {name: 'Price: Low to High', href: '#', current: false},
     {name: 'Price: High to Low', href: '#', current: false},
-];
-
-const subCategories: SubCategory[] = [
-    {name: 'Totes', href: '#'},
-    {name: 'Backpacks', href: '#'},
-    {name: 'Travel Bags', href: '#'},
-    {name: 'Hip Bags', href: '#'},
-    {name: 'Laptop Sleeves', href: '#'},
 ];
 
 const filters: FilterSection[] = [
@@ -93,18 +81,19 @@ const filters: FilterSection[] = [
             {value: 'accessories', label: 'Accessories', checked: false},
         ],
     },
-
 ];
 
 // export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
 interface Props {
-    categoryId: string,
+    categoryId: string;
     colors: string[];
     sizes: string[];
+    minPrice: string;
+    maxPrice: string;
 }
 
-const ProductList = ({categoryId, colors, sizes}: Props) => {
+const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => {
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -139,12 +128,14 @@ const ProductList = ({categoryId, colors, sizes}: Props) => {
         queryKey: ['products', categoryId, colors, sizes],
         queryFn: ({pageParam = 0, meta}) => {
             return getProductList({
-                queryKey: ['products', categoryId, colors, sizes],
+                queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice],
                 page: pageParam,
                 row: 3,
                 categoryId: categoryId,
                 colors: colors,
-                productSizes: sizes
+                productSizes: sizes,
+                minPrice,
+                maxPrice
             });
         },
         getNextPageParam: (lastPage, allPages) => {

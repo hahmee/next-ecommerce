@@ -57,12 +57,14 @@ public class ProductServiceImpl implements ProductService{
     // color와 productSize 필터링 처리
     List<String> colors = pageCategoryRequestDTO.getColor();
     List<String> productSizes = pageCategoryRequestDTO.getProductSize();
+    Long minPrice = pageCategoryRequestDTO.getMinPrice();
+    Long maxPrice = pageCategoryRequestDTO.getMaxPrice();
 
     log.info("colors... " + colors);
     log.info("productSizes... " + productSizes);
 
 
-    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes);
+    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice);
 
 
     log.info("........result " + result);

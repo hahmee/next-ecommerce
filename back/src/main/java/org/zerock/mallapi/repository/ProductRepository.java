@@ -33,8 +33,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "and (:productSizes IS NULL or ps IN :productSizes) " +
           "and (:colors IS NULL or pc.text IN :colors) " +
           "and p.adminCategory.cno IN :categoryIds " +
+          "and (:minPrice IS NULL OR :maxPrice IS NULL OR p.price BETWEEN :minPrice AND :maxPrice) " + // 가격 필터 추가
           "GROUP BY p.pno")
-  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("colors") List<String> colors, @Param("productSizes") List<String> productSizes);
+  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("colors") List<String> colors, @Param("productSizes") List<String> productSizes, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice);
 
 //  @Query("select p, pi from Product p left join p.imageList pi " +
 //          "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
