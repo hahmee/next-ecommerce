@@ -92,9 +92,11 @@ interface Props {
     sizes: string[];
     minPrice: string;
     maxPrice: string;
+    order: string;
+    query: string;
 }
 
-const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => {
+const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, query}: Props) => {
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -127,17 +129,19 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => 
         isFetchingNextPage,
         status,
     } = useInfiniteQuery({
-        queryKey: ['products', categoryId, colors, sizes],
+        queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
         queryFn: ({pageParam = 0, meta}) => {
             return getProductList({
-                queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice],
+                queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,
                 row: 3,
                 categoryId: categoryId,
                 colors: colors,
                 productSizes: sizes,
                 minPrice,
-                maxPrice
+                maxPrice,
+                order,
+                query,
             });
         },
         getNextPageParam: (lastPage, allPages) => {
@@ -323,7 +327,8 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => 
                                 {/* Orders */}
                                 <ProductOrders/>
 
-                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+                                <div
+                                    className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
                                     {products?.pages.map((page, index) => (
                                         <Fragment key={index}>
                                             {page?.data?.dtoList.map((product: Product) => (

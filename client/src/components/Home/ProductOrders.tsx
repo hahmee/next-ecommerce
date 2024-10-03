@@ -46,6 +46,8 @@ const ProductOrders = () => {
         if(paramOrder) {
             const newOrder = orders.find(order => order.id === paramOrder);
             setOrderValue(newOrder);
+        }else{
+            setOrderValue(orders[0]);
         }
 
     }, [searchParams]);
@@ -66,7 +68,7 @@ const ProductOrders = () => {
 
     return <div className="w-full flex justify-end">
         <div className="relative">
-            <div onClick={() => setSortOpen((open) => !open)} className="flex cursor-pointer justify-around w-36 text-sm rounded-3xl ring-1 border-gray-500 text-gray-500 py-2 px-4 text-center">
+            <div onClick={() => setSortOpen((open) => !open)} className="flex cursor-pointer justify-between w-36 text-sm rounded-3xl ring-1 border-gray-500 text-gray-500 py-2 px-4 text-center">
                 <span>{orderValue?.name}</span>
                 <ChevronDownIcon className="h-5 w-5"/>
             </div>

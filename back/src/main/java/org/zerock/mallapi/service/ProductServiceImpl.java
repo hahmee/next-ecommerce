@@ -35,10 +35,42 @@ public class ProductServiceImpl implements ProductService{
 
     log.info("getList.............." + pageCategoryRequestDTO);
 
+
+    // 정렬 순서를 동적으로 결정
+    Sort sort = Sort.by("pno").descending();  // 기본 정렬은 pno로 내림차순
+
+    if (pageCategoryRequestDTO.getOrder() != null) {
+      switch (pageCategoryRequestDTO.getOrder()) {
+        case "high-price":
+          sort = Sort.by("price").descending();  // 가격 높은 순
+          break;
+        case "low-price":
+          sort = Sort.by("price").ascending();   // 가격 낮은 순
+          break;
+        case "newest":
+          sort = Sort.by("createdAt").descending();  // 최신 순
+          break;
+        case "sales":
+//          sort = Sort.by("createdAt").descending();  // 판매 순
+          break;
+        case "popular":
+//          sort = Sort.by("createdAt").descending();  // 인기 순
+          break;
+        case "review":
+//          sort = Sort.by("createdAt").descending();  // 리뷰 순
+          break;
+        default:
+          // 기본은 pno로 내림차순
+          break;
+      }
+    }
+
     Pageable pageable = PageRequest.of(
             pageCategoryRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
             pageCategoryRequestDTO.getSize(),
-      Sort.by("pno").descending());
+            sort
+//      Sort.by("pno").descending()
+    );
 
     //categoryId의 본인을 포함한, 하위 카테고리를 모두 찾아서 select의 where문에 포함시켜야한다.
 
@@ -59,12 +91,13 @@ public class ProductServiceImpl implements ProductService{
     List<String> productSizes = pageCategoryRequestDTO.getProductSize();
     Long minPrice = pageCategoryRequestDTO.getMinPrice();
     Long maxPrice = pageCategoryRequestDTO.getMaxPrice();
+    String query = pageCategoryRequestDTO.getQuery();
 
     log.info("colors... " + colors);
     log.info("productSizes... " + productSizes);
 
 
-    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice);
+    Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice,query);
 
 
     log.info("........result " + result);

@@ -2,8 +2,8 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 
-export const getProductList = async ({queryKey, page, row, categoryId, colors, productSizes, minPrice, maxPrice}: {
-    queryKey: [string, string, string[], string[], string, string],
+export const getProductList = async ({queryKey, page, row, categoryId, colors, productSizes, minPrice, maxPrice,order,query}: {
+    queryKey: [string, string, string[], string[], string, string, string,string],
     page: number,
     row: number,
     categoryId: string,
@@ -11,6 +11,8 @@ export const getProductList = async ({queryKey, page, row, categoryId, colors, p
     productSizes: string | string[] | undefined;
     minPrice: string;
     maxPrice: string;
+    order: string;
+    query: string;
 }) => {
 
 
@@ -21,6 +23,8 @@ export const getProductList = async ({queryKey, page, row, categoryId, colors, p
     params.append("categoryId", categoryId);
     params.append("minPrice", minPrice.toString());
     params.append("maxPrice", maxPrice.toString());
+    params.append("order", order);
+    params.append("query", query);
 
     // Add each color to the query string
     if (colors) {

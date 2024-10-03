@@ -29,4 +29,8 @@ public class PageCategoryRequestDTO {
   private Long minPrice;
 
   private Long maxPrice;
+
+  private String order;
+
+  private String query;
 }

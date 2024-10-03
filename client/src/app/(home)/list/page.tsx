@@ -30,10 +30,18 @@ export default async function ListPage({searchParams}: Props) {
         ? searchParams.maxPrice[0]  // 배열인 경우 첫 번째 값을 사용
         : searchParams.maxPrice || ''; // undefined면 빈 문자열 처리
 
+    const order = Array.isArray(searchParams.order)
+        ? searchParams.order[0]  // 배열인 경우 첫 번째 값을 사용
+        : searchParams.order || ''; // undefined면 빈 문자열 처리
+
+    const query = Array.isArray(searchParams.query)
+        ? searchParams.query[0]  // 배열인 경우 첫 번째 값을 사용
+        : searchParams.query || ''; // undefined면 빈 문자열 처리
+
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
-            queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice],
-            queryFn: ({pageParam = 0}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice], page: pageParam as number, row: 3 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice}),
+            queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order,query],
+            queryFn: ({pageParam = 0}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 3 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
             initialPageParam: 0,
             staleTime: 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },
@@ -53,7 +61,7 @@ export default async function ListPage({searchParams}: Props) {
     return (
         <Suspense fallback={<Loading/>}>
             <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions} prefetchOptions={prefetchOptions}>
-                <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice} maxPrice={maxPrice}/>
+                <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice} maxPrice={maxPrice} order={order} query={query}/>
             </PrefetchBoundary>
         </Suspense>
     )
