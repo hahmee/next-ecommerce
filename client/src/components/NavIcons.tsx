@@ -10,7 +10,6 @@ import {useCartStore} from "@/store/cartStore";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     const queryClient = useQueryClient();
-    // const [isCartOpen, setIsCartOpen] = useState(false);
     const { cart, counter, getCart, changeOpen, open } = useCartStore();
 
     const onLogout = async () => {
@@ -70,7 +69,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
                     {counter}
                 </div>
             </div>
-            {open && <CartModal />}
+            {open && <CartModal/>}
         </div>
     );
 };

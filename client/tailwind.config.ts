@@ -270,6 +270,14 @@ const config: Config = {
         5: "0px 1px 5px rgba(0, 0, 0, 0.2)",
       },
       keyframes: {
+        fadeInUp: {
+          '0%': { transform:" translate3d(0,4px,0)" },
+          '100%': { transform: "translate3d(0,0,0)", opacity: "1" },
+        },
+        fadeOutDown: {
+          '0%': { transform:" translate3d(0,0,0)" },
+          '100%': { transform: "translate3d(0,-4px,0)", opacity: "0" },
+        },
         linspin: {
           "100%": { transform: "rotate(360deg)" },
         },
@@ -315,6 +323,8 @@ const config: Config = {
         },
       },
       animation: {
+        fadeInUp: 'fadeInUp .15s ease-in-out',
+        fadeOutDown: 'fadeOutDown 2s ease-in-out',
         linspin: "linspin 1568.2353ms linear infinite",
         easespin: "easespin 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both",
         "left-spin":
