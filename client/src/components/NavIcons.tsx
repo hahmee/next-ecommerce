@@ -41,8 +41,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
                 className="cursor-pointer"
             />
 
-            <div
-                className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
+            <div className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
                 <Link href="/profile">Profile</Link>
                 <div className="mt-2 cursor-pointer">
                     <button onClick={onLogout}>로그아웃</button>

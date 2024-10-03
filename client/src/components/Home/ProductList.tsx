@@ -14,6 +14,7 @@ import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
 import ProductCategories from "@/components/Home/ProductCategories";
 import {Size} from "@/types/size";
+import ProductOrders from "@/components/Home/ProductOrders";
 
 export type SortOption = {
     name: string;
@@ -101,6 +102,7 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => 
         category: filters[1].options,
         size: filters[2].options,
     });
+
 
     const toggleFilter = (sectionId: string, value?: string) => {
         if (value) {
@@ -318,8 +320,10 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice}: Props) => 
                             </form>
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
-                                <div
-                                    className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+                                {/* Orders */}
+                                <ProductOrders/>
+
+                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
                                     {products?.pages.map((page, index) => (
                                         <Fragment key={index}>
                                             {page?.data?.dtoList.map((product: Product) => (

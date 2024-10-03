@@ -3,7 +3,6 @@ import {FilterOption, FilterSection} from "@/components/Home/ProductList";
 import {Category} from "@/interface/Category";
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
-import {Range} from "react-range";
 import PriceRange from "@/components/Home/PriceRange";
 
 type Props = {

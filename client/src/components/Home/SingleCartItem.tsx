@@ -2,7 +2,9 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {CartItemList} from "@/interface/CartItemList";
 import Image from "next/image";
-import {MinusIcon, PlusIcon, TrashIcon} from "@heroicons/react/20/solid";
+import {MinusIcon, PlusIcon, } from "@heroicons/react/20/solid";
+import {TrashIcon} from "@heroicons/react/24/outline";
+
 import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
 import {ColorTag} from "@/interface/ColorTag";
@@ -82,16 +84,17 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList}) => {
                 </div>
             </div>
             <div className="flex items-center space-x-8">
-                <div className="flex items-center border border-gray-300 rounded-md">
-                    <button className="p-2 hover:bg-gray-200" onClick={() => handleQuantity("d")}
-                            disabled={quantity === 1}>
+
+                <div className="flex items-center">
+                    <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200" onClick={() => handleQuantity("d")} disabled={quantity === 1}>
                         <MinusIcon className="w-4 h-4 text-gray-600"/>
                     </button>
                     <span className="px-4 py-2">{quantity}</span>
-                    <button className="p-2 hover:bg-gray-200" onClick={() => handleQuantity("i")}>
+                    <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200" onClick={() => handleQuantity("i")}>
                         <PlusIcon className="w-4 h-4 text-gray-600"/>
                     </button>
                 </div>
+
                 <div>
                     <p className="text-lg font-semibold text-green-600">{cartItem.price}</p>
                 </div>
