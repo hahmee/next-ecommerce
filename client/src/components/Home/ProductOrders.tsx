@@ -77,8 +77,8 @@ const ProductOrders = () => {
                         {
                             orders.map((order) =>
                                 <div key={order.id} className="flex items-center my-2">
-                                    <input id="radio-1" defaultChecked={order === orderValue} type="radio" value={order.id} name="default-radio" className="w-5.5 h-5.5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2" onChange={()=>onChange(order)}/>
-                                    <label htmlFor="radio-1" className="ms-2 text-base font-medium text-gray-900 dark:text-gray-300">{order.name}</label>
+                                    <input id={order.id} defaultChecked={order === orderValue} type="radio" value={order.id} name="order-radio" className="w-5.5 h-5.5 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2" onChange={()=>onChange(order)}/>
+                                    <label htmlFor={order.id} className="ms-2 text-base font-medium text-gray-900 dark:text-gray-300" >{order.name}</label>
                                 </div>
                             )
                         }

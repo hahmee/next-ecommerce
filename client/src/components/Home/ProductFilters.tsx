@@ -99,9 +99,7 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
     };
 
     const onChangePrice =(values:number[]) => {
-        console.log('values', values);
         setValues(values);
-
     }
 
     const onClickPrice = () =>{

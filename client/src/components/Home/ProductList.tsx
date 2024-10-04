@@ -130,7 +130,7 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, quer
         status,
     } = useInfiniteQuery({
         queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
-        queryFn: ({pageParam = 0, meta}) => {
+        queryFn: ({pageParam , meta}) => {
             return getProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,

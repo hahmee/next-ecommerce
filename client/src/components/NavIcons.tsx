@@ -9,8 +9,8 @@ import CartModal from "@/components/Home/CartModal";
 import {useCartStore} from "@/store/cartStore";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
-    const queryClient = useQueryClient();
     const { cart, counter, getCart, changeOpen, open } = useCartStore();
+    const [accountOpen, setAccountOpen] = useState(false);
 
     const onLogout = async () => {
 
@@ -25,6 +25,11 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
         await logout();
     };
 
+    const closeModal = () => {
+        console.log('closeModal..')
+        changeOpen(false);
+    };
+
     useEffect(() => {
         getCart();
 
@@ -32,24 +37,34 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
 
 
     return (
-        <div className="flex items-center gap-4 xl:gap-6 relative">
+        <div className="flex items-center gap-4 xl:gap-6 relative bg-amber-200">
+            {/*모달 바깥 클릭 */}
+            <div className={`fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`} onClick={()=>setAccountOpen(false)}></div>
             <Image
                 src="/profile.png"
-                alt=""
+                alt="profile"
                 width={22}
                 height={22}
                 className="cursor-pointer"
+                onClick={() => setAccountOpen((prev) => !prev)}
             />
+            {
+                accountOpen && (
+                    <div className="absolute animate-fadeInUp p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20"
+                         onClick={(e) => e.stopPropagation()}>
+                        <div className="relative" >
+                            <Link href="/profile">Profile</Link>
+                            <div className="mt-2 cursor-pointer">
+                                <button onClick={onLogout}>로그아웃</button>
+                            </div>
+                            <div className="mt-2 cursor-pointer">
+                                <Link href="/admin">어드민</Link>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
 
-            <div className="absolute p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
-                <Link href="/profile">Profile</Link>
-                <div className="mt-2 cursor-pointer">
-                    <button onClick={onLogout}>로그아웃</button>
-                </div>
-                <div className="mt-2 cursor-pointer">
-                    <Link href="/admin">어드민</Link>
-                </div>
-            </div>
 
             <Image
                 src="/notification.png"
@@ -68,7 +83,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
                     {counter}
                 </div>
             </div>
-            {open && <CartModal/>}
+            <CartModal/>
         </div>
     );
 };

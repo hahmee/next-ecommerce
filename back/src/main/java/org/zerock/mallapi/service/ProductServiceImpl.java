@@ -96,8 +96,12 @@ public class ProductServiceImpl implements ProductService{
     log.info("colors... " + colors);
     log.info("productSizes... " + productSizes);
 
+//    Optional<Page<Object[]>> resultOptional = Optional.ofNullable(productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes, minPrice, maxPrice, query));
+//
+//    Page<Object[]> result = resultOptional.orElseThrow();
 
     Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice,query);
+    log.info("--------------pageable      " + pageable);
 
 
     log.info("........result " + result);

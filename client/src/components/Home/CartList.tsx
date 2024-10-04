@@ -10,7 +10,7 @@ const CartList = () => {
     }
     return (
         cart.map((cartItem) => (
-            <SingleCartItem cartItem={cartItem} key={cartItem.pno}/>
+            <SingleCartItem cartItem={cartItem} key={cartItem.cino}/>
         ))
     )
 }

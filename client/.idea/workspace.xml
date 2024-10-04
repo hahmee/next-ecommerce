@@ -5,17 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/search/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PageCategoryRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PageCategoryRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/_lib/getProductList.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/AdminModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/AdminModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductFilters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductFilters.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/ProductOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductOrders.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +226,8 @@
       <workItem from="1727859479465" duration="8600000" />
       <workItem from="1727883729672" duration="3723000" />
       <workItem from="1727918904687" duration="9404000" />
-      <workItem from="1727934826062" duration="10831000" />
+      <workItem from="1727934826062" duration="17566000" />
+      <workItem from="1728014115997" duration="13447000" />
     </task>
     <servers />
   </component>

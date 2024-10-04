@@ -29,7 +29,7 @@ const AdminModal = ({children, modalTitle}: { children: React.ReactNode, modalTi
                             <span className="sr-only">Close modal</span>
                         </button>
                     </div>
-                 {children}
+                    {children}
                 </div>
             </div>
         </div>

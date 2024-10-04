@@ -33,6 +33,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "and (:productSizes IS NULL or ps IN :productSizes) " +
           "and (:colors IS NULL or pc.text IN :colors) " +
           "and p.adminCategory.cno IN :categoryIds " +
+//          "and (:categoryIds IS NULL or size(:categoryIds) = 0 or p.adminCategory.cno IN :categoryIds) " + // categoryIds가 null이거나 비어 있을 때 처리
           "and (:query IS NULL OR p.pname LIKE %:query% OR p.pdesc LIKE %:query%) " + // 검색어 필터 추가
           "and (:minPrice IS NULL OR :maxPrice IS NULL OR p.price BETWEEN :minPrice AND :maxPrice) " + // 가격 필터 추가
           "GROUP BY p.pno")

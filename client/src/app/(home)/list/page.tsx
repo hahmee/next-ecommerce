@@ -41,8 +41,8 @@ export default async function ListPage({searchParams}: Props) {
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
             queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order,query],
-            queryFn: ({pageParam = 0}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 3 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
-            initialPageParam: 0,
+            queryFn: ({pageParam}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 3 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
+            initialPageParam: 1,
             staleTime: 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },
     ];
