@@ -25,10 +25,6 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
         await logout();
     };
 
-    const closeModal = () => {
-        console.log('closeModal..')
-        changeOpen(false);
-    };
 
     useEffect(() => {
         getCart();
@@ -37,7 +33,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
 
 
     return (
-        <div className="flex items-center gap-4 xl:gap-6 relative bg-amber-200">
+        <div className="flex items-center gap-4 xl:gap-6 relative">
             {/*모달 바깥 클릭 */}
             <div className={`fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`} onClick={()=>setAccountOpen(false)}></div>
             <Image

@@ -3,7 +3,7 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 
 export const getProductList = async ({queryKey, page, row, categoryId, colors, productSizes, minPrice, maxPrice,order,query}: {
-    queryKey: [string, string, string[], string[], string, string, string,string],
+    queryKey: [string, string, string[], string[], string, string, string, string],
     page: number,
     row: number,
     categoryId: string,

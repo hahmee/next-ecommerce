@@ -21,7 +21,7 @@ const AddCart = ({
     const [quantity, setQuantity] = useState(1);
     const {cart, changeCart, isLoading, changeOpen} = useCartStore();
     const memberInfo = getCookie('member');
-    const member = JSON.parse(memberInfo as string);
+    const member = JSON.parse(memberInfo ? memberInfo : "");
 
     const handleQuantity = (type: "i" | "d") => {
         if (type === "d") {

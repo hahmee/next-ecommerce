@@ -15,6 +15,7 @@ import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.ProductRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -72,17 +73,24 @@ public class ProductServiceImpl implements ProductService{
 //      Sort.by("pno").descending()
     );
 
-    //categoryId의 본인을 포함한, 하위 카테고리를 모두 찾아서 select의 where문에 포함시켜야한다.
 
-    AdminCategory adminCategory = AdminCategory.builder().cno(pageCategoryRequestDTO.getCategoryId()).build();
+    List<Long> categoryClosureAncestorIds = null;
 
-    List<CategoryClosure> categoryClosures = categoryClosureRepository.findDescendantsAndMe(adminCategory);
+    //getCategoryId가 없을때 ex search 검색
+    if(pageCategoryRequestDTO.getCategoryId() !=null) {
 
-    log.info("categoryClosures..." + categoryClosures);
+      AdminCategory adminCategory = AdminCategory.builder().cno(pageCategoryRequestDTO.getCategoryId()).build();
+      log.info("adminCategory..///....." + adminCategory);
+      List<CategoryClosure> categoryClosures = categoryClosureRepository.findDescendantsAndMe(adminCategory);
 
-    List<Long> categoryClosureAncestorIds = categoryClosures.stream()
-            .map(categoryClosure -> categoryClosure.getId().getDescendant().getCno())  // ancestor의 id(Cno) 추출
-            .collect(Collectors.toList());  // 리스트로 수집
+      log.info("categoryClosures..." + categoryClosures);
+
+
+      categoryClosureAncestorIds = categoryClosures.stream()
+              .map(categoryClosure -> categoryClosure.getId().getDescendant().getCno())  // ancestor의 id(Cno) 추출
+              .collect(Collectors.toList());  // 리스트로 수집
+
+    }
 
     log.info("categoryClosureIds: " + categoryClosureAncestorIds);
 
@@ -93,12 +101,14 @@ public class ProductServiceImpl implements ProductService{
     Long maxPrice = pageCategoryRequestDTO.getMaxPrice();
     String query = pageCategoryRequestDTO.getQuery();
 
-    log.info("colors... " + colors);
+    log.info("query... " + query);
     log.info("productSizes... " + productSizes);
 
 //    Optional<Page<Object[]>> resultOptional = Optional.ofNullable(productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes, minPrice, maxPrice, query));
 //
 //    Page<Object[]> result = resultOptional.orElseThrow();
+
+
 
     Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice,query);
     log.info("--------------pageable      " + pageable);

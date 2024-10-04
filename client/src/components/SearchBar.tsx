@@ -9,6 +9,8 @@ const SearchBar = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
+  const queryValue = searchParams.get("query");
+
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault(); // 기본 폼 제출 동작 방지
@@ -27,6 +29,7 @@ const SearchBar = () => {
         type="text"
         name="name"
         placeholder="Search"
+        defaultValue={queryValue || ""}
         className="flex-1 bg-transparent outline-none"
         onChange={(e) => setSearchQuery(e.target.value)} // 입력값 업데이트
       />

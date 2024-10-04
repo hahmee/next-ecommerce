@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     // const [isAddedToCart, setIsAddedToCart] = useState(false); // 아이콘 상태 관리
     const [color, setColor] = useState<ColorTag>(product.colorList[0]);
     const memberInfo = getCookie('member');
-    const member = JSON.parse(memberInfo as string);
+    const member = JSON.parse(memberInfo ? memberInfo : "");
 
     const handleClickAddCart = (pno:number,options: { color: ColorTag, size: string; }) => {
         changeOpen(true);

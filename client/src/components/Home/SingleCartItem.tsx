@@ -15,7 +15,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
     const [quantity, setQuantity] = useState(cartItem.qty);
     const memberInfo = getCookie('member');
-    const member = JSON.parse(memberInfo ? memberInfo : "");
+    const member = JSON.parse(memberInfo ? memberInfo : "") ;
     const { cart, counter, getCart, changeCart, open, removeItem } = useCartStore();
 
     // 수량이 변경될 때마다 장바구니 변경을 처리

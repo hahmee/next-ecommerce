@@ -15,6 +15,7 @@ import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/
 import ProductCategories from "@/components/Home/ProductCategories";
 import {Size} from "@/types/size";
 import ProductOrders from "@/components/Home/ProductOrders";
+import {useSearchParams} from "next/navigation";
 
 export type SortOption = {
     name: string;
@@ -87,7 +88,7 @@ const filters: FilterSection[] = [
 // export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
 interface Props {
-    categoryId: string;
+    categoryId?: string;
     colors: string[];
     sizes: string[];
     minPrice: string;
@@ -96,7 +97,9 @@ interface Props {
     query: string;
 }
 
-const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, query}: Props) => {
+const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order, query}: Props) => {
+    const searchParams = useSearchParams();
+    const searchValue = searchParams.get("query");
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -104,8 +107,6 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, quer
         category: filters[1].options,
         size: filters[2].options,
     });
-
-
     const toggleFilter = (sectionId: string, value?: string) => {
         if (value) {
             setFilterStates((prev) => ({
@@ -118,7 +119,6 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, quer
             setMobileFiltersOpen(!mobileFiltersOpen);
         }
     };
-
     const {
         data: products,
         hasNextPage,
@@ -130,7 +130,7 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, quer
         status,
     } = useInfiniteQuery({
         queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
-        queryFn: ({pageParam , meta}) => {
+        queryFn: ({pageParam, meta}) => {
             return getProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,
@@ -175,9 +175,7 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, quer
         select: useCallback((data: DataResponse<Category>) => {
             return data.data;
         }, []),
-
     });
-
 
     const {ref, inView} = useInView();
 
@@ -287,14 +285,27 @@ const ProductList = ({categoryId, colors, sizes, minPrice, maxPrice, order, quer
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-                        <div>
-                            <h1 className="text-4xl font-bold tracking-tight text-slate-900">
-                                {category?.cname}
-                            </h1>
-                            <p className="text-sm md:text-base text-slate-500 my-3.5">
-                                {category?.cdesc}
-                            </p>
-                        </div>
+                        {
+                            searchValue ?
+                                <div>
+                                    <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+                                        검색결과
+                                    </h1>
+                                    <p className="text-sm md:text-base text-slate-500 my-3.5">
+                                        {query}
+                                    </p>
+                                </div>
+                                :
+                                <div>
+                                    <h1 className="text-4xl font-bold tracking-tight text-slate-900">
+                                        {category?.cname}
+                                    </h1>
+                                    <p className="text-sm md:text-base text-slate-500 my-3.5">
+                                        {category?.cdesc}
+                                    </p>
+                                </div>
+                        }
+
                         <div className="flex items-center">
                             <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
                                 <span className="sr-only">View grid</span>

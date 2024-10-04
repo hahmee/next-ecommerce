@@ -28,13 +28,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("select p, pi from Product p left join p.imageList pi " +
           "left join p.sizeList ps " +
           "left join p.colorList pc " +
-          "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
+          "where (NULLIF(pi.ord, ' ') IS NULL OR pi.ord = 0) " +
           "and p.delFlag = false " +
-          "and (:productSizes IS NULL or ps IN :productSizes) " +
-          "and (:colors IS NULL or pc.text IN :colors) " +
-          "and p.adminCategory.cno IN :categoryIds " +
-//          "and (:categoryIds IS NULL or size(:categoryIds) = 0 or p.adminCategory.cno IN :categoryIds) " + // categoryIds가 null이거나 비어 있을 때 처리
-          "and (:query IS NULL OR p.pname LIKE %:query% OR p.pdesc LIKE %:query%) " + // 검색어 필터 추가
+          "and (:productSizes IS NULL OR ps IN :productSizes) " +
+          "and (:colors IS NULL OR pc.text IN :colors) " +
+          "and (:query IS NULL OR p.pname LIKE %:query% or p.pdesc LIKE %:query%) " + // 검색어 필터 추가
+          "and (:categoryIds IS NULL OR p.adminCategory.cno IN :categoryIds) " + // categoryIds가 null이거나 비어 있을 때 처리
           "and (:minPrice IS NULL OR :maxPrice IS NULL OR p.price BETWEEN :minPrice AND :maxPrice) " + // 가격 필터 추가
           "GROUP BY p.pno")
   Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("colors") List<String> colors, @Param("productSizes") List<String> productSizes, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice, @Param("query") String query);
