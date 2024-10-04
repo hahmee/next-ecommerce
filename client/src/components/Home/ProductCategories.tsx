@@ -24,13 +24,22 @@ const ProductCategories: React.FC<Props> = ({categories}: Props) => {
         );
     };
 
+    const onClickCategory = (categoryId:number) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.delete("category_id");
+        params.append("category_id", categoryId.toString());
+
+        router.push(`/list?${params.toString()}`);
+    };
+
+
     // 재귀적으로 하위 카테고리를 렌더링하는 함수
     const renderCategoryRows = (categories: Category[], depth: number = 0) => {
         return categories.map((category) => (
             <Fragment key={category.cno}>
                 <li className="flex items-center cursor-pointer justify-between"
                     style={{paddingLeft: `${depth * 20}px`}}
-                    onClick={() => router.push(`/list?category_id=${category.cno}`)}>
+                    onClick={()=>onClickCategory(category.cno)}>
                     <div className={category.cno.toString() === categoryId ? "text-ecom font-bold" : ""}>{category.cname}</div>
                     {category.subCategories && (
                         <div onClick={(e) => {

@@ -15,13 +15,11 @@ const SearchBar = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault(); // 기본 폼 제출 동작 방지
     console.log('searchQuery', searchQuery);
-    // if (searchQuery.trim()) {      // 검색어가 있을 때만 검색 페이지로 이동
+    if (searchQuery.trim()) {      // 검색어가 있을 때만 검색 페이지로 이동
       params.delete("query");
-      params.append("query", searchQuery);
+      params.append("query", searchQuery.trim());
       router.push(`/list?${params.toString()}`);
-    // }else{
-    //   params.delete("query");
-    // }
+    }
   };
   return (
     <form className="flex items-center justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1" onSubmit={handleSubmit}>

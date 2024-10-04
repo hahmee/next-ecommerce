@@ -16,6 +16,7 @@ import ProductCategories from "@/components/Home/ProductCategories";
 import {Size} from "@/types/size";
 import ProductOrders from "@/components/Home/ProductOrders";
 import {useSearchParams} from "next/navigation";
+import FiltersBadge from "@/components/Home/FiltersBadge";
 
 export type SortOption = {
     name: string;
@@ -43,16 +44,6 @@ const sortOptions: SortOption[] = [
     {name: 'Newest', href: '#', current: false},
     {name: 'Price: Low to High', href: '#', current: false},
     {name: 'Price: High to Low', href: '#', current: false},
-];
-
-export const colorFilter = [
-    {value: 'white', label: 'White', hexCode: '#FFFFFF', checked: false},
-    {value: 'red', label: 'Red', hexCode: '#FF6961', checked: false},
-    {value: 'beige', label: 'Beige', hexCode: '#F5F5DC', checked: false},
-    {value: 'blue', label: 'Blue', hexCode: '#AEC6CF', checked: false},
-    {value: 'brown', label: 'Brown', hexCode: '#cebaa0', checked: false},
-    {value: 'green', label: 'Green', hexCode: '#77DD77', checked: false},
-    {value: 'purple', label: 'Purple', hexCode: '#C3B1E1', checked: false},
 ];
 
 const filters: FilterSection[] = [
@@ -96,7 +87,6 @@ const filters: FilterSection[] = [
     },
 ];
 
-// export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
 
 interface Props {
     categoryId?: string;
@@ -342,12 +332,17 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                             {/* Filters */}
                             <form className="hidden lg:block">
                                 <ProductCategories categories={categories || []}/>
-                                <ProductFilters filters={filters} colorFilter={colorFilter}/>
+                                <ProductFilters filters={filters}/>
                             </form>
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
-                                {/* Orders */}
-                                <ProductOrders/>
+                                {/*Badges*/}
+                                <div className="w-full flex justify-between">
+                                    <div className="flex flex-wrap"><FiltersBadge filters={filters}/></div>
+
+                                    {/* Orders */}
+                                    <ProductOrders/>
+                                </div>
 
                                 <div
                                     className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">

@@ -7,11 +7,10 @@ import PriceRange from "@/components/Home/PriceRange";
 
 type Props = {
     filters: FilterSection[];
-    colorFilter: any;
 };
 
 
-const ProductFilters: React.FC<Props> = ({filters, colorFilter}: Props) => {
+const ProductFilters: React.FC<Props> = ({filters}: Props) => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -20,6 +19,7 @@ const ProductFilters: React.FC<Props> = ({filters, colorFilter}: Props) => {
         size: filters[1].options,
         color: filters[2].options,
     });
+
     const [values, setValues] = useState([0, 200]);
 
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
@@ -36,12 +36,12 @@ const ProductFilters: React.FC<Props> = ({filters, colorFilter}: Props) => {
             }));
         });
 
-        colorFilter.map((color:any)=>{
+        // colorFilter.map((color:any)=>{
+        //
+        // })
 
-        })
 
-
-
+        console.log('newFilterStates',newFilterStates)
 
         setFilterStates(newFilterStates);
     }, [searchParams, filters]);
@@ -126,7 +126,7 @@ const ProductFilters: React.FC<Props> = ({filters, colorFilter}: Props) => {
 
     return (
         <>
-            {filters.map((section) => (
+            {filters.slice(0,1).map((section) => (
                 <div key={section.id} className="border-b border-gray-200 py-6">
                     <h3 className="flex justify-between">
                         <span className="font-medium text-gray-900">{section.name}</span>
@@ -157,17 +157,17 @@ const ProductFilters: React.FC<Props> = ({filters, colorFilter}: Props) => {
             {/*Color Filter*/}
             <div className="border-b border-gray-200 py-6">
                 <h3 className="flex justify-between">
-                    <span className="font-medium text-gray-900">Color</span>
+                    <span className="font-medium text-gray-900">{filters[2].name}</span>
                 </h3>
                 <div className="pt-6 grid grid-cols-4 gap-4">
                     {
-                        colorFilter.map((color:any)=> <div key={color.value} className="flex flex-col gap-1 items-center justify-between" onClick={() => toggleFilter('color', color.value)}>
-                                <div className={`w-6 h-6 rounded-lg ring-4 ring-black2-400 cursor-pointer`} style={{backgroundColor: `${color.hexCode}`}} />
-                            <div className="text-sm cursor-pointer">{color.label}</div>
-                        </div>)
+                        filters[2].options.map((color: any) =>
+                            <div key={color.value} className="flex flex-col gap-1 items-center justify-between" onClick={() => toggleFilter('color', color.value)}>
+                                <div className={`w-6 h-6 rounded-lg ring-black2-400 cursor-pointer ${filterStates['color'].find(o => o.value === color.value)?.checked ? "ring-4" : "ring-1"}`} style={{backgroundColor: `${color.hexCode}`}}/>
+                                <div className="text-sm cursor-pointer">{color.label}</div>
+                            </div>)
                     }
                 </div>
-
             </div>
 
             {/*Price range*/}
