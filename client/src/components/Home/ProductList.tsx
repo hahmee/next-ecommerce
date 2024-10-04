@@ -27,6 +27,7 @@ export type SortOption = {
 export type FilterOption = {
     value: string;
     label: string;
+    hexCode?: string;
     checked: boolean;
 };
 
@@ -44,20 +45,17 @@ const sortOptions: SortOption[] = [
     {name: 'Price: High to Low', href: '#', current: false},
 ];
 
+export const colorFilter = [
+    {value: 'white', label: 'White', hexCode: '#FFFFFF', checked: false},
+    {value: 'red', label: 'Red', hexCode: '#FF6961', checked: false},
+    {value: 'beige', label: 'Beige', hexCode: '#F5F5DC', checked: false},
+    {value: 'blue', label: 'Blue', hexCode: '#AEC6CF', checked: false},
+    {value: 'brown', label: 'Brown', hexCode: '#cebaa0', checked: false},
+    {value: 'green', label: 'Green', hexCode: '#77DD77', checked: false},
+    {value: 'purple', label: 'Purple', hexCode: '#C3B1E1', checked: false},
+];
+
 const filters: FilterSection[] = [
-    {
-        id: 'color',
-        name: 'Color',
-        options: [
-            {value: 'white', label: 'White', checked: false},
-            {value: 'red', label: 'Red', checked: false},
-            {value: 'beige', label: 'Beige', checked: false},
-            {value: 'blue', label: 'Blue', checked: false},
-            {value: 'brown', label: 'Brown', checked: false},
-            {value: 'green', label: 'Green', checked: false},
-            {value: 'purple', label: 'Purple', checked: false},
-        ],
-    },
     {
         id: 'size',
         name: 'Size',
@@ -83,6 +81,19 @@ const filters: FilterSection[] = [
             {value: 'accessories', label: 'Accessories', checked: false},
         ],
     },
+    {
+        id: 'color',
+        name: 'Color',
+        options: [
+            {value: 'white', label: 'White', hexCode: '#FFFFFF', checked: false},
+            {value: 'red', label: 'Red', hexCode: '#FF6961', checked: false},
+            {value: 'beige', label: 'Beige', hexCode: '#F5F5DC', checked: false},
+            {value: 'blue', label: 'Blue', hexCode: '#AEC6CF', checked: false},
+            {value: 'brown', label: 'Brown', hexCode: '#cebaa0', checked: false},
+            {value: 'green', label: 'Green', hexCode: '#77DD77', checked: false},
+            {value: 'purple', label: 'Purple', hexCode: '#C3B1E1', checked: false},
+        ],
+    },
 ];
 
 // export const ROWS_PER_PAGE = 3; // 한 페이지당 불러올 상품개수
@@ -103,9 +114,9 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
-        color: filters[0].options,
-        category: filters[1].options,
-        size: filters[2].options,
+        category: filters[0].options,
+        size: filters[1].options,
+        color: filters[2].options,
     });
     const toggleFilter = (sectionId: string, value?: string) => {
         if (value) {
@@ -331,7 +342,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                             {/* Filters */}
                             <form className="hidden lg:block">
                                 <ProductCategories categories={categories || []}/>
-                                <ProductFilters filters={filters}/>
+                                <ProductFilters filters={filters} colorFilter={colorFilter}/>
                             </form>
                             {/* Product Grid */}
                             <div className="lg:col-span-3">

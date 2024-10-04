@@ -7,17 +7,18 @@ import PriceRange from "@/components/Home/PriceRange";
 
 type Props = {
     filters: FilterSection[];
+    colorFilter: any;
 };
 
 
-const ProductFilters: React.FC<Props> = ({filters}: Props) => {
+const ProductFilters: React.FC<Props> = ({filters, colorFilter}: Props) => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
-        color: filters[0].options,
-        category: filters[1].options,
-        size: filters[2].options,
+        category: filters[0].options,
+        size: filters[1].options,
+        color: filters[2].options,
     });
     const [values, setValues] = useState([0, 200]);
 
@@ -34,6 +35,13 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                 checked: currentFilters.includes(option.value),
             }));
         });
+
+        colorFilter.map((color:any)=>{
+
+        })
+
+
+
 
         setFilterStates(newFilterStates);
     }, [searchParams, filters]);
@@ -145,6 +153,23 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                     </div>
                 </div>
             ))}
+
+            {/*Color Filter*/}
+            <div className="border-b border-gray-200 py-6">
+                <h3 className="flex justify-between">
+                    <span className="font-medium text-gray-900">Color</span>
+                </h3>
+                <div className="pt-6 grid grid-cols-4 gap-4">
+                    {
+                        colorFilter.map((color:any)=> <div key={color.value} className="flex flex-col gap-1 items-center justify-between" onClick={() => toggleFilter('color', color.value)}>
+                                <div className={`w-6 h-6 rounded-lg ring-4 ring-black2-400 cursor-pointer`} style={{backgroundColor: `${color.hexCode}`}} />
+                            <div className="text-sm cursor-pointer">{color.label}</div>
+                        </div>)
+                    }
+                </div>
+
+            </div>
+
             {/*Price range*/}
             <div className="border-b border-gray-200 py-6">
                 <h3 className="flex justify-between">
@@ -154,7 +179,8 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
                     <PriceRange min={0} max={1000000} onChange={onChangePrice}/>
                     <button type="button"
                             className="w-full text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-                            onClick={onClickPrice}>검색</button>
+                            onClick={onClickPrice}>검색
+                    </button>
                 </div>
             </div>
         </>
