@@ -4,15 +4,27 @@ import dynamic from "next/dynamic";
 import Menu from "@/components/Menu";
 import SearchBar from "@/components/SearchBar";
 import {getCookie} from "@/utils/getCookieUtil";
+import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
+import FullMenu from "@/components/FullMenu";
+import React, {Suspense} from "react";
+import Loading from "@/app/(admin)/admin/products/loading";
+import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
 const Navbar = () => {
 
+  const prefetchOptions = [
+    {
+      queryKey: ['categories'],
+      queryFn: () => getCategories()
+    }
+  ];
+
   const memberInfo = getCookie('member');
 
   return (
-      <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
+      <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative border-b border-gray-100">
         {/* MOBILE */}
         <div className="h-full flex items-center justify-between md:hidden">
           <Link href="/">
@@ -21,19 +33,23 @@ const Navbar = () => {
           <Menu/>
         </div>
         {/* BIGGER SCREENS */}
-        <div className="hidden md:flex items-center justify-between gap-8 h-full">
+        <div className="hidden md:flex items-center justify-between gap-8 h-full  ">
           {/* LEFT */}
-          <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
+          <div className="w-1/3 xl:w-1/2 flex items-center gap-12 ">
             <Link href="/" className="flex items-center gap-3">
               <Image src="/logo.png" alt="" width={24} height={24}/>
               <div className="text-2xl tracking-wide">E-COM</div>
             </Link>
-            <div className="hidden xl:flex gap-4">
-              <Link href="/list?category_id=38">Men</Link>
-              <Link href="/list?category_id=54">Women</Link>
-              <Link href="/list?category_id=62">Beauty</Link>
-              <Link href="/list?category_id=64">Sport</Link>
-            </div>
+
+            <Suspense fallback={<Loading/>}>
+              <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                <FullMenu/>
+              </PrefetchBoundary>
+            </Suspense>
+
+
+
+
           </div>
           {/* RIGHT */}
           <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">

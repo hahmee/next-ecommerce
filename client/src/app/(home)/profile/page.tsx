@@ -1,5 +1,3 @@
-import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
-import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
 import UserInfo from "@/components/UserInfo";
 import {getCookie} from "@/utils/getCookieUtil";
 

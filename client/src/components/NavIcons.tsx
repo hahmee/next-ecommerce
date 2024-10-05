@@ -35,7 +35,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     return (
         <div className="flex items-center gap-4 xl:gap-6 relative">
             {/*모달 바깥 클릭 */}
-            <div className={`fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`} onClick={()=>setAccountOpen(false)}></div>
+            <div className={` z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`} onClick={()=>setAccountOpen(false)}></div>
             <Image
                 src="/profile.png"
                 alt="profile"
