@@ -9,6 +9,14 @@ import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
 import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
+import Select from "@/components/Admin/Product/Select";
+import {Option} from "@/interface/Option";
+
+export const useOptions:  Array<Option<string>> = [
+    {id: 'brand-option1', content:'브랜드 옵션1'},
+    {id: 'brand-option2', content:'브랜드 옵션2'},
+    {id: 'brand-option3', content:'브랜드 옵션3'},
+];
 
 interface Props {
     type: Mode;
@@ -56,7 +64,7 @@ const CategoryForm = ({type, id}: Props) => {
             const cname = formData.get('cname') || ""; // input의 name 속성
             const cdesc = formData.get('cdesc') || ""; // input의 name 속성
 
-            console.log('formData', cname);
+            console.log('formData', formData);
             console.log('formData', cdesc);
 
             if (type ===  Mode.ADD) {
@@ -161,21 +169,27 @@ const CategoryForm = ({type, id}: Props) => {
                         className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                 </div>
-                {/*<div className="col-span-2">*/}
-                {/*    <label className="mb-3 block text-sm font-medium text-black dark:text-white">*/}
-                {/*        파일첨부*/}
-                {/*    </label>*/}
-                {/*    <input*/}
-                {/*        type="file"*/}
-                {/*        className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div className="col-span-2">*/}
-                {/*    <Select label={"사용여부"} options={useOptions}*/}
-                {/*            defaultOption={"사용여부를 선택해주세요."}*/}
-                {/*            originalData={undefined}*/}
-                {/*            name="brand"/>*/}
-                {/*</div>*/}
+                <div className="col-span-2">
+                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        사진첨부
+                    </label>
+                    <input type="file" className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                    />
+                </div>
+                <div className="col-span-2">
+                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                        사용여부
+                    </label>
+                    <label className="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" className="sr-only peer"/>
+                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">사용여부</span>
+                    </label>
+                    {/*<Select label={"사용여부"} options={useOptions}*/}
+                    {/*        defaultOption={"사용여부를 선택해주세요."}*/}
+                    {/*        originalData={undefined}*/}
+                    {/*        name="brand"/>*/}
+                </div>
             </div>
             <button type="submit"
                     className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

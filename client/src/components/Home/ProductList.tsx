@@ -101,6 +101,15 @@ interface Props {
 const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order, query}: Props) => {
     const searchParams = useSearchParams();
     const searchValue = searchParams.get("query");
+    // 모든 쿼리 파라미터를 객체 형태로 가져오기
+    // const params = Object.fromEntries(searchParams.entries());
+    // 모든 쿼리 파라미터를 [{ key, value }] 형태로 변환
+    const paramsArray = Array.from(searchParams.entries()).map(([key, value]) => ({
+        key,
+        value
+    }));
+
+    console.log(paramsArray);
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -338,7 +347,11 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                             <div className="lg:col-span-3">
                                 {/*Badges*/}
                                 <div className="w-full flex justify-between">
-                                    <div className="flex flex-wrap"><FiltersBadge filters={filters}/></div>
+                                    <div className="flex flex-wrap">
+                                        {
+                                            paramsArray?.map((param:any, index: number) => <FiltersBadge param={param} key={index} filters={filters}/>)
+                                        }
+                                    </div>
 
                                     {/* Orders */}
                                     <ProductOrders/>
