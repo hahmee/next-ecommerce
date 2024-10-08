@@ -1,6 +1,38 @@
 "use client";
 import { loadTossPayments } from "@tosspayments/payment-sdk";
 
+export interface ErrorPaymentResponse {
+    response: {
+        data: {
+            message: string;
+            code: string;
+        };
+    };
+}
+
+export interface Payment {
+    orderName: string;
+    approvedAt: string;
+    receipt: {
+        url: string;
+    };
+    totalAmount: number;
+    method: '카드' | '가상계좌' | '계좌이체';
+    paymentKey: string;
+    orderId: string;
+    card: {amount:number, number: number;}
+
+    status:
+        | 'READY'
+        | 'IN_PROGRESS'
+        | 'WAITING_FOR_DEPOSIT'
+        | 'DONE'
+        | 'CANCELED'
+        | 'PARTIAL_CANCELED'
+        | 'ABORTED'
+        | 'EXPIRED';
+}
+
 const Checkout = () => {
     const handleClick = async () => {
         const tossPayments = await loadTossPayments(
@@ -13,8 +45,6 @@ const Checkout = () => {
             orderName: "맥북",
             successUrl: `${window.location.origin}/order/success`,
             failUrl: `${window.location.origin}/order/fail`,
-            // successUrl: `${window.location.origin}/api/payments`, // 성공적으로 진행되면 여기로 리다이렉트
-            // failUrl: `${window.location.origin}/api/payments/fail`,
         });
     };
     return (

@@ -1,27 +1,77 @@
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+//결제 완료 페이지로 라우팅 시키기
+import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
+import {ErrorPaymentResponse} from "@/components/Home/Checkout";
 
-const OrderSuccessPage = ({ payment, isError }: { payment: Payment; isError: boolean }) => {
-    const [isLoaded, setIsLoaded] = useState(false);
-    // const { orderNumber } = useOrderStore();
-    const router = useRouter();
+interface Props {
+    searchParams: { [key: string]: string | string[] | undefined }
+}
 
-    useEffect(() => {
-        // 에러이면서 주문번호가 있으면 주문 내역 화면을 보여줍니다.
-        if (isError && orderNumber) {
-            router.push(`/order/receipt`);
-            return;
-        } else if (isError) {
-            // 에러만 있다면 에러 화면을 보여줍니다.
-            router.push('/error');
-            return;
+export default async function OrderSuccessPage({ searchParams }:Props) {
+
+    console.log('searchParams', searchParams);
+    const {paymentKey , orderId, amount } = searchParams;
+
+    const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY || "";
+    const basicToken = Buffer.from(`${secretKey}:`, `utf-8`).toString("base64");
+
+    const url = `https://api.tosspayments.com/v1/payments/confirm`;
+
+    try {
+
+        const result = await fetch(url, {
+            method: "POST",
+            headers: {
+                Authorization: `Basic ${basicToken}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                paymentKey,
+                orderId,
+                amount,
+            }),
+
+        });
+
+        // 상태 코드가 200번대가 아니면 에러 처리
+        if (!result.ok) {
+            console.log('?zz');
+            const errorData = await result.json(); // 에러 응답 JSON을 파싱
+            // throw new Error(errorData.message || 'Payment processing error');
+            // return Promise.reject(errorData);
+            throw new Error(errorData.message || 'Payment processing error');
+
         }
 
-        // payment의 상태가 DONE일 때만 완료 화면을 보여줍니다.
-        if (payment && payment.status === 'DONE') setIsLoaded(true);
-    }, []);
 
-    return <>{isLoaded ? <SuccessContainer payment={payment} /> : <Waiting />}</>;
+        const payments = await result.json();
+
+        console.log('payments진짜', payments);
+
+        return <SuccessPayment payments={payments} isError={false}/>;
+
+
+    }catch(err:unknown) {
+
+        const error = err as ErrorPaymentResponse;
+
+        if (error.response?.data.code === 'ALREADY_PROCESSED_PAYMENT') { // 이미 처리된 결제
+            //
+            console.log('이게 나오나??')
+            return <SuccessPayment payments={null} isError={true}/>;
+
+        }
+
+        return {
+            redirect: {
+                destination: `/order/fail?code=${error.response.data.code}&message=${encodeURIComponent(
+                    error.response.data.message,
+                )}`,
+                permanent: false,
+            },
+        };
+
+    }
+
+
+
 };
-
-export default OrderSuccessPage;
