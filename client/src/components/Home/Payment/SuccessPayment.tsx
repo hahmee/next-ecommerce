@@ -17,7 +17,7 @@ const SuccessPayment = ({payments, isError = false}: { payments: Payment | null,
     // }
     //
     useEffect(() => {
-        console.log('payments',payments)
+        console.log('payments..?!',payments)
         console.log('isError',isError)
 
         // 에러이면서 주문번호가 있으면 주문 내역 화면을 보여줍니다.

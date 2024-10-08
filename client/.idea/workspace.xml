@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(home)/order/fail/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Payment/FailPayment.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +227,7 @@
       <workItem from="1728186075471" duration="118000" />
       <workItem from="1728200372010" duration="5901000" />
       <workItem from="1728213266275" duration="12975000" />
-      <workItem from="1728312481740" duration="17205000" />
+      <workItem from="1728312481740" duration="18666000" />
     </task>
     <servers />
   </component>
