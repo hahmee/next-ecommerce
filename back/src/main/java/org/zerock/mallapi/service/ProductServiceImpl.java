@@ -15,8 +15,6 @@ import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.ProductRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,7 +75,7 @@ public class ProductServiceImpl implements ProductService{
     List<Long> categoryClosureAncestorIds = null;
 
     //getCategoryId가 없을때 ex search 검색
-    if(pageCategoryRequestDTO.getCategoryId() !=null) {
+    if(pageCategoryRequestDTO.getCategoryId() != null) {
 
       AdminCategory adminCategory = AdminCategory.builder().cno(pageCategoryRequestDTO.getCategoryId()).build();
       log.info("adminCategory..///....." + adminCategory);
@@ -147,7 +145,7 @@ public class ProductServiceImpl implements ProductService{
               .sizeList(product.getSizeList())
               .build();
 
-      if(productImage !=null) {
+      if(productImage != null) {
 
         String imageNameStr = productImage.getFileName();
         String imageKeyStr = productImage.getFileKey();
@@ -360,6 +358,7 @@ public class ProductServiceImpl implements ProductService{
   private Product dtoToEntity(ProductDTO productDTO, String email){
 
     Member member = Member.builder().email(email).build();
+
     AdminCategory category = AdminCategory.builder().cno(productDTO.getCategoryId()).build();
 
     Product product = Product.builder()

@@ -1,32 +1,27 @@
-const OrderSuccessPage = ({ payment, isError }: { payment: any; isError: boolean }) => {
+import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 
-    const { orderId, paymentKey, amount } = req.query;
-    const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY;
+const OrderSuccessPage = ({ payment, isError }: { payment: Payment; isError: boolean }) => {
+    const [isLoaded, setIsLoaded] = useState(false);
+    // const { orderNumber } = useOrderStore();
+    const router = useRouter();
 
-    const url = "https://api.tosspayments.com/v1/payments/confirm";
-    const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString("base64");
+    useEffect(() => {
+        // 에러이면서 주문번호가 있으면 주문 내역 화면을 보여줍니다.
+        if (isError && orderNumber) {
+            router.push(`/order/receipt`);
+            return;
+        } else if (isError) {
+            // 에러만 있다면 에러 화면을 보여줍니다.
+            router.push('/error');
+            return;
+        }
 
-    await fetch(url, {
-        method: "post",
-        body: JSON.stringify({
-            amount,
-            orderId,
-            paymentKey,
-        }),
-        headers: {
-            Authorization: `Basic ${basicToken}`,
-            "Content-Type": "application/json",
-        },
-    }).then((res) => res.json());
+        // payment의 상태가 DONE일 때만 완료 화면을 보여줍니다.
+        if (payment && payment.status === 'DONE') setIsLoaded(true);
+    }, []);
 
-    // TODO: DB 처리
-    // res.redirect(`/payments/complete?orderId=${orderId}`);
-    return {
-        redirect: {
-            destination: `/order/fail?code=${error.response.data.code}&message=${encodeURIComponent(
-                error.response.data.message,
-            )}`,
-            permanent: false,
-        },
-    };
+    return <>{isLoaded ? <SuccessContainer payment={payment} /> : <Waiting />}</>;
 };
+
+export default OrderSuccessPage;

@@ -40,7 +40,6 @@ public class ProductController {
 
     if (files != null && files.size() > 0) {
 
-      //List<String> uploadFileNames = fileUtil.saveFiles(files); //내부에 저장하고 이름들을 반환한다.
       Map<String, List<FileDTO<String>>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
 
       log.info("awsResults.............." + awsResults);

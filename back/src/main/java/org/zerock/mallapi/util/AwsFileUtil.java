@@ -28,16 +28,55 @@ public class AwsFileUtil {
   private final AmazonS3 amazonS3;
 
 
-  /* 1. 파일 업로드 */
+  /* 1-1. 파일 싱글 업로드 */
+  public Map<String, String> uploadSingleFile(MultipartFile file, String dirName) throws RuntimeException {
+
+    if (file == null) {
+      return null;
+    }
+
+    String uploadName = "";
+    String uploadKey = "";
+
+    try {
+
+        //키 값
+        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+
+        log.info("savedName......" + savedName);
+
+        // 메타데이터 생성
+        ObjectMetadata objMeta = new ObjectMetadata();
+
+        objMeta.setContentType(file.getContentType());
+        objMeta.setContentLength(file.getInputStream().available());
+
+        // putObject(버킷명, 파일명, 파일데이터, 메타데이터)로 S3에 객체 등록
+        amazonS3.putObject(bucket, savedName, file.getInputStream(), objMeta);
+
+        // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
+        String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
+
+        uploadName = url;
+
+        uploadKey = savedName;
+
+
+    } catch (IOException e) {
+      throw new GeneralException(e.getMessage());
+    }
+
+    return Map.of("uploadName", uploadName, "uploadKey", uploadKey);
+
+  }
+
+
+  /* 1-2. 파일 다중 업로드 */
   public Map<String, List<FileDTO<String>>> uploadFiles(List<FileDTO<MultipartFile>> files, String dirName) throws RuntimeException {
 
     if (files == null || files.size() == 0) {
       return null;
     }
-//
-//    List<String> uploadNames = new ArrayList<>();
-//    List<String> uploadKeys = new ArrayList<>();
-
 
     List<FileDTO<String>> uploadNames = new ArrayList<>();
     List<FileDTO<String>> uploadKeys = new ArrayList<>();
@@ -45,20 +84,15 @@ public class AwsFileUtil {
 
     try {
 
-//      int index = 0;
-//      for (MultipartFile multipartFile : files) {
       for (FileDTO<MultipartFile> multipartFile : files) {
 
         //키 값
-//        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getOriginalFilename();
         String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getFile().getOriginalFilename();
 
         log.info("savedName......" + savedName);
 
         // 메타데이터 생성
         ObjectMetadata objMeta = new ObjectMetadata();
-//        objMeta.setContentType(multipartFile.getContentType());
-//        objMeta.setContentLength(multipartFile.getInputStream().available());
 
         objMeta.setContentType(multipartFile.getFile().getContentType());
         objMeta.setContentLength(multipartFile.getFile().getInputStream().available());
@@ -79,8 +113,6 @@ public class AwsFileUtil {
 
         uploadNames.add(resultNames);
         uploadKeys.add(resultKeys);
-
-//        index++;
 
       }
 

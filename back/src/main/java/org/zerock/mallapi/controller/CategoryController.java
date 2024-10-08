@@ -7,13 +7,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.zerock.mallapi.dto.CategoryDTO;
 import org.zerock.mallapi.dto.DataResponseDTO;
 import org.zerock.mallapi.dto.FileDTO;
 import org.zerock.mallapi.dto.ProductDTO;
 import org.zerock.mallapi.service.CategoryService;
+import org.zerock.mallapi.util.AwsFileUtil;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,13 +25,37 @@ import java.util.List;
 public class CategoryController {
 
   private final CategoryService categoryService;
+  private final AwsFileUtil awsFileUtil;
+  private final String CATEGORY_IMG_DIR = "category";
+
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
   @PostMapping("/")
-  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
+//  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
+  public DataResponseDTO<Long> register(@Valid CategoryDTO categoryDTO) {
+
 
     log.info("register: ?????????????" + categoryDTO);
 
+    MultipartFile file = categoryDTO.getFile();//파일 객체들
+
+    if(file != null) {
+
+      Map<String,String> awsResult = awsFileUtil.uploadSingleFile(file, CATEGORY_IMG_DIR);//AWS에 저장
+
+      log.info("awsResult.............." + awsResult);
+
+
+      String uploadFileName = awsResult.get("uploadName");
+      String uploadFileKey = awsResult.get("uploadKey");
+
+      log.info("잘 나오나.." + uploadFileName);
+      log.info("잘 나오나..2" + uploadFileKey);
+
+      categoryDTO.setUploadFileName(uploadFileName);
+      categoryDTO.setUploadFileKey(uploadFileKey);
+
+    }
 
     //서비스 호출 
     Long pno = categoryService.addCategory(categoryDTO);

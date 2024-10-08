@@ -38,6 +38,8 @@ public class CategoryServiceImpl implements CategoryService {
             .cname(category.getCname())
             .cdesc(category.getCdesc())
             .delFlag(category.isDelFlag())
+            .uploadFileName(category.getImage() != null ? category.getImage().getFileName() : null)
+            .uploadFileKey(category.getImage() != null ? category.getImage().getFileKey() : null)
             .subCategories(subCategories.isEmpty() ? null : subCategories.stream().map(this::convertToDTO).collect(Collectors.toList()))
             .build();
   }
@@ -80,17 +82,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     List<CategoryClosure> ancestors = categoryClosureRepository.findAncestorsDesc(adminCategory);
 
-    //    List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
-
-//    List<CategoryDTO> categoryPaths = ancestors.stream()
-//            .map(ancestor -> {
-//              AdminCategory ancestorCategory = ancestor.getId().getAncestor();
-//              log.info("AncestorCategory: " + ancestorCategory);
-//              CategoryDTO ancestorCategoryDTO = entityToDTO(ancestorCategory);
-//              return ancestorCategoryDTO;
-//            })
-//            .collect(Collectors.toList());
-
 
     List<CategoryDTO> categoryPaths = ancestors.stream()
             .map(ancestor -> {
@@ -113,6 +104,8 @@ public class CategoryServiceImpl implements CategoryService {
             .cno(category.getCno())
             .cname(category.getCname())
             .cdesc(category.getCdesc())
+            .uploadFileName(category.getImage().getFileName())
+            .uploadFileKey(category.getImage().getFileKey())
             .build();
 
     return categoryDTO;
@@ -265,10 +258,13 @@ public class CategoryServiceImpl implements CategoryService {
 
   private AdminCategory dtoToEntity(CategoryDTO categoryDTO) {
 
+    CategoryImage categoryImage = CategoryImage.builder().fileName(categoryDTO.getUploadFileName()).fileKey(categoryDTO.getUploadFileKey()).build();
+
     AdminCategory adminCategory = AdminCategory.builder()
             .cno(categoryDTO.getCno())
             .cname(categoryDTO.getCname())
             .cdesc(categoryDTO.getCdesc())
+            .image(categoryImage)
             .build();
 
 

@@ -7,7 +7,7 @@ import lombok.extern.log4j.Log4j2;
 @Entity
 @Table(name = "tbl_category")
 @Getter
-@ToString
+@ToString(exclude = "image")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,8 +24,11 @@ public class AdminCategory extends BaseEntity {
 
   private boolean delFlag;
 
-  //순서도 추가
+  @Builder.Default
+  private CategoryImage image = null;
 
+
+  //순서도 추가
   public void changeName(String cname) {
     this.cname = cname;
   }
@@ -33,7 +36,6 @@ public class AdminCategory extends BaseEntity {
   public void changeDesc(String cdesc) {
     this.cdesc = cdesc;
   }
-
 
   public void changeDelFlag(boolean delFlag) {
     this.delFlag = delFlag;

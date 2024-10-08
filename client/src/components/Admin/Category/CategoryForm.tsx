@@ -11,6 +11,7 @@ import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/
 import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
 import Select from "@/components/Admin/Product/Select";
 import {Option} from "@/interface/Option";
+import {FileDTO} from "@/interface/FileDTO";
 
 export const useOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -61,13 +62,23 @@ const CategoryForm = ({type, id}: Props) => {
             e.preventDefault();
             // console.log('e.target', e.target);
             const formData = new FormData(e.target as HTMLFormElement);
-            const cname = formData.get('cname') || ""; // input의 name 속성
-            const cdesc = formData.get('cdesc') || ""; // input의 name 속성
+            const cname = formData.get('cname') || ""; // input의 cname 속성
+            const cdesc = formData.get('cdesc') || ""; // input의 cdesc 속성
+            const file = formData.get('file') as File;
+            // const sendFile: FileDTO<File> = {file: file, ord: 0};
+
+            formData.append("cname", cname);
+            formData.append("cdesc", cdesc);
+            // formData.append("subCategories", [] as any);
+            formData.append("parentCategoryId", id || "");
+            formData.append("file", file);
+
 
             console.log('formData', formData);
-            console.log('formData', cdesc);
+            console.log('file..', file);
 
-            if (type ===  Mode.ADD) {
+
+            if (type ===  Mode.ADD ) {
                 if (cname === "" || cdesc === "") {
                     // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
                     return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
@@ -80,15 +91,22 @@ const CategoryForm = ({type, id}: Props) => {
                     cdesc: cdesc as string,
                     subCategories: [],
                     parentCategoryId: Number(id) || null,
+                    // file: sendFile,
+
+
                 };
 
                 return fetchWithAuth(`/api/category/`, {
+                    // method: "POST",
+                    // credentials: 'include',
+                    // headers: {
+                    //     'Content-Type': 'application/json'
+                    // },
+                    // body: JSON.stringify(newCategoryObj),
                     method: "POST",
                     credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(newCategoryObj),
+                    body: formData as FormData,
+
                 }); // json 형태로 이미 반환
 
 
@@ -173,7 +191,7 @@ const CategoryForm = ({type, id}: Props) => {
                     <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                         사진첨부
                     </label>
-                    <input type="file" className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
+                    <input id="file" name="file" type="file" className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
                     />
                 </div>
                 <div className="col-span-2">

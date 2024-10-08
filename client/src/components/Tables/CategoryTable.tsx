@@ -9,6 +9,8 @@
     import Dialog from "@/components/Admin/Dialog";
     import {fetchWithAuth} from "@/utils/fetchWithAuth";
     import toast from "react-hot-toast";
+    import ProductImages from "@/components/Home/ProductImags";
+    import Image from "next/image";
 
 
     const CategoryTable = () => {
@@ -108,11 +110,15 @@
                     <tr className="cursor-pointer hover:dark:bg-meta-4 hover:bg-gray-50"
                         onClick={() => toggleRow(category.cno)}>
                         <td scope="row"
-                            className=" flex items-center px-4 py-3 font-medium text-gray-900 dark:text-white"
+                            className="flex items-center px-4 py-3 font-medium text-gray-900 dark:text-white"
                             style={{paddingLeft: `${depth * 20}px`}}>
-                            <img
-                                src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png"
-                                alt="iMac Front Image" className="w-auto h-8 mr-3"/>
+                            <Image
+                                src={category.uploadFileName || "/noImage.png"}
+                                width={40}
+                                height={20}
+                                // style={{width:'40px', height:'20px'}}
+                                alt="Picture of category"
+                            />
                             {category.cname}
                         </td>
                         <td className="px-4 py-3">{category.cdesc}</td>
@@ -120,7 +126,7 @@
                             {category.subCategories ? category.subCategories.length : "-"}
                         </td>
                         <td className="px-4 py-3">
-                           사용중
+                            사용중
                         </td>
                         <td className="px-4 py-3 flex items-center justify-end">
                             <button

@@ -22,13 +22,9 @@ const CartModal = () => {
     }, [cart]);
 
 
-    const handleCheckout = async () => {
-        try {
+    const handleCheckout =  () => {
 
-
-        } catch (err) {
-            console.log(err);
-        }
+        router.push("/checkout");
     };
 
     if(!open) {
