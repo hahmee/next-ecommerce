@@ -1,13 +1,10 @@
 "use client";
-import { loadTossPayments } from "@tosspayments/payment-sdk";
-import CartList from "@/components/Home/CartList";
+import {loadTossPayments} from "@tosspayments/payment-sdk";
 import CartSummary from "@/components/Home/CartSummary";
 import React, {FormEvent, useState} from "react";
 import {useMutation} from "@tanstack/react-query";
-import {Mode} from "@/types/mode";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
-import {Category} from "@/interface/Category";
 import toast from "react-hot-toast";
+import {useCartStore} from "@/store/cartStore";
 
 export interface ErrorPaymentResponse {
     response: {
@@ -42,6 +39,10 @@ export interface Payment {
 }
 
 const Checkout = () => {
+
+    const {cart, isLoading, open,subtotal ,changeOpen} = useCartStore();
+
+
     // 배송 정보 및 결제 정보 상태 관리
     const [shippingInfo, setShippingInfo] = useState({
         receiver: '',
@@ -62,11 +63,14 @@ const Checkout = () => {
         );
 
         await tossPayments.requestPayment("카드", {
-            amount: 5000,
+            amount: subtotal,
             orderId: Math.random().toString(36).slice(2),
-            orderName: "맥북",
-            successUrl: `${window.location.origin}/order/success`,
-            failUrl: `${window.location.origin}/order/fail`,
+            orderName: cart.length > 1 ? `${cart[0].pname} 외 ${cart.length - 1}개` : `${cart[0].pname}`,
+            customerName: '판매자_테스트', //판매자, 판매처 이름
+            successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
+            failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
+            // successUrl: `${window.location.origin}/order/success`,
+            // failUrl: `${window.location.origin}/order/fail`,
         });
     };
 

@@ -25,11 +25,11 @@ const CartSummary = ({message, cartButtonClick}: { message: string, cartButtonCl
             </div>
             <div className="flex justify-between py-2">
                 <span>Shipping estimate</span>
-                <span>5,000</span>
+                <span>0</span>
             </div>
             <div className="flex justify-between py-2 font-semibold border-t pt-4">
                 <span>Order total</span>
-                <span>{subtotal + 5000}</span>
+                <span>{subtotal}</span>
             </div>
 
             <button

@@ -1,51 +1,74 @@
 //결제 완료 페이지로 라우팅 시키기
-import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
-import {redirect} from "next/navigation";
+import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import React, {Suspense} from "react";
+import {getSuccessPayment} from "@/app/(home)/order/success/_lib/getSuccessPayment";
+import Loading from "@/app/(admin)/admin/products/loading";
+import SuccessPaymentRe from "@/components/Home/Payment/SuccessPaymentRe";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
+//결제 성공 페이지
 export default async function OrderSuccessPage({searchParams}: Props) {
 
     console.log('searchParams', searchParams);
     const {paymentKey, orderId, amount} = searchParams;
 
-    const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY || "";
-    const basicToken = Buffer.from(`${secretKey}:`, `utf-8`).toString("base64");
+    //결제 요청이 토스페이먼츠로 전송되고 성공했을 때 url로 orderId, paymentKey, amount가 나오는데 그 값들을 스프링으로 넘겨준다.
+    const prefetchOptions = {
+        queryKey: ['payment'],
+        queryFn: () => getSuccessPayment({queryKey: ['payment'], paymentKey, orderId, amount}), // queryKey를 전달하여 호출
+    };
 
-    const url = `https://api.tosspayments.com/v1/payments/confirm`;
-
-    const result = await fetch(url, {
-        method: "POST",
-        headers: {
-            Authorization: `Basic ${basicToken}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            paymentKey,
-            orderId,
-            amount,
-        }),
-
-    });
-
-    // 상태 코드가 200번대가 아니면 에러 처리
-    if (!result.ok) {
-        const errorData = await result.json(); // 에러 응답 JSON을 파싱
-        console.log('?zz', errorData);
-
-        redirect(`/order/fail?code=${errorData.code}&message=${encodeURIComponent(errorData.message)}`);
-
-    }
+    return <Suspense fallback={<Loading/>}>
+        <PrefetchBoundary prefetchOptions={prefetchOptions}>
+            {/*<SuccessPayment/>*/}
+            <SuccessPaymentRe/>
+        </PrefetchBoundary  paymentKey, orderId, amount>;
+    </Suspense>;
 
 
-    const payments = await result.json();
 
-    console.log('payments진짜', payments);
 
-    //db처리
 
-    return <SuccessPayment payments={payments} isError={false}/>;
+    // const {paymentKey, orderId, amount} = searchParams;
+    //
+    // const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY || "";
+    // const basicToken = Buffer.from(`${secretKey}:`, `utf-8`).toString("base64");
+    //
+    // const url = `https://api.tosspayments.com/v1/payments/confirm`;
+    //
+    // const result = await fetch(url, {
+    //     method: "POST",
+    //     headers: {
+    //         Authorization: `Basic ${basicToken}`,
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //         paymentKey,
+    //         orderId,
+    //         amount,
+    //     }),
+    //
+    // });
+    //
+    // // 상태 코드가 200번대가 아니면 에러 처리
+    // if (!result.ok) {
+    //     const errorData = await result.json(); // 에러 응답 JSON을 파싱
+    //     console.log('?zz', errorData);
+    //
+    //     redirect(`/order/fail?code=${errorData.code}&message=${encodeURIComponent(errorData.message)}`);
+    //
+    // }
+    //
+    //
+    // const payments = await result.json();
+    //
+    // console.log('payments진짜', payments);
+    //
+    // //db처리
+    //
+    // return <SuccessPayment payments={payments} isError={false}/>;
 
 };

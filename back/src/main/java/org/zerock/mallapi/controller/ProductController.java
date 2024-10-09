@@ -96,12 +96,6 @@ public class ProductController {
 
     log.info("list............." + pageCategoryRequestDTO);
 
-    try {
-      Thread.sleep(0);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
 
     return DataResponseDTO.of(productService.getList(pageCategoryRequestDTO));
     
