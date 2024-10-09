@@ -44,35 +44,46 @@ public class PaymentServiceImpl implements PaymentService{
   @Override
   public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO) {
 
-    //맞는지 체크하는 로직 - db뒤져서 요청된 orderID 가져와서 맞는지 확인 - 생략..
     //Payment payment = verifyPayment(orderId, amount);
 
 
-    //결제 승인 로직
-    PaymentSuccessDTO paymentSuccessDTO =  requestPaymentAccept(paymentRequestDTO);
 
+    //결제 승인 로직
+    PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
+
+    log.info("===paymentSuccessDTO === " + paymentSuccessDTO);
 
     //결제 정보 db 저장
+
+
+
 
 
 
     return null;
   }
 
+
+  @Override
+  public PaymentFailDTO tossPaymentFail(PaymentRequestDTO paymentRequestDTO) {
+
+
+
+    return null;
+  }
+
+
   //결제 승인
   private PaymentSuccessDTO requestPaymentAccept(PaymentRequestDTO paymentRequestDTO) {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    String paymentKey = paymentRequestDTO.getPaymentKey();
-    String amount = paymentRequestDTO.getAmount();
-    String orderId = paymentRequestDTO.getOrderId();
 
     //헤더 구성
     HttpHeaders headers = getHeaders();
 
     // 요청 객체 생성
-    HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
+      HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
 
     //응답 객체 TossPayment객체로 결제 응답받기
     PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
@@ -82,18 +93,22 @@ public class PaymentServiceImpl implements PaymentService{
 
 
 
-
-
     return result;
 
   }
 
   private HttpHeaders getHeaders() {
-    String authorization = Base64.getEncoder().encodeToString(tossSecretKey.getBytes()); //TOSS SECRET KEY Base64인코딩
     HttpHeaders headers = new HttpHeaders();
-    headers.add("Authorization", "Basic " + authorization);
-    headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
+    //인증키 base64 인코딩
+    String authorization = new String(Base64.getEncoder().encode((tossSecretKey + ":").getBytes(StandardCharsets.UTF_8)));
+
+    log.info("------ API 전송 요청 -------" + authorization);
+
+    //헤더 구성
+    headers.add("Authorization", "Basic " + authorization);
+
+    headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
     return headers;
   }

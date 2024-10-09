@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PaymentSuccessDTO {
 
-  String mid;
+  String mId;
   String version;
   String paymentKey;
   String orderId;
@@ -21,7 +21,7 @@ public class PaymentSuccessDTO {
   String approvedAt;
   String useEscrow;
   String cultureExpense;
-//  PaymentSuccessCardDto card;
+  Object card;
   String type;
 
 }

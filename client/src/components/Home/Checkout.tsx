@@ -5,6 +5,7 @@ import React, {FormEvent, useState} from "react";
 import {useMutation} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {useCartStore} from "@/store/cartStore";
+import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 export interface ErrorPaymentResponse {
     response: {
@@ -58,6 +59,11 @@ const Checkout = () => {
     });
 
     const handlePaymentClick = async () => {
+
+
+        await orderSave();
+
+
         const tossPayments = await loadTossPayments(
             process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
         );
@@ -75,32 +81,19 @@ const Checkout = () => {
     };
 
 
+    const orderSave = async () => {
+
+        await fetchWithAuth(`/api/products/`, {
+            method: "POST",
+            credentials: 'include',
+
+        }); // json 형태로 이미 반환
+    };
+
+
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
-            // console.log('e.target', e.target);
-
-
-            // if (cname === "" || cdesc === "") {
-            //     // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
-            //     return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
-            // }
-            //
-            //
-
-            // return fetchWithAuth(`/api/category/`, {
-            //     // method: "POST",
-            //     // credentials: 'include',
-            //     // headers: {
-            //     //     'Content-Type': 'application/json'
-            //     // },
-            //     // body: JSON.stringify(newCategoryObj),
-            //     method: "POST",
-            //     credentials: 'include',
-            //     body: formData as FormData,
-            //
-            // }); // json 형태로 이미 반환
-
 
         },
 

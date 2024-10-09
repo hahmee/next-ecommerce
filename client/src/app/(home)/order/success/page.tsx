@@ -24,8 +24,8 @@ export default async function OrderSuccessPage({searchParams}: Props) {
     return <Suspense fallback={<Loading/>}>
         <PrefetchBoundary prefetchOptions={prefetchOptions}>
             {/*<SuccessPayment/>*/}
-            <SuccessPaymentRe/>
-        </PrefetchBoundary  paymentKey, orderId, amount>;
+            <SuccessPaymentRe paymentKey={paymentKey} orderId={orderId} amount={amount}/>
+        </PrefetchBoundary>
     </Suspense>;
 
 

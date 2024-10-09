@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.dto.DataResponseDTO;
@@ -17,35 +18,22 @@ import org.zerock.mallapi.service.PaymentService;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/payment")
-public class PaymentController {
+@RequestMapping("/api/order")
+public class OrderController {
 
-    private final PaymentService paymentService;
-
-
-    //성공시 여기로 redirect
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
-    @GetMapping("/success") // payment/success?
-    public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO) {
-
-        log.info("===== paymentRequestDTO + " + paymentRequestDTO);
-
-        paymentService.tossPaymentSuccess(paymentRequestDTO);
-
-        return null;
-
-    }
-
+    private final OrderService orderService;
 
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
-    @GetMapping("/fail") // payment/fail?
-    public DataResponseDTO<PaymentFailDTO> tossPaymentFail(PaymentRequestDTO paymentRequestDTO) {
+    @PostMapping("/")
+    public DataResponseDTO<Long> register(OrderDTO orderDTO) {
 
+        log.info("===== orderDTO + " + orderDTO);
 
-        paymentService.tossPaymentFail(paymentRequestDTO);
+        Long id = orderService.register(orderDTO);
 
-        return null;
+        return DataResponseDTO.of(id);
 
     }
+
 }

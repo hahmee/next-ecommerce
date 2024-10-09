@@ -1,5 +1,5 @@
 "use client";
-import React, {useMemo} from "react";
+import React from "react";
 import {useCartStore} from "@/store/cartStore";
 
 const CartSummary = ({message, cartButtonClick}: { message: string, cartButtonClick: () => void }) => {
