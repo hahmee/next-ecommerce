@@ -135,6 +135,7 @@ const CategoryForm = ({type, id}: Props) => {
                 });
             }
         },
+
         async onSuccess(response, variable) {
 
             toast.success('업로드 성공했습니다.');

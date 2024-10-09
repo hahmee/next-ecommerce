@@ -1,13 +1,16 @@
+"use client";
 import CartList from "@/components/Home/CartList";
 import CartSummary from "@/components/Home/CartSummary";
 import React from "react";
+import {useRouter} from "next/navigation";
 
 const Cart = () => {
+    const router = useRouter();
 
     const cartButtonClick = () => {
 
+        router.push("/checkout")
     };
-
 
     return <div className="bg-gray-50 min-h-screen">
         {/* Cart Header */}

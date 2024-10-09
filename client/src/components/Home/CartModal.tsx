@@ -8,19 +8,8 @@ import {useRouter} from "next/navigation";
 
 const CartModal = () => {
 
-    const {cart, isLoading, open, changeOpen} = useCartStore();
+    const {cart, isLoading, open,subtotal ,changeOpen} = useCartStore();
     const router = useRouter();
-
-    const subtotal = useMemo(() => {
-        let total = 0;
-
-        for (const item of cart) {
-            total += item.qty * item.price;
-        }
-
-        return total;
-    }, [cart]);
-
 
     const handleCheckout =  () => {
 
