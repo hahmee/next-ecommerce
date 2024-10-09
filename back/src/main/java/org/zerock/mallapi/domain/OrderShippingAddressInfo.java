@@ -7,9 +7,9 @@ public class OrderShippingAddressInfo {
 
     private String receiver;
 
-    private String phoneNumber;
+    private String phone;
 
-    private int zipCode;
+    private String zipCode;
 
     private String address;
 

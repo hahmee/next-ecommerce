@@ -12,8 +12,6 @@ import java.util.List;
 
 @Data
 @Builder
-//@Getter
-//@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class  CategoryDTO {
