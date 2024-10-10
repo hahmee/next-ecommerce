@@ -7,7 +7,7 @@ import {Category} from "@/interface/Category";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
+import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
 import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
 import Select from "@/components/Admin/Product/Select";
 import {Option} from "@/interface/Option";

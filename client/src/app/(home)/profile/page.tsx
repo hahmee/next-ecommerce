@@ -1,5 +1,9 @@
-import UserInfo from "@/components/UserInfo";
 import {getCookie} from "@/utils/getCookieUtil";
+import React, {Suspense} from "react";
+import Loading from "@/app/(admin)/admin/products/loading";
+import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import UserOrders from "@/components/Home/Profile/UserOrders";
+import {getOrders} from "@/app/(home)/profile/_lib/getOrders";
 
 export async function generateMetadata() {
 
@@ -12,16 +16,32 @@ export async function generateMetadata() {
 }
 export default async function ProfilePage()  {
 
+    const prefetchOptions =
+        {
+            queryKey: ['orders'],
+            queryFn: () => getOrders({queryKey: ['orders']}),
+
+        };
+
+    return (
+        <Suspense fallback={<Loading/>}>
+            <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                <UserOrders/>
+            </PrefetchBoundary>
+        </Suspense>
+    );
+
+
     // const queryClient = new QueryClient();
     // // 데이터를 미리 가져와 캐시에 넣는다.
     // await queryClient.prefetchQuery({queryKey: ['user'], queryFn: () => getUserServer()})
     //
     // const dehydratedState = dehydrate(queryClient);
 
-    return (
-        // <HydrationBoundary state={dehydratedState}>
-            <UserInfo/>
-        // </HydrationBoundary>
-    );
+    // return (
+    //     // <HydrationBoundary state={dehydratedState}>
+    //         <UserInfo/>
+    //     // </HydrationBoundary>
+    // );
 }
 

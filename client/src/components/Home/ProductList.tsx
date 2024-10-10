@@ -11,7 +11,7 @@ import ProductFilters from "@/components/Home/ProductFilters";
 import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
+import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
 import ProductCategories from "@/components/Home/ProductCategories";
 import {Size} from "@/types/size";
 import ProductOrders from "@/components/Home/ProductOrders";

@@ -4,7 +4,7 @@ import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import ProductList from "@/components/Home/ProductList";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getProduct";
+import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
 import {FetchInfiniteQueryOptions} from "@tanstack/react-query";
 
 interface Props {

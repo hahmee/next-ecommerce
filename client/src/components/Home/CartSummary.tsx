@@ -8,9 +8,8 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
 
     const {cart, isLoading , subtotal} = useCartStore();
 
-
     return (
-        <div className="w-full lg:w-1/4 bg-white p-6 shadow-sm rounded-lg">
+        <div className="w-full lg:w-1/3 bg-white p-6 shadow-sm rounded-lg">
             <div className="flex justify-between">
                 <h2 className="text-lg font-medium mb-4">Order Summary({cart.length})</h2>
                 {type === "Payment" &&

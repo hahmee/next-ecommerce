@@ -158,16 +158,14 @@ const Checkout = () => {
                 {/* Cart Header */}
                 <div className="bg-white py-4">
                     <div className="container mx-auto px-4">
-                        <h1 className="text-3xl font-semibold">주문 / 결제</h1>
+                        <h1 className="text-3xl font-semibold">Payment</h1>
                     </div>
                 </div>
 
                 {/* Cart Items Section */}
                 <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
                     {/* Cart Items */}
-                    <div className="w-full lg:w-3/4 bg-white p-6 shadow-sm rounded-lg">
-                        {/*<CartList/>*/}
-                        <h1 className="text-3xl font-bold mb-6">주문 및 결제</h1>
+                    <div className="w-full lg:w-2/3 bg-white p-6 shadow-sm rounded-lg">
 
                         {/* 배송 정보 입력 섹션 */}
                         <div className="mb-8">

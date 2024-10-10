@@ -23,7 +23,7 @@ const Cart = () => {
         {/* Cart Items Section */}
         <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
             {/* Cart Items */}
-            <div className="w-full lg:w-3/4 bg-white p-6 shadow-sm rounded-lg">
+            <div className="w-full lg:w-2/3 bg-white p-6 shadow-sm rounded-lg">
                 <CartList/>
             </div>
             {/* Cart Summary */}
