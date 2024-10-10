@@ -36,9 +36,12 @@ public class PaymentController {
 
         log.info("ddddd email" + email);
 
-        paymentService.tossPaymentSuccess(paymentRequestDTO, email);
+        PaymentSuccessDTO paymentSuccessDTO = paymentService.tossPaymentSuccess(paymentRequestDTO, email);
 
-        return null;
+        log.info("결과..... " + paymentSuccessDTO);
+
+        return DataResponseDTO.of(paymentSuccessDTO);
+
 
     }
 

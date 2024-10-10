@@ -46,8 +46,7 @@ public class PaymentServiceImpl implements PaymentService{
 
   @Override
   public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, String email) {
-
-    //Payment payment = verifyPayment(orderId, amount);
+    log.info("이게 언제 불러와질까? ");
 
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
@@ -99,15 +98,10 @@ public class PaymentServiceImpl implements PaymentService{
 
       }
 
-
-
-
-
     }
 
 
-
-    return null;
+    return paymentSuccessDTO;
   }
 
   private Payment dtoToEntity(PaymentSuccessDTO paymentSuccessDTO, String email){

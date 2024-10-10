@@ -9,7 +9,7 @@ const FailPayment = ({code, message}: Props) => {
 
     return <div>
         <div> code:{code}</div>
-        <div>  messsage:{message}</div>
+        <div> messsage:{message}</div>
 
 
     </div>;

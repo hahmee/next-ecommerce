@@ -6,11 +6,19 @@ export async function getSuccessPayment({queryKey, paymentKey, orderId, amount}:
     orderId: string | string[] | undefined;
     amount: string | string[] | undefined;
 }) {
-    const resultJson = await fetchWithAuth(`/api/payment/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
-        method: "GET",
-        credentials: 'include',
-    });
 
-    return resultJson;
+    try {
+        const resultJson = await fetchWithAuth(`/api/payment/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
+            method: "GET",
+            credentials: 'include',
+        });
+
+        console.log('resultJson?????????? ', resultJson);
+
+        return resultJson;
+    }catch (error:any) {
+        console.log('ddddderror ', error.message);
+    }
+
 
 }
