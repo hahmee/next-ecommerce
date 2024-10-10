@@ -1,5 +1,4 @@
 "use client";
-import {loadTossPayments} from "@tosspayments/payment-sdk";
 import CartSummary from "@/components/Home/CartSummary";
 import React, {FormEvent, FormEventHandler, useState} from "react";
 import {useMutation} from "@tanstack/react-query";
@@ -7,7 +6,8 @@ import toast from "react-hot-toast";
 import {useCartStore} from "@/store/cartStore";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {OrderStatus} from "@/types/orderStatus";
-import {Order} from "@/interface/Order";
+import {Order, OrderShippingAddressInfo} from "@/interface/Order";
+import {loadTossPayments} from "@tosspayments/payment-sdk";
 
 export interface ErrorPaymentResponse {
     response: {
@@ -44,11 +44,11 @@ export interface Payment {
 const Checkout = () => {
 
     const {cart, isLoading, open,subtotal ,changeOpen} = useCartStore();
-    const [orderId, setOrderId] = useState<number | null>(null);
+    // const [orderId, setOrderId] = useState<string | null>(null);
 
 
     // 배송 정보 및 결제 정보 상태 관리
-    const [shippingInfo, setShippingInfo] = useState({
+    const [shippingInfo, setShippingInfo] = useState<OrderShippingAddressInfo>({
         receiver: '',
         address: '',
         zipCode:'',
@@ -64,41 +64,43 @@ const Checkout = () => {
 
     const handlePaymentClick: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
 
-        console.log('eeeee', event);
-        // event.preventDefault();
+        event.preventDefault();
         //
-        // // orderId를 생성하고 상태로 저장
-        // const newOrderId = Math.random().toString(36).slice(2);
-        // setOrderId(Number(newOrderId));
-        //
-        // // 주문 저장
-        // await orderSave();
+        // orderId를 생성하고 상태로 저장
+        const newOrderId = Math.random().toString(36).slice(2);
 
-        //
-        // const tossPayments = await loadTossPayments(
-        //     process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
-        // );
-        //
-        //
-        //
-        // console.log('orderId...', orderId);
-        // await tossPayments.requestPayment("카드", {
-        //     amount: subtotal,
-        //     orderId: newOrderId,
-        //     orderName: cart.length > 1 ? `${cart[0].pname} 외 ${cart.length - 1}개` : `${cart[0].pname}`,
-        //     customerName: '판매자_테스트', //판매자, 판매처 이름
-        //     successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
-        //     failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
-        // });
+        // 주문 저장
+        await orderSave(newOrderId);
+
+        //토스 결제창
+        const tossPayments = await loadTossPayments(
+            process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
+        );
+
+        await tossPayments.requestPayment("카드", {
+            amount: subtotal,
+            orderId: newOrderId,
+            orderName: cart.length > 1 ? `${cart[0].pname} 외 ${cart.length - 1}개` : `${cart[0].pname}`,
+            customerName: '판매자_테스트', //판매자, 판매처 이름
+            successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
+            failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
+        });
     };
 
 
     //주문을 db에 저장한다.
-    const orderSave = async () => {
+    const orderSave = async (orderId: string) => {
 
-        const order: Order = {totalAmount: subtotal, status: OrderStatus.ORDER_CHECKING, orderId: orderId !== null ? orderId : 0, deliveryInfo: shippingInfo};
+        const order: Order = {
+            deliveryInfo: {
+                ...shippingInfo,
+            },
+            totalAmount: subtotal, status: OrderStatus.ORDER_CHECKING, orderId: orderId !== null ? orderId : '',
+        };
 
-            await fetchWithAuth(`/api/order/`, {
+        console.log('order', order);
+
+        await fetchWithAuth(`/api/order/`, {
                 method: "POST",
                 credentials: 'include',
                 headers: {
@@ -107,7 +109,7 @@ const Checkout = () => {
                 body: JSON.stringify(order),
 
             }); // json 형태로 이미 반환
-        };
+    };
 
 
     const mutation = useMutation({
@@ -252,7 +254,7 @@ const Checkout = () => {
 
                     </div>
                     {/* Cart Summary */}
-                    <CartSummary message={"결제하기"} cartButtonClick={handlePaymentClick}/>
+                    <CartSummary message={"결제하기"} cartButtonClick={(e)=>handlePaymentClick(e)}/>
                 </div>
             </div>
         </form>

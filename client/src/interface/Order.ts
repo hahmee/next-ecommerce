@@ -2,7 +2,7 @@ import {OrderStatus} from "@/types/orderStatus";
 
 export interface Order {
   id?: number;
-  orderId: number;
+  orderId: string;
   totalAmount: number;
   status: OrderStatus;
   deliveryInfo: OrderShippingAddressInfo;

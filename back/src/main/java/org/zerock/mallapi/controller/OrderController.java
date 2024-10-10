@@ -7,10 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.OrderService;
 import org.zerock.mallapi.service.PaymentService;
@@ -27,10 +24,9 @@ public class OrderController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @PostMapping("/")
-    public DataResponseDTO<Long> register(OrderDTO orderDTO, Principal principal) {
+    public DataResponseDTO<Long> register(@RequestBody OrderDTO orderDTO, Principal principal) {
 
         log.info("===== orderDTO + " + orderDTO);
-
 
         log.info("principal....?" + principal);
 

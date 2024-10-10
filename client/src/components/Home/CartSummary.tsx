@@ -2,7 +2,7 @@
 import React from "react";
 import {useCartStore} from "@/store/cartStore";
 
-const CartSummary = ({message, cartButtonClick}: { message: string, cartButtonClick: () => void }) => {
+const CartSummary = ({message, cartButtonClick}: { message: string, cartButtonClick: (e?:any) => void }) => {
 
     const {cart, isLoading , subtotal} = useCartStore();
 

@@ -23,7 +23,7 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "member_owner")
     private Member owner;
 
-    private Long orderId; //-- 주문 ID - id와 별개로 고객이 주문을 조회하거나 PG사의 고유한 주문번호를 전달할 때 사용됩니다.
+    private String orderId; //-- 주문 ID - id와 별개로 고객이 주문을 조회하거나 PG사의 고유한 주문번호를 전달할 때 사용됩니다.
 
     private int totalAmount;  //-- 총 주문 금액
 

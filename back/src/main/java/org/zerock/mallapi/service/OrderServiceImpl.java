@@ -22,6 +22,7 @@ public class OrderServiceImpl implements OrderService{
   @Override
   public Long register(OrderDTO orderDTO, String email) {
 
+    log.info(".... " + orderDTO);
 
     Order order = dtoToEntity(orderDTO,email);
 
@@ -39,7 +40,8 @@ public class OrderServiceImpl implements OrderService{
 
     Member member = Member.builder().email(email).build();
 
-    Order order = Order.builder().orderId(orderDTO.getOrderId())
+    Order order = Order.builder()
+            .orderId(orderDTO.getOrderId())
             .totalAmount(orderDTO.getTotalAmount())
             .status(orderDTO.getStatus())
             .deliveryInfo(orderDTO.getDeliveryInfo())
