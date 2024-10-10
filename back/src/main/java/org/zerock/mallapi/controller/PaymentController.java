@@ -14,6 +14,8 @@ import org.zerock.mallapi.dto.PaymentRequestDTO;
 import org.zerock.mallapi.dto.PaymentSuccessDTO;
 import org.zerock.mallapi.service.PaymentService;
 
+import java.security.Principal;
+
 @RestController
 @RequiredArgsConstructor
 @Log4j2
@@ -26,11 +28,15 @@ public class PaymentController {
     //성공시 여기로 redirect
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/success") // payment/success?
-    public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO) {
+    public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, Principal principal) {
 
         log.info("===== paymentRequestDTO + " + paymentRequestDTO);
 
-        paymentService.tossPaymentSuccess(paymentRequestDTO);
+        String email = principal.getName();
+
+        log.info("ddddd email" + email);
+
+        paymentService.tossPaymentSuccess(paymentRequestDTO, email);
 
         return null;
 

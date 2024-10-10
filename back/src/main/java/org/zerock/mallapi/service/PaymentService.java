@@ -8,7 +8,7 @@ import org.zerock.mallapi.dto.PaymentSuccessDTO;
 @Transactional
 public interface PaymentService {
 
-  PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO);
+  PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, String email);
 
   PaymentFailDTO tossPaymentFail(PaymentRequestDTO paymentRequestDTO);
 

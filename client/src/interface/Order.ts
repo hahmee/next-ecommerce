@@ -1,4 +1,6 @@
 import {OrderStatus} from "@/types/orderStatus";
+import {ColorTag} from "@/interface/ColorTag";
+import {CartItemList} from "@/interface/CartItemList";
 
 export interface Order {
   id?: number;
@@ -6,6 +8,8 @@ export interface Order {
   totalAmount: number;
   status: OrderStatus;
   deliveryInfo: OrderShippingAddressInfo;
+  // productInfo: OrderProductInfo;
+  carts?: Array<CartItemList>;
 }
 
 export interface OrderShippingAddressInfo {
@@ -15,3 +19,12 @@ export interface OrderShippingAddressInfo {
   address: string;
   message: string;
 }
+//
+// export interface OrderProductInfo {
+//   pno: number;
+//   pname: string;
+//   qty: number;
+//   price: number;
+//   size: string;
+//   color: ColorTag;
+// }

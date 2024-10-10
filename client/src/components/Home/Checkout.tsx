@@ -8,6 +8,7 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {OrderStatus} from "@/types/orderStatus";
 import {Order, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
+import {CartItemList} from "@/interface/CartItemList";
 
 export interface ErrorPaymentResponse {
     response: {
@@ -95,10 +96,16 @@ const Checkout = () => {
             deliveryInfo: {
                 ...shippingInfo,
             },
+            carts: cart,
+            // productInfo: {
+            //
+            // },
             totalAmount: subtotal, status: OrderStatus.ORDER_CHECKING, orderId: orderId !== null ? orderId : '',
         };
 
         console.log('order', order);
+
+        //order에 있는 거 다
 
         await fetchWithAuth(`/api/order/`, {
                 method: "POST",
@@ -217,44 +224,44 @@ const Checkout = () => {
                             />
                         </div>
                         {/* 결제 정보 입력 섹션 */}
-                        <div className="mb-8">
-                            <h2 className="text-2xl font-semibold mb-4">결제 정보</h2>
+                        {/*<div className="mb-8">*/}
+                        {/*    <h2 className="text-2xl font-semibold mb-4">결제 정보</h2>*/}
 
-                            <label className="block mb-2">카드 번호</label>
-                            <input
-                                className="w-full p-2 border border-gray-300"
-                                type="text"
-                                name="cardNumber"
-                                value={paymentInfo.cardNumber}
-                                onChange={handleInputChange}
-                                required
-                            />
+                        {/*    <label className="block mb-2">카드 번호</label>*/}
+                        {/*    <input*/}
+                        {/*        className="w-full p-2 border border-gray-300"*/}
+                        {/*        type="text"*/}
+                        {/*        name="cardNumber"*/}
+                        {/*        value={paymentInfo.cardNumber}*/}
+                        {/*        onChange={handleInputChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
 
-                            <label className="block mb-2 mt-4">유효 기간 (MM/YY)</label>
-                            <input
-                                className="w-full p-2 border border-gray-300"
-                                type="text"
-                                name="expiryDate"
-                                value={paymentInfo.expiryDate}
-                                onChange={handleInputChange}
-                                required
-                            />
+                        {/*    <label className="block mb-2 mt-4">유효 기간 (MM/YY)</label>*/}
+                        {/*    <input*/}
+                        {/*        className="w-full p-2 border border-gray-300"*/}
+                        {/*        type="text"*/}
+                        {/*        name="expiryDate"*/}
+                        {/*        value={paymentInfo.expiryDate}*/}
+                        {/*        onChange={handleInputChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
 
-                            <label className="block mb-2 mt-4">CVC</label>
-                            <input
-                                className="w-full p-2 border border-gray-300"
-                                type="text"
-                                name="cvc"
-                                value={paymentInfo.cvc}
-                                onChange={handleInputChange}
-                                required
-                            />
-                        </div>
+                        {/*    <label className="block mb-2 mt-4">CVC</label>*/}
+                        {/*    <input*/}
+                        {/*        className="w-full p-2 border border-gray-300"*/}
+                        {/*        type="text"*/}
+                        {/*        name="cvc"*/}
+                        {/*        value={paymentInfo.cvc}*/}
+                        {/*        onChange={handleInputChange}*/}
+                        {/*        required*/}
+                        {/*    />*/}
+                        {/*</div>*/}
 
 
                     </div>
                     {/* Cart Summary */}
-                    <CartSummary message={"결제하기"} cartButtonClick={(e)=>handlePaymentClick(e)}/>
+                    <CartSummary type={"Payment"} cartButtonClick={(e)=>handlePaymentClick(e)}/>
                 </div>
             </div>
         </form>

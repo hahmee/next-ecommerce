@@ -24,7 +24,7 @@ public class Payment extends BaseEntity {
 
     private String paymentKey;
 
-    private Long orderId; //-- 주문 ID
+    private String orderId; //-- 주문 ID
 
     private String orderName;
 

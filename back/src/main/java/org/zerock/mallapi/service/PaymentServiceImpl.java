@@ -17,15 +17,12 @@ import org.springframework.web.client.RestTemplate;
 import org.zerock.mallapi.config.TossPaymentConfig;
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
-import org.zerock.mallapi.repository.CategoryClosureRepository;
-import org.zerock.mallapi.repository.ProductRepository;
+import org.zerock.mallapi.repository.*;
+import org.zerock.mallapi.util.GeneralException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,30 +37,96 @@ public class PaymentServiceImpl implements PaymentService{
   @Value("${payment.toss.confirm.url}")
   private String tossConfirmUrl;
 
+  private final PaymentRepository paymentRepository;
+
+  private final OrderRepository orderRepository;
+
+  private final OrderPaymentRepository orderPaymentRepository;
+
 
   @Override
-  public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO) {
+  public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, String email) {
 
     //Payment payment = verifyPayment(orderId, amount);
-
-
 
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
 
     log.info("===paymentSuccessDTO === " + paymentSuccessDTO);
 
-    //결제 정보 db 저장
+    //DONE이라면
+    if(paymentSuccessDTO.getStatus() == TossPaymentStatus.DONE) {
+
+      //결제 객체의 정보 중 필요한 정보들을 서버에 저장한다.
+      Payment payment = dtoToEntity(paymentSuccessDTO, email);
+
+      //시간
+      payment.setCreatedAt(LocalDateTime.now());
+      payment.setUpdatedAt(LocalDateTime.now());
+
+      paymentRepository.save(payment);
+
+      //결제 결과를 바탕으로 주문의 상태에 반영한다.
+
+      //step1 read (order_id로 찾는다)
+      List<Order> orders = orderRepository.selectListByOrderId(paymentSuccessDTO.getOrderId());
+
+      // 리스트가 비어 있으면 예외를 발생시킨다.
+      if (orders.isEmpty()) {
+        throw new GeneralException("해당 주문번호에 해당하는 주문내역이 없습니다...,");
+//        throw new NoSuchElementException("해당 주문번호에 해당하는 주문내역이 없습니다..., " + paymentSuccessDTO.getOrderId());
+      }
+
+      //step2 상태 변경 - for문
+      for(Order order: orders) {
+
+        order.changeStatus(OrderStatus.PAYMENT_CONFIRMED);
+
+        //시간도 변경
+        order.setUpdatedAt(LocalDateTime.now());
+
+        //step3 저장
+        orderRepository.save(order);
+
+
+        //각 주문들에 결제 정보를 기록해둔다.
+        OrderPayment orderPayment = OrderPayment.builder()
+                .orderId(order.getId())
+                .paymentId(payment.getId())
+                .build();
+
+        orderPaymentRepository.save(orderPayment);
+
+      }
 
 
 
+
+
+    }
 
 
 
     return null;
   }
 
+  private Payment dtoToEntity(PaymentSuccessDTO paymentSuccessDTO, String email){
 
+    Member member = Member.builder().email(email).build();
+
+    Payment payment = Payment.builder()
+            .orderId(paymentSuccessDTO.getOrderId())
+            .paymentKey(paymentSuccessDTO.getPaymentKey())
+            .status(paymentSuccessDTO.getStatus())
+            .method(paymentSuccessDTO.getMethod())
+            .type(paymentSuccessDTO.getType())
+            .orderName(paymentSuccessDTO.getOrderName())
+            .owner(member)
+            .build();
+
+    return payment;
+
+  }
   @Override
   public PaymentFailDTO tossPaymentFail(PaymentRequestDTO paymentRequestDTO) {
 
@@ -89,7 +152,7 @@ public class PaymentServiceImpl implements PaymentService{
     PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
 
 
-    log.info("______ result + " + result);
+    log.info("______ result + 이게 안나오네..." + result);
 
 
 

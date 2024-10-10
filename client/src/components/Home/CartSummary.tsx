@@ -1,24 +1,59 @@
 "use client";
 import React from "react";
 import {useCartStore} from "@/store/cartStore";
+import Image from "next/image";
+import Link from "next/link";
 
-const CartSummary = ({message, cartButtonClick}: { message: string, cartButtonClick: (e?:any) => void }) => {
+const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", cartButtonClick: (e?:any) => void }) => {
 
     const {cart, isLoading , subtotal} = useCartStore();
 
-    // const subtotal = useMemo(() => {
-    //     let total = 0;
-    //
-    //     for (const item of cart) {
-    //         total += item.qty * item.price;
-    //     }
-    //
-    //     return total;
-    // }, [cart]);
 
     return (
         <div className="w-full lg:w-1/4 bg-white p-6 shadow-sm rounded-lg">
-            <h2 className="text-lg font-medium mb-4">Order Summary</h2>
+            <div className="flex justify-between">
+                <h2 className="text-lg font-medium mb-4">Order Summary({cart.length})</h2>
+                {type === "Payment" &&
+                    <Link href="/cart" className="cursor-pointer">
+                        <h2 className="text-base font-medium mb-4 underline">Edit Cart</h2>
+                    </Link>
+                }
+
+            </div>
+
+            {
+                type === "Payment" && <div className="flex flex-col gap-5 py-2 border-t border-b pt-4 pb-4">
+                    {
+                        cart.map((item) =>
+                            <div className="flex justify-between" key={item.cino}>
+                                <div className="flex gap-2">
+                                    <Image
+                                        src={item.imageFile}
+                                        alt="Product Image"
+                                        width={500}
+                                        height={500}
+                                        className="w-24 h-24 object-cover rounded-lg"
+                                    />
+                                    <div className="flex flex-col text-sm text-gray-800">
+                                        <span className="font-semibold">{item.pname}</span>
+                                        <span className="">
+                                        Color: {item.color.text}
+                                    </span>
+                                        <span className="">
+                                       Size: {item.size}
+                                    </span>
+                                        <span className="">
+                                       Qty: {item.qty}
+                                    </span>
+                                    </div>
+                                </div>
+                                <div>{item.price}</div>
+                            </div>)
+                    }
+                </div>
+            }
+
+
             <div className="flex justify-between py-2">
                 <span>Subtotal</span>
                 <span>{subtotal}</span>
@@ -35,10 +70,11 @@ const CartSummary = ({message, cartButtonClick}: { message: string, cartButtonCl
             <button
                 className="w-full text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                 onClick={cartButtonClick}>
-                {message}
+                {type}
             </button>
             <div className="text-sm text-gray-400 text-center mt-4">
-                Learn more <a href="#" className="underline">Taxes</a> and <a href="#" className="underline">Shipping</a> information.
+                Learn more <a href="#" className="underline">Taxes</a> and <a href="#"
+                                                                              className="underline">Shipping</a> information.
             </div>
         </div>
 

@@ -1,12 +1,12 @@
 package org.zerock.mallapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 
 //주문에 대한 결제 정보들을 저장합니다.
 @Entity
+@Table(name = "tbl_order_payment")
+@Builder
 public class OrderPayment {
 
     @Id

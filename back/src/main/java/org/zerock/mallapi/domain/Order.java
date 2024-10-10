@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_order")
 public class Order extends BaseEntity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,4 +30,9 @@ public class Order extends BaseEntity {
 
     private OrderShippingAddressInfo deliveryInfo; //-- 주문 정보
 
+    private OrderProductInfo productInfo;   // 주문한 상품에 대한 정보들을 포함 (상품 변경사항에 대비하여 반정규화 하여 저장)
+
+    public void changeStatus(OrderStatus status) {
+        this.status = status;
+    }
 }

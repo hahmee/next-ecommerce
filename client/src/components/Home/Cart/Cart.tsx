@@ -27,7 +27,7 @@ const Cart = () => {
                 <CartList/>
             </div>
             {/* Cart Summary */}
-            <CartSummary message={"Checkout"} cartButtonClick={cartButtonClick}/>
+            <CartSummary type={"Checkout"} cartButtonClick={cartButtonClick}/>
         </div>
     </div>
 }

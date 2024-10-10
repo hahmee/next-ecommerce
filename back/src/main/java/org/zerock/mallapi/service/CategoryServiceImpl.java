@@ -3,13 +3,15 @@ package org.zerock.mallapi.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
-import org.zerock.mallapi.domain.*;
-import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.domain.AdminCategory;
+import org.zerock.mallapi.domain.CategoryClosure;
+import org.zerock.mallapi.domain.CategoryClosureId;
+import org.zerock.mallapi.domain.CategoryImage;
+import org.zerock.mallapi.dto.CategoryDTO;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
