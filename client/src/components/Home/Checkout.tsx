@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import {useCartStore} from "@/store/cartStore";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import {OrderStatus} from "@/types/orderStatus";
-import {Order, OrderShippingAddressInfo} from "@/interface/Order";
+import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
 import {CartItemList} from "@/interface/CartItemList";
 
@@ -91,7 +91,7 @@ const Checkout = () => {
     //주문을 db에 저장한다.
     const orderSave = async (orderId: string) => {
 
-        const order: Order = {
+        const order: OrderRequest = {
             deliveryInfo: {
                 ...shippingInfo,
             },

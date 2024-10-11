@@ -5,14 +5,12 @@ package org.zerock.mallapi.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.OrderService;
-import org.zerock.mallapi.service.PaymentService;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,17 +22,25 @@ public class OrderController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @PostMapping("/")
-    public DataResponseDTO<Long> register(@RequestBody OrderDTO orderDTO, Principal principal) {
+    public DataResponseDTO<String> register(@RequestBody OrderRequestDTO orderRequestDTO, Principal principal) {
 
-        log.info("===== orderDTO + " + orderDTO);
+        log.info("===== orderDTO + " + orderRequestDTO);
 
         log.info("principal....?" + principal);
 
         String email = principal.getName();
 
-        Long id = orderService.register(orderDTO, email);
+        orderService.register(orderRequestDTO, email);
 
-        return DataResponseDTO.of(id);
+        return DataResponseDTO.of("SUCCESS");
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @GetMapping("/{orderId}")
+    public DataResponseDTO<List<OrderDTO>> list(@PathVariable(name="orderId") String orderId) {
+
+        return DataResponseDTO.of(orderService.getList(orderId));
 
     }
 

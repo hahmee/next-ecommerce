@@ -42,6 +42,8 @@ public class PaymentServiceImpl implements PaymentService{
 
   private final OrderPaymentRepository orderPaymentRepository;
 
+  private final MemberService memberService;
+
 
   @Override
   public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, String email) {
@@ -143,7 +145,7 @@ public class PaymentServiceImpl implements PaymentService{
 
     List<Payment> payments = paymentRepository.findByUserEmail(email);
 
-    List<PaymentDTO> responseDTO = payments.stream().map(this::entityToDTO).collect(Collectors.toList());
+    List<PaymentDTO> responseDTO = payments.stream().map(this::convertToDTO).collect(Collectors.toList());
 
     log.info("===============responseDTO "  + responseDTO);
 
@@ -176,7 +178,10 @@ public class PaymentServiceImpl implements PaymentService{
 
   }
 
-private PaymentDTO entityToDTO(Payment payment){
+private PaymentDTO convertToDTO(Payment payment){
+
+
+  MemberDTO memberDTO = memberService.entityToDTO(payment.getOwner());
 
   PaymentDTO paymentDTO = PaymentDTO.builder()
           .id(payment.getId())
@@ -187,7 +192,7 @@ private PaymentDTO entityToDTO(Payment payment){
           .orderId(payment.getOrderId())
           .totalAmount(payment.getTotalAmount())
           .method(payment.getMethod())
-          .owner(payment.getOwner())
+          .owner(memberDTO)
           .build();
 
   paymentDTO.setCreatedAt(payment.getCreatedAt());

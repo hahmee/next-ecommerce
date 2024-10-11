@@ -6,7 +6,7 @@ export interface Member {
   nickname: string;
   password: string;
   refreshToken: string;
-  roleNames: [MemberRole];
+  roleNames: MemberRole[];
   social: false;
 }
 

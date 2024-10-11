@@ -1,11 +1,8 @@
 package org.zerock.mallapi.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.zerock.mallapi.domain.Member;
-import org.zerock.mallapi.domain.OrderProductInfo;
 import org.zerock.mallapi.domain.OrderShippingAddressInfo;
 import org.zerock.mallapi.domain.OrderStatus;
 
@@ -14,12 +11,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Builder
-public class OrderDTO extends BaseDTO {
+public class OrderRequestDTO {
 
     private Long id;
-
-    private MemberDTO owner;
 
     private String orderId; //-- 주문 ID -
 
@@ -28,8 +22,8 @@ public class OrderDTO extends BaseDTO {
     private OrderStatus status; // 주문의 상태
 
     private OrderShippingAddressInfo deliveryInfo; //-- 주문 정보
-
-    private OrderProductInfo productInfo; //-- 제품 정보
+    
+    private List<CartItemListDTO> carts; //-- 카트 정보
 
 
 }

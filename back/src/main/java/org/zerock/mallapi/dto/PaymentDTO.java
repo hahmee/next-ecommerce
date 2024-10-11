@@ -10,7 +10,7 @@ public class PaymentDTO extends BaseDTO {
 
   Long id;
 
-  Member owner;
+  MemberDTO owner; //Member
 
   String paymentKey;
 

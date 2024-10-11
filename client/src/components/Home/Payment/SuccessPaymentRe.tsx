@@ -85,12 +85,18 @@ const SuccessPaymentRe = ({paymentKey, orderId, amount}: Props) => {
             <p className="text-gray-700 mb-6">카드번호: {payment.card.number}</p>
 
             <div className="flex flex-col space-y-4">
-                <div className="text-center text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg transition">
-                    계속 쇼핑하기
-                </div>
-                <div className="text-center text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition">
-                    주문 내역 확인하기
-                </div>
+                <Link href="/">
+                    <div
+                        className="text-center text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg transition">
+                        계속 쇼핑하기
+                    </div>
+                </Link>
+                <Link href={`/order/${payment.orderId}`}>
+                    <div
+                        className="text-center text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition">
+                        주문 내역 확인하기
+                    </div>
+                </Link>
             </div>
         </div>
     </div>;
