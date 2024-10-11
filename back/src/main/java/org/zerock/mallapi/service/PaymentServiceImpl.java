@@ -100,7 +100,6 @@ public class PaymentServiceImpl implements PaymentService{
         orderPaymentRepository.save(orderPayment);
 
 
-
         //결제 완료된 상품들은 장바구니에서 삭제한다.- order의 pno 찾아서 해당 하는 사람의 cart item의 pno 삭제하기
         deleteCartItems(email, order.getProductInfo().getPno());
 
@@ -116,8 +115,6 @@ public class PaymentServiceImpl implements PaymentService{
 
         //1. 우선 카트아이템에서 찾기
         List<Long> cinos = cartService.getCartItemByEmailAndProductId(email, pno);
-
-        log.info("ccccc 찾았땅! " + cinos);
 
 
         //2. 삭제한다.
@@ -162,14 +159,12 @@ public class PaymentServiceImpl implements PaymentService{
     UserDetails userDetails = (UserDetails)principal;
     String email = userDetails.getUsername();
 
-    log.info("....email?? " + email);
 
 
     List<Payment> payments = paymentRepository.findByUserEmail(email);
 
     List<PaymentDTO> responseDTO = payments.stream().map(this::convertToDTO).collect(Collectors.toList());
 
-    log.info("===============responseDTO "  + responseDTO);
 
 
     return responseDTO;

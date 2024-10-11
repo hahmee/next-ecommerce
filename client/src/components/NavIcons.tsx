@@ -27,6 +27,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
 
 
     useEffect(() => {
+        console.log('getCart...................');
         getCart();
 
     }, []);

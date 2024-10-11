@@ -41,37 +41,28 @@ const FullMenu = () => {
     const renderSubCategory = () => {
         const subCategories = categories?.find(ct => ct.cno === expandedRow)?.subCategories || [];
         const mainCategory = categories?.find(ct => ct.cno === expandedRow);
-        return <div className="grid grid-cols-2 gap-8 m-10 w-full">
-            <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2 relative">
-                    <Image
-                        src="https://images.pexels.com/photos/17867705/pexels-photo-17867705/free-photo-of-crowd-of-hikers-on-the-mountain-ridge-at-dusk.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                        alt="image" width={600} height={600} className="w-full h-70 object-cover rounded-lg"/>
-                    <div className='bg-white h-19 opacity-70 absolute w-full bottom-0 flex p-4 flex-col'>
-                        <div>New Arrivals</div>
-                        <div>Shop now</div>
-                    </div>
-                </div>
+        return <div className="grid grid-cols-2 gap-8 m-5 w-full">
+            <div className="flex gap-5">
                 <div className="relative">
                     <Image
                         src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
-                        alt="image" width={600} height={600} className="w-full object-cover h-70 rounded-lg"/>
-                    <div className='bg-white h-19 opacity-70 absolute w-full bottom-0 flex p-4 flex-col'>
-                        <div>New Arrivals</div>
-                        <div>Shop now</div>
+                        alt="image" width={600} height={600} className=" object-cover h-50 w-50 rounded-lg"/>
+                    <div className='text-sm w-full bottom-0 flex p-4 flex-col'>
+                        <div className="font-bold">New Arrivals</div>
+                        <div className="text-gray-500">Shop now</div>
                     </div>
                 </div>
                 <div className="relative">
                     <Image
                         src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800"
-                        alt="image" width={600} height={600} className="w-full object-cover h-70 rounded-lg"/>
-                    <div className='bg-white h-19 opacity-70 absolute w-full bottom-0 flex p-4 flex-col'>
-                        <div>New Arrivals</div>
-                        <div>Shop now</div>
+                        alt="image" width={600} height={600} className=" object-cover h-50 w-50 rounded-lg"/>
+                    <div className='text-sm w-full bottom-0 flex p-4 flex-col'>
+                        <div className="font-bold">New Arrivals</div>
+                        <div className="text-gray-500">Shop now</div>
                     </div>
                 </div>
             </div>
-            <div className="">
+            <div>
                 <div className="font-medium text-base cursor-pointer">{mainCategory?.cname}</div>
                 {renderSubResult(subCategories)}
             </div>

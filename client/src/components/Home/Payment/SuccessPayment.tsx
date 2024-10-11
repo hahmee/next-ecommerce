@@ -2,9 +2,10 @@
 
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {getSuccessPayment} from "@/app/(home)/order/success/_lib/getSuccessPayment";
 import Link from "next/link";
+import {useCartStore} from "@/store/cartStore";
 
 interface Props {
     paymentKey: string | undefined | string[];
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
+    const {getCart } = useCartStore();
 
     //데이터 가져온 후 다른 페이지로 이동..?
     const {data: payment, error} = useQuery<DataResponse<any>, any, any, [_1: string]>({
@@ -28,6 +30,14 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
 
     console.log('payments..', payment);
 
+    useEffect(() => {
+
+        if(payment){
+            getCart();
+
+        }
+    }, [payment]);
+
     if(error) {
         console.log('error', error);
     }
@@ -39,6 +49,7 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
         // router.push(`/order/fail?code=${}&message=${}`);
         return null;
     }
+
 
     return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
