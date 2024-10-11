@@ -45,6 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
             .subCategories(subCategories.isEmpty() ? null : subCategories.stream().map(this::convertToDTO).collect(Collectors.toList()))
             .build();
   }
+
   //모든 카테고리 다 가져오기
   @Override
   public List<CategoryDTO> getAllCategories() {
@@ -106,8 +107,8 @@ public class CategoryServiceImpl implements CategoryService {
             .cno(category.getCno())
             .cname(category.getCname())
             .cdesc(category.getCdesc())
-            .uploadFileName(category.getImage().getFileName())
-            .uploadFileKey(category.getImage().getFileKey())
+            .uploadFileName(category.getImage() != null ? category.getImage().getFileName() : null)
+            .uploadFileKey(category.getImage() != null ? category.getImage().getFileKey() : null)
             .build();
 
     return categoryDTO;

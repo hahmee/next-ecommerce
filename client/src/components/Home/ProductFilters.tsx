@@ -41,7 +41,6 @@ const ProductFilters: React.FC<Props> = ({filters}: Props) => {
         // })
 
 
-        console.log('newFilterStates',newFilterStates)
 
         setFilterStates(newFilterStates);
     }, [searchParams, filters]);

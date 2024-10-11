@@ -98,18 +98,21 @@ interface Props {
     query: string;
 }
 
+export interface Params {
+    key: string;
+    value: string;
+}
+
 const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order, query}: Props) => {
     const searchParams = useSearchParams();
     const searchValue = searchParams.get("query");
     // 모든 쿼리 파라미터를 객체 형태로 가져오기
     // const params = Object.fromEntries(searchParams.entries());
     // 모든 쿼리 파라미터를 [{ key, value }] 형태로 변환
-    const paramsArray = Array.from(searchParams.entries()).map(([key, value]) => ({
+    const paramsArray: Params[] = Array.from(searchParams.entries()).map(([key, value]) => ({
         key,
         value
     }));
-
-    console.log(paramsArray);
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
@@ -165,7 +168,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         refetchOnWindowFocus: false,
     });
 
-    const {data: categories,} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+    const {data: categories} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
         queryKey: ['categories'],
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,
@@ -186,6 +189,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             return data.data;
         }, []),
     });
+
 
     const {ref, inView} = useInView();
 
@@ -213,6 +217,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             <></>
         );
     }
+
 
     return (
         <div className="bg-white">
@@ -349,7 +354,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                 <div className="w-full flex justify-between">
                                     <div className="flex flex-wrap">
                                         {
-                                            paramsArray?.map((param:any, index: number) => <FiltersBadge param={param} key={index} filters={filters}/>)
+                                            paramsArray?.map((param:Params, index: number) => <FiltersBadge key={index} param={param} category={category}/>)
                                         }
                                     </div>
 
