@@ -19,7 +19,7 @@ export interface ErrorPaymentResponse {
     };
 }
 
-export interface Payment {
+export interface PaymentTest {
     orderName: string;
     approvedAt: string;
     receipt: {
@@ -30,7 +30,6 @@ export interface Payment {
     paymentKey: string;
     orderId: string;
     card: {amount:number, number: number;}
-
     status:
         | 'READY'
         | 'IN_PROGRESS'
@@ -107,7 +106,7 @@ const Checkout = () => {
 
         //order에 있는 거 다
 
-        await fetchWithAuth(`/api/order/`, {
+        await fetchWithAuth(`/api/orders/`, {
                 method: "POST",
                 credentials: 'include',
                 headers: {

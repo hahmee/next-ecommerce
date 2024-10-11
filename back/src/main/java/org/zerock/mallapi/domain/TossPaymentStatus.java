@@ -9,5 +9,4 @@ public enum TossPaymentStatus {
     PARTIAL_CANCELED,
     ABORTED,
     EXPIRED
-
 }

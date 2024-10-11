@@ -3,26 +3,25 @@ package org.zerock.mallapi.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.zerock.mallapi.config.TossPaymentConfig;
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
-import org.zerock.mallapi.repository.*;
+import org.zerock.mallapi.repository.OrderPaymentRepository;
+import org.zerock.mallapi.repository.OrderRepository;
+import org.zerock.mallapi.repository.PaymentRepository;
 import org.zerock.mallapi.util.GeneralException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Base64;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -114,6 +113,7 @@ public class PaymentServiceImpl implements PaymentService{
             .status(paymentSuccessDTO.getStatus())
             .method(paymentSuccessDTO.getMethod())
             .type(paymentSuccessDTO.getType())
+            .totalAmount(paymentSuccessDTO.getTotalAmount())
             .orderName(paymentSuccessDTO.getOrderName())
             .owner(member)
             .build();
@@ -121,12 +121,34 @@ public class PaymentServiceImpl implements PaymentService{
     return payment;
 
   }
+
   @Override
   public PaymentFailDTO tossPaymentFail(PaymentRequestDTO paymentRequestDTO) {
 
 
 
     return null;
+  }
+
+  @Override
+  public List<PaymentDTO> getList() {
+
+    // 현재 인증된 사용자 정보 가져오기
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    UserDetails userDetails = (UserDetails)principal;
+    String email = userDetails.getUsername();
+
+    log.info("....email?? " + email);
+
+
+    List<Payment> payments = paymentRepository.findByUserEmail(email);
+
+    List<PaymentDTO> responseDTO = payments.stream().map(this::entityToDTO).collect(Collectors.toList());
+
+    log.info("===============responseDTO "  + responseDTO);
+
+
+    return responseDTO;
   }
 
 
@@ -153,6 +175,27 @@ public class PaymentServiceImpl implements PaymentService{
     return result;
 
   }
+
+private PaymentDTO entityToDTO(Payment payment){
+
+  PaymentDTO paymentDTO = PaymentDTO.builder()
+          .id(payment.getId())
+          .paymentKey(payment.getPaymentKey())
+          .status(payment.getStatus())
+          .type(payment.getType())
+          .orderName(payment.getOrderName())
+          .orderId(payment.getOrderId())
+          .totalAmount(payment.getTotalAmount())
+          .method(payment.getMethod())
+          .owner(payment.getOwner())
+          .build();
+
+  paymentDTO.setCreatedAt(payment.getCreatedAt());
+  payment.setUpdatedAt(payment.getUpdatedAt());
+
+    return paymentDTO;
+  }
+
 
   private HttpHeaders getHeaders() {
     HttpHeaders headers = new HttpHeaders();

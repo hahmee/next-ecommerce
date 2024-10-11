@@ -8,7 +8,7 @@ export async function getSuccessPayment({queryKey, paymentKey, orderId, amount}:
 }) {
 
     try {
-        const resultJson = await fetchWithAuth(`/api/payment/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
+        const resultJson = await fetchWithAuth(`/api/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
             method: "GET",
             credentials: 'include',
         });

@@ -3,7 +3,7 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
-import {getOrders} from "@/app/(home)/profile/_lib/getOrders";
+import {getPayments} from "@/app/(home)/profile/_lib/getPayments";
 
 export async function generateMetadata() {
 
@@ -19,8 +19,7 @@ export default async function ProfilePage()  {
     const prefetchOptions =
         {
             queryKey: ['orders'],
-            queryFn: () => getOrders({queryKey: ['orders']}),
-
+            queryFn: () => getPayments({queryKey: ['orders']}),
         };
 
     return (

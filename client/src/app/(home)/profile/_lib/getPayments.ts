@@ -1,9 +1,9 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
-export const getOrders = async ({queryKey}: { queryKey: [string] }) => {
-    const [_] = queryKey;
+export const getPayments = async ({queryKey}: { queryKey: [string] }) => {
+    console.log('queryKey....', queryKey);
 
-    const res = await fetchWithAuth(`/api/orders`, {
+    const res = await fetchWithAuth(`/api/payments/list`, {
         // next: {
         //     tags: ['cno', cno],
         // },

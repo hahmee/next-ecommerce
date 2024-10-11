@@ -17,7 +17,7 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/order")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -37,5 +37,6 @@ public class OrderController {
         return DataResponseDTO.of(id);
 
     }
+
 
 }

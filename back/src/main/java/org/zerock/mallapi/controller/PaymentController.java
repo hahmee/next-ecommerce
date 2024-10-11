@@ -8,18 +8,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.mallapi.dto.DataResponseDTO;
-import org.zerock.mallapi.dto.PaymentFailDTO;
-import org.zerock.mallapi.dto.PaymentRequestDTO;
-import org.zerock.mallapi.dto.PaymentSuccessDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.PaymentService;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/api/payment")
+@RequestMapping("/api/payments")
 public class PaymentController {
 
     private final PaymentService paymentService;
@@ -45,8 +43,16 @@ public class PaymentController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @GetMapping("/list")
+    public DataResponseDTO<List<PaymentDTO>> list() {
+
+        return DataResponseDTO.of(paymentService.getList());
+
+    }
 
 
+    /*사용 x */
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/fail") // payment/fail?
     public DataResponseDTO<PaymentFailDTO> tossPaymentFail(PaymentRequestDTO paymentRequestDTO) {

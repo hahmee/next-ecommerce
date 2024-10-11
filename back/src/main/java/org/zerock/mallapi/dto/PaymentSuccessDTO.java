@@ -17,7 +17,7 @@ public class PaymentSuccessDTO {
   String orderName;
   String currency;
   TossPaymentMethod method;
-  String totalAmount;
+  int totalAmount;
   String balanceAmount;
   String suppliedAmount;
   String vat;

@@ -17,8 +17,6 @@ const UserInfo = () => {
     useEffect(() => {
 
 
-
-
         const test = async () => {
             //  await fetchWithAuth(`/api/profile`, {
             //     method: "GET",

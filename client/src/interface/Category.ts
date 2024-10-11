@@ -1,5 +1,3 @@
-import {FileDTO} from "@/interface/FileDTO";
-
 export type Category = {
   cno: number;
   cname: string;

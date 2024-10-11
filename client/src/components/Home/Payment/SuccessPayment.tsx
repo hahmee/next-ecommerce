@@ -2,9 +2,9 @@
 
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
-import {Payment} from "../Checkout";
+import {PaymentTest} from "../Checkout";
 
-const SuccessPayment = ({payments, isError = false}: { payments: Payment | null, isError: boolean }) => {
+const SuccessPayment = ({payments, isError = false}: { payments: PaymentTest | null, isError: boolean }) => {
     const router = useRouter();
     const [isLoaded, setIsLoaded] = useState(false);
     // const { orderNumber } = useOrderStore();
