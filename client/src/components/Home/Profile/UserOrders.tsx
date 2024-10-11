@@ -6,14 +6,6 @@ import {Payment} from "@/interface/Payment";
 import {TossPaymentStatus} from "@/types/toss";
 import {useRouter} from "next/navigation";
 
-interface Order {
-    id: string;
-    orderId: string;
-    totalAmount: number;
-    status: string;
-    createdAt: string;
-}
-
 const UserOrders = () => {
     const router = useRouter();
 
@@ -53,7 +45,7 @@ const UserOrders = () => {
                     </thead>
                     <tbody>
                     {orders?.map((order) => (
-                        <tr key={order.id} className="border-b" onClick={()=>router.push(`/order/${order.orderId}`)}>
+                        <tr key={order.id} className="border-b cursor-pointer hover:bg-gray-50" onClick={()=>router.push(`/order/${order.orderId}`)}>
                             <td className="py-2 px-4">{order.orderId}</td>
                             <td className="py-2 px-4">${order.totalAmount}</td>
                             <td className="py-2 px-4">

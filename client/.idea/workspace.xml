@@ -5,25 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/OrderRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/order/[orderId]/_lib/getOrder.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(home)/order/[orderId]/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserProfile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/OrderDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPaymentRe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPaymentRe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPaymentRe.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Member.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Member.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Order.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types/orderStatus.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/orderStatus.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -256,7 +246,7 @@
       <workItem from="1728473331096" duration="10274000" />
       <workItem from="1728524613200" duration="21114000" />
       <workItem from="1728566289200" duration="5265000" />
-      <workItem from="1728610946439" duration="12222000" />
+      <workItem from="1728610946439" duration="17582000" />
     </task>
     <servers />
   </component>

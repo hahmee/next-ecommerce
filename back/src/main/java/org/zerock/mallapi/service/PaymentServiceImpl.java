@@ -44,10 +44,11 @@ public class PaymentServiceImpl implements PaymentService{
 
   private final MemberService memberService;
 
+  private final CartService cartService;
+
 
   @Override
   public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, String email) {
-    log.info("이게 언제 불러와질까? ");
 
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
@@ -80,6 +81,7 @@ public class PaymentServiceImpl implements PaymentService{
       //step2 상태 변경 - for문
       for(Order order: orders) {
 
+        //결제완료로 상태 변경
         order.changeStatus(OrderStatus.PAYMENT_CONFIRMED);
 
         //시간도 변경
@@ -97,12 +99,32 @@ public class PaymentServiceImpl implements PaymentService{
 
         orderPaymentRepository.save(orderPayment);
 
+
+
+        //결제 완료된 상품들은 장바구니에서 삭제한다.- order의 pno 찾아서 해당 하는 사람의 cart item의 pno 삭제하기
+        deleteCartItems(email, order.getProductInfo().getPno());
+
       }
 
     }
 
 
     return paymentSuccessDTO;
+  }
+
+  private void deleteCartItems(String email, Long pno){
+
+        //1. 우선 카트아이템에서 찾기
+        List<Long> cinos = cartService.getCartItemByEmailAndProductId(email, pno);
+
+        log.info("ccccc 찾았땅! " + cinos);
+
+
+        //2. 삭제한다.
+        for(Long cino: cinos) {
+          cartService.remove(cino);
+        }
+
   }
 
   private Payment dtoToEntity(PaymentSuccessDTO paymentSuccessDTO, String email){

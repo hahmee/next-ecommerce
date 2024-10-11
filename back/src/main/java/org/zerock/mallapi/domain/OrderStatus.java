@@ -1,7 +1,7 @@
 package org.zerock.mallapi.domain;
 
 public enum OrderStatus {
-    ORDER_CHECKING, //
+    ORDER_CHECKING, // 주문 확인
     PAYMENT_CONFIRMED, //결제 완료
     PENDING,       // 결제 대기 중
     COMPLETED,     // 결제 완료

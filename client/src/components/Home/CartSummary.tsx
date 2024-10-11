@@ -4,7 +4,7 @@ import {useCartStore} from "@/store/cartStore";
 import Image from "next/image";
 import Link from "next/link";
 
-const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", cartButtonClick: (e?:any) => void }) => {
+const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", cartButtonClick?: () => void }) => {
 
     const {cart, isLoading , subtotal} = useCartStore();
 
@@ -72,8 +72,7 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
                 {type}
             </button>
             <div className="text-sm text-gray-400 text-center mt-4">
-                Learn more <a href="#" className="underline">Taxes</a> and <a href="#"
-                                                                              className="underline">Shipping</a> information.
+                Learn more <span className="underline">Taxes</span> and <span className="underline">Shipping</span> information.
             </div>
         </div>
 

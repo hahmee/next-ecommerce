@@ -6,6 +6,31 @@ import {getOrder} from "@/app/(home)/order/[orderId]/_lib/getOrder";
 import {Order} from "@/interface/Order";
 import {OrderStatus} from "@/types/orderStatus";
 
+const getOrderStatusText = (status: OrderStatus): string => {
+    switch (status) {
+        case OrderStatus.ORDER_CHECKING:
+            return "주문 확인"; // 주문 확인
+        case OrderStatus.PAYMENT_CONFIRMED:
+            return "결제 완료"; // 지불 완료
+        case OrderStatus.PENDING:
+            return "대기 중"; // Pending
+        case OrderStatus.COMPLETED:
+            return "완료됨"; // Completed
+        case OrderStatus.CANCELLED:
+            return "취소됨"; // Cancelled
+        case OrderStatus.SHIPPED:
+            return "배송 중"; // Shipped
+        case OrderStatus.DELIVERED:
+            return "배송 완료"; // Delivered
+        case OrderStatus.RETURNED:
+            return "반품됨"; // Returned
+        case OrderStatus.REFUNDED:
+            return "환불됨"; // Refunded
+        default:
+            return "알 수 없는 상태"; // Unknown status
+    }
+};
+
 const OrderDetail = ({orderId}:{ orderId: string;}) => {
 
     const {data: orders, isLoading} = useQuery<DataResponse<Array<Order>>, Object, Array<Order>>({
@@ -31,7 +56,7 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
             <div className="mb-4">
                 <h2 className="text-lg font-semibold">주문 번호: {orders?.[0].orderId}</h2>
                 <p>주문 날짜: {new Date(orders?.[0].createdAt).toLocaleDateString()}</p>
-                <p>주문 상태:{orders?.[0].status}</p>
+                <p>주문 상태: {getOrderStatusText(orders?.[0].status)}</p>
                 <p className="font-bold">총 금액: {orders?.[0].totalAmount.toLocaleString()} 원</p>
             </div>
             {/* 주문 상품 목록 */}

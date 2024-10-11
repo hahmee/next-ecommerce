@@ -3,7 +3,7 @@ import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import React, {Suspense} from "react";
 import {getSuccessPayment} from "@/app/(home)/order/success/_lib/getSuccessPayment";
 import Loading from "@/app/(admin)/admin/products/loading";
-import SuccessPaymentRe from "@/components/Home/Payment/SuccessPaymentRe";
+import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
@@ -23,8 +23,7 @@ export default async function OrderSuccessPage({searchParams}: Props) {
 
     return <Suspense fallback={<Loading/>}>
         <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            {/*<SuccessPayment/>*/}
-            <SuccessPaymentRe paymentKey={paymentKey} orderId={orderId} amount={amount}/>
+            <SuccessPayment paymentKey={paymentKey} orderId={orderId} amount={amount}/>
         </PrefetchBoundary>
     </Suspense>;
 

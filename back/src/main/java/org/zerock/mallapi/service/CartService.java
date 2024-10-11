@@ -19,4 +19,6 @@ public interface CartService {
     //아이템 삭제
     public List<CartItemListDTO> remove(Long cino);
 
+    //아이템 목록
+    public List<Long> getCartItemByEmailAndProductId(String email, Long productId);
 }

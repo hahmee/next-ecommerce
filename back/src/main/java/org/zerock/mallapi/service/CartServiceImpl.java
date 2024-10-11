@@ -1,6 +1,7 @@
 package org.zerock.mallapi.service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -127,5 +128,23 @@ public class CartServiceImpl implements CartService {
 
         return cartItemRepository.getItemsOfCartDTOByCart(cno);
     }
+
+    @Override
+    public List<Long> getCartItemByEmailAndProductId(String email, Long productId) {
+
+        List<CartItem> cartItems = cartItemRepository.getCartItemByEmailAndProductId(email, productId);
+
+        // CartItem 리스트에서 Product의 pno 값만 추출
+        List<Long> cinos = cartItems.stream()
+                .map(cartItem -> cartItem.getCino())
+                .collect(Collectors.toList());
+
+        log.info("ddd/?? " + cinos);
+
+        return cinos;
+
+    }
+
+
 }
 

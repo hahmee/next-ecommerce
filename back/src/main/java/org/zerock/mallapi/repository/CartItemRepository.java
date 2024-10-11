@@ -6,10 +6,18 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.zerock.mallapi.domain.CartItem;
 import org.zerock.mallapi.dto.CartItemListDTO;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long>{
+
+    @Query("SELECT ci FROM CartItem ci WHERE ci.product.pno = :productId AND ci.cart.owner.email = :email")
+    public List<CartItem> getCartItemByEmailAndProductId(@Param("email") String email, @Param("productId") Long productId);
+
+
+//    @Query("SELECT ci FROM CartItem ci WHERE ci.product.pno = :productId AND ci.cart.owner.email = :email")
+//    public List<CartItemListDTO> getCartItemByEmailAndProductId(@Param("email") String email, @Param("productId") Long productId);
 
     @Query("select " +
             " new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price, pi.fileName, ci.size, new org.zerock.mallapi.dto.ColorTagDTO(ci.color.id, ci.color.text, ci.color.color))  " +
