@@ -129,7 +129,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         <span className="text-yellow-500">
                             <StarIcon className="h-6 w-6 group-open:hidden"/>
                         </span>
-                            <span className="ml-1 text-sm text-gray-500">4.4 (98 reviews)</span>
+                            <span className="ml-1 text-sm text-gray-500">{product.averageRating ? product.averageRating : "평점없음"} ({product.reviewCount} reviews)</span>
                         </div>
                     </div>
                 </div>

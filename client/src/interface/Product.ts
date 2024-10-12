@@ -20,4 +20,7 @@ export interface Product {
   changePolicy: string;
   categoryId: number;
   files:Array<FileDTO<string>>  | null;
+  //추가..
+  averageRating: number | null;
+  reviewCount: number;
 }

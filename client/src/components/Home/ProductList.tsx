@@ -168,6 +168,8 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         refetchOnWindowFocus: false,
     });
 
+    console.log('products...', products);
+
     const {data: categories} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
         queryKey: ['categories'],
         queryFn: () => getCategories(),

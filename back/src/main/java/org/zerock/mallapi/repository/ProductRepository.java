@@ -25,9 +25,10 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 
 
 
-  @Query("select p, pi from Product p left join p.imageList pi " +
+  @Query("select p, pi, AVG(r.rating), COUNT(r) from Product p left join p.imageList pi " +
           "left join p.sizeList ps " +
           "left join p.colorList pc " +
+          "left join Review r ON r.product.pno = p.pno " +
           "where (NULLIF(pi.ord, ' ') IS NULL OR pi.ord = 0) " +
           "and p.delFlag = false " +
           "and (:productSizes IS NULL OR ps IN :productSizes) " +
@@ -37,12 +38,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "and (:minPrice IS NULL OR :maxPrice IS NULL OR p.price BETWEEN :minPrice AND :maxPrice) " + // 가격 필터 추가
           "GROUP BY p.pno")
   Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds, @Param("colors") List<String> colors, @Param("productSizes") List<String> productSizes, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice, @Param("query") String query);
-
-//  @Query("select p, pi from Product p left join p.imageList pi " +
-//          "where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) " +
-//          "and p.delFlag = false " +
-//          "and p.adminCategory.cno IN :categoryIds")
-//  Page<Object[]> selectList(Pageable pageable, @Param("categoryIds") List<Long> categoryIds);
 
   @Query("select p, pi from Product p left join p.imageList pi where (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
   Page<Object[]> selectAdminList(Pageable pageable, @Param("email") String email);

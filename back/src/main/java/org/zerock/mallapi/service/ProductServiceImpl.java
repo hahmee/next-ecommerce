@@ -107,17 +107,24 @@ public class ProductServiceImpl implements ProductService{
 //    Page<Object[]> result = resultOptional.orElseThrow();
 
 
-
     Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice,query);
-    log.info("--------------pageable      " + pageable);
 
-
-    log.info("........result " + result);
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
+      log.info("product....222222 " + arr[2]);
+      log.info("product....3333 " + arr[3]);
+
+
       Product product = (Product) arr[0];
+
       ProductImage productImage = (ProductImage) arr[1];
+
+      Double averageRating = (Double) arr[2];  // 평균 별점
+
+      Long reviewCount = (Long) arr[3];        // 리뷰 개수
+
+
       List<ColorTag> colorTagList = product.getColorList();
 
       //colorTagList를 DTO로 변경하기
@@ -127,7 +134,6 @@ public class ProductServiceImpl implements ProductService{
               .color(colorTag.getColor())
               .build())
               .collect(Collectors.toList());
-
 
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
@@ -143,6 +149,8 @@ public class ProductServiceImpl implements ProductService{
               .salesStatus(product.getSalesStatus())
               .colorList(colorTagDTOList)
               .sizeList(product.getSizeList())
+              .averageRating(averageRating)
+              .reviewCount(reviewCount)
               .build();
 
       if(productImage != null) {
@@ -165,6 +173,7 @@ public class ProductServiceImpl implements ProductService{
       }
 
       return productDTO;
+
     }).collect(Collectors.toList());
 
     log.info("-------dtoList " + dtoList);

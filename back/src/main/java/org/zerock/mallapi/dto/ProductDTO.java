@@ -70,4 +70,9 @@ public class ProductDTO {
   @Builder.Default
   private List<FileDTO<String>> uploadFileKeys = new ArrayList<>(); // 키들 배열 (수정 시 원래 있던 파일들 중 삭제 안 한 파일들)
 
+  //새롭게 추가..
+  private Double averageRating;
+
+  private Long reviewCount;
+
 }

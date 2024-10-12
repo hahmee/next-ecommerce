@@ -80,7 +80,6 @@ public class ReviewServiceImpl implements ReviewService{
     return ReviewDTO.builder()
             .content(review.getContent())
             .oid(review.getOrder().getId())
-//            .oid(review.getOrder().getId())
             .rating(review.getRating())
             .orderId(review.getOrderId())
             .rno(review.getRno())
