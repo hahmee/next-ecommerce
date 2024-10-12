@@ -9,7 +9,6 @@ const FiltersBadge = ({param, category}: { param: Params, category: Category | u
     // console.log('param', param);
     console.log('category', category);
 
-
     const router = useRouter();
     const searchParams = useSearchParams();
 

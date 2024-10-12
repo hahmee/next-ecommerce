@@ -19,7 +19,7 @@ export const useCartStore = create<CartState>((set) => ({
   cart: [],
   isLoading: true,
   counter: 0,
-  open:false,
+  open: false,
   subtotal: 0,
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})

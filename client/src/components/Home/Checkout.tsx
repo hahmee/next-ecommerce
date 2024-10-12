@@ -53,7 +53,7 @@ const Checkout = () => {
             carts: cart,
             totalAmount: subtotal,
             status: OrderStatus.ORDER_CHECKING,
-            orderId: orderId,
+            orderId: orderId
         };
 
         await fetchWithAuth(`/api/orders/`, {

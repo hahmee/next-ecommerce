@@ -2,8 +2,6 @@ import AdminModal from "@/components/Admin/AdminModal";
 import React, {Suspense} from "react";
 import CategoryAddModalSuspense from "@/components/Admin/Category/CategoryAddModalSuspense";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {Mode} from "@/types/mode";
-import CategoryForm from "@/components/Admin/Category/CategoryForm";
 
 
 interface Props {

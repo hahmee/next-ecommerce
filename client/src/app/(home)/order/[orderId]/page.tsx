@@ -2,7 +2,7 @@ import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
-import {getOrder} from "@/app/(home)/order/[orderId]/_lib/getOrder";
+import {getOrders} from "@/app/(home)/order/[orderId]/_lib/getOrders";
 import OrderDetail from "@/components/Home/Profile/OrderDetail";
 
 interface Props {
@@ -20,13 +20,12 @@ export async function generateMetadata() {
 }
 export default async function OrderPage({params}: Props)  {
 
-    console.log('params..', params);
     const {orderId} = params;
 
     const prefetchOptions = [
         {
-            queryKey: ['orderSingle', orderId],
-            queryFn: () => getOrder({orderId}),
+            queryKey: ['orders', orderId],
+            queryFn: () => getOrders({orderId}),
         }
     ]
 

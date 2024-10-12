@@ -24,8 +24,8 @@ export default async function ProfilePage()  {
             queryFn: getUserServer,
         },
         {
-            queryKey: ['orders'],
-            queryFn: () => getPayments({queryKey: ['orders']}),
+            queryKey: ['payments'],
+            queryFn: () => getPayments({queryKey: ['payments']}),
         }
     ]
 

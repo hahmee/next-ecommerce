@@ -17,5 +17,7 @@ public interface PaymentService {
 
   List<PaymentDTO> getList();
 
+  PaymentDTO getByEmailAndOrderId(String email, String orderId);
+
 
 }

@@ -2,19 +2,19 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.mallapi.domain.ColorTag;
-import org.zerock.mallapi.domain.Member;
-import org.zerock.mallapi.domain.Order;
-import org.zerock.mallapi.domain.OrderProductInfo;
-import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.domain.*;
+import org.zerock.mallapi.dto.CartItemListDTO;
+import org.zerock.mallapi.dto.MemberDTO;
+import org.zerock.mallapi.dto.OrderDTO;
+import org.zerock.mallapi.dto.OrderRequestDTO;
 import org.zerock.mallapi.repository.OrderRepository;
 import org.zerock.mallapi.util.GeneralException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService{
       for (CartItemListDTO cartItem : orderRequestDTO.getCarts()) {
 
         // 주문 엔티티 생성
-        Order order = dtoToEntity(orderRequestDTO, email,cartItem);
+        Order order = dtoToEntity(orderRequestDTO, email, cartItem);
 
         //시간
         order.setCreatedAt(LocalDateTime.now());
@@ -66,6 +66,20 @@ public class OrderServiceImpl implements OrderService{
 
 
     return responseDTO;
+  }
+
+  @Override
+  public OrderDTO get(Long id) {
+
+    //read
+    Optional<Order> result = orderRepository.findById(id);
+
+    Order order = result.orElseThrow();
+
+    //dto 변환
+    OrderDTO orderDTO = convertToDTO(order);
+
+    return orderDTO;
   }
 
   private OrderDTO convertToDTO(Order order) {
@@ -107,6 +121,7 @@ public class OrderServiceImpl implements OrderService{
             .size(cartItem.getSize())
             .color(colorTag)
             .qty(cartItem.getQty())
+            .thumbnailUrl(cartItem.getImageFile())
             .build();
 
 

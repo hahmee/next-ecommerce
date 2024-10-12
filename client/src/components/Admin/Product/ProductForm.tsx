@@ -160,12 +160,9 @@ const ProductForm = ({type, id}: Props) => {
                 formData.append("pdesc", pdesc);
                 formData.append("categoryId", selectedCategory.cno.toString());
 
-                // formData.append("colorList", tagStore.tags as any);
                 tagStore.tags.forEach((t, index) => {
-
                     formData.append(`colorList[${index}].text`, t.text);
                     formData.append(`colorList[${index}].color`, t.color);
-
                 });
 
 

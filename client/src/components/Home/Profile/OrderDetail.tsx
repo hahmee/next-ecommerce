@@ -2,9 +2,11 @@
 
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getOrder} from "@/app/(home)/order/[orderId]/_lib/getOrder";
+import {getOrders} from "@/app/(home)/order/[orderId]/_lib/getOrders";
 import {Order} from "@/interface/Order";
 import {OrderStatus} from "@/types/orderStatus";
+import Image from "next/image";
+import Link from "next/link";
 
 const getOrderStatusText = (status: OrderStatus): string => {
     switch (status) {
@@ -34,8 +36,8 @@ const getOrderStatusText = (status: OrderStatus): string => {
 const OrderDetail = ({orderId}:{ orderId: string;}) => {
 
     const {data: orders, isLoading} = useQuery<DataResponse<Array<Order>>, Object, Array<Order>>({
-        queryKey: ['orderSingle', orderId],
-        queryFn: () => getOrder({orderId}),
+        queryKey: ['orders', orderId],
+        queryFn: () => getOrders({orderId}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: false,
@@ -64,9 +66,18 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
                 <h2 className="text-lg font-semibold mb-2">주문 상품</h2>
                 <ul className="divide-y divide-gray-200">
                     {orders?.map((item) => (
-                        <li key={item.id} className="flex justify-between py-2">
+                        <li key={item.id} className="flex items-center justify-between py-2">
+                            <Link href={`/product/${item.productInfo.pno}`}>
+                                <Image src={item.productInfo.thumbnailUrl} alt={'image'} width={500} height={500}
+                                       className="w-20 h-20 rounded object-cover"/>
+                            </Link>
                             <span>{item.productInfo.pname} (x{item.productInfo.qty})</span>
                             <span>{(item.productInfo.price * item.productInfo.qty).toLocaleString()} 원</span>
+                            <Link href={`/review?oid=${item.id}&orderId=${item.orderId}`}>
+                                <button type="button" className="w-28 text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
+                                    리뷰쓰기
+                                </button>
+                            </Link>
                         </li>
                     ))}
                 </ul>

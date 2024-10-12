@@ -9,9 +9,9 @@ import {useRouter} from "next/navigation";
 const UserOrders = () => {
     const router = useRouter();
 
-    const {data: orders, isLoading, error} = useQuery<DataResponse<Array<Payment>>, Object, Array<Payment>>({
-        queryKey: ['orders'],
-        queryFn: () => getPayments({queryKey: ['orders']}),
+    const {data: payments, isLoading, error} = useQuery<DataResponse<Array<Payment>>, Object, Array<Payment>>({
+        queryKey: ['payments'],
+        queryFn: () => getPayments({queryKey: ['payments']}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: false,
@@ -22,7 +22,7 @@ const UserOrders = () => {
     });
 
 
-    console.log('orders', orders);
+    console.log('payments', payments);
 
 
     if (isLoading) return <div className="text-center py-4">Loading...</div>;
@@ -31,7 +31,7 @@ const UserOrders = () => {
     return (
         <section className="w-full lg:w-2/3 bg-white p-6">
             <h1 className="text-2xl mb-4">Orders</h1>
-            {orders?.length === 0 ? (
+            {payments?.length === 0 ? (
                 <p className="text-center">You have no orders yet.</p>
             ) : (
                 <table className="min-w-full bg-white">
@@ -44,25 +44,25 @@ const UserOrders = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {orders?.map((order) => (
-                        <tr key={order.id} className="border-b cursor-pointer hover:bg-gray-50" onClick={()=>router.push(`/order/${order.orderId}`)}>
-                            <td className="py-2 px-4">{order.orderId}</td>
-                            <td className="py-2 px-4">${order.totalAmount}</td>
+                    {payments?.map((payment) => (
+                        <tr key={payment.id} className="border-b cursor-pointer hover:bg-gray-50" onClick={()=>router.push(`/order/${payment.orderId}`)}>
+                            <td className="py-2 px-4">{payment.orderId}</td>
+                            <td className="py-2 px-4">${payment.totalAmount}</td>
                             <td className="py-2 px-4">
                                             <span
                                                 className={`px-2 py-1 text-sm rounded ${
-                                                    order.status === TossPaymentStatus.DONE
+                                                    payment.status === TossPaymentStatus.DONE
                                                         ? "bg-green-100 text-green-700"
-                                                        : order.status === TossPaymentStatus.WAITING_FOR_DEPOSIT
+                                                        : payment.status === TossPaymentStatus.WAITING_FOR_DEPOSIT
                                                             ? "bg-yellow-100 text-yellow-700"
                                                             : "bg-red-100 text-red-700"
                                                 }`}
                                             >
-                                                {order.status}
+                                                {payment.status}
                                             </span>
                             </td>
                             <td className="py-2 px-4">
-                                {new Date(order.createdAt).toLocaleDateString()}
+                                {new Date(payment.createdAt).toLocaleDateString()}
                             </td>
                         </tr>
                     ))}

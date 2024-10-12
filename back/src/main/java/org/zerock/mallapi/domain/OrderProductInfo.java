@@ -22,6 +22,8 @@ public class OrderProductInfo {
 
     private int price; // 상품에 대한 최종적으로 결제해야하는 금액 (오리지널가..할인가 등 생략)
 
+    private String thumbnailUrl;
+
     /*옵션 */
     private String size;
 

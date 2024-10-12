@@ -50,7 +50,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
                     <div className="absolute animate-fadeInUp p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20"
                          onClick={(e) => e.stopPropagation()}>
                         <div className="relative" >
-                            <Link href="/profile">Profile</Link>
+                            <Link href="/profile">나의쇼핑</Link>
                             <div className="mt-2 cursor-pointer">
                                 <button onClick={onLogout}>로그아웃</button>
                             </div>

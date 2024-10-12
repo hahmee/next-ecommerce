@@ -23,6 +23,8 @@ const config: Config = {
     extend: {
       colors: {
         ecom: "#F35C7A",
+        ecomLow:"#f27991",
+        ecomHigh:"#f23d61",
         current: "currentColor",
         transparent: "transparent",
         // white: "#FFFFFF",

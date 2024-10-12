@@ -40,4 +40,5 @@ export interface OrderProductInfo {
   price: number;
   size: string;
   color: ColorTag;
+  thumbnailUrl: string;
 }

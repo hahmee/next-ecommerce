@@ -37,12 +37,21 @@ public class OrderController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
-    @GetMapping("/{orderId}")
+    @GetMapping("/list/{orderId}")
     public DataResponseDTO<List<OrderDTO>> list(@PathVariable(name="orderId") String orderId) {
 
         return DataResponseDTO.of(orderService.getList(orderId));
 
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @GetMapping("/{id}")
+    public DataResponseDTO<OrderDTO> get(@PathVariable(name="id") Long id) {
+
+        return DataResponseDTO.of(orderService.get(id));
+
+    }
+
 
 
 }

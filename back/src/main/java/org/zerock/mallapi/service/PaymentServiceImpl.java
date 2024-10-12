@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -160,14 +161,24 @@ public class PaymentServiceImpl implements PaymentService{
     String email = userDetails.getUsername();
 
 
-
     List<Payment> payments = paymentRepository.findByUserEmail(email);
 
     List<PaymentDTO> responseDTO = payments.stream().map(this::convertToDTO).collect(Collectors.toList());
 
 
-
     return responseDTO;
+  }
+
+  @Override
+  public PaymentDTO getByEmailAndOrderId(String email, String orderId) {
+
+    Optional<Payment> result = paymentRepository.findByEmailAndOrderId(email, orderId);
+
+    Payment payment = result.orElseThrow();// 없으면 에러
+
+    PaymentDTO paymentDTO = convertToDTO(payment);
+
+    return paymentDTO;
   }
 
 

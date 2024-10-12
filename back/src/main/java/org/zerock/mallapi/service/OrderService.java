@@ -13,4 +13,6 @@ public interface OrderService {
 
   List<OrderDTO> getList(String orderId);
 
+  OrderDTO get(Long id);
+
 }
