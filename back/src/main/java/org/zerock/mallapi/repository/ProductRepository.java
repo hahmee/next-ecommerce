@@ -23,9 +23,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("update Product p set p.delFlag = :flag where p.pno = :pno")
   void updateToDelete(@Param("pno") Long pno , @Param("flag") boolean flag);
 
-
-
-  @Query("select p, pi, AVG(r.rating), COUNT(r) from Product p left join p.imageList pi " +
+  @Query("select p, pi, AVG(COALESCE(r.rating, 0)) as avgRating, COUNT(DISTINCT r) as reviewCount from Product p left join p.imageList pi " +
           "left join p.sizeList ps " +
           "left join p.colorList pc " +
           "left join Review r ON r.product.pno = p.pno " +

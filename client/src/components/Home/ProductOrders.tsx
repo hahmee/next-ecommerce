@@ -25,8 +25,8 @@ const orders: OrderOption[] = [
         name: '높은가격순',
     },
     {
-        id: 'popular',
-        name: '인기순',
+        id: 'ratings',
+        name: '평점높은순',
     },
     {
         id: 'review',

@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService{
     log.info("getList.............." + pageCategoryRequestDTO);
 
 
-    // 정렬 순서를 동적으로 결정
+    // 정렬 순서를 동적으로 결정  -> 엔티티의 필드만을 기준으로 정렬
     Sort sort = Sort.by("pno").descending();  // 기본 정렬은 pno로 내림차순
 
     if (pageCategoryRequestDTO.getOrder() != null) {
@@ -52,11 +52,12 @@ public class ProductServiceImpl implements ProductService{
         case "sales":
 //          sort = Sort.by("createdAt").descending();  // 판매 순
           break;
-        case "popular":
-//          sort = Sort.by("createdAt").descending();  // 인기 순
+        case "ratings":
+          sort = Sort.by(Sort.Order.desc("avgRating"));  // 평균 별점 높은 순
           break;
         case "review":
-//          sort = Sort.by("createdAt").descending();  // 리뷰 순
+          //리뷰 개수 많은대로..
+          sort = Sort.by(Sort.Order.desc("reviewCount"));  // 리뷰 개수 많은 순
           break;
         default:
           // 기본은 pno로 내림차순
