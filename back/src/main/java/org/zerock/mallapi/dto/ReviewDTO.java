@@ -39,6 +39,6 @@ public class ReviewDTO {
 
 //  private ProductDTO product;
 
-//  private MemberDTO owner;
+  private MemberDTO owner;
 
 }

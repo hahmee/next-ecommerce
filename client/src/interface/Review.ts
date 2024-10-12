@@ -1,3 +1,5 @@
+import {Member} from "@/interface/Member";
+
 export interface Review {
   rno?: number;
   content: string;
@@ -6,5 +8,5 @@ export interface Review {
   // product: Product;
   pno: number;
   oid: number;
-  // owner: Member;
+  owner: Member | null;
 }

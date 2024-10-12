@@ -52,6 +52,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
             orderId: orderId,
             pno: order?.productInfo.pno || 0,
             oid: Number(id),
+            owner: null,
         };
 
         const res  = await fetchWithAuth(`/api/reviews/`, {
@@ -77,9 +78,11 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
     }
 
     return (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50" onClick={closeModal}>
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
+             onClick={closeModal}>
             <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
-                <div className="flex justify-end"><XMarkIcon className="w-7 h-7 cursor-pointer" onClick={closeModal}/></div>
+                <div className="flex justify-end"><XMarkIcon className="w-7 h-7 cursor-pointer" onClick={closeModal}/>
+                </div>
                 <h2 className="text-lg font-semibold mb-4 text-center">리뷰쓰기</h2>
                 <form onSubmit={reviewSave}>
                     <div className="flex items-center gap-4 mb-4">
@@ -104,7 +107,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
                             <div>
                                 <label className="text-gray-700 text-sm">별점</label>
                                 <div className="flex space-x-2">
-                                    {[1, 2, 3, 4, 5].map((star) => (
+                                    {Array.from({length: 5}).map((_, star) => (
                                         <button
                                             key={star}
                                             type="button"

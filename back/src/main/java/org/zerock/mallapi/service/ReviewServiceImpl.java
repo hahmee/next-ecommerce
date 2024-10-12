@@ -33,6 +33,8 @@ public class ReviewServiceImpl implements ReviewService{
 
   private final PaymentService paymentService;
 
+  private final MemberService memberService;
+
   @Override
   public void register(ReviewDTO reviewDTO, String email) {
 
@@ -60,7 +62,33 @@ public class ReviewServiceImpl implements ReviewService{
 
   }
 
+  @Override
+  public List<ReviewDTO> getList(Long pno) {
 
+    List<Review> reviews = reviewRepository.findAllByPno(pno);
+
+    List<ReviewDTO> responseDTO = reviews.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+    return responseDTO;
+  }
+
+
+  private ReviewDTO convertToDTO(Review review) {
+
+    MemberDTO memberDTO = memberService.entityToDTO(review.getOwner());
+
+    return ReviewDTO.builder()
+            .content(review.getContent())
+            .oid(review.getOrder().getId())
+//            .oid(review.getOrder().getId())
+            .rating(review.getRating())
+            .orderId(review.getOrderId())
+            .rno(review.getRno())
+            .pno(review.getProduct().getPno())
+            .owner(memberDTO)
+            .build();
+
+  }
 
   private Review dtoToEntity(ReviewDTO reviewDTO, String email){
 

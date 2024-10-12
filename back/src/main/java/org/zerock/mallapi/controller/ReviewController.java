@@ -7,10 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.mallapi.dto.DataResponseDTO;
-import org.zerock.mallapi.dto.OrderDTO;
-import org.zerock.mallapi.dto.OrderRequestDTO;
 import org.zerock.mallapi.dto.ReviewDTO;
-import org.zerock.mallapi.service.OrderService;
 import org.zerock.mallapi.service.ReviewService;
 
 import java.security.Principal;
@@ -37,6 +34,14 @@ public class ReviewController {
         reviewService.register(reviewDTO, email);
 
         return DataResponseDTO.of("SUCCESS");
+
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @GetMapping("/list/{pno}")
+    public DataResponseDTO<List<ReviewDTO>> list(@PathVariable(name="pno") Long pno) {
+
+        return DataResponseDTO.of(reviewService.getList(pno));
 
     }
 

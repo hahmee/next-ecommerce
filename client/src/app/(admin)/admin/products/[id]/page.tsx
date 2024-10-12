@@ -33,7 +33,6 @@ export default async function ModifyProductPage({params}: Props) {
 
     return (
         <Suspense fallback={<Loading/>}>
-            {/*<PrefetchBoundary prefetchOptions={allMemosQueryOptions(id)}>*/}
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                 <ProductForm type={Mode.EDIT} id={id}/>
             </PrefetchBoundary>

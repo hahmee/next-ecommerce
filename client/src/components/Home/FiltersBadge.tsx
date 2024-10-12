@@ -6,8 +6,6 @@ import {Params} from "@/components/Home/ProductList";
 
 const FiltersBadge = ({param, category}: { param: Params, category: Category | undefined }) => {
 
-    // console.log('param', param);
-    console.log('category', category);
 
     const router = useRouter();
     const searchParams = useSearchParams();

@@ -10,6 +10,8 @@ import {SalesStatus} from "@/types/salesStatus";
 import OptionSelect from "@/components/Home/OptionSelect";
 import {ColorTag} from "@/interface/ColorTag";
 import AddCart from "@/components/Home/AddCart";
+import {getReviews} from "@/app/(admin)/admin/products/[id]/_lib/getReviews";
+import {Review} from "@/interface/Review";
 
 interface Props {
     id: string;
@@ -25,6 +27,18 @@ const ProductSingle = ({id}: Props) => {
         // throwOnError: (error) => error. >= 500,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
 
+    });
+
+    const {data:reviews} = useQuery<DataResponse<Array<Review>>, Object, Array<Review>, [_1: string, _2: string]>({
+        queryKey: ['reviews', id],
+        queryFn: () => getReviews({queryKey: ['reviews', id]}),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
+        select: (data) => {
+            // 데이터 가공 로직만 처리
+            return data.data;
+        }
     });
 
     const product = data?.data;
@@ -88,11 +102,8 @@ const ProductSingle = ({id}: Props) => {
                 <h1 className="text-2xl">User Reviews</h1>
                 {
                     product?.pno &&
-                    <Suspense fallback="Loading...">
-                        <Reviews productId={product.pno}/>
-                    </Suspense>
+                    <Reviews reviews={reviews}/>
                 }
-
             </div>
         </div>
     );
