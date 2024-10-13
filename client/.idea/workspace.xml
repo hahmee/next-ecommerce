@@ -7,14 +7,12 @@
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/ProductTableSuspense.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/ProductTableSuspense.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductsTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/FilterButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/FilterButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/TableSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableSearch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Product.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/PrefetchBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/PrefetchBoundary.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +252,7 @@
       <workItem from="1728700756413" duration="17548000" />
       <workItem from="1728726595041" duration="11825000" />
       <workItem from="1728780186856" duration="7783000" />
-      <workItem from="1728789869381" duration="5721000" />
+      <workItem from="1728789869381" duration="10966000" />
     </task>
     <servers />
   </component>

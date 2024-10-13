@@ -2,7 +2,7 @@ import {useState} from "react";
 
 const TableSearch = ({onSearch}:any) => {
 
-        const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearchChange = (e:any) => {
         const value = e.target.value;

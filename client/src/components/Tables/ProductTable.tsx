@@ -5,7 +5,6 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
-import {PageParam} from "@/interface/PageParam";
 import {Paging} from "@/interface/Paging";
 import AddProductButton from "@/components/Tables/AddProductButton";
 import ActionButton from "@/components/Tables/ActionButton";
@@ -32,26 +31,18 @@ const initalPagingData: Paging = {
     pageNumList: [0],
 }
 
-const testData = {
-    "dtoList": [{}],
-    "pageNumList": [],
-    "pageRequestDTO": {
-        "page": 1,
-        "size": 10
-    },
-    "prev": false,
-    "next": false,
-    "totalCount": 0,
-    "prevPage": 0,
-    "nextPage": 0,
-    "totalPage": 0,
-    "current": 1
-}
-
-const ProductTable = ({page, size, search} : PageParam) => {
+const ProductTable = () => { //{page, size, search} : PageParam
 
     const [paging, setPaging] = useState<Paging>(initalPagingData);
 
+    const [page, setPage] = useState<number>(1);
+    const [size, setSize] = useState<number>(10);
+    const [search, setSearch] = useState<string>("");
+    const [currentPno, setCurrentPno] = useState<number>(-1);
+    const [productData, setProductData] = useState<PageResponse<Product>>();
+    const [deleteId, setDeleteId] = useState<number>(-1);
+    const [showDialog, setShowDialog] = useState<boolean>(false);
+    const router = useRouter();
     const queryClient = useQueryClient();
 
     const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
@@ -67,22 +58,9 @@ const ProductTable = ({page, size, search} : PageParam) => {
         }
     });
 
-    console.log('data......', data);
-
-    const [currentPno, setCurrentPno] = useState<number>(-1);
-    const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
-    const [productData, setProductData] = useState<PageResponse<Product>>();
-
-    const [deleteId, setDeleteId] = useState<number>(-1);
-    const [showDialog, setShowDialog] = useState<boolean>(false);
-    const router = useRouter();
-
     const handleClick = (pno:number) => {
         router.push(`/admin/products/${pno}`);
     }
-
-
-
 
     useEffect(() => {
         setProductData(data);
@@ -93,51 +71,21 @@ const ProductTable = ({page, size, search} : PageParam) => {
         }
     }, [data]);
 
-    // return <div>ㅎㅎ</div>
-    // if(data?.message) {
-    // //리다이렉트
-    // return <div>dd</div>
-    // }
-    //
-    // const productData = data?.data.dtoList;
-    // const productData = null;
-
-
-
-    // if (error) return 'An error has occurred: ' + error.message;
-    // React.useEffect(() => {
-    //     if (adminProducts.error) {
-    //         adminProducts.error(`Something went wrong: ${todos.error.message}`);
-    //     }
-    // }, [todos.error]);
-
     const handleOpenMenu = (pno:number) => {
         setCurrentPno(pno);
     }
 
     const handleSearch = (value:string) => {
-        setSearchTerm(value);  // 검색어 업데이트
+        setSearch(value);  // 검색어 업데이트
     };
 
+    const changeSize = (size:number) => {
+        setSize(size);
+    }
 
-    // 검색어 변경 시 검색 API 호출
-    useEffect(() => {
-
-        // if (searchTerm) {
-            const fetchSearchResults = async () => {
-                const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=${page}&size=${size}&search=${searchTerm}`, {
-                    method: "GET",
-                    credentials: 'include',
-                    // cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
-                });
-                // setSearchResults(resultJson.data);
-                setProductData(resultJson.data);
-                const {dtoList, ...otherData} = resultJson.data;
-                setPaging(otherData);
-            };
-            fetchSearchResults();
-        // }
-    }, [searchTerm]);
+    const changePage = (page:number) =>{
+        setPage(page);
+    }
 
     const mutation = useMutation({
         mutationFn: async (pno: number) => {
@@ -150,22 +98,11 @@ const ProductTable = ({page, size, search} : PageParam) => {
             console.log('data...', data);
             clickModal();
 
-            //데이터 리프레시
-            // await fetchProducts();
-
-            //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
-            // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
-
-            queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search: searchTerm}]});
-            // queryClient.invalidateQueries(['adminProducts', { page, size, search:searchTerm}]);
+            queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search}]});
 
         }
 
     });
-
-    // if(mutation.isSuccess) {
-    //     router.replace("/admin/products?page=1&size=10");
-    // }
 
     // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
     const clickModal = () => setShowDialog(!setShowDialog);
@@ -174,6 +111,7 @@ const ProductTable = ({page, size, search} : PageParam) => {
     const deleteProduct = () => {
         mutation.mutate(deleteId);
     }
+
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
@@ -181,7 +119,7 @@ const ProductTable = ({page, size, search} : PageParam) => {
 
             <div
                 className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                <div className="w-full md:w-1/2 relative">
+                <div className="w-full md:w-1/2">
                     <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
                 <div
@@ -189,13 +127,12 @@ const ProductTable = ({page, size, search} : PageParam) => {
                     <AddProductButton/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
-                        {/*<FilterButton/>*/}
+                        <FilterButton changeSize={changeSize}/>
                     </div>
                 </div>
             </div>
 
-            <div
-                className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 dark:bg-gray-700">
+            <div className="grid grid-cols-6 px-4 py-4.5 bg-gray-50 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 dark:bg-gray-700">
                 <div className="col-span-2 flex items-center">
                     <p className="font-medium">상품이름</p>
                 </div>
@@ -219,35 +156,31 @@ const ProductTable = ({page, size, search} : PageParam) => {
 
             {productData?.dtoList?.map((product, key) => (
                 <div
-                    className="grid grid-cols-6 border-t border-stroke px-4 py-3 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
+                    className="grid grid-cols-6 border-b border-stroke px-4 py-3 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5"
                     key={key}
                 >
                     <div className="col-span-2 flex items-center">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                            <div className="h-12.5 w-15 rounded-md">
                                 {
                                     (product.uploadFileNames && product.uploadFileNames.length > 0) &&
                                     <Image
                                         src={product.uploadFileNames[0]?.file}
                                         width={500}
                                         height={500}
-                                        style={{objectFit: "contain", height: "100%"}}
+                                        className="object-cover w-15 h-10 "
                                         alt="Product"
                                         onClick={() => handleClick(product.pno)}
                                     />
                                 }
-                            </div>
                             <p className="text-sm text-black dark:text-white">
                                 {product.pname}
                             </p>
                         </div>
                     </div>
-                    <div className="col-span-1 hidden sm:flex flex-col">
-                        <span
-                            className="bg-primary-100 text-primary-800 text-xs font-medium px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                            {/*{product.}*/}
-                            {product.category?.cname}
-                        </span>
+                    <div className="col-span-1 hidden sm:flex flex-col items-start justify-center">
+                            <span className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                                {product.category?.cname}
+                            </span>
                     </div>
                     <div className="col-span-2 flex items-center">
                         <p className="text-sm text-black dark:text-white">
@@ -255,14 +188,14 @@ const ProductTable = ({page, size, search} : PageParam) => {
                         </p>
                     </div>
                     <div className="col-span-1 flex items-center">
-                        <p className="text-sm text-black dark:text-white">{product.price}</p>
+                        <p className="text-sm text-black dark:text-white">{(product.price).toLocaleString()} 원</p>
                     </div>
                     <div className="col-span-1 flex items-center">
                         <div
                             className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red" : "bg-yellow-300"}`}></div>
                         <p className="text-sm text-black dark:text-white">{salesOptions.find(option => option.id === product.salesStatus)?.content}</p>
                     </div>
-                    <div className="col-span-1 flex items-center justify-end">
+                    <div className="col-span-1 flex items-center justify-end relative">
                         <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown"
                                 className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                 type="button" onClick={() => handleOpenMenu(product.pno)}>
@@ -271,13 +204,11 @@ const ProductTable = ({page, size, search} : PageParam) => {
 
                         {
                             currentPno === product.pno && (
-                                <div id="apple-imac-27-dropdown"
-                                     className="absolute z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="apple-imac-27-dropdown-button">
+                                <div id="apple-imac-27-dropdown" className="absolute z-10 w-44 top-12 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
                                         <li>
-                                            <Link href="/"
-                                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</Link>
+                                            <Link href={`/product/${product.pno}`}
+                                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
                                         </li>
                                         <li>
                                             <Link href={`/admin/products/${product.pno}`}
@@ -294,7 +225,6 @@ const ProductTable = ({page, size, search} : PageParam) => {
                                             삭제하기
                                         </div>
                                     </div>
-
                                 </div>
                             )
                         }
@@ -303,7 +233,7 @@ const ProductTable = ({page, size, search} : PageParam) => {
             ))}
 
             <div className="px-4 py-6 md:px-6 xl:px-7.5">
-                <PageComponent pagingData={paging} size={size} search={searchTerm}/>
+                <PageComponent pagingData={paging} size={size} search={search} changePage={changePage}/>
             </div>
         </div>
     );
