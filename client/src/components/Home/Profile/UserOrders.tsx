@@ -29,25 +29,27 @@ const UserOrders = () => {
     if (error) return <div className="text-center py-4 text-red-500">Error..</div>;
 
     return (
-        <section className="w-full lg:w-2/3 bg-white p-6">
-            <h1 className="text-2xl mb-4">Orders</h1>
+        <section className="w-full bg-white p-6">
+            <p className="text-lg mb-4 font-bold">주문내역</p>
             {payments?.length === 0 ? (
                 <p className="text-center">You have no orders yet.</p>
             ) : (
-                <table className="min-w-full bg-white">
+                <table className="min-w-full bg-white border border-gray-200">
                     <thead>
-                    <tr className="bg-gray-100 text-left">
+                    <tr className="bg-gray-50 text-sm font-black text-left">
                         <th className="py-2 px-4">Order ID</th>
                         <th className="py-2 px-4">Total Amount</th>
                         <th className="py-2 px-4">Status</th>
                         <th className="py-2 px-4">Date</th>
+                        <th className="py-2 px-4"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {payments?.map((payment) => (
-                        <tr key={payment.id} className="border-b cursor-pointer hover:bg-gray-50" onClick={()=>router.push(`/order/${payment.orderId}`)}>
+                        <tr key={payment.id} className="cursor-pointer hover:bg-gray-50"
+                            onClick={() => router.push(`/order/${payment.orderId}`)}>
                             <td className="py-2 px-4">{payment.orderId}</td>
-                            <td className="py-2 px-4">${payment.totalAmount}</td>
+                            <td className="py-2 px-4">{(payment.totalAmount).toLocaleString()} 원</td>
                             <td className="py-2 px-4">
                                             <span
                                                 className={`px-2 py-1 text-sm rounded ${
@@ -63,6 +65,11 @@ const UserOrders = () => {
                             </td>
                             <td className="py-2 px-4">
                                 {new Date(payment.createdAt).toLocaleDateString()}
+                            </td>
+                            <td className="py-2 px-4 flex justify-end">
+                                <button type="button" className="rounded text-xs ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
+                                    리뷰쓰기
+                                </button>
                             </td>
                         </tr>
                     ))}

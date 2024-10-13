@@ -1,3 +1,5 @@
+import Ecommerce from "@/components/Admin/Dashboard/E-commerce";
+
 export default function DashBoardPage() {
-    return <div>컴포넌트</div>;
+    return <Ecommerce/>;
 }

@@ -35,7 +35,7 @@ public class ProductServiceImpl implements ProductService{
     log.info("getList.............." + pageCategoryRequestDTO);
 
 
-    // 정렬 순서를 동적으로 결정  -> 엔티티의 필드만을 기준으로 정렬
+    // 정렬 순서를 동적으로 결정
     Sort sort = Sort.by("pno").descending();  // 기본 정렬은 pno로 내림차순
 
     if (pageCategoryRequestDTO.getOrder() != null) {

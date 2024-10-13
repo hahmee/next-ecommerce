@@ -34,7 +34,6 @@ export default async function ProfilePage()  {
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                 <div className="container mx-auto px-4 py-8 ">
                     <div className="flex flex-col lg:flex-row gap-8 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
-                        <UserProfile/>
                         <UserOrders/>
                     </div>
                 </div>

@@ -52,61 +52,95 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
     }
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-white">
-            {/* 주문 정보 */}
-            <h1 className="text-2xl font-bold mb-4">주문 상세</h1>
-            <div className="mb-4">
-                <h2 className="text-lg font-semibold">주문 번호: {orders?.[0].orderId}</h2>
-                <p>주문 날짜: {new Date(orders?.[0].createdAt).toLocaleDateString()}</p>
-                <p>주문 상태: {getOrderStatusText(orders?.[0].status)}</p>
-                <p className="font-bold">총 금액: {orders?.[0].totalAmount.toLocaleString()} 원</p>
-            </div>
-            {/* 주문 상품 목록 */}
-            <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-2">주문 상품</h2>
-                <ul className="divide-y divide-gray-200">
-                    {orders?.map((item) => (
-                        <li key={item.id} className="flex items-center justify-between py-2">
-                            <Link href={`/product/${item.productInfo.pno}`}>
-                                <Image src={item.productInfo.thumbnailUrl} alt={'image'} width={500} height={500}
-                                       className="w-20 h-20 rounded object-cover"/>
-                            </Link>
-                            <span>{item.productInfo.pname} (x{item.productInfo.qty})</span>
-                            <span>{(item.productInfo.price * item.productInfo.qty).toLocaleString()} 원</span>
-                            <Link href={`/review?oid=${item.id}&orderId=${item.orderId}`}>
-                                <button type="button" className="w-28 text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
-                                    리뷰쓰기
-                                </button>
-                            </Link>
+        <div className="container mx-auto px-4 py-8">
+            <div className="gap-8 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+                {/* 주문 정보 */}
+                <div className="mb-15">
+                    <h2 className="text-lg font-semibold mb-2">주문 정보</h2>
+                    <ul className="border border-gray-200 rounded p-3 text-xs">
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">주문번호</span>
+                            <span>{orders?.[0].orderId}</span>
                         </li>
-                    ))}
-                </ul>
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">주문날짜</span>
+                            <span>{new Date(orders?.[0].createdAt).toLocaleDateString()}</span>
+                        </li>
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">주문상태</span>
+                            <span> {getOrderStatusText(orders?.[0].status)}</span>
+                        </li>
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">총금액</span>
+                            <span>{orders?.[0].totalAmount.toLocaleString()} 원</span>
+                        </li>
+                    </ul>
+                </div>
+
+                {/* 주문 상품 목록 */}
+                <div className="mb-15">
+                    <h2 className="text-lg font-semibold mb-2">주문 상품</h2>
+                    <ul className="">
+                        {orders?.map((item) => (
+                            <li key={item.id}
+                                className="flex flex-col p-3 mb-3 border gap-y-3 border-gray-200 rounded ">
+                                <span className="text-xs font-black">구매확정</span>
+                                <div className="flex gap-3 justify-between ">
+                                    <div className="flex gap-x-3">
+                                        <Link href={`/product/${item.productInfo.pno}`}>
+                                            <Image src={item.productInfo.thumbnailUrl} alt={'image'} width={500}
+                                                   height={500}
+                                                   className="w-20 h-20 rounded object-cover"/>
+                                        </Link>
+                                        <div className="flex flex-col text-xs">
+                                            <span>{item.productInfo.pname}</span>
+                                            <span className="text-gray-500">{(item.productInfo.price).toLocaleString()} 원</span>
+                                            <span className="text-gray-500">{item.productInfo.size}</span>
+                                            <span className="text-gray-500">{item.productInfo.color.text}</span>
+                                            <span className="text-gray-500">{item.productInfo.qty} 개</span>
+                                        </div>
+                                    </div>
+
+                                    <Link href={`/review?oid=${item.id}&orderId=${item.orderId}`}>
+                                        <button type="button" className="w-28 text-xs rounded ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
+                                            리뷰쓰기
+                                        </button>
+                                    </Link>
+                                </div>
+                                <div className="bg-gray-50 flex flex-col p-3 rounded text-xs">
+                                    <span>배송비  무료(일반택배)</span>
+                                    <span>판매자  </span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* 받는 사람 정보 */}
+                <div className="">
+                    <h2 className="text-lg font-semibold mb-2">받는사람 정보</h2>
+                    <ul className="border border-gray-200 rounded p-3 text-xs">
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">받는사람</span>
+                            <span>{orders?.[0].deliveryInfo.receiver}</span>
+                        </li>
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">연락처</span>
+                            <span>{orders?.[0].deliveryInfo.phone}</span>
+                        </li>
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">주소</span>
+                            <span>{orders?.[0].deliveryInfo.address}</span>
+                        </li>
+                        <li className="flex justify-between py-1.5">
+                            <span className="text-gray-500">배송메시지</span>
+                            <span>{orders?.[0].deliveryInfo.message}</span>
+                        </li>
+                    </ul>
+                </div>
+
+
             </div>
-
-            {/* 받는 사람 정보 */}
-            <div className="mb-4">
-                <h2 className="text-lg font-semibold mb-2">받는사람 정보</h2>
-                <ul className="divide-y divide-gray-200">
-                    <li className="flex justify-between py-2">
-                        <span>받는사람</span>
-                        <span>{orders?.[0].deliveryInfo.receiver}</span>
-                    </li>
-                    <li className="flex justify-between py-2">
-                        <span>연락처</span>
-                        <span>{orders?.[0].deliveryInfo.phone}</span>
-                    </li>
-                    <li className="flex justify-between py-2">
-                        <span>주소</span>
-                        <span>{orders?.[0].deliveryInfo.address}</span>
-                    </li>
-                    <li className="flex justify-between py-2">
-                        <span>배송메시지</span>
-                        <span>{orders?.[0].deliveryInfo.message}</span>
-                    </li>
-                </ul>
-            </div>
-
-
         </div>
 
     );

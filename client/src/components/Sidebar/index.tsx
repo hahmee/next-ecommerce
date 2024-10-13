@@ -79,7 +79,7 @@ const menuGroups = [
         ),
         label: "판매",
         route: "#",
-        children: [{ label: "주문", route: "/" },{ label: "결제관리", route: "/" },{ label: "송장", route: "/" }],
+        children: [{ label: "주문", route: "/admin/order" },{ label: "결제관리", route: "/" },{ label: "송장", route: "/" }],
       },
       {
         icon: (
@@ -111,7 +111,7 @@ const menuGroups = [
         ),
         label: "Dashboard",
         route: "#",
-        children: [{ label: "eCommerce", route: "/" }],
+        children: [{ label: "eCommerce", route: "/admin/dashboard" }],
       },
       {
         icon: (

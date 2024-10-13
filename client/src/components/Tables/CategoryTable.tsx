@@ -1,16 +1,18 @@
     "use client";
-    import {Fragment, useState} from "react";
+    import React, {Fragment, useState} from "react";
     import {useRouter} from "next/navigation";
     import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
     import {DataResponse} from "@/interface/DataResponse";
     import {Category} from "@/interface/Category";
     import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
     import Link from "next/link";
-    import Dialog from "@/components/Admin/Dialog";
     import {fetchWithAuth} from "@/utils/fetchWithAuth";
     import toast from "react-hot-toast";
-    import ProductImages from "@/components/Home/ProductImags";
     import Image from "next/image";
+    import {ChevronDownIcon} from "@heroicons/react/20/solid";
+    import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
+    import Dialog from "@/components/Admin/Dialog";
+    import TableSearch from "@/components/Tables/TableSearch";
 
 
     const CategoryTable = () => {
@@ -107,41 +109,55 @@
         const renderCategoryRows = (categories: Category[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
-                    <tr className="cursor-pointer hover:dark:bg-meta-4 hover:bg-gray-50"
+                    <tr className="border-b dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                         onClick={() => toggleRow(category.cno)}>
-                        <td scope="row"
-                            className="flex items-center px-4 py-3 font-medium text-gray-900 dark:text-white"
-                            style={{paddingLeft: `${depth * 20}px`}}>
-                            <Image
-                                src={category.uploadFileName || "/noImage.png"}
-                                width={40}
-                                height={20}
-                                // style={{width:'40px', height:'20px'}}
-                                alt="Picture of category"
-                            />
-                            {category.cname}
+                        <td className="w-3 px-4 py-3">
+                            <div className="flex items-center">
+                                <input id="checkbox-table-search-1" type="checkbox"
+                                       className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-meta-4 dark:border-gray-600"/>
+                                <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                            </div>
                         </td>
-                        <td className="px-4 py-3">{category.cdesc}</td>
-                        <td className="px-4 py-3">
+                        {/*{style={{paddingLeft: `${depth * 20}px`}}}*/}
+                        <td scope="row" className="px-4 font-medium dark:text-white "
+                            style={{paddingLeft: `${depth * 20}px`}}>
+                            <div className="flex items-center">
+                                <ChevronDownIcon className="h-7 w-7 mx-4"/>
+                                <Image
+                                    src={category.uploadFileName || "https://via.placeholder.com/640x480"}
+                                    width={40}
+                                    height={20}
+                                    className="object-cover mr-2"
+                                    alt="Picture of category"
+                                />
+                                <div className="line-clamp-1">
+                                    {category.cname}
+
+                                </div>
+                            </div>
+                        </td>
+                        <td className="px-4 line-clamp-1 dark:text-white ">
+                            {category.cdesc}
+                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
+                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
+                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
+                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
+                        </td>
+                        <td className="px-4 dark:text-white">
                             {category.subCategories ? category.subCategories.length : "-"}
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-4 dark:text-white">
                             사용중
                         </td>
-                        <td className="px-4 py-3 flex items-center justify-end">
+                        <td className="px-4 dark:text-white">
                             <button
                                 id={`category-dropdown-${category.cno}`}
-                                className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                className="text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                 type="button"
                                 onClick={() => toggleDropdown(category.cno)} // toggle the dropdown
                             >
-                                <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-                                </svg>
+                                <EllipsisHorizontalIcon className="h-6 w-6"/>
                             </button>
-                            {/* Dropdown Modal */}
                             {dropdownOpen[category.cno] && (
                                 <div
                                     className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
@@ -169,6 +185,7 @@
                                 </div>
                             )}
                         </td>
+                        {/*<td className="px-4 border-b-gray-500 font-medium text-gray-900 dark:text-white"></td>*/}
                     </tr>
                     {expandedRows.includes(category.cno) && category.subCategories && (
                         renderCategoryRows(category.subCategories, depth + 1)
@@ -198,49 +215,66 @@
             });
         };
 
+        const handleSearch = (value:string) => {
+            // setSearchTerm(value);  // 검색어 업데이트
+        };
         return (
-            <div className="p-4">
-                {/* 검색창 추가 */}
-                <input
-                    type="text"
-                    placeholder="카테고리 검색"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded w-full"
-                />
+            <div
+                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div
+                    className="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
+                    <div className="flex items-center flex-1 space-x-4 bg-ecom w-full">
+                        <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
+                    </div>
+                    <div
+                        className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
+                        <button type="button" onClick={() => router.push(`/admin/category/add-category`)}
+                                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                            <svg className="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clipRule="evenodd" fillRule="evenodd"
+                                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                            </svg>
+                            메인 카테고리 추가
+                        </button>
+                    </div>
+                </div>
 
-                {/* 카테고리 추가 버튼 */}
-                <button
-                    onClick={() => router.push(`/admin/category/add-category`)}
-                    className="mb-4 px-4 py-2 text-sm font-medium text-white bg-primary-700 rounded-lg hover:bg-primary-800"
-                >
-                    메인 카테고리 추가
-                </button>
+                {/*<input*/}
+                {/*    type="text"*/}
+                {/*    placeholder="카테고리 검색"*/}
+                {/*    value={searchTerm}*/}
+                {/*    onChange={(e) => setSearchTerm(e.target.value)}*/}
+                {/*    className="mb-4 p-2 border border-gray-300 rounded w-full"*/}
+                {/*/>*/}
 
-                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
-                                       doAction={deleteProduct}/>}
+
+                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog} doAction={deleteProduct}/>}
 
                 {/* 카테고리 테이블 */}
-                <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" className="px-4 py-3">카테고리명</th>
-                                <th scope="col" className="px-4 py-3">설명</th>
-                                <th scope="col" className="px-4 py-3">서브 카테고리</th>
-                                <th scope="col" className="px-4 py-3">사용 여부</th>
-                                <th scope="col" className="px-4 py-3">
-                                    <span className="sr-only">Actions</span>
-                                </th>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="p-4">
+                                <div className="flex items-center">
+                                    <input id="checkbox-all" type="checkbox"
+                                           className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-meta-4 dark:border-gray-600"/>
+                                    <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
+                                </div>
+                            </th>
+                            <th scope="col" className="px-4 py-3">카테고리명</th>
+                            <th scope="col" className="px-4 py-3">설명</th>
+                            <th scope="col" className="px-4 py-3">서브 카테고리</th>
+                            <th scope="col" className="px-4 py-3">사용여부</th>
+                            <th scope="col" className="px-4 py-3"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {data && renderCategoryRows(filterCategories(data || []))}
+                        </tbody>
+                    </table>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {data && renderCategoryRows(filterCategories(data || []))}
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         );
