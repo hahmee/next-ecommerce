@@ -29,7 +29,7 @@ const UserOrders = () => {
     if (error) return <div className="text-center py-4 text-red-500">Error..</div>;
 
     return (
-        <section className="w-full bg-white p-6">
+        <section className="w-full bg-white">
             <p className="text-lg mb-4 font-bold">주문내역</p>
             {payments?.length === 0 ? (
                 <p className="text-center">You have no orders yet.</p>
@@ -46,7 +46,7 @@ const UserOrders = () => {
                     </thead>
                     <tbody>
                     {payments?.map((payment) => (
-                        <tr key={payment.id} className="cursor-pointer hover:bg-gray-50"
+                        <tr key={payment.id} className="cursor-pointer hover:bg-gray-50 border-b"
                             onClick={() => router.push(`/order/${payment.orderId}`)}>
                             <td className="py-2 px-4">{payment.orderId}</td>
                             <td className="py-2 px-4">{(payment.totalAmount).toLocaleString()} 원</td>
@@ -67,7 +67,7 @@ const UserOrders = () => {
                                 {new Date(payment.createdAt).toLocaleDateString()}
                             </td>
                             <td className="py-2 px-4 flex justify-end">
-                                <button type="button" className="rounded text-xs ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
+                                <button type="button" className="rounded text-xs bg-white ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
                                     리뷰쓰기
                                 </button>
                             </td>

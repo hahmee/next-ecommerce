@@ -9,9 +9,7 @@ import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
 import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
 import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
-import Select from "@/components/Admin/Product/Select";
 import {Option} from "@/interface/Option";
-import {FileDTO} from "@/interface/FileDTO";
 
 export const useOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -67,8 +65,6 @@ const CategoryForm = ({type, id}: Props) => {
             const file = formData.get('file') as File;
             // const sendFile: FileDTO<File> = {file: file, ord: 0};
 
-            formData.append("cname", cname);
-            formData.append("cdesc", cdesc);
             // formData.append("subCategories", [] as any);
             formData.append("parentCategoryId", id || "");
             formData.append("file", file);

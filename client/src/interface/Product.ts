@@ -1,6 +1,7 @@
 import {SalesStatus} from "@/types/salesStatus";
 import {FileDTO} from "@/interface/FileDTO";
 import {ColorTag} from "@/interface/ColorTag";
+import {Category} from "@/interface/Category";
 
 export interface Product {
   pno: number;
@@ -22,5 +23,6 @@ export interface Product {
   files:Array<FileDTO<string>>  | null;
   //추가..
   averageRating: number | null;
-  reviewCount: number;
+  reviewCount: number | null;
+  category: Category | null; //최하위 카테고리
 }

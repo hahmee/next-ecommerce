@@ -1,5 +1,5 @@
 import {dehydrate, HydrationBoundary, QueryCache, QueryClient} from "@tanstack/react-query";
-import ProductTable from "@/components/Tables/ProductsTable";
+import ProductTable from "@/components/Tables/ProductTable";
 import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
 import {PageParam} from "@/interface/PageParam";
 import toast from "react-hot-toast";

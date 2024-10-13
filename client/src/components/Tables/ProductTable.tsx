@@ -14,11 +14,12 @@ import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import Dialog from "@/components/Admin/Dialog";
+import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -30,6 +31,23 @@ const initalPagingData: Paging = {
     next: false,
     pageNumList: [0],
 }
+
+const testData = {
+    "dtoList": [{}],
+    "pageNumList": [],
+    "pageRequestDTO": {
+        "page": 1,
+        "size": 10
+    },
+    "prev": false,
+    "next": false,
+    "totalCount": 0,
+    "prevPage": 0,
+    "nextPage": 0,
+    "totalPage": 0,
+    "current": 1
+}
+
 const ProductTable = ({page, size, search} : PageParam) => {
 
     const [paging, setPaging] = useState<Paging>(initalPagingData);
@@ -49,6 +67,8 @@ const ProductTable = ({page, size, search} : PageParam) => {
         }
     });
 
+    console.log('data......', data);
+
     const [currentPno, setCurrentPno] = useState<number>(-1);
     const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 관리
     const [productData, setProductData] = useState<PageResponse<Product>>();
@@ -61,10 +81,12 @@ const ProductTable = ({page, size, search} : PageParam) => {
         router.push(`/admin/products/${pno}`);
     }
 
+
+
+
     useEffect(() => {
         setProductData(data);
         if (data) {
-            console.log('data', data);
 
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
@@ -167,12 +189,13 @@ const ProductTable = ({page, size, search} : PageParam) => {
                     <AddProductButton/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
-                        <FilterButton/>
+                        {/*<FilterButton/>*/}
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 dark:bg-gray-700">
+            <div
+                className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5 dark:bg-gray-700">
                 <div className="col-span-2 flex items-center">
                     <p className="font-medium">상품이름</p>
                 </div>
@@ -219,39 +242,31 @@ const ProductTable = ({page, size, search} : PageParam) => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-span-1 hidden  sm:flex flex-col ">
-                        {product.categoryList.map((category, idx) => (
-                            <span key={idx}
-                                  className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 my-1">
-                                {category}
-                            </span>
-                        ))}
+                    <div className="col-span-1 hidden sm:flex flex-col">
+                        <span
+                            className="bg-primary-100 text-primary-800 text-xs font-medium px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
+                            {/*{product.}*/}
+                            {product.category?.cname}
+                        </span>
                     </div>
                     <div className="col-span-2 flex items-center">
                         <p className="text-sm text-black dark:text-white">
                             {product.sku}
                         </p>
                     </div>
-                    {/*<div className="col-span-1 flex items-center">*/}
-                    {/*    <p className="text-sm text-black dark:text-white">{product.brand}</p>*/}
-                    {/*</div>*/}
                     <div className="col-span-1 flex items-center">
                         <p className="text-sm text-black dark:text-white">{product.price}</p>
                     </div>
                     <div className="col-span-1 flex items-center">
                         <div
-                            className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400" : "bg-yellow-300"}`}></div>
+                            className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red" : "bg-yellow-300"}`}></div>
                         <p className="text-sm text-black dark:text-white">{salesOptions.find(option => option.id === product.salesStatus)?.content}</p>
                     </div>
                     <div className="col-span-1 flex items-center justify-end">
                         <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown"
                                 className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                 type="button" onClick={() => handleOpenMenu(product.pno)}>
-                            <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-                            </svg>
+                            <EllipsisHorizontalIcon className="h-6 w-6"/>
                         </button>
 
                         {
@@ -275,8 +290,8 @@ const ProductTable = ({page, size, search} : PageParam) => {
                                             onClick={() => {
                                                 setShowDialog(true);
                                                 setDeleteId(product.pno);
-                                            }}>삭제하기
-
+                                            }}>
+                                            삭제하기
                                         </div>
                                     </div>
 

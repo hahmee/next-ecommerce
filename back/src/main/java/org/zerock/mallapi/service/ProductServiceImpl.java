@@ -296,6 +296,14 @@ public class ProductServiceImpl implements ProductService{
       ProductImage productImage = (ProductImage) arr[1];
       log.info("productImageproductImage " + productImage); //null
 
+      //test..
+      CategoryDTO categoryDTO = CategoryDTO.builder()
+              .cno(product.getAdminCategory().getCno())
+              .cname(product.getAdminCategory().getCname())
+              .cdesc(product.getAdminCategory().getCdesc())
+              .delFlag(product.getAdminCategory().isDelFlag())
+              .build();
+
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
               .pname(product.getPname())
@@ -308,9 +316,10 @@ public class ProductServiceImpl implements ProductService{
               .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
+              .category(categoryDTO)
               .build();
 
-      if(productImage !=null ) {
+      if(productImage !=null) {
 
         String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
         String imageKeyStr = productImage.getFileKey();

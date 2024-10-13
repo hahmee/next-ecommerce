@@ -75,4 +75,6 @@ public class ProductDTO {
 
   private Long reviewCount;
 
+  private CategoryDTO category; //최하위 카테고리
+
 }

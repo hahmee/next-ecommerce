@@ -25,6 +25,7 @@ import CategorySelect from "@/components/Admin/Product/CategorySelect";
 import {Category} from "@/interface/Category";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
+import Link from "next/link";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -270,10 +271,11 @@ const ProductForm = ({type, id}: Props) => {
                         <div className="flex flex-col gap-9">
                             <div
                                 className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <div className="flex justify-between border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         카테고리
                                     </h3>
+                                    <Link href="/admin/category" className="underline text-sm">카테고리 추가/변경</Link>
                                 </div>
                                 <div className="p-6.5 mb-6">
                                     <CategorySelect categories={categories || []} setSelectedCategory={setSelectedCategory} categoryPaths={categoryPaths || []}/>

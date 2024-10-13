@@ -127,8 +127,10 @@ public class ProductController {
 
     log.info("search............" + searchRequestDTO); // 왜 안뜨냐,,
 
+    DataResponseDTO<PageResponseDTO<ProductDTO>> result =  DataResponseDTO.of(productService.getSearchAdminList(searchRequestDTO, userDetails));
 
-    return DataResponseDTO.of(productService.getSearchAdminList(searchRequestDTO, userDetails));
+    log.info("최종 result", result);
+    return result;
   }
 
 
