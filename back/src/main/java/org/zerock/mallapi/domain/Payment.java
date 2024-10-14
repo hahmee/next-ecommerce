@@ -36,9 +36,6 @@ public class Payment extends BaseEntity {
 
     private TossPaymentType type; //토스 페이먼트 타입
 
-//    @ManyToOne //하나의 판매가자 여러개의 결제가능
-//    @JoinColumn(name = "member_seller")
-//    private Member seller;//판매자
 
 
 }

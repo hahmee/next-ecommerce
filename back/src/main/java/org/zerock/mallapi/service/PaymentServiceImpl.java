@@ -2,6 +2,7 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -202,13 +203,11 @@ public class PaymentServiceImpl implements PaymentService{
 
     log.info("--------------pageable      " + pageable);
 
-    Page<Object[]> result = paymentRepository.searchAdminPaymentList(pageable, search, email); // 내 이메일 주소
+    Page<Payment> payments = paymentRepository.searchAdminPaymentList(pageable, search, email);
 
-    log.info("........result " + result);
+    List<PaymentDTO> dtoList = payments.stream().map(payment -> {
 
-    List<PaymentDTO> dtoList = result.get().map(arr -> {
-
-      Payment payment = (Payment) arr[0];
+      log.info("........payment " + payment);
 
       MemberDTO memberDTO = memberService.entityToDTO(payment.getOwner());
 
@@ -224,6 +223,8 @@ public class PaymentServiceImpl implements PaymentService{
               .type(payment.getType())
               .build();
 
+      paymentDTO.setCreatedAt(payment.getCreatedAt());
+      paymentDTO.setUpdatedAt(payment.getUpdatedAt());
 
       return paymentDTO;
 
@@ -233,7 +234,7 @@ public class PaymentServiceImpl implements PaymentService{
     log.info("........dtoList.. " + dtoList);
 
 
-    long totalCount = result.getTotalElements();
+    long totalCount = payments.getTotalElements();
 
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
 

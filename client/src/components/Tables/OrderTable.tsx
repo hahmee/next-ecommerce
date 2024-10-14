@@ -20,6 +20,7 @@ import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import Dialog from "@/components/Admin/Dialog";
 import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
 import {getPaymentsByEmail} from "@/app/(admin)/admin/order/_lib/getPaymentsByEmail";
+import {Payment} from "@/interface/Payment";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -40,13 +41,13 @@ const OrderTable = () => {
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
     const [currentPno, setCurrentPno] = useState<number>(-1);
-    const [productData, setProductData] = useState<PageResponse<Product>>();
+    const [payments,setPayments] = useState<PageResponse<Payment>>();
     const [deleteId, setDeleteId] = useState<number>(-1);
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const router = useRouter();
     const queryClient = useQueryClient();
 
-    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
+    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Payment>>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
         queryKey: ['adminPayments', {page, size, search}],
         queryFn: () => getPaymentsByEmail({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -59,14 +60,11 @@ const OrderTable = () => {
         }
     });
 
-    const handleClick = (pno:number) => {
-        router.push(`/admin/products/${pno}`);
-    }
+    console.log('payments..', data);
 
     useEffect(() => {
-        setProductData(data);
+        setPayments(data);
         if (data) {
-
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
         }
@@ -88,41 +86,19 @@ const OrderTable = () => {
         setPage(page);
     }
 
-    const mutation = useMutation({
-        mutationFn: async (pno: number) => {
-            return fetchWithAuth(`/api/products/${pno}`, {
-                method: "DELETE",
-                credentials: 'include',
-            });
-        },
-        onSuccess: (data) => {
-            console.log('data...', data);
-            clickModal();
-
-            queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search}]});
-
-        }
-
-    });
-
     // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
     const clickModal = () => setShowDialog(!setShowDialog);
 
-    //삭제
-    const deleteProduct = () => {
-        mutation.mutate(deleteId);
-    }
 
     return (
-        // <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden">
-            {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog} doAction={deleteProduct}/>}
-
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div
+                className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2">
                     <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
-                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                <div
+                    className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <AddProductButton/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
@@ -136,81 +112,41 @@ const OrderTable = () => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-4 py-3">Order</th>
+                        <th scope="col" className="px-4 py-3">Order Name</th>
                         <th scope="col" className="px-4 py-3">Date created</th>
                         <th scope="col" className="px-4 py-3">Customer</th>
                         <th scope="col" className="px-4 py-3">Fulfillment</th>
                         <th scope="col" className="px-4 py-3">Total</th>
-                        <th scope="col" className="px-4 py-3">
-                            <span className="sr-only">Actions</span>
-                        </th>
                     </tr>
                     </thead>
                     <tbody>
-                    {productData?.dtoList?.map((product, key) => (
+                    {payments?.dtoList?.map((payment, key) => (
                         <tr className="border-b dark:border-gray-700" key={key}>
-                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2 ">
-                                {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
-                                    <Image
-                                        src={product.uploadFileNames[0]?.file}
-                                        width={500}
-                                        height={500}
-                                        className="object-cover w-15 h-10 flex-none"
-                                        alt="Product"
-                                        onClick={() => handleClick(product.pno)}
-                                    />
-                                }
-                                <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap w-full">
-                                    {product.pname}
+                            <th scope="row" className="pl-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
+                                    #{payment.orderId}
                                 </p>
                             </th>
                             <td className="px-4 py-3 whitespace-nowrap">
+                                <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
+                                    {payment.orderName}
+                                </p>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                                <span className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{new Date(payment.createdAt).toLocaleDateString()}</span>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap">{payment.owner.email}</td>
+                            <td className="px-4 py-3 whitespace-nowrap">
                                 <span
-                                    className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{product.category?.cname}</span>
-                            </td>
-                            <td className="px-4 py-3 whitespace-nowrap">Apple</td>
-                            <td className="px-4 py-3 whitespace-nowrap">300</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{product.sku}</td>
-                            <td className="px-4 py-3 justify-end whitespace-nowrap relative">
-                                <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown"
-                                        className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                        type="button" onClick={() => handleOpenMenu(product.pno)}>
-                                    <EllipsisHorizontalIcon className="h-6 w-6"/>
-                                </button>
-
-                                {/*여기에 메뉴*/}
-                                {
-                                    currentPno === product.pno && (
-                                        <div id="apple-imac-27-dropdown" className="absolute z-10 w-44 top-0 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
-                                                <li>
-                                                    <Link href={`/product/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href={`/admin/products/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
-                                                </li>
-                                            </ul>
-                                            <div className="py-1">
-                                                <div className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                     onClick={() => {
-                                                         setShowDialog(true);
-                                                         setDeleteId(product.pno);
-                                                     }}>
-                                                    삭제하기
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                }
+                                    className="bg-red-100 text-red-800 text-xs px-1.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{payment.status}</span>
 
                             </td>
+                            <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()} 원</td>
                         </tr>
                     ))}
 
                     </tbody>
                 </table>
-
 
 
             </div>

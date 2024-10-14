@@ -93,7 +93,6 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     } catch (GeneralException e){//CustomJWTException e
 
-      log.error("asdfasdfasdfadfa" + e);
       log.error("JWT Check Error.............."); //JWT 아닌 것들도 다 여기로 들어와서 다시 리프레시 토큰 발급함...(맥스사이즈)
       log.error(e.getMessage());
 

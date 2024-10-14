@@ -116,8 +116,7 @@ public class ProductServiceImpl implements ProductService{
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
-      log.info("product....222222 " + arr[2]);
-      log.info("product....3333 " + arr[3]);
+
 
       Product product = (Product) arr[0];
 

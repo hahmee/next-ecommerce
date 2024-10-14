@@ -30,7 +30,7 @@ const config: Config = {
         // white: "#FFFFFF",
         black: "#1C2434",
         black2: "#000000",
-        red: "#FB5454",
+        // red: "#FB5454",
         // "black-2": "#010101",
         body: "#64748B",
         bodydark: "#AEB7C0",
