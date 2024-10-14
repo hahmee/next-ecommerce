@@ -36,8 +36,6 @@ export const useCartStore = create<CartState>((set) => ({
 
       const subtotal = cartItems.length > 0 ? cartItems.reduce((total:number, item:CartItemList) => total + item.price * item.qty, 0) : 0;
 
-      console.log('subtotal', subtotal);
-
       set({
         cart: cartItems,
         isLoading: false,

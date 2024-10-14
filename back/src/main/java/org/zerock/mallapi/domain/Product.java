@@ -58,7 +58,7 @@ public class Product extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "member_owner")
-  private Member owner; // 유저
+  private Member owner; // 판매자 유저
 
   @ElementCollection
   @Builder.Default

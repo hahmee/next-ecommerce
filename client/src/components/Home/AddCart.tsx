@@ -11,11 +11,13 @@ import {getCookie} from "cookies-next";
 const AddCart = ({
                      pno,
                      salesStatus,
-                     options
+                     options,
+                     sellerEmail
                  }: {
     pno: number;
     salesStatus: SalesStatus;
-    options: { color: ColorTag, size: string; }
+    options: { color: ColorTag, size: string; },
+    sellerEmail: string;
 }) => {
 
     const [quantity, setQuantity] = useState(1);
@@ -40,11 +42,12 @@ const AddCart = ({
         //해당하는 cino 의 개수를 바꿔야함
         if (result && result.length > 0) { // 담겨있었음
             const cartItemChange: CartItem = {
-                email: member.email,
+                email: member.email, //사용자 이메일
                 pno: pno,
                 qty: result[0].qty + quantity,
                 color: options.color,
                 size: options.size,
+                sellerEmail:sellerEmail, //판매자 이메일
             };
             changeCart(cartItemChange); // 수량만 추가
         }
@@ -56,6 +59,7 @@ const AddCart = ({
                 qty: quantity,
                 color: options.color,
                 size: options.size,
+                sellerEmail:sellerEmail,
             };
             changeCart(cartItem); //새로 담기
         }

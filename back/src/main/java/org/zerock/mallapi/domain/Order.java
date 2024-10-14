@@ -32,6 +32,11 @@ public class Order extends BaseEntity {
 
     private OrderProductInfo productInfo;   // 주문한 상품에 대한 정보들을 포함 (상품 변경사항에 대비하여 반정규화 하여 저장)
 
+    @ManyToOne
+    @JoinColumn(name = "member_seller")
+    private Member seller;//판매자
+
+
     public void changeStatus(OrderStatus status) {
         this.status = status;
     }

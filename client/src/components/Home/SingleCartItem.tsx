@@ -43,6 +43,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                     qty: newQuantity,
                     color: options.color,
                     size: options.size,
+                    sellerEmail: ""
                 };
                 changeCart(cartItemChange);
             } else {
@@ -52,6 +53,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                     qty: 1,
                     color: options.color,
                     size: options.size,
+                    sellerEmail: ""
                 };
                 changeCart(cartItem);
             }

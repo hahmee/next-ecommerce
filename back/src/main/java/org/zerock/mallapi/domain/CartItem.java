@@ -35,6 +35,10 @@ public class CartItem {
 
     private String size;
 
+    @ManyToOne
+    @JoinColumn(name = "member_seller")
+    private Member seller;//판매자
+
     public void changeQty(int qty){
         this.qty = qty;
     }

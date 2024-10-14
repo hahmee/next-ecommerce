@@ -9,4 +9,5 @@ export interface CartItemList {
   imageFile: string;
   size: string;
   color: ColorTag;
+  sellerEmail: string;
 }

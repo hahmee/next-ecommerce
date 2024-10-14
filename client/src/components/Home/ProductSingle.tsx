@@ -85,6 +85,7 @@ const ProductSingle = ({id}: Props) => {
                     pno={Number(id)}
                     salesStatus={product?.salesStatus || SalesStatus.ONSALE}
                     options={{size: size, color: color}}
+                    sellerEmail={product?.owner.email || ""}
                 />
 
 

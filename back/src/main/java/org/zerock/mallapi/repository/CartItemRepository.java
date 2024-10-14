@@ -20,7 +20,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
 //    public List<CartItemListDTO> getCartItemByEmailAndProductId(@Param("email") String email, @Param("productId") Long productId);
 
     @Query("select " +
-            " new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price, pi.fileName, ci.size, new org.zerock.mallapi.dto.ColorTagDTO(ci.color.id, ci.color.text, ci.color.color))  " +
+            " new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price, pi.fileName, ci.size, new org.zerock.mallapi.dto.ColorTagDTO(ci.color.id, ci.color.text, ci.color.color), p.owner.email)  " +
             " from " +
             "   CartItem ci inner join Cart mc on ci.cart = mc " +
             "   left join Product p on ci.product = p " +
@@ -48,7 +48,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
     public Long getCartFromItem( @Param("cino") Long cino);
 
 
-    @Query("select new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price , pi.fileName, ci.size, new org.zerock.mallapi.dto.ColorTagDTO(ci.color.id, ci.color.text, ci.color.color) )  " +
+    @Query("select new org.zerock.mallapi.dto.CartItemListDTO(ci.cino,  ci.qty,  p.pno, p.pname, p.price , pi.fileName, ci.size, new org.zerock.mallapi.dto.ColorTagDTO(ci.color.id, ci.color.text, ci.color.color),p.owner.email)  " +
             " from " +
             "   CartItem ci inner join Cart mc on ci.cart = mc " +
             "   left join Product p on ci.product = p " +

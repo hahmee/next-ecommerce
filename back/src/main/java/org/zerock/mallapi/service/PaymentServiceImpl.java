@@ -3,6 +3,10 @@ package org.zerock.mallapi.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -127,7 +131,7 @@ public class PaymentServiceImpl implements PaymentService{
 
   private Payment dtoToEntity(PaymentSuccessDTO paymentSuccessDTO, String email){
 
-    Member member = Member.builder().email(email).build();
+    Member owner = Member.builder().email(email).build(); //구매자
 
     Payment payment = Payment.builder()
             .orderId(paymentSuccessDTO.getOrderId())
@@ -137,7 +141,7 @@ public class PaymentServiceImpl implements PaymentService{
             .type(paymentSuccessDTO.getType())
             .totalAmount(paymentSuccessDTO.getTotalAmount())
             .orderName(paymentSuccessDTO.getOrderName())
-            .owner(member)
+            .owner(owner) //구매자
             .build();
 
     return payment;
@@ -179,6 +183,66 @@ public class PaymentServiceImpl implements PaymentService{
     PaymentDTO paymentDTO = convertToDTO(payment);
 
     return paymentDTO;
+  }
+
+
+  @Override
+  public PageResponseDTO<PaymentDTO> getSearchAdminPaymentList(SearchRequestDTO searchRequestDTO, String email) {
+
+    log.info("getAdminList.............." + searchRequestDTO);
+
+    log.info("--------------email      " + email);
+
+    Pageable pageable = PageRequest.of(
+            searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            searchRequestDTO.getSize(),
+            Sort.by("id").descending());
+
+    String search = searchRequestDTO.getSearch();
+
+    log.info("--------------pageable      " + pageable);
+
+    Page<Object[]> result = paymentRepository.searchAdminPaymentList(pageable, search, email); // 내 이메일 주소
+
+    log.info("........result " + result);
+
+    List<PaymentDTO> dtoList = result.get().map(arr -> {
+
+      Payment payment = (Payment) arr[0];
+
+      MemberDTO memberDTO = memberService.entityToDTO(payment.getOwner());
+
+      PaymentDTO paymentDTO = PaymentDTO.builder()
+              .id(payment.getId())
+              .owner(memberDTO)
+              .paymentKey(payment.getPaymentKey())
+              .orderId(payment.getOrderId())
+              .orderName(payment.getOrderName())
+              .method(payment.getMethod())
+              .totalAmount(payment.getTotalAmount())
+              .status(payment.getStatus())
+              .type(payment.getType())
+              .build();
+
+
+      return paymentDTO;
+
+    }).collect(Collectors.toList());
+
+
+    log.info("........dtoList.. " + dtoList);
+
+
+    long totalCount = result.getTotalElements();
+
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
+
+    return PageResponseDTO.<PaymentDTO>withAll()
+            .dtoList(dtoList)
+            .totalCount(totalCount)
+            .pageRequestDTO(pageRequestDTO)
+            .build();
+
   }
 
 

@@ -1,10 +1,7 @@
 package org.zerock.mallapi.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.mallapi.dto.PaymentDTO;
-import org.zerock.mallapi.dto.PaymentFailDTO;
-import org.zerock.mallapi.dto.PaymentRequestDTO;
-import org.zerock.mallapi.dto.PaymentSuccessDTO;
+import org.zerock.mallapi.dto.*;
 
 import java.util.List;
 
@@ -19,5 +16,6 @@ public interface PaymentService {
 
   PaymentDTO getByEmailAndOrderId(String email, String orderId);
 
+  PageResponseDTO<PaymentDTO> getSearchAdminPaymentList(SearchRequestDTO searchRequestDTO, String email);
 
 }

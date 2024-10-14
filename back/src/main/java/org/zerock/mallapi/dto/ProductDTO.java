@@ -77,4 +77,6 @@ public class ProductDTO {
 
   private CategoryDTO category; //최하위 카테고리
 
+  private MemberDTO owner;//판매자
+
 }

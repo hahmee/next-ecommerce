@@ -18,8 +18,8 @@ import Link from "next/link";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import Dialog from "@/components/Admin/Dialog";
-import {ChevronUpDownIcon, EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
-import {ShoppingCartIcon} from "@heroicons/react/24/outline";
+import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
+import {getPaymentsByEmail} from "@/app/(admin)/admin/order/_lib/getPaymentsByEmail";
 
 const initalPagingData: Paging = {
     totalCount: 0,
@@ -32,7 +32,7 @@ const initalPagingData: Paging = {
     pageNumList: [0],
 }
 
-const ProductTable = () => { //{page, size, search} : PageParam
+const OrderTable = () => {
 
     const [paging, setPaging] = useState<Paging>(initalPagingData);
 
@@ -47,8 +47,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
     const queryClient = useQueryClient();
 
     const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
-        queryKey: ['adminProducts', {page, size, search}],
-        queryFn: () => getProductsByEmail({page, size, search}),
+        queryKey: ['adminPayments', {page, size, search}],
+        queryFn: () => getPaymentsByEmail({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
@@ -135,16 +135,11 @@ const ProductTable = () => { //{page, size, search} : PageParam
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 relative">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="px-4 py-3">상품이름</th>
-                        <th scope="col" className="px-4 py-3">카테고리</th>
-                        <th scope="col" className="px-4 py-3">Sales/Day</th>
-                        <th scope="col" className="px-4 py-3">Sales/Month</th>
-                        <th scope="col" className="px-4 py-3">SKU</th>
-                        <th scope="col" className="px-4 py-3">평점</th>
-                        <th scope="col" className="px-4 py-3">판매</th>
-                        <th scope="col" className="px-4 py-3">Revenue</th>
-                        <th scope="col" className="px-4 py-3">가격</th>
-                        <th scope="col" className="px-4 py-3">재고현황</th>
+                        <th scope="col" className="px-4 py-3">Order</th>
+                        <th scope="col" className="px-4 py-3">Date created</th>
+                        <th scope="col" className="px-4 py-3">Customer</th>
+                        <th scope="col" className="px-4 py-3">Fulfillment</th>
+                        <th scope="col" className="px-4 py-3">Total</th>
                         <th scope="col" className="px-4 py-3">
                             <span className="sr-only">Actions</span>
                         </th>
@@ -175,17 +170,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
                             <td className="px-4 py-3 whitespace-nowrap">Apple</td>
                             <td className="px-4 py-3 whitespace-nowrap">300</td>
                             <td className="px-4 py-3 whitespace-nowrap">{product.sku}</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{product.averageRating || "평점없음"}</td>
-                            <td className="px-4 py-3 whitespace-nowrap">판매</td>
-                            <td className="px-4 py-3 whitespace-nowrap">레베뉴</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{(product.price).toLocaleString()} 원</td>
-                            <td className="px-4 py-3 whitespace-nowrap">
-                                <div className="flex items-center">
-                                    <div
-                                        className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red" : "bg-yellow-300"}`}/>
-                                    {salesOptions.find(option => option.id === product.salesStatus)?.content}
-                                </div>
-                            </td>
                             <td className="px-4 py-3 justify-end whitespace-nowrap relative">
                                 <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown"
                                         className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
@@ -238,4 +222,4 @@ const ProductTable = () => { //{page, size, search} : PageParam
     );
 };
 
-export default ProductTable;
+export default OrderTable;

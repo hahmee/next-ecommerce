@@ -2,6 +2,7 @@ import {SalesStatus} from "@/types/salesStatus";
 import {FileDTO} from "@/interface/FileDTO";
 import {ColorTag} from "@/interface/ColorTag";
 import {Category} from "@/interface/Category";
+import {Member} from "@/interface/Member";
 
 export interface Product {
   pno: number;
@@ -25,4 +26,5 @@ export interface Product {
   averageRating: number | null;
   reviewCount: number | null;
   category: Category | null; //최하위 카테고리
+  owner: Member;
 }

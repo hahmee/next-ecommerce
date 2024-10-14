@@ -63,4 +63,26 @@ public class PaymentController {
         return null;
 
     }
+
+
+    //ADMIN 페이지 추가
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+    @GetMapping("/searchAdminPaymentList") // searchAdminPaymentList?search=검색어&page=1&size=10
+    public DataResponseDTO<PageResponseDTO<PaymentDTO>> searchAdminPaymentList(SearchRequestDTO searchRequestDTO, Principal principal) {
+
+        String email = principal.getName();
+
+
+        log.info("search............" + searchRequestDTO); // 왜 안뜨냐,,
+
+        DataResponseDTO<PageResponseDTO<PaymentDTO>> result =  DataResponseDTO.of(paymentService.getSearchAdminPaymentList(searchRequestDTO, email));
+
+        log.info("최종 result", result);
+
+        return result;
+    }
+
+
+
+
 }

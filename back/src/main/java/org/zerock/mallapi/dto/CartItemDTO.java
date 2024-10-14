@@ -17,4 +17,6 @@ public class CartItemDTO {
 
     private String size;
 
+    private String sellerEmail;
+
 }

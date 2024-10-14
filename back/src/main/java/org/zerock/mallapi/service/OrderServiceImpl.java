@@ -108,6 +108,8 @@ public class OrderServiceImpl implements OrderService{
 
     Member member = Member.builder().email(email).build();
 
+    Member seller = Member.builder().email(cartItem.getSellerEmail()).build();
+
     ColorTag colorTag = ColorTag.builder()
             .id(cartItem.getColor().getId())
             .text(cartItem.getColor().getText())
@@ -132,6 +134,7 @@ public class OrderServiceImpl implements OrderService{
             .deliveryInfo(orderRequestDTO.getDeliveryInfo())
             .productInfo(productInfo)
             .owner(member)
+            .seller(seller)
             .build();
 
     return order;

@@ -1,5 +1,6 @@
 package org.zerock.mallapi.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +26,9 @@ public class CartItemListDTO {
 
     private ColorTagDTO color;
 
-    public CartItemListDTO(Long cino, int qty, Long pno, String pname, int price, String imageFile, String size, ColorTagDTO color){
+    private String sellerEmail; //판매자 이메일
+
+    public CartItemListDTO(Long cino, int qty, Long pno, String pname, int price, String imageFile, String size, ColorTagDTO color, String sellerEmail){
         this.cino = cino;
         this.qty = qty;
         this.pno = pno;
@@ -34,7 +37,7 @@ public class CartItemListDTO {
         this.imageFile = imageFile;
         this.size = size;
         this.color = color;
-
+        this.sellerEmail = sellerEmail;
     }
 
 }

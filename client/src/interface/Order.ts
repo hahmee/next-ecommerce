@@ -23,6 +23,7 @@ export interface OrderRequest {
   status: OrderStatus;
   deliveryInfo: OrderShippingAddressInfo;
   carts?: Array<CartItemList>;
+  // seller: Member //판매자 정보
 }
 
 export interface OrderShippingAddressInfo {

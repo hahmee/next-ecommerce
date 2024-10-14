@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const AddProductButton = () => {
 
-
     return (
         <Link href={`/admin/products/add-product`}>
             <button type="button"

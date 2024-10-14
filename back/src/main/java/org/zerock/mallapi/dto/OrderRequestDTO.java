@@ -3,6 +3,7 @@ package org.zerock.mallapi.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.OrderShippingAddressInfo;
 import org.zerock.mallapi.domain.OrderStatus;
 
@@ -25,5 +26,6 @@ public class OrderRequestDTO {
     
     private List<CartItemListDTO> carts; //-- 카트 정보
 
+//    private MemberDTO seller; //-- 판매자 정보
 
 }

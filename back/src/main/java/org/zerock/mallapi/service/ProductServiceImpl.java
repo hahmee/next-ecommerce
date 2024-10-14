@@ -29,6 +29,9 @@ public class ProductServiceImpl implements ProductService{
 
   private final CategoryClosureRepository categoryClosureRepository;
 
+  private final MemberService memberService;
+
+
   @Override
   public PageResponseDTO<ProductDTO> getList(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
@@ -116,7 +119,6 @@ public class ProductServiceImpl implements ProductService{
       log.info("product....222222 " + arr[2]);
       log.info("product....3333 " + arr[3]);
 
-
       Product product = (Product) arr[0];
 
       ProductImage productImage = (ProductImage) arr[1];
@@ -124,7 +126,6 @@ public class ProductServiceImpl implements ProductService{
       Double averageRating = (Double) arr[2];  // 평균 별점
 
       Long reviewCount = (Long) arr[3];        // 리뷰 개수
-
 
       List<ColorTag> colorTagList = product.getColorList();
 
@@ -135,6 +136,9 @@ public class ProductServiceImpl implements ProductService{
               .color(colorTag.getColor())
               .build())
               .collect(Collectors.toList());
+
+      //owner을 DTO로 변경하기
+      MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
 
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
@@ -152,6 +156,7 @@ public class ProductServiceImpl implements ProductService{
               .sizeList(product.getSizeList())
               .averageRating(averageRating)
               .reviewCount(reviewCount)
+              .owner(memberDTO)
               .build();
 
       if(productImage != null) {
@@ -165,7 +170,6 @@ public class ProductServiceImpl implements ProductService{
 
         FileDTO<String> uploadFileKey = new FileDTO<>();
         uploadFileKey.setFile(imageKeyStr);
-
 
 
         productDTO.setUploadFileNames(List.of(uploadFileName));
@@ -215,6 +219,9 @@ public class ProductServiceImpl implements ProductService{
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
 
+      MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
+
+
       ProductDTO productDTO = ProductDTO.builder()
               .pno(product.getPno())
               .pname(product.getPname())
@@ -227,6 +234,7 @@ public class ProductServiceImpl implements ProductService{
               .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
+              .owner(memberDTO)
               .build();
 
       if(productImage !=null ) {
@@ -296,6 +304,8 @@ public class ProductServiceImpl implements ProductService{
       ProductImage productImage = (ProductImage) arr[1];
       log.info("productImageproductImage " + productImage); //null
 
+      MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
+
       //test..
       CategoryDTO categoryDTO = CategoryDTO.builder()
               .cno(product.getAdminCategory().getCno())
@@ -317,6 +327,7 @@ public class ProductServiceImpl implements ProductService{
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
               .category(categoryDTO)
+              .owner(memberDTO)
               .build();
 
       if(productImage !=null) {
@@ -440,6 +451,8 @@ public class ProductServiceImpl implements ProductService{
 
   private ProductDTO entityToDTO(Product product){
 
+    MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
+
     ProductDTO productDTO = ProductDTO.builder()
     .pno(product.getPno())
     .pname(product.getPname())
@@ -453,6 +466,7 @@ public class ProductServiceImpl implements ProductService{
             .categoryList(product.getCategoryList())
             .sizeList(product.getSizeList())
             .categoryId(product.getAdminCategory().getCno())
+            .owner(memberDTO)
     .build();
 
     //태그

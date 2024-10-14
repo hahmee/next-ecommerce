@@ -20,7 +20,7 @@ public class Payment extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "member_owner")
-    private Member owner;
+    private Member owner; //구매자
 
     private String paymentKey;
 
@@ -35,6 +35,10 @@ public class Payment extends BaseEntity {
     private TossPaymentStatus status; // 토스 주문의 상태
 
     private TossPaymentType type; //토스 페이먼트 타입
+
+//    @ManyToOne //하나의 판매가자 여러개의 결제가능
+//    @JoinColumn(name = "member_seller")
+//    private Member seller;//판매자
 
 
 }

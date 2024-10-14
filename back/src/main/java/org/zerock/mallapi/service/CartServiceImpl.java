@@ -25,6 +25,7 @@ public class CartServiceImpl implements CartService {
 
 
         log.info("이게 뭐가 나오려나??" + cartItemDTO);
+
         String email = cartItemDTO.getEmail();
 
         Long pno = cartItemDTO.getPno();
@@ -38,6 +39,8 @@ public class CartServiceImpl implements CartService {
         Long colorId = colorTagDTO.getId();
 
         String size = cartItemDTO.getSize();
+
+        String sellerEmail = cartItemDTO.getSellerEmail();
 
         log.info("======================================================");
         log.info(cartItemDTO.getCino() == null);
@@ -73,7 +76,12 @@ public class CartServiceImpl implements CartService {
         if(cartItem == null){
             Product product = Product.builder().pno(pno).build();
             ColorTag colorTag = ColorTag.builder().id(colorId).build();
-            cartItem = CartItem.builder().product(product).cart(cart).qty(qty).color(colorTag).size(size).build();
+            log.info("=================colorTag... " + colorTag);
+            Member seller = Member.builder().email(sellerEmail).build();
+            log.info("=================seller... " + seller);
+
+            cartItem = CartItem.builder().product(product).cart(cart).qty(qty).color(colorTag).size(size).seller(seller).build();
+            log.info("=================cartItem... " + cartItem);
 
         }else {
             cartItem.changeQty(qty);

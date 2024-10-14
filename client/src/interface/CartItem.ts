@@ -7,4 +7,5 @@ export interface CartItem {
   cino?: number;
   color: ColorTag;
   size: string;
+  sellerEmail: string
 }

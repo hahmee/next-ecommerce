@@ -22,37 +22,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     // const member = JSON.parse(memberInfo ? memberInfo : "");
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-    const handleClickAddCart = (pno:number,options: { color: ColorTag, size: string; }) => {
+    const handleClickAddCart = (pno: number, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
         const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
         //해당하는 cino 의 개수를 바꿔야함
-            if (result && result.length > 0) { // 담겨있었음
-                const cartItemChange: CartItem = {
-                    email: member.email,
-                    pno: pno,
-                    qty: result[0].qty + 1,
-                    color: options.color,
-                    size: options.size,
-                };
-                changeCart(cartItemChange); // 수량만 추가
-            }
+        if (result && result.length > 0) { // 담겨있었음
+            const cartItemChange: CartItem = {
+                email: member.email,
+                pno: pno,
+                qty: result[0].qty + 1,
+                color: options.color,
+                size: options.size,
+                sellerEmail:product.owner.email,
+            };
+            changeCart(cartItemChange); // 수량만 추가
+        } else { //아무것도 안담겨있었음
+            const cartItem: CartItem = {
+                email: member.email,
+                pno: pno,
+                qty: 1,
+                color: options.color,
+                size: options.size,
+                sellerEmail:product.owner.email,
+            };
+            changeCart(cartItem); //새로 담기
+        }
 
-            else { //아무것도 안담겨있었음
-                const cartItem: CartItem = {
-                    email: member.email,
-                    pno: pno,
-                    qty: 1,
-                    color: options.color,
-                    size: options.size,
-                };
-                changeCart(cartItem); //새로 담기
-            }
-
-            //스낵바 "장바구니 담겼습니다."
+        //스낵바 "장바구니 담겼습니다."
 
 
-
-    }
+    };
     return (
         <Link href={`/product/${product.pno}`}>
             <div className="group relative transition-shadow duration-300">
