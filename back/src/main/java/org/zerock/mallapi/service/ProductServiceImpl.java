@@ -199,7 +199,6 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails) {
 
-
     log.info("pageRequestDTO...." + pageRequestDTO);
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();

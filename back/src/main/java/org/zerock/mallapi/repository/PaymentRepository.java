@@ -21,5 +21,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
     @Query("select distinct p from Payment p join Order o on p.orderId = o.orderId where o.seller.email = :email and (p.orderName like concat('%', :search, '%') or p.orderId like concat('%', :search, '%')) and p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE")
     Page<Payment> searchAdminPaymentList(Pageable pageable, @Param("search") String search, @Param("email") String email);
 
+    @Query("select distinct p from Payment p join Order o on p.orderId = o.orderId where o.seller.email = :email and (p.orderName like concat('%', :search, '%') or p.orderId like concat('%', :search, '%')) and p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE")
+    List<Payment> findSales();
 
 }

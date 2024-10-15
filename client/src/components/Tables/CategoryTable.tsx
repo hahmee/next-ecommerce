@@ -7,7 +7,7 @@
     import {fetchWithAuth} from "@/utils/fetchWithAuth";
     import toast from "react-hot-toast";
     import Image from "next/image";
-    import {ChevronDownIcon, EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
+    import {ChevronDownIcon, ChevronUpIcon, EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
     import Dialog from "@/components/Admin/Dialog";
     import TableSearch from "@/components/Tables/TableSearch";
     import TableAddButton from "@/components/Tables/TableAddButton";
@@ -83,12 +83,19 @@
 
         // 행 클릭 시 확장 여부 토글
         const toggleRow = (id: number) => {
+            console.log('id', id);
+
             setExpandedRows((prevExpandedRows) =>
                 prevExpandedRows.includes(id)
                     ? prevExpandedRows.filter((rowId) => rowId !== id)
                     : [...prevExpandedRows, id]
             );
         };
+
+        useEffect(() => {
+            console.log('expandedRows', expandedRows);
+
+        }, [expandedRows]);
 
         // Toggle dropdown modal for each category
         const toggleDropdown = (id: number) => {
@@ -99,36 +106,35 @@
             }));
         };
         // 검색어에 따라 필터링된 카테고리
-        const filterCategories = (categories: Category[] = []): Category[] => {
-            return categories.map((category) => {
-                // 하위 카테고리도 필터링
-                    const filteredSubCategories = category.subCategories
-                        ? filterCategories(category.subCategories)
-                        : [];
-
-                // 현재 카테고리와 필터링된 하위 카테고리를 포함
-                if (
-                    category.cname.toLowerCase().includes(search.toLowerCase()) ||
-                    category.cdesc.toLowerCase().includes(search.toLowerCase()) ||
-                    filteredSubCategories.length > 0
-                ) {
-                    return {
-                        ...category,
-                        subCategories: filteredSubCategories,
-                    };
-                }
-
-                // 검색어에 맞지 않으면 빈 배열 반환
-                return null;
-            }).filter((category) => category !== null) as Category[];
-        };
+        // const filterCategories = (categories: Category[] = []): Category[] => {
+        //     return categories.map((category) => {
+        //         // 하위 카테고리도 필터링
+        //             const filteredSubCategories = category.subCategories
+        //                 ? filterCategories(category.subCategories)
+        //                 : [];
+        //
+        //         // 현재 카테고리와 필터링된 하위 카테고리를 포함
+        //         if (
+        //             category.cname.toLowerCase().includes(search.toLowerCase()) ||
+        //             category.cdesc.toLowerCase().includes(search.toLowerCase()) ||
+        //             filteredSubCategories.length > 0
+        //         ) {
+        //             return {
+        //                 ...category,
+        //                 subCategories: filteredSubCategories,
+        //             };
+        //         }
+        //
+        //         // 검색어에 맞지 않으면 빈 배열 반환
+        //         return null;
+        //     }).filter((category) => category !== null) as Category[];
+        // };
 
         // 재귀적으로 하위 카테고리를 렌더링하는 함수
         const renderCategoryRows = (categories: Category[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
-                    <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-                        onClick={() => toggleRow(category.cno)}>
+                    <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" onClick={() => toggleRow(category.cno)}>
                         <td className="px-4 py-3 whitespace-nowrap">
                             <div className="flex items-center">
                                 <input id="checkbox-table-search-1" type="checkbox"
@@ -136,10 +142,16 @@
                                 <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                             </div>
                         </td>
-                        <th scope="row"
-                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2"
-                            style={{paddingLeft: `${depth * 20}px`}}>
-                            <ChevronDownIcon className="h-7 w-7 mr-2"/>
+                        <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2" style={{paddingLeft: `${depth * 20}px`}}>
+                            <div className="w-7">
+                            {
+                                category.subCategories  &&  (
+                                    expandedRows.includes(category.cno) ? <ChevronUpIcon className="h-7 w-7 text-gray-500"/>
+                                        :
+                                        <ChevronDownIcon className="h-7 w-7 text-gray-500"/>
+                                )
+                            }
+                            </div>
                             <Image
                                 src={category.uploadFileName || "https://via.placeholder.com/640x480"}
                                 width={500}

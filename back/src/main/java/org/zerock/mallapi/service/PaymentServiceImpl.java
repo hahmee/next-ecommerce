@@ -246,6 +246,19 @@ public class PaymentServiceImpl implements PaymentService{
 
   }
 
+ /* @Override
+  public List<PaymentDTO> getSalesOverview(ChartRequestDTO chartRequestDTO) {
+
+    String startDate = chartRequestDTO.getStartDate();
+    String endDate = chartRequestDTO.getEndDate();
+    String filter = chartRequestDTO.getFilter();
+    String sellerEmail = chartRequestDTO.getSellerEmail();
+
+    paymentRepository.findSales();
+
+    return List.of();
+  }*/
+
 
   //결제 승인
   private PaymentSuccessDTO requestPaymentAccept(PaymentRequestDTO paymentRequestDTO) {
@@ -257,7 +270,7 @@ public class PaymentServiceImpl implements PaymentService{
     HttpHeaders headers = getHeaders();
 
     // 요청 객체 생성
-      HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
+    HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
 
     //응답 객체 TossPayment객체로 결제 응답받기
     PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);

@@ -23,6 +23,15 @@ public interface CategoryRepository extends JpaRepository<AdminCategory, Long> {
             "JOIN CategoryClosure cc ON cc.id.descendant = c")
     List<AdminCategory> findAllCategoriesByTree();
 
+//    @Query("SELECT c FROM AdminCategory c WHERE (c.cname like concat('%', :search, '%') or c.cdesc like concat('%', :search, '%')) and c.cno NOT IN (SELECT cc.id.descendant.cno FROM CategoryClosure cc WHERE cc.depth = 1) and c.delFlag = false")
+
+    //    @Query("SELECT c FROM AdminCategory c " +
+//            "LEFT JOIN CategoryClosure cc ON c.cno = cc.id.descendant.cno " +
+//            "WHERE (c.cname LIKE concat('%', :search, '%') " +
+//            "OR c.cdesc LIKE concat('%', :search, '%') " +
+//            "OR cc.id.ancestor.cname LIKE concat('%', :search, '%') " +
+//            "OR cc.id.ancestor.cdesc LIKE concat('%', :search, '%')) " +
+//            "AND c.delFlag = false")
     @Query("SELECT c FROM AdminCategory c WHERE (c.cname like concat('%', :search, '%') or c.cdesc like concat('%', :search, '%')) and c.cno NOT IN (SELECT cc.id.descendant.cno FROM CategoryClosure cc WHERE cc.depth = 1) and c.delFlag = false")
     Page<AdminCategory> searchAdminList(Pageable pageable, @Param("search") String search);
 

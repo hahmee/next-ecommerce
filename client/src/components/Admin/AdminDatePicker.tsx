@@ -1,17 +1,13 @@
 import Datepicker from "react-tailwindcss-datepicker";
-import React, {useState} from "react";
+import React from "react";
 
-const AdminDatePicker = () => {
+const AdminDatePicker = ({date, dateChange} : {date:any, dateChange: (value:any) => void}) => {
 
-    const [value, setValue] = useState<any>({
-        startDate: null,
-        endDate: null
-    });
 
     return (
         <Datepicker
-            value={value}
-            onChange={(value)=>setValue(value)}
+            value={date}
+            onChange={(value)=>dateChange(value)}
             showShortcuts={true}
         />
 

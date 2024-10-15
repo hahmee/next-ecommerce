@@ -4,16 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.mallapi.domain.*;
-import org.zerock.mallapi.dto.CartItemListDTO;
-import org.zerock.mallapi.dto.MemberDTO;
-import org.zerock.mallapi.dto.OrderDTO;
-import org.zerock.mallapi.dto.OrderRequestDTO;
+import org.zerock.mallapi.controller.formatter.LocalDateFormatter;
+import org.zerock.mallapi.domain.ColorTag;
+import org.zerock.mallapi.domain.Member;
+import org.zerock.mallapi.domain.Order;
+import org.zerock.mallapi.domain.OrderProductInfo;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.OrderRepository;
 import org.zerock.mallapi.util.GeneralException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -80,6 +84,34 @@ public class OrderServiceImpl implements OrderService{
     OrderDTO orderDTO = convertToDTO(order);
 
     return orderDTO;
+  }
+
+  @Override
+  public List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO) {
+
+    LocalDateTime startDate = changeStringtoDateTime(chartRequestDTO.getStartDate());
+    LocalDateTime endDate = changeStringtoDateTime(chartRequestDTO.getEndDate());
+    String sellerEmail = chartRequestDTO.getSellerEmail();
+
+    List<Object[]> salesSummary = orderRepository.findSalesSummary(sellerEmail, startDate, endDate);
+
+    return salesSummary;
+  }
+
+  //문자열을 Datetime으로 변환한다.
+  private LocalDateTime changeStringtoDateTime(String dateTimeString) {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 형식 지정
+
+    return LocalDateTime.parse(dateTimeString, formatter);
+
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"); // 형식 지정
+//    LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter); // 변환
+
+//    // Formatter 인스턴스 생성
+//    LocalDateFormatter formatter = new LocalDateFormatter();
+//    LocalDate localDate = formatter.parse(dateTimeString, Locale.getDefault());
+
   }
 
   private OrderDTO convertToDTO(Order order) {

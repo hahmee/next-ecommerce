@@ -13,14 +13,14 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                 {
                     pagingData.current > 1 ?
                         <span
-                            className="relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            className="relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700"
                             onClick={() => changePage(pagingData.current - 1)}
                         >
                     이전
                 </span>
                         :
                         <span
-                            className="relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            className="relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700 "
                         >
                     이전
                 </span>
@@ -30,7 +30,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                 {
                     pagingData.current < pagingData.totalPage ?
                         <span
-                            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700"
                             onClick={() => changePage(pagingData.current + 1)}
 
                         >
@@ -38,7 +38,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                     </span>
                         :
                         <span
-                            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700"
                         >
                     다음
                 </span>
@@ -55,7 +55,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                     </p>
                 </div>
                 <div>
-                    <nav aria-label="Pagination" className="isolate inline-flex -space-x-px rounded-md">
+                    <nav aria-label="Pagination" className="isolate inline-flex -space-x-px rounded-md dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700">
                         {
                             pagingData.prevPage ? <div
                                 className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
@@ -70,14 +70,11 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                                           clipRule="evenodd"/>
                                 </svg>
                             </div> : <div
-                                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0  "
                             >
                                 <span className="sr-only">Previous</span>
-                                <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path fillRule="evenodd"
-                                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                          clipRule="evenodd"/>
+                                <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"/>
                                 </svg>
                             </div>
                         }
@@ -93,8 +90,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                         {
                             pagingData.next ?
 
-                                <div
-                                    className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                                <div className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                                     onClick={() => changePage(pagingData.nextPage)}
                                 >
 

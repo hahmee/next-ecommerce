@@ -18,4 +18,7 @@ public interface PaymentService {
 
   PageResponseDTO<PaymentDTO> getSearchAdminPaymentList(SearchRequestDTO searchRequestDTO, String email);
 
+  //Dashboard사용
+//  List<PaymentDTO> getSalesOverview(ChartRequestDTO chartRequestDTO);
+
 }

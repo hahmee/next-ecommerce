@@ -1,18 +1,47 @@
 "use client";
-import React from "react";
-import TableOne from "@/components/Tables/TableOne";
-import ChartOne from "@/components/Admin/Dashboard/Charts/ChartOne";
+import React, {useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
-import ChartThree from "@/components/Admin/Dashboard/Charts/ChartThree";
 import AdminDatePicker from "@/components/Admin/AdminDatePicker";
+import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
+import {useQuery} from "@tanstack/react-query";
+import {DataResponse} from "@/interface/DataResponse";
+import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 
-const ECommerce: React.FC = () => {
+const SalesOverview: React.FC = () => {
 
+  const endDate = new Date(); // today
+  const startDate = new Date();
+
+  startDate.setDate(endDate.getDate() - 30); // 30 days ago
+
+  const [date, setDate] = useState({
+    startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+  });
+
+  const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:salesCharts, error:ctError, isError:ctIsError} = useQuery<DataResponse<any>, Object, any>({
+    queryKey: ['salesCharts'],
+    queryFn: () => getSalesCharts({startDate: date.startDate, endDate:date.endDate,sellerEmail:'user1@aaa.com', filter: 'day' }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    throwOnError: false,
+    select: (data) => {
+      // 데이터 가공 로직만 처리
+      return data.data;
+    }
+  });
+
+  console.log('dd', salesCharts);
+
+  const dateChange = (value:any) => {
+    console.log(value);
+    setDate(value);
+  };
 
   return (
       <>
-        <AdminDatePicker/>
-
+        <AdminDatePicker date={date} dateChange={dateChange}/>
+      Compared to previous period()
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           <CardDataStats title="Total Sales" total="$3.456K" rate="0.43%" levelUp>
             <svg
@@ -101,12 +130,12 @@ const ECommerce: React.FC = () => {
         </div>
 
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-          <ChartOne/>
+          <SalesChart/>
           {/*<ChartTwo/>*/}
-          <ChartThree/>
+          {/*<ChartThree/>*/}
           {/*<MapOne />*/}
           <div className="col-span-12 xl:col-span-8">
-            <TableOne/>
+            {/*<TableOne/>*/}
           </div>
           {/*<ChatCard />*/}
         </div>
@@ -114,4 +143,4 @@ const ECommerce: React.FC = () => {
   );
 };
 
-export default ECommerce;
+export default SalesOverview;

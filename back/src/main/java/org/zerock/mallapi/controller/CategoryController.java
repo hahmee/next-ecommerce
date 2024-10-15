@@ -67,8 +67,13 @@ public class CategoryController {
   }
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
-  @GetMapping("/adminList") // ?
-  public DataResponseDTO<PageResponseDTO<CategoryDTO>> adminlist(SearchRequestDTO searchRequestDTO) {
+  @GetMapping("/adminList")
+  public DataResponseDTO<PageResponseDTO<CategoryDTO>> adminList(SearchRequestDTO searchRequestDTO) {
+    log.info("searchRequestDTO========== " + searchRequestDTO);
+
+    log.info("categoryDTO========== " + categoryService.getSearchAdminList(searchRequestDTO));
+
+
     return DataResponseDTO.of(categoryService.getSearchAdminList(searchRequestDTO));
 
   }
