@@ -6,22 +6,46 @@ import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
+import {getCookie} from "cookies-next";
+import {ChartResponse} from "@/interface/ChartResponse";
 
 const SalesOverview: React.FC = () => {
 
   const endDate = new Date(); // today
   const startDate = new Date();
-
+  const comparedEndDate = new Date();
+  const comparedStartDate = new Date();
   startDate.setDate(endDate.getDate() - 30); // 30 days ago
+  comparedEndDate.setDate(endDate.getDate() - 1);
+  comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 30 days ago
+
+  const memberInfo = getCookie('member');
+  const member = memberInfo ? JSON.parse(memberInfo) : null;
+
+  console.log('member', member);
 
   const [date, setDate] = useState({
     startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
     endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
   });
 
-  const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:salesCharts, error:ctError, isError:ctIsError} = useQuery<DataResponse<any>, Object, any>({
+  const [comparedDate ,setComparedDate] = useState({
+    startDate: comparedStartDate.toISOString().split("T")[0],
+    endDate: comparedEndDate.toISOString().split("T")[0],
+  })
+
+  const {
+    data: salesCharts,
+  } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
     queryKey: ['salesCharts'],
-    queryFn: () => getSalesCharts({startDate: date.startDate, endDate:date.endDate,sellerEmail:'user1@aaa.com', filter: 'day' }),
+    queryFn: () => getSalesCharts({
+      startDate: date.startDate,
+      endDate: date.endDate,
+      sellerEmail: member.email,
+      filter: 'day',
+      comparedStartDate: comparedDate.startDate,
+      comparedEndDate: comparedDate.endDate
+    }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: false,
@@ -38,10 +62,14 @@ const SalesOverview: React.FC = () => {
     setDate(value);
   };
 
+  if(!salesCharts) {
+    return null;
+  }
+
   return (
       <>
         <AdminDatePicker date={date} dateChange={dateChange}/>
-      Compared to previous period()
+      Compared to previous period({comparedDate.startDate}~{comparedDate.endDate})
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           <CardDataStats title="Total Sales" total="$3.456K" rate="0.43%" levelUp>
             <svg
@@ -130,7 +158,7 @@ const SalesOverview: React.FC = () => {
         </div>
 
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-          <SalesChart/>
+          <SalesChart chart={salesCharts}/>
           {/*<ChartTwo/>*/}
           {/*<ChartThree/>*/}
           {/*<MapOne />*/}

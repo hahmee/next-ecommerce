@@ -17,4 +17,8 @@ public class ChartRequestDTO {
 
   private String filter; // day, week, month, year String -> type으로 나중에 바꿔
 
+  private String comparedStartDate;
+
+  private String comparedEndDate;
+
 }

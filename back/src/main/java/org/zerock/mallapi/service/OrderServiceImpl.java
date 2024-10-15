@@ -1,5 +1,6 @@
 package org.zerock.mallapi.service;
 
+import ch.qos.logback.classic.pattern.DateConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -89,30 +90,40 @@ public class OrderServiceImpl implements OrderService{
   @Override
   public List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO) {
 
-    LocalDateTime startDate = changeStringtoDateTime(chartRequestDTO.getStartDate());
-    LocalDateTime endDate = changeStringtoDateTime(chartRequestDTO.getEndDate());
+    log.info("큰 화면 이 좋아 " + chartRequestDTO);
+
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
+    //startDate의 끝시간 xx:00:00
+    LocalDateTime startDateTime = startDate.atStartOfDay();
+
+    LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
+    // endDate의 끝 시간을 xx:59:59으로 설정
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+
+//    LocalDate comparedStartDate = LocalDate.parse(chartRequestDTO.getComparedStartDate(), dateformatter);
+//    LocalDateTime comparedStartDateTime = comparedStartDate.atStartOfDay();
+//
+//    LocalDate comparedEndDate = LocalDate.parse(chartRequestDTO.getComparedEndDate(), dateformatter);
+//    LocalDateTime comparedEndDateTime = comparedEndDate.atTime(23, 59, 59);
+
     String sellerEmail = chartRequestDTO.getSellerEmail();
 
-    List<Object[]> salesSummary = orderRepository.findSalesSummary(sellerEmail, startDate, endDate);
+    List<Object[]> salesSummary = orderRepository.findSalesSummary(sellerEmail, startDateTime, endDateTime);
 
     return salesSummary;
   }
 
-  //문자열을 Datetime으로 변환한다.
-  private LocalDateTime changeStringtoDateTime(String dateTimeString) {
+  private LocalDateTime  convertStringToLocalDateTime(String dateString) {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"); // 형식 지정
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate ld = LocalDate.parse(dateString, dateformatter);
+    LocalDateTime ldt = ld.atStartOfDay();
 
-    return LocalDateTime.parse(dateTimeString, formatter);
-
-//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"); // 형식 지정
-//    LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter); // 변환
-
-//    // Formatter 인스턴스 생성
-//    LocalDateFormatter formatter = new LocalDateFormatter();
-//    LocalDate localDate = formatter.parse(dateTimeString, Locale.getDefault());
+    return ldt;
 
   }
+
 
   private OrderDTO convertToDTO(Order order) {
 

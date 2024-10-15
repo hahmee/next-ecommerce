@@ -5,7 +5,6 @@ import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
 import {getPayments} from "@/app/(home)/profile/_lib/getPayments";
 import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
-import UserProfile from "@/components/Home/Profile/UserProfile";
 
 export async function generateMetadata() {
 

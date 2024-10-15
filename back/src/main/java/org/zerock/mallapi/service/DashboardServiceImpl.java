@@ -2,35 +2,15 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-import org.zerock.mallapi.domain.*;
-import org.zerock.mallapi.dto.*;
-import org.zerock.mallapi.repository.DashboardRepository;
-import org.zerock.mallapi.repository.OrderPaymentRepository;
-import org.zerock.mallapi.repository.OrderRepository;
-import org.zerock.mallapi.repository.PaymentRepository;
-import org.zerock.mallapi.util.GeneralException;
+import org.zerock.mallapi.dto.ChartRequestDTO;
+import org.zerock.mallapi.dto.ChartResponseDTO;
+import org.zerock.mallapi.dto.SeriesDTO;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -51,10 +31,17 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<Long> seriesData = new ArrayList<>();
 
+    List<SeriesDTO> series = new ArrayList<>();
+
+
+    String seriesName = "Sales One";
+
     log.info("orders.... " + results);
 
     for (Object[] result : results) {
-      LocalDate date = (LocalDate) result[0];  // 날짜
+      java.sql.Date sqlDate = (java.sql.Date) result[0];
+      LocalDate date = sqlDate.toLocalDate(); // LocalDate로 변환
+
       Long totalSales = (Long) result[1];  // 총 매출
 
       xaxisList.add(date.toString());
@@ -62,12 +49,26 @@ public class DashboardServiceImpl implements DashboardService{
 
     }
 
+
+    SeriesDTO seriesDTO = SeriesDTO.builder()
+            .name(seriesName)
+            .data(seriesData)
+            .build();
+
+    series.add(seriesDTO);
+
+    log.info("seriesData.... " + seriesDTO);
+
+
+
+
+
     ChartResponseDTO chartResponseDTO = ChartResponseDTO.builder()
             .startDate(chartRequestDTO.getStartDate())
             .endDate(chartRequestDTO.getEndDate())
             .filter("day")
             .xaxis(xaxisList)
-//            .series()
+            .series(series)
             .build();
 
 

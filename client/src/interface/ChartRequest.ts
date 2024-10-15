@@ -3,4 +3,6 @@ export interface ChartRequest {
   endDate: string;
   sellerEmail: string;
   filter: string;
+  comparedStartDate: string;
+  comparedEndDate: string;
 }
