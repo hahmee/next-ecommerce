@@ -8,10 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.mallapi.dto.CategoryDTO;
-import org.zerock.mallapi.dto.DataResponseDTO;
-import org.zerock.mallapi.dto.FileDTO;
-import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.CategoryService;
 import org.zerock.mallapi.util.AwsFileUtil;
 
@@ -49,9 +46,6 @@ public class CategoryController {
       String uploadFileName = awsResult.get("uploadName");
       String uploadFileKey = awsResult.get("uploadKey");
 
-      log.info("잘 나오나.." + uploadFileName);
-      log.info("잘 나오나..2" + uploadFileKey);
-
       categoryDTO.setUploadFileName(uploadFileName);
       categoryDTO.setUploadFileKey(uploadFileKey);
 
@@ -64,13 +58,21 @@ public class CategoryController {
   }
 
 
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
-  @GetMapping("/")
+  @GetMapping("/list")
   public DataResponseDTO<List<CategoryDTO>> list() {
+
     log.info("categoryService.getAllCategories() " + categoryService.getAllCategories());
     return DataResponseDTO.of(categoryService.getAllCategories());
 
   }
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/adminList") // ?
+  public DataResponseDTO<PageResponseDTO<CategoryDTO>> adminlist(SearchRequestDTO searchRequestDTO) {
+    return DataResponseDTO.of(categoryService.getSearchAdminList(searchRequestDTO));
+
+  }
+
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/{cno}")

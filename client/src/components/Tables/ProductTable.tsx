@@ -6,7 +6,7 @@ import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
-import AddProductButton from "@/components/Tables/AddProductButton";
+import TableAddButton from "@/components/Tables/TableAddButton";
 import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
 import {DataResponse} from "@/interface/DataResponse";
@@ -18,10 +18,9 @@ import Link from "next/link";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import Dialog from "@/components/Admin/Dialog";
-import {ChevronUpDownIcon, EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
-import {ShoppingCartIcon} from "@heroicons/react/24/outline";
+import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
 
-const initalPagingData: Paging = {
+export const initalPagingData: Paging = {
     totalCount: 0,
     prevPage: 0,
     nextPage: 0,
@@ -35,7 +34,6 @@ const initalPagingData: Paging = {
 const ProductTable = () => { //{page, size, search} : PageParam
 
     const [paging, setPaging] = useState<Paging>(initalPagingData);
-
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
@@ -98,7 +96,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
         onSuccess: (data) => {
             console.log('data...', data);
             clickModal();
-
             queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search}]});
 
         }
@@ -123,7 +120,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
                 <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <AddProductButton/>
+                    <TableAddButton content={"Add Product"} location={"/admin/products/add-product"}/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
                         <FilterButton changeSize={changeSize}/>
@@ -152,7 +149,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     </thead>
                     <tbody>
                     {productData?.dtoList?.map((product, key) => (
-                        <tr className="border-b dark:border-gray-700" key={key}>
+                        <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
                             <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2 ">
                                 {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
                                     <Image
@@ -182,7 +179,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
                             <td className="px-4 py-3 whitespace-nowrap">
                                 <div className="flex items-center">
                                     <div
-                                        className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red" : "bg-yellow-300"}`}/>
+                                        className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400" : "bg-yellow-300"}`}/>
                                     {salesOptions.find(option => option.id === product.salesStatus)?.content}
                                 </div>
                             </td>

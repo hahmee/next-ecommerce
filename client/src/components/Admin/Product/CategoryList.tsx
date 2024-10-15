@@ -15,7 +15,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories, level, onSelect
     }
 
     return (
-        <div className="w-64 shadow-md bg-gray-2 p-2 m-2.5 rounded min-w-64">
+        <div className="w-64 shadow-md bg-gray-2 p-2 m-2.5 rounded min-w-64 bg-gray-50 dark:bg-gray-300">
             <ul>
                 {categories.map((category) => (
                     <CategoryItem

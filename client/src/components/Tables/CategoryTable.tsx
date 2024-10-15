@@ -1,32 +1,40 @@
     "use client";
-    import React, {Fragment, useState} from "react";
-    import {useRouter} from "next/navigation";
+    import React, {Fragment, useEffect, useState} from "react";
     import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
     import {DataResponse} from "@/interface/DataResponse";
     import {Category} from "@/interface/Category";
-    import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
     import Link from "next/link";
     import {fetchWithAuth} from "@/utils/fetchWithAuth";
     import toast from "react-hot-toast";
     import Image from "next/image";
-    import {ChevronDownIcon} from "@heroicons/react/20/solid";
-    import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
+    import {ChevronDownIcon, EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
     import Dialog from "@/components/Admin/Dialog";
     import TableSearch from "@/components/Tables/TableSearch";
+    import TableAddButton from "@/components/Tables/TableAddButton";
+    import ActionButton from "@/components/Tables/ActionButton";
+    import FilterButton from "@/components/Tables/FilterButton";
+    import {PageResponse} from "@/interface/PageResponse";
+    import {Paging} from "@/interface/Paging";
+    import {initalPagingData} from "@/components/Tables/ProductTable";
+    import PageComponent from "@/components/Tables/PageComponent";
+    import {getAdminCategories} from "@/app/(admin)/admin/products/_lib/getAdminCategories";
 
 
     const CategoryTable = () => {
+        const [paging, setPaging] = useState<Paging>(initalPagingData);
         const [expandedRows, setExpandedRows] = useState<number[]>([]);
         const [dropdownOpen, setDropdownOpen] = useState<{ [key: number]: boolean }>({}); // manage dropdown state
         const queryClient = useQueryClient();
         const [deleteId, setDeleteId] = useState<number>(-1);
         const [showDialog, setShowDialog] = useState<boolean>(false);
-        const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태 추가
-        const router = useRouter();
+        const [categoryData, setCategoryData] = useState<PageResponse<Category>>();
+        const [page, setPage] = useState<number>(1);
+        const [size, setSize] = useState<number>(10);
+        const [search, setSearch] = useState<string>("");
 
-        const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
-            queryKey: ['categories'],
-            queryFn: () => getCategories(),
+        const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Category>>, Object, PageResponse<Category>, [_1: string, _2: Object]>({
+            queryKey: ['categories', {page, size, search}],
+            queryFn: () => getAdminCategories( {page, size, search}),
             staleTime: 60 * 1000,
             gcTime: 300 * 1000,
             throwOnError: false,
@@ -35,6 +43,17 @@
                 return data.data;
             }
         });
+
+        useEffect(() => {
+            console.log('data', data);
+
+            setCategoryData(data);
+            if (data) {
+
+                const {dtoList, ...otherData} = data;
+                setPaging(otherData);
+            }
+        }, [data]);
 
         const mutation = useMutation({
             mutationFn: async (cno: number) => {
@@ -58,7 +77,7 @@
         const clickModal = () => setShowDialog(!setShowDialog);
 
         //삭제
-        const deleteProduct = () => {
+        const deleteCategory = () => {
             mutation.mutate(deleteId);
         }
 
@@ -89,8 +108,8 @@
 
                 // 현재 카테고리와 필터링된 하위 카테고리를 포함
                 if (
-                    category.cname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    category.cdesc.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    category.cname.toLowerCase().includes(search.toLowerCase()) ||
+                    category.cdesc.toLowerCase().includes(search.toLowerCase()) ||
                     filteredSubCategories.length > 0
                 ) {
                     return {
@@ -101,55 +120,48 @@
 
                 // 검색어에 맞지 않으면 빈 배열 반환
                 return null;
-            })
-                .filter((category) => category !== null) as Category[];
+            }).filter((category) => category !== null) as Category[];
         };
 
         // 재귀적으로 하위 카테고리를 렌더링하는 함수
         const renderCategoryRows = (categories: Category[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
-                    <tr className="border-b dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                         onClick={() => toggleRow(category.cno)}>
-                        <td className="w-3 px-4 py-3">
+                        <td className="px-4 py-3 whitespace-nowrap">
                             <div className="flex items-center">
                                 <input id="checkbox-table-search-1" type="checkbox"
                                        className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-meta-4 dark:border-gray-600"/>
                                 <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                             </div>
                         </td>
-                        {/*{style={{paddingLeft: `${depth * 20}px`}}}*/}
-                        <td scope="row" className="px-4 font-medium dark:text-white "
+                        <th scope="row"
+                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2"
                             style={{paddingLeft: `${depth * 20}px`}}>
-                            <div className="flex items-center">
-                                <ChevronDownIcon className="h-7 w-7 mx-4"/>
-                                <Image
-                                    src={category.uploadFileName || "https://via.placeholder.com/640x480"}
-                                    width={40}
-                                    height={20}
-                                    className="object-cover mr-2"
-                                    alt="Picture of category"
-                                />
-                                <div className="line-clamp-1">
-                                    {category.cname}
+                            <ChevronDownIcon className="h-7 w-7 mr-2"/>
+                            <Image
+                                src={category.uploadFileName || "https://via.placeholder.com/640x480"}
+                                width={500}
+                                height={500}
+                                className="object-cover w-15 h-10 flex-none"
+                                alt="Picture of category"
+                            />
+                            <div className="line-clamp-1">
+                                {category.cname}
 
-                                </div>
                             </div>
-                        </td>
-                        <td className="px-4 line-clamp-1 dark:text-white ">
+                        </th>
+                        <td className="px-4 py-3 whitespace-nowrap">
                             {category.cdesc}
-                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
-                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
-                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
-                            loremasdfjalsdkfja;lsdkfjal;sdkfja;sldfkja;sldfkasdfsd
                         </td>
-                        <td className="px-4 dark:text-white">
+                        <td className="px-4 py-3 whitespace-nowrap">
                             {category.subCategories ? category.subCategories.length : "-"}
                         </td>
-                        <td className="px-4 dark:text-white">
+                        <td className="px-4 py-3 whitespace-nowrap">
                             사용중
                         </td>
-                        <td className="px-4 dark:text-white">
+                        <td className="px-4 py-3 whitespace-nowrap">
                             <button
                                 id={`category-dropdown-${category.cno}`}
                                 className="text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
@@ -216,47 +228,45 @@
         };
 
         const handleSearch = (value:string) => {
-            // setSearchTerm(value);  // 검색어 업데이트
+            setSearch(value);  // 검색어 업데이트
         };
+
+        const changeSize = (size: number) => {
+            setSize(size);
+        };
+
+        const changePage = (page: number) => {
+            setPage(page);
+        };
+
         return (
-            <div
-                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden">
                 <div
-                    className="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
-                    <div className="flex items-center flex-1 space-x-4 bg-ecom w-full">
+                    className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                    <div className="w-full md:w-1/2">
                         <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                     </div>
                     <div
-                        className="flex flex-col flex-shrink-0 space-y-3 md:flex-row md:items-center lg:justify-end md:space-y-0 md:space-x-3">
-                        <button type="button" onClick={() => router.push(`/admin/category/add-category`)}
-                                className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                            <svg className="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clipRule="evenodd" fillRule="evenodd"
-                                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
-                            </svg>
-                            메인 카테고리 추가
-                        </button>
+                        className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        <TableAddButton content={"Add Main Category"} location={"/admin/category/add-category"}/>
+                        <div className="flex items-center space-x-3 w-full md:w-auto">
+                            <ActionButton/>
+                            <FilterButton changeSize={changeSize}/>
+                        </div>
                     </div>
+
                 </div>
 
-                {/*<input*/}
-                {/*    type="text"*/}
-                {/*    placeholder="카테고리 검색"*/}
-                {/*    value={searchTerm}*/}
-                {/*    onChange={(e) => setSearchTerm(e.target.value)}*/}
-                {/*    className="mb-4 p-2 border border-gray-300 rounded w-full"*/}
-                {/*/>*/}
-
-
-                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog} doAction={deleteProduct}/>}
+                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
+                                       doAction={deleteCategory}/>}
 
                 {/* 카테고리 테이블 */}
-                <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
+                <div className="w-auto overflow-x-auto overflow-y-hidden relative">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 relative">
+                        <thead
+                            className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="p-4">
+                            <th scope="col" className="p-4 py-3">
                                 <div className="flex items-center">
                                     <input id="checkbox-all" type="checkbox"
                                            className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-meta-4 dark:border-gray-600"/>
@@ -267,14 +277,20 @@
                             <th scope="col" className="px-4 py-3">설명</th>
                             <th scope="col" className="px-4 py-3">서브 카테고리</th>
                             <th scope="col" className="px-4 py-3">사용여부</th>
-                            <th scope="col" className="px-4 py-3"></th>
+                            <th scope="col" className="px-4 py-3">
+                                <span className="sr-only">Actions</span>
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
-                        {data && renderCategoryRows(filterCategories(data || []))}
+                        {categoryData?.dtoList && renderCategoryRows(categoryData.dtoList || [])}
+                        {/*{categoryData?.dtoList && renderCategoryRows(filterCategories(categoryData.dtoList || []))}*/}
                         </tbody>
                     </table>
+                </div>
 
+                <div className="px-4 py-6 md:px-6 xl:px-7.5">
+                    <PageComponent pagingData={paging} size={size} search={search} changePage={changePage}/>
                 </div>
             </div>
         );

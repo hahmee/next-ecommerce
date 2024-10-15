@@ -92,7 +92,7 @@ const CategoryForm = ({type, id}: Props) => {
 
                 };
 
-                return fetchWithAuth(`/api/category/`, {
+                return fetchWithAuth(`/api/category/list`, {
                     // method: "POST",
                     // credentials: 'include',
                     // headers: {

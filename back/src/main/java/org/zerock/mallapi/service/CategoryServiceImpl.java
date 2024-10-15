@@ -2,12 +2,16 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.zerock.mallapi.domain.AdminCategory;
 import org.zerock.mallapi.domain.CategoryClosure;
 import org.zerock.mallapi.domain.CategoryClosureId;
 import org.zerock.mallapi.domain.CategoryImage;
-import org.zerock.mallapi.dto.CategoryDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
 
@@ -46,7 +50,40 @@ public class CategoryServiceImpl implements CategoryService {
             .build();
   }
 
+
+
   //모든 카테고리 다 가져오기
+  @Override
+  public PageResponseDTO<CategoryDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO) {
+
+
+    Pageable pageable = PageRequest.of(
+            searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            searchRequestDTO.getSize(),
+            Sort.by("cno").descending());
+
+    String search = searchRequestDTO.getSearch();
+
+
+    Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
+
+    //여기에서 subCategory있으면 넣어주기
+    List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+
+    long totalCount = categories.getTotalElements();
+
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
+
+    return PageResponseDTO.<CategoryDTO>withAll()
+            .dtoList(responseDTO)
+            .totalCount(totalCount)
+            .pageRequestDTO(pageRequestDTO)
+            .build();
+
+
+  }
+
   @Override
   public List<CategoryDTO> getAllCategories() {
 
@@ -59,8 +96,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     log.info("===============responseDTO "  + responseDTO);
 
-    return responseDTO;
 
+    return responseDTO;
   }
 
   @Override

@@ -111,7 +111,7 @@ const menuGroups = [
         ),
         label: "Dashboard",
         route: "#",
-        children: [{ label: "eCommerce", route: "/admin/dashboard" }],
+        children: [{ label: "Sales Overview", route: "/admin/dashboard" },{ label: "Traffic Overview", route: "/admin/dashboard" },{ label: "Marketing Overview", route: "/admin/dashboard" }],
       },
       {
         icon: (

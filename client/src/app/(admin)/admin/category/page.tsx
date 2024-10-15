@@ -1,16 +1,26 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
-import CategoryTableSuspense from "@/components/Admin/CategoryTableSuspense";
+import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import CategoryTable from "@/components/Tables/CategoryTable";
+import {getAdminCategories} from "@/app/(admin)/admin/products/_lib/getAdminCategories";
 
 export default function CategoryPage() {
+
+    const prefetchOptions =
+        {
+            queryKey: ['categories', {page: 1, size: 10, search: ""}],
+            queryFn: () => getAdminCategories({page: 1, size: 10, search:""}),
+        }
 
     return (
         <div className="mx-auto">
             <Breadcrumb pageName="Categories"/>
             <div className="flex flex-col gap-10">
                 <Suspense fallback={<Loading/>}>
-                    <CategoryTableSuspense/>
+                    <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                        <CategoryTable/>
+                    </PrefetchBoundary>
                 </Suspense>
             </div>
         </div>

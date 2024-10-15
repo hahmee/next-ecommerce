@@ -35,7 +35,7 @@ const Dialog = (props: DialogProps) => {
                         </h3>
                         <button data-modal-hide="popup-modal" type="button"
                                 onClick={doAction}
-                                className="text-white bg-red hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                className="text-white bg-red-400 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                             &ensp;네&ensp;
                         </button>
                         <button data-modal-hide="popup-modal" type="button" onClick={clickModal}

@@ -50,7 +50,6 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
         return null;
     }
 
-
     return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
             <h1 className="text-2xl font-bold text-green-600 mb-4">주문이 완료되었습니다!</h1>
@@ -62,13 +61,13 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
             <div className="flex flex-col space-y-4">
                 <Link href="/">
                     <div
-                        className="text-center text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg transition">
+                        className="w-full text-center text-sm rounded-md ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
                         계속 쇼핑하기
                     </div>
                 </Link>
                 <Link href={`/order/${payment.orderId}`}>
                     <div
-                        className="text-center text-white bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg transition">
+                        className="w-full text-center text-sm rounded-md ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
                         주문 내역 확인하기
                     </div>
                 </Link>

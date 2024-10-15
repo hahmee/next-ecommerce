@@ -11,7 +11,7 @@ export async function getProductsByEmail (pageParam: PageParam) {
 
 
     // const resultJson = await fetchWithCredentials(`/api/error/exception`, undefined);
-    const resultJson = await fetchWithAuth(`/api/products/searchAdminPaymentList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
+    const resultJson = await fetchWithAuth(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
         credentials: 'include',
         // cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면

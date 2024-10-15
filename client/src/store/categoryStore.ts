@@ -16,7 +16,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
       isLoading: true,
       getCategories: async () => {
         try {
-          const categories = await fetchWithAuth(`/api/category/`, {
+          const categories = await fetchWithAuth(`/api/category/list`, {
             method: "GET",
             credentials: 'include',
           });
