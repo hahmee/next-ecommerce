@@ -11,18 +11,28 @@ import {ChartFilter} from "@/types/chartFilter";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
-    const startDate = new Date();
-    const comparedEndDate = new Date();
-    const comparedStartDate = new Date();
-    startDate.setDate(endDate.getDate() - 30); // 30 days ago
-    comparedEndDate.setDate(endDate.getDate() - 1);
-    comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 30 days ago
+    const startDate = new Date(); // today
 
+    startDate.setDate(endDate.getDate() - 30); // 30 days ago
+
+    // 새로운 날짜 계산
+    const comparedEndDate = new Date(startDate); // endDate 복사
+    comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
+
+    const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
+    comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
+
+    const date = {
+        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    };
+
+    console.log('date?', date);
     const member = getCookie("member");
 
     const prefetchOptions =
         {
-            queryKey: ['salesCharts', ChartFilter.DAY],
+            queryKey: ['salesCharts', ChartFilter.DAY, date],
             queryFn: () => getSalesCharts({
                 startDate: startDate.toISOString().split("T")[0],
                 endDate: endDate.toISOString().split("T")[0],

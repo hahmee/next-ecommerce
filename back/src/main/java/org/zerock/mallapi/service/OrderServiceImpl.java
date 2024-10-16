@@ -100,8 +100,6 @@ public class OrderServiceImpl implements OrderService{
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
-//    String filterString = filter.toString();
-
     if (filter != null) {
       switch (filter) {
         case DAY:
@@ -124,9 +122,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     return null;
-//    List<Object[]> salesSummary = orderRepository.findSalesSummary(sellerEmail, startDateTime, endDateTime, filterString);
-//
-//    return salesSummary;
+
   }
 
 
