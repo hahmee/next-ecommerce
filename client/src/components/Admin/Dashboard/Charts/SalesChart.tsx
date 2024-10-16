@@ -40,117 +40,113 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-const options: ApexOptions = {
-  legend: {
-    show: false,
-    position: "top",
-    horizontalAlign: "left",
-  },
-  colors: ["#3C50E0", "#80CAEE"],
-  chart: {
-    fontFamily: "Satoshi, sans-serif",
-    height: 335,
-    type: "area",
-    dropShadow: {
-      enabled: true,
-      color: "#623CEA14",
-      top: 10,
-      blur: 4,
-      left: 0,
-      opacity: 0.1,
-    },
-    toolbar: {
+const SalesChart = ({chart}: { chart: ChartResponse }) => {
+
+  const series = chart.series;
+  const xaxis = chart.xaxis;
+
+  console.log('series,,,', series);
+  console.log('xaxis,,,', xaxis);
+
+
+  const options: ApexOptions = {
+    legend: {
       show: false,
+      position: "top",
+      horizontalAlign: "left",
     },
-  },
-  responsive: [
-    {
-      breakpoint: 1024,
-      options: {
-        chart: {
-          height: 300,
+    colors: ["#3C50E0", "#80CAEE"],
+    chart: {
+      fontFamily: "Satoshi, sans-serif",
+      height: 335,
+      type: "area",
+      dropShadow: {
+        enabled: true,
+        color: "#623CEA14",
+        top: 10,
+        blur: 4,
+        left: 0,
+        opacity: 0.1,
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        options: {
+          chart: {
+            height: 300,
+          },
+        },
+      },
+      {
+        breakpoint: 1366,
+        options: {
+          chart: {
+            height: 350,
+          },
+        },
+      },
+    ],
+    stroke: {
+      width: [2, 2],
+      curve: "straight",
+    },
+    // labels: {
+    //   show: false,
+    //   position: "top",
+    // },
+    grid: {
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        lines: {
+          show: true,
         },
       },
     },
-    {
-      breakpoint: 1366,
-      options: {
-        chart: {
-          height: 350,
-        },
+    dataLabels: {
+      enabled: false,
+    },
+    markers: {
+      size: 4,
+      colors: "#fff",
+      strokeColors: ["#3056D3", "#80CAEE"],
+      strokeWidth: 3,
+      strokeOpacity: 0.9,
+      strokeDashArray: 0,
+      fillOpacity: 1,
+      discrete: [],
+      hover: {
+        size: undefined,
+        sizeOffset: 5,
       },
     },
-  ],
-  stroke: {
-    width: [2, 2],
-    curve: "straight",
-  },
-  // labels: {
-  //   show: false,
-  //   position: "top",
-  // },
-  grid: {
     xaxis: {
-      lines: {
-        show: true,
+      type: "category",
+      categories: xaxis, //data.xaxis,
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
       },
     },
     yaxis: {
-      lines: {
-        show: true,
+      title: {
+        style: {
+          fontSize: "0px",
+        },
       },
+      min: 0,
+      // max: 100,
     },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  markers: {
-    size: 4,
-    colors: "#fff",
-    strokeColors: ["#3056D3", "#80CAEE"],
-    strokeWidth: 3,
-    strokeOpacity: 0.9,
-    strokeDashArray: 0,
-    fillOpacity: 1,
-    discrete: [],
-    hover: {
-      size: undefined,
-      sizeOffset: 5,
-    },
-  },
-  xaxis: {
-    type: "category",
-    categories: data.xaxis,
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-  },
-  yaxis: {
-    title: {
-      style: {
-        fontSize: "0px",
-      },
-    },
-    min: 0,
-    // max: 100,
-  },
-};
-
-interface ChartOneState {
-  series: {
-    name: string;
-    data: number[];
-  }[];
-}
-
-const SalesChart = ({chart}: { chart: ChartResponse }) => {
-
-  // const series = data.series;
-  const series = chart.series;
-  console.log('series,,,', series);
+  };
 
   return (
       <div
@@ -163,8 +159,7 @@ const SalesChart = ({chart}: { chart: ChartResponse }) => {
               <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-primary"></span>
             </span>
               <div className="w-full">
-                <p className="font-semibold text-primary">Total Revenue</p>
-                <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
+                <p className="font-semibold text-secondary">Total Sales</p>
               </div>
             </div>
             <div className="flex min-w-47.5">
@@ -173,8 +168,7 @@ const SalesChart = ({chart}: { chart: ChartResponse }) => {
               <span className="block h-2.5 w-full max-w-2.5 rounded-full bg-secondary"></span>
             </span>
               <div className="w-full">
-                <p className="font-semibold text-secondary">Total Sales</p>
-                <p className="text-sm font-medium">12.04.2022 - 12.05.2022</p>
+                <p className="font-semibold text-primary">Total Revenue</p>
               </div>
             </div>
           </div>

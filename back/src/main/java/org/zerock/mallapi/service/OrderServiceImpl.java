@@ -136,6 +136,8 @@ public class OrderServiceImpl implements OrderService{
             .status(order.getStatus())
             .deliveryInfo(order.getDeliveryInfo())
             .productInfo(order.getProductInfo())
+            .tax(order.getTax())
+            .shippingFee(order.getShippingFee())
             .owner(memberDTO)
             .build();
 
@@ -177,6 +179,8 @@ public class OrderServiceImpl implements OrderService{
             .deliveryInfo(orderRequestDTO.getDeliveryInfo())
             .productInfo(productInfo)
             .owner(member)
+            .shippingFee(orderRequestDTO.getShippingFee())
+            .tax(orderRequestDTO.getTax())
             .seller(seller)
             .build();
 

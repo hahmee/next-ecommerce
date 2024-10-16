@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", cartButtonClick?: () => void }) => {
 
-    const {cart, isLoading , subtotal} = useCartStore();
+    const {cart, isLoading , subtotal, shippingFee, tax} = useCartStore();
 
     return (
         <div className="w-full lg:w-1/3 bg-white p-6 shadow-sm rounded-lg">
@@ -46,7 +46,7 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
                                     </span>
                                     </div>
                                 </div>
-                                <div>{item.price}</div>
+                                <div>{item.price.toLocaleString()}</div>
                             </div>)
                     }
                 </div>
@@ -55,15 +55,19 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
 
             <div className="flex justify-between py-2">
                 <span>Subtotal</span>
-                <span>{subtotal}</span>
+                <span>{subtotal.toLocaleString()}</span>
             </div>
             <div className="flex justify-between py-2">
                 <span>Shipping estimate</span>
-                <span>0</span>
+                <span>{shippingFee.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between py-2">
+                <span>Tax</span>
+                <span>{tax.toLocaleString()}</span>
             </div>
             <div className="flex justify-between py-2 font-semibold border-t pt-4">
                 <span>Order total</span>
-                <span>{subtotal}</span>
+                <span>{subtotal.toLocaleString()}</span>
             </div>
 
             <button
@@ -72,7 +76,7 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
                 {type}
             </button>
             <div className="text-sm text-gray-400 text-center mt-4">
-                Learn more <span className="underline">Taxes</span> and <span className="underline">Shipping</span> information.
+                <span className="underline">Free shipping</span> on orders over  <span className="underline">100,000 KRW</span>
             </div>
         </div>
 

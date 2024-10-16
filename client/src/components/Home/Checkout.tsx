@@ -8,7 +8,7 @@ import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
 
 const Checkout = () => {
-    const { cart, subtotal } = useCartStore();
+    const { cart, subtotal,tax,shippingFee } = useCartStore();
 
     // 배송 정보 상태 관리
     const [shippingInfo, setShippingInfo] = useState<OrderShippingAddressInfo>({
@@ -52,6 +52,8 @@ const Checkout = () => {
             deliveryInfo: shippingInfo,
             carts: cart,
             totalAmount: subtotal,
+            shippingFee:shippingFee,
+            tax:tax,
             status: OrderStatus.ORDER_CHECKING,
             orderId: orderId,
         };

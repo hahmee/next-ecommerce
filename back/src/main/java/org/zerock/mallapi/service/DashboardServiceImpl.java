@@ -31,10 +31,13 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<Long> seriesData = new ArrayList<>();
 
+    List<Long> seriesData2 = new ArrayList<>();
+
     List<SeriesDTO> series = new ArrayList<>();
 
 
-    String seriesName = "Sales One";
+    String seriesName = "Total Sales";
+    String seriesName2 = "Total Revenue";
 
     log.info("orders.... " + results);
 
@@ -44,8 +47,11 @@ public class DashboardServiceImpl implements DashboardService{
 
       Long totalSales = (Long) result[1];  // 총 매출
 
+      Long totalRevenue = (Long) result[2];  // 총 레베뉴
+
       xaxisList.add(date.toString());
       seriesData.add(totalSales);
+      seriesData2.add(totalRevenue);
 
     }
 
@@ -55,10 +61,15 @@ public class DashboardServiceImpl implements DashboardService{
             .data(seriesData)
             .build();
 
+    SeriesDTO seriesDTO2 = SeriesDTO.builder()
+            .name(seriesName2)
+            .data(seriesData2)
+            .build();
+
     series.add(seriesDTO);
+    series.add(seriesDTO2);
 
     log.info("seriesData.... " + seriesDTO);
-
 
 
 

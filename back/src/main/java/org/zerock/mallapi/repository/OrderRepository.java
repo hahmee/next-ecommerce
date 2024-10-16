@@ -14,8 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
     @Query("select o from Order o where o.orderId = :orderId")
     List<Order> selectListByOrderId(@Param("orderId") String orderId);
 
-    // 각 날짜별로 총 매출, 총 주문 수, 평균 주문 금액을 반환
-    @Query("SELECT DATE(o.createdAt), SUM(o.totalAmount), AVG(o.totalAmount), AVG(o.totalAmount) " +
+    // 각 날짜별로 총 매출, 총 매출, 총 주문 수, 평균 주문 금액을 반환
+    @Query("SELECT DATE(o.createdAt), SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax), AVG(o.totalAmount), AVG(o.totalAmount) " +
             "FROM Order o " +
             "WHERE o.seller.email = :email " +
             "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +

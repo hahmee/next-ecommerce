@@ -20,6 +20,10 @@ public class OrderRequestDTO {
 
     private int totalAmount;  //-- 총 주문 금액
 
+    private int shippingFee;  //-- 배달료
+
+    private int tax;  //-- 부가세
+
     private OrderStatus status; // 주문의 상태
 
     private OrderShippingAddressInfo deliveryInfo; //-- 주문 정보

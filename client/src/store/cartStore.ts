@@ -12,7 +12,9 @@ type CartState = {
   removeItem: (cino: number) => void;
   open:boolean,
   subtotal:number,
-  changeOpen: (isOpen:boolean) => void
+  changeOpen: (isOpen:boolean) => void,
+  shippingFee:number,
+  tax:number,
 };
 
 export const useCartStore = create<CartState>((set) => ({
@@ -21,6 +23,8 @@ export const useCartStore = create<CartState>((set) => ({
   counter: 0,
   open: false,
   subtotal: 0,
+  shippingFee:0,
+  tax:0,
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})
   },
@@ -34,14 +38,19 @@ export const useCartStore = create<CartState>((set) => ({
 
       const cartItems = cart.data || [];
 
-      const subtotal = cartItems.length > 0 ? cartItems.reduce((total:number, item:CartItemList) => total + item.price * item.qty, 0) : 0;
+      const subtotal = cartItems.length > 0 ? cartItems.reduce((total: number, item: CartItemList) => total + item.price * item.qty, 0) : 0;
+
+      const shippingFee = subtotal > 100000 ? 0 : 3500;
+
+      const tax = (subtotal + shippingFee) * 0.05;
 
       set({
         cart: cartItems,
         isLoading: false,
         counter: cartItems.length,
-        subtotal
-
+        subtotal,
+        shippingFee,
+        tax
       });
 
 
@@ -65,12 +74,17 @@ export const useCartStore = create<CartState>((set) => ({
 
     const subtotal = cartItems.length > 0 ? cartItems.reduce((total:number, item:CartItemList) => total + item.price * item.qty, 0) : 0;
 
+    const shippingFee = subtotal > 100000 ? 0 : 3500;
+
+    const tax = (subtotal + shippingFee) * 0.05;
+
     set({
       cart: cartItems,
       isLoading: false,
       counter: cartItems.length,
-      // subtotal: cart.data.price * cart.data.qty,
-      subtotal
+      subtotal,
+      shippingFee,
+      tax
     });
 
   },
@@ -88,12 +102,17 @@ export const useCartStore = create<CartState>((set) => ({
 
     const subtotal = cartItems.length > 0 ? cartItems.reduce((total:number, item:CartItemList) => total + item.price * item.qty, 0) : 0;
 
+    const shippingFee = subtotal > 100000 ? 0 : 3500;
+
+    const tax = (subtotal + shippingFee) * 0.05;
 
     set({
       cart: cartItems,
       isLoading: false,
       counter: cartItems.length,
-      subtotal
+      subtotal,
+      shippingFee,
+      tax
     });
   },
 

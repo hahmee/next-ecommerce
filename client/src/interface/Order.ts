@@ -8,6 +8,8 @@ export interface Order {
   owner: Member;
   orderId: string;
   totalAmount: number;
+  shippingFee: number;
+  tax: number;
   status: OrderStatus;
   deliveryInfo: OrderShippingAddressInfo;
   productInfo: OrderProductInfo;
@@ -20,6 +22,8 @@ export interface OrderRequest {
   id?: number;
   orderId: string;
   totalAmount: number;
+  shippingFee: number;
+  tax: number;
   status: OrderStatus;
   deliveryInfo: OrderShippingAddressInfo;
   carts?: Array<CartItemList>;
