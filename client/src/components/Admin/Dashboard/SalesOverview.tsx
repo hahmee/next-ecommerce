@@ -9,6 +9,7 @@ import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts"
 import {getCookie} from "cookies-next";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
+import {ChartContext} from "@/types/chartContext";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -37,6 +38,7 @@ const data = {
 
 const SalesOverview: React.FC = () => {
 
+  const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
   const endDate = new Date(); // today
   const startDate = new Date();  // today
 
@@ -53,8 +55,6 @@ const SalesOverview: React.FC = () => {
   const memberInfo = getCookie('member');
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-  console.log('member', member);
-
   const [date, setDate] = useState({
     startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
     endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
@@ -68,14 +68,15 @@ const SalesOverview: React.FC = () => {
   const {
     data: salesCharts,
   } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
-    queryKey: ['salesCharts', currentFilter, date],
+    queryKey: ['salesCharts', currentFilter, date, selectedCard],
     queryFn: () => getSalesCharts({
       startDate: date.startDate,
       endDate: date.endDate,
       sellerEmail: member.email,
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate
+      comparedEndDate: comparedDate.endDate,
+      context: selectedCard,// ChartContext.TOPSALES,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -86,7 +87,6 @@ const SalesOverview: React.FC = () => {
     }
   });
 
-  console.log('dd', salesCharts);
 
   const dateChange = (value:any) => {
 
@@ -133,18 +133,25 @@ const SalesOverview: React.FC = () => {
     setCurrentFilter(filter);
   }
 
+  const clickCard = (id:ChartContext) => {
+    setSelectedCard(id);
+  };
+
   if(!salesCharts) {
     return null;
   }
 
   return (
       <>
-        <AdminDatePicker date={date} dateChange={dateChange}/>
-      Compared to previous period({comparedDate.startDate}~{comparedDate.endDate})
+        <div>
+          <AdminDatePicker date={date} dateChange={dateChange}/>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
+            ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
+        </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-          <CardDataStats title="Total Sales" total="$3.456K" rate="0.43%" levelUp>
+          <CardDataStats title="Total Sales" total="$3.456K" rate="0.43%" levelUp id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
-                className="fill-primary dark:fill-white"
+                className="fill-primary-500 dark:fill-white"
                 width="22"
                 height="16"
                 viewBox="0 0 22 16"
@@ -161,9 +168,9 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Number of Orders" total="$45,2K" rate="4.35%" levelUp>
+          <CardDataStats title="Number of Orders" total="$45,2K" rate="4.35%" levelUp id={ChartContext.ORDERS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
-                className="fill-primary dark:fill-white"
+                className="fill-primary-500 dark:fill-white"
                 width="20"
                 height="22"
                 viewBox="0 0 20 22"
@@ -184,9 +191,9 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Average Order Value" total="2.450" rate="2.59%" levelUp>
+          <CardDataStats title="Average Order Value" total="2.450" rate="2.59%" levelUp id={ChartContext.AVGORDERS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
-                className="fill-primary dark:fill-white"
+                className="fill-primary-500 dark:fill-white"
                 width="22"
                 height="22"
                 viewBox="0 0 22 22"
@@ -203,9 +210,9 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Total Views" total="3.456" rate="0.95%" levelDown>
+          <CardDataStats title="Total Views" total="3.456" rate="0.95%" levelDown id={ChartContext.TOTALVIEWS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
-                className="fill-primary dark:fill-white"
+                className="fill-primary-500 dark:fill-white"
                 width="22"
                 height="18"
                 viewBox="0 0 22 18"

@@ -125,6 +125,46 @@ public class OrderServiceImpl implements OrderService{
 
   }
 
+  @Override
+  public List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO) {
+
+    log.info("chartRequestDTO................." + chartRequestDTO);
+
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+    LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+    String sellerEmail = chartRequestDTO.getSellerEmail();
+
+    ChartFilter filter = chartRequestDTO.getFilter();
+
+    if (filter != null) {
+      switch (filter) {
+        case DAY:
+          return orderRepository.findOrderSummaryByDay(sellerEmail, startDateTime, endDateTime);
+
+        case WEEK:
+          return orderRepository.findOrderSummaryByWeek(sellerEmail, startDateTime, endDateTime);
+
+        case MONTH:
+          return orderRepository.findOrderSummaryByMonth(sellerEmail, startDateTime, endDateTime);
+
+        case YEAR:
+          return orderRepository.findOrderSummaryByYear(sellerEmail, startDateTime, endDateTime);
+
+        default:
+          return null;
+
+      }
+
+    }
+
+    return null;
+
+  }
 
 
   private OrderDTO convertToDTO(Order order) {

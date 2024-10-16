@@ -1,7 +1,7 @@
 "use client";
 
 import {ApexOptions} from "apexcharts";
-import React from "react";
+import React, {useEffect} from "react";
 import dynamic from "next/dynamic";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
@@ -41,13 +41,10 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-const SalesChart = ({chart,filter, filterChange}: {  chart: ChartResponse, filter:ChartFilter,filterChange: (filter:ChartFilter) => void }) => {
+const SalesChart = ({chart,filter, filterChange}: { chart: ChartResponse, filter:ChartFilter,filterChange: (filter:ChartFilter) => void }) => {
 
   const series = chart.series;
   const xaxis = chart.xaxis;
-
-  console.log('series,,,', series);
-  console.log('xaxis,,,', xaxis);
 
 
   const options: ApexOptions = {
@@ -149,6 +146,11 @@ const SalesChart = ({chart,filter, filterChange}: {  chart: ChartResponse, filte
     },
   };
 
+  useEffect(() => {
+    console.log('chart...', chart);
+    console.log('series', series);
+
+  }, [chart]);
 
   return (
       <div

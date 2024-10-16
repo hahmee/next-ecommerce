@@ -8,5 +8,6 @@ public interface DashboardService {
 
   ChartResponseDTO getSalesList(ChartRequestDTO chartRequestDTO);
 
+  ChartResponseDTO getOrderList(ChartRequestDTO chartRequestDTO);
 
 }

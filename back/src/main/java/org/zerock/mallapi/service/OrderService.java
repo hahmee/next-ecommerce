@@ -20,5 +20,6 @@ public interface OrderService {
   //Dashboard사용
   List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO);
 
+  List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO);
 
 }

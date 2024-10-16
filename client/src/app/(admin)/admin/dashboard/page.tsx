@@ -8,6 +8,7 @@ import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "@/utils/getCookieUtil";
 import {ChartFilter} from "@/types/chartFilter";
+import {ChartContext} from "@/types/chartContext";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -32,7 +33,7 @@ export default async function DashBoardPage() {
 
     const prefetchOptions =
         {
-            queryKey: ['salesCharts', ChartFilter.DAY, date],
+            queryKey: ['salesCharts', ChartFilter.DAY, date, ChartContext.TOPSALES],
             queryFn: () => getSalesCharts({
                 startDate: startDate.toISOString().split("T")[0],
                 endDate: endDate.toISOString().split("T")[0],
@@ -40,12 +41,13 @@ export default async function DashBoardPage() {
                 filter: ChartFilter.DAY,
                 comparedStartDate: comparedStartDate.toISOString().split("T")[0],
                 comparedEndDate: comparedEndDate.toISOString().split("T")[0],
+                context: ChartContext.TOPSALES,
             }),
         };
 
     return <div className="mx-auto">
         <Breadcrumb pageName="Sales Overview"/>
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-5">
             <Suspense fallback={<Loading/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <SalesOverview/>

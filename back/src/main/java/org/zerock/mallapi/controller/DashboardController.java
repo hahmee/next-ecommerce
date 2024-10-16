@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.mallapi.domain.ChartContext;
 import org.zerock.mallapi.dto.ChartRequestDTO;
 import org.zerock.mallapi.dto.ChartResponseDTO;
 import org.zerock.mallapi.dto.DataResponseDTO;
@@ -25,8 +26,29 @@ public class DashboardController {
 
     log.info("ChartRequestDTO.." + chartRequestDTO);
 
+    ChartContext context = chartRequestDTO.getContext();
+
+    switch (context) {
+      case TOPSALES:
+        return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
+
+      case ORDERS:
+        return DataResponseDTO.of(dashboardService.getOrderList(chartRequestDTO));
+
+      case AVGORDERS:
+        return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
+
+      case TOTALVIEWS:
+        return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
+
+      default:
+        break;
+
+    }
+
     return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
   }
 
 }
+
 
