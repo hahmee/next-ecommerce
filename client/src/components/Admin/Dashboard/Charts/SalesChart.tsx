@@ -4,6 +4,7 @@ import {ApexOptions} from "apexcharts";
 import React from "react";
 import dynamic from "next/dynamic";
 import {ChartResponse} from "@/interface/ChartResponse";
+import {ChartFilter} from "@/types/chartFilter";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -40,7 +41,7 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
-const SalesChart = ({chart}: { chart: ChartResponse }) => {
+const SalesChart = ({chart,filter, filterChange}: {  chart: ChartResponse, filter:ChartFilter,filterChange: (filter:ChartFilter) => void }) => {
 
   const series = chart.series;
   const xaxis = chart.xaxis;
@@ -148,6 +149,7 @@ const SalesChart = ({chart}: { chart: ChartResponse }) => {
     },
   };
 
+
   return (
       <div
           className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
@@ -175,16 +177,24 @@ const SalesChart = ({chart}: { chart: ChartResponse }) => {
           <div className="flex w-full max-w-45 justify-end">
             <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
               <button
-                  className="rounded bg-white px-3 py-1 text-xs font-medium text-black shadow-card hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark">
+                  onClick={()=>filterChange(ChartFilter.DAY)}
+                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${ filter === ChartFilter.DAY  ? "bg-white shadow-card": ""}`}>
                 Day
               </button>
               <button
-                  className="rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                  onClick={()=>filterChange(ChartFilter.WEEK)}
+                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${ filter === ChartFilter.WEEK  ? "bg-white shadow-card": ""}`}>
                 Week
               </button>
               <button
-                  className="rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark">
+                  onClick={()=>filterChange(ChartFilter.MONTH)}
+                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${ filter === ChartFilter.MONTH  ? "bg-white shadow-card": ""}`}>
                 Month
+              </button>
+              <button
+                  onClick={()=>filterChange(ChartFilter.YEAR)}
+                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${ filter === ChartFilter.YEAR  ? "bg-white shadow-card": ""}`}>
+                Year
               </button>
             </div>
           </div>

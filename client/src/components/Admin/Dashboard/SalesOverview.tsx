@@ -8,6 +8,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "cookies-next";
 import {ChartResponse} from "@/interface/ChartResponse";
+import {ChartFilter} from "@/types/chartFilter";
 
 const SalesOverview: React.FC = () => {
 
@@ -15,6 +16,7 @@ const SalesOverview: React.FC = () => {
   const startDate = new Date();
   const comparedEndDate = new Date();
   const comparedStartDate = new Date();
+  const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
   startDate.setDate(endDate.getDate() - 30); // 30 days ago
   comparedEndDate.setDate(endDate.getDate() - 1);
   comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 30 days ago
@@ -37,12 +39,12 @@ const SalesOverview: React.FC = () => {
   const {
     data: salesCharts,
   } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
-    queryKey: ['salesCharts'],
+    queryKey: ['salesCharts', currentFilter],
     queryFn: () => getSalesCharts({
       startDate: date.startDate,
       endDate: date.endDate,
       sellerEmail: member.email,
-      filter: 'day',
+      filter: currentFilter,
       comparedStartDate: comparedDate.startDate,
       comparedEndDate: comparedDate.endDate
     }),
@@ -61,6 +63,10 @@ const SalesOverview: React.FC = () => {
     console.log(value);
     setDate(value);
   };
+
+  const filterChange = (filter: ChartFilter) => {
+    setCurrentFilter(filter);
+  }
 
   if(!salesCharts) {
     return null;
@@ -158,7 +164,7 @@ const SalesOverview: React.FC = () => {
         </div>
 
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-          <SalesChart chart={salesCharts}/>
+          <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
           {/*<ChartTwo/>*/}
           {/*<ChartThree/>*/}
           {/*<MapOne />*/}

@@ -7,6 +7,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
 import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "@/utils/getCookieUtil";
+import {ChartFilter} from "@/types/chartFilter";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -21,12 +22,12 @@ export default async function DashBoardPage() {
 
     const prefetchOptions =
         {
-            queryKey: ['salesCharts'],
+            queryKey: ['salesCharts', ChartFilter.DAY],
             queryFn: () => getSalesCharts({
                 startDate: startDate.toISOString().split("T")[0],
                 endDate: endDate.toISOString().split("T")[0],
                 sellerEmail: member?.email || "",
-                filter: 'day',
+                filter: ChartFilter.DAY,
                 comparedStartDate: comparedStartDate.toISOString().split("T")[0],
                 comparedEndDate: comparedEndDate.toISOString().split("T")[0],
             }),

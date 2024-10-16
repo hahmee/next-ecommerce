@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.zerock.mallapi.domain.ChartFilter;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ChartResponseDTO {
 
   private String endDate;
 
-  private String filter;  //day, week, ...
+  private ChartFilter filter;  //day, week, ...
 
 //  private Long totalSales;  // 전체 매출
 

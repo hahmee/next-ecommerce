@@ -6,10 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.controller.formatter.LocalDateFormatter;
-import org.zerock.mallapi.domain.ColorTag;
-import org.zerock.mallapi.domain.Member;
-import org.zerock.mallapi.domain.Order;
-import org.zerock.mallapi.domain.OrderProductInfo;
+import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.OrderRepository;
 import org.zerock.mallapi.util.GeneralException;
@@ -90,39 +87,48 @@ public class OrderServiceImpl implements OrderService{
   @Override
   public List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO) {
 
-    log.info("큰 화면 이 좋아 " + chartRequestDTO);
+    log.info("chartRequestDTO................." + chartRequestDTO);
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
-    //startDate의 끝시간 xx:00:00
-    LocalDateTime startDateTime = startDate.atStartOfDay();
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
 
     LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
-    // endDate의 끝 시간을 xx:59:59으로 설정
-    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
-
-//    LocalDate comparedStartDate = LocalDate.parse(chartRequestDTO.getComparedStartDate(), dateformatter);
-//    LocalDateTime comparedStartDateTime = comparedStartDate.atStartOfDay();
-//
-//    LocalDate comparedEndDate = LocalDate.parse(chartRequestDTO.getComparedEndDate(), dateformatter);
-//    LocalDateTime comparedEndDateTime = comparedEndDate.atTime(23, 59, 59);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
 
     String sellerEmail = chartRequestDTO.getSellerEmail();
 
-    List<Object[]> salesSummary = orderRepository.findSalesSummary(sellerEmail, startDateTime, endDateTime);
+    ChartFilter filter = chartRequestDTO.getFilter();
 
-    return salesSummary;
+//    String filterString = filter.toString();
+
+    if (filter != null) {
+      switch (filter) {
+        case DAY:
+          return orderRepository.findSalesSummaryByDay(sellerEmail, startDateTime, endDateTime);
+
+        case WEEK:
+          return orderRepository.findSalesSummaryByWeek(sellerEmail, startDateTime, endDateTime);
+
+        case MONTH:
+          return orderRepository.findSalesSummaryByMonth(sellerEmail, startDateTime, endDateTime);
+
+        case YEAR:
+          return orderRepository.findSalesSummaryByYear(sellerEmail, startDateTime, endDateTime);
+
+        default:
+          return null;
+
+      }
+
+    }
+
+    return null;
+//    List<Object[]> salesSummary = orderRepository.findSalesSummary(sellerEmail, startDateTime, endDateTime, filterString);
+//
+//    return salesSummary;
   }
 
-  private LocalDateTime  convertStringToLocalDateTime(String dateString) {
-
-    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate ld = LocalDate.parse(dateString, dateformatter);
-    LocalDateTime ldt = ld.atStartOfDay();
-
-    return ldt;
-
-  }
 
 
   private OrderDTO convertToDTO(Order order) {
