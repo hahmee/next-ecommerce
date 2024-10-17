@@ -9,12 +9,11 @@ import org.zerock.mallapi.dto.ChartRequestDTO;
 import org.zerock.mallapi.dto.ChartResponseDTO;
 import org.zerock.mallapi.dto.SeriesDTO;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @Log4j2
@@ -70,14 +69,16 @@ public class DashboardServiceImpl implements DashboardService{
 
           for (Object[] result : results) {
             Integer year = (Integer) result[0]; // YEAR
-            Integer month = (Integer) result[1]; // month
-            Integer week = (Integer) result[2]; // WEEK
+            Integer month = (Integer) result[1]; // MONTH
+            Integer yearWeek= (Integer) result[2]; // YEARWEEK
+            String weekString = result[2].toString().substring(4);
+            Integer week = Integer.parseInt(weekString); // 문자열을 정수로 변환
 
             LocalDate weekStartDate = getWeekStartDate(year, week);
 
             log.info("dddd startDateOfWeek " + year);
             log.info("dddd month " + month);
-            log.info("dddd week " + week);
+            log.info("dddd week " + yearWeek);
             log.info("dddd weekStartDate " + weekStartDate);
 
             LocalDate date =  weekStartDate; // LocalDate로 변환
@@ -204,7 +205,9 @@ public class DashboardServiceImpl implements DashboardService{
           for (Object[] result : results) {
             Integer year = (Integer) result[0]; // YEAR
             Integer month = (Integer) result[1]; // month
-            Integer week = (Integer) result[2]; // WEEK
+            Integer yearWeek= (Integer) result[2]; // YEARWEEK
+            String weekString = result[2].toString().substring(4);
+            Integer week = Integer.parseInt(weekString); // 문자열을 정수로 변환
 
             LocalDate weekStartDate = getWeekStartDate(year, week);
 
@@ -283,18 +286,25 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차
+    log.info("year....." + year);
+    log.info("week......" + week); //41
 
     // 연도의 첫 번째 날을 가져옴
     LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
 
-    // 해당 연도의 첫 번째 주의 시작일을 월요일로 설정
-    LocalDate firstMonday = firstDayOfYear.with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1);
+    log.info("firstDayOfYear......" + firstDayOfYear);
 
+    // 한국 로케일에 맞춰 첫 번째 주의 시작일을 계산 (월요일로 설정)
+    WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY, 1); // 월요일 시작, 첫 주는 1일 이상 포함해야 첫 번째 주로 계산
+    LocalDate firstMonday = firstDayOfYear.with(weekFields.dayOfWeek(), 1); // 월요일로 맞춤
+
+    log.info("firstMonday......" + firstMonday);
 
     // 해당 주의 시작일 계산 (주의 시작일 + (주 번호 - 1) 주)
     LocalDate weekStartDate = firstMonday.plusWeeks(week - 1);
 
-    // 주 시작일을 월요일로 맞추기 위해 주 번호에 따라 조정
+    log.info("weekStartDate......" + weekStartDate);
+
     return weekStartDate;
 
   }

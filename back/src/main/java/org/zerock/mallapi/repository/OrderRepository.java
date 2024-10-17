@@ -29,12 +29,12 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
 
     // WEEK 필터용 쿼리
-    @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('WEEK', o.createdAt), SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax), AVG(o.totalAmount) " +
+    @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('YEARWEEK', o.createdAt, 3), SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax), AVG(o.totalAmount) " +
             "FROM Order o " +
             "WHERE o.seller.email = :email " +
             "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
             "AND o.createdAt BETWEEN :startDate AND :endDate " +
-            "GROUP BY FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('WEEK', o.createdAt)")
+            "GROUP BY FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('YEARWEEK', o.createdAt, 3)")
     List<Object[]> findSalesSummaryByWeek(@Param("email") String email,
                                           @Param("startDate") LocalDateTime startDate,
                                           @Param("endDate") LocalDateTime endDate);
@@ -79,15 +79,16 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
 
     // WEEK 필터용 쿼리
-    @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('WEEK', o.createdAt), SUM(o.productInfo.qty) " +
+    @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('YEARWEEK', o.createdAt, 3), SUM(o.productInfo.qty) " +
             "FROM Order o " +
             "WHERE o.seller.email = :email " +
             "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
             "AND o.createdAt BETWEEN :startDate AND :endDate " +
-            "GROUP BY FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('WEEK', o.createdAt)")
+            "GROUP BY FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('YEARWEEK', o.createdAt, 3)")
     List<Object[]> findOrderSummaryByWeek(@Param("email") String email,
                                           @Param("startDate") LocalDateTime startDate,
                                           @Param("endDate") LocalDateTime endDate);
+
 
     // MONTH 필터용 쿼리
     @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), SUM(o.productInfo.qty) " +
