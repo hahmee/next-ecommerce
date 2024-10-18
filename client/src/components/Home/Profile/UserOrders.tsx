@@ -34,7 +34,7 @@ const UserOrders = () => {
             {payments?.length === 0 ? (
                 <p className="text-center">You have no orders yet.</p>
             ) : (
-                <table className="min-w-full bg-white border border-gray-200">
+                <table className="min-w-full bg-white border-gray-200 ">
                     <thead>
                     <tr className="bg-gray-50 text-sm font-black text-left">
                         <th className="py-2 px-4">Order ID</th>

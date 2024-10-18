@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.domain.ChartContext;
+import org.zerock.mallapi.dto.CardResponseDTO;
 import org.zerock.mallapi.dto.ChartRequestDTO;
 import org.zerock.mallapi.dto.ChartResponseDTO;
 import org.zerock.mallapi.dto.DataResponseDTO;
@@ -21,7 +22,16 @@ public class DashboardController {
   private final DashboardService dashboardService;
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
-  @GetMapping("/salesOverview")
+  @GetMapping("/salesOverviewCard")
+  public DataResponseDTO<CardResponseDTO> salesCardList(ChartRequestDTO chartRequestDTO) {
+
+    log.info("salesOverviewCard.." + chartRequestDTO);
+
+    return DataResponseDTO.of(dashboardService.getSalesCardList(chartRequestDTO));
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/salesOverviewChart")
   public DataResponseDTO<ChartResponseDTO> salesList(ChartRequestDTO chartRequestDTO) {
 
     log.info("ChartRequestDTO.." + chartRequestDTO);
@@ -36,7 +46,7 @@ public class DashboardController {
         return DataResponseDTO.of(dashboardService.getOrderList(chartRequestDTO));
 
       case AVGORDERS:
-        return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
+        return DataResponseDTO.of(dashboardService.getOrderAvgList(chartRequestDTO));
 
       case TOTALVIEWS:
         return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
@@ -48,6 +58,8 @@ public class DashboardController {
 
     return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
   }
+
+
 
 }
 

@@ -5,9 +5,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.ChartFilter;
-import org.zerock.mallapi.dto.ChartRequestDTO;
-import org.zerock.mallapi.dto.ChartResponseDTO;
-import org.zerock.mallapi.dto.SeriesDTO;
+import org.zerock.mallapi.domain.Order;
+import org.zerock.mallapi.domain.Review;
+import org.zerock.mallapi.dto.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -24,6 +24,130 @@ public class DashboardServiceImpl implements DashboardService{
 
   private final OrderService orderService;
 
+  @Override
+  public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO) {
+
+    SalesCardDTO cardDTO = orderService.getOverviewCards(chartRequestDTO);
+
+    log.info("cardDTO: {}", cardDTO);
+
+    List<Object[]> currentSales = cardDTO.getCurrentSales();
+    List<Object[]> comparedSales = cardDTO.getComparedSales();
+
+    log.info("currentSales: {}", currentSales);
+    log.info("comparedSales: {}", comparedSales); // []
+
+    // 데이터가 없는 경우를 처리
+    if (currentSales.isEmpty() && comparedSales.isEmpty()) {
+      log.warn("No sales data available for the selected periods.");
+      return null;
+    }
+
+
+    if (currentSales.isEmpty()) {
+      log.warn("No current sales data available.");
+      // 필요에 따라 기본값 설정
+      Long currentTotalSales = 0L;
+      Long currentTotalQty = 0L;
+      Double currentAvgQty = 0.0;
+
+      // 비교 기간의 집계 결과
+      Long comparedTotalSales = (Long) comparedSales.get(0)[0];
+      Long comparedTotalQty = (Long) comparedSales.get(0)[1];
+      Double comparedAvgQty = (Double) comparedSales.get(0)[2];
+
+
+      // 차이 계산
+      Long salesDifferencePercentage = -100L; // 현재 매출이 없으므로 -100% 차이
+      Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty)/comparedTotalQty) * 100;
+      Double avgQtyDifferencePercentage = ((currentAvgQty - comparedAvgQty) / comparedAvgQty) * 100;
+
+      // 결과를 CardResponseDTO에 설정
+      // 결과를 CardResponseDTO에 설정
+      CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
+              .startDate(chartRequestDTO.getStartDate())
+              .endDate(chartRequestDTO.getEndDate())
+              .totalSales(currentTotalSales)
+              .totalOrders(currentTotalQty)
+              .avgOrders(currentAvgQty)
+              .totalSalesCompared(salesDifferencePercentage)
+              .totalOrdersCompared(qtyDifferencePercentage)
+              .avgOrdersCompared(avgQtyDifferencePercentage)
+              .build();
+
+      return cardResponseDTO;
+    }
+
+
+    if (comparedSales.isEmpty()) {
+      log.warn("No compared sales data available.");
+      // 현재 기간의 집계 결과
+      Long currentTotalSales = (Long) currentSales.get(0)[0];
+      Long currentTotalQty = (Long) currentSales.get(0)[1];
+      Double currentAvgQty = (Double) currentSales.get(0)[2];
+
+
+      // 차이 계산
+      Long salesDifferencePercentage = 100L; // 비교 데이터가 없으므로 100% 차이
+      Long qtyDifferencePercentage = 100L; // 판매 수량도 100% 차이
+      Double avgQtyDifferencePercentage = 100.0; // 평균 수량도 100% 차이
+
+
+
+      // 결과를 CardResponseDTO에 설정
+      // 결과를 CardResponseDTO에 설정
+      CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
+              .startDate(chartRequestDTO.getStartDate())
+              .endDate(chartRequestDTO.getEndDate())
+              .totalSales(currentTotalSales)
+              .totalOrders(currentTotalQty)
+              .avgOrders(currentAvgQty)
+              .totalSalesCompared(salesDifferencePercentage)
+              .totalOrdersCompared(qtyDifferencePercentage)
+              .avgOrdersCompared(avgQtyDifferencePercentage)
+              .build();
+
+      return cardResponseDTO;
+    }
+
+    // 현재 기간의 집계 결과
+    Long currentTotalSales = (Long) currentSales.get(0)[0];
+    Long currentTotalQty = (Long) currentSales.get(0)[1];
+    Double currentAvgQty = (Double) currentSales.get(0)[2];
+
+    // 비교 기간의 집계 결과
+    Long comparedTotalSales = (Long) comparedSales.get(0)[0];
+    Long comparedTotalQty = (Long) comparedSales.get(0)[1];
+    Double comparedAvgQty = (Double) comparedSales.get(0)[2];
+
+    log.info("currentTotalSales...." + currentTotalSales);
+    log.info("currentTotalQty...." + currentTotalQty);
+    log.info("currentAvgQty...." + currentAvgQty);
+    log.info("comparedTotalSales...." + comparedTotalSales);
+    log.info("comparedTotalQty...." + comparedTotalQty);
+    log.info("comparedAvgQty...." + comparedAvgQty);
+
+    // 차이 계산
+    Long salesDifferencePercentage = ((currentTotalSales - comparedTotalSales) / comparedTotalSales) * 100;
+    Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty ) /comparedTotalQty) * 100;
+    Double avgQtyDifferencePercentage = ((currentAvgQty - comparedAvgQty) / comparedAvgQty) * 100;
+
+    log.info("qtyDifferencePercentage...." + qtyDifferencePercentage);
+
+    // 결과를 CardResponseDTO에 설정
+    CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
+            .startDate(chartRequestDTO.getStartDate())
+            .endDate(chartRequestDTO.getEndDate())
+            .totalSales(currentTotalSales)
+            .totalOrders(currentTotalQty)
+            .avgOrders(currentAvgQty)
+            .totalSalesCompared(salesDifferencePercentage)
+            .totalOrdersCompared(qtyDifferencePercentage)
+            .avgOrdersCompared(avgQtyDifferencePercentage)
+            .build();
+
+    return cardResponseDTO;
+  }
 
   @Override
   public ChartResponseDTO getSalesList(ChartRequestDTO chartRequestDTO) {
@@ -42,7 +166,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<Long> revenueSeriesData = new ArrayList<>();
 
-    List<SeriesDTO> series = new ArrayList<>();
+    List<SeriesDTO<Long>> series = new ArrayList<>();
 
 
     log.info("orders.... " + results);
@@ -135,12 +259,12 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
 
-    SeriesDTO salesSeriesDTO = SeriesDTO.builder()
+    SeriesDTO<Long> salesSeriesDTO = SeriesDTO.<Long>builder()
             .name(salesSeriesName)
             .data(salesSeriesData)
             .build();
 
-    SeriesDTO revenueSeriesDTO = SeriesDTO.builder()
+    SeriesDTO<Long> revenueSeriesDTO = SeriesDTO.<Long>builder()
             .name(revenueSeriesName)
             .data(revenueSeriesData)
             .build();
@@ -150,7 +274,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     log.info("seriesData.... " + salesSeriesDTO);
 
-    ChartResponseDTO chartResponseDTO = ChartResponseDTO.builder()
+    ChartResponseDTO<Long> chartResponseDTO = ChartResponseDTO.<Long>builder()
             .startDate(chartRequestDTO.getStartDate())
             .endDate(chartRequestDTO.getEndDate())
             .filter(ChartFilter.DAY)
@@ -178,7 +302,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<Long> salesSeriesData = new ArrayList<>();
 
-    List<SeriesDTO> series = new ArrayList<>();
+    List<SeriesDTO<Long>> series = new ArrayList<>();
 
 
     log.info("orders.... " + results);
@@ -261,7 +385,7 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
 
-    SeriesDTO salesSeriesDTO = SeriesDTO.builder()
+    SeriesDTO<Long> salesSeriesDTO = SeriesDTO.<Long>builder()
             .name(salesSeriesName)
             .data(salesSeriesData)
             .build();
@@ -271,7 +395,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     log.info("seriesData.... " + salesSeriesDTO);
 
-    ChartResponseDTO chartResponseDTO = ChartResponseDTO.builder()
+    ChartResponseDTO<Long> chartResponseDTO = ChartResponseDTO.<Long>builder()
             .startDate(chartRequestDTO.getStartDate())
             .endDate(chartRequestDTO.getEndDate())
             .filter(ChartFilter.DAY)
@@ -281,8 +405,127 @@ public class DashboardServiceImpl implements DashboardService{
 
 
 
+    return chartResponseDTO;
+  }
+
+  @Override
+  public ChartResponseDTO getOrderAvgList(ChartRequestDTO chartRequestDTO) {
+
+
+    ChartFilter filter = chartRequestDTO.getFilter();
+
+    List<Object[]> results = orderService.getOrderAvgOverview(chartRequestDTO);
+
+    List<String> xaxisList = new ArrayList<>();
+
+    String salesSeriesName = "Avg Orders";
+
+    List<Double> salesSeriesData = new ArrayList<>();
+
+    List<SeriesDTO<Double>> series = new ArrayList<>();
+
+    log.info("orders.... " + results);
+
+    if (filter != null) {
+      switch (filter) {
+        case DAY:
+          for (Object[] result : results) {
+
+            java.sql.Date sqlDate = (java.sql.Date) result[0];
+            LocalDate date = sqlDate.toLocalDate(); // LocalDate로 변환
+
+            Double avgOrders = (Double) result[1];  // Avg Orders
+
+            log.info("avgOrders....." + avgOrders);
+            xaxisList.add(date.toString());
+            salesSeriesData.add(avgOrders);
+          }
+
+          break;
+
+        case WEEK:
+
+          for (Object[] result : results) {
+            Integer year = (Integer) result[0]; // YEAR
+            Integer month = (Integer) result[1]; // month
+            Integer yearWeek= (Integer) result[2]; // YEARWEEK
+            String weekString = result[2].toString().substring(4);
+            Integer week = Integer.parseInt(weekString); // 문자열을 정수로 변환
+
+            LocalDate weekStartDate = getWeekStartDate(year, week);
+
+            log.info("dddd startDateOfWeek " + year);
+            log.info("dddd month " + month);
+            log.info("dddd week " + week);
+            log.info("dddd weekStartDate " + weekStartDate);
+
+            LocalDate date =  weekStartDate; // LocalDate로 변환
+
+            Double avgOrders = (Double) result[3];  // 총 매출
+
+            xaxisList.add(date.toString());
+            salesSeriesData.add(avgOrders);
+          }
+          break;
+
+        case MONTH:
+          for (Object[] result : results) {
+            Integer year = (Integer) result[0]; // YEAR
+            Integer month = (Integer) result[1]; // month
+
+            String date = String.format("%d-%02d", year, month);
+
+            Double avgOrders = (Double) result[2];  // 총 매출
+
+            xaxisList.add(date);
+            salesSeriesData.add(avgOrders);
+          }
+
+          break;
+
+
+        case YEAR:
+          for (Object[] result : results) {
+            Integer year = (Integer) result[0]; // YEAR
+
+            String date = String.format("%d", year);
+
+            Double avgOrders = (Double) result[1];  // 총 매출
+
+            xaxisList.add(date);
+            salesSeriesData.add(avgOrders);
+          }
+          break;
+
+        default:
+          break;
+
+      }
+    }
+
+
+    SeriesDTO<Double> salesSeriesDTO = SeriesDTO.<Double>builder()
+            .name(salesSeriesName)
+            .data(salesSeriesData)
+            .build();
+
+
+    series.add(salesSeriesDTO);
+
+    log.info("seriesData.... " + salesSeriesDTO);
+
+    ChartResponseDTO<Double> chartResponseDTO = ChartResponseDTO.<Double>builder()
+            .startDate(chartRequestDTO.getStartDate())
+            .endDate(chartRequestDTO.getEndDate())
+            .filter(ChartFilter.DAY)
+            .xaxis(xaxisList)
+            .series(series)
+            .build();
+
+
 
     return chartResponseDTO;
+
   }
 
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차
@@ -306,6 +549,24 @@ public class DashboardServiceImpl implements DashboardService{
     log.info("weekStartDate......" + weekStartDate);
 
     return weekStartDate;
+
+  }
+
+
+  private CardResponseDTO convertToDTO(Review review) {
+
+    return null;
+
+//    return CardResponseDTO.builder()
+//            .startDate()
+//            .endDate()
+//            .totalSales()
+//            .totalOrders()
+//            .avgOrdersCompared()
+//            .totalSalesCompared()
+//            .avgOrders()
+//            .totalOrdersCompared()
+//            .build();
 
   }
 

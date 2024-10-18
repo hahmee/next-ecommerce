@@ -14,8 +14,28 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
     @Query("select o from Order o where o.orderId = :orderId")
     List<Order> selectListByOrderId(@Param("orderId") String orderId);
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    @Query("SELECT SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty), AVG(o.productInfo.qty) " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate ")
+    List<Object[]> findSalesOrdersAvg(@Param("email") String email,
+                                   @Param("startDate") LocalDateTime startDate,
+                                   @Param("endDate") LocalDateTime endDate
+                                   );
 
+    // 비교 날짜 범위의 집계 데이터 가져오기
+    @Query("SELECT SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty), AVG(o.productInfo.qty) " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :comparedStartDate AND :comparedEndDate")
+    List<Object[]> findComparedSalesOrdersAvg(@Param("email") String email,
+                                     @Param("comparedStartDate") LocalDateTime comparedStartDate,
+                                     @Param("comparedEndDate") LocalDateTime comparedEndDate);
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
     // DAY 필터용 쿼리
     @Query("SELECT DATE(o.createdAt), SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax), AVG(o.totalAmount) " +
             "FROM Order o " +
@@ -121,6 +141,59 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
+    // DAY 필터용 쿼리
+    @Query("SELECT DATE(o.createdAt), AVG(o.productInfo.qty) " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY DATE(o.createdAt)")
+    List<Object[]> findOrderAvgSummaryByDay(@Param("email") String email,
+                                         @Param("startDate") LocalDateTime startDate,
+                                         @Param("endDate") LocalDateTime endDate);
+
+
+    // WEEK 필터용 쿼리
+    @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('YEARWEEK', o.createdAt, 3), AVG(o.productInfo.qty) " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), FUNCTION('YEARWEEK', o.createdAt, 3)")
+    List<Object[]> findOrderAvgSummaryByWeek(@Param("email") String email,
+                                          @Param("startDate") LocalDateTime startDate,
+                                          @Param("endDate") LocalDateTime endDate);
+
+
+    // MONTH 필터용 쿼리
+    @Query("SELECT FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt), AVG(o.productInfo.qty) " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY FUNCTION('YEAR', o.createdAt), FUNCTION('MONTH', o.createdAt)")
+    List<Object[]> findOrderAvgSummaryByMonth(@Param("email") String email,
+                                           @Param("startDate") LocalDateTime startDate,
+                                           @Param("endDate") LocalDateTime endDate);
+
+    // YEAR 필터용 쿼리
+    @Query("SELECT FUNCTION('YEAR', o.createdAt), AVG(o.productInfo.qty) " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY FUNCTION('YEAR', o.createdAt)")
+    List<Object[]> findOrderAvgSummaryByYear(@Param("email") String email,
+                                          @Param("startDate") LocalDateTime startDate,
+                                          @Param("endDate") LocalDateTime endDate);
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
 
 

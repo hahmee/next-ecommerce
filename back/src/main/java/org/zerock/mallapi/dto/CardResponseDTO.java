@@ -12,22 +12,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ChartResponseDTO<T> {
+public class CardResponseDTO<T> {
 
   private String startDate;
 
   private String endDate;
 
-  private ChartFilter filter;  //day, week, ...
+  private Long totalSales;  // 전체 매출
 
-//  private Long totalSales;  // 전체 매출
+  private Long totalOrders; // 전체 주문
 
-//  private Long totalOrders; // 전체 주문
+  private Double avgOrders;// 평균 주문 값
 
-//  private Double avgOrderSale;// 평균 주문 값
+  private Long totalSalesCompared;
 
-  private List<String> xaxis; //가로축
+  private Long totalOrdersCompared;
 
-  private List<SeriesDTO<T>> series; //값
+  private Double avgOrdersCompared;
 
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
 import AdminDatePicker from "@/components/Admin/AdminDatePicker";
 import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
@@ -10,6 +10,8 @@ import {getCookie} from "cookies-next";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
+import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
+import {CardResponse} from "@/interface/CardResponse";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -60,10 +62,40 @@ const SalesOverview: React.FC = () => {
     endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
   });
 
-  const [comparedDate ,setComparedDate] = useState({
+  const [comparedDate, setComparedDate] = useState({
     startDate: comparedStartDate.toISOString().split("T")[0],
     endDate: comparedEndDate.toISOString().split("T")[0],
-  })
+  });
+
+  useEffect(() => {
+    console.log('date', date);
+    console.log('comparedDate', comparedDate);
+
+  }, [date,comparedDate]);
+
+  const {
+    data: salesCards,
+  } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
+    queryKey: ['salesCards', currentFilter, date, selectedCard],
+    queryFn: () => getSalesCards({
+      startDate: date.startDate,
+      endDate: date.endDate,
+      sellerEmail: member.email,
+      filter: currentFilter,
+      comparedStartDate: comparedDate.startDate,
+      comparedEndDate: comparedDate.endDate,
+      context: selectedCard,
+    }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    throwOnError: false,
+    select: (data) => {
+      // 데이터 가공 로직만 처리
+      return data.data;
+    }
+  });
+
+  console.log('salesCards', salesCards);
 
   const {
     data: salesCharts,
@@ -137,9 +169,6 @@ const SalesOverview: React.FC = () => {
     setSelectedCard(id);
   };
 
-  if(!salesCharts) {
-    return null;
-  }
 
   return (
       <>
@@ -149,7 +178,7 @@ const SalesOverview: React.FC = () => {
             ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-          <CardDataStats title="Total Sales" total="$3.456K" rate="0.43%" levelUp id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Total Sales" total={salesCards?.totalSales} rate={salesCards?.totalSalesCompared} id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="22"
@@ -168,7 +197,7 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Number of Orders" total="$45,2K" rate="4.35%" levelUp id={ChartContext.ORDERS} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Number of Orders" total={salesCards?.totalOrders} rate={salesCards?.totalOrdersCompared}  id={ChartContext.ORDERS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="20"
@@ -191,7 +220,7 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Average Order Value" total="2.450" rate="2.59%" levelUp id={ChartContext.AVGORDERS} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Avg. order value" total={salesCards?.avgOrders} rate={salesCards?.avgOrdersCompared}  id={ChartContext.AVGORDERS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="22"
@@ -210,7 +239,7 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Total Views" total="3.456" rate="0.95%" levelDown id={ChartContext.TOTALVIEWS} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Refund Rate" total={0} rate={0.95} id={ChartContext.TOTALVIEWS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="22"

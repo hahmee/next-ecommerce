@@ -3,10 +3,8 @@ import {ChartContext} from "@/types/chartContext";
 
 interface CardDataStatsProps {
   title: string;
-  total: string;
-  rate: string;
-  levelUp?: boolean;
-  levelDown?: boolean;
+  total: number | undefined;
+  rate: number | undefined;
   children: ReactNode;
   id: ChartContext;
   clickCard: (id:ChartContext) => void;
@@ -17,21 +15,17 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
                                                        title,
                                                        total,
                                                        rate,
-                                                       levelUp,
-                                                       levelDown,
                                                        children,
                                                        clickCard,
                                                        id,
                                                        selectedCard
                                                      }) => {
 
-  console.log('selectedCard', selectedCard);
-  console.log('id', id);
+    const levelUp: boolean = rate && rate >= 0 || false;
+    const levelDown: boolean =  rate && rate < 0 || false;
 
-
-  return (
-      <div
-            className={`rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark cursor-pointer dark:bg-boxdark ${selectedCard === id ? "bg-primary-50 border-primary-400 dark:border-white dark:bg-gray-700" : "bg-white border-stroke hover:bg-gray-50 dark:hover:bg-gray-700"} active:bg-primary-100 focus:bg-primary-100`}
+    return (
+      <div className={`rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark cursor-pointer dark:bg-boxdark ${selectedCard === id ? "bg-primary-50 border-primary-400 dark:border-white dark:bg-gray-700" : "bg-white border-stroke hover:bg-gray-50 dark:hover:bg-gray-700"} active:bg-primary-100 focus:bg-primary-100`}
         onClick={() => clickCard(id)}>
         <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
           {children}
@@ -40,9 +34,9 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
         <div className="mt-4 flex items-end justify-between">
           <div>
             <h4 className="text-title-md font-bold text-black dark:text-white">
-              {total}
+              {total?.toLocaleString()}
             </h4>
-            <span className="text-sm font-medium">{title}</span>
+            <span className="text-sm font-bold text-gray-500">{title}</span>
           </div>
 
           <span
@@ -50,7 +44,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
                   levelUp && "text-meta-3"
               } ${levelDown && "text-meta-5"} `}
           >
-          {rate}
+          {rate}%
 
             {levelUp && (
                 <svg

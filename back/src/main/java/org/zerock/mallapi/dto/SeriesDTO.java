@@ -12,9 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class SeriesDTO {
+public class SeriesDTO<T> {
 
     private String name;
-    private List<Long> data;
+    private List<T> data; //Double도 필요해 ...
 
 }

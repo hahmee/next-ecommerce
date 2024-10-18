@@ -9,6 +9,7 @@ import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts"
 import {getCookie} from "@/utils/getCookieUtil";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
+import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -28,10 +29,21 @@ export default async function DashBoardPage() {
         endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
     };
 
-    console.log('date?', date);
     const member = getCookie("member");
 
-    const prefetchOptions =
+    const prefetchOptions = [
+        {
+            queryKey: ['salesCards', ChartFilter.DAY, date, ChartContext.TOPSALES],
+            queryFn: () => getSalesCards({
+                startDate: startDate.toISOString().split("T")[0],
+                endDate: endDate.toISOString().split("T")[0],
+                sellerEmail: member?.email || "",
+                filter: ChartFilter.DAY,
+                comparedStartDate: comparedStartDate.toISOString().split("T")[0],
+                comparedEndDate: comparedEndDate.toISOString().split("T")[0],
+                context: ChartContext.TOPSALES,
+            }),
+        },
         {
             queryKey: ['salesCharts', ChartFilter.DAY, date, ChartContext.TOPSALES],
             queryFn: () => getSalesCharts({
@@ -43,7 +55,8 @@ export default async function DashBoardPage() {
                 comparedEndDate: comparedEndDate.toISOString().split("T")[0],
                 context: ChartContext.TOPSALES,
             }),
-        };
+        }
+    ]
 
     return <div className="mx-auto">
         <Breadcrumb pageName="Sales Overview"/>

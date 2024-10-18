@@ -2,9 +2,7 @@ package org.zerock.mallapi.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.Order;
-import org.zerock.mallapi.dto.ChartRequestDTO;
-import org.zerock.mallapi.dto.OrderDTO;
-import org.zerock.mallapi.dto.OrderRequestDTO;
+import org.zerock.mallapi.dto.*;
 
 import java.util.List;
 
@@ -18,8 +16,12 @@ public interface OrderService {
   OrderDTO get(Long id);
 
   //Dashboard사용
+  SalesCardDTO getOverviewCards(ChartRequestDTO chartRequestDTO);
+
   List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO);
 
   List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO);
+
+  List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO);
 
 }

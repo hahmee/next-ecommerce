@@ -14,6 +14,7 @@ import org.zerock.mallapi.util.GeneralException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -82,6 +83,56 @@ public class OrderServiceImpl implements OrderService{
     OrderDTO orderDTO = convertToDTO(order);
 
     return orderDTO;
+  }
+
+  @Override
+  public SalesCardDTO getOverviewCards(ChartRequestDTO chartRequestDTO) {
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+    LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+    LocalDate comparedStartDate = LocalDate.parse(chartRequestDTO.getComparedStartDate(), dateformatter);
+    LocalDateTime comparedStartDateTime = comparedStartDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+    LocalDate comparedEndDate = LocalDate.parse(chartRequestDTO.getComparedEndDate(), dateformatter);
+    LocalDateTime comparedEndDateTime = comparedEndDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+
+
+    String sellerEmail = chartRequestDTO.getSellerEmail();
+
+    List<Object[]> currentSales  = orderRepository.findSalesOrdersAvg(sellerEmail, startDateTime, endDateTime);
+
+    List<Object[]> comparedSales  = orderRepository.findComparedSalesOrdersAvg(sellerEmail, comparedStartDateTime, comparedEndDateTime);
+
+    log.info("comparedSales.?!??!" + comparedSales.get(0)[0]);//null
+
+    List<Object[]> emptyList = new ArrayList<>();
+
+      if(isListEmptyOrAllNull(currentSales) && isListEmptyOrAllNull(comparedSales)) {
+        return new SalesCardDTO(emptyList, emptyList);
+      }
+
+      if(isListEmptyOrAllNull(currentSales)) {
+        return new SalesCardDTO(emptyList, comparedSales);
+      }
+
+      if(isListEmptyOrAllNull(comparedSales)) {
+        return new SalesCardDTO(currentSales, emptyList);
+      }
+
+
+    SalesCardDTO salesCardDTO = new SalesCardDTO(currentSales, comparedSales);
+
+    return salesCardDTO; // Object[] 반환
+
+  }
+
+  // null인 경우를 확인하는 함수
+  boolean isListEmptyOrAllNull(List<Object[]> list) {
+    return list == null || list.isEmpty() || (list.size() == 1 && list.get(0)[0] == null || list.get(0)[1] == null || list.get(0)[2] == null);
   }
 
   @Override
@@ -164,6 +215,46 @@ public class OrderServiceImpl implements OrderService{
 
     return null;
 
+  }
+
+  @Override
+  public List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO) {
+
+    log.info("chartRequestDTO................." + chartRequestDTO);
+
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+    LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+    String sellerEmail = chartRequestDTO.getSellerEmail();
+
+    ChartFilter filter = chartRequestDTO.getFilter();
+
+    if (filter != null) {
+      switch (filter) {
+        case DAY:
+          return orderRepository.findOrderAvgSummaryByDay(sellerEmail, startDateTime, endDateTime);
+
+        case WEEK:
+          return orderRepository.findOrderAvgSummaryByWeek(sellerEmail, startDateTime, endDateTime);
+
+        case MONTH:
+          return orderRepository.findOrderAvgSummaryByMonth(sellerEmail, startDateTime, endDateTime);
+
+        case YEAR:
+          return orderRepository.findOrderAvgSummaryByYear(sellerEmail, startDateTime, endDateTime);
+
+        default:
+          return null;
+
+      }
+
+    }
+
+    return null;
   }
 
 
