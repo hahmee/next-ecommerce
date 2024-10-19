@@ -1,11 +1,9 @@
 package org.zerock.mallapi.service;
 
-import ch.qos.logback.classic.pattern.DateConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.mallapi.controller.formatter.LocalDateFormatter;
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.OrderRepository;
@@ -16,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -255,6 +252,23 @@ public class OrderServiceImpl implements OrderService{
     }
 
     return null;
+  }
+
+  @Override
+  public List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(topCustomerRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+    LocalDate endDate = LocalDate.parse(topCustomerRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
+
+
+    return orderRepository.findTopCutsomers(sellerEmail, startDateTime, endDateTime);
+
   }
 
 

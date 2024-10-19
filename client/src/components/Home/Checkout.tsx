@@ -37,7 +37,7 @@ const Checkout = () => {
         );
 
         await tossPayments.requestPayment("카드", {
-            amount: subtotal,
+            amount: subtotal + tax + shippingFee,
             orderId: newOrderId,
             orderName: cart.length > 1 ? `${cart[0].pname} 외 ${cart.length - 1}개` : `${cart[0].pname}`,
             customerName: '판매자_테스트',
@@ -51,7 +51,7 @@ const Checkout = () => {
         const order: OrderRequest = {
             deliveryInfo: shippingInfo,
             carts: cart,
-            totalAmount: subtotal,
+            totalAmount: subtotal + tax + shippingFee,
             shippingFee:shippingFee,
             tax:tax,
             status: OrderStatus.ORDER_CHECKING,

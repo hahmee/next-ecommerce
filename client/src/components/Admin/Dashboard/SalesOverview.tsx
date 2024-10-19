@@ -12,6 +12,10 @@ import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
 import {CardResponse} from "@/interface/CardResponse";
+import TableOne from "@/components/Tables/TableOne";
+import TopCustomers from "@/components/Chats/TopCustomers";
+import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
+import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -119,6 +123,26 @@ const SalesOverview: React.FC = () => {
     }
   });
 
+
+  const {
+    data: topCustomers,
+  } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
+    queryKey: ['customers'],
+    queryFn: () => getTopCustomers({
+      startDate: date.startDate,
+      endDate: date.endDate,
+      sellerEmail: member.email,
+    }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    throwOnError: false,
+    select: (data) => {
+      // 데이터 가공 로직만 처리
+      return data.data;
+    }
+  });
+
+  console.log('topCustomers', topCustomers);
 
   const dateChange = (value:any) => {
 
@@ -270,9 +294,9 @@ const SalesOverview: React.FC = () => {
           {/*<ChartThree/>*/}
           {/*<MapOne />*/}
           <div className="col-span-12 xl:col-span-8">
-            {/*<TableOne/>*/}
+            <TableOne/>
           </div>
-          {/*<ChatCard />*/}
+          <TopCustomers topCustomers={topCustomers} />
         </div>
       </>
   );

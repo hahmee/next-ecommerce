@@ -5,25 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CardResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/SalesCardDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getSalesCards.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interface/CardResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/TopCustomerRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/TopCustomerResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getTopCustomers.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Chats/TopCustomers.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/interface/TopCustomerRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/interface/TopCustomerResponse.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ChartResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/ChartResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/SeriesDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/SeriesDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/domain/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/domain/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/OrderRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getSalesCharts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getSalesCharts.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/CardDataStats.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/CardDataStats.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SalesChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SalesChart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/TableOne.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableOne.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +277,7 @@
       <workItem from="1729143727627" duration="12000" />
       <workItem from="1729171159477" duration="5934000" />
       <workItem from="1729223282668" duration="2593000" />
-      <workItem from="1729240177677" duration="5535000" />
+      <workItem from="1729240177677" duration="17146000" />
     </task>
     <servers />
   </component>

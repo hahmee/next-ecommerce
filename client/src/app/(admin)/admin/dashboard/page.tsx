@@ -10,6 +10,7 @@ import {getCookie} from "@/utils/getCookieUtil";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
+import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -55,7 +56,15 @@ export default async function DashBoardPage() {
                 comparedEndDate: comparedEndDate.toISOString().split("T")[0],
                 context: ChartContext.TOPSALES,
             }),
-        }
+        },
+        {
+            queryKey: ['customers'],
+            queryFn: () => getTopCustomers({
+                startDate: startDate.toISOString().split("T")[0],
+                endDate: endDate.toISOString().split("T")[0],
+                sellerEmail: member?.email || "",
+            }),
+        },
     ]
 
     return <div className="mx-auto">

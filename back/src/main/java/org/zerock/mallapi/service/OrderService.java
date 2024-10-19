@@ -24,4 +24,7 @@ public interface OrderService {
 
   List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO);
 
+  List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO);
+
+
 }

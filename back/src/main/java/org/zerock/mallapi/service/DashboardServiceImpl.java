@@ -528,6 +528,36 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
+  @Override
+  public List<TopCustomerResponseDTO> getTopCustomerList(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    //TOP 5
+    List<Object[]> results = orderService.getTopCustomers(topCustomerRequestDTO);
+    List<TopCustomerResponseDTO> topCustomerResponseDTOS = new ArrayList<>();
+
+    for (Object[] result : results) {
+
+      String email = (String) result[0]; // email
+      Long count = (Long) result[1]; // count
+      Long sum = (Long) result[2]; // sum
+
+      TopCustomerResponseDTO topCustomerResponseDTO = TopCustomerResponseDTO.builder()
+              .email(email)
+              .orderCount(count)
+              .payment(sum)
+              .build();
+
+      log.info("email.... " + email);
+      log.info("count.... " + count);
+      log.info("sum.... " + sum);
+
+      topCustomerResponseDTOS.add(topCustomerResponseDTO);
+
+    }
+
+    return topCustomerResponseDTOS;
+  }
+
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차
     log.info("year....." + year);
     log.info("week......" + week); //41

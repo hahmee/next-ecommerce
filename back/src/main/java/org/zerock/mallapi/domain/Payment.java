@@ -32,10 +32,11 @@ public class Payment extends BaseEntity {
 
     private int totalAmount;  //-- 총 주문 금액
 
+//    private int totalAmountWithOthers;  //-- 총 주문 금액 + 세금 + 배송비
+
     private TossPaymentStatus status; // 토스 주문의 상태
 
     private TossPaymentType type; //토스 페이먼트 타입
-
 
 
 }

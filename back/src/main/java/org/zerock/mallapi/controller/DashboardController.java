@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.domain.ChartContext;
-import org.zerock.mallapi.dto.CardResponseDTO;
-import org.zerock.mallapi.dto.ChartRequestDTO;
-import org.zerock.mallapi.dto.ChartResponseDTO;
-import org.zerock.mallapi.dto.DataResponseDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.DashboardService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -59,6 +58,16 @@ public class DashboardController {
     return DataResponseDTO.of(dashboardService.getSalesList(chartRequestDTO));
   }
 
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/salesCustomers")
+  public DataResponseDTO<List<TopCustomerResponseDTO>> topCustomerList(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    log.info("ChartRequestDTO.." + topCustomerRequestDTO);
+
+
+    return DataResponseDTO.of(dashboardService.getTopCustomerList(topCustomerRequestDTO));
+  }
 
 
 }
