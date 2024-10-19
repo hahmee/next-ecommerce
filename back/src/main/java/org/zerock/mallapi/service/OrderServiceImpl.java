@@ -2,6 +2,8 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.*;
@@ -104,7 +106,7 @@ public class OrderServiceImpl implements OrderService{
 
     List<Object[]> comparedSales  = orderRepository.findComparedSalesOrdersAvg(sellerEmail, comparedStartDateTime, comparedEndDateTime);
 
-    log.info("comparedSales.?!??!" + comparedSales.get(0)[0]);//null
+    log.info("comparedSales.?!??!" + comparedSales.get(0)[0]); //null
 
     List<Object[]> emptyList = new ArrayList<>();
 
@@ -267,7 +269,28 @@ public class OrderServiceImpl implements OrderService{
     String sellerEmail = topCustomerRequestDTO.getSellerEmail();
 
 
-    return orderRepository.findTopCutsomers(sellerEmail, startDateTime, endDateTime);
+    Pageable pageable = PageRequest.of(0, 5); // 0번째 페이지, 5개의 결과만
+
+    return orderRepository.findTopCustomers(sellerEmail, startDateTime, endDateTime, pageable);
+
+  }
+
+  @Override
+  public List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(topCustomerRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+    LocalDate endDate = LocalDate.parse(topCustomerRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
+
+
+    Pageable pageable = PageRequest.of(0, 5); // 0번째 페이지, 5개의 결과만
+
+    return orderRepository.findTopProducts(sellerEmail, startDateTime, endDateTime, pageable);
 
   }
 

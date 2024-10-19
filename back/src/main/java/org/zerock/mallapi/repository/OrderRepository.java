@@ -1,11 +1,11 @@
 package org.zerock.mallapi.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.mallapi.domain.Order;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -197,8 +197,6 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
 
 
-
-
     @Query("SELECT o.owner.email, COUNT(o.productInfo.qty), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax) " +
             "FROM Order o " +
             "WHERE o.seller.email = :email " +
@@ -206,9 +204,27 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
             "AND o.createdAt BETWEEN :startDate AND :endDate " +
             "GROUP BY o.owner.email " +
             "ORDER BY SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax) DESC")
-    List<Object[]> findTopCutsomers(@Param("email") String email,
+    List<Object[]> findTopCustomers(@Param("email") String email,
                                     @Param("startDate") LocalDateTime startDate,
-                                    @Param("endDate") LocalDateTime endDate);
+                                    @Param("endDate") LocalDateTime endDate,
+                                    Pageable pageable);
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @Query("SELECT o.productInfo.pno, o.productInfo.pname, o.productInfo.color, o.productInfo.size, COUNT(o.productInfo.qty), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax), o.productInfo.thumbnailUrl " +
+            "FROM Order o " +
+            "WHERE o.seller.email = :email " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY o.productInfo.pno " +
+            "ORDER BY SUM(o.productInfo.qty) DESC")
+    List<Object[]> findTopProducts(@Param("email") String email,
+                                   @Param("startDate") LocalDateTime startDate,
+                                   @Param("endDate") LocalDateTime endDate,
+                                   Pageable pageable);
+
+
+
 
 
 //    // 각 날짜별로 총 매출, 총 매출, 총 주문 수, 평균 주문 금액을 반환

@@ -69,6 +69,16 @@ public class DashboardController {
     return DataResponseDTO.of(dashboardService.getTopCustomerList(topCustomerRequestDTO));
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/salesProducts")
+  public DataResponseDTO<List<TopProductResponseDTO>> topProductList(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    log.info("ChartRequestDTO.." + topCustomerRequestDTO);
+
+
+    return DataResponseDTO.of(dashboardService.getTopProductList(topCustomerRequestDTO));
+  }
+
 
 }
 

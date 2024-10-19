@@ -1,4 +1,5 @@
 import Image from "next/image";
+import {TopProductResponse} from "@/interface/TopProductResponse";
 
 const brandData: any[] = [
   {
@@ -43,14 +44,15 @@ const brandData: any[] = [
   },
 ];
 
-const TableOne = () => {
+const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | undefined}) => {
+
   return (
       <div className="rounded-sm border border-stroke bg-white  pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white sm:px-7.5 xl:pb-1">
-          Top stats
+          Top order stats
         </h4>
 
-        <div className="flex flex-col border-t border-stroke">
+        <div className="flex flex-col">
           <div className="grid grid-cols-3 rounded-sm bg-gray-50 dark:bg-meta-4 sm:grid-cols-5">
             <div className="p-2.5 text-center">
               <h5 className="text-sm font-bold uppercase xsm:text-base">
@@ -79,7 +81,7 @@ const TableOne = () => {
             </div>
           </div>
 
-          {brandData.map((brand, key) => (
+          {topProducts?.map((product, key) => (
               <div
                   className={`grid grid-cols-3 sm:grid-cols-5 ${
                       key === brandData.length - 1
@@ -90,27 +92,27 @@ const TableOne = () => {
               >
                 <div className="flex items-center gap-3 p-2.5">
                   <div className="flex-shrink-0">
-                    <Image src={brand.logo} alt="Brand" width={48} height={48} />
+                    <Image src={product.thumbnail} alt="image" width={48} height={48} className="object-cover w-15 h-10 flex-none"/>
                   </div>
                   <p className="hidden text-black dark:text-white sm:block">
-                    {brand.name}
+                    {product.pname}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
-                  <p className="text-black dark:text-white">{brand.visitors}K</p>
+                  <p className="text-black dark:text-white">{product.quantity.toLocaleString()}</p>
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
-                  <p className="text-meta-3">${brand.revenues}</p>
+                  <p className="text-meta-3">{product.total.toLocaleString()}</p>
                 </div>
 
                 <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                  <p className="text-black dark:text-white">{brand.sales}</p>
+                  <p className="text-black dark:text-white">{product.change}</p>
                 </div>
 
                 <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                  <p className="text-meta-5">{brand.conversion}%</p>
+                  <p className="text-meta-5">{product.grossSales}</p>
                 </div>
               </div>
           ))}
@@ -119,4 +121,4 @@ const TableOne = () => {
   );
 };
 
-export default TableOne;
+export default TopOrderTable;

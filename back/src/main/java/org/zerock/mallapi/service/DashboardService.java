@@ -17,6 +17,8 @@ public interface DashboardService {
 
   List<TopCustomerResponseDTO> getTopCustomerList(TopCustomerRequestDTO topCustomerRequestDTO);
 
+  List<TopProductResponseDTO> getTopProductList(TopCustomerRequestDTO topCustomerRequestDTO);
+
 
 
 }

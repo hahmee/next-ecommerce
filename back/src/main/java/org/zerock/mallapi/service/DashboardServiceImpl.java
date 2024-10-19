@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.mallapi.domain.ChartFilter;
-import org.zerock.mallapi.domain.Order;
-import org.zerock.mallapi.domain.Review;
+import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
 
 import java.time.DayOfWeek;
@@ -14,6 +12,7 @@ import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -556,6 +555,51 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
     return topCustomerResponseDTOS;
+  }
+
+  @Override
+  public List<TopProductResponseDTO> getTopProductList(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    //TOP 5
+    List<Object[]> results = orderService.getTopProducts(topCustomerRequestDTO);
+
+
+    List<TopProductResponseDTO> dtoList = results.stream().map(arr -> {
+
+      Long pno = (Long) arr[0]; //pno
+      String pname = (String) arr[1]; // pname
+      ColorTag color = (ColorTag) arr[2]; // color
+      String size = (String) arr[3]; // size
+      Long count = (Long) arr[4]; // count
+      Long total = (Long) arr[5]; // total
+      String thumbnail = (String) arr[6]; // total
+
+
+      log.info("color................ " + color);
+
+      ColorTagDTO colorTagDTO = ColorTagDTO.builder()
+              .color(color.getColor())
+              .text(color.getText())
+              .id(color.getId())
+              .build();
+
+      TopProductResponseDTO topCustomerResponseDTO = TopProductResponseDTO.builder()
+              .pno(pno)
+              .pname(pname)
+              .size(size)
+              .color(colorTagDTO)
+              .quantity(count)
+              .total(total)
+              .thumbnail(thumbnail)
+              .build();
+
+      return topCustomerResponseDTO;
+
+
+    }).collect(Collectors.toList());
+
+
+    return dtoList;
   }
 
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차

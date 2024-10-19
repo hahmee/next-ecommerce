@@ -26,5 +26,7 @@ public interface OrderService {
 
   List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO);
 
+  List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO);
+
 
 }

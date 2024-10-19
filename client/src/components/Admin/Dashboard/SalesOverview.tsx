@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
 import AdminDatePicker from "@/components/Admin/AdminDatePicker";
 import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
@@ -12,10 +12,12 @@ import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
 import {CardResponse} from "@/interface/CardResponse";
-import TableOne from "@/components/Tables/TableOne";
+import TableOne from "@/components/Tables/TopOrderTable";
 import TopCustomers from "@/components/Chats/TopCustomers";
 import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
 import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
+import {TopProductResponse} from "@/interface/TopProductResponse";
+import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -71,11 +73,6 @@ const SalesOverview: React.FC = () => {
     endDate: comparedEndDate.toISOString().split("T")[0],
   });
 
-  useEffect(() => {
-    console.log('date', date);
-    console.log('comparedDate', comparedDate);
-
-  }, [date,comparedDate]);
 
   const {
     data: salesCards,
@@ -98,8 +95,6 @@ const SalesOverview: React.FC = () => {
       return data.data;
     }
   });
-
-  console.log('salesCards', salesCards);
 
   const {
     data: salesCharts,
@@ -127,7 +122,7 @@ const SalesOverview: React.FC = () => {
   const {
     data: topCustomers,
   } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
-    queryKey: ['customers'],
+    queryKey: ['customers', date],
     queryFn: () => getTopCustomers({
       startDate: date.startDate,
       endDate: date.endDate,
@@ -142,7 +137,27 @@ const SalesOverview: React.FC = () => {
     }
   });
 
-  console.log('topCustomers', topCustomers);
+
+  const {
+    data: topProducts,
+  } = useQuery<DataResponse<Array<TopProductResponse>>, Object, Array<TopProductResponse>>({
+    queryKey: ['products', date],
+    queryFn: () => getTopProducts({
+      startDate: date.startDate,
+      endDate: date.endDate,
+      sellerEmail: member.email,
+    }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    throwOnError: false,
+    select: (data) => {
+      // 데이터 가공 로직만 처리
+      return data.data;
+    }
+  });
+
+
+  console.log('topProducts', topProducts);
 
   const dateChange = (value:any) => {
 
@@ -294,7 +309,7 @@ const SalesOverview: React.FC = () => {
           {/*<ChartThree/>*/}
           {/*<MapOne />*/}
           <div className="col-span-12 xl:col-span-8">
-            <TableOne/>
+            <TableOne topProducts={topProducts}/>
           </div>
           <TopCustomers topCustomers={topCustomers} />
         </div>

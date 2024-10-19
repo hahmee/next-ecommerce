@@ -150,7 +150,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     <tbody>
                     {productData?.dtoList?.map((product, key) => (
                         <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2 ">
+                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
                                 {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
                                     <Image
                                         src={product.uploadFileNames[0]?.file}

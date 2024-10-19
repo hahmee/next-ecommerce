@@ -43,7 +43,6 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 
 const SalesChart = ({chart, filter, filterChange}: { chart: ChartResponse | undefined | null, filter:ChartFilter, filterChange: (filter:ChartFilter) => void }) => {
 
-  console.log('chart....', chart);
   const series = chart?.series || [{name: "", data: []}];
   const xaxis = chart?.xaxis || [];
 

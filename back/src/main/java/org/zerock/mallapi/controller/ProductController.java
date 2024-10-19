@@ -125,7 +125,7 @@ public class ProductController {
   @GetMapping("/searchAdminList") // searchAdminList?search=검색어&page=1&size=10
   public DataResponseDTO<PageResponseDTO<ProductDTO>> searchAdminList(SearchRequestDTO searchRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
-    log.info("search............" + searchRequestDTO); // 왜 안뜨냐,,
+    log.info("search............" + searchRequestDTO);
 
     DataResponseDTO<PageResponseDTO<ProductDTO>> result =  DataResponseDTO.of(productService.getSearchAdminList(searchRequestDTO, userDetails));
 

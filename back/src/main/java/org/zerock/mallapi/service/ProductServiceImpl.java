@@ -304,7 +304,6 @@ public class ProductServiceImpl implements ProductService{
 
       MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
 
-      //test..
       CategoryDTO categoryDTO = CategoryDTO.builder()
               .cno(product.getAdminCategory().getCno())
               .cname(product.getAdminCategory().getCname())
