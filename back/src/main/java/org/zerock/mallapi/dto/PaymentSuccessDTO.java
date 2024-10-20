@@ -28,5 +28,6 @@ public class PaymentSuccessDTO {
   String cultureExpense;
   Object card;
   TossPaymentType type;
+  String country;
 
 }

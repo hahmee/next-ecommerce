@@ -12,6 +12,7 @@ import {ChartContext} from "@/types/chartContext";
 import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
 import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
 import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
+import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -69,6 +70,14 @@ export default async function DashBoardPage() {
         {
             queryKey: ['products', date],
             queryFn: () => getTopProducts({
+                startDate: startDate.toISOString().split("T")[0],
+                endDate: endDate.toISOString().split("T")[0],
+                sellerEmail: member?.email || "",
+            }),
+        },
+        {
+            queryKey: ['countries', date],
+            queryFn: () => getSalesByCountry({
                 startDate: startDate.toISOString().split("T")[0],
                 endDate: endDate.toISOString().split("T")[0],
                 sellerEmail: member?.email || "",

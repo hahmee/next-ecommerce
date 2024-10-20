@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.mallapi.domain.Payment;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,18 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
     @Query("select distinct p from Payment p join Order o on p.orderId = o.orderId where o.seller.email = :email and (p.orderName like concat('%', :search, '%') or p.orderId like concat('%', :search, '%')) and p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE")
     Page<Payment> searchAdminPaymentList(Pageable pageable, @Param("search") String search, @Param("email") String email);
 
-    @Query("select distinct p from Payment p join Order o on p.orderId = o.orderId where o.seller.email = :email and (p.orderName like concat('%', :search, '%') or p.orderId like concat('%', :search, '%')) and p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE")
-    List<Payment> findSales();
+    //Sales-Overview
+    @Query("SELECT p.country, SUM(o.productInfo.qty * o.productInfo.price) " +
+            "FROM Payment p " +
+            "JOIN Order o ON p.orderId = o.orderId " +
+            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
+            "AND o.createdAt BETWEEN :startDate AND :endDate " +
+            "WHERE o.seller.email = :email " +
+            "GROUP BY p.country")
+    List<Object[]> findSalesByCountry(@Param("email") String email,
+                                      @Param("startDate") LocalDateTime startDate,
+                                      @Param("endDate") LocalDateTime endDate);
+
+
 
 }

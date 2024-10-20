@@ -49,11 +49,11 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
   return (
       <div className="rounded-sm border border-stroke bg-white  pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <h4 className="mb-6 text-xl font-semibold text-black dark:text-white sm:px-7.5 xl:pb-1">
-          Top order stats
+          Top Selling items
         </h4>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-3 rounded-sm bg-gray-50 dark:bg-meta-4 sm:grid-cols-5">
+          <div className="grid grid-cols-4 rounded-sm bg-gray-50 dark:bg-meta-4 sm:grid-cols-6">
             <div className="p-2.5 text-center">
               <h5 className="text-sm font-bold uppercase xsm:text-base">
                 Item name
@@ -61,7 +61,12 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
             </div>
             <div className="p-2.5 text-center">
               <h5 className="text-sm font-bold uppercase xsm:text-base">
-                Quantity
+                Options
+              </h5>
+            </div>
+            <div className="p-2.5 text-center">
+              <h5 className="text-sm font-bold uppercase xsm:text-base">
+                  Quantity
               </h5>
             </div>
             <div className="p-2.5 text-center">
@@ -83,7 +88,7 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
 
           {topProducts?.map((product, key) => (
               <div
-                  className={`grid grid-cols-3 sm:grid-cols-5 ${
+                  className={`grid grid-cols-4 sm:grid-cols-6 ${
                       key === brandData.length - 1
                           ? ""
                           : "border-b border-stroke dark:border-strokedark"
@@ -92,12 +97,23 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
               >
                 <div className="flex items-center gap-3 p-2.5">
                   <div className="flex-shrink-0">
-                    <Image src={product.thumbnail} alt="image" width={48} height={48} className="object-cover w-15 h-10 flex-none"/>
+                    <Image src={product.thumbnail} alt="image" width={500} height={500} className="object-cover w-15 h-10 flex-none"/>
                   </div>
                   <p className="hidden text-black dark:text-white sm:block">
                     {product.pname}
                   </p>
                 </div>
+
+                <div className="flex items-center justify-center p-2.5 xl:p-5">
+                    <span
+                        className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 mr-2">
+                      {product.size}
+                    </span>
+                  <span
+                      className="bg-green-100 text-green-800 text-xs px-1.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
+                      {product.color.text}
+                    </span>
+               </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
                   <p className="text-black dark:text-white">{product.quantity.toLocaleString()}</p>

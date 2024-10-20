@@ -12,12 +12,15 @@ import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
 import {CardResponse} from "@/interface/CardResponse";
-import TableOne from "@/components/Tables/TopOrderTable";
+import TopOrderTable from "@/components/Tables/TopOrderTable";
 import TopCustomers from "@/components/Chats/TopCustomers";
 import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
 import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
 import {TopProductResponse} from "@/interface/TopProductResponse";
 import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
+import dynamic from "next/dynamic";
+import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
+import {MapResponse} from "@/interface/MapResponse";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -43,6 +46,9 @@ const data = {
     }
   ],
 };
+
+const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
+
 
 const SalesOverview: React.FC = () => {
 
@@ -156,8 +162,26 @@ const SalesOverview: React.FC = () => {
     }
   });
 
+  const {
+    data: countries,
+  } = useQuery<DataResponse<Array<MapResponse>>, Object, Array<MapResponse>>({
+    queryKey: ['countries', date],
+    queryFn: () => getSalesByCountry({
+      startDate: date.startDate,
+      endDate: date.endDate,
+      sellerEmail: member.email,
+    }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    throwOnError: false,
+    select: (data) => {
+      // 데이터 가공 로직만 처리
+      return data.data;
+    }
+  });
 
-  console.log('topProducts', topProducts);
+
+  console.log('countries', countries);
 
   const dateChange = (value:any) => {
 
@@ -307,9 +331,9 @@ const SalesOverview: React.FC = () => {
           <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
           {/*<ChartTwo/>*/}
           {/*<ChartThree/>*/}
-          {/*<MapOne />*/}
+          <CountryMap countries={countries}/>
           <div className="col-span-12 xl:col-span-8">
-            <TableOne topProducts={topProducts}/>
+            <TopOrderTable topProducts={topProducts}/>
           </div>
           <TopCustomers topCustomers={topCustomers} />
         </div>

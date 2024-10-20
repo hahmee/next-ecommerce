@@ -8,18 +8,18 @@ import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
 
 interface Props {
-    paymentKey: string | undefined | string[];
-    orderId: string | undefined | string[];
-    amount: string | undefined | string[];
+    paymentKey: string;
+    orderId: string;
+    amount: string;
 }
 
 const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
     const {getCart } = useCartStore();
 
     //데이터 가져온 후 다른 페이지로 이동..?
-    const {data: payment, error} = useQuery<DataResponse<any>, any, any, [_1: string]>({
-        queryKey: ['payment'],
-        queryFn: () => getSuccessPayment({queryKey: ['payment'], paymentKey, orderId, amount}),
+    const {data: payment, error} = useQuery<DataResponse<any>, any, any, [_1: string, _2: string]>({
+        queryKey: ['payment', orderId],
+        queryFn: () => getSuccessPayment({queryKey: ['payment', orderId], paymentKey, orderId, amount}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         select: useCallback((data: DataResponse<any>) => {

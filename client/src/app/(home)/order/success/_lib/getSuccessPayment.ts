@@ -16,8 +16,11 @@ export async function getSuccessPayment({queryKey, paymentKey, orderId, amount}:
         console.log('resultJson?????????? ', resultJson);
 
         return resultJson;
+
     }catch (error:any) {
+
         console.log('ddddderror ', error.message);
+
     }
 
 

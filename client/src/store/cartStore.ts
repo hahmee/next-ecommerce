@@ -15,6 +15,7 @@ type CartState = {
   changeOpen: (isOpen:boolean) => void,
   shippingFee:number,
   tax:number,
+  total: number
 };
 
 export const useCartStore = create<CartState>((set) => ({
@@ -25,10 +26,10 @@ export const useCartStore = create<CartState>((set) => ({
   subtotal: 0,
   shippingFee:0,
   tax:0,
+  total:0,
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})
   },
-
   getCart: async () => {
     try {
       const cart = await fetchWithAuth(`/api/cart/items`, {
@@ -42,7 +43,9 @@ export const useCartStore = create<CartState>((set) => ({
 
       const shippingFee = subtotal > 100000 ? 0 : 3500;
 
-      const tax = (subtotal + shippingFee) * 0.05;
+      const tax = Math.round((subtotal + shippingFee) * 0.05);
+
+      const total = subtotal + shippingFee + tax;
 
       set({
         cart: cartItems,
@@ -50,9 +53,9 @@ export const useCartStore = create<CartState>((set) => ({
         counter: cartItems.length,
         subtotal,
         shippingFee,
-        tax
+        tax,
+        total
       });
-
 
     }catch (err) {
       set((prev) => ({ ...prev, isLoading: false }));
@@ -76,7 +79,9 @@ export const useCartStore = create<CartState>((set) => ({
 
     const shippingFee = subtotal > 100000 ? 0 : 3500;
 
-    const tax = (subtotal + shippingFee) * 0.05;
+    const tax = Math.round((subtotal + shippingFee) * 0.05);
+
+    const total = subtotal + shippingFee + tax;
 
     set({
       cart: cartItems,
@@ -84,7 +89,8 @@ export const useCartStore = create<CartState>((set) => ({
       counter: cartItems.length,
       subtotal,
       shippingFee,
-      tax
+      tax,
+      total
     });
 
   },
@@ -104,7 +110,9 @@ export const useCartStore = create<CartState>((set) => ({
 
     const shippingFee = subtotal > 100000 ? 0 : 3500;
 
-    const tax = (subtotal + shippingFee) * 0.05;
+    const tax = Math.round((subtotal + shippingFee) * 0.05);
+
+    const total = subtotal + shippingFee + tax;
 
     set({
       cart: cartItems,
@@ -112,7 +120,8 @@ export const useCartStore = create<CartState>((set) => ({
       counter: cartItems.length,
       subtotal,
       shippingFee,
-      tax
+      tax,
+      total
     });
   },
 

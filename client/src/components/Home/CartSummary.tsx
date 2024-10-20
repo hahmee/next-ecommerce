@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", cartButtonClick?: () => void }) => {
 
-    const {cart, isLoading , subtotal, shippingFee, tax} = useCartStore();
+    const {cart, isLoading , subtotal, shippingFee, tax , total} = useCartStore();
 
     return (
         <div className="w-full lg:w-1/3 bg-white p-6 shadow-sm rounded-lg">
@@ -67,7 +67,7 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
             </div>
             <div className="flex justify-between py-2 font-semibold border-t pt-4">
                 <span>Order total</span>
-                <span>{subtotal.toLocaleString()}</span>
+                <span>{(total).toLocaleString()}</span>
             </div>
 
             <button

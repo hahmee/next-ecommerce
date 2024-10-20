@@ -23,6 +23,9 @@ public class DashboardServiceImpl implements DashboardService{
 
   private final OrderService orderService;
 
+  private final PaymentService paymentService;
+
+
   @Override
   public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO) {
 
@@ -594,6 +597,32 @@ public class DashboardServiceImpl implements DashboardService{
               .build();
 
       return topCustomerResponseDTO;
+
+
+    }).collect(Collectors.toList());
+
+
+    return dtoList;
+  }
+
+  @Override
+  public List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+
+    //TOP 5
+    List<Object[]> results = paymentService.getSalesByCountry(topCustomerRequestDTO);
+
+    List<MapSalesResponseDTO> dtoList = results.stream().map(arr -> {
+
+      String country = (String) arr[0];
+      Long totalSales = (Long) arr[1];
+
+      MapSalesResponseDTO mapSalesResponseDTO = MapSalesResponseDTO.builder()
+              .country(country)
+              .totalSales(totalSales)
+              .build();
+
+      return mapSalesResponseDTO;
 
 
     }).collect(Collectors.toList());

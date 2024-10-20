@@ -79,6 +79,16 @@ public class DashboardController {
     return DataResponseDTO.of(dashboardService.getTopProductList(topCustomerRequestDTO));
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @GetMapping("/salesByCountry")
+  public DataResponseDTO<List<MapSalesResponseDTO>> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    log.info("ChartRequestDTO.." + topCustomerRequestDTO);
+
+
+    return DataResponseDTO.of(dashboardService.getByCountryList(topCustomerRequestDTO));
+  }
+
 
 }
 

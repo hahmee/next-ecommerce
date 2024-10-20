@@ -24,7 +24,9 @@ import org.zerock.mallapi.repository.PaymentRepository;
 import org.zerock.mallapi.util.GeneralException;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -143,6 +145,7 @@ public class PaymentServiceImpl implements PaymentService{
             .totalAmount(paymentSuccessDTO.getTotalAmount())
             .orderName(paymentSuccessDTO.getOrderName())
             .owner(owner) //구매자
+            .country(paymentSuccessDTO.getCountry())
             .build();
 
     return payment;
@@ -276,7 +279,7 @@ public class PaymentServiceImpl implements PaymentService{
     PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
 
 
-    log.info("______ result + 이게 안나오네..." + result);
+    log.info("______ result..." + result);
 
 
 
@@ -322,6 +325,25 @@ private PaymentDTO convertToDTO(Payment payment){
     headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
     return headers;
+  }
+
+
+  //Sales-Overview
+  @Override
+  public List<Object[]> getSalesByCountry(TopCustomerRequestDTO topCustomerRequestDTO) {
+
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(topCustomerRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+    LocalDate endDate = LocalDate.parse(topCustomerRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
+
+
+    return paymentRepository.findSalesByCountry(sellerEmail, startDateTime, endDateTime);
+
   }
 
 
