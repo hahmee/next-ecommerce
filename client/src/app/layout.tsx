@@ -3,14 +3,16 @@ import {Inter} from "next/font/google";
 import "./globals.css";
 import React from "react";
 import RQProvider from "@/components/RQProvider";
-import AuthSession from "@/components/AuthSession";
 import {Toaster} from "react-hot-toast";
+import Script from "next/script";
+
+const GA_TRACKING_ID = process.env.GOOGLE_GA_TRACKING_ID;
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: "E-Commerce Application",
-    description: "A complete e-commerce application with Next.js",
+    description: "A e-commerce application with Next.js",
     icons: {
         icon: "/logo.png",
     },
@@ -30,15 +32,15 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         </html>
     );
 
-  // return (
-  //     <html lang="en">
-  //     <body className={inter.className}>
-  //     <AuthSession>
-  //         <Navbar/>
-  //             {children}
-  //         <Footer/>
-  //     </AuthSession>
-  //     </body>
-  //     </html>
-  // );
+    // return (
+    //     <html lang="en">
+    //     <body className={inter.className}>
+    //     <AuthSession>
+    //         <Navbar/>
+    //             {children}
+    //         <Footer/>
+    //     </AuthSession>
+    //     </body>
+    //     </html>
+    // );
 }

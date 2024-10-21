@@ -49,6 +49,7 @@ const data = {
 
 const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
 
+const SalesPieChart = dynamic(() => import("./Charts/SalesPieChart"), { ssr: false });
 
 const SalesOverview: React.FC = () => {
 
@@ -327,11 +328,11 @@ const SalesOverview: React.FC = () => {
           </CardDataStats>
         </div>
 
-        <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+        <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
           {/*<ChartTwo/>*/}
-          {/*<ChartThree/>*/}
           <CountryMap countries={countries}/>
+          <SalesPieChart countries={countries}/>
           <div className="col-span-12 xl:col-span-8">
             <TopOrderTable topProducts={topProducts}/>
           </div>

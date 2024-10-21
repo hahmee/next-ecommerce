@@ -25,8 +25,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
     const levelDown: boolean =  rate && rate < 0 || false;
 
     return (
-      <div className={`rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark cursor-pointer dark:bg-boxdark ${selectedCard === id ? "bg-primary-50 border-primary-400 dark:border-white dark:bg-gray-700" : "bg-white border-stroke hover:bg-gray-50 dark:hover:bg-gray-700"} active:bg-primary-100 focus:bg-primary-100`}
-        onClick={() => clickCard(id)}>
+      <div className={`rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark cursor-pointer dark:bg-boxdark ${selectedCard === id ? "bg-primary-50 border-primary-400 dark:border-white dark:bg-gray-700" : "bg-white border-stroke hover:bg-gray-50 dark:hover:bg-gray-700"} active:bg-primary-100 focus:bg-primary-100`} onClick={() => clickCard(id)}>
         <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
           {children}
         </div>

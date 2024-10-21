@@ -59,11 +59,15 @@ const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
     console.log('result', result);
     const mapOne = new jsVectorMap({
       selector: "#mapOne",
+      focusOn: {
+        // regions: ['EG', 'KR'],
+        animate: true
+      },
       series: {
         regions: [{
           attribute: "fill",
           legend: {
-            title: "Some title",
+            title: "Country",
           },
           scale: {
             myScaleOne: "#A2B6F2",
@@ -83,34 +87,24 @@ const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
       }
     });
 
+
     return () => {
-      const map = document.getElementById("mapOne");
-      if (map) {
-        map.innerHTML = "";
-      }
-      // mapOne.destroy();
+      // const map = document.getElementById("mapOne");
+      // if (map) {
+      //   map.innerHTML = "";
+      // }
+      mapOne.destroy();
     };
   }, []);
 
+
   return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark  xl:col-span-8">
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
           Sales by billing location: country
         </h4>
         <div className="h-90">
           <div id="mapOne" className="mapOne map-btn"></div>
-        </div>
-        <div>
-          <div>Countries</div>
-          <div>
-            {
-              countries?.map(country => {
-                return <div key={country.country}>
-
-                </div>
-              })
-            }
-          </div>
         </div>
       </div>
   );
