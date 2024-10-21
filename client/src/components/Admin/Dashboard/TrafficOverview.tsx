@@ -19,6 +19,7 @@ import dynamic from "next/dynamic";
 import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
 import {MapResponse} from "@/interface/MapResponse";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
+import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -82,16 +83,8 @@ const TrafficOverview: React.FC = () => {
   const {
     data: salesCards,
   } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
-    queryKey: ['salesCards', currentFilter, date, selectedCard],
-    queryFn: () => getSalesCards({
-      startDate: date.startDate,
-      endDate: date.endDate,
-      sellerEmail: member.email,
-      filter: currentFilter,
-      comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,
-      context: selectedCard,
-    }),
+    queryKey: ['test'],
+    queryFn: () => getGoogleAnalytics(),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: false,
@@ -101,86 +94,7 @@ const TrafficOverview: React.FC = () => {
     }
   });
 
-  const {
-    data: salesCharts,
-  } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
-    queryKey: ['salesCharts', currentFilter, date, selectedCard],
-    queryFn: () => getSalesCharts({
-      startDate: date.startDate,
-      endDate: date.endDate,
-      sellerEmail: member.email,
-      filter: currentFilter,
-      comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,
-      context: selectedCard,// ChartContext.TOPSALES,
-    }),
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-    throwOnError: false,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
-  });
-
-
-  const {
-    data: topCustomers,
-  } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
-    queryKey: ['customers', date],
-    queryFn: () => getTopCustomers({
-      startDate: date.startDate,
-      endDate: date.endDate,
-      sellerEmail: member.email,
-    }),
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-    throwOnError: false,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
-  });
-
-
-  const {
-    data: topProducts,
-  } = useQuery<DataResponse<Array<TopProductResponse>>, Object, Array<TopProductResponse>>({
-    queryKey: ['products', date],
-    queryFn: () => getTopProducts({
-      startDate: date.startDate,
-      endDate: date.endDate,
-      sellerEmail: member.email,
-    }),
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-    throwOnError: false,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
-  });
-
-  const {
-    data: countries,
-  } = useQuery<DataResponse<Array<MapResponse>>, Object, Array<MapResponse>>({
-    queryKey: ['countries', date],
-    queryFn: () => getSalesByCountry({
-      startDate: date.startDate,
-      endDate: date.endDate,
-      sellerEmail: member.email,
-    }),
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-    throwOnError: false,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
-  });
-
-
-  console.log('countries', countries);
+  console.log('countries', salesCards);
 
   const dateChange = (value:any) => {
 
@@ -246,7 +160,7 @@ const TrafficOverview: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
+          {/*<SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>*/}
           {/*<ChartTwo/>*/}
           <div className="col-span-12 xl:col-span-8">
           </div>

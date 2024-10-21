@@ -13,6 +13,7 @@ import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomer
 import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
 import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
+import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -36,52 +37,8 @@ export default async function DashBoardPage() {
 
     const prefetchOptions = [
         {
-            queryKey: ['salesCards', ChartFilter.DAY, date, ChartContext.TOPSALES],
-            queryFn: () => getSalesCards({
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
-                sellerEmail: member?.email || "",
-                filter: ChartFilter.DAY,
-                comparedStartDate: comparedStartDate.toISOString().split("T")[0],
-                comparedEndDate: comparedEndDate.toISOString().split("T")[0],
-                context: ChartContext.TOPSALES,
-            }),
-        },
-        {
-            queryKey: ['salesCharts', ChartFilter.DAY, date, ChartContext.TOPSALES],
-            queryFn: () => getSalesCharts({
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
-                sellerEmail: member?.email || "",
-                filter: ChartFilter.DAY,
-                comparedStartDate: comparedStartDate.toISOString().split("T")[0],
-                comparedEndDate: comparedEndDate.toISOString().split("T")[0],
-                context: ChartContext.TOPSALES,
-            }),
-        },
-        {
-            queryKey: ['customers', date],
-            queryFn: () => getTopCustomers({
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
-                sellerEmail: member?.email || "",
-            }),
-        },
-        {
-            queryKey: ['products', date],
-            queryFn: () => getTopProducts({
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
-                sellerEmail: member?.email || "",
-            }),
-        },
-        {
-            queryKey: ['countries', date],
-            queryFn: () => getSalesByCountry({
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
-                sellerEmail: member?.email || "",
-            }),
+            queryKey: ['test'],
+            queryFn: () => getGoogleAnalytics(),
         },
     ]
 

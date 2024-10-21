@@ -25,7 +25,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   private final PaymentService paymentService;
 
-
   @Override
   public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO) {
 
