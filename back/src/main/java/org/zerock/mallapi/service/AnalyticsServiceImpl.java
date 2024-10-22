@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AnalyticsServiceImpl implements AnalyticsService{
 
-  private static final String GOOGLE_APPLICATION_CREDENTIALS = "/src/main/resources/credentials/credentials.json";
-
   @Autowired
   private Environment environment;
 

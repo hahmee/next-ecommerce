@@ -7,7 +7,7 @@ build/
 
 
 #GA#
-/strc/main/resources/credenials/*.json
+/src/main/resources/credentials/*.json
 
 
 ### STS ###
