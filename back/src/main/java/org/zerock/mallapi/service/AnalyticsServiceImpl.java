@@ -8,12 +8,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Log4j2
 @RequiredArgsConstructor
 @Transactional
 public class AnalyticsServiceImpl implements AnalyticsService{
 
+  private static final String GOOGLE_APPLICATION_CREDENTIALS = "/src/main/resources/credentials/credentials.json";
 
   @Autowired
   private Environment environment;
@@ -29,7 +31,8 @@ public class AnalyticsServiceImpl implements AnalyticsService{
 
 
     String propertyId = environment.getProperty("google.analytics.productId");
-//    sampleRunReport(propertyId);
+
+    log.info("propertyId....", propertyId);
 
     try {
       sampleRunReport(propertyId);
@@ -43,8 +46,7 @@ public class AnalyticsServiceImpl implements AnalyticsService{
     // specified in GOOGLE_APPLICATION_CREDENTIALS environment variable.
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
-      RunReportRequest request =
-              RunReportRequest.newBuilder()
+      RunReportRequest request = RunReportRequest.newBuilder()
                       .setProperty("properties/" + propertyId)
                       .addDimensions(Dimension.newBuilder().setName("city"))
                       .addMetrics(Metric.newBuilder().setName("activeUsers"))

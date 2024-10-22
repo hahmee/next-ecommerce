@@ -6,6 +6,10 @@ build/
 !**/src/test/**/build/
 
 
+#GA#
+/strc/main/resources/credenials/*.json
+
+
 ### STS ###
 .apt_generated
 .classpath
