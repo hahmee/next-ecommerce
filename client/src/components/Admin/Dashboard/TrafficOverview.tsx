@@ -20,6 +20,7 @@ import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCo
 import {MapResponse} from "@/interface/MapResponse";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
+import {GoogleAnalyticsResponse} from "@/interface/GoogleAnalyticsResponse";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -81,10 +82,16 @@ const TrafficOverview: React.FC = () => {
 
 
   const {
-    data: salesCards,
-  } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
-    queryKey: ['test'],
-    queryFn: () => getGoogleAnalytics(),
+    data: gaData,
+  } = useQuery<DataResponse<GoogleAnalyticsResponse>, Object, GoogleAnalyticsResponse>({
+    queryKey: ['ga', date],
+    queryFn: () => getGoogleAnalytics({
+      startDate: date.startDate,
+      endDate: date.endDate,
+      sellerEmail: member.email,
+      comparedStartDate: comparedStartDate.toISOString().split("T")[0],
+      comparedEndDate: comparedEndDate.toISOString().split("T")[0],
+    }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: false,
@@ -94,7 +101,7 @@ const TrafficOverview: React.FC = () => {
     }
   });
 
-  console.log('countries', salesCards);
+  console.log('gaData', gaData);
 
   const dateChange = (value:any) => {
 
@@ -155,7 +162,7 @@ const TrafficOverview: React.FC = () => {
         </div>
         <div className="grid grid-cols-1">
 
-          <CardTraffic/>
+          <CardTraffic gaData={gaData}/>
 
         </div>
 

@@ -4,14 +4,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
-import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "@/utils/getCookieUtil";
-import {ChartFilter} from "@/types/chartFilter";
-import {ChartContext} from "@/types/chartContext";
-import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
-import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
-import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
-import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 
@@ -37,8 +30,16 @@ export default async function DashBoardPage() {
 
     const prefetchOptions = [
         {
-            queryKey: ['test'],
-            queryFn: () => getGoogleAnalytics(),
+            queryKey: ['ga', date],
+            queryFn: () => getGoogleAnalytics(
+                {
+                    startDate: startDate.toISOString().split("T")[0],
+                    endDate: endDate.toISOString().split("T")[0],
+                    sellerEmail: member?.email || "",
+                    comparedStartDate: comparedStartDate.toISOString().split("T")[0],
+                    comparedEndDate: comparedEndDate.toISOString().split("T")[0],
+                }
+            ),
         },
     ]
 

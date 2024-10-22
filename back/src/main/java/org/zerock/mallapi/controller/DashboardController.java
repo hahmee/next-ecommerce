@@ -90,6 +90,18 @@ public class DashboardController {
   }
 
 
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @GetMapping("/traffic")
+  public DataResponseDTO<GoogleAnalyticsResponseDTO> getAnalytics(GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO) {
+
+
+    log.info("googleAnalyticsRequestDTO " + googleAnalyticsRequestDTO);
+
+    return DataResponseDTO.of(dashboardService.getGoogleAnalytics(googleAnalyticsRequestDTO));
+
+  }
+
+
 }
 
 

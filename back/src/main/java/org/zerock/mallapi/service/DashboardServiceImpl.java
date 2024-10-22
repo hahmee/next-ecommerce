@@ -1,7 +1,10 @@
 package org.zerock.mallapi.service;
 
+import com.google.analytics.data.v1beta.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.*;
@@ -20,6 +23,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class DashboardServiceImpl implements DashboardService{
 
+  @Autowired
+  private Environment environment;
 
   private final OrderService orderService;
 
@@ -63,7 +68,6 @@ public class DashboardServiceImpl implements DashboardService{
       Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty)/comparedTotalQty) * 100;
       Double avgQtyDifferencePercentage = ((currentAvgQty - comparedAvgQty) / comparedAvgQty) * 100;
 
-      // 결과를 CardResponseDTO에 설정
       // 결과를 CardResponseDTO에 설정
       CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
               .startDate(chartRequestDTO.getStartDate())
@@ -630,6 +634,134 @@ public class DashboardServiceImpl implements DashboardService{
     return dtoList;
   }
 
+  @Override
+  public GoogleAnalyticsResponseDTO getGoogleAnalytics(GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO) {
+
+    String propertyId = environment.getProperty("google.analytics.productId");
+
+    try {
+      GoogleAnalyticsResponseDTO googleAnalyticsResponseDTO =  printGoogleReport(propertyId, googleAnalyticsRequestDTO);
+      return googleAnalyticsResponseDTO;
+
+    } catch (Exception e) {
+      log.error("Error while fetching analytics data: ", e);
+    }
+    return null;
+
+  }
+
+
+  private GoogleAnalyticsResponseDTO printGoogleReport(String propertyId, GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO) throws Exception {
+
+    GoogleAnalyticsResponseDTO googleAnalyticsResponseDTO = null; // 객체 초기화
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+
+      //첫번째 기간에 대한 요청
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("country")) // 국가별로 구분
+//              .addDateRanges(DateRange.newBuilder().setStartDate("2020-03-31").setEndDate("today"))
+              .addDateRanges(DateRange.newBuilder().setStartDate(googleAnalyticsRequestDTO.getStartDate()).setEndDate(googleAnalyticsRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+              .addMetrics(Metric.newBuilder().setName("averageSessionDuration")) // 평균 세션 지속 시간
+              .build();
+
+      // 첫번째 기간에 대한 Run the report
+      RunReportResponse response = analyticsData.runReport(request);
+
+      // 첫 번째 기간의 결과를 저장
+      String sessions = "0", uniqueVisitors = "0", avgSessionDuration = "0";
+
+      if (!response.getRowsList().isEmpty()) {
+        var row = response.getRows(0); // 첫 번째 행을 가져옴
+        sessions = row.getMetricValues(0).getValue();
+        uniqueVisitors = row.getMetricValues(1).getValue();
+        avgSessionDuration = row.getMetricValues(2).getValue();
+      }
+
+      
+      // 두 번째 기간에 대한 요청
+      RunReportRequest compareRequest = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("country")) // 국가별로 구분
+              .addDateRanges(DateRange.newBuilder()
+                      .setStartDate(googleAnalyticsRequestDTO.getComparedStartDate())
+                      .setEndDate(googleAnalyticsRequestDTO.getComparedEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+              .addMetrics(Metric.newBuilder().setName("averageSessionDuration")) // 평균 세션 지속 시간
+              .build();
+
+      // 두 번째 기간에 대한 보고서 실행
+      RunReportResponse compareResponse = analyticsData.runReport(compareRequest);
+
+      // 두 번째 기간의 결과를 저장
+      String sessionsCompared = "0", uniqueVisitorsCompared = "0", avgSessionDurationCompared = "0";
+
+
+      if (!compareResponse.getRowsList().isEmpty()) {
+        var compareRow = compareResponse.getRows(0); // 첫 번째 행을 가져옴
+        sessionsCompared = compareRow.getMetricValues(0).getValue();
+        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
+        avgSessionDurationCompared = compareRow.getMetricValues(2).getValue();
+      }
+
+      googleAnalyticsResponseDTO = GoogleAnalyticsResponseDTO.builder()
+              .sessions(sessions)
+              .uniqueVisitors(uniqueVisitors)
+              .avgSessionDuration(avgSessionDuration)
+              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
+              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
+              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
+              .build();
+      // Output the results
+//      System.out.println("Report result:");
+//      for (Row row : response.getRowsList()) {
+//        // 각 행을 출력
+//        String country = row.getDimensionValues(0).getValue();
+//        String sessions = row.getMetricValues(0).getValue();
+//        String uniqueVisitors = row.getMetricValues(1).getValue();
+//        String avgSessionDuration = row.getMetricValues(2).getValue();
+//
+//        System.out.print("Country: " + country + ", ");
+//        System.out.print("Sessions: " + sessions + ", ");
+//        System.out.print("Unique Visitors: " + uniqueVisitors + ", ");
+//        System.out.print("Average Session Duration: " + avgSessionDuration);
+//        System.out.println();
+//
+//        // 마지막 행의 데이터를 사용하여 GoogleAnalyticsResponseDTO 객체 업데이트
+//        googleAnalyticsResponseDTO = GoogleAnalyticsResponseDTO.builder()
+//                .sessions(sessions)
+//                .uniqueVisitors(uniqueVisitors)
+//                .avgSessionDuration(avgSessionDuration)
+//                .build();
+//      }
+    }
+
+    return googleAnalyticsResponseDTO; // 마지막 행의 객체 반환
+
+  }
+
+
+  // 비율 차이 계산 메서드
+  private String calculatePercentageDifference(String currentValue, String comparedValue) {
+    try {
+      double current = Double.parseDouble(currentValue);
+      double compared = Double.parseDouble(comparedValue);
+
+      if (compared == 0) return current == 0 ? "0%" : "∞%"; // 비교 값이 0일 때 처리
+
+      double difference = ((current - compared) / compared) * 100;
+      return String.format("%.2f%%", difference);
+    } catch (NumberFormatException e) {
+      return "0%"; // 숫자 형식이 아닐 경우 기본값
+    }
+  }
+
+
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차
     log.info("year....." + year);
     log.info("week......" + week); //41
@@ -655,21 +787,5 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  private CardResponseDTO convertToDTO(Review review) {
-
-    return null;
-
-//    return CardResponseDTO.builder()
-//            .startDate()
-//            .endDate()
-//            .totalSales()
-//            .totalOrders()
-//            .avgOrdersCompared()
-//            .totalSalesCompared()
-//            .avgOrders()
-//            .totalOrdersCompared()
-//            .build();
-
-  }
 
 }

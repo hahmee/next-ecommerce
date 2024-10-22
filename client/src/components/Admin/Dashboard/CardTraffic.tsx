@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 import {ChartContext} from "@/types/chartContext";
+import {GoogleAnalyticsResponse} from "@/interface/GoogleAnalyticsResponse";
 
 
 
-const CardDataStats: React.FC = () => {
+const CardDataStats = ({gaData}:{gaData: GoogleAnalyticsResponse | undefined}) => {
 
     return (
         <div
@@ -11,9 +12,9 @@ const CardDataStats: React.FC = () => {
             <div>
                 <div>Site sessions</div>
                 <div className="flex items-center justify-between">
-                    <div>1,731</div>
+                    <div>{gaData?.sessions}</div>
                     <div className="flex items-center">
-                        100%
+                        {gaData?.sessionsCompared}
                         <svg
                             className="fill-meta-5"
                             width="10"
@@ -33,9 +34,9 @@ const CardDataStats: React.FC = () => {
             <div>
                 <div>Unique visitors</div>
                 <div className="flex items-center justify-between">
-                    <div>1,731</div>
+                    <div>{gaData?.uniqueVisitors}</div>
                     <div className="flex items-center">
-                        100%
+                        {gaData?.uniqueVisitorsCompared}
                         <svg
                             className="fill-meta-5"
                             width="10"
@@ -55,9 +56,9 @@ const CardDataStats: React.FC = () => {
             <div>
                 <div>Avg. session duration</div>
                 <div className="flex items-center justify-between">
-                    <div>1,731</div>
+                    <div>{gaData?.avgSessionDuration}</div>
                     <div className="flex items-center">
-                        100%
+                        {gaData?.avgSessionDurationCompared}
                         <svg
                             className="fill-meta-5"
                             width="10"
