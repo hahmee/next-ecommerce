@@ -1,5 +1,5 @@
 //결제 완료 페이지로 라우팅 시키기
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import React, {Suspense} from "react";
 import {getSuccessPayment} from "@/app/(home)/order/success/_lib/getSuccessPayment";
 import Loading from "@/app/(admin)/admin/products/loading";

@@ -92,12 +92,12 @@ public class DashboardController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/traffic")
-  public DataResponseDTO<GoogleAnalyticsResponseDTO> getAnalytics(GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO) {
+  public DataResponseDTO<GAResponseDTO> getAnalytics(GARequestDTO GARequestDTO) {
 
 
-    log.info("googleAnalyticsRequestDTO " + googleAnalyticsRequestDTO);
+    log.info("googleAnalyticsRequestDTO " + GARequestDTO);
 
-    return DataResponseDTO.of(dashboardService.getGoogleAnalytics(googleAnalyticsRequestDTO));
+    return DataResponseDTO.of(dashboardService.getGoogleAnalytics(GARequestDTO));
 
   }
 

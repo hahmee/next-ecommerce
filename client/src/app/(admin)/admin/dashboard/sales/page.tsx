@@ -4,7 +4,7 @@ import SalesOverview from "@/components/Admin/Dashboard/SalesOverview";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "@/utils/getCookieUtil";
 import {ChartFilter} from "@/types/chartFilter";

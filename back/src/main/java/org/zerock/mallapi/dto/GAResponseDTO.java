@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GoogleAnalyticsResponseDTO {
+public class GAResponseDTO {
 
   private String sessions;
 
@@ -22,4 +24,8 @@ public class GoogleAnalyticsResponseDTO {
   private String uniqueVisitorsCompared;
 
   private String avgSessionDurationCompared;
+
+
+  ///////////////////////////////////////////
+  private List<String> topPages;
 }

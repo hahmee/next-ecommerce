@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react'
 import Loading from "@/app/(admin)/admin/products/loading";
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import ProductList from "@/components/Home/ProductList";
 import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";

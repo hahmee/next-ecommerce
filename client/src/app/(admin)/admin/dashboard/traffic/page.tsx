@@ -3,7 +3,7 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCookie} from "@/utils/getCookieUtil";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";

@@ -1,7 +1,7 @@
 'use client';
 
 import {useFormState, useFormStatus} from "react-dom";
-import signUp from "../../../lib/signup";
+import signUp from "@/libs/signup";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
 import {showMessage} from "@/app/(home)/login/page";

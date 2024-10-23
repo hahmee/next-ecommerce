@@ -1,7 +1,7 @@
 import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
 import {getPayments} from "@/app/(home)/profile/_lib/getPayments";
 import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";

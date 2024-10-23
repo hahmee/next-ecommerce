@@ -21,6 +21,6 @@ public interface DashboardService {
 
   List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO);
 
-  GoogleAnalyticsResponseDTO getGoogleAnalytics(GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO);
+  GAResponseDTO getGoogleAnalytics(GARequestDTO GARequestDTO);
 
 }

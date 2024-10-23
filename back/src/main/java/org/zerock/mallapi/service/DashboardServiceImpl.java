@@ -1,5 +1,6 @@
 package org.zerock.mallapi.service;
 
+import com.google.analytics.data.v1alpha.StringFilter;
 import com.google.analytics.data.v1beta.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -635,13 +636,17 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public GoogleAnalyticsResponseDTO getGoogleAnalytics(GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO) {
+  public GAResponseDTO getGoogleAnalytics(GARequestDTO GARequestDTO) {
 
     String propertyId = environment.getProperty("google.analytics.productId");
 
     try {
-      GoogleAnalyticsResponseDTO googleAnalyticsResponseDTO =  printGoogleReport(propertyId, googleAnalyticsRequestDTO);
-      return googleAnalyticsResponseDTO;
+      GAResponseDTO GAResponseDTO =  getGASessions(propertyId, GARequestDTO);
+
+//      GAResponseDTO GAResponseDTO =  getGATopPages(propertyId, GARequestDTO);
+
+
+      return GAResponseDTO;
 
     } catch (Exception e) {
       log.error("Error while fetching analytics data: ", e);
@@ -651,22 +656,34 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  private GoogleAnalyticsResponseDTO printGoogleReport(String propertyId, GoogleAnalyticsRequestDTO googleAnalyticsRequestDTO) throws Exception {
+  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
-    GoogleAnalyticsResponseDTO googleAnalyticsResponseDTO = null; // 객체 초기화
+    GAResponseDTO GAResponseDTO = null; // 객체 초기화
+
+    String sellerEmail = gaRequestDTO.getSellerEmail();
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
 
+      // 사용자의 ID로 필터링 설정 (맞춤 차원으로 필터링)
+      FilterExpression filterByUserId = FilterExpression.newBuilder()
+              .setFilter(Filter.newBuilder()
+                      .setFieldName("userId") // 맞춤 차원 필드
+                      .setStringFilter(StringFilter.newBuilder().setMatchType(StringFilter.MatchType.EXACT).setValue(sellerEmail).build())
+                      .build())
+              .build();
+
       //첫번째 기간에 대한 요청
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("country")) // 국가별로 구분
-//              .addDateRanges(DateRange.newBuilder().setStartDate("2020-03-31").setEndDate("today"))
-              .addDateRanges(DateRange.newBuilder().setStartDate(googleAnalyticsRequestDTO.getStartDate()).setEndDate(googleAnalyticsRequestDTO.getEndDate()))
+              .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 등 추가 가능
+              .addDimensions(Dimension.newBuilder().setName("country")) //국가
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
               .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
               .addMetrics(Metric.newBuilder().setName("averageSessionDuration")) // 평균 세션 지속 시간
+              .setDimensionFilter(filterByUserId) // 필터 적용
+
               .build();
 
       // 첫번째 기간에 대한 Run the report
@@ -682,14 +699,14 @@ public class DashboardServiceImpl implements DashboardService{
         avgSessionDuration = row.getMetricValues(2).getValue();
       }
 
-      
+
       // 두 번째 기간에 대한 요청
       RunReportRequest compareRequest = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
               .addDimensions(Dimension.newBuilder().setName("country")) // 국가별로 구분
               .addDateRanges(DateRange.newBuilder()
-                      .setStartDate(googleAnalyticsRequestDTO.getComparedStartDate())
-                      .setEndDate(googleAnalyticsRequestDTO.getComparedEndDate()))
+                      .setStartDate(GARequestDTO.getComparedStartDate())
+                      .setEndDate(GARequestDTO.getComparedEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
               .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
               .addMetrics(Metric.newBuilder().setName("averageSessionDuration")) // 평균 세션 지속 시간
@@ -709,7 +726,7 @@ public class DashboardServiceImpl implements DashboardService{
         avgSessionDurationCompared = compareRow.getMetricValues(2).getValue();
       }
 
-      googleAnalyticsResponseDTO = GoogleAnalyticsResponseDTO.builder()
+      GAResponseDTO = GAResponseDTO.builder()
               .sessions(sessions)
               .uniqueVisitors(uniqueVisitors)
               .avgSessionDuration(avgSessionDuration)
@@ -717,33 +734,44 @@ public class DashboardServiceImpl implements DashboardService{
               .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
               .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
               .build();
-      // Output the results
-//      System.out.println("Report result:");
-//      for (Row row : response.getRowsList()) {
-//        // 각 행을 출력
-//        String country = row.getDimensionValues(0).getValue();
-//        String sessions = row.getMetricValues(0).getValue();
-//        String uniqueVisitors = row.getMetricValues(1).getValue();
-//        String avgSessionDuration = row.getMetricValues(2).getValue();
-//
-//        System.out.print("Country: " + country + ", ");
-//        System.out.print("Sessions: " + sessions + ", ");
-//        System.out.print("Unique Visitors: " + uniqueVisitors + ", ");
-//        System.out.print("Average Session Duration: " + avgSessionDuration);
-//        System.out.println();
-//
-//        // 마지막 행의 데이터를 사용하여 GoogleAnalyticsResponseDTO 객체 업데이트
-//        googleAnalyticsResponseDTO = GoogleAnalyticsResponseDTO.builder()
-//                .sessions(sessions)
-//                .uniqueVisitors(uniqueVisitors)
-//                .avgSessionDuration(avgSessionDuration)
-//                .build();
-//      }
     }
 
-    return googleAnalyticsResponseDTO; // 마지막 행의 객체 반환
+    return GAResponseDTO; // 마지막 행의 객체 반환
 
   }
+//
+//
+//  private GAResponseDTO getGATopPages(String propertyId, GARequestDTO GARequestDTO) throws Exception {
+//    GAResponseDTO GAResponseDTO = new GAResponseDTO(); // 객체 초기화
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+//      // 상위 페이지 요청
+//      RunReportRequest topPagesRequest = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 기준
+//              .addDateRanges(DateRange.newBuilder().setStartDate(GARequestDTO.getStartDate()).setEndDate(GARequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .setOrderBys(OrderBy.newBuilder().setD("sessions") // 세션 수로 정렬.setDesc(true) // 내림차순.build())
+//              .setLimit(10) // 상위 10개 페이지
+//              .build();
+//
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse topPagesResponse = analyticsData.runReport(topPagesRequest);
+//
+//      // 결과 처리
+////      List<TopPageDTO> topPages = new ArrayList<>();
+//      for (var row : topPagesResponse.getRowsList()) {
+//        String pagePath = row.getDimensionValues(0).getValue();
+//        String pageSessions = row.getMetricValues(0).getValue();
+////        topPages.add(new TopPageDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성
+//      }
+//
+//      GAResponseDTO.setTopPages(topPages); // TopPageDTO 리스트를 GAResponseDTO에 설정
+//    }
+//
+//    return GAResponseDTO;
+//  }
+
 
 
   // 비율 차이 계산 메서드

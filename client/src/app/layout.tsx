@@ -4,7 +4,6 @@ import "./globals.css";
 import React from "react";
 import RQProvider from "@/components/RQProvider";
 import {Toaster} from "react-hot-toast";
-import Script from "next/script";
 
 const GA_TRACKING_ID = process.env.GOOGLE_GA_TRACKING_ID;
 

@@ -3,7 +3,7 @@ import React, {Suspense} from "react";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import ProductSingle from "@/components/Home/ProductSingle";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getReviews} from "@/app/(admin)/admin/products/[id]/_lib/getReviews";
 
 interface Props {

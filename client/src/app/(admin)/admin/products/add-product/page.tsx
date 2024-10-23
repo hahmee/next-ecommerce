@@ -2,7 +2,7 @@ import React, {Suspense} from "react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {PrefetchBoundary} from "@/lib/PrefetchBoundary";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 
 export default function AddProductPage() {

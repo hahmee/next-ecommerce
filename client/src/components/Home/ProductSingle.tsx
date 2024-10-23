@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
-import {Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import ProductImages from "@/components/Home/ProductImags";
 import Reviews from "@/components/Home/Reviews";
 import {SalesStatus} from "@/types/salesStatus";
@@ -12,12 +12,14 @@ import {ColorTag} from "@/interface/ColorTag";
 import AddCart from "@/components/Home/AddCart";
 import {getReviews} from "@/app/(admin)/admin/products/[id]/_lib/getReviews";
 import {Review} from "@/interface/Review";
+import {GAPageView} from "@/libs/ga-page-view/GAPageView";
 
 interface Props {
     id: string;
 }
 
 const ProductSingle = ({id}: Props) => {
+
     const {isLoading, data, error} = useQuery<DataResponse<Product>, Object, DataResponse<Product>, [_1: string, _2: string]>({
         queryKey: ['productCustomerSingle', id],
         queryFn: getProduct,
@@ -42,6 +44,7 @@ const ProductSingle = ({id}: Props) => {
     });
 
     const product = data?.data;
+    
     console.log('product', product);
     //초기값 세팅
     const [color, setColor] = useState<ColorTag>({ id: 0, text: '', color: '' });
@@ -56,6 +59,8 @@ const ProductSingle = ({id}: Props) => {
 
     return (
         <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
+            
+            <GAPageView sellerId={product?.owner.email || ""}/>
             {/* IMG */}
             <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">
                 {
