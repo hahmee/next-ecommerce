@@ -1,4 +1,4 @@
-export interface GoogleAnalyticsRequest {
+export interface GARequest {
   startDate: string;
   endDate: string;
   sellerEmail: string;

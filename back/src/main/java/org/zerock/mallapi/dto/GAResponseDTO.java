@@ -27,5 +27,5 @@ public class GAResponseDTO {
 
 
   ///////////////////////////////////////////
-  private List<String> topPages;
+  private List<TopPageDTO> topPages;
 }

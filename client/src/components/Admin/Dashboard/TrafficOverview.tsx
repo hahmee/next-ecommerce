@@ -1,55 +1,18 @@
 "use client";
 import React, {useState} from "react";
 import AdminDatePicker from "@/components/Admin/AdminDatePicker";
-import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "cookies-next";
-import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
-import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
-import {CardResponse} from "@/interface/CardResponse";
-import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
-import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
-import {TopProductResponse} from "@/interface/TopProductResponse";
-import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
 import dynamic from "next/dynamic";
-import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
-import {MapResponse} from "@/interface/MapResponse";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
-import {GoogleAnalyticsResponse} from "@/interface/GoogleAnalyticsResponse";
+import {GAResponse} from "@/interface/GAResponse";
 
-const data = {
-  "startDate": "2024-10-01", //해당 날짜
-  "endDate": "2024-10-15", //해당 날짜
-  "filter": "day", //day, week, ...
-  // "totalSales": 12000,   // 총매출  0
-  // "totalOrders": 74,   // 총주문수 0
-  // "avgOrderSale": 129,  // 평균 주문 금액 0
-  "xaxis": [ //가로축
-    "2024-10-01",
-    "2024-10-02",
-    "2024-10-03",
-    "2024-10-04"
-  ],
-  "series": [
-    {
-      "name": "Total Sales",
-      "data": [23, 11, 22, 27],
-    },
-    {
-      "name": "Total Revenue",
-      "data": [44, 22, 30, 45],
-    }
-  ],
-};
 
-const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
-
-const SalesPieChart = dynamic(() => import("./Charts/SalesPieChart"), { ssr: false });
+const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 
 const TrafficOverview: React.FC = () => {
 
@@ -83,7 +46,7 @@ const TrafficOverview: React.FC = () => {
 
   const {
     data: gaData,
-  } = useQuery<DataResponse<GoogleAnalyticsResponse>, Object, GoogleAnalyticsResponse>({
+  } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
     queryKey: ['ga', date],
     queryFn: () => getGoogleAnalytics({
       startDate: date.startDate,
@@ -160,15 +123,11 @@ const TrafficOverview: React.FC = () => {
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
             ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
         </div>
-        <div className="grid grid-cols-1">
-
-          <CardTraffic gaData={gaData}/>
-
-        </div>
-
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          {/*<SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>*/}
-          {/*<ChartTwo/>*/}
+          <CardTraffic gaData={gaData}/>
+          <TrafficPageChart topPages={gaData?.topPages || []}/>
+        </div>
+        <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">
           </div>
         </div>

@@ -1,14 +1,13 @@
 import React, { ReactNode } from "react";
 import {ChartContext} from "@/types/chartContext";
-import {GoogleAnalyticsResponse} from "@/interface/GoogleAnalyticsResponse";
+import {GAResponse} from "@/interface/GAResponse";
 
 
 
-const CardDataStats = ({gaData}:{gaData: GoogleAnalyticsResponse | undefined}) => {
-
+const CardDataStats = ({gaData}:{gaData: GAResponse | undefined}) => {
+//col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark  xl:col-span-8
     return (
-        <div
-            className={`w-full grid grid-cols-3 gap-4 divide-x rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white `}>
+        <div className={`grid grid-cols-8 gap-4 divide-x rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white col-span-12 xl:col-span-8`}>
             <div>
                 <div>Site sessions</div>
                 <div className="flex items-center justify-between">

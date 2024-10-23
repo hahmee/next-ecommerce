@@ -1,7 +1,7 @@
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
-import {GoogleAnalyticsRequest} from "@/interface/GoogleAnalyticsRequest";
+import {GARequest} from "@/interface/GARequest";
 
-export async function getGoogleAnalytics (param: GoogleAnalyticsRequest) {
+export async function getGoogleAnalytics (param: GARequest) {
 
     const resultJson = await fetchWithAuth(`/api/dashboard/traffic?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}`, {
         method: "GET",
