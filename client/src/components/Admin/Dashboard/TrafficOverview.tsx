@@ -10,9 +10,13 @@ import dynamic from "next/dynamic";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 import {GAResponse} from "@/interface/GAResponse";
+import TrafficSessionChart from "@/components/Admin/Dashboard/Charts/TrafiicSessionChart";
 
 
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
+
+const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
+
 
 const TrafficOverview: React.FC = () => {
 
@@ -47,11 +51,12 @@ const TrafficOverview: React.FC = () => {
   const {
     data: gaData,
   } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
-    queryKey: ['ga', date],
+    queryKey: ['ga', date, currentFilter],
     queryFn: () => getGoogleAnalytics({
       startDate: date.startDate,
       endDate: date.endDate,
       sellerEmail: member.email,
+      filter: currentFilter,
       comparedStartDate: comparedStartDate.toISOString().split("T")[0],
       comparedEndDate: comparedEndDate.toISOString().split("T")[0],
     }),
@@ -64,7 +69,6 @@ const TrafficOverview: React.FC = () => {
     }
   });
 
-  console.log('gaData', gaData);
 
   const dateChange = (value:any) => {
 
@@ -116,6 +120,7 @@ const TrafficOverview: React.FC = () => {
   };
 
 
+
   return (
       <>
         <div>
@@ -124,13 +129,18 @@ const TrafficOverview: React.FC = () => {
             ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <CardTraffic gaData={gaData}/>
-          <TrafficPageChart topPages={gaData?.topPages || []}/>
-        </div>
-        <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">
+            <CardTraffic gaData={gaData}/>
+            <TrafficSessionChart chart={gaData?.sessionChart}  filterChange={filterChange} filter={currentFilter}/>
+
           </div>
+          <div className="col-span-12 xl:col-span-4">
+            <TrafficPageChart topPages={gaData?.topPages || []}/>
+            <TrafficSourceChart topSources={gaData?.topSources || []}/>
+          </div>
+
         </div>
+
       </>
   );
 };

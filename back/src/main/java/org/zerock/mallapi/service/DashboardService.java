@@ -7,6 +7,7 @@ import java.util.List;
 
 @Transactional
 public interface DashboardService {
+
   CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO);
 
   ChartResponseDTO getSalesList(ChartRequestDTO chartRequestDTO);
@@ -21,6 +22,9 @@ public interface DashboardService {
 
   List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO);
 
-  GAResponseDTO getGoogleAnalytics(GARequestDTO GARequestDTO);
+  GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO);
+
+  GAResponseDTO test(GARequestDTO gaRequestDTO);
 
 }
+

@@ -612,6 +612,7 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
+    log.info("....topCustomerRequestDTO " + topCustomerRequestDTO);
 
     //TOP 5
     List<Object[]> results = paymentService.getSalesByCountry(topCustomerRequestDTO);
@@ -636,16 +637,28 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public GAResponseDTO getGoogleAnalytics(GARequestDTO GARequestDTO) {
+  public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
+
+    log.info("?gaRequestDTO???", gaRequestDTO);
 
     String propertyId = environment.getProperty("google.analytics.productId");
 
-    try {
-      GAResponseDTO gaResponseDTO =  getGASessions(propertyId, GARequestDTO);
 
-      List<TopPageDTO> topPages =  getGATopPages(propertyId, GARequestDTO);
+    try {
+
+      GAResponseDTO gaResponseDTO =  getGASessions(propertyId, gaRequestDTO);
+
+      List<SessionDTO> topPages =  getGATopPages(propertyId, gaRequestDTO);
+
+      List<SessionDTO> topSources =  getGATopSources(propertyId, gaRequestDTO);
+
+      SessionChartDTO sessionChart = getGAChart(propertyId, gaRequestDTO);
+
+      log.info("sessionChart..." + sessionChart);
 
       gaResponseDTO.setTopPages(topPages);
+      gaResponseDTO.setTopSources(topSources);
+      gaResponseDTO.setSessionChart(sessionChart);
 
 
       return gaResponseDTO;
@@ -657,12 +670,22 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
+  @Override
+  public GAResponseDTO test(GARequestDTO gaRequestDTO) {
+
+    log.info(".... ", gaRequestDTO);
+    return null;
+  }
+
 
   private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     GAResponseDTO GAResponseDTO = null; // 객체 초기화
 
     String sellerEmail = gaRequestDTO.getSellerEmail();
+
+    log.info("??뭐야 이거 나옴?", gaRequestDTO.getStartDate());
+    log.info("??뭐야 이거 나옴?", gaRequestDTO);
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
@@ -743,10 +766,125 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  private List<TopPageDTO> getGATopPages(String propertyId, GARequestDTO GARequestDTO) throws Exception {
+
+  private SessionChartDTO getGAChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    log.info("gaRequestDTO...", gaRequestDTO);
+    List<String> xaxis = new ArrayList<>();
+    List<String> data = new ArrayList<>();
+
+    ChartFilter filter = gaRequestDTO.getFilter();
+
+    log.info("gaRequestDTO is null: {}", gaRequestDTO == null);
+    log.info("filter is null: {}", filter == null);
+
+
+    String filterString = "date";
+
+    if( filter != null) {
+      switch (filter) {
+
+        case DAY:
+          filterString = "date";
+          break;
+
+        case WEEK:
+          filterString = "week";
+          break;
+
+        case MONTH:
+          filterString = "month";
+          break;
+
+        case YEAR:
+          filterString = "year";
+          break;
+
+        default:
+          break;
+      }
+    }
+
+
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+      // 상위 페이지 요청
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+              .addDimensions(Dimension.newBuilder().setName(filterString)) // 날짜별 세션 보기
+              .build();
+
+      // 상위 페이지 보고서 실행
+      RunReportResponse response = analyticsData.runReport(request);
+
+      for (var row : response.getRowsList()) {
+        String date = row.getDimensionValues(0).getValue();
+        String sessions = row.getMetricValues(0).getValue();
+
+        xaxis.add(date);
+        data.add(sessions);
+
+      }
+
+    }
+
+
+    // sessionChart 객체 생성
+    SessionChartDTO sessionChart = SessionChartDTO.builder()
+            .xaxis(xaxis)  // xaxis 리스트 추가
+            .data(data)    // data 리스트 추가
+            .build();
+
+    log.info("sessionChart..." + sessionChart);
+    return sessionChart;
+
+  }
+
+
+
+  private List<SessionDTO> getGATopSources(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<TopPageDTO> topPages = new ArrayList<>();
+    List<SessionDTO> topPages = new ArrayList<>();
+
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+
+      // 상위 페이지 요청
+      RunReportRequest topSourcesRequest = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("manualSource"))  // 트래픽 소스
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+              .setLimit(5)
+              .build();
+
+      // 상위 페이지 보고서 실행
+      RunReportResponse topSourcesResponse = analyticsData.runReport(topSourcesRequest);
+
+      for (var row : topSourcesResponse.getRowsList()) {
+        String trafficSource = row.getDimensionValues(0).getValue();
+        String sessions = row.getMetricValues(0).getValue();
+
+        log.info("trafficSource////// " + trafficSource);
+
+        topPages.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
+      }
+
+    }
+    return topPages;
+
+  }
+
+
+  private List<SessionDTO> getGATopPages(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO> topPages = new ArrayList<>();
 
 
 
@@ -758,7 +896,7 @@ public class DashboardServiceImpl implements DashboardService{
       RunReportRequest topPagesRequest = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
               .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 기준
-              .addDateRanges(DateRange.newBuilder().setStartDate(GARequestDTO.getStartDate()).setEndDate(GARequestDTO.getEndDate()))
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
               .setLimit(5)
               .build();
@@ -770,7 +908,7 @@ public class DashboardServiceImpl implements DashboardService{
       for (var row : topPagesResponse.getRowsList()) {
         String pagePath = row.getDimensionValues(0).getValue();
         String pageSessions = row.getMetricValues(0).getValue();
-        topPages.add(new TopPageDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성
+        topPages.add(new SessionDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성
       }
 
     }

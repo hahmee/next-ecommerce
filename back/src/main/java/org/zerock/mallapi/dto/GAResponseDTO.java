@@ -27,5 +27,13 @@ public class GAResponseDTO {
 
 
   ///////////////////////////////////////////
-  private List<TopPageDTO> topPages;
+  private List<SessionDTO> topPages;
+
+  private List<SessionDTO> topSources;
+
+  private SessionChartDTO sessionChart;
+
+
+
+
 }

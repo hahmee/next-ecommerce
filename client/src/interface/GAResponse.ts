@@ -5,11 +5,20 @@ export interface GAResponse {
   sessionsCompared: string;
   uniqueVisitorsCompared: string;
   avgSessionDurationCompared: string;
-  ////////////////
-  topPages: Array<TopPageDTO>
+
+  topPages: Array<SessionDTO>;
+  topSources: Array<SessionDTO>;
+
+  sessionChart: SessionChart;
+
 }
 
-export interface TopPageDTO {
-  pagePath: string;
-  pageSessions: string;
+export interface SessionDTO {
+  key: string;
+  value: string;
+}
+
+export interface SessionChart {
+  xaxis: Array<string>;
+  data: Array<number>;
 }

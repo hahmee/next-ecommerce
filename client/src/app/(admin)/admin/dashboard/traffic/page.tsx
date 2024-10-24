@@ -7,6 +7,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCookie} from "@/utils/getCookieUtil";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
+import {ChartFilter} from "@/types/chartFilter";
 
 export default async function DashBoardPage() {
     const endDate = new Date(); // today
@@ -30,12 +31,13 @@ export default async function DashBoardPage() {
 
     const prefetchOptions = [
         {
-            queryKey: ['ga', date],
+            queryKey: ['ga', date, ChartFilter.DAY],
             queryFn: () => getGoogleAnalytics(
                 {
                     startDate: startDate.toISOString().split("T")[0],
                     endDate: endDate.toISOString().split("T")[0],
                     sellerEmail: member?.email || "",
+                    filter: ChartFilter.DAY,
                     comparedStartDate: comparedStartDate.toISOString().split("T")[0],
                     comparedEndDate: comparedEndDate.toISOString().split("T")[0],
                 }
