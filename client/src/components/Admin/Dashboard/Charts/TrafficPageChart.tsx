@@ -1,5 +1,6 @@
 import React from "react";
 import {TopPageDTO} from "@/interface/GAResponse";
+import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
 
 
 const TrafficPageChart = ({topPages}:{topPages:Array<TopPageDTO> | []}) => {
@@ -9,29 +10,27 @@ const TrafficPageChart = ({topPages}:{topPages:Array<TopPageDTO> | []}) => {
 
 
     return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-          <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
-              <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">
-                  Top pages by sessions
-              </h5>
+        <div className="col-span-12 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+            <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
+                <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">
+                    Top pages by sessions
+                </h5>
+            </div>
 
-              <div className="w-full space-y-2">
-                  {topPages.map((page) => (
-                      <div key={page.pagePath} className="flex">
-                          {/*<span className="w-1/4 font-medium">{page.pagePath}</span>*/}
-                          <div>
-                              <span className="">{page.pagePath}</span>
-                              <span className="">{Number(page.pageSessions).toLocaleString()}</span>
-                          </div>
-                          <div className="relative w-full bg-gray-300 rounded h-2">
-                              <div className="bg-blue-500 h-full rounded" style={{width: `${(Number(page.pageSessions) / maxSessions) * 100}%`}}></div>
-                          </div>
-                      </div>
-                  ))}
-              </div>
-          </div>
 
-      </div>
+            <div className="w-full space-y-2 flex flex-col px-4.5 py-4.5">
+                {topPages.map((page) => (
+                    <div key={page.pagePath}>
+                        <div className="flex justify-between mt-2">
+                            <span className="text-sm font-normal">{page.pagePath}</span>
+                            <span className="text-sm font-bold">{Number(page.pageSessions).toLocaleString()}</span>
+                        </div>
+                        <BarChart data={page} maxValue={maxSessions}/>
+                    </div>
+                ))}
+            </div>
+
+        </div>
     );
 };
 

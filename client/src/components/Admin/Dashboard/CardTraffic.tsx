@@ -7,11 +7,12 @@ import {GAResponse} from "@/interface/GAResponse";
 const CardDataStats = ({gaData}:{gaData: GAResponse | undefined}) => {
 //col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark  xl:col-span-8
     return (
-        <div className={`grid grid-cols-8 gap-4 divide-x rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white col-span-12 xl:col-span-8`}>
+        // <div className={`grid gap-4 divide-x rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white col-span-12 xl:col-span-8`}>
+        <div className="col-span-12 xl:col-span-8 grid grid-cols-3 divide-x  rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
             <div>
-                <div>Site sessions</div>
+                <div className="font-light text-sm">Site sessions</div>
                 <div className="flex items-center justify-between">
-                    <div>{gaData?.sessions}</div>
+                    <div className="font-bold">{gaData?.sessions}</div>
                     <div className="flex items-center">
                         {gaData?.sessionsCompared}
                         <svg
@@ -31,9 +32,9 @@ const CardDataStats = ({gaData}:{gaData: GAResponse | undefined}) => {
                 </div>
             </div>
             <div>
-                <div>Unique visitors</div>
+                <div className="font-light text-sm">Unique visitors</div>
                 <div className="flex items-center justify-between">
-                    <div>{gaData?.uniqueVisitors}</div>
+                    <div className="font-bold">{gaData?.uniqueVisitors}</div>
                     <div className="flex items-center">
                         {gaData?.uniqueVisitorsCompared}
                         <svg
@@ -53,9 +54,9 @@ const CardDataStats = ({gaData}:{gaData: GAResponse | undefined}) => {
                 </div>
             </div>
             <div>
-                <div>Avg. session duration</div>
+                <div className="font-light text-sm">Avg. session duration</div>
                 <div className="flex items-center justify-between">
-                    <div>{gaData?.avgSessionDuration}</div>
+                    <div className="font-bold">{gaData?.avgSessionDuration}</div>
                     <div className="flex items-center">
                         {gaData?.avgSessionDurationCompared}
                         <svg
