@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/SessionChartDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TrafficSourceChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TrafiicSessionChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/GAResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/GAResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/TopPageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/SessionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/traffic/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/traffic/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/CardTraffic.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/CardTraffic.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/BarChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/BarChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SalesChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SalesChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TrafficPageChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TrafficPageChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/GARequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/GARequest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/GAResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/GAResponse.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +275,7 @@
       <workItem from="1729646183307" duration="22496000" />
       <workItem from="1729675525890" duration="323000" />
       <workItem from="1729695763032" duration="6192000" />
-      <workItem from="1729738224944" duration="17164000" />
+      <workItem from="1729738224944" duration="18847000" />
     </task>
     <servers />
   </component>

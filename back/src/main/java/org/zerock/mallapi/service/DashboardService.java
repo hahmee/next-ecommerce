@@ -24,7 +24,5 @@ public interface DashboardService {
 
   GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO);
 
-  GAResponseDTO test(GARequestDTO gaRequestDTO);
-
 }
 

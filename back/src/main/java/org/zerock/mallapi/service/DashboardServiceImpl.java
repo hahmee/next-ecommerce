@@ -11,8 +11,10 @@ import org.zerock.mallapi.domain.ChartFilter;
 import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.dto.*;
 
+import javax.print.attribute.standard.Sides;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -206,10 +208,6 @@ public class DashboardServiceImpl implements DashboardService{
 
             LocalDate weekStartDate = getWeekStartDate(year, week);
 
-            log.info("dddd startDateOfWeek " + year);
-            log.info("dddd month " + month);
-            log.info("dddd week " + yearWeek);
-            log.info("dddd weekStartDate " + weekStartDate);
 
             LocalDate date =  weekStartDate; // LocalDate로 변환
 
@@ -311,8 +309,6 @@ public class DashboardServiceImpl implements DashboardService{
     List<SeriesDTO<Long>> series = new ArrayList<>();
 
 
-    log.info("orders.... " + results);
-
     if (filter != null) {
       switch (filter) {
         case DAY:
@@ -323,7 +319,6 @@ public class DashboardServiceImpl implements DashboardService{
 
             Long totalOrders = (Long) result[1];  // Total Orders
 
-            log.info("totalOrders....." + totalOrders);
             xaxisList.add(date.toString());
             salesSeriesData.add(totalOrders);
           }
@@ -341,10 +336,7 @@ public class DashboardServiceImpl implements DashboardService{
 
             LocalDate weekStartDate = getWeekStartDate(year, week);
 
-            log.info("dddd startDateOfWeek " + year);
-            log.info("dddd month " + month);
-            log.info("dddd week " + week);
-            log.info("dddd weekStartDate " + weekStartDate);
+
 
             LocalDate date =  weekStartDate; // LocalDate로 변환
 
@@ -399,7 +391,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     series.add(salesSeriesDTO);
 
-    log.info("seriesData.... " + salesSeriesDTO);
 
     ChartResponseDTO<Long> chartResponseDTO = ChartResponseDTO.<Long>builder()
             .startDate(chartRequestDTO.getStartDate())
@@ -430,7 +421,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<SeriesDTO<Double>> series = new ArrayList<>();
 
-    log.info("orders.... " + results);
 
     if (filter != null) {
       switch (filter) {
@@ -442,7 +432,6 @@ public class DashboardServiceImpl implements DashboardService{
 
             Double avgOrders = (Double) result[1];  // Avg Orders
 
-            log.info("avgOrders....." + avgOrders);
             xaxisList.add(date.toString());
             salesSeriesData.add(avgOrders);
           }
@@ -460,10 +449,7 @@ public class DashboardServiceImpl implements DashboardService{
 
             LocalDate weekStartDate = getWeekStartDate(year, week);
 
-            log.info("dddd startDateOfWeek " + year);
-            log.info("dddd month " + month);
-            log.info("dddd week " + week);
-            log.info("dddd weekStartDate " + weekStartDate);
+
 
             LocalDate date =  weekStartDate; // LocalDate로 변환
 
@@ -518,7 +504,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     series.add(salesSeriesDTO);
 
-    log.info("seriesData.... " + salesSeriesDTO);
 
     ChartResponseDTO<Double> chartResponseDTO = ChartResponseDTO.<Double>builder()
             .startDate(chartRequestDTO.getStartDate())
@@ -553,9 +538,6 @@ public class DashboardServiceImpl implements DashboardService{
               .payment(sum)
               .build();
 
-      log.info("email.... " + email);
-      log.info("count.... " + count);
-      log.info("sum.... " + sum);
 
       topCustomerResponseDTOS.add(topCustomerResponseDTO);
 
@@ -582,7 +564,6 @@ public class DashboardServiceImpl implements DashboardService{
       String thumbnail = (String) arr[6]; // total
 
 
-      log.info("color................ " + color);
 
       ColorTagDTO colorTagDTO = ColorTagDTO.builder()
               .color(color.getColor())
@@ -639,7 +620,6 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
 
-    log.info("?gaRequestDTO???", gaRequestDTO);
 
     String propertyId = environment.getProperty("google.analytics.productId");
 
@@ -654,7 +634,6 @@ public class DashboardServiceImpl implements DashboardService{
 
       SessionChartDTO sessionChart = getGAChart(propertyId, gaRequestDTO);
 
-      log.info("sessionChart..." + sessionChart);
 
       gaResponseDTO.setTopPages(topPages);
       gaResponseDTO.setTopSources(topSources);
@@ -670,22 +649,12 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
-  @Override
-  public GAResponseDTO test(GARequestDTO gaRequestDTO) {
-
-    log.info(".... ", gaRequestDTO);
-    return null;
-  }
-
 
   private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     GAResponseDTO GAResponseDTO = null; // 객체 초기화
 
     String sellerEmail = gaRequestDTO.getSellerEmail();
-
-    log.info("??뭐야 이거 나옴?", gaRequestDTO.getStartDate());
-    log.info("??뭐야 이거 나옴?", gaRequestDTO);
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
@@ -718,7 +687,7 @@ public class DashboardServiceImpl implements DashboardService{
       String sessions = "0", uniqueVisitors = "0", avgSessionDuration = "0";
 
       if (!response.getRowsList().isEmpty()) {
-        var row = response.getRows(0); // 첫 번째 행을 가져옴
+        Row row = response.getRows(0); // 첫 번째 행을 가져옴
         sessions = row.getMetricValues(0).getValue();
         uniqueVisitors = row.getMetricValues(1).getValue();
         avgSessionDuration = row.getMetricValues(2).getValue();
@@ -775,10 +744,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     ChartFilter filter = gaRequestDTO.getFilter();
 
-    log.info("gaRequestDTO is null: {}", gaRequestDTO == null);
-    log.info("filter is null: {}", filter == null);
-
-
     String filterString = "date";
 
     if( filter != null) {
@@ -810,21 +775,53 @@ public class DashboardServiceImpl implements DashboardService{
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
       // 상위 페이지 요청
-      RunReportRequest request = RunReportRequest.newBuilder()
+      RunReportRequest.Builder requestBuilder = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
               .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .addDimensions(Dimension.newBuilder().setName(filterString)) // 날짜별 세션 보기
-              .build();
+              .addDimensions(Dimension.newBuilder().setName(filterString)); // day, week, month, year 세션 보기
+
+      // 필터가 WEEK 일 경우 'year' 차원 추가
+      if (filter == ChartFilter.WEEK) {
+        requestBuilder.addDimensions(Dimension.newBuilder().setName("year")); // year 세션 보기
+      }
+
+      RunReportRequest request = requestBuilder.build();
 
       // 상위 페이지 보고서 실행
       RunReportResponse response = analyticsData.runReport(request);
 
-      for (var row : response.getRowsList()) {
-        String date = row.getDimensionValues(0).getValue();
+
+      for (Row row : response.getRowsList()) {
+        String date = row.getDimensionValues(0).getValue(); //20240110 or 41 or 10 or 2024
+
+        String formattedDate = "";
+
+        //DAY라면
+        if(filter == ChartFilter.DAY) {
+
+          // yyyyMMdd 형식으로 LocalDate로 변환
+          DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
+          LocalDate yymmdd = LocalDate.parse(date, originalFormat);
+
+          // yyyy-MM-dd 형식으로 변환
+          DateTimeFormatter targetFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+          formattedDate = yymmdd.format(targetFormat);
+
+        } else if (filter == ChartFilter.WEEK) {
+          String year = row.getDimensionValues(1).getValue(); //20240110 or 41 or 10 or 2024
+
+          LocalDate weekStartDate = getWeekStartDate(Integer.parseInt(year), Integer.parseInt(date));
+          formattedDate = weekStartDate.toString();
+
+        } else {
+          formattedDate = date;
+        }
+
+
         String sessions = row.getMetricValues(0).getValue();
 
-        xaxis.add(date);
+        xaxis.add(formattedDate);
         data.add(sessions);
 
       }
@@ -837,7 +834,7 @@ public class DashboardServiceImpl implements DashboardService{
             .xaxis(xaxis)  // xaxis 리스트 추가
             .data(data)    // data 리스트 추가
             .build();
-
+//
     log.info("sessionChart..." + sessionChart);
     return sessionChart;
 
@@ -866,11 +863,10 @@ public class DashboardServiceImpl implements DashboardService{
       // 상위 페이지 보고서 실행
       RunReportResponse topSourcesResponse = analyticsData.runReport(topSourcesRequest);
 
-      for (var row : topSourcesResponse.getRowsList()) {
+      for (Row row : topSourcesResponse.getRowsList()) {
         String trafficSource = row.getDimensionValues(0).getValue();
         String sessions = row.getMetricValues(0).getValue();
 
-        log.info("trafficSource////// " + trafficSource);
 
         topPages.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
       }
@@ -905,7 +901,7 @@ public class DashboardServiceImpl implements DashboardService{
       RunReportResponse topPagesResponse = analyticsData.runReport(topPagesRequest);
 
 
-      for (var row : topPagesResponse.getRowsList()) {
+      for (Row row : topPagesResponse.getRowsList()) {
         String pagePath = row.getDimensionValues(0).getValue();
         String pageSessions = row.getMetricValues(0).getValue();
         topPages.add(new SessionDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성

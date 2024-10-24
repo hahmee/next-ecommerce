@@ -96,8 +96,6 @@ public class DashboardController {
 
     log.info("googleAnalyticsRequestDTO " + gaRequestDTO);
 
-//    return DataResponseDTO.of(dashboardService.test(gaRequestDTO));
-
     return DataResponseDTO.of(dashboardService.getGoogleAnalytics(gaRequestDTO));
 
   }
