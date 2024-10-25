@@ -1,7 +1,7 @@
 import {ApexOptions} from "apexcharts";
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import {MapResponse} from "@/interface/MapResponse";
+import {SessionDTO} from "@/interface/GAResponse";
 
 interface ChartThreeState {
   series: number[];
@@ -15,10 +15,10 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 
-const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) => {
+const VisitorsPieChart = ({data, title}:{data:Array<SessionDTO> | undefined , title: string}) => {
 
-  const series = countries?.map(c => c.totalSales === null ? 0 : c.totalSales) || [];
-  const labels = countries?.map(c => c.country === null ? "" : c.country) || [];
+  const series = data?.map(d =>Number(d.value)) || [];
+  const labels = data?.map(d => d.key === "" ? "정보없음" : d.key) || [];
 
   const colors = series.map(() => getRandomColor());
 
@@ -35,14 +35,14 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
     },
     plotOptions: {
       pie: {
-        customScale: 0.9,
+        customScale: 0.7,
         donut: {
           labels: {
             show: true,
             total: {
               showAlways: true,
               show: true,
-              label:'Total',
+              label:'Site sessions',
               formatter: function (w) {
                 // Total 값을 toLocaleString()으로 포맷
                 const totalValue = w.globals.seriesTotals.reduce((a:number, b:number) => a + b, 0);
@@ -50,9 +50,10 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
               }
             }
           },
-          size: "70%", //두깨
+          size: "80%", //두깨
           background: "transparent",
         },
+
       },
     },
     dataLabels: {
@@ -77,11 +78,13 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
       },
     ],
   };
+
+
   return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
+      <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
         <div className="mb-3 justify-between gap-4 sm:flex">
           <h5 className="text-xl font-semibold text-black dark:text-white">
-            Country Analytics
+            {title}
           </h5>
         </div>
 
@@ -93,13 +96,14 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
 
         <div className="-mx-8 flex flex-wrap items-center justify-center gap-y-3">
           {
-            countries?.map((country,index) => {
-              return <div className="w-full px-8 sm:w-1/2" key={country.country}>
+            data?.map((d, index) => {
+              return <div className="w-full px-8 sm:w-1/2" key={d.key}>
                 <div className="flex w-full items-center">
-                  <span className="mr-2 block h-3 w-full max-w-3 rounded-full" style={{backgroundColor:colors[index]}}></span>
+                  <span className="mr-2 block h-3 w-full max-w-3 rounded-full"
+                        style={{backgroundColor: colors[index]}}></span>
                   <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-                    <span> {country.country || "정보없음"}  </span>
-                    <span> {country.totalSales.toLocaleString() || 0} </span>
+                    <span> {d.key || "정보없음"}  </span>
+                    <span> {d.value.toLocaleString() || 0} </span>
                   </p>
                 </div>
               </div>
@@ -108,6 +112,7 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
         </div>
       </div>
   );
+
 };
 
-export default SalesPieChart;
+export default VisitorsPieChart;

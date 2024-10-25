@@ -634,10 +634,16 @@ public class DashboardServiceImpl implements DashboardService{
 
       SessionChartDTO sessionChart = getGAChart(propertyId, gaRequestDTO);
 
+      List<SessionDTO> devices = getGADevices(propertyId, gaRequestDTO);
+
+      List<SessionDTO> visitors = getGAVisitors(propertyId, gaRequestDTO);
+
 
       gaResponseDTO.setTopPages(topPages);
       gaResponseDTO.setTopSources(topSources);
       gaResponseDTO.setSessionChart(sessionChart);
+      gaResponseDTO.setDevices(devices);
+      gaResponseDTO.setVisitors(visitors);
 
 
       return gaResponseDTO;
@@ -648,6 +654,76 @@ public class DashboardServiceImpl implements DashboardService{
     return null;
 
   }
+
+
+  private List<SessionDTO> getGAVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO> visitors = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDateRanges(DateRange.newBuilder()
+                      .setStartDate(gaRequestDTO.getStartDate())
+                      .setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+              .addDimensions(Dimension.newBuilder().setName("newVsReturning")) // 새로운 방문자 vs 기존 방문자
+              .build();
+
+
+      // 상위 페이지 보고서 실행
+      RunReportResponse response = analyticsData.runReport(request);
+
+      for (Row row : response.getRowsList()) {
+        String trafficSource = row.getDimensionValues(0).getValue();
+        String sessions = row.getMetricValues(0).getValue();
+
+
+        visitors.add(new SessionDTO(trafficSource, sessions));
+      }
+
+    }
+    return visitors;
+
+  }
+
+
+
+  private List<SessionDTO> getGADevices(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO> devices = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDateRanges(DateRange.newBuilder()
+                      .setStartDate(gaRequestDTO.getStartDate())
+                      .setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+              .addDimensions(Dimension.newBuilder().setName("deviceCategory")) // 기기별 세션 보기
+              .build();
+
+
+      // 상위 페이지 보고서 실행
+      RunReportResponse response = analyticsData.runReport(request);
+
+      for (Row row : response.getRowsList()) {
+        String trafficSource = row.getDimensionValues(0).getValue();
+        String sessions = row.getMetricValues(0).getValue();
+
+
+        devices.add(new SessionDTO(trafficSource, sessions));
+      }
+
+    }
+    return devices;
+
+  }
+
 
 
   private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
@@ -738,7 +814,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   private SessionChartDTO getGAChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
-    log.info("gaRequestDTO...", gaRequestDTO);
     List<String> xaxis = new ArrayList<>();
     List<String> data = new ArrayList<>();
 

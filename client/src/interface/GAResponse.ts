@@ -10,12 +10,15 @@ export interface GAResponse {
   topSources: Array<SessionDTO>;
 
   sessionChart: SessionChart;
+  devices: Array<SessionDTO>;
+  visitors: Array<SessionDTO>;
+
 
 }
 
 export interface SessionDTO {
   key: string;
-  value: string;
+  value: number;
 }
 
 export interface SessionChart {

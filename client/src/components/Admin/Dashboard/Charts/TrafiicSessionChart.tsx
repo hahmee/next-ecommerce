@@ -58,6 +58,7 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
         },
       },
     ],
+
     colors: ["#3c50e0"],
     grid: {
       show:false,
@@ -69,6 +70,11 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
         borderRadius: 4,
       }
     },
+    stroke: {
+      show: false,
+      width: 0,
+      colors: ['transparent'],
+    },
     dataLabels: {
       enabled: false
     },
@@ -79,42 +85,43 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
     },
     xaxis: {
       categories: chart?.xaxis,
-      // categories: [
-      //   ['John', 'Doe'],
-      //   ['Joe', 'Smith'],
-      //   ['Jake', 'Williams'],
-      //   'Amber',
-      //   ['Peter', 'Brown'],
-      //   ['Mary', 'Evans'],
-      //   ['David', 'Wilson'],
-      //   ['Lily', 'Roberts'],
-      // ],
+      axisTicks: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
       labels: {
+        show: true,
+          style: {
+            colors: "#8c8c8c",
+          }
+      },
+    },
+    yaxis: {
+      axisTicks: {
+        show: false,
+      },
+      axisBorder: {
+        show: false,
+      },
+      labels: {
+        show: true,
         style: {
-          // colors: "#bbb",
-          fontSize: '12px'
+          colors: "#8c8c8c",
         }
       },
-    }
+    },
   };
 
 
-  //series: [{
-  //       // data:  [21, 22, 10, 28, 16, 21, 13, 30]
-  //       data: chart?.data || [],
-  //     }],
-  // const series = options?.series;
-  //
-  // const xaxis = options ?.xaxis || [];
-
-
   return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+      <div className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
         <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
           <div className="flex w-full flex-wrap gap-3 sm:gap-5">
             <div className="flex min-w-47.5">
               <div className="w-full flex">
-                <p className="font-semibold text-secondary">Sessions over time</p>
+                <p className="text-xl font-semibold text-black dark:text-white">Sessions over time</p>
               </div>
             </div>
 

@@ -33,6 +33,9 @@ public class GAResponseDTO {
 
   private SessionChartDTO sessionChart;
 
+  private List<SessionDTO> devices;
+
+  private List<SessionDTO> visitors;
 
 
 
