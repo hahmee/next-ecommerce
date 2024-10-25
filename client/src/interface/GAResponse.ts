@@ -12,6 +12,7 @@ export interface GAResponse {
   sessionChart: SessionChart;
   devices: Array<SessionDTO>;
   visitors: Array<SessionDTO>;
+  countries: Array<CountryChartDTO>;
 
 
 }
@@ -21,6 +22,11 @@ export interface SessionDTO {
   value: number;
 }
 
+export interface CountryChartDTO {
+  key: string;
+  value: number;
+  latlng: Array<number>;
+}
 export interface SessionChart {
   xaxis: Array<string>;
   data: Array<number>;

@@ -3,25 +3,23 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import {SessionDTO} from "@/interface/GAResponse";
 
-interface ChartThreeState {
-  series: number[];
-}
 
-const colors = ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF"];
+const colors = ["#8FD0EF", "#0FADCF", "#3C50E0", "#6577F3"];
 
 // 랜덤한 색상 선택 함수
-const getRandomColor = () => {
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+const getRandomColor = (length: number) => {
+
+  return colors.slice(0, length);
 };
 
-const VisitorsPieChart = ({data, title}:{data:Array<SessionDTO> | undefined , title: string}) => {
+const PieChart = ({data, title}:{data:Array<SessionDTO> | undefined , title: string}) => {
 
   const series = data?.map(d =>Number(d.value)) || [];
   const labels = data?.map(d => d.key === "" ? "정보없음" : d.key) || [];
 
-  const colors = series.map(() => getRandomColor());
+  const colors = getRandomColor(data?.length || 0);
 
+  console.log('colors', colors);
   const options: ApexOptions = {
     chart: {
       fontFamily: "Satoshi, sans-serif",
@@ -99,8 +97,7 @@ const VisitorsPieChart = ({data, title}:{data:Array<SessionDTO> | undefined , ti
             data?.map((d, index) => {
               return <div className="w-full px-8 sm:w-1/2" key={d.key}>
                 <div className="flex w-full items-center">
-                  <span className="mr-2 block h-3 w-full max-w-3 rounded-full"
-                        style={{backgroundColor: colors[index]}}></span>
+                  <span className="mr-2 block h-3 w-full max-w-3 rounded-full" style={{backgroundColor: colors[index]}}></span>
                   <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
                     <span> {d.key || "정보없음"}  </span>
                     <span> {d.value.toLocaleString() || 0} </span>
@@ -115,4 +112,4 @@ const VisitorsPieChart = ({data, title}:{data:Array<SessionDTO> | undefined , ti
 
 };
 
-export default VisitorsPieChart;
+export default PieChart;

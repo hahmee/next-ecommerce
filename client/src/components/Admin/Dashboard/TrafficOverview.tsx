@@ -5,7 +5,6 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {getCookie} from "cookies-next";
 import {ChartFilter} from "@/types/chartFilter";
-import {ChartContext} from "@/types/chartContext";
 import dynamic from "next/dynamic";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
@@ -15,12 +14,13 @@ import TrafficSessionChart from "@/components/Admin/Dashboard/Charts/TrafiicSess
 
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
-const VisitorsPieChart = dynamic(() => import("./Charts/VisitorsPieChart"), { ssr: false });
+const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
+const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ssr: false });
+
 
 
 const TrafficOverview: React.FC = () => {
 
-  const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
   const endDate = new Date(); // today
   const startDate = new Date();  // today
 
@@ -117,12 +117,6 @@ const TrafficOverview: React.FC = () => {
     setCurrentFilter(filter);
   }
 
-  const clickCard = (id:ChartContext) => {
-    setSelectedCard(id);
-  };
-
-
-
   return (
       <>
         <div>
@@ -132,19 +126,23 @@ const TrafficOverview: React.FC = () => {
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">
-            <CardTraffic gaData={gaData}/>
-            <TrafficSessionChart chart={gaData?.sessionChart}  filterChange={filterChange} filter={currentFilter}/>
+            {/*<CardTraffic gaData={gaData}/>*/}
+            {/*<TrafficSessionChart chart={gaData?.sessionChart}  filterChange={filterChange} filter={currentFilter}/>*/}
             <div className="grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-              <VisitorsPieChart data={gaData?.visitors} title={"New vs returning visitors"}/>
-              <VisitorsPieChart data={gaData?.devices} title={"Session by device"}/>
+              {/*<PieChart data={gaData?.visitors} title={"New vs returning visitors"}/>*/}
+              {/*<PieChart data={gaData?.devices} title={"Session by device"}/>*/}
             </div>
 
           </div>
           <div className="col-span-12 xl:col-span-4">
-            <TrafficPageChart topPages={gaData?.topPages || []}/>
-            <TrafficSourceChart topSources={gaData?.topSources || []}/>
+            {/*<TrafficPageChart topPages={gaData?.topPages || []}/>*/}
+            {/*<TrafficSourceChart topSources={gaData?.topSources || []}/>*/}
           </div>
 
+          <div className="col-span-12">
+
+          <CountryTrafficMap countries={gaData?.countries}/>
+          </div>
         </div>
 
       </>

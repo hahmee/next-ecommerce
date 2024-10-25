@@ -5,18 +5,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import org.zerock.mallapi.domain.ChartFilter;
 import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.dto.*;
 
-import javax.print.attribute.standard.Sides;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,7 @@ public class DashboardServiceImpl implements DashboardService{
   private final OrderService orderService;
 
   private final PaymentService paymentService;
+
 
   @Override
   public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO) {
@@ -638,12 +641,15 @@ public class DashboardServiceImpl implements DashboardService{
 
       List<SessionDTO> visitors = getGAVisitors(propertyId, gaRequestDTO);
 
+      List<CountryChartDTO> countries = getGACountries(propertyId, gaRequestDTO);
+
 
       gaResponseDTO.setTopPages(topPages);
       gaResponseDTO.setTopSources(topSources);
       gaResponseDTO.setSessionChart(sessionChart);
       gaResponseDTO.setDevices(devices);
       gaResponseDTO.setVisitors(visitors);
+      gaResponseDTO.setCountries(countries);
 
 
       return gaResponseDTO;
@@ -654,6 +660,48 @@ public class DashboardServiceImpl implements DashboardService{
     return null;
 
   }
+
+
+
+  private List<CountryChartDTO> getGACountries(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<CountryChartDTO> countries = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDateRanges(DateRange.newBuilder()
+                      .setStartDate(gaRequestDTO.getStartDate())
+                      .setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+              .addDimensions(Dimension.newBuilder().setName("countryId")) // 국가별 차원 추가
+              .build();
+
+
+      // 상위 페이지 보고서 실행
+      RunReportResponse response = analyticsData.runReport(request);
+
+      for (Row row : response.getRowsList()) {
+        String countryCode = row.getDimensionValues(0).getValue();
+        String sessions = row.getMetricValues(0).getValue();
+
+        List<Double> coordinates = getCoordinates(countryCode);
+
+        countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
+
+      }
+
+
+
+    }
+    log.info("countries.." + countries);
+
+    return countries;
+
+  }
+
 
 
   private List<SessionDTO> getGAVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
@@ -1030,5 +1078,21 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
+
+  public List<Double> getCoordinates(String countryCode) {
+    String url = String.format("https://restcountries.com/v3.1/alpha/%s", countryCode);
+
+    RestTemplate restTemplate = new RestTemplate();
+
+    ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
+    CountryResponseDTO[] response = responseEntity.getBody();
+
+    if (response != null && response.length > 0 && response[0].getLatlng() != null) {
+      return response[0].getLatlng();
+    }
+
+    // 기본값을 반환하기 위해 ArrayList를 사용
+    return new ArrayList<>(Arrays.asList(0.0, 0.0)); // 기본값
+  }
 
 }

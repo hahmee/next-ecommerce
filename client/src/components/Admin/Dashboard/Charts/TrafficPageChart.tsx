@@ -22,7 +22,9 @@ const TrafficPageChart = ({topPages}:{topPages:Array<SessionDTO> | []}) => {
                 {topPages.map((page) => (
                     <div key={page.key}>
                         <div className="flex justify-between mb-2">
-                            <span className="text-sm font-normal">{page.key}</span>
+                            <span className="text-sm font-normal">{
+                                page.key === "/" ? "Homepage" : page.key
+                            }</span>
                             <span className="text-sm font-bold">{Number(page.value).toLocaleString()}</span>
                         </div>
                         <BarChart data={page} maxValue={maxSessions}/>

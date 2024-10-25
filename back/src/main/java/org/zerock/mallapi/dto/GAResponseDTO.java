@@ -37,6 +37,6 @@ public class GAResponseDTO {
 
   private List<SessionDTO> visitors;
 
-
+  private List<CountryChartDTO> countries;
 
 }
