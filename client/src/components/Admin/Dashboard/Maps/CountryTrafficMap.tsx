@@ -6,11 +6,11 @@ import "../../../../js/world"; // 지도 파일
 import { CountryChartDTO } from "@/interface/GAResponse";
 import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
 
-const CountryTrafficMap = ({ countries2 }: { countries2: Array<CountryChartDTO> | undefined }) => {
-  const countries: Array<CountryChartDTO> = [
-    { key: "KR", value: 18, latlng: [37.0, 127.5] },
-    { key: "JP", value: 18, latlng: [36.0,138.0] },
-  ];
+const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
+  // const countries: Array<CountryChartDTO> = [
+  //   { key: "KR", value: 18, latlng: [37.0, 127.5] },
+  //   { key: "JP", value: 18, latlng: [36.0,138.0] },
+  // ];
 
   // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
   const maxSessions = Math.max(50, ...(countries?.map((country) => Number(country?.value)) || []));
@@ -24,7 +24,7 @@ const CountryTrafficMap = ({ countries2 }: { countries2: Array<CountryChartDTO> 
         coords: country.latlng,
         style: {
           initial: {
-            fill: "#80CAEE",
+            fill: "#3b82f6",
             opacity: 0.6,
             r: size, // 마커 크기를 r로 설정
           },

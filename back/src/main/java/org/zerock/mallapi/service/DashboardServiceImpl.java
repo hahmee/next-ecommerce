@@ -776,7 +776,7 @@ public class DashboardServiceImpl implements DashboardService{
 
   private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
-    GAResponseDTO GAResponseDTO = null; // 객체 초기화
+    GAResponseDTO gaResponseDTO = null; // 객체 초기화
 
     String sellerEmail = gaRequestDTO.getSellerEmail();
 
@@ -795,12 +795,10 @@ public class DashboardServiceImpl implements DashboardService{
       //첫번째 기간에 대한 요청
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 등 추가 가능
-              .addDimensions(Dimension.newBuilder().setName("country")) //국가
               .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
               .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-              .addMetrics(Metric.newBuilder().setName("averageSessionDuration")) // 평균 세션 지속 시간
+              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
 //              .setDimensionFilter(filterByUserId)
               .build();
       
@@ -808,56 +806,61 @@ public class DashboardServiceImpl implements DashboardService{
       RunReportResponse response = analyticsData.runReport(request);
 
       // 첫 번째 기간의 결과를 저장
-      String sessions = "0", uniqueVisitors = "0", avgSessionDuration = "0";
+      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0", avgSessionDurationMin = "0";
+      Double avgSessionDuration = 0.0;
 
       if (!response.getRowsList().isEmpty()) {
         Row row = response.getRows(0); // 첫 번째 행을 가져옴
-        sessions = row.getMetricValues(0).getValue();
-        uniqueVisitors = row.getMetricValues(1).getValue();
-        avgSessionDuration = row.getMetricValues(2).getValue();
+        sessions = row.getMetricValues(0).getValue(); //사이트 세션
+        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
+        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
+        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
+
       }
 
 
       // 두 번째 기간에 대한 요청
       RunReportRequest compareRequest = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("country")) // 국가별로 구분
-              .addDateRanges(DateRange.newBuilder()
-                      .setStartDate(gaRequestDTO.getComparedStartDate())
-                      .setEndDate(gaRequestDTO.getComparedEndDate()))
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getComparedStartDate()).setEndDate(gaRequestDTO.getComparedEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
               .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-              .addMetrics(Metric.newBuilder().setName("averageSessionDuration")) // 평균 세션 지속 시간
+              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
               .build();
 
       // 두 번째 기간에 대한 보고서 실행
       RunReportResponse compareResponse = analyticsData.runReport(compareRequest);
 
       // 두 번째 기간의 결과를 저장
-      String sessionsCompared = "0", uniqueVisitorsCompared = "0", avgSessionDurationCompared = "0";
+      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
+      Double avgSessionDurationCompared = 0.0;
 
 
       if (!compareResponse.getRowsList().isEmpty()) {
         Row compareRow = compareResponse.getRows(0); // 첫 번째 행을 가져옴
         sessionsCompared = compareRow.getMetricValues(0).getValue();
         uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
-        avgSessionDurationCompared = compareRow.getMetricValues(2).getValue();
+        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue(); //사용자 참여도
+        avgSessionDurationCompared =  Double.parseDouble(userEngagementDurationCompared) /  Double.parseDouble(sessionsCompared);  // avg.session duration
+
       }
 
-      GAResponseDTO = GAResponseDTO.builder()
+      gaResponseDTO = gaResponseDTO.builder()
               .sessions(sessions)
               .uniqueVisitors(uniqueVisitors)
-              .avgSessionDuration(avgSessionDuration)
+              .avgSessionDuration(avgSessionDuration.toString())
               .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
               .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
               .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
               .build();
     }
 
-    return GAResponseDTO; // 마지막 행의 객체 반환
+
+    log.info("asdfasdfgaResponseDTO + " + gaResponseDTO);
+
+    return gaResponseDTO; // 마지막 행의 객체 반환
 
   }
-
 
 
   private SessionChartDTO getGAChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
@@ -892,7 +895,6 @@ public class DashboardServiceImpl implements DashboardService{
           break;
       }
     }
-
 
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
@@ -1035,22 +1037,40 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
-
-
   // 비율 차이 계산 메서드
+  private String calculatePercentageDifference(Double currentValue, Double comparedValue) {
+
+    //-100% : 비교 데이터 값이 있는데, 기준 데이터가 없을 때
+    // 100% : 비교 데이터 값은 없음 (0), 기준 데이터값은 있음
+
+    if (comparedValue == null || currentValue == null) {
+      return "-"; // 비교 데이터 또는 기준 데이터가 없을 때
+    }
+
+    if (comparedValue == 0) {
+      return "100"; // 기준 데이터가 0일 때는 100% 상승으로 처리
+    }
+
+
+    double difference = ((currentValue - comparedValue) / comparedValue) * 100;
+    return String.format("%.2f", difference);
+  }
+
+  // 오버로딩된 메서드
   private String calculatePercentageDifference(String currentValue, String comparedValue) {
+    if (currentValue == null || comparedValue == null) {
+      return "-"; // 비교 데이터 또는 기준 데이터가 없을 때
+    }
+
     try {
       double current = Double.parseDouble(currentValue);
       double compared = Double.parseDouble(comparedValue);
-
-      if (compared == 0) return current == 0 ? "0%" : "∞%"; // 비교 값이 0일 때 처리
-
-      double difference = ((current - compared) / compared) * 100;
-      return String.format("%.2f%%", difference);
+      return calculatePercentageDifference(current, compared);
     } catch (NumberFormatException e) {
-      return "0%"; // 숫자 형식이 아닐 경우 기본값
+      return "-"; // 숫자 형식이 아닐 경우
     }
   }
+
 
 
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차

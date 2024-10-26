@@ -2,7 +2,7 @@ export interface GAResponse {
   sessions: string;
   uniqueVisitors: string;
   avgSessionDuration: string;
-  sessionsCompared: string;
+  sessionsCompared: string; // 숫자 or '-'
   uniqueVisitorsCompared: string;
   avgSessionDurationCompared: string;
 

@@ -15,7 +15,7 @@ const getRandomColor = (length: number) => {
 const PieChart = ({data, title}:{data:Array<SessionDTO> | undefined , title: string}) => {
 
   const series = data?.map(d =>Number(d.value)) || [];
-  const labels = data?.map(d => d.key === "" ? "정보없음" : d.key) || [];
+  const labels = data?.map(d => d.key === "" ? "Unknown" : d.key) || [];
 
   const colors = getRandomColor(data?.length || 0);
 
@@ -99,7 +99,7 @@ const PieChart = ({data, title}:{data:Array<SessionDTO> | undefined , title: str
                 <div className="flex w-full items-center">
                   <span className="mr-2 block h-3 w-full max-w-3 rounded-full" style={{backgroundColor: colors[index]}}></span>
                   <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-                    <span> {d.key || "정보없음"}  </span>
+                    <span> {d.key || "Unknown"}  </span>
                     <span> {d.value.toLocaleString() || 0} </span>
                   </p>
                 </div>
