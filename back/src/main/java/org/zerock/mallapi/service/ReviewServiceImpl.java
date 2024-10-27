@@ -35,6 +35,8 @@ public class ReviewServiceImpl implements ReviewService{
 
   private final MemberService memberService;
 
+  private final OrderService orderService;
+
   @Override
   public void register(ReviewDTO reviewDTO, String email) {
 
@@ -72,20 +74,40 @@ public class ReviewServiceImpl implements ReviewService{
     return responseDTO;
   }
 
+  @Override
+  public List<ReviewDTO> getMyList(String email) {
+
+
+    List<Review> reviews = reviewRepository.findAllByEmail(email);
+
+    List<ReviewDTO> responseDTO = reviews.stream().map(this::convertToDTO).collect(Collectors.toList());
+
+    log.info("responseDTO..." + responseDTO);
+    return responseDTO;
+  }
+
 
   private ReviewDTO convertToDTO(Review review) {
 
     MemberDTO memberDTO = memberService.entityToDTO(review.getOwner());
 
-    return ReviewDTO.builder()
+    OrderDTO orderDTO = orderService.convertToDTO(review.getOrder());
+
+    ReviewDTO reviewDTO =  ReviewDTO.builder()
             .content(review.getContent())
             .oid(review.getOrder().getId())
             .rating(review.getRating())
             .orderId(review.getOrderId())
             .rno(review.getRno())
+            .order(orderDTO)
             .pno(review.getProduct().getPno())
             .owner(memberDTO)
             .build();
+
+    reviewDTO.setCreatedAt(review.getCreatedAt());
+    reviewDTO.setUpdatedAt(review.getUpdatedAt());
+
+    return reviewDTO;
 
   }
 

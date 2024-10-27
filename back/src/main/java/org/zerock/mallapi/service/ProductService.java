@@ -2,7 +2,11 @@ package org.zerock.mallapi.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.mallapi.domain.Member;
+import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.dto.*;
+
+import java.util.stream.Collectors;
 
 @Transactional
 public interface ProductService {
@@ -20,5 +24,8 @@ public interface ProductService {
   void modify(ProductDTO productDTO);
 
   void remove(Long pno);
+
+  ProductDTO entityToDTO(Product product);
+
 
 }

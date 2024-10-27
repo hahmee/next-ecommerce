@@ -45,5 +45,17 @@ public class ReviewController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @GetMapping("/myReviews")
+    public DataResponseDTO<List<ReviewDTO>> getMylist(Principal principal) {
+
+        String email = principal.getName();
+        log.info("--------------------------------------------");
+        log.info("email: " + email );
+
+        return DataResponseDTO.of(reviewService.getMyList(email));
+
+    }
+
 
 }

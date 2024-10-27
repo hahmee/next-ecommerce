@@ -16,6 +16,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
     @Query("SELECT r FROM Review r WHERE r.product.pno = :pno ORDER BY r DESC")
     List<Review> findAllByPno(@Param("pno") Long pno);
 
+    @Query("SELECT r, r.order FROM Review r WHERE r.owner.email = :email ORDER BY r DESC")
+    List<Review> findAllByEmail(@Param("email") String email);
 
 
 }

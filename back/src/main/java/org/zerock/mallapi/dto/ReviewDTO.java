@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
+import org.zerock.mallapi.domain.BaseEntity;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.domain.SalesStatus;
@@ -21,7 +22,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewDTO {
+public class ReviewDTO extends BaseEntity {
 
   private Long rno;
 
@@ -37,7 +38,7 @@ public class ReviewDTO {
 
   private Long oid; //Order의 고유 id
 
-//  private ProductDTO product;
+  private OrderDTO order;
 
   private MemberDTO owner;
 

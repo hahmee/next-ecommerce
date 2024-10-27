@@ -28,5 +28,5 @@ public interface OrderService {
 
   List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO);
 
-
+  OrderDTO convertToDTO(Order order);
 }

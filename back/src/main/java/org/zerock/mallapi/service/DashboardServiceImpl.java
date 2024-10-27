@@ -782,15 +782,15 @@ public class DashboardServiceImpl implements DashboardService{
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
-      // 사용자의 ID로 필터링 설정 (맞춤 차원으로 필터링)
-      FilterExpression filterByUserId = FilterExpression.newBuilder()
-              .setFilter(Filter.newBuilder()
-                      .setFieldName("customUser:seller_id") // 사용자 유형 기반으로 필터링
-                      .setStringFilter(Filter.StringFilter.newBuilder()
-                              .setMatchType(Filter.StringFilter.MatchType.EXACT)
-                              .setValue(sellerEmail)
-                      ))
-              .build();
+//      // 사용자의 ID로 필터링 설정 (맞춤 차원으로 필터링)
+//      FilterExpression filterByUserId = FilterExpression.newBuilder()
+//              .setFilter(Filter.newBuilder()
+//                      .setFieldName("customUser:seller_id") // 사용자 유형 기반으로 필터링
+//                      .setStringFilter(Filter.StringFilter.newBuilder()
+//                              .setMatchType(Filter.StringFilter.MatchType.EXACT)
+//                              .setValue(sellerEmail)
+//                      ))
+//              .build();
       
       //첫번째 기간에 대한 요청
       RunReportRequest request = RunReportRequest.newBuilder()
@@ -806,7 +806,8 @@ public class DashboardServiceImpl implements DashboardService{
       RunReportResponse response = analyticsData.runReport(request);
 
       // 첫 번째 기간의 결과를 저장
-      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0", avgSessionDurationMin = "0";
+      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
+
       Double avgSessionDuration = 0.0;
 
       if (!response.getRowsList().isEmpty()) {
@@ -815,14 +816,20 @@ public class DashboardServiceImpl implements DashboardService{
         uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
         userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
         avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
-
       }
+
+      log.info("sessions", sessions);
+      log.info("uniqueVisitors", uniqueVisitors);
+      log.info("userEngagementDuration", userEngagementDuration);
+      log.info("avgSessionDuration", avgSessionDuration);
+
+//////////////////////
 
 
       // 두 번째 기간에 대한 요청
       RunReportRequest compareRequest = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getComparedStartDate()).setEndDate(gaRequestDTO.getComparedEndDate()))
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
               .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
               .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
@@ -833,8 +840,8 @@ public class DashboardServiceImpl implements DashboardService{
 
       // 두 번째 기간의 결과를 저장
       String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
-      Double avgSessionDurationCompared = 0.0;
 
+      Double avgSessionDurationCompared = 0.0;
 
       if (!compareResponse.getRowsList().isEmpty()) {
         Row compareRow = compareResponse.getRows(0); // 첫 번째 행을 가져옴
@@ -844,6 +851,12 @@ public class DashboardServiceImpl implements DashboardService{
         avgSessionDurationCompared =  Double.parseDouble(userEngagementDurationCompared) /  Double.parseDouble(sessionsCompared);  // avg.session duration
 
       }
+
+      log.info("sessionsCompared", sessionsCompared);
+      log.info("uniqueVisitorsCompared", uniqueVisitorsCompared);
+      log.info("userEngagementDurationCompared", userEngagementDurationCompared);
+      log.info("avgSessionDurationCompared", avgSessionDurationCompared);
+
 
       gaResponseDTO = gaResponseDTO.builder()
               .sessions(sessions)
@@ -1039,6 +1052,9 @@ public class DashboardServiceImpl implements DashboardService{
 
   // 비율 차이 계산 메서드
   private String calculatePercentageDifference(Double currentValue, Double comparedValue) {
+    log.info("currentValue???" + currentValue);
+    log.info("comparedValue???" + comparedValue);
+
 
     //-100% : 비교 데이터 값이 있는데, 기준 데이터가 없을 때
     // 100% : 비교 데이터 값은 없음 (0), 기준 데이터값은 있음
@@ -1051,13 +1067,18 @@ public class DashboardServiceImpl implements DashboardService{
       return "100"; // 기준 데이터가 0일 때는 100% 상승으로 처리
     }
 
-
     double difference = ((currentValue - comparedValue) / comparedValue) * 100;
+
+    log.info("???" + difference);
     return String.format("%.2f", difference);
   }
 
   // 오버로딩된 메서드
   private String calculatePercentageDifference(String currentValue, String comparedValue) {
+
+    log.info("currentValue....." + currentValue);
+    log.info("comparedValue......" + comparedValue); //계속 0 이 나와
+
     if (currentValue == null || comparedValue == null) {
       return "-"; // 비교 데이터 또는 기준 데이터가 없을 때
     }

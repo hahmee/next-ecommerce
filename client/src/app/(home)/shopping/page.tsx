@@ -3,8 +3,8 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
-import {getPayments} from "@/app/(home)/profile/_lib/getPayments";
-import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
+import {getUserServer} from "@/app/(home)/shopping/_lib/getUserServer";
+import {getPayments} from "@/app/(home)/shopping/_lib/getPayments";
 
 export async function generateMetadata() {
 
@@ -15,7 +15,7 @@ export async function generateMetadata() {
         description: `${member?.nickname} (${member?.email}) 프로필`,
     }
 }
-export default async function ProfilePage()  {
+export default async function OrderHistoryPage()  {
 
     const prefetchOptions = [
         {
@@ -24,7 +24,7 @@ export default async function ProfilePage()  {
         },
         {
             queryKey: ['payments'],
-            queryFn: () => getPayments({queryKey: ['payments']}),
+            queryFn: () => getPayments  ({queryKey: ['payments']}),
         }
     ]
 

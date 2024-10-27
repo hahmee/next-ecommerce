@@ -31,7 +31,7 @@ export const CardItemTraffic = ({title, value, comparedValue}: { title: string, 
     return (<>
             <div className="font-light text-sm">{title}</div>
             <div className="flex items-center justify-between">
-                <div className="font-bold">{value}</div>
+                <div className="font-bold">{Number(value).toLocaleString()}</div>
                 <div className="flex items-center">
                        <span className={`flex items-center gap-1 text-sm font-medium ${level && "text-meta-3"} ${!level && "text-meta-5"} `}>{comparedValue}%
                            {level ? (

@@ -18,9 +18,9 @@ const ReviewSingle = ({review}:{ review: Review;}) => {
             <span>{review.owner?.nickname}</span>
         </div>
         {/* STARS */}
-        <div className="flex gap-2">
+        <div className="flex gap-1">
             {Array.from({ length: review.rating }).map((_, index) => (
-                <StarIcon key={index} className="w-5 h-5 text-yellow-400" />
+                <StarIcon key={index} className="w-5 h-5 text-ecom" />
             ))}
         </div>
         {/* DESC */}

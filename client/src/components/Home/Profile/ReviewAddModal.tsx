@@ -53,6 +53,9 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
             pno: order?.productInfo.pno || 0,
             oid: Number(id),
             owner: null,
+            order: null,
+            createdAt: null,
+            updatedAt: null
         };
 
         const res  = await fetchWithAuth(`/api/reviews/`, {
@@ -116,7 +119,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
                                             onMouseLeave={() => setHover(0)}     // 마우스가 별을 떠났을 때
                                         >
                                             {star <= (hover || rating) ? (
-                                                <StarIcon className="w-9 h-9 text-yellow-400"/>
+                                                <StarIcon className="w-9 h-9 text-ecom"/>
                                             ) : (
                                                 <StarIcon className="w-9 h-9 text-gray-300"/>
                                             )}

@@ -3,6 +3,9 @@ import {GARequest} from "@/interface/GARequest";
 
 export async function getGoogleAnalytics (param: GARequest) {
 
+    console.log('comparedEndDate ' + param.comparedEndDate);
+    console.log('comparedStartDate ' + param.comparedStartDate);
+
     const resultJson = await fetchWithAuth(`/api/dashboard/traffic?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
         method: "GET",
         credentials: 'include',

@@ -5,13 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/MyReviewDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(home)/review-write/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(home)/shopping/_lib/getPayments.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserReviews.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ReviewRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ReviewServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/profile/_lib/getPayments.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/review/_lib/getPayments.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/profile/_lib/getUserServer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/shopping/_lib/getUserServer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/CardTraffic.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/CardTraffic.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/PieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SalesPieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SalesPieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/GAResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/GAResponse.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Review/ReviewSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Review/ReviewSingle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interface/Review.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Review.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,29 +58,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/src/components/Admin/Dashboard/Maps&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.TypeScript&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(home)/review",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.TypeScript",
+    "ts.external.directory.path": "C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard\Maps" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard\Charts" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\interface" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\_lib" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\review" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Profile" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\review-write" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\shopping" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\order-history" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\salesOverview" />
@@ -282,7 +298,9 @@
       <workItem from="1729821424006" duration="21250000" />
       <workItem from="1729864486374" duration="2291000" />
       <workItem from="1729912550340" duration="1523000" />
-      <workItem from="1729925562447" duration="6600000" />
+      <workItem from="1729925562447" duration="7409000" />
+      <workItem from="1729934708060" duration="5429000" />
+      <workItem from="1730005271045" duration="7040000" />
     </task>
     <servers />
   </component>

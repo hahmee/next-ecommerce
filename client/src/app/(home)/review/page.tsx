@@ -1,18 +1,41 @@
-import React from "react";
-import ReviewModalPage from "@/app/(home)/@modal/(.)add-reveiw/[id]/page";
-import OrderPage from "@/app/(home)/order/[orderId]/page";
+import {getCookie} from "@/utils/getCookieUtil";
+import React, {Suspense} from "react";
+import Loading from "@/app/(admin)/admin/products/loading";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
+import UserOrders from "@/components/Home/Profile/UserOrders";
+import {getUserServer} from "@/app/(home)/shopping/_lib/getUserServer";
+import {getPayments} from "@/app/(home)/shopping/_lib/getPayments";
+import UserReviews from "@/components/Home/Profile/UserReviews";
+import {getUserReviews} from "@/app/(home)/review/_lib/getPayments";
 
-interface Props {
-    searchParams: { [key: string]: string; }
+export async function generateMetadata() {
+
+    const member = getCookie("member");
+
+    return {
+        title: `${member?.nickname} (${member?.email})`,
+        description: `${member?.nickname} (${member?.email}) 리뷰`,
+    }
 }
+export default async function ReviewHistoryPage()  {
 
-export default function AddReviewPage({searchParams}: Props) {
-
-    const {oid, orderId} = searchParams;
+    const prefetchOptions = [
+        {
+            queryKey: ['myReviews'],
+            queryFn: () => getUserReviews({queryKey: ['myReviews']}),
+        }
+    ]
 
     return (
-        <>
-            <OrderPage params={{orderId}}/>
-            <ReviewModalPage params={{id: oid, orderId:orderId}}/>
-        </>);
-};
+        <Suspense fallback={<Loading/>}>
+            <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                <div className="container mx-auto px-4 py-8 ">
+                    <div className="flex flex-col lg:flex-row gap-8 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+                        <UserReviews/>
+                    </div>
+                </div>
+            </PrefetchBoundary>
+        </Suspense>
+    );
+}
+

@@ -295,7 +295,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
 
-  private OrderDTO convertToDTO(Order order) {
+  public OrderDTO convertToDTO(Order order) {
 
     MemberDTO memberDTO = memberService.entityToDTO(order.getOwner());
 

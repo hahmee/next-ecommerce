@@ -1,10 +1,10 @@
 "use client";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getPayments} from "@/app/(home)/profile/_lib/getPayments";
 import {Payment} from "@/interface/Payment";
 import {TossPaymentStatus} from "@/types/toss";
 import {useRouter} from "next/navigation";
+import {getPayments} from "@/app/(home)/shopping/_lib/getPayments";
 
 const UserOrders = () => {
     const router = useRouter();

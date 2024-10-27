@@ -2,11 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
-import {logout} from "@/app/(home)/profile/_lib/getUserServer";
 import {useQueryClient} from "@tanstack/react-query";
 import {Member} from "@/interface/Member";
 import CartModal from "@/components/Home/CartModal";
 import {useCartStore} from "@/store/cartStore";
+import {logout} from "@/app/(home)/shopping/_lib/getUserServer";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     const { cart, counter, getCart, changeOpen, open } = useCartStore();
@@ -50,12 +50,12 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
                     <div className="absolute animate-fadeInUp p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20"
                          onClick={(e) => e.stopPropagation()}>
                         <div className="relative" >
-                            <Link href="/profile">
+                            <Link href="/shopping">
                                 <div className="cursor-pointer">
                                     나의쇼핑
                                 </div>
                             </Link>
-                            <Link href="/profile">
+                            <Link href="/review">
                                 <div className="mt-2 cursor-pointer">
                                     나의리뷰
                                 </div>

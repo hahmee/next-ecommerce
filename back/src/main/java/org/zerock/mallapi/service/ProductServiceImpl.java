@@ -446,7 +446,7 @@ public class ProductServiceImpl implements ProductService{
 
   }
 
-  private ProductDTO entityToDTO(Product product){
+  public ProductDTO entityToDTO(Product product){
 
     MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
 
