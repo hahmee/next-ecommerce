@@ -85,7 +85,7 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
                             <li key={item.id}
                                 className="flex flex-col p-3 mb-3 border gap-y-3 border-gray-200 rounded ">
                                 <span className="text-xs font-black">구매확정</span>
-                                <div className="flex gap-3 justify-between ">
+                                <div className="flex gap-3 justify-between">
                                     <div className="flex gap-x-3">
                                         <Link href={`/product/${item.productInfo.pno}`}>
                                             <Image src={item.productInfo.thumbnailUrl} alt={'image'} width={500}
@@ -108,7 +108,7 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
                                     </Link>
                                 </div>
                                 <div className="bg-gray-50 flex flex-col p-3 rounded text-xs">
-                                    <span>배송비  무료(일반택배)</span>
+                                    <span>배송비 무료(일반택배)</span>
                                     <span>판매자  </span>
                                 </div>
                             </li>

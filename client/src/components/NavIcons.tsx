@@ -64,7 +64,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
                                 <button onClick={onLogout}>로그아웃</button>
                             </div>
                             <div className="mt-2 cursor-pointer">
-                                <Link href="/admin">어드민</Link>
+                                <Link href="/admin/products">어드민</Link>
                             </div>
                         </div>
                     </div>

@@ -68,7 +68,7 @@ const UserOrders = () => {
                             </td>
                             <td className="py-2 px-4 flex justify-end">
                                 <button type="button" className="rounded text-xs bg-white ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
-                                    리뷰쓰기
+                                    상세보기
                                 </button>
                             </td>
                         </tr>

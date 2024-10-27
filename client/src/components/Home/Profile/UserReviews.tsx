@@ -6,6 +6,7 @@ import {getUserReviews} from "@/app/(home)/review/_lib/getPayments";
 import {Review} from "@/interface/Review";
 import {StarIcon} from "@heroicons/react/20/solid";
 import React from "react";
+import Image from "next/image";
 
 const UserReviews = () => {
     const router = useRouter();
@@ -36,12 +37,19 @@ const UserReviews = () => {
                 myReviews?.map((review) => (
                     <div className="mb-2 cursor-pointer" key={review.rno} onClick={()=>router.push(`/product/${review.pno}`)} >
                         <ul className="border border-gray-200 rounded p-3 text-sm">
-                            <li className="flex py-1.5">
+                            <li className="flex py-1.5 gap-2">
+                                <Image src={review.order?.productInfo.thumbnailUrl || ""} alt={'image'} width={500} height={500} className="w-20 h-20 rounded object-cover"/>
+                                <div className="flex flex-col gap-2 justify-center">
                                 <span className="font-semibold">{review.order?.productInfo.pname}</span>
-                            </li>
-                            <li className="flex py-1.5">
                                 <span className="text-gray-500 text-xs">{review.order?.productInfo.size} | {review.order?.productInfo.color.text}</span>
+                                </div>
                             </li>
+                            {/*<li className="flex py-1.5">*/}
+                            {/*    <span className="font-semibold">{review.order?.productInfo.pname}</span>*/}
+                            {/*</li>*/}
+                            {/*<li className="flex py-1.5">*/}
+                            {/*    <span className="text-gray-500 text-xs">{review.order?.productInfo.size} | {review.order?.productInfo.color.text}</span>*/}
+                            {/*</li>*/}
                             <li className="flex items-center py-1.5 gap-1">
                                 <span className="flex">
                                   {Array.from({length: 5}).map((_, index) => (
@@ -51,7 +59,8 @@ const UserReviews = () => {
                                       />
                                   ))}
                                 </span>
-                                <span className="text-gray-400 text-xs">{new Date(review.order?.createdAt || "").toLocaleDateString()} 구매</span>
+                                <span
+                                    className="text-gray-400 text-xs">{new Date(review.order?.createdAt || "").toLocaleDateString()} 구매</span>
                             </li>
                             <li className="flex py-1.5">
                                 <span className="text-gray-800 text-xs">{review.content}</span>

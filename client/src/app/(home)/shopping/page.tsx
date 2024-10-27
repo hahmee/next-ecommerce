@@ -15,6 +15,7 @@ export async function generateMetadata() {
         description: `${member?.nickname} (${member?.email}) 프로필`,
     }
 }
+
 export default async function OrderHistoryPage()  {
 
     const prefetchOptions = [
