@@ -14,7 +14,7 @@ import {MemberRole} from "@/types/memberRole";
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
 
   const { pathname } = request.nextUrl;
-  const member = getCookie("member");
+    const member = getCookie("member");
 
   // console.log('middleware-----------------------------------', request.method, request.url);
 

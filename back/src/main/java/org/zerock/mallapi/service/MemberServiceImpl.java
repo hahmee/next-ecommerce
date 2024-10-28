@@ -73,12 +73,18 @@ public class MemberServiceImpl implements MemberService {
 
         log.info("--------------email      " + email);
 
-
       java.util.Optional<Member> result = Optional.ofNullable(memberRepository.getWithRoles(email));
 
-      Member member = result.orElseThrow();
+        log.info("--------------result      " + result);
+
+        Member member = result.orElseThrow();
+
+      log.info("--------------member      " + member);
 
       MemberDTO memberDTO = entityToDTO(member);
+
+      log.info("--------------memberDTO =      " + memberDTO);
+
 
       return memberDTO;
     }

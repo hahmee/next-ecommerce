@@ -2,9 +2,9 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
 import Profile from "@/components/Admin/Profile";
 import {getCookie} from "@/utils/getCookieUtil";
+import {getUserInfo} from "@/app/(home)/shopping/_lib/getUserInfo";
 
 
 export async function generateMetadata() {
@@ -19,10 +19,9 @@ export async function generateMetadata() {
 
 export default async function ProfilePage() {
 
-    const member = getCookie("member");
-
-    if(!member) {
-        return <></>;
+    const prefetchOptions = {
+            queryKey: ['user'],
+            queryFn: () => getUserInfo,
     }
 
     return (
@@ -30,9 +29,9 @@ export default async function ProfilePage() {
             <Breadcrumb pageName="Profile"/>
             <div className="flex flex-col gap-10">
                 <Suspense fallback={<Loading/>}>
-                    {/*<PrefetchBoundary prefetchOptions={prefetchOptions}>*/}
-                        <Profile member={member}/>
-                    {/*</PrefetchBoundary>*/}
+                    <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                        <Profile/>
+                    </PrefetchBoundary>
                 </Suspense>
             </div>
         </div>

@@ -41,15 +41,7 @@ public class MemberController {
         //서비스 호출
         MemberDTO profileDTO = memberService.getProfile(userDetails);
 
-        try {
-            Thread.sleep(0);
-
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-
+        log.info("..... profileDTO " + profileDTO);
         return DataResponseDTO.of(profileDTO);
     }
 }

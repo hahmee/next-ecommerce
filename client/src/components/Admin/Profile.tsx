@@ -1,29 +1,32 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, {useCallback} from "react";
 import Image from "next/image";
 import {Member} from "@/interface/Member";
+import {DataResponse} from "@/interface/DataResponse";
+import {useQuery} from "@tanstack/react-query";
+import {getUserInfo} from "@/app/(home)/shopping/_lib/getUserInfo";
 
-const Profile = ({member} : {member: Member}) => {
+const Profile = () => {
 
+    const {data: member, isLoading} = useQuery<DataResponse<Member>, Object, Member>({
+        queryKey: ['user'],
+        queryFn: getUserInfo,
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: false,
+        select: useCallback((data: DataResponse<Member>) => {
+            return data.data;
+        }, []),
+    });
 
-    console.log('asdfasdfad', member);
-
-    //    const {data: user, isLoading} = useQuery<DataResponse<Member>, Object, Member>({
-    //         queryKey: ['user'],
-    //         queryFn: getUserServer,
-    //         staleTime: 60 * 1000,
-    //         gcTime: 300 * 1000,
-    //         throwOnError: false,
-    //         select: (data) => {
-    //             // 데이터 가공 로직만 처리
-    //             return data.data;
-    //         }
-    //     });
+    console.log('member..', member);
 
     return (
         <>
             <div className="w-full">
-                 <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <div className="relative z-20 h-35 md:h-65">
                         <Image
                             src={"/images/cover/cover-01.png"}
@@ -45,31 +48,27 @@ const Profile = ({member} : {member: Member}) => {
                         </div>
                         <div className="mt-4">
                             <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                                {member.nickname} ({member.roleNames})
+                                {member?.nickname} ({member?.roleNames})
                             </h3>
-                            <p className="font-medium">{member.email}</p>
-
-                            <div
-                                className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
-                                <div
-                                    className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-                  <span className="font-semibold text-black dark:text-white">
-                    2
-                  </span>
+                            <p className="font-medium">{member?.email}</p>
+                            <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">
+                                <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                                  <span className="font-semibold text-black dark:text-white">
+                                    2
+                                  </span>
                                     <span className="text-sm">Posts</span>
                                 </div>
-                                <div
-                                    className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
-                  <span className="font-semibold text-black dark:text-white">
-                    1
-                  </span>
+                                <div className="flex flex-col items-center justify-center gap-1 border-r border-stroke px-4 dark:border-strokedark xsm:flex-row">
+                                  <span className="font-semibold text-black dark:text-white">
+                                    1
+                                  </span>
                                     <span className="text-sm">Followers</span>
                                 </div>
 
                                 <div className="flex flex-col items-center justify-center gap-1 px-4 xsm:flex-row">
-                  <span className="font-semibold text-black dark:text-white">
-                    2
-                  </span>
+                                  <span className="font-semibold text-black dark:text-white">
+                                    2
+                                  </span>
                                     <span className="text-sm">Following</span>
                                 </div>
                             </div>

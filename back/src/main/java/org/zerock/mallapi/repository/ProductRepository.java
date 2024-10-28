@@ -23,10 +23,11 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("update Product p set p.delFlag = :flag where p.pno = :pno")
   void updateToDelete(@Param("pno") Long pno , @Param("flag") boolean flag);
 
-  @Query("select p, pi, AVG(COALESCE(r.rating, 0)) as avgRating, COUNT(DISTINCT r) as reviewCount from Product p left join p.imageList pi " +
+  @Query("select p, pi, AVG(COALESCE(r.rating, 0)) as avgRating, COUNT(DISTINCT r) as reviewCount, COUNT(DISTINCT o) as salesCount from Product p left join p.imageList pi " +
           "left join p.sizeList ps " +
           "left join p.colorList pc " +
           "left join Review r ON r.product.pno = p.pno " +
+          "left join Order o ON o.productInfo.pno = p.pno AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " + // 조건 추가
           "where (NULLIF(pi.ord, ' ') IS NULL OR pi.ord = 0) " +
           "and p.delFlag = false " +
           "and (:productSizes IS NULL OR ps IN :productSizes) " +

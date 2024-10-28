@@ -80,6 +80,7 @@ public class Product extends BaseEntity {
   public void changeName(String name) {
     this.pname = name;
   }
+
   public void changeChangePolicy(String changePolicy) {
     this.changePolicy = changePolicy;
   }
