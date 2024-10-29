@@ -1,10 +1,14 @@
-import {XCircleIcon} from "@heroicons/react/20/solid";
+import {XMarkIcon} from "@heroicons/react/20/solid";
 import React from "react";
 import {Category} from "@/interface/Category";
 import {useRouter, useSearchParams} from "next/navigation";
 import {Params} from "@/components/Home/ProductList";
 
-const FiltersBadge = ({param, category}: { param: Params, category: Category | undefined }) => {
+const FiltersBadge = ({param, category}: { param: Params, category?: Category | undefined }) => {
+
+    console.log('params', param);
+    // console.log('category', category);
+
 
 
     const router = useRouter();
@@ -14,6 +18,7 @@ const FiltersBadge = ({param, category}: { param: Params, category: Category | u
 
         const params = new URLSearchParams(searchParams); // 기존 쿼리스트링을 복사
 
+        console.log('params', params);
         // param이 ['color', 'green'] 형태일 때 'color'의 모든 값을 가져옴
         const values = params.getAll(param.key); // 'color' 파라미터의 모든 값을 가져옴
 
@@ -30,18 +35,23 @@ const FiltersBadge = ({param, category}: { param: Params, category: Category | u
         router.replace(`/list?${params.toString()}`);
     };
 
-    if(category) {
+    // if(category) {
+    //
+    //     return <div
+    //         className="flex cursor-pointer items-center w-auto text-sm rounded-full font-semibold text-white bg-primary-950  py-1 px-4 text-center">
+    //         <span>{category.cname}</span>
+    //         <XMarkIcon className="ml-2 h-5 w-5 cursor-pointer text-gray-300" onClick={deleteQueryString}/>
+    //     </div>
+    // }
 
-        return <div className="flex cursor-pointer justify-between w-36 text-sm rounded-3xl ring-1 border-gray-500 text-gray-500 py-2 px-4 text-center">
-            <span>{category.cname}</span>
-            <XCircleIcon className="h-5 w-5 cursor-pointer" onClick={deleteQueryString}/>
-        </div>
-    }
 
+    return <div
+        className="flex cursor-pointer items-center w-auto text-sm rounded-full font-semibold text-white bg-primary-950 py-1 px-4 text-center">
+        {
+            category ? <span>{category.cname}</span> : <span>{param?.value}</span>
+        }
 
-    return <div className="flex cursor-pointer justify-between w-36 text-sm rounded-3xl ring-1 border-gray-500 text-gray-500 py-2 px-4 text-center">
-        <span>{param.value}</span>
-        <XCircleIcon className="h-5 w-5 cursor-pointer" onClick={deleteQueryString}/>
-    </div>
+        <XMarkIcon className="ml-2 h-5 w-5 cursor-pointer text-gray-300" onClick={deleteQueryString}/>
+    </div>;
 };
 export default FiltersBadge;

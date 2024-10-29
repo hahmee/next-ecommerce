@@ -113,13 +113,16 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         key,
         value
     }));
+    console.log('categoryId', categoryId);
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
+
     const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
         category: filters[0].options,
         size: filters[1].options,
         color: filters[2].options,
     });
+
     const toggleFilter = (sectionId: string, value?: string) => {
         if (value) {
             setFilterStates((prev) => ({
@@ -168,7 +171,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         refetchOnWindowFocus: false,
     });
 
-    console.log('products...', products);
 
     const {data: categories} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
         queryKey: ['categories'],
@@ -187,11 +189,13 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         queryFn: getCategory,
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
+        enabled : !!categoryId, //categoryId가 있을 때만 쿼리 요청
         select: useCallback((data: DataResponse<Category>) => {
             return data.data;
         }, []),
     });
 
+    console.log('cccc', category);
 
     const {ref, inView} = useInView();
 
@@ -315,10 +319,10 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                 :
                                 <div>
                                     <h1 className="text-4xl font-bold tracking-tight text-slate-900">
-                                        {category?.cname}
+                                        {category?.cname || "전체검색"}
                                     </h1>
                                     <p className="text-sm md:text-base text-slate-500 my-3.5">
-                                        {category?.cdesc}
+                                        {category?.cdesc || "전체검색 결과입니다."}
                                     </p>
                                 </div>
                         }
@@ -353,10 +357,12 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                             {/* Product Grid */}
                             <div className="lg:col-span-3">
                                 {/*Badges*/}
-                                <div className="w-full flex justify-between">
-                                    <div className="flex flex-wrap">
+                                <div className="w-full flex justify-between items-center">
+                                    <div className="flex flex-wrap gap-2">
                                         {
-                                            paramsArray?.map((param:Params, index: number) => <FiltersBadge key={index} param={param} category={category}/>)
+                                            paramsArray?.map((param: Params, index: number) =>
+                                                    param.key === "category_id" ? <FiltersBadge key={index} category={category} param={param} /> : <FiltersBadge key={index} param={param}/>
+                                            )
                                         }
                                     </div>
 

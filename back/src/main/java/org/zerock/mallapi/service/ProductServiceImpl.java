@@ -53,8 +53,6 @@ public class ProductServiceImpl implements ProductService{
           sort = Sort.by("createdAt").descending();  // 최신 순
           break;
         case "sales":
-
-          log.info("slae..s...");
           sort = Sort.by(Sort.Order.desc("salesCount"));  // 판매개수 많은 순
           break;
         case "ratings":

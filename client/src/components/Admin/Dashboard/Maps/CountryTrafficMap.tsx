@@ -4,7 +4,7 @@ import "jsvectormap/dist/jsvectormap.css";
 import React, { useEffect } from "react";
 import "../../../../js/world"; // 지도 파일
 import { CountryChartDTO } from "@/interface/GAResponse";
-import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
+import BarChart, {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
 
 const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
   // const countries: Array<CountryChartDTO> = [
@@ -81,7 +81,7 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
                     <span className="text-sm font-normal">{country.key}</span>
                     <span className="text-sm font-bold">{Number(country.value).toLocaleString()}</span>
                   </div>
-                  <BarChart data={country} maxValue={maxSessions}/>
+                  <BarChartThin data={country} maxValue={maxSessions}/>
                 </div>
             ))}
           </div>
