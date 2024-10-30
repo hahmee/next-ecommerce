@@ -73,7 +73,6 @@ const ProductForm = ({type, id}: Props) => {
     const quillRef = useRef<any>(null);
 
 
-
     // edit일 때만 getProduct하기
     const {isLoading, data: originalData, error} = useQuery<DataResponse<Product>, Object, Product, [_1: string, _2: string]>({
         queryKey: ['productSingle', id!],

@@ -292,5 +292,15 @@ public class ProductController {
   }
 
 
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PutMapping("/stock/{pno}")
+  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, @RequestBody OrderRequestDTO orderRequestDTO,  @AuthenticationPrincipal UserDetails userDetails) {
+    log.info("==============pno " + pno);
+
+
+    productDTO.setPno(pno);
+
+  }
+
 
 }

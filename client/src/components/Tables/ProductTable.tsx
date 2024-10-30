@@ -153,21 +153,21 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     <tbody>
                     {productData?.dtoList?.map((product, key) => (
                         <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                            <th scope="row"
-                                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
-                                {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
-                                    <Image
-                                        src={product.uploadFileNames[0]?.file}
-                                        width={500}
-                                        height={500}
-                                        className="object-cover w-15 h-10 flex-none"
-                                        alt="Product"
-                                        onClick={() => handleClick(product.pno)}
-                                    />
-                                }
-                                <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap w-full">
-                                    {product.pname}
-                                </p>
+                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <Link href={`/admin/products/${product.pno}`} className="flex items-center gap-2">
+                                    {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
+                                        <Image
+                                            src={product.uploadFileNames[0]?.file}
+                                            width={500}
+                                            height={500}
+                                            className="object-cover w-15 h-10 flex-none"
+                                            alt="Product"
+                                        />
+                                    }
+                                    <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap w-full">
+                                        {product.pname}
+                                    </p>
+                                </Link>
                             </th>
                             <td className="px-4 py-3 whitespace-nowrap">
                                 <span
@@ -197,8 +197,10 @@ const ProductTable = () => { //{page, size, search} : PageParam
                             <td className="px-4 py-3 justify-end whitespace-nowrap">
 
                                 <TableActions>
-                                    <div id="apple-imac-27-dropdown" className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
+                                    <div id="apple-imac-27-dropdown"
+                                         className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="apple-imac-27-dropdown-button">
                                             <li>
                                                 <Link href={`/product/${product.pno}`}
                                                       className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>

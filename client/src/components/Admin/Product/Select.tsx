@@ -4,14 +4,15 @@ import {Option} from "@/interface/Option";
 
 
 interface SelectProps {
-    label:string,
+    label?:string,
     options: Array<Option<string>>;
-    defaultOption: string;
+    defaultOption?: string;
     name: string;
     originalData: string | undefined;
+    doAction?: (value: string) => void;
 }
 
-const Select = ({label, options, defaultOption, name, originalData}: SelectProps) => {
+const Select = ({label, options, defaultOption, name, originalData, doAction}: SelectProps) => {
     const [selectedOption, setSelectedOption] = useState<string>(originalData ? originalData : "");
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -21,9 +22,11 @@ const Select = ({label, options, defaultOption, name, originalData}: SelectProps
 
     return (
         <div>
-            <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                {label} <span className="text-meta-1">*</span>
-            </label>
+            {
+                label && <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    {label} <span className="text-meta-1">*</span>
+                </label>
+            }
 
             <div className="relative z-20 bg-white dark:bg-form-input">
                 <select
@@ -32,6 +35,7 @@ const Select = ({label, options, defaultOption, name, originalData}: SelectProps
                         console.log(e.target.value);
                         setSelectedOption(e.target.value);
                         changeTextColor();
+                        doAction && doAction(e.target.value);
                     }}
                     name={name}
                     required
@@ -39,11 +43,15 @@ const Select = ({label, options, defaultOption, name, originalData}: SelectProps
                         isOptionSelected ? "text-black dark:text-white" : ""
                     }`}
                 >
-                    <option value="" disabled className="text-body dark:text-bodydark">
-                        {defaultOption}
-                    </option>
                     {
-                        options.map(option => <option key={option.id as string} value={option.id as string} className="text-body dark:text-bodydark">
+                        defaultOption && <option value="" disabled className="text-body dark:text-bodydark">
+                            {defaultOption}
+                        </option>
+                    }
+
+                    {
+                        options.map(option => <option key={option.id as string} value={option.id as string}
+                                                      className="text-body dark:text-bodydark">
                             {option.content}
                         </option>)
                     }
