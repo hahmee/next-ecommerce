@@ -555,6 +555,21 @@ public class ProductServiceImpl implements ProductService{
   }
 
   @Override
+  public void modifySalesStatus(StockRequestDTO stockRequestDTO) {
+
+    //step1 read
+    Optional<Product> result = productRepository.findById(stockRequestDTO.getPno());
+    Product product = result.orElseThrow();
+
+    product.changeSalesStatus(stockRequestDTO.getSalesStatus());
+
+    productRepository.save(product);
+
+
+  }
+
+
+  @Override
   public void modify(ProductDTO productDTO) {
 
     log.info("--------modify+ " + productDTO);
@@ -563,14 +578,13 @@ public class ProductServiceImpl implements ProductService{
     Optional<Product> result = productRepository.findById(productDTO.getPno());
     Product product = result.orElseThrow();
 
-//    Optional<AdminCategory> adminCategoryResult = categoryRepository.findById(productDTO.getCategoryId());
-//    AdminCategory adminCategory = adminCategoryResult.orElseThrow();
 
     AdminCategory adminCategory = AdminCategory.builder()
             .cno(productDTO.getCategoryId())
             .build();
 
     log.info("adminCategory...." + adminCategory);
+
     //change pname, pdesc, price, ...etc
     product.changeName(productDTO.getPname());
     product.changeDesc(productDTO.getPdesc());

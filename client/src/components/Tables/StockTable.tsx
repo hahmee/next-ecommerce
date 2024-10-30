@@ -11,17 +11,15 @@ import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
 import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
-import {brandOptions, salesOptions} from "@/components/Admin/Product/ProductForm";
+import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
 import React, {useCallback, useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
-import Dialog from "@/components/Admin/Dialog";
-import {StarIcon} from "@heroicons/react/20/solid";
 import TableActions from "@/components/Tables/TableActions";
 import Link from "next/link";
 import Select from "@/components/Admin/Product/Select";
-import {Option} from "@/interface/Option";
+import toast from "react-hot-toast";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -44,7 +42,7 @@ const StockTable = () => {
     const [currentPno, setCurrentPno] = useState<number>(-1);
     const [productData, setProductData] = useState<PageResponse<Product>>();
     const [deleteId, setDeleteId] = useState<number>(-1);
-    const [selectedValue,setSelectedValue] = useState<string>("");
+    const [selectedValue,setSelectedValue] = useState<SalesStatus>();
     const [showDialog, setShowDialog] = useState<boolean>(false);
     const router = useRouter();
     const queryClient = useQueryClient();
@@ -92,59 +90,43 @@ const StockTable = () => {
         setPage(page);
     }
 
-    const mutation = useMutation({
-        mutationFn: async (pno: number) => {
-            return fetchWithAuth(`/api/products/${pno}`, {
-                method: "DELETE",
-                credentials: 'include',
-            });
-        },
-        onSuccess: (data) => {
-            console.log('data...', data);
-            clickModal();
-            queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search}]});
-
-        }
-
-    });
 
     // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
     const clickModal = () => setShowDialog(!setShowDialog);
 
-    //삭제
-    const deleteProduct = () => {
-        mutation.mutate(deleteId);
-    }
 
-    // Select에서 선택한 값을 받아와 사용할 함수
-    const handleSelectChange = useCallback(async (value: string, id:number) => {
+    const mutation = useMutation({
+        mutationFn: async ({ salesStatus, pno }: { salesStatus: string; pno: number }) => {
+            const response = await fetchWithAuth(`/api/products/stock/${pno}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ salesStatus, pno }),
+            });
+            console.log('response', response);
+            if (!response.success) throw new Error("업데이트 실패");
+        },
+        onSuccess: (data) => {
+            toast.success("수정되었습니다.");
+            clickModal();
+            queryClient.invalidateQueries({queryKey: ['adminStockProducts', {page, size, search}]});
+        },
+        onError: (error) => {
+            toast.error(`오류 발생: ${error}`);
+        },
 
-        setSelectedValue(value);
-        console.log("선택된 값:", value);
-
-        const
-        // 필요한 추가 작업 수행
-
-        await fetchWithAuth(`/api/products/stock/${id}`, {
-            method: "PUT",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(value),
-        }); // json 형태로 이미 반환
-
-        //알림창
+    });
 
 
-    }, [setSelectedValue]);
+// Select에서 선택한 값을 받아와 사용할 함수
+    const handleSelectChange = useCallback((value: string, id: number) => {
+        mutation.mutate({ salesStatus: value, pno: id });
+    }, [mutation]);
 
     return (
-        // <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden">
-            {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
-                                   doAction={deleteProduct}/>}
-
             <div
                 className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2">
@@ -152,9 +134,8 @@ const StockTable = () => {
                 </div>
                 <div
                     className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <TableAddButton content={"Add Product"} location={"/admin/products/add-product"}/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
-                        <ActionButton/>
+                        {/*<ActionButton/>*/}
                         <FilterButton changeSize={changeSize}/>
                     </div>
                 </div>
@@ -183,7 +164,7 @@ const StockTable = () => {
                                             src={product.uploadFileNames[0]?.file}
                                             width={500}
                                             height={500}
-                                            className="object-cover w-15 h-10 flex-none"
+                                            className="object-cover rounded-full w-12 h-12 flex-none"
                                             alt="Product"
                                             onClick={() => handleClick(product.pno)}
                                         />
@@ -205,7 +186,6 @@ const StockTable = () => {
                             </td>
 
                             <td className="px-4 py-3 justify-end whitespace-nowrap">
-
                                 <TableActions>
                                     <div id="apple-imac-27-dropdown"
                                          className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">

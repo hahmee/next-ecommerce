@@ -294,11 +294,16 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/stock/{pno}")
-  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, @RequestBody OrderRequestDTO orderRequestDTO,  @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<String> modifySalesStatus(@PathVariable(name="pno")Long pno, @RequestBody StockRequestDTO stockRequestDTO,  @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============pno " + pno);
+    log.info("==============stockRequestDTO " + stockRequestDTO);
+
+    //수정 작업
+    productService.modifySalesStatus(stockRequestDTO);
 
 
-    productDTO.setPno(pno);
+    return DataResponseDTO.of( "SUCCESS");
+
 
   }
 

@@ -13,7 +13,7 @@ const FilterButton= ({changeSize}:{changeSize: (size: number) => void}) => {
     return (
         <div className="relative">
             <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                    className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    className="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-999 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     type="button"
                     onClick={() => setOpen(!open)}>
                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
@@ -33,7 +33,7 @@ const FilterButton= ({changeSize}:{changeSize: (size: number) => void}) => {
             {
                 open &&
                 <div id="filterDropdown"
-                     className="absolute z-10 w-48 p-3 bg-white right-0 top-12 rounded-lg shadow dark:bg-gray-700">
+                     className="absolute z-999 w-48 p-3 bg-white right-0 top-12 rounded-lg shadow dark:bg-gray-700">
                     <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose</h6>
                     <ul className="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                         <li className="flex items-center">
