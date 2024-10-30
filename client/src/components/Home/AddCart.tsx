@@ -7,6 +7,7 @@ import {useCartStore} from "@/store/cartStore";
 import {CartItem} from "@/interface/CartItem";
 import {ColorTag} from "@/interface/ColorTag";
 import {getCookie} from "cookies-next";
+import toast from "react-hot-toast";
 
 const AddCart = ({
                      pno,
@@ -64,6 +65,7 @@ const AddCart = ({
             changeCart(cartItem); //새로 담기
         }
 
+        toast.success('장바구니에 담겼습니다.');
         //스낵바 "장바구니 담겼습니다."
 
 
@@ -100,7 +102,7 @@ const AddCart = ({
                 </div>
                 <button
                     onClick={handleClickAddCart}
-                    disabled={isLoading}
+                    disabled={isLoading || salesStatus != SalesStatus.ONSALE}
                     className="w-36 text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                 >
                     Add to Cart

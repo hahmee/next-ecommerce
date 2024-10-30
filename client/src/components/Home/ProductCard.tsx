@@ -9,6 +9,8 @@ import {CartItem} from "@/interface/CartItem";
 import {getCookie} from "cookies-next";
 import {ColorTag} from "@/interface/ColorTag";
 import {ShoppingCartIcon} from "@heroicons/react/24/outline";
+import {SalesStatus} from "@/types/salesStatus";
+import toast from "react-hot-toast";
 
 type ProductCardProps = {
     product: Product;
@@ -19,7 +21,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     // const [isAddedToCart, setIsAddedToCart] = useState(false); // 아이콘 상태 관리
     const [color, setColor] = useState<ColorTag>(product.colorList[0]);
     const memberInfo = getCookie('member');
-    // const member = JSON.parse(memberInfo ? memberInfo : "");
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
     const handleClickAddCart = (pno: number, options: { color: ColorTag, size: string; }) => {
@@ -48,6 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             changeCart(cartItem); //새로 담기
         }
 
+        toast.success('장바구니에 담겼습니다.');
         //스낵바 "장바구니 담겼습니다."
 
 
@@ -69,13 +71,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     />
 
                     <div className="absolute top-4 right-4">
-                        <button className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" onClick={(e) => {
-                            e.preventDefault(); // 페이지 이동 방지
-                            e.stopPropagation();// 부모로의 이벤트 전파 방지
-                            handleClickAddCart(product.pno, {color: color, size: product.sizeList[0]});
-                        }}>
-                            <ShoppingCartIcon className="h-6 w-6 group-open:hidden" />
-                        </button>
+                        {
+                            product.salesStatus == SalesStatus.ONSALE &&
+                            <button className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" onClick={(e) => {
+                                e.preventDefault(); // 페이지 이동 방지
+                                e.stopPropagation();// 부모로의 이벤트 전파 방지
+                                handleClickAddCart(product.pno, {color: color, size: product.sizeList[0]});
+                            }}>
+                                <ShoppingCartIcon
+                                    className={`h-6 w-6 group-open:hidden`}/>
+                            </button>
+                        }
+
                     </div>
 
                     <div
@@ -118,11 +125,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         }
                     </div>
 
-                    <h3 className="text-base font-semibold text-gray-900">{product.pname}</h3>
-                    <p className="mt-1 text-sm text-gray-500">다른설명</p>
+                    <h3 className="text-base font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}asdfasdfajsdlfkja;sldkfja;sldkfja;sldkfja;sldfkja;sldfkj;asdjfla;</h3>
+                    <p className="mt-1 text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap">
+                        {product?.pdesc && (
+                            <div dangerouslySetInnerHTML={{__html: product.pdesc}} className="text-gray-500"
+                            />
+                        )}
+                    </p>
                     <div className="flex justify-between items-center mt-2">
                         <div className="px-1.5 py-0.5 border-2 border-green-500 bg-white rounded-lg">
-                            <p className="text-base text-green-500">${product.price}</p>
+                            <p className="text-base text-green-500">{product.price.toLocaleString()}원</p>
                         </div>
                         <div className="flex items-center">
                         <span className="text-yellow-500">

@@ -38,7 +38,7 @@ const CartItem: FC<Props> = ({item}) => {
                                     {item.qty} x{" "}
                                 </div>
                             )}
-                            ${item.price}
+                            {item.price.toLocaleString()}원
                         </div>
                     </div>
                     {/* DESC */}

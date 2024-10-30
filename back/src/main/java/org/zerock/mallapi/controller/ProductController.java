@@ -33,7 +33,6 @@ public class ProductController {
   @PostMapping("/")
   public DataResponseDTO<Long> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
-    log.info("register: ?????????????" + productDTO);
 
     List<FileDTO<MultipartFile>> files = productDTO.getFiles();//파일 객체들
 
@@ -47,8 +46,6 @@ public class ProductController {
       List<FileDTO<String>> uploadFileNames = awsResults.get("uploadNames");
       List<FileDTO<String>> uploadFileKeys = awsResults.get("uploadKeys");
 
-      log.info("잘 나오나.." + uploadFileNames);
-      log.info("잘 나오나..2" + uploadFileKeys);
 
       productDTO.setUploadFileNames(uploadFileNames);
       productDTO.setUploadFileKeys(uploadFileKeys);
@@ -94,19 +91,15 @@ public class ProductController {
   @GetMapping("/list") // list?page=7&size=2&categoryId=1&color=green&color=green&minPrice=1&order
   public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
-    log.info("list............." + pageCategoryRequestDTO);
-
 
     return DataResponseDTO.of(productService.getList(pageCategoryRequestDTO));
-    
+
   }
 
   //ADMIN 페이지 추가
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/adminList") // adminList?page=7
   public DataResponseDTO<PageResponseDTO<ProductDTO>> adminList(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
-
-    log.info("list............." + pageRequestDTO);
 
     try {
       Thread.sleep(0);
@@ -125,11 +118,9 @@ public class ProductController {
   @GetMapping("/searchAdminList") // searchAdminList?search=검색어&page=1&size=10
   public DataResponseDTO<PageResponseDTO<ProductDTO>> searchAdminList(SearchRequestDTO searchRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
-    log.info("search............" + searchRequestDTO);
 
     DataResponseDTO<PageResponseDTO<ProductDTO>> result =  DataResponseDTO.of(productService.getSearchAdminList(searchRequestDTO, userDetails));
 
-    log.info("최종 result", result);
     return result;
   }
 
@@ -146,7 +137,6 @@ public class ProductController {
 
     ProductDTO productDTO = productService.get(pno);
 
-    log.info("productDTO....." + productDTO);
 
     return DataResponseDTO.of(productDTO);
   }
@@ -290,6 +280,15 @@ public class ProductController {
 
 
     return DataResponseDTO.of("SUCCESS");
+  }
+
+
+  @GetMapping("/newProductList")
+  public DataResponseDTO<List<ProductDTO>> getNewProducts() {
+
+
+    return DataResponseDTO.of(productService.getNewProducts());
+
   }
 
 

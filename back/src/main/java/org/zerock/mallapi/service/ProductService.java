@@ -6,6 +6,7 @@ import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 import org.zerock.mallapi.dto.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -27,5 +28,6 @@ public interface ProductService {
 
   ProductDTO entityToDTO(Product product);
 
+  List<ProductDTO> getNewProducts();
 
 }

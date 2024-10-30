@@ -535,6 +535,23 @@ public class ProductServiceImpl implements ProductService{
   }
 
   @Override
+  public List<ProductDTO> getNewProducts() {
+
+    Pageable pageable = PageRequest.of(0, 4);
+    List<Product> products = productRepository.findNewProducts(pageable);
+
+    // Product 엔티티 리스트를 ProductDTO 리스트로 변환
+    List<ProductDTO> productDTOs = products.stream()
+            .map(this::entityToDTO)
+            .collect(Collectors.toList());
+
+    log.info("productDTOs....." + productDTOs);
+
+    return productDTOs;
+
+  }
+
+  @Override
   public void modify(ProductDTO productDTO) {
 
     log.info("--------modify+ " + productDTO);

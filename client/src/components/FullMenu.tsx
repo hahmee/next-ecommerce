@@ -29,12 +29,13 @@ const FullMenu = () => {
     // // 행 클릭 시 확장 여부 토글
 
     const onClickCategory = (categoryId:number) => {
-        // const params = new URLSearchParams(searchParams.toString());
-        // params.delete("category_id");
-        // params.append("category_id", categoryId.toString());
-
-        // router.push(`/list?${params.toString()}`);
         router.push(`/list?category_id=${categoryId}`);
+
+        //닫기
+        setExpandedRow(null); // 메뉴 닫기
+
+
+
     };
 
 
@@ -44,8 +45,7 @@ const FullMenu = () => {
         return <div className="grid grid-cols-2 gap-8 m-5 w-full">
             <div className="flex gap-5">
                 <div className="relative">
-                    <Image
-                        src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    <Image src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
                         alt="image" width={600} height={600} className=" object-cover h-50 w-50 rounded-lg"/>
                     <div className='text-sm w-full bottom-0 flex p-4 flex-col'>
                         <div className="font-bold">New Arrivals</div>
@@ -62,10 +62,14 @@ const FullMenu = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                <div className="font-medium text-base cursor-pointer">{mainCategory?.cname}</div>
-                {renderSubResult(subCategories)}
-            </div>
+            {
+                mainCategory && <div>
+                    <div className="font-medium text-base cursor-pointer"
+                         onClick={() => onClickCategory(mainCategory.cno)}>{mainCategory.cname}</div>
+                    {renderSubResult(subCategories)}
+                </div>
+            }
+
         </div>
     };
 

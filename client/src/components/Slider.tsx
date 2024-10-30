@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import toast from "react-hot-toast";
 
 const slides = [
@@ -35,16 +35,15 @@ const slides = [
 const Slider = () => {
   const [current, setCurrent] = useState(0);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  //   }, 3000);
-  //
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const notify = () => toast.success('Here is your toast.');
-
 
   return (
     <div className="h-[calc(100vh-80px)] overflow-hidden">
@@ -75,7 +74,7 @@ const Slider = () => {
             <div className="h-1/2 xl:w-1/2 xl:h-full relative">
               <Image
                 src={slide.img}
-                alt=""
+                alt="slide Image"
                 fill
                 sizes="100%"
                 className="object-cover"

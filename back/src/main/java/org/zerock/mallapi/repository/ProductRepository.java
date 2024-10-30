@@ -44,6 +44,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   @Query("select p, pi from Product p left join p.imageList pi where p.pname LIKE CONCAT('%',:search,'%') and (NULLIF(pi.ord, ' ') IS NULL or pi.ord = 0) and p.delFlag = false and p.owner.email = :email")
   Page<Object[]> searchAdminList(Pageable pageable, @Param("search") String search, @Param("email") String email);
 
+  @Query("SELECT p, pi FROM Product p  left JOIN p.imageList pi " +
+          "WHERE (NULLIF(pi.ord, ' ') IS NULL OR pi.ord = 0) " +
+          "AND p.delFlag = false " +
+          "GROUP BY p.pno " +
+          "ORDER BY p desc")
+  List<Product> findNewProducts(Pageable pageable);
 
 
 }

@@ -31,8 +31,8 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler{
   Map<String, Object> claims = memberDTO.getClaims();
 
   // 토큰 종류(카테고리), 유저이름, 역할 등을 페이로드에 담는다.
-  String accessToken = JWTUtil.generateToken(claims, 1); // 한시간 60
-  String refreshToken = JWTUtil.generateToken(claims,   10); // 하루 60 * 24
+  String accessToken = JWTUtil.generateToken(claims, 60); // 한시간 60
+  String refreshToken = JWTUtil.generateToken(claims,   60 * 24); // 하루 60 * 24
 
   claims.put("accessToken", accessToken);
   claims.put("refreshToken", refreshToken);

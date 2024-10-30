@@ -4,26 +4,36 @@ import {removeCookie} from "@/utils/getCookieUtil";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 export const getUserServer = async () => {
-    const resultJson = await fetchWithAuth(`/api/profile`, {
+    return await fetchWithAuth(`/api/profile`, {
         method: "GET",
         credentials: 'include', //cookie
         // cache: 'no-store',
     });
-
-    return resultJson;
 }
 
 export const logout = async () => {
 
-    await fetchWithAuth(`/api/member/logout`, {
+    const resultJson = await fetchWithAuth(`/api/member/logout`, {
         method: "POST",
+        credentials: 'include', //cookie
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        credentials: 'include'
+        // cache: 'no-store',
     });
 
     removeCookie("member");
+
+    return resultJson;
+
+    // await fetchWithAuth(`/api/member/logout`, {
+    //     method: "POST",
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     },
+    //     credentials: 'include'
+    // });
+
 
     // return response;
 }

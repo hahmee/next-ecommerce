@@ -1,7 +1,7 @@
 package org.zerock.mallapi.config;
 
-import java.util.Arrays;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -15,10 +15,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.mallapi.security.filter.JWTCheckFilter;
-import org.zerock.mallapi.security.handler.*;
+import org.zerock.mallapi.security.handler.APILoginFailHandler;
+import org.zerock.mallapi.security.handler.APILoginSuccessHandler;
+import org.zerock.mallapi.security.handler.APILogoutSuccessHandler;
+import org.zerock.mallapi.security.handler.CustomAccessDeniedHandler;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.Arrays;
 
 @Configuration
 @Log4j2
@@ -49,31 +51,23 @@ public class CustomSecurityConfig {
       config.loginPage("/api/member/login");
       config.successHandler(new APILoginSuccessHandler());
       config.failureHandler(new APILoginFailHandler());
-
     });
 
+
+    // 스프링 시큐리티는 원칙적으로 POST 방식으로 로그아웃을 수행한다.
     http.logout(config -> {
       config.logoutUrl("/api/member/logout"); // 로그아웃 처리 url
       config.invalidateHttpSession(true); //세션 무효화 처리
-
-//      config.logoutSuccessHandler(new APILogoutSuccessHandler());
+      config.logoutSuccessHandler(new APILogoutSuccessHandler()); // 로그아웃 성공 후 핸들러
     });
 
-//    http.logout().logoutUrl("/api/member/login").addLogoutHandler((request, response, authentication) -> {
-//      HttpSession session = request.getSession();
-//      if (session != null) {
-//        session.invalidate();
-//      }
-//
-//    });
-
-    http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class); //JWT체크
+    //JWTCheckFilter가 UsernamePasswordAuthenticationFilter보다 먼저 실행되어 JWT 인증 먼저 시도
+    http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
     http.exceptionHandling(config -> {
       config.accessDeniedHandler(new CustomAccessDeniedHandler());
     });
-
-
+    
     return http.build();
   }
 

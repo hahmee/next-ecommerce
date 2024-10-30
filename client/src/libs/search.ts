@@ -13,9 +13,6 @@ export default async (prevState: any, formData: FormData) => {
 
         const data:DataResponse<Product> = await response.json();
 
-        console.log('dataaaaaaaa', data);
-        console.log('response', response.status);
-
         if(!response.ok) {
             return { message: data.message };
         }
