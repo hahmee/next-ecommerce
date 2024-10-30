@@ -300,6 +300,8 @@ public class ProductServiceImpl implements ProductService{
 
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
+      Double averageRating = (Double) arr[2];  // 평균 별점
+
       log.info("productImageproductImage " + productImage); //null
 
       MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
@@ -320,6 +322,7 @@ public class ProductServiceImpl implements ProductService{
               .changePolicy(product.getChangePolicy())
               .sku(product.getSku())
               .brand(product.getBrand())
+              .averageRating(averageRating)
               .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())

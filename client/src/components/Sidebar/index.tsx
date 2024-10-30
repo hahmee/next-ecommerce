@@ -46,7 +46,7 @@ const menuGroups = [
             </svg>
         ),
         label: "쇼핑몰 제품",
-        route: "/admin",
+        route: "#",
         children: [{label: "제품", route: "/admin/products"}, {label: "카테고리", route: "/admin/category"}, {
           label: "재고",
           route: "/admin/stock"

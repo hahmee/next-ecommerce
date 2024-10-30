@@ -5,26 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/_lib/getNewProducts.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Skeleton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/shopping/_lib/getUserServer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/shopping/_lib/getUserServer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FullMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FullMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dialog.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductSingle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Slider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/search.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +34,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -304,7 +298,7 @@
       <workItem from="1730114653123" duration="9874000" />
       <workItem from="1730168341748" duration="7634000" />
       <workItem from="1730192248700" duration="7448000" />
-      <workItem from="1730258542670" duration="4674000" />
+      <workItem from="1730258542670" duration="14429000" />
     </task>
     <servers />
   </component>

@@ -18,6 +18,7 @@
     import {initalPagingData} from "@/components/Tables/ProductTable";
     import PageComponent from "@/components/Tables/PageComponent";
     import {getAdminCategories} from "@/app/(admin)/admin/products/_lib/getAdminCategories";
+    import TableActions from "@/components/Tables/TableActions";
 
 
     const CategoryTable = () => {
@@ -134,7 +135,8 @@
         const renderCategoryRows = (categories: Category[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
-                    <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" onClick={() => toggleRow(category.cno)}>
+                    <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        onClick={() => toggleRow(category.cno)}>
                         <td className="px-4 py-3 whitespace-nowrap">
                             <div className="flex items-center">
                                 <input id="checkbox-table-search-1" type="checkbox"
@@ -142,15 +144,18 @@
                                 <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                             </div>
                         </td>
-                        <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2" style={{paddingLeft: `${depth * 20}px`}}>
+                        <th scope="row"
+                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2"
+                            style={{paddingLeft: `${depth * 20}px`}}>
                             <div className="w-7">
-                            {
-                                category.subCategories  &&  (
-                                    expandedRows.includes(category.cno) ? <ChevronUpIcon className="h-7 w-7 text-gray-500"/>
-                                        :
-                                        <ChevronDownIcon className="h-7 w-7 text-gray-500"/>
-                                )
-                            }
+                                {
+                                    category.subCategories && (
+                                        expandedRows.includes(category.cno) ?
+                                            <ChevronUpIcon className="h-7 w-7 text-gray-500"/>
+                                            :
+                                            <ChevronDownIcon className="h-7 w-7 text-gray-500"/>
+                                    )
+                                }
                             </div>
                             <Image
                                 src={category.uploadFileName || "https://via.placeholder.com/640x480"}
@@ -174,19 +179,10 @@
                             사용중
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap">
-                            <button
-                                id={`category-dropdown-${category.cno}`}
-                                className="text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                type="button"
-                                onClick={() => toggleDropdown(category.cno)} // toggle the dropdown
-                            >
-                                <EllipsisHorizontalIcon className="h-6 w-6"/>
-                            </button>
-                            {dropdownOpen[category.cno] && (
-                                <div
-                                    className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
-                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby={`category-dropdown-${category.cno}`}>
+
+                            <TableActions>
+                                <div id="apple-imac-27-dropdown" className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
+                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
                                         <Link href={`/admin/category/add-category/${category.cno}`}
                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                             서브 카테고리 추가
@@ -207,9 +203,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            )}
+
+                            </TableActions>
+
                         </td>
-                        {/*<td className="px-4 border-b-gray-500 font-medium text-gray-900 dark:text-white"></td>*/}
                     </tr>
                     {expandedRows.includes(category.cno) && category.subCategories && (
                         renderCategoryRows(category.subCategories, depth + 1)
@@ -269,8 +266,7 @@
 
                 </div>
 
-                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
-                                       doAction={deleteCategory}/>}
+                {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog} doAction={deleteCategory}/>}
 
                 {/* 카테고리 테이블 */}
                 <div className="w-auto overflow-x-auto overflow-y-hidden relative">

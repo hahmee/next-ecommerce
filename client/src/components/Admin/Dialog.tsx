@@ -10,8 +10,8 @@ const Dialog = (props: DialogProps) => {
     const { content, clickModal, showDialog, doAction } = props
 
     return (
-        <div id="popup-modal" onClick={clickModal} className={`overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-999 flex justify-center items-center w-full h-full ${showDialog ? "bg-black bg-opacity-90" : ""}`}>
-            <div className="relative p-4 w-full max-w-md  " onClick={(e) => e.stopPropagation()}>
+        <div id="popup-modal" onClick={clickModal} className={`overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 bottom-0 z-999999 flex justify-center items-center w-full h-full ${showDialog ? "bg-black2 bg-opacity-80" : ""}`}>
+            <div className="relative p-4 w-full max-w-md" onClick={(e) => e.stopPropagation()}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <button type="button"
                             onClick={clickModal}

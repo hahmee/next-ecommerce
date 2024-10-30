@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
@@ -14,34 +14,37 @@ export default function AdminLayout({children, modal}: { children: React.ReactNo
     // }, []);
 
     return (
-        <div className="dark:bg-boxdark-2 dark:text-bodydark bg-graylight">
-            {modal}
-            {/*{loading ? <Loader/> : children}*/}
+        <>
+            <div className="dark:bg-boxdark-2 dark:text-bodydark bg-graylight">
 
-            {/* <!-- ===== Page Wrapper Start ===== --> */}
-            <div className="flex">
-                {/* <!-- ===== Sidebar Start ===== --> */}
-                <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
-                {/* <!-- ===== Sidebar End ===== --> */}
+                {modal}
+                {/*{loading ? <Loader/> : children}*/}
 
-                {/* <!-- ===== Content Area Start ===== --> */}
-                <div className="relative flex flex-1 flex-col lg:ml-72.5 overflow-hidden">
-                    {/* <!-- ===== Header Start ===== --> */}
-                    <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
-                    {/* <!-- ===== Header End ===== --> */}
+                {/* <!-- ===== Page Wrapper Start ===== --> */}
+                <div className="flex">
+                    {/* <!-- ===== Sidebar Start ===== --> */}
+                    <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
+                    {/* <!-- ===== Sidebar End ===== --> */}
 
-                    {/* <!-- ===== Main Content Start ===== --> */}
-                    <main className="overflow-x-auto">{/* overflow-x-auto 추가 */}
-                        <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-                            {children}
-                        </div>
-                    </main>
-                    {/* <!-- ===== Main Content End ===== --> */}
+                    {/* <!-- ===== Content Area Start ===== --> */}
+                    <div className="relative flex flex-1 flex-col lg:ml-72.5 overflow-hidden">
+                        {/* <!-- ===== Header Start ===== --> */}
+                        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
+                        {/* <!-- ===== Header End ===== --> */}
+
+                        {/* <!-- ===== Main Content Start ===== --> */}
+                        <main className="overflow-x-auto">{/* overflow-x-auto 추가 */}
+                            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                                {children}
+                            </div>
+                        </main>
+                        {/* <!-- ===== Main Content End ===== --> */}
+                    </div>
+                    {/* <!-- ===== Content Area End ===== --> */}
                 </div>
-                {/* <!-- ===== Content Area End ===== --> */}
+                {/* <!-- ===== Page Wrapper End ===== --> */}
             </div>
-            {/* <!-- ===== Page Wrapper End ===== --> */}
-        </div>
+        </>
 
     );
 

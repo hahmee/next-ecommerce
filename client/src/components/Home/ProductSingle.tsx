@@ -57,7 +57,7 @@ const ProductSingle = ({id}: Props) => {
     }, [product]);
 
     return (
-        <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
+        <div className="px-4 mt-8 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
             
             <GAPageView sellerId={product?.owner.email || ""}/>
             {/* IMG */}
@@ -75,7 +75,7 @@ const ProductSingle = ({id}: Props) => {
                 )}
                 <div className="h-[1px] bg-gray-100"/>
 
-                <h2 className="font-medium text-2xl">${product?.price}</h2>
+                <h2 className="font-medium text-2xl">{product?.price.toLocaleString()} 원</h2>
 
                 <div className="h-[1px] bg-gray-100"/>
 

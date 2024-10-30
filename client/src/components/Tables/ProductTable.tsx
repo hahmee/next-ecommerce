@@ -14,11 +14,12 @@ import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
 import React, {useEffect, useState} from "react";
-import Link from "next/link";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
 import Dialog from "@/components/Admin/Dialog";
-import {EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
+import {StarIcon} from "@heroicons/react/20/solid";
+import TableActions from "@/components/Tables/TableActions";
+import Link from "next/link";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -64,7 +65,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
     useEffect(() => {
         setProductData(data);
         if (data) {
-
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
         }
@@ -113,13 +113,16 @@ const ProductTable = () => { //{page, size, search} : PageParam
     return (
         // <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden">
-            {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog} doAction={deleteProduct}/>}
+            {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
+                                   doAction={deleteProduct}/>}
 
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div
+                className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2">
                     <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
-                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                <div
+                    className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <TableAddButton content={"Add Product"} location={"/admin/products/add-product"}/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <ActionButton/>
@@ -128,8 +131,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
                 </div>
             </div>
 
-            <div className="w-auto overflow-x-auto overflow-y-hidden relative">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 relative">
+            <div className="w-auto overflow-x-auto overflow-y-hidden ">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-4 py-3">상품이름</th>
@@ -150,7 +153,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     <tbody>
                     {productData?.dtoList?.map((product, key) => (
                         <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
+                            <th scope="row"
+                                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
                                 {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
                                     <Image
                                         src={product.uploadFileNames[0]?.file}
@@ -172,7 +176,12 @@ const ProductTable = () => { //{page, size, search} : PageParam
                             <td className="px-4 py-3 whitespace-nowrap">Apple</td>
                             <td className="px-4 py-3 whitespace-nowrap">300</td>
                             <td className="px-4 py-3 whitespace-nowrap">{product.sku}</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{product.averageRating || "평점없음"}</td>
+                            <td className="px-4 py-3 whitespace-nowrap ">
+                                <div className="flex items-center gap-1">
+                                    <StarIcon className="w-5 h-5 text-ecom"/>
+                                    <span>{product.averageRating || "평점없음"}</span>
+                                </div>
+                            </td>
                             <td className="px-4 py-3 whitespace-nowrap">판매</td>
                             <td className="px-4 py-3 whitespace-nowrap">레베뉴</td>
                             <td className="px-4 py-3 whitespace-nowrap">{(product.price).toLocaleString()} 원</td>
@@ -183,39 +192,34 @@ const ProductTable = () => { //{page, size, search} : PageParam
                                     {salesOptions.find(option => option.id === product.salesStatus)?.content}
                                 </div>
                             </td>
-                            <td className="px-4 py-3 justify-end whitespace-nowrap relative">
-                                <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown"
-                                        className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                        type="button" onClick={() => handleOpenMenu(product.pno)}>
-                                    <EllipsisHorizontalIcon className="h-6 w-6"/>
-                                </button>
 
-                                {/*여기에 메뉴*/}
-                                {
-                                    currentPno === product.pno && (
-                                        <div id="apple-imac-27-dropdown" className="absolute z-10 w-44 top-0 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
-                                                <li>
-                                                    <Link href={`/product/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href={`/admin/products/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
-                                                </li>
-                                            </ul>
-                                            <div className="py-1">
-                                                <div className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                     onClick={() => {
-                                                         setShowDialog(true);
-                                                         setDeleteId(product.pno);
-                                                     }}>
-                                                    삭제하기
-                                                </div>
+
+                            <td className="px-4 py-3 justify-end whitespace-nowrap">
+
+                                <TableActions>
+                                    <div id="apple-imac-27-dropdown" className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
+                                            <li>
+                                                <Link href={`/product/${product.pno}`}
+                                                      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
+                                            </li>
+                                            <li>
+                                                <Link href={`/admin/products/${product.pno}`}
+                                                      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
+                                            </li>
+                                        </ul>
+                                        <div className="py-1">
+                                            <div
+                                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                                onClick={() => {
+                                                    setShowDialog(true);
+                                                    setDeleteId(product.pno);
+                                                }}>
+                                                삭제하기
                                             </div>
                                         </div>
-                                    )
-                                }
+                                    </div>
+                                </TableActions>
 
                             </td>
                         </tr>
@@ -223,7 +227,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
                     </tbody>
                 </table>
-
 
 
             </div>
