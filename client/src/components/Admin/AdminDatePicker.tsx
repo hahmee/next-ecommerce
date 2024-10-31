@@ -3,7 +3,6 @@ import React from "react";
 
 const AdminDatePicker = ({date, dateChange} : {date:any, dateChange: (value:any) => void}) => {
 
-
     return (
         <Datepicker
             value={date}

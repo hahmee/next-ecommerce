@@ -20,4 +20,10 @@ public class SearchRequestDTO {
     @Builder.Default
     private int size = 10;
 
+    //날짜 추가
+    private String startDate;
+
+    private String endDate;
+
+
 }

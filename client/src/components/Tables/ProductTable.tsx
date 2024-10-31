@@ -7,8 +7,8 @@ import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import TableAddButton from "@/components/Tables/TableAddButton";
-import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
+import ViewButton from "@/components/Tables/ViewButton";
 import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
@@ -125,8 +125,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <TableAddButton content={"Add Product"} location={"/admin/products/add-product"}/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
-                        <ActionButton/>
-                        <FilterButton changeSize={changeSize}/>
+                        <FilterButton/>
+                        <ViewButton changeSize={changeSize}/>
                     </div>
                 </div>
             </div>

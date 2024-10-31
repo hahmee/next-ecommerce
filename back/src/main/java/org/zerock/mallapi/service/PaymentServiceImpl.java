@@ -204,9 +204,21 @@ public class PaymentServiceImpl implements PaymentService{
 
     String search = searchRequestDTO.getSearch();
 
+
+
+    //날짜 변환
+    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate startDate = LocalDate.parse(searchRequestDTO.getStartDate(), dateformatter);
+    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+    LocalDate endDate = LocalDate.parse(searchRequestDTO.getEndDate(), dateformatter);
+    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+
+
+
     log.info("--------------pageable      " + pageable);
 
-    Page<Payment> payments = paymentRepository.searchAdminPaymentList(pageable, search, email);
+    Page<Payment> payments = paymentRepository.searchAdminPaymentList(pageable, search, email, startDateTime, endDateTime);
 
     List<PaymentDTO> dtoList = payments.stream().map(payment -> {
 

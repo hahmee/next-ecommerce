@@ -70,11 +70,9 @@ public class PaymentController {
     @GetMapping("/searchAdminPaymentList") // searchAdminPaymentList?search=검색어&page=1&size=10
     public DataResponseDTO<PageResponseDTO<PaymentDTO>> searchAdminPaymentList(SearchRequestDTO searchRequestDTO, Principal principal) {
 
-        log.info("sdfasdf" + principal);
-
         String email = principal.getName();
 
-        log.info("search............" + searchRequestDTO); // 왜 안뜨냐,,
+        log.info("search............" + searchRequestDTO);
 
         DataResponseDTO<PageResponseDTO<PaymentDTO>> result =  DataResponseDTO.of(paymentService.getSearchAdminPaymentList(searchRequestDTO, email));
 
@@ -83,6 +81,10 @@ public class PaymentController {
         return result;
 
     }
+
+
+
+
 
 
 

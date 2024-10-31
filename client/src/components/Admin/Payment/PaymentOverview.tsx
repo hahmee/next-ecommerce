@@ -59,7 +59,7 @@ const PaymentOverview = () => {
                 <div className="font-normal text-sm">총 금액</div>
                 <div className="font-semibold text-base">100원</div>
             </div>
-            <div className="border-r flex flex-col gap-2 p-7.5">
+            <div className="flex flex-col gap-2 p-7.5">
                 <div className="font-normal text-sm">총 금액</div>
                 <div className="font-semibold text-base">100원</div>
             </div>

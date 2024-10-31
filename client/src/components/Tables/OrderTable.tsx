@@ -4,8 +4,8 @@ import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import TableAddButton from "@/components/Tables/TableAddButton";
-import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
+import ViewButton from "@/components/Tables/ViewButton";
 import {DataResponse} from "@/interface/DataResponse";
 import React, {useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
@@ -69,8 +69,8 @@ const OrderTable = () => {
                     className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <TableAddButton content={"Add Product"} location={"/admin/products/add-product"}/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
-                        <ActionButton/>
-                        <FilterButton changeSize={changeSize}/>
+                        <FilterButton/>
+                        <ViewButton changeSize={changeSize}/>
                     </div>
                 </div>
             </div>
@@ -85,12 +85,15 @@ const OrderTable = () => {
                         <th scope="col" className="px-4 py-3">Customer</th>
                         <th scope="col" className="px-4 py-3">Fulfillment</th>
                         <th scope="col" className="px-4 py-3">Total</th>
+                        <th scope="col" className="px-4 py-3">Item</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     {payments?.dtoList?.map((payment, key) => (
                         <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                            <th scope="row" className="pl-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row"
+                                className="pl-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
                                     #{payment.orderId}
                                 </p>
@@ -101,7 +104,8 @@ const OrderTable = () => {
                                 </p>
                             </td>
                             <td className="px-4 py-3 whitespace-nowrap">
-                                <span className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{new Date(payment.createdAt).toLocaleDateString()}</span>
+                                <span
+                                    className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{new Date(payment.createdAt).toLocaleDateString()}</span>
                             </td>
                             <td className="px-4 py-3 whitespace-nowrap">{payment.owner.email}</td>
                             <td className="px-4 py-3 whitespace-nowrap">
@@ -109,7 +113,9 @@ const OrderTable = () => {
                                     className="bg-red-100 text-red-800 text-xs px-1.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{payment.status}</span>
 
                             </td>
-                            <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()} 원</td>
+                            <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()}원</td>
+                            <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()}몇개인지</td>
+
                         </tr>
                     ))}
 

@@ -7,12 +7,22 @@ import PaymentOverview from "@/components/Admin/Payment/PaymentOverview";
 import PaymentTable from "@/components/Tables/PaymentTable";
 
 export default async function AdminPaymentPage() {
+    const endDate = new Date(); // today
+    const startDate = new Date(); // today
 
+    const date = {
+        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    };
     const prefetchOptions = [
 
         {
-            queryKey: ['adminPayments', {page: 1, size: 10, search: ""}],
-            queryFn: () => getPaymentsByEmail({page: 1, size: 10, search: ""}),
+            queryKey: ['adminPayments', {page: 1, size: 10, search: "", date}],
+            queryFn: () => getPaymentsByEmail({
+                page: 1, size: 10, search: "",
+                startDate: startDate.toISOString().split("T")[0],
+                endDate: endDate.toISOString().split("T")[0],
+            }),
         }
     ];
 

@@ -19,8 +19,17 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
     @Query("SELECT p FROM Payment p WHERE p.owner.email = :email AND p.orderId = :orderId")
     Optional<Payment> findByEmailAndOrderId(@Param("email") String email, @Param("orderId") String orderId);
 
-    @Query("select distinct p from Payment p join Order o on p.orderId = o.orderId where o.seller.email = :email and (p.orderName like concat('%', :search, '%') or p.orderId like concat('%', :search, '%')) and p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE")
-    Page<Payment> searchAdminPaymentList(Pageable pageable, @Param("search") String search, @Param("email") String email);
+    @Query(
+            "SELECT DISTINCT p " +
+                    "FROM Payment p " +
+                    "JOIN Order o ON p.orderId = o.orderId " +
+                    "WHERE o.seller.email = :email " +
+                    "AND (p.orderName LIKE CONCAT('%', :search, '%') " +
+                    "     OR p.orderId LIKE CONCAT('%', :search, '%')) " +
+                    "AND p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE " +
+                    "AND p.createdAt BETWEEN :startDate AND :endDate "
+    )
+    Page<Payment> searchAdminPaymentList(Pageable pageable, @Param("search") String search, @Param("email") String email, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
     //Sales-Overview
     @Query("SELECT p.country, SUM(o.productInfo.qty * o.productInfo.price) " +
