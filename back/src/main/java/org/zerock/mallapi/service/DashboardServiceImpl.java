@@ -106,7 +106,6 @@ public class DashboardServiceImpl implements DashboardService{
 
 
       // 결과를 CardResponseDTO에 설정
-      // 결과를 CardResponseDTO에 설정
       CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
               .startDate(chartRequestDTO.getStartDate())
               .endDate(chartRequestDTO.getEndDate())

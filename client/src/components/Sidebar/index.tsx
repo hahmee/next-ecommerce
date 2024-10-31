@@ -82,7 +82,7 @@ const menuGroups = [
         ),
         label: "판매",
         route: "#",
-        children: [{label: "주문", route: "/admin/order"}, {label: "결제관리", route: "/"}],
+        children: [{label: "주문", route: "/admin/order"}, {label: "전체결제", route: "/admin/payment"}],
       },
       {
         icon: (

@@ -32,8 +32,7 @@ const FilterButton= ({changeSize}:{changeSize: (size: number) => void}) => {
 
             {
                 open &&
-                <div id="filterDropdown"
-                     className="absolute z-999 w-48 p-3 bg-white right-0 top-12 rounded-lg shadow dark:bg-gray-700">
+                <div id="filterDropdown" className="absolute z-999 w-48 p-3 bg-white right-0 top-12 rounded-lg shadow dark:bg-gray-700">
                     <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose</h6>
                     <ul className="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                         <li className="flex items-center">

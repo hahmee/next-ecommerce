@@ -101,7 +101,7 @@ const MainProductList = () => {
                     <div className="flex justify-between">
                         <span
                             className="font-medium overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}</span>
-                        <span className="font-semibold">{product.price.toLocaleString()} 원</span>
+                        <span className="font-semibold">{product.price?.toLocaleString()} 원</span>
                     </div>
                     {product.pdesc && (
                         <div

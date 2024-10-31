@@ -6,13 +6,10 @@ import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
-import TableAddButton from "@/components/Tables/TableAddButton";
-import ActionButton from "@/components/Tables/ActionButton";
 import FilterButton from "@/components/Tables/FilterButton";
 import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
-import {SalesStatus} from "@/types/salesStatus";
 import React, {useCallback, useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
 import {fetchWithAuth} from "@/utils/fetchWithAuth";
@@ -39,11 +36,7 @@ const StockTable = () => {
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
-    const [currentPno, setCurrentPno] = useState<number>(-1);
     const [productData, setProductData] = useState<PageResponse<Product>>();
-    const [deleteId, setDeleteId] = useState<number>(-1);
-    const [selectedValue,setSelectedValue] = useState<SalesStatus>();
-    const [showDialog, setShowDialog] = useState<boolean>(false);
     const router = useRouter();
     const queryClient = useQueryClient();
 
@@ -74,10 +67,6 @@ const StockTable = () => {
         }
     }, [data]);
 
-    const handleOpenMenu = (pno:number) => {
-        setCurrentPno(pno);
-    }
-
     const handleSearch = (value:string) => {
         setSearch(value);  // 검색어 업데이트
     };
@@ -89,11 +78,6 @@ const StockTable = () => {
     const changePage = (page:number) =>{
         setPage(page);
     }
-
-
-    // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
-    const clickModal = () => setShowDialog(!setShowDialog);
-
 
     const mutation = useMutation({
         mutationFn: async ({ salesStatus, pno }: { salesStatus: string; pno: number }) => {
@@ -110,7 +94,6 @@ const StockTable = () => {
         },
         onSuccess: (data) => {
             toast.success("수정되었습니다.");
-            clickModal();
             queryClient.invalidateQueries({queryKey: ['adminStockProducts', {page, size, search}]});
         },
         onError: (error) => {

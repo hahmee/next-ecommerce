@@ -5,8 +5,7 @@ import {GAResponse} from "@/interface/GAResponse";
 const CardTraffic = ({gaData}:{gaData: GAResponse | undefined}) => {
 
     return (
-        <div
-            className="grid grid-cols-3 divide-x mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
+        <div className="grid grid-cols-3 divide-x mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
             <div className="pr-7.5">
                 <CardItemTraffic title={"Site sessions"} value={gaData?.sessions} comparedValue = {gaData?.sessionsCompared}/>
             </div>

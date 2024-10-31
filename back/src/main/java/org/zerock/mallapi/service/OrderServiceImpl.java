@@ -98,8 +98,6 @@ public class OrderServiceImpl implements OrderService{
     LocalDate comparedEndDate = LocalDate.parse(chartRequestDTO.getComparedEndDate(), dateformatter);
     LocalDateTime comparedEndDateTime = comparedEndDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
 
-
-
     String sellerEmail = chartRequestDTO.getSellerEmail();
 
     List<Object[]> currentSales  = orderRepository.findSalesOrdersAvg(sellerEmail, startDateTime, endDateTime);
