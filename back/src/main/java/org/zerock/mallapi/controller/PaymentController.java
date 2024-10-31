@@ -83,7 +83,22 @@ public class PaymentController {
     }
 
 
+    //ADMIN 페이지 추가
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+    @GetMapping("/paymentsOverview")
+    public DataResponseDTO<PaymentSummaryDTO> getAdminPaymentOverview(SearchRequestDTO searchRequestDTO, Principal principal) {
 
+        String email = principal.getName();
+
+        log.info("search............" + searchRequestDTO);
+
+        DataResponseDTO<PaymentSummaryDTO> result = DataResponseDTO.of(paymentService.getAdminPaymentOverview(searchRequestDTO, email));
+
+        log.info("최종 result", result);
+
+        return result;
+
+    }
 
 
 

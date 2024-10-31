@@ -2,7 +2,6 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,7 +60,6 @@ public class PaymentServiceImpl implements PaymentService{
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
 
-    log.info("===paymentSuccessDTO === " + paymentSuccessDTO);
 
     //DONE이라면
     if(paymentSuccessDTO.getStatus() == TossPaymentStatus.DONE) {
@@ -193,9 +191,6 @@ public class PaymentServiceImpl implements PaymentService{
   @Override
   public PageResponseDTO<PaymentDTO> getSearchAdminPaymentList(SearchRequestDTO searchRequestDTO, String email) {
 
-    log.info("getAdminList.............." + searchRequestDTO);
-
-    log.info("--------------email      " + email);
 
     Pageable pageable = PageRequest.of(
             searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
@@ -222,8 +217,6 @@ public class PaymentServiceImpl implements PaymentService{
 
     List<PaymentDTO> dtoList = payments.stream().map(payment -> {
 
-      log.info("........payment " + payment);
-
       MemberDTO memberDTO = memberService.entityToDTO(payment.getOwner());
 
       PaymentDTO paymentDTO = PaymentDTO.builder()
@@ -245,8 +238,6 @@ public class PaymentServiceImpl implements PaymentService{
 
     }).collect(Collectors.toList());
 
-
-    log.info("........dtoList.. " + dtoList);
 
 
     long totalCount = payments.getTotalElements();
@@ -290,8 +281,6 @@ public class PaymentServiceImpl implements PaymentService{
     //응답 객체 TossPayment객체로 결제 응답받기
     PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
 
-
-    log.info("______ result..." + result);
 
 
 
@@ -356,6 +345,38 @@ private PaymentDTO convertToDTO(Payment payment){
 
     return paymentRepository.findSalesByCountry(sellerEmail, startDateTime, endDateTime);
 
+  }
+
+  @Override
+  public PaymentSummaryDTO getAdminPaymentOverview(SearchRequestDTO searchRequestDTO, String sellerEmail) {
+
+
+    LocalDateTime startDateTime;
+    LocalDateTime endDateTime;
+
+    // 전체 기간 클릭 시
+    if (searchRequestDTO.getStartDate() == null || searchRequestDTO.getStartDate().isEmpty()) {
+      // 시작일: 데이터의 최소 날짜로 설정 (예: 1970-01-01)
+      startDateTime = LocalDate.of(1970, 1, 1).atStartOfDay();
+      // 종료일: 현재 날짜로 설정
+      endDateTime = LocalDateTime.now();
+    } else {
+
+      // 날짜 변환
+      DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate startDate = LocalDate.parse(searchRequestDTO.getStartDate(), dateFormatter);
+      startDateTime = startDate.atStartOfDay(); // startDate의 시작 시간 xx:00:00
+
+      LocalDate endDate = LocalDate.parse(searchRequestDTO.getEndDate(), dateFormatter);
+      endDateTime = endDate.atTime(23, 59, 59); // endDate의 끝 시간을 xx:59:59으로 설정
+
+    }
+
+
+    PaymentSummaryDTO paymentSummaryDTO = paymentRepository.selectTotalPayments(sellerEmail, startDateTime, endDateTime);
+
+
+    return paymentSummaryDTO;
   }
 
 

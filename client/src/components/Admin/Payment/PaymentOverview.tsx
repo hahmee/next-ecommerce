@@ -4,17 +4,65 @@ import React, {useState} from "react";
 import {Option} from "@/interface/Option";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import ClickOutside from "@/components/ClickOutside";
+import {useQuery} from "@tanstack/react-query";
+import {DataResponse} from "@/interface/DataResponse";
+import {getPaymentsOverview} from "@/app/(admin)/admin/order/_lib/getPaymentsOverview";
+import {PaymentSummaryDTO} from "@/interface/PaymentSummaryDTO";
 
-export const paymentMenuOption: Array<Option<string>> = [
-    {id: "today", content: '오늘'},
-    {id: "last7days", content: '지난 7일'},
-    {id: "last30days", content: '지난 30일'},
-    {id: "last90days", content: '지난 90일'},
-    {id: "all", content: '전체 기간'},
-];
+
 const PaymentOverview = () => {
+
+    const endDate = new Date(); // today
+    const startDate = new Date();  // today
+
+    const [date, setDate] = useState({
+        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    });
+
+
+    const formatDate = (date: Date) => {
+        return date.toISOString().split('T')[0]; // YYYY-MM-DD 형식
+    }
+
+    const getDateRange = (days: number) => {
+        const today = new Date();
+        const endDate = formatDate(today);
+        const startDate = formatDate(new Date(today.setDate(today.getDate() - days + 1)));
+        return { startDate, endDate };
+    }
+
+    const paymentMenuOption: Array<Option<string>> = [
+        {id: "today", content: '오늘', startDate: formatDate(new Date()), endDate: formatDate(new Date()) },
+        {id: "last7days", content: '지난 7일', ...getDateRange(7)},
+        {id: "last30days", content: '지난 30일', ...getDateRange(30)},
+        {id: "last90days", content: '지난 90일', ...getDateRange(90)},
+        {id: "all", content: '전체 기간',  startDate: "", endDate: "" },
+    ];
+
     const [showMenu, setShowMenu] = useState<boolean>(false);
     const [menuValue, setMenuValue] = useState<Option<string>>(paymentMenuOption[0]);
+
+    const { isFetched, isFetching, data: paymentSummary, error, isError} = useQuery<DataResponse<PaymentSummaryDTO>, Object, PaymentSummaryDTO, [_1: string, _2: Object]>({
+        queryKey: ['adminPaymentOverview', {date}],
+        queryFn: () => getPaymentsOverview({
+            startDate: date.startDate,
+            endDate: date.endDate,
+        }),
+        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+        gcTime: 300 * 1000,
+        throwOnError: false,
+        select: (data) => {
+            return data.data;
+        }
+    });
+
+    const handleDateClick = (option : Option<string>) => {
+        setMenuValue(option);
+        setShowMenu(false);
+        setDate({startDate: option.startDate || "", endDate: option.endDate || ""});
+    };
+
 
     return (
         <div
@@ -22,10 +70,7 @@ const PaymentOverview = () => {
             <div className="pl-7.5 py-3 col-span-2 font-semibold text-lg flex items-center relative">
                 <div>개요:</div>
 
-                <div
-                    className="cursor-pointer font-semibold underline px-2 text-center inline-flex items-center"
-                    onClick={() => setShowMenu(!showMenu)}
-                >
+                <div className="cursor-pointer font-semibold underline px-2 text-center inline-flex items-center" onClick={() => setShowMenu(!showMenu)}>
                     {menuValue.content}
                     <ChevronDownIcon className="ml-2 h-5 w-5"/>
                 </div>
@@ -40,10 +85,7 @@ const PaymentOverview = () => {
                                         <li key={option.id}>
                                             <div
                                                 className={`block cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${option.id === menuValue.id ? "bg-primary-500 text-white" : ""}`}
-                                                onClick={() => {
-                                                    setMenuValue(option);
-                                                    setShowMenu(false);
-                                                }}
+                                                onClick={()=>handleDateClick(option)}
                                             >{option.content}</div>
                                         </li>
                                     ))
@@ -57,11 +99,11 @@ const PaymentOverview = () => {
             </div>
             <div className="border-r flex flex-col gap-2 p-7.5">
                 <div className="font-normal text-sm">총 금액</div>
-                <div className="font-semibold text-base">100원</div>
+                <div className="font-semibold text-base">{paymentSummary?.totalAmount.toLocaleString()} 원</div>
             </div>
             <div className="flex flex-col gap-2 p-7.5">
-                <div className="font-normal text-sm">총 금액</div>
-                <div className="font-semibold text-base">100원</div>
+                <div className="font-normal text-sm">결제 완료</div>
+                <div className="font-semibold text-base">{paymentSummary?.count.toLocaleString()} 건</div>
             </div>
         </div>
     );

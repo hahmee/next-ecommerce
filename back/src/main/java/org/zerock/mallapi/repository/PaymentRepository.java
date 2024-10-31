@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.mallapi.domain.Payment;
+import org.zerock.mallapi.dto.PaymentSummaryDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,5 +45,12 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
                                       @Param("endDate") LocalDateTime endDate);
 
 
+    @Query("SELECT new org.zerock.mallapi.dto.PaymentSummaryDTO(COALESCE(SUM(p.totalAmount), 0), COALESCE(COUNT(p), 0)) " +
+            "FROM Payment p " +
+            "JOIN Order o ON p.orderId = o.orderId " +
+            "WHERE o.seller.email = :email " +
+            "AND p.createdAt BETWEEN :startDate AND :endDate " +
+            "AND p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE ")
+    PaymentSummaryDTO selectTotalPayments(@Param("email") String email, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
 }

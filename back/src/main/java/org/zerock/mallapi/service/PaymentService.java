@@ -21,4 +21,7 @@ public interface PaymentService {
   //Dashboard사용
   List<Object[]> getSalesByCountry(TopCustomerRequestDTO topCustomerRequestDTO);
 
+  PaymentSummaryDTO getAdminPaymentOverview(SearchRequestDTO searchRequestDTO, String email);
+
+
 }

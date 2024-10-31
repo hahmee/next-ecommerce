@@ -56,7 +56,7 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
             }
             return data;
         } else {
-            console.log('????킄');
+            console.log('????에러 오류입니다..');
             // 백엔드에서 반환된 에러 처리
             return Promise.reject({ message: data?.message || 'Unknown error occurred' });
         }
