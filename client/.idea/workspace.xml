@@ -5,25 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/AdminOrderDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/_lib/getOrdersByEmail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/PaymentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/[orderId]/_lib/getOrders.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/[orderId]/_lib/getOrders.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Payment/PaymentOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Payment/PaymentOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/TableDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/TableDatePicker.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Payment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Payment.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -311,7 +295,7 @@
       <workItem from="1730292541175" duration="6277000" />
       <workItem from="1730338084108" duration="16167000" />
       <workItem from="1730357718201" duration="3989000" />
-      <workItem from="1730371794045" duration="24172000" />
+      <workItem from="1730371794045" duration="28774000" />
     </task>
     <servers />
   </component>

@@ -13,6 +13,7 @@ import org.zerock.mallapi.domain.ChartFilter;
 import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.dto.*;
 
+import javax.swing.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -642,14 +643,12 @@ public class DashboardServiceImpl implements DashboardService{
 
       List<CountryChartDTO> countries = getGACountries(propertyId, gaRequestDTO);
 
-
       gaResponseDTO.setTopPages(topPages);
       gaResponseDTO.setTopSources(topSources);
       gaResponseDTO.setSessionChart(sessionChart);
       gaResponseDTO.setDevices(devices);
       gaResponseDTO.setVisitors(visitors);
       gaResponseDTO.setCountries(countries);
-
 
       return gaResponseDTO;
 
@@ -923,6 +922,10 @@ public class DashboardServiceImpl implements DashboardService{
         requestBuilder.addDimensions(Dimension.newBuilder().setName("year")); // year 세션 보기
       }
 
+
+      // 날짜별 정렬 추가
+      requestBuilder.addOrderBys(OrderBy.newBuilder().setDimension(OrderBy.DimensionOrderBy.newBuilder().setDimensionName(filterString)).build());
+
       RunReportRequest request = requestBuilder.build();
 
       // 상위 페이지 보고서 실행
@@ -931,6 +934,8 @@ public class DashboardServiceImpl implements DashboardService{
 
       for (Row row : response.getRowsList()) {
         String date = row.getDimensionValues(0).getValue(); //20240110 or 41 or 10 or 2024
+
+        log.info("date...." + date);
 
         String formattedDate = "";
 
