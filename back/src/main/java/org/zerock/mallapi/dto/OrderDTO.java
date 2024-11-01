@@ -4,12 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.OrderProductInfo;
 import org.zerock.mallapi.domain.OrderShippingAddressInfo;
 import org.zerock.mallapi.domain.OrderStatus;
-
-import java.util.List;
 
 @Getter
 @Setter

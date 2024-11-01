@@ -45,7 +45,6 @@ const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                 className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                 type="button"
                 onClick={handleDropdownToggle}
-
             >
                 <EllipsisHorizontalIcon className="h-6 w-6" />
             </button>

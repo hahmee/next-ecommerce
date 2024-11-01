@@ -99,7 +99,7 @@ const TrafficOverview: React.FC = () => {
     const formattedNewEndDate = newEndDate.toISOString().split("T")[0];
 
     // 날짜 객체 설정
-    const date = {
+    const ddate = {
       startDate: formattedStartDate,
       endDate: formattedEndDate,
     };

@@ -149,7 +149,7 @@ public class ProductServiceImpl implements ProductService{
               .sku(product.getSku())
               .brand(product.getBrand())
               .categoryList(product.getCategoryList())
-              .delFlag(product.isDelFlag()) // 원래 없었음
+              .delFlag(product.isDelFlag())
               .salesStatus(product.getSalesStatus())
               .colorList(colorTagDTOList)
               .sizeList(product.getSizeList())
@@ -183,8 +183,6 @@ public class ProductServiceImpl implements ProductService{
     log.info("-------dtoList " + dtoList);
     
     long totalCount = result.getTotalElements();
-
-    log.info("??... " + pageable);
 
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(pageCategoryRequestDTO.getPage()).size(pageCategoryRequestDTO.getSize()).build();
 

@@ -14,6 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
     @Query("select o from Order o where o.orderId = :orderId")
     List<Order> selectListByOrderId(@Param("orderId") String orderId);
 
+
     //////////////////////////////////////////////////////////////////////////////////////////////
     @Query("SELECT SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty), AVG(o.productInfo.qty) " +
             "FROM Order o " +

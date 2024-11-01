@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Builder
 @AllArgsConstructor
@@ -37,5 +40,11 @@ public class Payment extends BaseEntity {
     private TossPaymentType type; //토스 페이먼트 타입
 
     private String country; //국가코드
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id")
+    @Builder.Default
+    private List<Order> orders = new ArrayList<>(); //Order과 연결
+
 
 }

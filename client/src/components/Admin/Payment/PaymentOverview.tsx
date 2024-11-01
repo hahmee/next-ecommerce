@@ -97,7 +97,7 @@ const PaymentOverview = () => {
 
 
             </div>
-            <div className="border-r flex flex-col gap-2 p-7.5">
+            <div className="border-r flex flex-col gap-2 p-7.5"> {/* 최대 높이를 설정 */}
                 <div className="font-normal text-sm">총 금액</div>
                 <div className="font-semibold text-base">{paymentSummary?.totalAmount.toLocaleString()} 원</div>
             </div>

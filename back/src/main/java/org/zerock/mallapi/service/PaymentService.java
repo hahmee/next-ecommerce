@@ -23,5 +23,7 @@ public interface PaymentService {
 
   PaymentSummaryDTO getAdminPaymentOverview(SearchRequestDTO searchRequestDTO, String email);
 
+  PageResponseDTO<AdminOrderDTO> getSearchAdminOrders(SearchRequestDTO searchRequestDTO, String email);
+
 
 }

@@ -2,13 +2,15 @@ package org.zerock.mallapi.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.zerock.mallapi.domain.*;
+import org.zerock.mallapi.domain.TossPaymentMethod;
+import org.zerock.mallapi.domain.TossPaymentStatus;
+import org.zerock.mallapi.domain.TossPaymentType;
 
 import java.util.List;
 
 @Data
 @Builder
-public class PaymentDTO extends BaseDTO {
+public class AdminOrderDTO extends BaseDTO {
 
   Long id;
 
@@ -27,5 +29,9 @@ public class PaymentDTO extends BaseDTO {
   TossPaymentStatus status; // 토스 주문의 상태
 
   TossPaymentType type; //토스 페이먼트 타입
+
+  List<OrderDTO> orders; // 주문들
+
+  Long itemLength; // 아이템 개수
 
 }

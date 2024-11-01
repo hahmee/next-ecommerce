@@ -3,18 +3,27 @@ import {useQuery} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
-import TableAddButton from "@/components/Tables/TableAddButton";
 import FilterButton from "@/components/Tables/FilterButton";
 import ViewButton from "@/components/Tables/ViewButton";
 import {DataResponse} from "@/interface/DataResponse";
-import React, {useEffect, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
-import {getPaymentsByEmail} from "@/app/(admin)/admin/order/_lib/getPaymentsByEmail";
 import {Payment} from "@/interface/Payment";
 import {initalPagingData} from "@/components/Tables/ProductTable";
+import {getOrdersByEmail} from "@/app/(admin)/admin/order/_lib/getOrdersByEmail";
+import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
+import Image from "next/image";
 
 
 const OrderTable = () => {
+
+    // const endDate = new Date(); // today
+    // const startDate = new Date();  // today
+
+    const [date, setDate] = useState({
+        startDate: "", //기본값: 빈 값으로 -> 전체 기간 검색
+        endDate: "",
+    });
 
     const [paging, setPaging] = useState<Paging>(initalPagingData);
 
@@ -22,10 +31,12 @@ const OrderTable = () => {
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
     const [payments,setPayments] = useState<PageResponse<Payment>>();
+    const [expandedRows, setExpandedRows] = useState<number[]>([]);
+
 
     const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Payment>>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
-        queryKey: ['adminPayments', {page, size, search}],
-        queryFn: () => getPaymentsByEmail({page, size, search}),
+        queryKey: ['adminOrders', {page, size, search, date}],
+        queryFn: () => getOrdersByEmail({page, size, search, startDate: date.startDate, endDate: date.endDate}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
@@ -36,7 +47,7 @@ const OrderTable = () => {
         }
     });
 
-    console.log('payments..', data);
+    console.log('adminOrders..', data);
 
     useEffect(() => {
         setPayments(data);
@@ -59,15 +70,26 @@ const OrderTable = () => {
         setPage(page);
     }
 
+    // 행 클릭 시 확장 여부 토글
+    const toggleRow = (id: number) => {
+        console.log('id', id);
+
+        setExpandedRows((prevExpandedRows) =>
+            prevExpandedRows.includes(id)
+                ? prevExpandedRows.filter((rowId) => rowId !== id)
+                : [...prevExpandedRows, id]
+        );
+    };
+
     return (
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div
+                className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2">
                     <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
                 </div>
                 <div
                     className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <TableAddButton content={"Add Product"} location={"/admin/products/add-product"}/>
                     <div className="flex items-center space-x-3 w-full md:w-auto">
                         <FilterButton/>
                         <ViewButton changeSize={changeSize}/>
@@ -90,35 +112,85 @@ const OrderTable = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {payments?.dtoList?.map((payment, key) => (
-                        <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                            <th scope="row"
-                                className="pl-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
-                                    #{payment.orderId}
-                                </p>
-                            </th>
-                            <td className="px-4 py-3 whitespace-nowrap">
-                                <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
-                                    {payment.orderName}
-                                </p>
-                            </td>
-                            <td className="px-4 py-3 whitespace-nowrap">
+                    {payments?.dtoList?.map((payment, key) => {
+                        return (
+                            <Fragment key={payment.id}>
+                                <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                    key={key} onClick={() => toggleRow(payment.id)}>
+                                    <th scope="row"
+                                        className="pl-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <p className="truncate flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
+                                            {
+                                                payment.orders && payment.orders.length > 0 &&
+                                                (
+                                                    expandedRows.includes(payment.id) ?
+                                                        <ChevronUpIcon className="h-5 w-5 "/>
+                                                        :
+                                                        <ChevronDownIcon className="h-5 w-5"/>
+                                                )
+                                            }
+                                            #{payment.orderId}
+                                        </p>
+                                    </th>
+                                    <td className="px-4 py-3 whitespace-nowrap">
+                                        <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
+                                            {payment.orderName}
+                                        </p>
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap">
                                 <span
                                     className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{new Date(payment.createdAt).toLocaleDateString()}</span>
-                            </td>
-                            <td className="px-4 py-3 whitespace-nowrap">{payment.owner.email}</td>
-                            <td className="px-4 py-3 whitespace-nowrap">
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap">{payment.owner.email}</td>
+                                    <td className="px-4 py-3 whitespace-nowrap">
                                 <span
                                     className="bg-red-100 text-red-800 text-xs px-1.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{payment.status}</span>
 
-                            </td>
-                            <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()}원</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()}몇개인지</td>
+                                    </td>
+                                    <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()}원</td>
+                                    <td className="px-4 py-3 whitespace-nowrap text-primary-600 flex items-center">
+                                        {/*{(payment.orders?.length || 0).toLocaleString()}*/}
+                                        {(payment?.itemLength || 0).toLocaleString()}
 
-                        </tr>
-                    ))}
-
+                                    </td>
+                                </tr>
+                                {
+                                    expandedRows.includes(payment.id) && payment.orders && payment.orders.length > 0 && (
+                                        <tr className="border-b dark:border-gray-700">
+                                            <th scope="row" colSpan={7}
+                                                className="pl-4 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <div className="flex items-center space-x-2">
+                                                    {
+                                                        payment.orders.map((payment, key) => (
+                                                            <div key={key} className="w-auto grid grid-cols-3 gap-3 my-2">
+                                                                <Image src={payment.productInfo.thumbnailUrl} alt={"Image"}
+                                                                       className="rounded-xl object-cover w-30 h-30" // 크기 조정
+                                                                       width={500}
+                                                                       height={500}
+                                                                />
+                                                                <div>
+                                                                    <div
+                                                                        className="font-semibold">{payment.productInfo.pname}</div>
+                                                                    <div
+                                                                        className="font-light">가격: {payment.productInfo.price.toLocaleString()}</div>
+                                                                    <div
+                                                                        className="font-light">색상: {payment.productInfo.color.text}</div>
+                                                                    <div
+                                                                        className="font-light">사이즈: {payment.productInfo.size}</div>
+                                                                </div>
+                                                                <div
+                                                                    className="font-light text-gray-500">X {payment.productInfo.qty.toLocaleString()}</div>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    )
+                                }
+                            </Fragment>
+                        );
+                    })}
                     </tbody>
                 </table>
 

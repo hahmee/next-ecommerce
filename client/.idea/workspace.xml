@@ -5,20 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentSummaryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/_lib/getPaymentsOverview.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/interface/PaymentSummaryDTO.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/AdminOrderDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/_lib/getOrdersByEmail.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CartItemListDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CartItemListDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/PaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/PaymentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/payment/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/payment/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/[orderId]/_lib/getOrders.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/[orderId]/_lib/getOrders.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Payment/PaymentOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Payment/PaymentOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Option.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Option.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/PageParam.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/PageParam.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/TableDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/TableDatePicker.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/interface/Payment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Payment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,26 +58,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/src/interface&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.TypeScript&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(admin)/admin/order/_lib",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.TypeScript",
+    "ts.external.directory.path": "C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\interface" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\order\_lib" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\interface" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Tables" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\payment" />
@@ -305,7 +310,8 @@
       <workItem from="1730277538631" duration="4466000" />
       <workItem from="1730292541175" duration="6277000" />
       <workItem from="1730338084108" duration="16167000" />
-      <workItem from="1730357718201" duration="3555000" />
+      <workItem from="1730357718201" duration="3989000" />
+      <workItem from="1730371794045" duration="24172000" />
     </task>
     <servers />
   </component>

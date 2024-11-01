@@ -1,5 +1,6 @@
 import {TossPaymentMethod, TossPaymentStatus, TossPaymentType} from "@/types/toss";
 import {Member} from "@/interface/Member";
+import {Order} from "@/interface/Order";
 
 export type Payment = {
     id: number;
@@ -13,4 +14,6 @@ export type Payment = {
     type: TossPaymentType;
     createdAt:string,
     updatedAt: string;
+    orders?: Array<Order>;
+    itemLength?: number;
 };

@@ -93,10 +93,6 @@
             );
         };
 
-        useEffect(() => {
-            console.log('expandedRows', expandedRows);
-
-        }, [expandedRows]);
 
         // Toggle dropdown modal for each category
         const toggleDropdown = (id: number) => {
@@ -166,7 +162,6 @@
                             />
                             <div className="line-clamp-1">
                                 {category.cname}
-
                             </div>
                         </th>
                         <td className="px-4 py-3 whitespace-nowrap">

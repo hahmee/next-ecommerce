@@ -12,7 +12,7 @@ export async function getOrders({orderId}: {
 
         return resultJson;
     }catch (error:any) {
-        console.log('ddddderror ', error.message);
+        console.log('err........dddd ', error.message);
     }
 
 

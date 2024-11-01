@@ -53,4 +53,17 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
             "AND p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE ")
     PaymentSummaryDTO selectTotalPayments(@Param("email") String email, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
+
+    @Query("SELECT p, SUM(po.productInfo.qty) as itemCount " +
+            "FROM Payment p " +
+            "LEFT JOIN p.orders po " +
+            "WHERE po.seller.email = :email " +
+            "AND (p.orderName LIKE CONCAT('%', :search, '%') " +
+            "     OR p.orderId LIKE CONCAT('%', :search, '%')) " +
+            "AND p.status = org.zerock.mallapi.domain.TossPaymentStatus.DONE " +
+            "AND p.createdAt BETWEEN :startDate AND :endDate " +
+            "GROUP BY p.id"
+    )
+    Page<Object[]> searchAdminOrders(Pageable pageable, @Param("search") String search, @Param("email") String email, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
 }
