@@ -5,26 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMapByCity.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Common/Portal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CountryChartDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CountryChartDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/payment/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/payment/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/TableDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/TableDatePicker.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/PriceRange.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PriceRange.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/FilterButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/FilterButton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -318,7 +303,7 @@
       <workItem from="1730465877658" duration="4607000" />
       <workItem from="1730506832007" duration="4817000" />
       <workItem from="1730511768289" duration="596000" />
-      <workItem from="1730514540606" duration="6155000" />
+      <workItem from="1730514540606" duration="11073000" />
     </task>
     <servers />
   </component>

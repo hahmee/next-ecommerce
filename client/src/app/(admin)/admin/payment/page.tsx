@@ -41,10 +41,11 @@ export default async function AdminPaymentPage() {
         }
     ];
 
+
     return (
         <div className="mx-auto">
             <Breadcrumb pageName="Payments"/>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10" >
                 <Suspense fallback={<Loading/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
                         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">

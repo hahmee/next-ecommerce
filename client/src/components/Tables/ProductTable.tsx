@@ -112,7 +112,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
     return (
         // <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm ">
             {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
                                    doAction={deleteProduct}/>}
 
@@ -131,7 +131,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
                 </div>
             </div>
 
-            <div className="w-auto overflow-x-auto overflow-y-hidden ">
+            <div className="w-auto overflow-x-auto overflow-y-hidden">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
