@@ -112,7 +112,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
     return (
         // <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm">
             {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
                                    doAction={deleteProduct}/>}
 
@@ -195,7 +195,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
 
                             <td className="px-4 py-3 justify-end whitespace-nowrap">
-
                                 <TableActions>
                                     <div id="apple-imac-27-dropdown"
                                          className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">

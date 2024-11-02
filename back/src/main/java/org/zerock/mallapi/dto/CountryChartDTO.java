@@ -15,5 +15,4 @@ public class CountryChartDTO {
   String key;
   String value;
   private List<Double> latlng; // 위도와 경도를 담는 리스트
-
 }

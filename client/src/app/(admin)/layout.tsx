@@ -34,7 +34,7 @@ export default function AdminLayout({children, modal}: { children: React.ReactNo
 
                         {/* <!-- ===== Main Content Start ===== --> */}
                         <main className="overflow-x-auto">{/* overflow-x-auto 추가 */}
-                            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 h-screen">
                                 {children}
                             </div>
                         </main>
@@ -42,6 +42,7 @@ export default function AdminLayout({children, modal}: { children: React.ReactNo
                     </div>
                     {/* <!-- ===== Content Area End ===== --> */}
                 </div>
+
                 {/* <!-- ===== Page Wrapper End ===== --> */}
             </div>
         </>

@@ -64,14 +64,12 @@ const MainProductList = () => {
 
     };
 
-    console.log('newProducts', newProducts);
-
     return (
         <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
             {newProducts?.map((product: Product) => (
                 <Link
                     href={"/product/" + product.pno}
-                    className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]"
+                    className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-60"
                     key={product.pno}
                 >
                     <div className="relative w-full h-65">

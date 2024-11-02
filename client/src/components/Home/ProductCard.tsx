@@ -125,13 +125,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         }
                     </div>
 
-                    <h3 className="text-base font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}asdfasdfajsdlfkja;sldkfja;sldkfja;sldkfja;sldfkja;sldfkj;asdjfla;</h3>
-                    <p className="mt-1 text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap">
+                    <h3 className="text-base font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}</h3>
+                    <div className="mt-1 text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap">
                         {product?.pdesc && (
                             <div dangerouslySetInnerHTML={{__html: product.pdesc}} className="text-gray-500"
                             />
                         )}
-                    </p>
+                    </div>
                     <div className="flex justify-between items-center mt-2">
                         <div className="px-1.5 py-0.5 border-2 border-green-500 bg-white rounded-lg">
                             <p className="text-base text-green-500">{product.price.toLocaleString()}원</p>

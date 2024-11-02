@@ -25,6 +25,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <RQProvider>
             {children}
             <Toaster/>
+            <div id="portal-root"></div> {/* 포탈을 위한 DOM 요소 */}
         </RQProvider>
         {/*</AuthSession>*/}
         </body>

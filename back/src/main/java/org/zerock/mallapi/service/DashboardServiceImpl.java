@@ -675,6 +675,7 @@ public class DashboardServiceImpl implements DashboardService{
                       .setEndDate(gaRequestDTO.getEndDate()))
               .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
               .addDimensions(Dimension.newBuilder().setName("countryId")) // 국가별 차원 추가
+              .addDimensions(Dimension.newBuilder().setName("cityId")) // 도시별 차원 추가
               .build();
 
 
@@ -683,7 +684,10 @@ public class DashboardServiceImpl implements DashboardService{
 
       for (Row row : response.getRowsList()) {
         String countryCode = row.getDimensionValues(0).getValue();
+        String cityCode = row.getDimensionValues(1).getValue();
         String sessions = row.getMetricValues(0).getValue();
+
+        log.info("citt..." + cityCode);
 
         List<Double> coordinates = getCoordinates(countryCode);
 
@@ -1123,7 +1127,7 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-
+  //국가 코드로 좌표 구하기(마커때문에)
   public List<Double> getCoordinates(String countryCode) {
     String url = String.format("https://restcountries.com/v3.1/alpha/%s", countryCode);
 

@@ -7,11 +7,11 @@ import { CountryChartDTO } from "@/interface/GAResponse";
 import BarChart, {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 
-const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
-  // const countries: Array<CountryChartDTO> = [
-  //   { key: "KR", value: 18, latlng: [37.0, 127.5] },
-  //   { key: "JP", value: 18, latlng: [36.0,138.0] },
-  // ];
+const CountryTrafficMapByCity = () => {
+  const countries: Array<CountryChartDTO> = [
+    { key: "KR", value: 18, latlng: [37.0, 127.5] },
+    { key: "JP", value: 18, latlng: [36.0,138.0] },
+  ];
 
   // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
   const maxSessions = Math.max(50, ...(countries?.map((country) => Number(country?.value)) || []));
@@ -39,23 +39,14 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
     // 지도 초기화
     const mapOne = new jsVectorMap({
       selector: "#mapOne",
+      // selectedRegions: ['EG'],
       map: "world", // 세계 지도 설정
-      markers: markers || [], // 마커 추가
+      // markers: markers || [], // 마커 추가
       regionStyle: {
         initial: {
           fill: "#A2B6F2",
         },
       },
-      // markerStyle: {
-      //   initial: {
-      //     fill: "green", // 초기 색상
-      //     opacity: 0.6,  // 투명도 설정
-      //   },
-      //   hover: {
-      //     fill: "#FF5733", // 마우스 오버시 색상
-      //   },
-      // },
-
       markerShape: "circle", // 마커를 원형으로 설정
       focusOn: {
         animate: true,
@@ -71,16 +62,12 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
       <div
           className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
-          Sessions by <span className="underline">country</span>
-          <div className="cursor-pointer font-semibold underline px-2 text-center inline-flex items-center">
-            <ChevronDownIcon className="ml-2 h-5 w-5"/>
-          </div>
-
+          Sessions by <span className="underline">city</span>
         </h4>
         <div className="h-90 grid grid-cols-12 gap-4">
           <div id="mapOne" className="mapOne map-btn col-span-8"></div>
           <div className="col-span-4">
-            <div className="text-sm font-semibold">Countries</div>
+            <div className="text-sm font-semibold">Cities</div>
             {countries?.map((country) => (
                 <div key={country.key} className="mt-3">
                   <div className="flex justify-between mb-1">
@@ -96,4 +83,4 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
   );
 };
 
-export default CountryTrafficMap;
+export default CountryTrafficMapByCity;

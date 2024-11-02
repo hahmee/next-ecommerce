@@ -195,7 +195,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         }, []),
     });
 
-    console.log('cccc', category);
+    console.log('cccc', products);
 
     const {ref, inView} = useInView();
 
@@ -361,7 +361,9 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                     <div className="flex flex-wrap gap-2">
                                         {
                                             paramsArray?.map((param: Params, index: number) =>
-                                                    param.key === "category_id" ? <FiltersBadge key={index} category={category} param={param} /> : <FiltersBadge key={index} param={param}/>
+                                                param.key === "category_id" ?
+                                                    <FiltersBadge key={index} category={category} param={param}/> :
+                                                    <FiltersBadge key={index} param={param}/>
                                             )
                                         }
                                     </div>
@@ -372,13 +374,19 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
 
                                 <div
                                     className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
-                                    {products?.pages.map((page, index) => (
-                                        <Fragment key={index}>
-                                            {page?.data?.dtoList.map((product: Product) => (
-                                                <ProductCard key={product.pno} product={product}/>
-                                            ))}
-                                        </Fragment>
-                                    ))}
+
+                                    {
+                                        products?.pages[0].data.dtoList.length < 1 ?
+                                            <div>상품이 없습니다.</div> : products?.pages.map((page, index) => (
+                                                <Fragment key={index}>
+                                                    {page?.data?.dtoList.map((product: Product) => (
+                                                        <ProductCard key={product.pno} product={product}/>
+                                                    ))}
+                                                </Fragment>
+                                            ))
+                                    }
+
+
                                 </div>
                                 {isFetchingNextPage ? (<div>Skelton</div>) : (<div ref={ref}></div>)}
                             </div>

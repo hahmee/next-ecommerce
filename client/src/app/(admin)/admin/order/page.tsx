@@ -26,15 +26,18 @@ export default async function AdminOrderPage() {
         }
 
     return (
-        <div className="mx-auto">
-            <Breadcrumb pageName="Orders"/>
-            <div className="flex flex-col gap-10">
-                <Suspense fallback={<Loading/>}>
-                    <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <OrderTable/>
-                    </PrefetchBoundary>
-                </Suspense>
+        <>
+            {/* 포탈을 위한 DOM 요소 */}
+            <div className="mx-auto my-auto h-auto">
+                <Breadcrumb pageName="Orders"/>
+                <div className="flex flex-col gap-10 ">
+                    <Suspense fallback={<Loading/>}>
+                        <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                            <OrderTable/>
+                        </PrefetchBoundary>
+                    </Suspense>
+                </div>
             </div>
-        </div>
+        </>
     );
 };
