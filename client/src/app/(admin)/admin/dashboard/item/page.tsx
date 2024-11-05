@@ -5,11 +5,12 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCookie} from "@/utils/getCookieUtil";
-import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 import {ChartFilter} from "@/types/chartFilter";
+import ItemOverview from "@/components/Admin/Dashboard/ItemOverview";
+import {getGARecentUsers} from "@/app/(admin)/admin/dashboard/_lib/getGARecentUsers";
 
-export default async function DashBoardTrafficPage() {
+export default async function DashBoardItemPage() {
     const endDate = new Date(); // today
     const startDate = new Date(); // today
 
@@ -31,8 +32,8 @@ export default async function DashBoardTrafficPage() {
 
     const prefetchOptions = [
         {
-            queryKey: ['ga', date, ChartFilter.DAY],
-            queryFn: () => getGoogleAnalytics(
+            queryKey: ['gaRecentUsers', date, ChartFilter.DAY],
+            queryFn: () => getGARecentUsers(
                 {
                     startDate: startDate.toISOString().split("T")[0],
                     endDate: endDate.toISOString().split("T")[0],
@@ -46,11 +47,11 @@ export default async function DashBoardTrafficPage() {
     ]
 
     return <div className="mx-auto">
-        <Breadcrumb pageName="Traffic Overview"/>
+        <Breadcrumb pageName="Item Overview"/>
         <div className="flex flex-col gap-5">
             <Suspense fallback={<Loading/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <TrafficOverview/>
+                    <ItemOverview/>
                 </PrefetchBoundary>
             </Suspense>
         </div>

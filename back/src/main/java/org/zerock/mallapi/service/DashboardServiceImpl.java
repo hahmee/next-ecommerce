@@ -659,6 +659,61 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
+  @Override
+  public List<SessionDTO> getRealtimeUser(GARequestDTO gaRequestDTO) {
+
+    String propertyId = environment.getProperty("google.analytics.productId");
+
+    try {
+
+      List<SessionDTO> gaResponseDTO =  getGARecentUser(propertyId, gaRequestDTO);
+
+      return gaResponseDTO;
+
+    } catch (Exception e) {
+      log.error("Error while fetching analytics data: ", e);
+    }
+    return null;
+  }
+
+  //최근 방문자
+  private List<SessionDTO> getGARecentUser(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO> recentUsers = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("customUser:seller_id"))
+              .addMetrics(Metric.newBuilder().setName("activeUsers"))
+              .addDateRanges(DateRange.newBuilder()
+                      .setStartDate("7daysAgo")
+                      .setEndDate("today")
+                      .build()).build();
+
+      RunReportResponse response = analyticsData.runReport(request);
+
+
+      for (Row row : response.getRowsList()) {
+        String userId = row.getDimensionValues(0).getValue(); //user_id
+        String activeUsers = row.getMetricValues(0).getValue();// activeUsers
+
+        log.info("userId..." + userId);
+        log.info("activeUsers..." + activeUsers);
+        recentUsers.add(null); // TopPageDTO 객체 생성
+
+//        recentUsers.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
+
+      }
+
+    }
+
+    return recentUsers;
+
+  }
+
 
 
   private List<CountryChartDTO> getGACountries(String propertyId, GARequestDTO gaRequestDTO) throws Exception {

@@ -14,7 +14,7 @@ import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomer
 import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
 import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
 
-export default async function DashBoardPage() {
+export default async function DashBoardSalesPage() {
     const endDate = new Date(); // today
     const startDate = new Date(); // today
 

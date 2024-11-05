@@ -101,6 +101,17 @@ public class DashboardController {
   }
 
 
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @GetMapping("/item")
+  public DataResponseDTO<List<SessionDTO>> getGAItems(GARequestDTO gaRequestDTO) {
+
+    log.info("googleAnalyticsRequestDTO " + gaRequestDTO);
+
+    return DataResponseDTO.of(dashboardService.getRealtimeUser(gaRequestDTO));
+
+  }
+
+
 }
 
 

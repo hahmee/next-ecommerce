@@ -8,51 +8,17 @@ import {MapResponse} from "@/interface/MapResponse";
 
 const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
   useEffect(() => {
-    // const mapOne = new jsVectorMap({
-    //   selector: "#mapOne",
-    //   map: "world",
-    //   zoomButtons: true,
-    //
-    //   regionStyle: {
-    //     initial: {
-    //       fill: "#A2B6F2",
-    //     },
-    //     hover: {
-    //       fillOpacity: 1,
-    //       fill: "#3056D3",
-    //     },
-    //   },
-    //   regionLabelStyle: {
-    //     initial: {
-    //       fontFamily: "Satoshi",
-    //       fontWeight: "semibold",
-    //       fill: "#fff",
-    //     },
-    //     hover: {
-    //       cursor: "pointer",
-    //     },
-    //   },
-    //
-    //   labels: {
-    //     regions: {
-    //       render(code: string) {
-    //         return code.split("-")[1];
-    //       },
-    //     },
-    //   },
-    // });
-
     // const data = [{"country": "KR", totalSales: 123377},{"country": "AM", totalSales: 1000}]
     let result = {};
     countries?.map((d) => {
-      if (d.totalSales < 1000000 ) { //3000000
-        result = {...result, [d.country]: "myScaleOne"};
+      if (d.totalSales < 1000000 ) { //1000000
+        result = {...result, [d.country]: "Under_1000000"};
       } else if (d.totalSales < 2000000) { //2000000
-        result = {...result, [d.country]: "myScaleTwo"};
-      } else if (d.totalSales < 3000000 ) { //1000000
-        result = {...result, [d.country]: "myScaleThree"};
+        result = {...result, [d.country]: "Under_2000000"};
+      } else if (d.totalSales < 3000000 ) { //3000000
+        result = {...result, [d.country]: "Under_3000000"};
       } else {
-        result = {...result, [d.country]: "myScaleFour"};
+        result = {...result, [d.country]: "More_than_3000000"};
       }
     });
 
@@ -67,13 +33,13 @@ const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
         regions: [{
           attribute: "fill",
           legend: {
-            title: "Country",
+            title: "Country"
           },
           scale: {
-            myScaleOne: "#A2B6F2",
-            myScaleTwo: "#6a8df7",
-            myScaleThree: "#2d5df7",
-            myScaleFour: "#033fff"
+            Under_1000000: "#A2B6F2",
+            Under_2000000: "#6a8df7",
+            Under_3000000: "#2d5df7",
+            More_than_3000000: "#033fff"
           },
           values: {...result},
           // values: {
@@ -83,7 +49,7 @@ const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
           //   RU: "myScaleThree",
           //   KR: "myScaleFour",
           // }
-        }]
+        }],
       }
     });
 
@@ -103,7 +69,11 @@ const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
           Sales by billing location: country
         </h4>
-        <div className="h-90">
+        <p className="mb-2 text-base font-normal text-gray-500 dark:text-white">
+          Shows the total sales by country.
+        </p>
+
+        <div className="h-90 mt-10">
           <div id="mapOne" className="mapOne map-btn"></div>
         </div>
       </div>

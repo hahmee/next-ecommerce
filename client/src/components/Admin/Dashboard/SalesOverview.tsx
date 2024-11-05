@@ -48,11 +48,9 @@ const data = {
 };
 
 const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
-
 const SalesPieChart = dynamic(() => import("./Charts/SalesPieChart"), { ssr: false });
 
 const SalesOverview: React.FC = () => {
-
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
   const endDate = new Date(); // today
   const startDate = new Date();  // today
@@ -330,7 +328,6 @@ const SalesOverview: React.FC = () => {
 
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
-          {/*<ChartTwo/>*/}
           <CountryMap countries={countries}/>
           <SalesPieChart countries={countries}/>
           <div className="col-span-12 xl:col-span-8">

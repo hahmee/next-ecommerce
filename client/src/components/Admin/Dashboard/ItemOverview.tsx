@@ -9,6 +9,8 @@ import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
+import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
+import {getGARecentUsers} from "@/app/(admin)/admin/dashboard/_lib/getGARecentUsers";
 
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafiicSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
@@ -17,7 +19,7 @@ const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ssr: false });
 
 
-const TrafficOverview: React.FC = () => {
+const ItemOverview: React.FC = () => {
 
   const endDate = new Date(); // today
   const startDate = new Date();  // today
@@ -49,8 +51,8 @@ const TrafficOverview: React.FC = () => {
   const {
     data: gaData,
   } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
-    queryKey: ['ga', date, currentFilter],
-    queryFn: () => getGoogleAnalytics({
+    queryKey: ['gaRecentUsers', date, currentFilter],
+    queryFn: () => getGARecentUsers({
       startDate: date.startDate,
       endDate: date.endDate,
       sellerEmail: member.email,
@@ -117,33 +119,33 @@ const TrafficOverview: React.FC = () => {
 
   return (
       <>
-        <div>
-          <AdminDatePicker date={date} dateChange={dateChange}/>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
-        </div>
+        {/*<div>*/}
+        {/*  <AdminDatePicker date={date} dateChange={dateChange}/>*/}
+        {/*  <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period*/}
+        {/*    ({comparedDate.startDate} ~ {comparedDate.endDate})</p>*/}
+        {/*</div>*/}
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <div className="col-span-12 xl:col-span-8">
-            <CardTraffic gaData={gaData}/>
-            <TrafficSessionChart chart={gaData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
-            <div className="grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-              <PieChart data={gaData?.visitors} title={"New vs returning visitors"}/>
-              <PieChart data={gaData?.devices} title={"Session by device"}/>
+
+          <div className="col-span-12 xl:col-span-4">
+
+            <div
+                className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+              <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
+                <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">
+                  Recent visitors
+                </h5>
+              </div>
+
+
+
             </div>
 
           </div>
-          <div className="col-span-12 xl:col-span-4">
-            <TrafficPageChart topPages={gaData?.topPages || []}/>
-            <TrafficSourceChart topSources={gaData?.topSources || []}/>
-          </div>
 
-          <div className="col-span-12">
-            <CountryTrafficMap countries={gaData?.countries}/>
-          </div>
         </div>
 
       </>
   );
 };
 
-export default TrafficOverview;
+export default ItemOverview;

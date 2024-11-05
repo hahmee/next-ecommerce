@@ -34,7 +34,7 @@ export default function AdminLayout({children, modal}: { children: React.ReactNo
                         {/* <!-- ===== Main Content Start ===== --> */}
                         <main className="overflow-y-hidden">{/* overflow-x-auto 추가 */}
                             <div className="mx-auto w-full max-w-screen-2xl p-4 md:p-6 2xl:p-10 min-h-screen h-auto">
-                                 {children}
+                                {children}
                             </div>
                         </main>
                         {/* <!-- ===== Main Content End ===== --> */}

@@ -1,11 +1,10 @@
 "use client";
 import jsVectorMap from "jsvectormap";
 import "jsvectormap/dist/jsvectormap.css";
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import "../../../../js/world"; // 지도 파일
-import { CountryChartDTO } from "@/interface/GAResponse";
-import BarChart, {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
-import {ChevronDownIcon} from "@heroicons/react/20/solid";
+import {CountryChartDTO} from "@/interface/GAResponse";
+import {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
 
 const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
   // const countries: Array<CountryChartDTO> = [
@@ -14,7 +13,7 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
   // ];
 
   // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
-  const maxSessions = Math.max(50, ...(countries?.map((country) => Number(country?.value)) || []));
+  const maxSessions = Math.max(500, ...(countries?.map((country) => Number(country?.value)) || []));
 
   useEffect(() => {
     // 각 나라에 대한 마커 데이터 생성
@@ -71,10 +70,7 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
       <div
           className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
-          Sessions by <span className="underline">country</span>
-          <div className="cursor-pointer font-semibold underline px-2 text-center inline-flex items-center">
-            <ChevronDownIcon className="ml-2 h-5 w-5"/>
-          </div>
+          Sessions by country
 
         </h4>
         <div className="h-90 grid grid-cols-12 gap-4">
