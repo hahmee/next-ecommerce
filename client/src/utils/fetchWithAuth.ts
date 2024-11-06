@@ -35,12 +35,15 @@ export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
         const response = await fetch(`${host}${url}`, configData);
         const data = await response.json();
 
+        console.log('data...입니다..', data);
+
         if (response.ok) {
-            if (data?.error === 'ERROR_ACCESS_TOKEN') {
+            //변경요망
+            if (data?.error === 'ERROR_ACCESS_TOKEN' ||data?.error ===  'ERROR_ACCESSDENIED' ) {
                 const newJWT = await refreshJWT(accessToken, refreshToken, email);
                 const newConfigData = {
                     ...configData,
-                    headers: { ...configData.headers, Authorization: `Bearer ${newJWT.accessToken}` },
+                    headers: {...configData.headers, Authorization: `Bearer ${newJWT.accessToken}`},
                 };
                 const reResponse = await fetch(`${host}${url}`, newConfigData);
                 const reData = await reResponse.json();

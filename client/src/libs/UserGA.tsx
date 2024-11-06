@@ -32,9 +32,7 @@ const UserGA = () => {
 
     return (
         <>
-            <GoogleTagManager gtmId={GTM_TRACKING_ID} dataLayer={{ user_id: hashedUserId }} />
-
-            {/*<GoogleTagManager gtmId={GTM_TRACKING_ID} dataLayer={{ user_id: hashedUserId, seller_id:"asdf" }} />*/}
+            <GoogleTagManager gtmId={GTM_TRACKING_ID} />
             <GoogleAnalytics gaId={GA_TRACKING_ID} />
         </>
     );

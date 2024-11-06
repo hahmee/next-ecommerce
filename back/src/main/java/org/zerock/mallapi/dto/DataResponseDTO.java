@@ -3,9 +3,6 @@ package org.zerock.mallapi.dto;
 import lombok.Getter;
 import org.zerock.mallapi.exception.ErrorCode;
 
-
-
-
 // 데이터 응답 형식
 //{
 //        "success": true,
@@ -16,6 +13,14 @@ import org.zerock.mallapi.exception.ErrorCode;
 //          2,
 //          3
 //        ]
+//}
+
+
+//에러 발생 시
+//{
+//        "success": false,
+//        "code": 401,
+//        "message": "아이디 또는 비밀번호가 맞지 않습니다.",
 //}
 
 @Getter

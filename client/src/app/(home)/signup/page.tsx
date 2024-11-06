@@ -4,14 +4,12 @@ import {useFormState, useFormStatus} from "react-dom";
 import signUp from "@/libs/signup";
 import {useState} from "react";
 import {useRouter} from "next/navigation";
-import {showMessage} from "@/app/(home)/login/page";
 
 export default function SignupPage() {
     const [message, setMessage] = useState("");
     const router = useRouter();
     const [state, formAction] = useFormState(signUp, {message:null});
     const {pending} = useFormStatus();
-    console.log('state', state)
 
     const handleLogin = () => {
         router.push('/login');
@@ -60,12 +58,12 @@ export default function SignupPage() {
                     계정이 있으신가요?
                 </div>
                 <button
-                    className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
-                    disabled={false}>
+                    className="bg-ecom text-white p-2 rounded-md disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none "
+                    disabled={pending}>
                     회원가입
                 </button>
 
-                {state.message && <div className="text-green-600 text-sm">{showMessage(state?.message)}</div>}
+                {state.message && <div className="text-green-600 text-sm">{state?.message}</div>}
 
             </form>
         </div>);

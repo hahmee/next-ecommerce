@@ -686,7 +686,7 @@ public class DashboardServiceImpl implements DashboardService{
 
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("customUser:seller_id"))
+                .addDimensions(Dimension.newBuilder().setName("customUser:seller_id"))
               .addMetrics(Metric.newBuilder().setName("activeUsers"))
               .addDateRanges(DateRange.newBuilder()
                       .setStartDate("7daysAgo")

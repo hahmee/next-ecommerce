@@ -25,7 +25,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 
     Gson gson = new Gson();
     
-    String jsonStr = gson.toJson(Map.of("error", "ERROR_ACCESSDENIED"));
+//    String jsonStr = gson.toJson(Map.of("error", "ERROR_ACCESSDENIED"));
+    String jsonStr = gson.toJson(Map.of("success", false, "code", 401, "message", "ERROR_ACCESSDENIED"));
+
 
     response.setContentType("application/json");
     response.setStatus(HttpStatus.FORBIDDEN.value());

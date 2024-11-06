@@ -5,25 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/_lib/getGARecentUsers.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/item/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/ItemOverview.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/UserGA.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/error.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/DataResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/DataResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/filter/JWTCheckFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/filter/JWTCheckFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/handler/CustomAccessDeniedHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/handler/CustomAccessDeniedHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/sales/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/sales/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/traffic/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/traffic/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMapByCity.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductFilters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductFilters.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/GoogleAnalytics.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/not-found.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/UserGA.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/UserGA.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/signup.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/signup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchWithAuth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +62,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(admin)/admin/dashboard/_lib",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -76,11 +75,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\_lib" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\item" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\libs" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard\Maps" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\salesOverview" />
@@ -319,6 +318,10 @@
       <workItem from="1730514540606" duration="11073000" />
       <workItem from="1730723211547" duration="8780000" />
       <workItem from="1730770706628" duration="10404000" />
+      <workItem from="1730788223760" duration="4312000" />
+      <workItem from="1730793522104" duration="3864000" />
+      <workItem from="1730803787427" duration="6168000" />
+      <workItem from="1730858370647" duration="8926000" />
     </task>
     <servers />
   </component>

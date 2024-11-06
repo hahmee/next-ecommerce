@@ -36,7 +36,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 
     //api/member/ 경로의 호출은 체크하지 않음 
     if(path.startsWith("/api/member/")) {
-      log.info("ssdddddddddsssddddd");
+      log.info("/api/member/ 경로입니다.");
       return true;
     }
 
@@ -97,7 +97,9 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       log.error(e.getMessage());
 
       Gson gson = new Gson();
-      String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
+//      String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
+      String msg = gson.toJson(Map.of("success", false, "code", 401, "message", "ERROR_ACCESS_TOKEN"));
+
 
       response.setContentType("application/json");
       PrintWriter printWriter = response.getWriter();

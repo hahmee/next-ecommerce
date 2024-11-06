@@ -90,7 +90,7 @@ const StockTable = () => {
                 body: JSON.stringify({ salesStatus, pno }),
             });
             console.log('response', response);
-            if (!response.success) throw new Error("업데이트 실패");
+            // if (!response.success) throw new Error("업데이트 실패");
         },
         onSuccess: (data) => {
             toast.success("수정되었습니다.");

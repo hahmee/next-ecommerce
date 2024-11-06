@@ -21,6 +21,7 @@ export default async (prevState: any, formData: FormData) => {
   formData.set('roleNames', 'USER');
 
   let shouldRedirect = false;
+
   try {
       //회원가입
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/register`, {
@@ -28,12 +29,13 @@ export default async (prevState: any, formData: FormData) => {
       body: formData,
       credentials: 'include',
     })
+
     const data:DataResponse<Member> = await response.json();
 
-    console.log('dataaaaaaaa', data);
-    console.log('response', response.status);
+    console.log('data..', data);
+    console.log('response..', response.status);  //백엔드에서 보내는 에러코드
 
-    if(!response.ok) {
+    if(!response.ok) { //백엔드에서 에러코드를 보냈다면
       return { message: data.message };
     }
 
@@ -41,11 +43,12 @@ export default async (prevState: any, formData: FormData) => {
 
   } catch (err) {
     console.error(err);
-    return {message: 'unknown_error'};
+    return {message: '알 수 없는 에러입니다.'};
   }
 
   if (shouldRedirect) {
     redirect('/login');
   }
+
   return {message: null};
 };

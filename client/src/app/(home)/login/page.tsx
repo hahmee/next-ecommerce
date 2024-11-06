@@ -3,32 +3,37 @@ import {FormEvent, FormEventHandler, useState} from "react";
 import {useRouter} from "next/navigation";
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
-import {useFormState} from "react-dom";
-import login from "@/actions/auth-actions";
+import {sendGTMEvent} from "@next/third-parties/google";
+import crypto from "crypto";
+import {getCookie} from "cookies-next";
+//
+// export function showMessage (message: string | null) {
+//     console.log('message', message);
+//     if (message === 'no_email') {
+//         return '이메일을 입력하세요.';
+//     }
+//     if (message === 'no_password') {
+//         return '비밀번호를 입력하세요.';
+//     }
+//     if (message === 'no_name') {
+//         return '닉네임을 입력하세요.';
+//     }
+//     if(message === 'email_exists') {
+//         return '이미 사용 중인 이메일입니다.';
+//     }
+//     if(message === 'nickname_exists') {
+//         return '이미 사용 중인 닉네임입니다.';
+//     }
+//     if(message === 'unknown_error') {
+//         return '알 수 없는 에러입니다.';
+//     }
+//     return message;
+// }
 
-export function showMessage (message: string | null) {
-    console.log('message', message);
-    if (message === 'no_email') {
-        return '이메일을 입력하세요.';
-    }
-    if (message === 'no_password') {
-        return '비밀번호를 입력하세요.';
-    }
-    if (message === 'no_name') {
-        return '닉네임을 입력하세요.';
-    }
-    if(message === 'email_exists') {
-        return '이미 사용 중인 이메일입니다.';
-    }
-    if(message === 'nickname_exists') {
-        return '이미 사용 중인 닉네임입니다.';
-    }
-    if(message === 'unknown_error') {
-        return '알 수 없는 에러입니다.';
-    }
-    return message;
-}
-
+// User-ID 암호화 함수
+const hashUserId = (userId: string) => {
+    return crypto.createHash("sha256").update(userId).digest("hex");
+};
 
 export default function LoginPage() {
 
@@ -36,12 +41,11 @@ export default function LoginPage() {
     const [password, setPassword] = useState<string>('');
     const router = useRouter();
     const [message, setMessage] = useState<string>("");
-    // const [state, formAction] = useFormState(login, {message:null});
+
 
     const onSubmit: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
         try {
             event.preventDefault();
-
 
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                 method: "POST",
@@ -55,6 +59,9 @@ export default function LoginPage() {
             });
 
             const data: DataResponse<Member> = await response.json();
+
+            console.log('dat', data);
+
             if (data.code != 0) { //에러있는 상황
                 setMessage(data.message);
             } else {
@@ -64,11 +71,28 @@ export default function LoginPage() {
                     body: JSON.stringify(data.data),
                 });
 
+                const memberInfo = getCookie('member');
+                const member = memberInfo ? JSON.parse(memberInfo) : null;
+
+                if(member) {
+
+                    const email = member.email;
+                    const encryptedId = hashUserId(email);
+
+                    // 로그인 성공 시 GTM 이벤트 전송
+                    sendGTMEvent({
+                        event: 'login',
+                        user_id: encryptedId, // 백엔드에서 받은 사용자 ID를 전송
+                        user_role: "ADMIN" // 임의
+                    });
+                }
+
+
                 router.replace('/');
             }
         } catch (error) {
             console.error(error);
-            setMessage("unknown_error")
+            setMessage("알 수 없는 에러입니다.")
         }
     };
 
@@ -106,11 +130,11 @@ export default function LoginPage() {
 
                     />
                 </div>
-                <div
-                    className="text-sm underline cursor-pointer"
-                >
-                    비밀번호를 잃어버렸나요?
-                </div>
+                {/*<div*/}
+                {/*    className="text-sm underline cursor-pointer"*/}
+                {/*>*/}
+                {/*    비밀번호를 잃어버렸나요?*/}
+                {/*</div>*/}
                 <button
                     className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
                     disabled={false}
@@ -123,7 +147,8 @@ export default function LoginPage() {
                 >
                     계정이 없으신가요?
                 </div>
-                {message && <div className="text-green-600 text-sm">{showMessage(message)}</div>}
+                {message && <div className="text-green-600 text-sm">{message}</div>}
+                {/*{message && <div className="text-green-600 text-sm">{showMessage(message)}</div>}*/}
             </form>
         </div>
     );

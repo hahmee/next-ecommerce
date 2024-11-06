@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.OrderRepository;
 import org.zerock.mallapi.util.GeneralException;
 
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService{
 
     // 리스트가 비어 있으면 예외를 발생시킨다.
     if (orders.isEmpty()) {
-      throw new GeneralException("해당 주문번호에 해당하는 주문내역이 없습니다...,"); // throw new NoSuchElementException("해당 주문번호에 해당하는 주문내역이 없습니다..., " + paymentSuccessDTO.getOrderId());
+      throw new GeneralException(ErrorCode.NOT_FOUND, "해당 주문번호에 해당하는 주문내역이 없습니다...,"); // throw new NoSuchElementException("해당 주문번호에 해당하는 주문내역이 없습니다..., " + paymentSuccessDTO.getOrderId());
    }
 
     List<OrderDTO> responseDTO = orders.stream().map(this::convertToDTO).collect(Collectors.toList());

@@ -41,14 +41,14 @@ public class MemberServiceImpl implements MemberService {
       //유효성 검사
       //이메일 검사
       if(memberRepository.existsById(memberDTO.getEmail())){
-          throw new GeneralException(ErrorCode.USER_EMAIL_DUPLICATED);
+          throw new GeneralException(ErrorCode.USER_EMAIL_DUPLICATED, "이미 사용하고 있는 이메일입니다.");
       }
 
       //닉네임 검사
       Optional<Member> usedNickname = memberRepository.findByNickname(memberDTO.getNickname());
 
       if(usedNickname.isPresent()){  //문제
-          throw new GeneralException(ErrorCode.USER_NICKNAME_DUPLICATED);
+          throw new GeneralException(ErrorCode.USER_NICKNAME_DUPLICATED, "이미 사용하고 있는 닉네임입니다.");
       }
 
       Member member = dtoToEntity(memberDTO);
