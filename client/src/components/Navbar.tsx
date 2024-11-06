@@ -3,25 +3,23 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Menu from "@/components/Menu";
 import SearchBar from "@/components/SearchBar";
-import {getCookie} from "@/utils/getCookieUtil";
 import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import FullMenu from "@/components/FullMenu";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
+import {Member} from "@/interface/Member";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
-const Navbar = () => {
+const Navbar = ({member}: { member: Member | undefined }) => {
 
   const prefetchOptions = [
     {
       queryKey: ['categories'],
-      queryFn: () => getCategories()
+      queryFn: () => getCategories(),
     }
   ];
-
-  const memberInfo = getCookie('member');
 
   return (
       <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative border-b border-gray-100">
@@ -43,21 +41,19 @@ const Navbar = () => {
 
             <Suspense fallback={<Loading/>}>
               <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                <FullMenu/>
+                <FullMenu member={member}/>
               </PrefetchBoundary>
             </Suspense>
-
-
 
 
           </div>
           {/* RIGHT */}
           <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
             {
-                memberInfo && (
+                member && (
                     <>
                       <SearchBar/>
-                      <NavIcons memberInfo={memberInfo}/>
+                      <NavIcons memberInfo={member}/>
                     </>
                 )
             }

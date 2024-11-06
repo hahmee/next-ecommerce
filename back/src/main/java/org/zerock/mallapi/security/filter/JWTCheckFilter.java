@@ -100,8 +100,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
 //      String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
       String msg = gson.toJson(Map.of("success", false, "code", 401, "message", "ERROR_ACCESS_TOKEN"));
 
-
-      response.setContentType("application/json");
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 상태 코드를 401로 설정
+      response.setContentType("application/json; charset=UTF-8");
       PrintWriter printWriter = response.getWriter();
       printWriter.println(msg);
       printWriter.close();

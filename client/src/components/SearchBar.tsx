@@ -26,6 +26,8 @@ const SearchBar = () => {
     }
   };
 
+
+
   return (
     <form className="flex items-center justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1" onSubmit={handleSubmit}>
       <input

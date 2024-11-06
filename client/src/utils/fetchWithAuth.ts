@@ -1,6 +1,7 @@
 "use server";
 
-import { cookies } from "next/headers";
+import {Member} from "@/interface/Member";
+import {getCookie, setCookie} from "@/utils/cookie";
 
 const host = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -14,95 +15,119 @@ interface IRequestInit {
 }
 
 export const fetchWithAuth = async (url: string, requestInit: IRequestInit) => {
-    try {
-        // 쿠키 가져오기
-        const authResponse = await fetch(`${process.env.AUTH_URL}/api/auth`, {
-            method: "GET",
-            headers: { Cookie: cookies().toString() },
-        });
 
-        const cookieJson = await authResponse.json();
-        const memberCookie = cookieJson.member;
+    // 쿠키 가져오기 (수정필요)
+    // const authResponse = await fetch(`${process.env.AUTH_URL}/api/auth`, {
+    //     method: "GET",
+    //     headers: {Cookie: cookies().toString()},
+    // });
 
-        if (!memberCookie) {
-            return Promise.reject({ message: 'No member cookie found' });
-        }
+    // const cookieJson = await authResponse.json();
 
-        const { accessToken, refreshToken, email } = memberCookie;
+    //쿠키 가져오기
+    // const memberCookie = cookies().get('member') as Member | undefined;
 
-        const configData = await getConfigData(requestInit, accessToken, refreshToken);
+    const member = await getCookie("member") as Member | undefined;
+    // console.log('fetchWithAuth memberCookie', member);
 
-        const response = await fetch(`${host}${url}`, configData);
-        const data = await response.json();
-
-        console.log('data...입니다..', data);
-
-        if (response.ok) {
-            //변경요망
-            if (data?.error === 'ERROR_ACCESS_TOKEN' ||data?.error ===  'ERROR_ACCESSDENIED' ) {
-                const newJWT = await refreshJWT(accessToken, refreshToken, email);
-                const newConfigData = {
-                    ...configData,
-                    headers: {...configData.headers, Authorization: `Bearer ${newJWT.accessToken}`},
-                };
-                const reResponse = await fetch(`${host}${url}`, newConfigData);
-                const reData = await reResponse.json();
-
-                if (!reResponse.ok) {
-                    // console.log('!esrers입니다...', reResponse);
-
-                    console.log('reData.message', reData.message);
-                    // return Promise.reject(new Error(reData.message));
-                    return Promise.reject({ message: reData.message || 'Unknown error occurred' });
-                }
-                return reData;
-            }
-            return data;
-        } else {
-            console.log('????에러 오류입니다..');
-            // 백엔드에서 반환된 에러 처리
-            return Promise.reject({ message: data?.message || 'Unknown error occurred' });
-        }
-    } catch (error) {
-        console.error('Error in fetchWithAuth:', error);
-        return Promise.reject({ message: (error as Error).message || 'Unexpected error occurred' });
+    //쿠키 없음
+    if (!member) {
+        //다시 로그인 요망
+        throw new Error("로그인이 필요합니다.");
     }
-};
 
-const getConfigData = async (requestInit: IRequestInit, accessToken: string, refreshToken: string) => {
-    const { headers } = requestInit;
+    const {accessToken, refreshToken, email} = member;
 
     if (!accessToken || !refreshToken) {
-        return Promise.reject({ response: { data: { error: 'REQUIRE_LOGIN' } } });
+        //다시 로그인 요망
+        throw new Error("로그인이 필요합니다.");
     }
 
+    //configData만들기
+    const configData = getConfigData(requestInit, accessToken);
+
+    const response = await fetch(`${host}${url}`, configData);
+    const data = await response.json();
+
+    console.log('data...입니다..', data); //{ message: 'ERROR_ACCESS_TOKEN', code: 401, ERROR_ACCESS_TOKEN: true }
+    console.log('response.status ', response.status); // 200
+    //문제 없음
+    if (response.ok) {
+        return data;
+    } else {
+        //백엔드 오류
+        //만약 refreshToken, AccessToken 만료돼서 서버에서 오류 떴다면,
+        if (data.message === "ERROR_ACCESS_TOKEN") {
+
+            //새로운 JWT 토큰
+            const newJWT = await refreshJWT(accessToken, refreshToken, email, member);
+
+            console.log('newJWT....!!newJWT!!', newJWT);
+
+            const newConfigData = getConfigData(configData, newJWT.accessToken);
+
+            //제대로 시도한다.
+            const reResponse = await fetch(`${host}${url}`, newConfigData);
+            const reData = await reResponse.json();
+
+            if (!reResponse.ok) {
+                // This will activate the closest `error.js` Error Boundary
+                throw new Error(reData.message);
+            } else {
+                return reData;
+            }
+        }
+
+        // This will activate the closest `error.js` Error Boundary
+        console.error(data.message);
+        throw new Error(data.message);
+    }
+
+};
+
+
+const getConfigData = (requestInit: IRequestInit, accessToken: string) => {
+    const {headers} = requestInit;
+
+    //헤더 세팅
     return {
         ...requestInit,
-        headers: { ...headers, Authorization: `Bearer ${accessToken}` },
+        headers: {...headers, Authorization: `Bearer ${accessToken}`},
     };
 };
 
-const refreshJWT = async (accessToken: string, refreshToken: string, email: string) => {
+//서버값: return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
+const refreshJWT = async (accessToken: string, refreshToken: string, email: string, member:Member) => {
     const response = await fetch(`${host}/api/member/refresh?refreshToken=${refreshToken}`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({email}),
     });
 
     if (!response.ok) {
-        throw new Error('JWT 갱신 실패');
+        throw new Error('JWT 갱신 실패했습니다. ');
     }
 
     const newJWT = await response.json();
 
-    await fetch(`${process.env.AUTH_URL}/api/auth`, {
-        method: "POST",
-        body: JSON.stringify({ accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken }),
-        headers: { Cookie: cookies().toString() },
-    });
+
+
+    const newCookie = {...member, accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken} as Member;
+
+
+    //새로 발급받은 jwt 을 쿠키에 다시 세팅한다.
+    await setCookie("member", JSON.stringify(newCookie));
+
+
+    // 쿠키 다시 세팅 (수정필요)
+    // await fetch(`${process.env.AUTH_URL}/api/auth`, {
+    //     method: "POST",
+    //     body: JSON.stringify({ accessToken: newJWT.accessToken, refreshToken: newJWT.refreshToken }),
+    //     headers: { Cookie: cookies().toString() },
+    // });
 
     return newJWT;
 };

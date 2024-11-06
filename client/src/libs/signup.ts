@@ -33,9 +33,16 @@ export default async (prevState: any, formData: FormData) => {
     const data:DataResponse<Member> = await response.json();
 
     console.log('data..', data);
-    console.log('response..', response.status);  //백엔드에서 보내는 에러코드
+    //data.. {
+    //   success: false,
+    //   code: 401,
+    //   message: 'DUPLICATED_EMAIL - 이미 사용하고 있는 이메일입니다.'
+    // }
+    console.log('response..', response.status);  //백엔드에서 보내는 에러코드 401
 
     if(!response.ok) { //백엔드에서 에러코드를 보냈다면
+
+      console.log('백엔드 오류 뜨면 이게 실행됨.')
       return { message: data.message };
     }
 

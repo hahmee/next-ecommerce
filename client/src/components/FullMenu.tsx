@@ -7,8 +7,9 @@ import React, {Fragment, useState} from "react";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
 import Image from "next/image";
+import {Member} from "@/interface/Member";
 
-const FullMenu = () => {
+const FullMenu = ({member}: {member: Member | undefined}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const categoryId = searchParams.get("category_id") || "";
@@ -19,6 +20,7 @@ const FullMenu = () => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: false,
+        enabled: !!member, // member 존재할 때만 실행
         select: (data) => {
             // 데이터 가공 로직만 처리
             return data.data;
@@ -26,15 +28,12 @@ const FullMenu = () => {
     });
 
     const [expandedRow, setExpandedRow] = useState<number |null>(null);
-    // // 행 클릭 시 확장 여부 토글
+    // 행 클릭 시 확장 여부 토글
 
     const onClickCategory = (categoryId:number) => {
         router.push(`/list?category_id=${categoryId}`);
-
         //닫기
         setExpandedRow(null); // 메뉴 닫기
-
-
 
     };
 

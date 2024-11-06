@@ -5,7 +5,8 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
 import {sendGTMEvent} from "@next/third-parties/google";
 import crypto from "crypto";
-import {getCookie} from "cookies-next";
+import {setCookie, getCookie} from "@/utils/cookie";
+// import {getCookie} from "cookies-next";
 //
 // export function showMessage (message: string | null) {
 //     console.log('message', message);
@@ -66,13 +67,26 @@ export default function LoginPage() {
                 setMessage(data.message);
             } else {
                 /*해결법- api route에서 set Cookie 한다.*/
-                await fetch("/api/auth", {
-                    method: "POST",
-                    body: JSON.stringify(data.data),
-                });
+                // await fetch("/api/auth", {
+                //     method: "POST",
+                //     body: JSON.stringify(data.data),
+                // });
 
-                const memberInfo = getCookie('member');
-                const member = memberInfo ? JSON.parse(memberInfo) : null;
+                //쿠키 세팅
+                const expires = new Date();
+                expires.setUTCDate(expires.getUTCDate() + 1);
+``
+                // cookies().set("member", JSON.stringify(data), {expires: expires});
+                await setCookie("member", JSON.stringify(data.data));
+
+                // const memberInfo = getCookie('member');
+                // const member = memberInfo ? JSON.parse(memberInfo) : null;
+
+                // const member = cookies().get('member') as Member | undefined;
+
+                const member = await getCookie("member") as Member | undefined;
+
+
 
                 if(member) {
 
