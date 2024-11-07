@@ -1,8 +1,11 @@
 "use client";
-import React, {KeyboardEvent, useEffect, useState} from "react";
-import { ChromePicker } from "react-color";
-import {useTagStore} from "@/store/tagStore";
-import {ColorTag} from "@/interface/ColorTag";
+import React, { KeyboardEvent, useEffect, useState, useRef } from "react";
+import { useTagStore } from "@/store/tagStore";
+import { ColorTag } from "@/interface/ColorTag";
+import { HexColorPicker } from "react-colorful";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon } from "@heroicons/react/24/outline";
+import ClickOutside from "@/components/ClickOutside";
 
 interface DropdownProps {
     label: string;
@@ -10,12 +13,14 @@ interface DropdownProps {
     originalData: ColorTag[] | undefined;
 }
 
-const TagSelect: React.FC<DropdownProps> = ({label, defaultOption, originalData}) => {
-    const {tags, addTag, removeTag, setTagColor, clear} = useTagStore();
-    const [inputValue, setInputValue] = useState('');
+const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
+    const { tags, addTag, removeTag, setTagColor, clear } = useTagStore();
+    const [inputValue, setInputValue] = useState("");
     const [selectedTagIndex, setSelectedTagIndex] = useState<number | null>(null);
-    const [selectedColor, setSelectedColor] = useState('#000000');
+    const [selectedColor, setSelectedColor] = useState("#000000");
     const [showColorPicker, setShowColorPicker] = useState(false);
+    const [pickerPosition, setPickerPosition] = useState({ top: 0, left: 0 });
+    const tagRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         if (originalData && originalData.length > 0) {
@@ -24,36 +29,52 @@ const TagSelect: React.FC<DropdownProps> = ({label, defaultOption, originalData}
         return () => clear();
     }, [originalData, addTag]);
 
-    // Handle tag addition on Enter or Comma key press
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' || e.key === ',') {
+        if (e.key === "Enter" || e.key === ",") {
             e.preventDefault();
             if (inputValue.trim()) {
-                const newTag = {text: inputValue.trim(), color: '#000000'}; // Default color is black
+                const newTag = { text: inputValue.trim(), color: selectedColor };
                 addTag(newTag);
-                setInputValue('');
-                setSelectedTagIndex(tags.length); // Select the new tag for color picker
+                setInputValue("");
+                setSelectedTagIndex(tags.length);
                 setShowColorPicker(true);
             }
         }
     };
 
-    // Handle color change for the selected tag
-    const handleColorChange = (color: any) => {
+    const handleColorChange = (color: string) => {
         if (selectedTagIndex !== null) {
-            setTagColor(selectedTagIndex, color.hex);
-            setSelectedColor(color.hex);
+            setTagColor(selectedTagIndex, color);
+            setSelectedColor(color);
         }
     };
 
-    // Handle closing the color picker
+    const openColorPicker = (index: number) => {
+        const element = tagRefs.current[index];
+        if (element) {
+            const rect = element.getBoundingClientRect();
+            setPickerPosition({
+                top: rect.top + window.scrollY + rect.height + 8,  // 태그 바로 아래
+                left: rect.left + window.scrollX,  // 태그의 왼쪽 위치
+            });
+        }
+        setSelectedTagIndex(index);
+        setSelectedColor(tags[index].color);
+        setShowColorPicker(true);
+    };
+
     const closeColorPicker = () => {
         setShowColorPicker(false);
         setSelectedTagIndex(null);
     };
 
+    const clickColorPicker = () => {
+        setShowColorPicker(false);
+        setSelectedTagIndex(null);
+    };
+
     return (
-        <div className="relative z-50">
+        <div className="relative z-40">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                 {label} <span className="text-meta-1">*</span>
             </label>
@@ -70,50 +91,64 @@ const TagSelect: React.FC<DropdownProps> = ({label, defaultOption, originalData}
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
 
-                {/* Display the tags with colors */}
-                <div className="flex flex-wrap space-x-2 mt-2">
+                <div className="text-gray-500 font-light text-sm mt-2">
+                    옵션을 입력할 때마다 Enter 키를 클릭하거나 쉼표를 추가하세요.
+                </div>
+
+                {/* 태그와 색상 표시 */}
+                <div className="flex flex-wrap mt-2 relative">
                     {tags.map((tag, index) => (
                         <div
                             key={index}
-                            className="flex items-center space-x-2 bg-blue-100 text-blue-700 rounded-full py-1 px-3"
+                            ref={(el) => {
+                                tagRefs.current[index] = el;
+                            }}
+                            className="flex items-center space-x-2 bg-blue-100 text-blue-700 rounded-full py-1 px-3 cursor-pointer"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                openColorPicker(index);
+                            }}
                         >
-              <span
-                  className="w-4 h-4 rounded-full"
-                  style={{backgroundColor: tag.color}}
-              ></span>
+                            <span
+                                className="w-4 h-4 rounded-full"
+                                style={{backgroundColor: tag.color}}
+                            ></span>
                             <span>{tag.text}</span>
                             <span
-                                onClick={() => removeTag(index)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    removeTag(index);
+                                }}
                                 className="cursor-pointer text-blue-500 ml-2"
                             >
-                x
-              </span>
+                                x
+                            </span>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Color Picker */}
-            {showColorPicker && selectedTagIndex !== null && (
-                <div className="relative inline-block z-50">
-                    <div className="absolute top-0 left-0 bg-white p-4 shadow-lg rounded-lg">
-                        <ChromePicker color={selectedColor} onChange={handleColorChange}/>
-                        <div className="flex justify-between mt-2">
-                            <button
-                                onClick={closeColorPicker}
-                                className="bg-gray-300 text-gray-700 py-1 px-4 rounded-lg hover:bg-gray-400"
-                            >
-                                닫기
+
+            {showColorPicker && (
+                <ClickOutside onClick={() => setShowColorPicker(false)}>
+                    <div
+                        className="absolute mt-2 bg-white rounded-lg shadow-lg"
+                        style={{
+                            top: pickerPosition.top,
+                            left: pickerPosition.left,
+                        }}
+                    >
+                        <HexColorPicker color={selectedColor} onChange={handleColorChange}/>
+                        <div className="py-3 px-3 flex w-full items-center justify-end gap-1">
+                            <button onClick={closeColorPicker}>
+                                <XCircleIcon className="h-8 w-8 text-blue-500"/>
                             </button>
-                            <button
-                                onClick={closeColorPicker}
-                                className="bg-blue-500 text-white py-1 px-4 rounded-lg hover:bg-blue-600"
-                            >
-                                완료
+                            <button onClick={clickColorPicker}>
+                                <CheckCircleIcon className="h-8 w-8 text-blue-500"/>
                             </button>
                         </div>
                     </div>
-                </div>
+                </ClickOutside>
             )}
         </div>
     );

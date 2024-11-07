@@ -63,6 +63,12 @@
                     credentials: 'include',
                 });
             },
+            onMutate: () => { // Optimistic Update (서버에 실제로 데이터가 전송되기 전에 실행)
+            // queryClient.setQueryData
+
+
+
+            },
             onSuccess: (data) => {
                 console.log('data...', data);
                 clickModal();
@@ -70,7 +76,12 @@
                 //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
                 // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
                 queryClient.invalidateQueries({queryKey: ['categories']});
-            }
+            },
+            onError(error) {
+
+                toast.error(`오류 발생: ${error}`);
+            },
+
 
         });
 

@@ -3,7 +3,9 @@ import DarkModeSwitcher from "./DarkModeSwitcher";
 import DropdownMessage from "./DropdownMessage";
 import DropdownNotification from "./DropdownNotification";
 import DropdownUser from "./DropdownUser";
-import Image from "next/image";
+import React from "react";
+import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
+
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -57,12 +59,9 @@ const Header = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
 
           <Link className="block flex-shrink-0 lg:hidden" href="/">
-            <Image
-              width={32}
-              height={32}
-              src={"../images/logo/logo-icon.svg"}
-              alt="Logo"
-            />
+
+            <BuildingStorefrontIcon className="h-7 w-7 text-ecom"/>
+
           </Link>
         </div>
 

@@ -31,11 +31,11 @@ export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option2', content:'브랜드 옵션2'},
     {id: 'brand-option3', content:'브랜드 옵션3'},
 ];
-export const categoryOptions: Array<Option<string>> = [
-    {id:'category-option1', content:'카테고리 옵션1'},
-    {id:'category-option2', content:'카테고리 옵션2'},
-    {id:'category-option3', content:'카테고리 옵션3'},
-]
+// export const categoryOptions: Array<Option<string>> = [
+//     {id:'category-option1', content:'카테고리 옵션1'},
+//     {id:'category-option2', content:'카테고리 옵션2'},
+//     {id:'category-option3', content:'카테고리 옵션3'},
+// ]
 
 export const sizeOptions: Array<Option<string>> = [
     {id: Size.XS, content: 'XS'},
@@ -99,6 +99,9 @@ const ProductForm = ({type, id}: Props) => {
 
     });
 
+    const [pdesc, setPdesc] = useState(originalData?.pdesc || '');
+
+
     // 선택했던 카테고리들을 가져온다.
     const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', originalData ? originalData.categoryId.toString() : '-1'],
@@ -141,10 +144,9 @@ const ProductForm = ({type, id}: Props) => {
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
-            let pdesc = "";
 
             if (quillRef.current) {
-                pdesc = quillRef?.current?.value;
+                setPdesc(quillRef.current.value);
             }
 
             console.log('selectedCategory', selectedCategory);
@@ -154,9 +156,15 @@ const ProductForm = ({type, id}: Props) => {
                 // return Promise.reject(new Error("카테고리를 선택해야합니다.....")); // 에러 처리
             }
 
+            if (productImageStore.files.length < 1) {
+                throw new Error("이미지는 한 개 이상 첨부해주세요.");
+            }
+
+            const formData = new FormData(e.target as HTMLFormElement);
+
+
             if (type === Mode.ADD) {
 
-                const formData = new FormData(e.target as HTMLFormElement);
 
                 console.log('selectedCategory', selectedCategory);
                 formData.append("pdesc", pdesc);
@@ -183,7 +191,7 @@ const ProductForm = ({type, id}: Props) => {
 
             } else { //수정
 
-                const formData = new FormData(e.target as HTMLFormElement);
+                // const formData = new FormData(e.target as HTMLFormElement);
 
                 formData.append("pdesc", pdesc);
                 formData.append("categoryId", selectedCategory.cno.toString());
@@ -195,7 +203,6 @@ const ProductForm = ({type, id}: Props) => {
                     formData.append(`colorList[${index}].color`, t.color);
 
                 });
-
 
                 let newFileIdx = 0;
                 let uploadIdx = 0;
@@ -334,13 +341,13 @@ const ProductForm = ({type, id}: Props) => {
                                                 name="brand"/>
                                     </div>
 
-                                    <div className="mb-4.5">
-                                        <MultiSelect label={"카테고리"} optionList={categoryOptions}
-                                                     id="multiSelect"
-                                                     originalData={originalData?.categoryList}
-                                                     name="categoryList"
-                                                     defaultOption={"카테고리를 선택해주세요."}/>
-                                    </div>
+                                    {/*<div className="mb-4.5">*/}
+                                    {/*    <MultiSelect label={"카테고리"} optionList={categoryOptions}*/}
+                                    {/*                 id="multiSelect"*/}
+                                    {/*                 originalData={originalData?.categoryList}*/}
+                                    {/*                 name="categoryList"*/}
+                                    {/*                 defaultOption={"카테고리를 선택해주세요."}/>*/}
+                                    {/*</div>*/}
 
                                     <div className="mb-4.5">
                                         <label
@@ -418,13 +425,12 @@ const ProductForm = ({type, id}: Props) => {
                                 <div className="p-6.5">
 
                                     <div className="mb-6">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                                             상품 설명 <span className="text-meta-1">*</span>
                                         </label>
 
-                                        <QuillEditor quillRef={quillRef}
-                                                     originalData={originalData?.pdesc}/>
+                                        {/*<QuillEditor quillRef={quillRef} originalData={originalData?.pdesc}/>*/}
+                                        <QuillEditor quillRef={quillRef} originalData={pdesc}/>
 
                                     </div>
 
