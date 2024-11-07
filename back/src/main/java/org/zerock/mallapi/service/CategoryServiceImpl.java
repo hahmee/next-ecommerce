@@ -94,12 +94,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     log.info("===============categories "  + categories);
 
-    //갑자기 에러 발생
-//    if(true) {
-//      throw new GeneralException(ErrorCode.NOT_FOUND, "해당 주문번호에 해당하는 주문내역이 없습니다...,"); // throw new NoSuchElementException("해당 주문번호에 해당하는 주문내역이 없습니다..., " + paymentSuccessDTO.getOrderId());
-//    }
-
-
     //여기에서 subCategory있으면 넣어주기
     List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
 

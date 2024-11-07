@@ -24,7 +24,7 @@ export default async function OrderHistoryPage()  {
         },
         {
             queryKey: ['payments'],
-            queryFn: () => getPayments  ({queryKey: ['payments']}),
+            queryFn: () => getPayments({queryKey: ['payments']}),
         }
     ]
 
@@ -41,16 +41,5 @@ export default async function OrderHistoryPage()  {
 );
 
 
-// const queryClient = new QueryClient();
-// // 데이터를 미리 가져와 캐시에 넣는다.
-// await queryClient.prefetchQuery({queryKey: ['user'], queryFn: () => getUserServer()})
-    //
-    // const dehydratedState = dehydrate(queryClient);
-
-    // return (
-    //     // <HydrationBoundary state={dehydratedState}>
-    //         <UserInfo/>
-    //     // </HydrationBoundary>
-    // );
 }
 

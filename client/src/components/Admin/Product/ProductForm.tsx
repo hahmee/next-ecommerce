@@ -24,6 +24,7 @@ import CategorySelect from "@/components/Admin/Product/CategorySelect";
 import {Category} from "@/interface/Category";
 import Link from "next/link";
 import {getCategories, getCategoryPaths, getProduct} from "@/api/adminAPI";
+import {useRouter} from "next/navigation";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -60,6 +61,8 @@ interface Props {
 
 
 const ProductForm = ({type, id}: Props) => {
+    const router = useRouter();
+
     const queryClient = useQueryClient();
 
     const productImageStore = useProductImageStore();
@@ -118,7 +121,7 @@ const ProductForm = ({type, id}: Props) => {
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: false,
+        throwOnError: true,
         select: (data) => {
             // 데이터 가공 로직만 처리
             return data.data;
@@ -147,7 +150,8 @@ const ProductForm = ({type, id}: Props) => {
             console.log('selectedCategory', selectedCategory);
 
             if (!selectedCategory) {
-                return Promise.reject(new Error("카테고리를 선택해야합니다.....ns")); // 에러 처리
+                throw new Error("카테고리를 선택해야합니다.");
+                // return Promise.reject(new Error("카테고리를 선택해야합니다.....")); // 에러 처리
             }
 
             if (type === Mode.ADD) {
@@ -171,14 +175,13 @@ const ProductForm = ({type, id}: Props) => {
 
                 });
 
-
                 return await fetchJWT(`/api/products/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData as FormData,
                 }); // json 형태로 이미 반환
 
-            } else {
+            } else { //수정
 
                 const formData = new FormData(e.target as HTMLFormElement);
 
@@ -222,7 +225,6 @@ const ProductForm = ({type, id}: Props) => {
                 }); // json 형태로 이미 반환
             }
 
-
         },
         async onSuccess(response, variable) {
             console.log('response', response)
@@ -231,16 +233,11 @@ const ProductForm = ({type, id}: Props) => {
             await queryClient.invalidateQueries({queryKey: ['productSingle',id]});
             await queryClient.invalidateQueries({queryKey: ['categoryPaths',id]});
 
+            router.push(`/admin/products`);
+
         },
         onError(error) {
-            // console.log('error/....', error);
-
-            console.log('error....',  error.message);
-            const errorMessage = error?.message || '알 수 없는 오류가 발생했습니다.';
-
-            console.log('errorMessage', errorMessage);
-            // const errorObj = JSON.parse(error);
-            // console.log('errorObj', errorObj.message);
+            console.error(error);
             toast.error(`업로드 중 에러가 발생했습니다. ${error}`);
         }
     });

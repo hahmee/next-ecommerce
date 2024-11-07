@@ -1,21 +1,42 @@
+"use server";
 import AdminModal from "@/components/Admin/AdminModal";
 import React, {Suspense} from "react";
-import CategoryAddModalSuspense from "@/components/Admin/Category/CategoryAddModalSuspense";
 import Loading from "@/app/(admin)/admin/products/loading";
-
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
+import {getCategoryPaths} from "@/api/adminAPI";
+import CategoryForm from "@/components/Admin/Category/CategoryForm";
+import {Mode} from "@/types/mode";
 
 interface Props {
-    params: { id?: string};
+    params: { id: string};
 }
 
-export default function CategoryAddModal({params}: Props) {
-    // const {id} = params;
+export default async function CategoryAddModal({params}: Props) {
+
+    const {id} = params;
+
+    const prefetchOptions = [
+        {
+            queryKey: ['categoryPaths', id],
+            queryFn: () => getCategoryPaths({queryKey: ['categoryPaths', id]})
+        },
+    ]
+    // return (
+    //     <Portal>
+    //         <Suspense fallback={<Loading/>}>
+    //             <PrefetchBoundary prefetchOptions={prefetchOptions}>
+    //                 <CategoryForm type={Mode.ADD} id={id}/>
+    //             </PrefetchBoundary>
+    //         </Suspense>
+    //     </Portal>
+    // );
     return (
         <AdminModal modalTitle={"상품 카테고리 추가"}>
-            {/*<CategoryForm type={Mode.ADD} id={id}/>*/}
             <Suspense fallback={<Loading/>}>
-                <CategoryAddModalSuspense params={params}/>
+                <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                    <CategoryForm type={Mode.ADD} id={id}/>
+                </PrefetchBoundary>
             </Suspense>
         </AdminModal>
     );
-}
+};

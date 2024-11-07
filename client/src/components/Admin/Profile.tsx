@@ -15,7 +15,7 @@ const Profile = () => {
         queryFn: getUserInfo,
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: false,
+        throwOnError: true,
         select: useCallback((data: DataResponse<Member>) => {
             return data.data;
         }, []),

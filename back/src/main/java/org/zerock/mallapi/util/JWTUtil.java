@@ -15,14 +15,13 @@ public class JWTUtil {
 
   private static String key = "1234567890123456789012345678901234567890";
 
-//  public static String generateToken(Map<String, Object> valueMap, int min) {
-public static String generateToken(Map<String, Object> valueMap, int min) {
+  public static String generateToken(Map<String, Object> valueMap, int min) {
 
     SecretKey key = null;
 
     try{
       key = Keys.hmacShaKeyFor(JWTUtil.key.getBytes("UTF-8"));
-    
+
     }catch(Exception e){
         throw new RuntimeException(e.getMessage());
     }
@@ -32,8 +31,8 @@ public static String generateToken(Map<String, Object> valueMap, int min) {
             .setHeader(Map.of("typ","JWT"))
             .setClaims(valueMap)
             .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
-            .setExpiration(Date.from(ZonedDateTime.now().plusSeconds(min).toInstant()))
-//            .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(min).toInstant()))
+//            .setExpiration(Date.from(ZonedDateTime.now().plusSeconds(min).toInstant()))
+            .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(min).toInstant()))
             .signWith(key)
             .compact();
 

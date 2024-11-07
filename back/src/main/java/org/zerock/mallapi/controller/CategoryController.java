@@ -4,11 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.dto.CategoryDTO;
+import org.zerock.mallapi.dto.DataResponseDTO;
+import org.zerock.mallapi.dto.PageResponseDTO;
+import org.zerock.mallapi.dto.SearchRequestDTO;
 import org.zerock.mallapi.service.CategoryService;
 import org.zerock.mallapi.util.AwsFileUtil;
 
@@ -30,7 +31,6 @@ public class CategoryController {
   @PostMapping("/")
 //  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
   public DataResponseDTO<Long> register(@Valid CategoryDTO categoryDTO) {
-
 
     log.info("register: ?????????????" + categoryDTO);
 

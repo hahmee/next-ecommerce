@@ -109,7 +109,7 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
                 </div>
                 {
                     index === 0 &&
-                    <div className="absolute top-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg">
+                    <div className="text-white absolute top-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg">
                         커버 이미지
                     </div>
                 }

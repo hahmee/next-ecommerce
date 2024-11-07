@@ -90,7 +90,7 @@ const SalesOverview: React.FC = () => {
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: false,
+    throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -112,7 +112,7 @@ const SalesOverview: React.FC = () => {
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: false,
+    throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -131,7 +131,7 @@ const SalesOverview: React.FC = () => {
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: false,
+    throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -150,7 +150,7 @@ const SalesOverview: React.FC = () => {
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: false,
+    throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -168,7 +168,7 @@ const SalesOverview: React.FC = () => {
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: false,
+    throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;

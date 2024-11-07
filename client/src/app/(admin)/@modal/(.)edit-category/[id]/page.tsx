@@ -1,18 +1,39 @@
-import AdminModal from "@/components/Admin/AdminModal";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
-import CategoryEditModalSuspense from "@/components/Admin/Category/CategoryEditModalSuspense";
+import {getCategory, getCategoryPaths} from "@/api/adminAPI";
+import CategoryForm from "@/components/Admin/Category/CategoryForm";
+import {Mode} from "@/types/mode";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
+import Portal from "@/components/Common/Portal";
+import AdminModal from "@/components/Admin/AdminModal";
 
 interface Props {
     params: {id:string};
 }
 
-export default function CategoryEditModal({params}: Props) {
+export default async function CategoryEditModal({params}: Props) {
+
+    const {id} = params;
+
+    const prefetchOptions = [
+        {
+            queryKey: ['category', id],
+            queryFn: () => getCategory({queryKey: ['category', id]}),
+        },
+        {
+            queryKey: ['categoryPaths', id],
+            queryFn: () => getCategoryPaths({queryKey: ['categoryPaths', id]})
+        }
+
+    ];
+
 
     return (
-        <AdminModal modalTitle={"상품 카테고리 수정"} >
+        <AdminModal modalTitle={"상품 카테고리 수정"}>
             <Suspense fallback={<Loading/>}>
-                <CategoryEditModalSuspense params={params}/>
+                <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                    <CategoryForm type={Mode.EDIT} id={id}/>
+                </PrefetchBoundary>
             </Suspense>
         </AdminModal>
     );

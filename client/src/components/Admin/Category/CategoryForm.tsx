@@ -7,7 +7,6 @@ import {Category} from "@/interface/Category";
 import {fetchJWT} from "@/utils/fetchJWT";
 import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
-
 import {Option} from "@/interface/Option";
 import {getCategory, getCategoryPaths} from "@/api/adminAPI";
 
@@ -25,13 +24,16 @@ interface Props {
 const CategoryForm = ({type, id}: Props) => {
     const queryClient = useQueryClient();
 
-    const {isLoading, data: originalData, error} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
+    const {
+        isLoading,
+        data: originalData,
+        error
+    } = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', id!],
         queryFn: getCategory,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-        // throwOnError: (error) => error. >= 500,
+        throwOnError: true,
         enabled: type === Mode.EDIT && !!id,
         select: useCallback((data: DataResponse<Category>) => {
             return data.data;
@@ -44,6 +46,7 @@ const CategoryForm = ({type, id}: Props) => {
         queryFn: getCategoryPaths,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
+        throwOnError:true,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         enabled: !!id, //id 있을때만(서브 카테고리일떄만)
@@ -53,8 +56,6 @@ const CategoryForm = ({type, id}: Props) => {
 
     });
 
-    console.log('categoryPaths', categoryPaths);
-
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
             e.preventDefault();
@@ -62,55 +63,52 @@ const CategoryForm = ({type, id}: Props) => {
             const formData = new FormData(e.target as HTMLFormElement);
             const cname = formData.get('cname') || ""; // input의 cname 속성
             const cdesc = formData.get('cdesc') || ""; // input의 cdesc 속성
-            const file = formData.get('file') as File;
+            // const file = formData.get('file') as File | null;
+            const fileInput = (e.target as HTMLFormElement).querySelector<HTMLInputElement>('input[name="file"]');
+            const file = fileInput?.files?.[0] || null;
+            console.log('file입니다...', file);
+
             // const sendFile: FileDTO<File> = {file: file, ord: 0};
 
             // formData.append("subCategories", [] as any);
             formData.append("parentCategoryId", id || "");
-            formData.append("file", file);
 
+            if (file) {
+                formData.append("file", file);
+            }
 
             console.log('formData', formData);
             console.log('file..', file);
 
-
-            if (type ===  Mode.ADD ) {
+            if (type ===  Mode.ADD) {
                 if (cname === "" || cdesc === "") {
                     // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
-                    return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
+                    // return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
+                    throw new Error("카테고리명과 설명이 필요합니다.");
+
                 }
 
                 //새로운 카테고리
-                const newCategoryObj = {
-                    // cno: null,
-                    cname: cname as string,
-                    cdesc: cdesc as string,
-                    subCategories: [],
-                    parentCategoryId: Number(id) || null,
-                    // file: sendFile,
+                // const newCategoryObj = {
+                //     // cno: null,
+                //     cname: cname as string,
+                //     cdesc: cdesc as string,
+                //     subCategories: [],
+                //     parentCategoryId: Number(id) || null,
+                //     // file: sendFile,
+                // };
 
-
-                };
-
-                return fetchJWT(`/api/category/list`, {
-                    // method: "POST",
-                    // credentials: 'include',
-                    // headers: {
-                    //     'Content-Type': 'application/json'
-                    // },
-                    // body: JSON.stringify(newCategoryObj),
+                return await fetchJWT(`/api/category/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData as FormData,
-
                 }); // json 형태로 이미 반환
-
 
             } else {
                 if (cname === "" || cdesc === "") {
                     // return; //undefined 반환 -> mutationFn 성공적 실행으로 간주
-                    return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
-
+                    // return Promise.reject(new Error("카테고리명과 설명이 필요합니다.")); // 에러 처리
+                    throw new Error("카테고리명과 설명이 필요합니다.");
                 }
 
                 //수정된 카테고리
@@ -121,7 +119,8 @@ const CategoryForm = ({type, id}: Props) => {
                 };
 
                 console.log('editCategoryObj', editCategoryObj);
-                return fetchJWT(`/api/category/${id}`, {
+
+                return await fetchJWT(`/api/category/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     headers: {

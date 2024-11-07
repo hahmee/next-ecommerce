@@ -19,7 +19,7 @@ const FullMenu = ({member}: {member: Member | undefined}) => {
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: false,
+        throwOnError: true,
         enabled: !!member, // member 존재할 때만 실행
         select: (data) => {
             // 데이터 가공 로직만 처리

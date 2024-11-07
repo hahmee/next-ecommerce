@@ -25,7 +25,7 @@ const MainProductList = () => {
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: false,
+        throwOnError: true,
         select: (data) => {
             return data.data;
         }
@@ -65,11 +65,6 @@ const MainProductList = () => {
     if (isLoading || isFetching) {
         return <div>Loading...</div>; // 로딩 상태 표시
     }
-
-    if (isError) {
-        return <div>Error</div>; // 에러 처리
-    }
-
 
     return (
         <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
@@ -133,7 +128,6 @@ const MainProductList = () => {
             }
         </div>
     );
-
 
 };
 

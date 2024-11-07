@@ -52,7 +52,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
-        throwOnError: false,
+        throwOnError: true,
         select: (data) => {
             return data.data;
         }
