@@ -1,7 +1,7 @@
 import {create} from "zustand";
 import {CartItemList} from "@/interface/CartItemList";
 import {CartItem} from "@/interface/CartItem";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 
 type CartState = {
   cart:CartItemList[];
@@ -32,7 +32,7 @@ export const useCartStore = create<CartState>((set) => ({
   },
   getCart: async () => {
     try {
-      const cart = await fetchWithAuth(`/api/cart/items`, {
+      const cart = await fetchJWT(`/api/cart/items`, {
         method: "GET",
         credentials: 'include',
       });
@@ -64,7 +64,7 @@ export const useCartStore = create<CartState>((set) => ({
   changeCart: async (cartItem) => {
     set((state) => ({ ...state, isLoading: true }));
 
-    const cart = await fetchWithAuth(`/api/cart/change`, {
+    const cart = await fetchJWT(`/api/cart/change`, {
       method: "POST",
       credentials: 'include',
       headers: {
@@ -98,7 +98,7 @@ export const useCartStore = create<CartState>((set) => ({
   removeItem: async (cino) => {
     set((state) => ({ ...state, isLoading: true }));
 
-    const cart = await fetchWithAuth(`/api/cart/${cino}`, {
+    const cart = await fetchJWT(`/api/cart/${cino}`, {
       method: "DELETE",
       credentials: 'include',
     })

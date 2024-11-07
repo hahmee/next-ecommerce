@@ -4,7 +4,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Payment} from "@/interface/Payment";
 import {TossPaymentStatus} from "@/types/toss";
 import {useRouter} from "next/navigation";
-import {getPayments} from "@/app/(home)/shopping/_lib/getPayments";
+import {getPayments} from "@/api/mallAPI";
 
 const UserOrders = () => {
     const router = useRouter();

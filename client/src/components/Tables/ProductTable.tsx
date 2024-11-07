@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
@@ -15,11 +14,12 @@ import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
 import React, {useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import Dialog from "@/components/Admin/Dialog";
 import {StarIcon} from "@heroicons/react/20/solid";
 import TableActions from "@/components/Tables/TableActions";
 import Link from "next/link";
+import {getProductsByEmail} from "@/api/adminAPI";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -88,7 +88,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
     const mutation = useMutation({
         mutationFn: async (pno: number) => {
-            return fetchWithAuth(`/api/products/${pno}`, {
+            return fetchJWT(`/api/products/${pno}`, {
                 method: "DELETE",
                 credentials: 'include',
             });

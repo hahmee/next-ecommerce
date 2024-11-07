@@ -4,7 +4,6 @@ import {CartItemList} from "@/interface/CartItemList";
 import Image from "next/image";
 import {MinusIcon, PlusIcon, } from "@heroicons/react/20/solid";
 import {TrashIcon} from "@heroicons/react/24/outline";
-
 import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
 import {ColorTag} from "@/interface/ColorTag";

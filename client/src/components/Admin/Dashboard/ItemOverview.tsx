@@ -1,16 +1,12 @@
 "use client";
 import React, {useState} from "react";
 import dynamic from "next/dynamic";
-import { ChartFilter } from "@/types/chartFilter";
-import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
-import AdminDatePicker from "@/components/Admin/AdminDatePicker";
-import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
+import {ChartFilter} from "@/types/chartFilter";
 import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
-import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
-import {getGARecentUsers} from "@/app/(admin)/admin/dashboard/_lib/getGARecentUsers";
+import {getGARecentUsers} from "@/api/dashbaordAPI";
 
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafiicSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });

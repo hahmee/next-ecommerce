@@ -3,8 +3,7 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
-import {getUserServer} from "@/app/(home)/shopping/_lib/getUserServer";
-import {getPayments} from "@/app/(home)/shopping/_lib/getPayments";
+import {getPayments, getUserServer} from "@/api/mallAPI";
 
 export async function generateMetadata() {
 

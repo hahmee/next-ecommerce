@@ -2,23 +2,31 @@
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import Link from "next/link";
 import Image from "next/image";
+import {getCategories} from "@/api/adminAPI";
 
 const Categories = () => {
     //카테고리 가져오기
-    const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+    const {
+        isFetching,
+        data: categories,
+        isLoading
+    } = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
         queryKey: ['categories'],
         queryFn: () => getCategories(),
-        staleTime: 60 * 1000,
+        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        throwOnError: false,
+        throwOnError: true, // 에러 발생 시 자동으로 에러 경계로 전달
         select: (data) => {
             // 데이터 가공 로직만 처리
             return data.data;
         }
     });
+
+    if (isLoading || isFetching) {
+        return <div>Loading...</div>; // 로딩 상태 표시
+    }
 
     return <div className="px-4 overflow-x-auto scrollbar-hide">
         <div className="flex gap-4 md:gap-8">
@@ -28,19 +36,21 @@ const Categories = () => {
                     className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6 py-6"
                     key={ct.cno}
                 >
-                    <div className="relative bg-slate-100 w-full h-65">
-                        <Image
-                            src={ct.uploadFileName || ""}
-                            alt="categoryImage"
-                            width={500}
-                            height={500}
-                            sizes="20vw"
-                            className="object-cover w-full h-full"
-                        />
+                    <div>
+                        <div className="relative bg-slate-100 w-full h-65">
+                            <Image
+                                src={ct.uploadFileName || ""}
+                                alt="categoryImage"
+                                width={500}
+                                height={500}
+                                sizes="20vw"
+                                className="object-cover w-full h-full"
+                            />
+                        </div>
+                        <h1 className="mt-4 font-normal  tracking-wide">
+                            {ct.cname}
+                        </h1>
                     </div>
-                    <h1 className="mt-4 font-normal  tracking-wide">
-                        {ct.cname}
-                    </h1>
                 </Link>
             ))}
         </div>

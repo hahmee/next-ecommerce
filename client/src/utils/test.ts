@@ -64,7 +64,7 @@ export const test = async (url: string, requestInit: IRequestInit) => {
             return Promise.reject({ message: data?.message || 'Unknown error occurred' });
         }
     } catch (error) {
-        console.error('Error in fetchWithAuth:', error);
+        console.error('Error in fetchJWT:', error);
         return Promise.reject({ message: (error as Error).message || 'Unexpected error occurred' });
     }
 };

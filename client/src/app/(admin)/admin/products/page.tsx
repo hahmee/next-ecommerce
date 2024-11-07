@@ -3,7 +3,7 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import ProductTable from "@/components/Tables/ProductTable";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
+import {getProductsByEmail} from "@/api/adminAPI";
 
 
 export default async function ProductsPage() {

@@ -1,7 +1,9 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import React from "react";
+import React, {Suspense} from "react";
 import StockTable from "@/components/Tables/StockTable";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
+import {getProductsByEmail} from "@/api/adminAPI";
+import Loading from "@/app/(admin)/admin/products/loading";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 
 export default function StockPage() {
 
@@ -15,7 +17,11 @@ export default function StockPage() {
         <div className="mx-auto">
             <Breadcrumb pageName="Stock"/>
             <div className="flex flex-col gap-10">
-                <StockTable/>
+                <Suspense fallback={<Loading/>}>
+                    <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                        <StockTable/>
+                    </PrefetchBoundary>
+                </Suspense>
             </div>
         </div>
     );

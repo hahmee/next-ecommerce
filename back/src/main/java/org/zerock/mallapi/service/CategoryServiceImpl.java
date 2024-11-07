@@ -6,14 +6,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.zerock.mallapi.domain.AdminCategory;
 import org.zerock.mallapi.domain.CategoryClosure;
 import org.zerock.mallapi.domain.CategoryClosureId;
 import org.zerock.mallapi.domain.CategoryImage;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
+import org.zerock.mallapi.util.GeneralException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -91,10 +94,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     log.info("===============categories "  + categories);
 
+    //갑자기 에러 발생
+//    if(true) {
+//      throw new GeneralException(ErrorCode.NOT_FOUND, "해당 주문번호에 해당하는 주문내역이 없습니다...,"); // throw new NoSuchElementException("해당 주문번호에 해당하는 주문내역이 없습니다..., " + paymentSuccessDTO.getOrderId());
+//    }
+
+
     //여기에서 subCategory있으면 넣어주기
     List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
 
     log.info("===============responseDTO "  + responseDTO);
+
 
 
     return responseDTO;

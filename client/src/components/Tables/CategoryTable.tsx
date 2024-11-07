@@ -4,10 +4,10 @@
     import {DataResponse} from "@/interface/DataResponse";
     import {Category} from "@/interface/Category";
     import Link from "next/link";
-    import {fetchWithAuth} from "@/utils/fetchWithAuth";
+    import {fetchJWT} from "@/utils/fetchJWT";
     import toast from "react-hot-toast";
     import Image from "next/image";
-    import {ChevronDownIcon, ChevronUpIcon, EllipsisHorizontalIcon} from "@heroicons/react/20/solid";
+    import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
     import Dialog from "@/components/Admin/Dialog";
     import TableSearch from "@/components/Tables/TableSearch";
     import TableAddButton from "@/components/Tables/TableAddButton";
@@ -17,8 +17,8 @@
     import {Paging} from "@/interface/Paging";
     import {initalPagingData} from "@/components/Tables/ProductTable";
     import PageComponent from "@/components/Tables/PageComponent";
-    import {getAdminCategories} from "@/app/(admin)/admin/products/_lib/getAdminCategories";
     import TableActions from "@/components/Tables/TableActions";
+    import {getAdminCategories} from "@/api/adminAPI";
 
 
     const CategoryTable = () => {
@@ -58,7 +58,7 @@
 
         const mutation = useMutation({
             mutationFn: async (cno: number) => {
-                return fetchWithAuth(`/api/category/${cno}`, {
+                return fetchJWT(`/api/category/${cno}`, {
                     method: "DELETE",
                     credentials: 'include',
                 });

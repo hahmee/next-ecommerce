@@ -1,10 +1,10 @@
 "use client";
 import React, {useState} from "react";
 import dynamic from "next/dynamic";
-import { ChartFilter } from "@/types/chartFilter";
+import {ChartFilter} from "@/types/chartFilter";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
 import AdminDatePicker from "@/components/Admin/AdminDatePicker";
-import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
+import {getGoogleAnalytics} from "@/api/dashbaordAPI";
 import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";

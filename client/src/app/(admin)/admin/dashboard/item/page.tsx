@@ -5,10 +5,9 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCookie} from "@/utils/getCookieUtil";
-import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 import {ChartFilter} from "@/types/chartFilter";
 import ItemOverview from "@/components/Admin/Dashboard/ItemOverview";
-import {getGARecentUsers} from "@/app/(admin)/admin/dashboard/_lib/getGARecentUsers";
+import {getGARecentUsers} from "@/api/dashbaordAPI";
 
 export default async function DashBoardItemPage() {
     const endDate = new Date(); // today

@@ -6,8 +6,8 @@ import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import ClickOutside from "@/components/ClickOutside";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getPaymentsOverview} from "@/app/(admin)/admin/order/_lib/getPaymentsOverview";
 import {PaymentSummaryDTO} from "@/interface/PaymentSummaryDTO";
+import {getPaymentsOverview} from "@/api/adminAPI";
 
 
 const PaymentOverview = () => {

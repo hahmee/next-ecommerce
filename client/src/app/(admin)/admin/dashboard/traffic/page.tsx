@@ -6,8 +6,8 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCookie} from "@/utils/getCookieUtil";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
-import {getGoogleAnalytics} from "@/app/(admin)/admin/dashboard/_lib/getGoogleAnalytics";
 import {ChartFilter} from "@/types/chartFilter";
+import {getGoogleAnalytics} from "@/api/dashbaordAPI";
 
 export default async function DashBoardTrafficPage() {
     const endDate = new Date(); // today

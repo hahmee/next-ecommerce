@@ -1,9 +1,6 @@
 "use client";
 import UpdateButton from "@/components/UpdateButton";
-import {useQuery} from "@tanstack/react-query";
-import {getUserServer} from "@/app/(home)/profile/_lib/getUserServer";
 import {useEffect} from "react";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
 
 const UserInfo = () => {
     // const { isLoading, data, error} = useQuery({
@@ -18,7 +15,7 @@ const UserInfo = () => {
 
 
         const test = async () => {
-            //  await fetchWithAuth(`/api/profile`, {
+            //  await fetchJWT(`/api/profile`, {
             //     method: "GET",
             //     // credentials: 'include',
             // });

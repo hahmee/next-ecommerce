@@ -2,15 +2,15 @@
 
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getOrder} from "@/app/(home)/order/[orderId]/_lib/getOrder";
 import Image from "next/image";
 import {Order} from "@/interface/Order";
 import {StarIcon} from "@heroicons/react/20/solid";
 import {XMarkIcon } from "@heroicons/react/20/solid";
 import React, {useState} from "react";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import {Review} from "@/interface/Review";
 import {useRouter} from "next/navigation";
+import {getOrder} from "@/api/mallAPI";
 
 
 const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
@@ -58,7 +58,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
             updatedAt: null
         };
 
-        const res  = await fetchWithAuth(`/api/reviews/`, {
+        const res  = await fetchJWT(`/api/reviews/`, {
             method: "POST",
             credentials: 'include',
             headers: {

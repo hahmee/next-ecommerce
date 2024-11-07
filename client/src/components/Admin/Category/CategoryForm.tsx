@@ -4,12 +4,12 @@ import React, {FormEvent, useCallback} from "react";
 import {Mode} from "@/types/mode";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Category} from "@/interface/Category";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
-import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
+
 import {Option} from "@/interface/Option";
+import {getCategory, getCategoryPaths} from "@/api/adminAPI";
 
 export const useOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -92,7 +92,7 @@ const CategoryForm = ({type, id}: Props) => {
 
                 };
 
-                return fetchWithAuth(`/api/category/list`, {
+                return fetchJWT(`/api/category/list`, {
                     // method: "POST",
                     // credentials: 'include',
                     // headers: {
@@ -121,7 +121,7 @@ const CategoryForm = ({type, id}: Props) => {
                 };
 
                 console.log('editCategoryObj', editCategoryObj);
-                return fetchWithAuth(`/api/category/${id}`, {
+                return fetchJWT(`/api/category/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     headers: {

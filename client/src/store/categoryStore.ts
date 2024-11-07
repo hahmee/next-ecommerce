@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import {Category} from "@/interface/Category";
 
 type CategoryState = {
@@ -16,7 +16,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
       isLoading: true,
       getCategories: async () => {
         try {
-          const categories = await fetchWithAuth(`/api/category/list`, {
+          const categories = await fetchJWT(`/api/category/list`, {
             method: "GET",
             credentials: 'include',
           });

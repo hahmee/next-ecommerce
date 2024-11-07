@@ -4,8 +4,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Profile from "@/components/Admin/Profile";
 import {getCookie} from "@/utils/getCookieUtil";
-import {getUserInfo} from "@/app/(home)/shopping/_lib/getUserInfo";
-
+import {getUserInfo} from "@/api/mallAPI";
 
 export async function generateMetadata() {
 

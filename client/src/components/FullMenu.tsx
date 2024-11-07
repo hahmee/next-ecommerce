@@ -2,12 +2,12 @@
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import React, {Fragment, useState} from "react";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
 import Image from "next/image";
 import {Member} from "@/interface/Member";
+import {getCategories} from "@/api/adminAPI";
 
 const FullMenu = ({member}: {member: Member | undefined}) => {
     const router = useRouter();

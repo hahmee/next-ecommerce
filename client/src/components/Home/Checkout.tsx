@@ -2,7 +2,7 @@
 import CartSummary from "@/components/Home/CartSummary";
 import React, {useState} from "react";
 import {useCartStore} from "@/store/cartStore";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import {OrderStatus} from "@/types/orderStatus";
 import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
@@ -60,7 +60,7 @@ const Checkout = () => {
             orderId: orderId,
         };
 
-        await fetchWithAuth(`/api/orders/`, {
+        await fetchJWT(`/api/orders/`, {
             method: "POST",
             credentials: 'include',
             headers: {

@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 import {Member} from "@/interface/Member";
 import CartModal from "@/components/Home/CartModal";
 import {useCartStore} from "@/store/cartStore";
-import {logout} from "@/app/(home)/shopping/_lib/getUserServer";
+import {logout} from "@/api/mallAPI";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
     const { cart, counter, getCart, changeOpen, open } = useCartStore();

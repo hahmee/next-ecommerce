@@ -2,7 +2,6 @@
 
 import {FunnelIcon, Squares2X2Icon} from "@heroicons/react/20/solid";
 import React, {Fragment, useCallback, useEffect, useState} from "react";
-import {getProductList} from "@/app/(home)/list/_lib/getProductList";
 import {useInView} from "react-intersection-observer";
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import ProductCard from "@/components/Home/ProductCard";
@@ -10,13 +9,13 @@ import {Product} from "@/interface/Product";
 import ProductFilters from "@/components/Home/ProductFilters";
 import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
 import ProductCategories from "@/components/Home/ProductCategories";
 import {Size} from "@/types/size";
 import ProductOrders from "@/components/Home/ProductOrders";
 import {useSearchParams} from "next/navigation";
 import FiltersBadge from "@/components/Home/FiltersBadge";
+import {getCategories, getCategory} from "@/api/adminAPI";
+import {getProductList} from "@/api/mallAPI";
 
 export type SortOption = {
     name: string;

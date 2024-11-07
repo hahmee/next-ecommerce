@@ -6,8 +6,8 @@ import {Mode} from "@/types/mode";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
+import {getCategories} from "@/api/adminAPI";
 
 interface Props {
     params: {id: string }

@@ -3,7 +3,7 @@ import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
+import {getCategories} from "@/api/adminAPI";
 
 export default function AddProductPage() {
 

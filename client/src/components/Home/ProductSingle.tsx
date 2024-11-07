@@ -2,7 +2,6 @@
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
-import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import {useEffect, useState} from "react";
 import ProductImages from "@/components/Home/ProductImags";
 import Reviews from "@/components/Home/Reviews";
@@ -10,9 +9,9 @@ import {SalesStatus} from "@/types/salesStatus";
 import OptionSelect from "@/components/Home/OptionSelect";
 import {ColorTag} from "@/interface/ColorTag";
 import AddCart from "@/components/Home/AddCart";
-import {getReviews} from "@/app/(admin)/admin/products/[id]/_lib/getReviews";
 import {Review} from "@/interface/Review";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
+import {getProduct, getReviews} from "@/api/adminAPI";
 
 interface Props {
     id: string;

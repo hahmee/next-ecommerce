@@ -7,13 +7,12 @@ import MultiSelect from "@/components/Admin/Product/MultiSelect";
 import {Option} from "@/interface/Option";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import {useProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
-import {getProduct} from "@/app/(admin)/admin/products/[id]/_lib/getProduct";
 import {Size} from "@/types/size";
 import {useTagStore} from "@/store/tagStore";
 import TagSelect from "@/components/Admin/Product/TagSelect";
@@ -23,9 +22,8 @@ import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {Mode} from "@/types/mode";
 import CategorySelect from "@/components/Admin/Product/CategorySelect";
 import {Category} from "@/interface/Category";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
-import {getCategoryPaths} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategoryPaths";
 import Link from "next/link";
+import {getCategories, getCategoryPaths, getProduct} from "@/api/adminAPI";
 
 export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -174,7 +172,7 @@ const ProductForm = ({type, id}: Props) => {
                 });
 
 
-                return await fetchWithAuth(`/api/products/`, {
+                return await fetchJWT(`/api/products/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData as FormData,
@@ -216,7 +214,7 @@ const ProductForm = ({type, id}: Props) => {
                     }
                 });
 
-                return await fetchWithAuth(`/api/products/${id}`, {
+                return await fetchJWT(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData as FormData,

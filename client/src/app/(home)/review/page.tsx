@@ -2,11 +2,8 @@ import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import UserOrders from "@/components/Home/Profile/UserOrders";
-import {getUserServer} from "@/app/(home)/shopping/_lib/getUserServer";
-import {getPayments} from "@/app/(home)/shopping/_lib/getPayments";
 import UserReviews from "@/components/Home/Profile/UserReviews";
-import {getUserReviews} from "@/app/(home)/review/_lib/getPayments";
+import {getUserReviews} from "@/api/mallAPI";
 
 export async function generateMetadata() {
 

@@ -3,12 +3,12 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Menu from "@/components/Menu";
 import SearchBar from "@/components/SearchBar";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import FullMenu from "@/components/FullMenu";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {Member} from "@/interface/Member";
+import {getCategories} from "@/api/adminAPI";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 

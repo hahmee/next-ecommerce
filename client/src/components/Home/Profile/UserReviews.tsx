@@ -2,11 +2,11 @@
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
-import {getUserReviews} from "@/app/(home)/review/_lib/getPayments";
 import {Review} from "@/interface/Review";
 import {StarIcon} from "@heroicons/react/20/solid";
 import React from "react";
 import Image from "next/image";
+import {getUserReviews} from "@/api/mallAPI";
 
 const UserReviews = () => {
     const router = useRouter();

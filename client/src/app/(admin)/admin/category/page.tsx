@@ -3,7 +3,7 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import CategoryTable from "@/components/Tables/CategoryTable";
-import {getAdminCategories} from "@/app/(admin)/admin/products/_lib/getAdminCategories";
+import {getAdminCategories} from "@/api/adminAPI";
 
 export default function CategoryPage() {
 

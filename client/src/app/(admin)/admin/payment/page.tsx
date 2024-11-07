@@ -2,10 +2,9 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getPaymentsByEmail} from "@/app/(admin)/admin/order/_lib/getPaymentsByEmail";
 import PaymentOverview from "@/components/Admin/Payment/PaymentOverview";
 import PaymentTable from "@/components/Tables/PaymentTable";
-import {getPaymentsOverview} from "@/app/(admin)/admin/order/_lib/getPaymentsOverview";
+import {getPaymentsByEmail, getPaymentsOverview} from "@/api/adminAPI";
 
 export default async function AdminPaymentPage() {
     const endDate = new Date(); // today

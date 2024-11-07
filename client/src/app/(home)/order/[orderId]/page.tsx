@@ -2,8 +2,8 @@ import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getOrders} from "@/app/(home)/order/[orderId]/_lib/getOrders";
 import OrderDetail from "@/components/Home/Profile/OrderDetail";
+import {getOrders} from "@/api/mallAPI";
 
 interface Props {
     params: {orderId: string }

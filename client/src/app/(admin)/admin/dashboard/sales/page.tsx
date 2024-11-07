@@ -5,14 +5,10 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "@/utils/getCookieUtil";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
-import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
-import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
-import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
-import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
+import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/api/dashbaordAPI";
 
 export default async function DashBoardSalesPage() {
     const endDate = new Date(); // today

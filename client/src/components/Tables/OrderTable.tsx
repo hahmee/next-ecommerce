@@ -3,17 +3,16 @@ import {useQuery} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
-import FilterButton from "@/components/Tables/FilterButton";
 import ViewButton from "@/components/Tables/ViewButton";
 import {DataResponse} from "@/interface/DataResponse";
 import React, {Fragment, useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
 import {Payment} from "@/interface/Payment";
 import {initalPagingData} from "@/components/Tables/ProductTable";
-import {getOrdersByEmail} from "@/app/(admin)/admin/order/_lib/getOrdersByEmail";
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
 import Image from "next/image";
 import TableDatePicker from "@/components/Admin/TableDatePicker";
+import {getOrdersByEmail} from "@/api/adminAPI";
 
 
 const OrderTable = () => {

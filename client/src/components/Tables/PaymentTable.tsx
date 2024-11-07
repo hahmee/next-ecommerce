@@ -7,11 +7,11 @@ import ViewButton from "@/components/Tables/ViewButton";
 import {DataResponse} from "@/interface/DataResponse";
 import React, {useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
-import {getPaymentsByEmail} from "@/app/(admin)/admin/order/_lib/getPaymentsByEmail";
 import {Payment} from "@/interface/Payment";
 import {initalPagingData} from "@/components/Tables/ProductTable";
 import {TossPaymentStatusKR, TossPaymentTypeKR} from "@/types/toss";
 import TableDatePicker from "@/components/Admin/TableDatePicker";
+import {getPaymentsByEmail} from "@/api/adminAPI";
 
 
 const PaymentTable = () => {

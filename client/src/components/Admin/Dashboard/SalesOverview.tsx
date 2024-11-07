@@ -5,22 +5,18 @@ import AdminDatePicker from "@/components/Admin/AdminDatePicker";
 import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getSalesCharts} from "@/app/(admin)/admin/dashboard/_lib/getSalesCharts";
 import {getCookie} from "cookies-next";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
-import {getSalesCards} from "@/app/(admin)/admin/dashboard/_lib/getSalesCards";
 import {CardResponse} from "@/interface/CardResponse";
 import TopOrderTable from "@/components/Tables/TopOrderTable";
 import TopCustomers from "@/components/Chats/TopCustomers";
-import {getTopCustomers} from "@/app/(admin)/admin/dashboard/_lib/getTopCustomers";
 import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
 import {TopProductResponse} from "@/interface/TopProductResponse";
-import {getTopProducts} from "@/app/(admin)/admin/dashboard/_lib/getTopProducts";
 import dynamic from "next/dynamic";
-import {getSalesByCountry} from "@/app/(admin)/admin/dashboard/_lib/getSalesByCountry";
 import {MapResponse} from "@/interface/MapResponse";
+import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/api/dashbaordAPI";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜

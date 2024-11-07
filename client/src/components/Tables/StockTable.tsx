@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import {getProductsByEmail} from "@/app/(admin)/admin/products/_lib/getProductsByEmail";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {PageResponse} from "@/interface/PageResponse";
 import {Product} from "@/interface/Product";
@@ -12,11 +11,12 @@ import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import React, {useCallback, useEffect, useState} from "react";
 import TableSearch from "@/components/Tables/TableSearch";
-import {fetchWithAuth} from "@/utils/fetchWithAuth";
+import {fetchJWT} from "@/utils/fetchJWT";
 import TableActions from "@/components/Tables/TableActions";
 import Link from "next/link";
 import Select from "@/components/Admin/Product/Select";
 import toast from "react-hot-toast";
+import {getProductsByEmail} from "@/api/adminAPI";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -81,7 +81,7 @@ const StockTable = () => {
 
     const mutation = useMutation({
         mutationFn: async ({ salesStatus, pno }: { salesStatus: string; pno: number }) => {
-            const response = await fetchWithAuth(`/api/products/stock/${pno}`, {
+            const response = await fetchJWT(`/api/products/stock/${pno}`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {

@@ -2,10 +2,9 @@ import Slider from "@/components/Slider";
 import Skeleton from "@/components/Skeleton";
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
 import Categories from "@/components/Home/Main/Categories";
 import MainProductList from "@/components/Admin/Product/MainProductList";
-import {getNewProducts} from "@/app/(admin)/admin/products/_lib/getNewProducts";
+import {getCategories, getNewProducts} from "@/api/adminAPI";
 
 const HomePage = () => {
 

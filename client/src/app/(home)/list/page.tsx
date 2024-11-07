@@ -2,10 +2,9 @@ import React, {Suspense} from 'react'
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import ProductList from "@/components/Home/ProductList";
-import {getProductList} from "@/app/(home)/list/_lib/getProductList";
-import {getCategories} from "@/app/(admin)/admin/products/_lib/getCategories";
-import {getCategory} from "@/app/(admin)/admin/category/edit-category/[id]/_lib/getCategory";
 import {FetchInfiniteQueryOptions} from "@tanstack/react-query";
+import {getCategories, getCategory} from "@/api/adminAPI";
+import {getProductList} from "@/api/mallAPI";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
