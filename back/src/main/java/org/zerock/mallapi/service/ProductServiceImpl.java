@@ -148,7 +148,7 @@ public class ProductServiceImpl implements ProductService{
               .changePolicy(product.getChangePolicy())
               .sku(product.getSku())
               .brand(product.getBrand())
-              .categoryList(product.getCategoryList())
+//              .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag())
               .salesStatus(product.getSalesStatus())
               .colorList(colorTagDTOList)
@@ -227,7 +227,7 @@ public class ProductServiceImpl implements ProductService{
               .changePolicy(product.getChangePolicy())
               .sku(product.getSku())
               .brand(product.getBrand())
-              .categoryList(product.getCategoryList())
+//              .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
               .owner(memberDTO)
@@ -321,7 +321,7 @@ public class ProductServiceImpl implements ProductService{
               .sku(product.getSku())
               .brand(product.getBrand())
               .averageRating(averageRating)
-              .categoryList(product.getCategoryList())
+//              .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
               .salesStatus(product.getSalesStatus())
               .category(categoryDTO)
@@ -397,7 +397,7 @@ public class ProductServiceImpl implements ProductService{
             .brand(productDTO.getBrand())
             .changePolicy(productDTO.getChangePolicy())
             .refundPolicy(productDTO.getRefundPolicy())
-            .categoryList(productDTO.getCategoryList())
+//            .categoryList(productDTO.getCategoryList())
             .sizeList(productDTO.getSizeList())
             .sku(productDTO.getSku())
             .adminCategory(category)
@@ -461,7 +461,7 @@ public class ProductServiceImpl implements ProductService{
             .changePolicy(product.getChangePolicy())
             .refundPolicy(product.getRefundPolicy())
             .salesStatus(product.getSalesStatus())
-            .categoryList(product.getCategoryList())
+//            .categoryList(product.getCategoryList())
             .sizeList(product.getSizeList())
             .categoryId(product.getAdminCategory().getCno())
             .owner(memberDTO)
@@ -591,7 +591,7 @@ public class ProductServiceImpl implements ProductService{
     product.changeRefundPolicy(productDTO.getRefundPolicy());
     product.changeSku(productDTO.getSku());
     product.changeBrand(productDTO.getBrand());
-    product.changeCategoryList(productDTO.getCategoryList());
+//    product.changeCategoryList(productDTO.getCategoryList());
     product.changeSizeList(productDTO.getSizeList());
     product.changeSalesStatus(productDTO.getSalesStatus());
     product.changeAdminCategory(adminCategory);

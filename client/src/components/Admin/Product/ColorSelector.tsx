@@ -13,13 +13,14 @@ interface DropdownProps {
     originalData: ColorTag[] | undefined;
 }
 
-const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
+const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
     const { tags, addTag, removeTag, setTagColor, clear } = useTagStore();
     const [inputValue, setInputValue] = useState("");
     const [selectedTagIndex, setSelectedTagIndex] = useState<number | null>(null);
     const [selectedColor, setSelectedColor] = useState("#000000");
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [pickerPosition, setPickerPosition] = useState({ top: 0, left: 0 });
+
     const tagRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
@@ -28,6 +29,30 @@ const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData
         }
         return () => clear();
     }, [originalData, addTag]);
+
+    useEffect(() => {
+        const updatePickerPosition = () => {
+            if (showColorPicker && selectedTagIndex !== null) {
+                const element = tagRefs.current[selectedTagIndex];
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    setPickerPosition({
+                        top: rect.bottom + window.scrollY + 8,
+                        left: rect.left + window.scrollX,  // 태그의 왼쪽 위치
+                    });
+                }
+            }
+        };
+
+        // 초기 위치 설정 및 리사이즈 이벤트 리스너 추가
+        updatePickerPosition();
+        window.addEventListener("resize", updatePickerPosition);
+
+        return () => {
+            window.removeEventListener("resize", updatePickerPosition);
+        };
+    }, [showColorPicker, selectedTagIndex]);
+
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" || e.key === ",") {
@@ -50,14 +75,6 @@ const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData
     };
 
     const openColorPicker = (index: number) => {
-        const element = tagRefs.current[index];
-        if (element) {
-            const rect = element.getBoundingClientRect();
-            setPickerPosition({
-                top: rect.top + window.scrollY + rect.height + 8,  // 태그 바로 아래
-                left: rect.left + window.scrollX,  // 태그의 왼쪽 위치
-            });
-        }
         setSelectedTagIndex(index);
         setSelectedColor(tags[index].color);
         setShowColorPicker(true);
@@ -74,7 +91,7 @@ const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData
     };
 
     return (
-        <div className="relative z-40">
+        <div className="relative z-51">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                 {label} <span className="text-meta-1">*</span>
             </label>
@@ -91,23 +108,21 @@ const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
 
-                <div className="text-gray-500 font-light text-sm mt-2">
+                <div className="text-gray-500 font-light text-sm mt-2 dark:text-white">
                     옵션을 입력할 때마다 Enter 키를 클릭하거나 쉼표를 추가하세요.
                 </div>
 
                 {/* 태그와 색상 표시 */}
-                <div className="flex flex-wrap mt-2 relative">
+                <div className="flex flex-wrap mt-4 gap-2 relative ">
                     {tags.map((tag, index) => (
-                        <div
-                            key={index}
-                            ref={(el) => {
-                                tagRefs.current[index] = el;
-                            }}
-                            className="flex items-center space-x-2 bg-blue-100 text-blue-700 rounded-full py-1 px-3 cursor-pointer"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                openColorPicker(index);
-                            }}
+                        <div key={index} ref={(el) => {
+                            tagRefs.current[index] = el;
+                        }}
+                             className="flex items-center space-x-2 bg-blue-100 text-blue-700 rounded-full py-1 px-3 cursor-pointer"
+                             onClick={(e) => {
+                                 e.stopPropagation();
+                                 openColorPicker(index);
+                             }}
                         >
                             <span
                                 className="w-4 h-4 rounded-full"
@@ -125,33 +140,32 @@ const TagSelect: React.FC<DropdownProps> = ({ label, defaultOption, originalData
                             </span>
                         </div>
                     ))}
+
+                    {showColorPicker && (
+                        <ClickOutside onClick={() => setShowColorPicker(false)}>
+                            <div
+                                className={`z-99999 absolute mt-2 bg-white rounded-lg shadow-lg dark:bg-gray-500 left-${pickerPosition.left} bottom-0`}>
+                                <HexColorPicker color={selectedColor} onChange={handleColorChange} style={{ width: '18.75rem' }}/>
+                                <div className="py-3 px-3 flex w-full items-center justify-between gap-1">
+                                    <div className="text-sm text-blue-500 dark:text-white">{selectedColor}</div>
+                                    <div className="flex items-center">
+                                        <button onClick={closeColorPicker}>
+                                            <XCircleIcon className="h-8 w-8 text-blue-500 dark:text-white"/>
+                                        </button>
+                                        <button onClick={clickColorPicker}>
+                                            <CheckCircleIcon className="h-8 w-8 text-blue-500 dark:text-white"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ClickOutside>
+                    )}
+
                 </div>
             </div>
 
-
-            {showColorPicker && (
-                <ClickOutside onClick={() => setShowColorPicker(false)}>
-                    <div
-                        className="absolute mt-2 bg-white rounded-lg shadow-lg"
-                        style={{
-                            top: pickerPosition.top,
-                            left: pickerPosition.left,
-                        }}
-                    >
-                        <HexColorPicker color={selectedColor} onChange={handleColorChange}/>
-                        <div className="py-3 px-3 flex w-full items-center justify-end gap-1">
-                            <button onClick={closeColorPicker}>
-                                <XCircleIcon className="h-8 w-8 text-blue-500"/>
-                            </button>
-                            <button onClick={clickColorPicker}>
-                                <CheckCircleIcon className="h-8 w-8 text-blue-500"/>
-                            </button>
-                        </div>
-                    </div>
-                </ClickOutside>
-            )}
         </div>
     );
 };
 
-export default TagSelect;
+export default ColorSelector;

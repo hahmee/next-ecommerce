@@ -15,7 +15,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {Size} from "@/types/size";
 import {useTagStore} from "@/store/tagStore";
-import TagSelect from "@/components/Admin/Product/TagSelect";
+import ColorSelector from "@/components/Admin/Product/ColorSelector";
 import RadioButton from "@/components/Admin/Product/RadioButton";
 import Select from "@/components/Admin/Product/Select";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
@@ -405,9 +405,9 @@ const ProductForm = ({type, id}: Props) => {
                                                      defaultOption={"사이즈를 선택해주세요."}/>
                                     </div>
                                     <div className="mb-4.5">
-                                        <TagSelect label={"컬러"}
-                                                   originalData={originalData?.colorList}
-                                                   defaultOption={"컬러를 선택해주세요."}/>
+                                        <ColorSelector label={"컬러"}
+                                                       originalData={originalData?.colorList}
+                                                       defaultOption={"컬러를 선택해주세요."}/>
                                     </div>
                                 </div>
                             </div>

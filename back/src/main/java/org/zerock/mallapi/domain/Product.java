@@ -31,9 +31,9 @@ public class Product extends BaseEntity {
 
   private String brand;
 
-  @ElementCollection(fetch = FetchType.LAZY)
-  @Builder.Default
-  private List<String> categoryList = new ArrayList<>();
+//  @ElementCollection(fetch = FetchType.LAZY)
+//  @Builder.Default
+//  private List<String> categoryList = new ArrayList<>();
 
   @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
@@ -97,9 +97,9 @@ public class Product extends BaseEntity {
     this.brand = brand;
   }
 
-  public void changeCategoryList(List<String> categoryList) {
-    this.categoryList = categoryList;
-  }
+//  public void changeCategoryList(List<String> categoryList) {
+//    this.categoryList = categoryList;
+//  }
 
   public void changeSizeList(List<String> sizeList) {
     this.sizeList = sizeList;
@@ -146,7 +146,7 @@ public class Product extends BaseEntity {
     this.colorList.clear();
   }
 
-  public void addCategoryString(String category) {
-    categoryList.add(category);
-  }
+//  public void addCategoryString(String category) {
+//    categoryList.add(category);
+//  }
 }

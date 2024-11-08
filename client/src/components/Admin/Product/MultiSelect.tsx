@@ -129,11 +129,10 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
 
                 <div className="flex flex-col items-center">
                     <input name={name} type="hidden" defaultValue={selectedValues()}/>
-                    <div className="relative z-20 inline-block w-full">
+                    <div className="relative inline-block w-full">
                         <div className="relative flex flex-col items-center">
                             <div ref={trigger} onClick={open} className="w-full">
-                                <div
-                                    className="mb-2 flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+                                <div className="mb-2  flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                                     <div className="flex flex-auto flex-wrap gap-3">
                                         {selected.map((selectedIndex, idx) => (
                                             <div
@@ -172,7 +171,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                                             <div className="flex-1">
                                                 <input
                                                     placeholder={defaultOption}
-                                                    className="h-full w-full appearance-none bg-transparent p-1 px-2 outline-none "
+                                                    className="h-full w-full appearance-none bg-transparent p-1 px-2 outline-none"
                                                     defaultValue={selectedValues()}
                                                 />
                                             </div>
@@ -206,7 +205,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                             </div>
                             <div className="w-full px-4">
                                 <div
-                                    className={`max-h-select absolute left-0 top-full z-40 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${
+                                    className={`max-h-select absolute left-0 top-full  w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${
                                         isOpen() ? "" : "hidden"
                                     }`}
                                     ref={dropdownRef}

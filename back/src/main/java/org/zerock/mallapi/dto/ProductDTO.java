@@ -36,9 +36,9 @@ public class ProductDTO {
   @NotNull(message = "브랜드는 필수값입니다.")
   private String brand;
 
-  @NotNull(message = "카테고리는 필수값입니다.")
-  @Size(min = 1, message = "카테고리는 필수값입니다.")
-  private List<String> categoryList;
+//  @NotNull(message = "카테고리는 필수값입니다.")
+//  @Size(min = 1, message = "카테고리는 필수값입니다.")
+//  private List<String> categoryList;
 
   @NotNull(message = "사이즈는 필수값입니다.")
   private List<String> sizeList;
