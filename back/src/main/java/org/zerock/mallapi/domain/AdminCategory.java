@@ -36,11 +36,13 @@ public class AdminCategory extends BaseEntity {
   public void changeDesc(String cdesc) {
     this.cdesc = cdesc;
   }
-
   public void changeDelFlag(boolean delFlag) {
     this.delFlag = delFlag;
   }
 
+  public void changeCategoryImage(CategoryImage image) {
+    this.image = image;
+  }
 
 }
 

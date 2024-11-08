@@ -165,11 +165,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     AdminCategory adminCategory = result.orElseThrow();
 
+    CategoryImage categoryImage = CategoryImage.builder().fileName(categoryDTO.getUploadFileName()).fileKey(categoryDTO.getUploadFileKey()).build();
 
     //change pname, pdesc, price, ...etc
     adminCategory.changeName(categoryDTO.getCname());
     adminCategory.changeDesc(categoryDTO.getCdesc());
-
+    adminCategory.changeCategoryImage(categoryImage);
 
     //시간도 변경
     adminCategory.setUpdatedAt(LocalDateTime.now());

@@ -70,12 +70,16 @@
 
             },
             onSuccess: (data) => {
+
+
                 console.log('data...', data);
                 clickModal();
                 toast.success('삭제되었습니다..');
                 //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
                 // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
-                queryClient.invalidateQueries({queryKey: ['categories']});
+                queryClient.invalidateQueries({queryKey: ['categories']}); //네트워크 요청
+
+
             },
             onError(error) {
 
@@ -187,7 +191,7 @@
                         <td className="px-4 py-3 whitespace-nowrap">
 
                             <TableActions>
-                                <div id="apple-imac-27-dropdown" className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
+                                <div id="apple-imac-27-dropdown" onClick={(e) => e.stopPropagation()} className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
                                     <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="apple-imac-27-dropdown-button">
                                         <Link href={`/admin/category/add-category/${category.cno}`}
                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">

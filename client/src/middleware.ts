@@ -1,48 +1,52 @@
-// import {NextFetchEvent, NextRequest, NextResponse} from "next/server";
-// import {getCookie} from "@/utils/cookieUtil";
-// //하고싶은 일
-// //미들웨어에서 Authorization실어서 보내는 방법은 없는거야?
-// //그리고 jwt 만료됐을 때 백엔드에 보내는 방법은 ?
-import {NextFetchEvent, NextRequest, NextResponse} from "next/server";
-import {getCookie} from "@/utils/getCookieUtil";
-import {MemberRole} from "@/types/memberRole";
+import { NextRequest, NextResponse } from "next/server";
+import { MemberRole } from "@/types/memberRole";
 
+// 쿠키에서 "member"를 읽기
+function getCookie(request: NextRequest, cookieName: string) {
+  const cookie = request.cookies.get(cookieName);
+  console.log('cookie', cookie);
+  return cookie ? JSON.parse(cookie.value) : null;
+}
 
-//권한에 따라 접근 막기
-
-
-export async function middleware(request: NextRequest, event: NextFetchEvent) {
-
+// 권한에 따라 접근 막기
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-    const member = getCookie("member");
+  const member = getCookie(request, "member");
 
-  // console.log('middleware-----------------------------------', request.method, request.url);
+  console.log('middleware-----------------------------------', request.method, request.url);
 
-  // if (!member) { //로그인 안되어있으면
-  //   console.log('User not authenticated, redirecting to login');
-  //   return NextResponse.redirect(new URL('/login', request.url));
-  // }else{
-  //   const response = NextResponse.next();
-  //   response.cookies.set("accessToken", result.accessToken);
-  //   setCookie('member', JSON.stringify(newCookie), 1);
-  //   return response;
-  // }
+  // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
+  if (!member) {
+    console.log('User not authenticated, redirecting to login');
+    return NextResponse.redirect(new URL('/login', request.url)); // 로그인 페이지로 리다이렉션
+  }
 
-  if(pathname.startsWith("/admin") && !(member?.roleNames?.includes(MemberRole.ADMIN)) || (member?.roleNames?.includes(MemberRole.MANAGER))) {
-    //오직 MANAGER과 ADMIN만 들어갈 수 있다
-    // return NextResponse.redirect(new URL('/', request.url)); // 접근 할 수 없는 페이지입니다. 만들어서 넣기
-    return Response.json(
-        {success: false, message: "authentication failed"},
-        {status: 401}
+  // 관리자와 매니저만 접근 가능
+  if (
+      pathname.startsWith("/admin") &&
+      !(member?.roleNames?.includes(MemberRole.ADMIN)) &&
+      !(member?.roleNames?.includes(MemberRole.MANAGER))
+  ) {
+    return NextResponse.json(
+        { success: false, message: "authentication failed" },
+        { status: 401 }
     );
-
-
   }
 
   return NextResponse.next();
-
 }
 
+// config를 모든 페이지로 변경 (login, signup 제외)
 export const config = {
-  matcher: ['/profile','/admin/:path*',],
-}
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - login and signup pages
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|signup).*)',
+  ],
+};

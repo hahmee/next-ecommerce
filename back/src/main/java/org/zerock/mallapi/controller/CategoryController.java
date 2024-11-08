@@ -6,10 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.zerock.mallapi.dto.CategoryDTO;
-import org.zerock.mallapi.dto.DataResponseDTO;
-import org.zerock.mallapi.dto.PageResponseDTO;
-import org.zerock.mallapi.dto.SearchRequestDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.CategoryService;
 import org.zerock.mallapi.util.AwsFileUtil;
 
@@ -92,9 +89,30 @@ public class CategoryController {
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @PutMapping("/{cno}")
-  public DataResponseDTO<CategoryDTO> modify(@PathVariable(name="cno")Long cno, @Valid @RequestBody CategoryDTO categoryDTO) {
-    log.info("==============categoryDTO답이 이것입니다.... " + categoryDTO);
-    log.info("==============cno " + cno);
+//  public DataResponseDTO<CategoryDTO> modify(@PathVariable(name="cno")Long cno, @Valid @RequestBody CategoryDTO categoryDTO) {
+  public DataResponseDTO<CategoryDTO> modify(@PathVariable(name="cno")Long cno, @Valid CategoryDTO categoryDTO) {
+    
+    //파일 수정 작업
+    //이미 저장되었던 파일을 가져온다.
+    CategoryDTO oldCategoryDTO = categoryService.get(cno);
+
+    //보내온 dto에서 file이 null 이면 걍 놔두기, file이 뭐가 있다면 대체하기
+    MultipartFile file = categoryDTO.getFile();
+
+    // 새로 첨부했다면
+    if (file != null && !file.isEmpty()) {
+
+      Map<String,String> awsResult = awsFileUtil.uploadSingleFile(file, CATEGORY_IMG_DIR);//AWS에 저장
+
+      //새로 업로드되어서 만들어진 파일 이름들
+      String currentUploadFileName = awsResult.get("uploadName");
+      String currentUploadFileKey = awsResult.get("uploadKey");
+
+      categoryDTO.setUploadFileName(currentUploadFileName);
+      categoryDTO.setUploadFileKey(currentUploadFileKey);
+
+    }
+
 
     //수정 작업
     categoryService.modify(categoryDTO);

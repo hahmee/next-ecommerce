@@ -45,7 +45,6 @@ const ImageUploadForm = () => {
     const deleteImage = useCallback((image: string) => {
         const index = images.findIndex(img => img?.dataUrl === image);
 
-
         setImages((images) => {
             const prev = [...images] as Array<ImageType>;
             prev.splice(index, 1);

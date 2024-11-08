@@ -161,7 +161,6 @@ public class ProductController {
     List<FileDTO<String>> oldFileKeys = oldProductDTO.getUploadFileKeys();//원래 있던 파일들 키 값
 
 
-
     //화면에서 변화 없이 계속 유지된 파일들
     List<FileDTO<String>> uploadedFileNames = productDTO.getUploadFileNames();// 원래 있던 파일들 중 삭제 하지 않은 파일들 이름들 가져온다
     List<FileDTO<String>> uploadedFileKeys = productDTO.getUploadFileKeys();// 원래 있던 파일들 중 삭제 하지 않은 파일들 키들 가져온다

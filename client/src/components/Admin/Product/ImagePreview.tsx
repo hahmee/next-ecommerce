@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDrag, useDrop} from "react-dnd";
 import {Identifier, XYCoord} from "dnd-core";
+import Image from "next/image";
 
 interface Props {
     image: string;
@@ -102,10 +103,10 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
         return (
             <div className="flex justify-end items-center gap-2 mt-2">
                 <div className="mr-2" onClick={() => deleteImage(image)}>
-                    <img src={"/close.svg"} alt="close" className="h-4 w-4"/>
+                    <Image width={500} height={500} src={"/close.svg"} alt="close" className="h-4 w-4"/>
                 </div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <img src={"/dragable.svg"} alt="close" className="h-10 w-10"/>
+                    <Image width={500} height={500} src={"/dragable.svg"} alt="close" className="h-10 w-10"/>
                 </div>
                 {
                     index === 0 &&
@@ -131,7 +132,7 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
                                 }
                             </div>
                         }
-                        <img src={image} alt="Main_Image" className="w-full h-full object-cover"/>
+                        <Image width={500} height={500} src={image} alt="Main_Image" className="w-full h-full object-cover"/>
                     </div>
                     :
                     <div ref={ref} data-handler-id={handlerId} key={index}
@@ -145,7 +146,7 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
                                 }
                             </div>
                         }
-                        <img src={image} alt="Sub_image" className="w-full h-full object-cover"/>
+                        <Image width={500} height={500} src={image} alt="Sub_image" className="w-full h-full object-cover"/>
                     </div>
             }
         </>
