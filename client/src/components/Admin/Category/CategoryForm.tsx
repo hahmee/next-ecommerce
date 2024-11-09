@@ -107,6 +107,7 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
+            console.log('variable', variable);
             const newCategory: Category = response.data; // 수정 및 추가된 data 반환 ...
             toast.success('업로드 성공했습니다.');
             console.log('response', response.data);

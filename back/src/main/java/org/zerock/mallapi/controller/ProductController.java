@@ -31,7 +31,7 @@ public class ProductController {
   private final String PRODUCT_IMG_DIR = "product";
 
   @PostMapping("/")
-  public DataResponseDTO<Long> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<ProductDTO> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
 
     List<FileDTO<MultipartFile>> files = productDTO.getFiles();//파일 객체들
@@ -52,16 +52,10 @@ public class ProductController {
     }
 
     //서비스 호출 
-    Long pno = productService.register(productDTO, userDetails);
+    ProductDTO result = productService.register(productDTO, userDetails);
 
-    try {
-      Thread.sleep(0);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
 
-    return DataResponseDTO.of(pno);
+    return DataResponseDTO.of(result);
   }
 
   
@@ -143,7 +137,7 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/{pno}")
-    public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, @Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+    public DataResponseDTO<ProductDTO> modify(@PathVariable(name="pno")Long pno, @Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
     log.info("==============pno " + pno);
 
@@ -194,11 +188,11 @@ public class ProductController {
 
 
     //수정 작업
-    productService.modify(productDTO);
+    ProductDTO resultDTO = productService.modify(productDTO);
 
 
     // 예전에 저장했던 파일들이 한개라도 있다면
-    if(oldFileKeys != null && oldFileKeys.size() > 0){ //예전에 저장했던 파일들이 한개라도 있다면
+    if(oldFileKeys != null && oldFileKeys.size() > 0){
 
       //지워야 하는 파일 목록 찾기
       //예전 파일들 중에서 지워져야 하는 파일이름들
@@ -213,7 +207,8 @@ public class ProductController {
 
 
     }
-    return DataResponseDTO.of( "SUCCESS");
+
+    return DataResponseDTO.of( resultDTO);
   }
 
 

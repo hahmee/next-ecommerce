@@ -18,11 +18,11 @@ public interface ProductService {
 
   PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails);
 
-  Long register(ProductDTO productDTO, UserDetails userDetails);
+  ProductDTO register(ProductDTO productDTO, UserDetails userDetails);
 
   ProductDTO get(Long pno);
 
-  void modify(ProductDTO productDTO);
+  ProductDTO modify(ProductDTO productDTO);
 
   void remove(Long pno);
 

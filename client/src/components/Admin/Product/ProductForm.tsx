@@ -80,8 +80,7 @@ const ProductForm = ({type, id}: Props) => {
         queryFn: getProduct,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-        // throwOnError: (error) => error. >= 500,
+        throwOnError: true,
         enabled: !!id && type === Mode.EDIT, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
         select: useCallback((data: DataResponse<Product>) => {
 
@@ -109,7 +108,7 @@ const ProductForm = ({type, id}: Props) => {
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-        // throwOnError: (error) => error. >= 500,
+        throwOnError: true,
         enabled: !!id && type === Mode.EDIT,
         select: useCallback((data: DataResponse<Category[]>) => {
             return data.data;
@@ -117,6 +116,7 @@ const ProductForm = ({type, id}: Props) => {
 
     });
 
+    console.log('dat', categoryPaths);
 
     //카테고리 가져오기
     const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
@@ -164,7 +164,6 @@ const ProductForm = ({type, id}: Props) => {
 
 
             if (type === Mode.ADD) {
-
 
                 console.log('selectedCategory', selectedCategory);
                 formData.append("pdesc", pdesc);
@@ -234,11 +233,38 @@ const ProductForm = ({type, id}: Props) => {
 
         },
         async onSuccess(response, variable) {
-            console.log('response', response)
+            console.log('variable', variable);
+            console.log('response', response);
+            const newProduct: Product = response.data; // 수정 및 추가된 data 반환 ...
+
             toast.success('업로드 성공했습니다.');
-            await queryClient.invalidateQueries({queryKey: ['categories']});
-            await queryClient.invalidateQueries({queryKey: ['productSingle',id]});
-            await queryClient.invalidateQueries({queryKey: ['categoryPaths',id]});
+
+            if (queryClient.getQueryData(['adminProducts', {page: 1, size: 10, search: ""}])) {
+                queryClient.setQueryData(['adminProducts', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Product[] }
+                }) => {
+
+                    console.log('prevData', prevData);
+
+                    if (type === Mode.ADD) {
+                        prevData.data.dtoList.unshift(newProduct);
+                    }else{
+                        prevData.data.dtoList = prevData.data.dtoList.map(product => product.pno === newProduct.pno ? newProduct : product);
+                    }
+                    return prevData; // 수정된 데이터 반환
+                });
+            }
+
+            if (queryClient.getQueryData(['productSingle', newProduct.pno.toString()])) {
+                queryClient.setQueryData(['productSingle', newProduct.pno.toString()], (prevData: { data: Product }) => {
+                    const shallow = {...prevData};
+                    shallow.data = newProduct;
+                    return shallow;
+                });
+            }
+
+            // await queryClient.invalidateQueries({queryKey: ['categories']}); //set 해줄 필요 x
+            // await queryClient.invalidateQueries({queryKey: ['productSingle',id]});
+            // await queryClient.invalidateQueries({queryKey: ['categoryPaths',id]});
 
             router.push(`/admin/products`);
 

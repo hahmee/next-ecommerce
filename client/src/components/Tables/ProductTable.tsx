@@ -20,6 +20,8 @@ import {StarIcon} from "@heroicons/react/20/solid";
 import TableActions from "@/components/Tables/TableActions";
 import Link from "next/link";
 import {getProductsByEmail} from "@/api/adminAPI";
+import {Category} from "@/interface/Category";
+import toast from "react-hot-toast";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -63,8 +65,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
     }
 
     useEffect(() => {
-        setProductData(data);
         if (data) {
+            setProductData(data);
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
         }
@@ -93,10 +95,29 @@ const ProductTable = () => { //{page, size, search} : PageParam
                 credentials: 'include',
             });
         },
+        onMutate: async (pno) => {
+            console.log('??언제실행 ', pno);
+
+            // 기존 데이터 가져오기
+            const previousData: DataResponse<PageResponse<Product>> | undefined = queryClient.getQueryData(['adminProducts', {page, size, search}]);
+
+            if(previousData){
+
+                const updatedData: PageResponse<Product> = {
+                    ...previousData.data,
+                    dtoList: previousData.data.dtoList.filter(product => product.pno != pno)
+                };
+
+                // 쿼리 데이터를 업데이트
+                queryClient.setQueryData(['adminProducts', {page, size, search}], updatedData);
+
+                setProductData(updatedData)
+            }
+        },
         onSuccess: (data) => {
             console.log('data...', data);
+            toast.success('삭제되었습니다.');
             clickModal();
-            queryClient.invalidateQueries({queryKey: ['adminProducts', {page, size, search}]});
 
         }
 

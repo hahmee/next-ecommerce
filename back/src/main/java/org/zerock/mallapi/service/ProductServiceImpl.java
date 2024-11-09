@@ -367,10 +367,14 @@ public class ProductServiceImpl implements ProductService{
   }
 
   @Override
-  public Long register(ProductDTO productDTO, UserDetails userDetails) {
+  public ProductDTO register(ProductDTO productDTO, UserDetails userDetails) {
+    log.info("asdfasdfasd ProductDTO " + productDTO);
 
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();
+
+    log.info("asdfasdfasd email " + email);
+
 
     Product product = dtoToEntity(productDTO, email);
 
@@ -379,8 +383,15 @@ public class ProductServiceImpl implements ProductService{
     product.setUpdatedAt(LocalDateTime.now());
 
     Product result = productRepository.save(product);
-    
-    return result.getPno();
+
+    log.info("asdfasdfasd result " + result);
+
+    ProductDTO resultDTO = entityToDTO(result);
+
+    log.info("asdfasdfasd resultDTO " + resultDTO);
+
+
+    return resultDTO;
   }
 
   private Product dtoToEntity(ProductDTO productDTO, String email){
@@ -568,7 +579,7 @@ public class ProductServiceImpl implements ProductService{
 
 
   @Override
-  public void modify(ProductDTO productDTO) {
+  public ProductDTO modify(ProductDTO productDTO) {
 
     log.info("--------modify+ " + productDTO);
     
@@ -633,7 +644,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    productRepository.save(product);
+    Product savedProduct = productRepository.save(product);
+
+    ProductDTO resultDTO = entityToDTO(savedProduct);
+
+    return resultDTO;
+
+
   }
 
   @Override

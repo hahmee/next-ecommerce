@@ -24,8 +24,7 @@ const ProductSingle = ({id}: Props) => {
         queryFn: getProduct,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-        // throwOnError: (error) => error. >= 500,
+        throwOnError: true,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
 
     });
@@ -35,6 +34,7 @@ const ProductSingle = ({id}: Props) => {
         queryFn: () => getReviews({queryKey: ['reviews', id]}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
+        throwOnError: true,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
         select: (data) => {
             // 데이터 가공 로직만 처리
