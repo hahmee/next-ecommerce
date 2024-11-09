@@ -1,6 +1,6 @@
 "use server";
 import {fetchJWT} from "@/utils/fetchJWT";
-import {removeCookie} from "@/utils/getCookieUtil";
+import {removeCookie} from "@/utils/cookie";
 
 export const getProductList = async ({
                                          queryKey,
@@ -58,7 +58,7 @@ export const getProductList = async ({
     return await fetchJWT(`/api/products/list?${params.toString()}`, {
         method: "GET",
         next: {
-            tags: ['products'],
+            tags: ['products'], //다시
         },
         credentials: 'include',
         cache: 'no-store',
@@ -70,7 +70,7 @@ export async function getOrder({id}: { id: string; }) {
     return await fetchJWT(`/api/orders/${id}`, {
         method: "GET",
         next: {
-            tags: ['order',id],
+            tags: ['order', id],
         },
         credentials: 'include',
         cache: 'no-store',
@@ -149,7 +149,7 @@ export const getUserServer = async () => {
     return await fetchJWT(`/api/profile`, {
         method: "GET",
         next: {
-            tags: ['user'],
+            tags: ['userServer'],
         },
         credentials: 'include',
         cache: 'no-store',
@@ -168,7 +168,7 @@ export const logout = async () => {
         // cache: 'no-store',
     });
 
-    removeCookie("member");
+    // await removeCookie("member");
 
     return resultJson;
 

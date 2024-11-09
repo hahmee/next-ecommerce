@@ -1,9 +1,9 @@
-import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import OrderDetail from "@/components/Home/Profile/OrderDetail";
 import {getOrders} from "@/api/mallAPI";
+import {getCookie} from "@/utils/cookie";
 
 interface Props {
     params: {orderId: string }
@@ -11,7 +11,7 @@ interface Props {
 
 export async function generateMetadata() {
 
-    const member = getCookie("member");
+    const member = await getCookie("member");
 
     return {
         title: `${member?.nickname} (${member?.email})`,

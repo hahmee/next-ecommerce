@@ -20,7 +20,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                 </span>
                         :
                         <span
-                            className="relative inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700 "
+                            className="cursor-not-allowed opacity-40 relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:border-gray-500 dark:text-gray-50"
                         >
                     이전
                 </span>
@@ -38,7 +38,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                     </span>
                         :
                         <span
-                            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-500 dark:text-gray-50 dark:hover:bg-gray-700"
+                            className="cursor-not-allowed opacity-40 relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 dark:border-gray-500 dark:text-gray-50"
                         >
                     다음
                 </span>
@@ -81,7 +81,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                         {
                             pagingData.pageNumList.map((num) =>
                                 <div key={num}
-                                     className={num !== pagingData.current ? "relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" : "relative z-10 inline-flex items-center bg-gray-500 bg-opacity-20 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"}
+                                     className={num !== pagingData.current ? "relative text-gray-500 inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" : " relative z-10 inline-flex items-center bg-gray-900 dark:bg-gray-400 ring-1 ring-inset ring-gray-300  bg-opacity-20 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"}
                                      onClick={() => changePage(num)}
                                 >
                                     {num}

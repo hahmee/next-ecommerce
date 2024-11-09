@@ -6,8 +6,10 @@ import {Member} from "@/interface/Member";
 import CartModal from "@/components/Home/CartModal";
 import {useCartStore} from "@/store/cartStore";
 import {logout} from "@/api/mallAPI";
+import {useRouter} from "next/navigation";
 
-const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
+const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
+    const router = useRouter();
     const { cart, counter, getCart, changeOpen, open } = useCartStore();
     const [accountOpen, setAccountOpen] = useState(false);
 
@@ -22,6 +24,8 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => { // 변경하기
         // });
 
         await logout();
+        router.push('/login');
+
     };
 
 

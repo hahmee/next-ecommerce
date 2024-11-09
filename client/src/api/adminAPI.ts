@@ -5,10 +5,10 @@ export async function getCategories () {
     return await fetchJWT(`/api/category/list`, {
         method: "GET",
         next: {
-            tags: ['categories'],
+            tags: ['categories'], // 외부 API next.tags 옵션은 필요 X
         },
         credentials: 'include',
-        cache: 'no-store',
+        cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
     });
 }
 
@@ -17,7 +17,7 @@ export async function getAdminCategories (pageParam: PageParam) {
     return await fetchJWT(`/api/category/adminList?page=${page}&size=${size}&search=${search}`, {
         method: "GET",
         next: {
-            tags:  ['categories'], //다시 봐
+            tags:  ['adminCategories'],
         },
         credentials: 'include',
         cache: 'no-store',
@@ -39,7 +39,7 @@ export async function getProductsByEmail (pageParam: PageParam) {
     return await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
         next: {
-            tags:  ['adminStockProducts'],
+            tags:  ['adminStockProducts'], //다시
         },
         credentials: 'include',
         cache: 'no-store',
@@ -52,7 +52,7 @@ export const getCategory = async ({queryKey}: { queryKey: [string, string] }) =>
     return await fetchJWT(`/api/category/${cno}`, {
         method: "GET",
         next: {
-            tags: ['cno', cno],
+            tags: ['category', cno],
         },
         credentials: 'include',
         cache: 'no-store',
@@ -65,14 +65,12 @@ export const getCategoryPaths = async ({queryKey}: { queryKey: [string, string] 
     return await fetchJWT(`/api/category/paths/${cno}`, {
         method: "GET",
         next: {
-            tags: ['cno', cno], //다시
+            tags: ['categoryPaths', cno],
         },
         credentials: 'include',
         cache: 'no-store',
     });
-
 }
-
 
 
 export async function getOrdersByEmail (pageParam: PageParam) {
@@ -80,7 +78,7 @@ export async function getOrdersByEmail (pageParam: PageParam) {
     return await fetchJWT(`/api/payments/searchAdminOrders?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
         next: {
-            tags: ['adminOrders'],
+            tags: ['adminOrders'], //다시
         },
         credentials: 'include',
         cache: 'no-store',
@@ -93,7 +91,7 @@ export async function getPaymentsByEmail (pageParam: PageParam) {
     return await fetchJWT(`/api/payments/searchAdminPaymentList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
         next: {
-            tags: ['adminPayments'],
+            tags: ['adminPayments'], //다시
         },
         credentials: 'include',
         cache: 'no-store',
@@ -106,7 +104,7 @@ export async function getPaymentsOverview (pageParam: PageParam) {
     return await fetchJWT(`/api/payments/paymentsOverview?startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
         next: {
-            tags: ['adminPaymentOverview'],
+            tags: ['adminPaymentOverview'], //다시
         },
         credentials: 'include',
         cache: 'no-store',
@@ -120,7 +118,7 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
 
     return await fetchJWT(`/api/products/${pno}`, {
         next: {
-            tags: ['pno', pno],
+            tags: ['productSingle', pno],
         },
         method: "GET",
         credentials: 'include',
@@ -129,12 +127,12 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
 }
 
 export const getReviews = async ({queryKey}: { queryKey: [string, string] }) => {
-    const [_, pno] = queryKey;
+    const [_, id] = queryKey;
 
-    return await fetchJWT(`/api/reviews/list/${pno}`, {
+    return await fetchJWT(`/api/reviews/list/${id}`, {
         method: "GET",
         next: {
-            tags: ['pno', pno],
+            tags: ['reviews', id],
         },
         credentials: 'include',
         cache: 'no-store',

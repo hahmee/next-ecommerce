@@ -5,10 +5,10 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCookie} from "@/utils/getCookieUtil";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/api/dashbaordAPI";
+import {getCookie} from "@/utils/cookie";
 
 export default async function DashBoardSalesPage() {
     const endDate = new Date(); // today
@@ -28,7 +28,7 @@ export default async function DashBoardSalesPage() {
         endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
     };
 
-    const member = getCookie("member");
+    const member = await getCookie("member");
 
     const prefetchOptions = [
         {

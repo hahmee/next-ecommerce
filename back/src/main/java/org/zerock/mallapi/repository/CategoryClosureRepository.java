@@ -13,6 +13,11 @@ import java.util.Optional;
 //각 카테고리의 조상-자손 관계를 관리하는 테이블에 대한 CRUD
 public interface CategoryClosureRepository extends JpaRepository<CategoryClosure, CategoryClosureId> {
 
+    // 자식 cno로 부모 카테고리 찾기
+    @Query("SELECT cc FROM CategoryClosure cc WHERE cc.id.descendant.cno = :cno AND cc.depth = 1")
+    Optional<CategoryClosure> findParentByDescendantId(@Param("cno") Long cno);
+
+
     // 부모 카테고리 찾기
     @Query("SELECT cc FROM CategoryClosure cc WHERE cc.id.descendant = :descendant AND cc.depth = 1")
     Optional<CategoryClosure> findAncestorByDescendant(@Param("descendant") AdminCategory descendant);
@@ -28,7 +33,6 @@ public interface CategoryClosureRepository extends JpaRepository<CategoryClosure
     //특정 카테고리의 모든 조상 찾기 - 역순
     @Query("SELECT c FROM CategoryClosure c WHERE c.id.descendant = :adminCategory ORDER BY c.depth DESC")
     List<CategoryClosure> findAncestorsDesc(@Param("adminCategory") AdminCategory adminCategory);
-
 
     // 특정 카테고리의 모든 후손 찾기 (depth 1,2,3...)
     @Query("SELECT c FROM CategoryClosure c WHERE c.id.ancestor = :adminCategory and c.depth !=0")

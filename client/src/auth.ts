@@ -1,7 +1,6 @@
 /*
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import {setCookie} from "@/utils/cookieUtil";
 
 export const {
   handlers: { GET, POST },

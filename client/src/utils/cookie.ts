@@ -17,4 +17,8 @@ export async function getCookie(key: string) {
 
 }
 
+export async function removeCookie(name: string) {
+    cookies()?.delete(name);
+};
+
 

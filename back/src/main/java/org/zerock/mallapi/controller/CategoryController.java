@@ -27,7 +27,7 @@ public class CategoryController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
   @PostMapping("/")
 //  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
-  public DataResponseDTO<Long> register(@Valid CategoryDTO categoryDTO) {
+  public DataResponseDTO<CategoryDTO> register(@Valid CategoryDTO categoryDTO) {
 
     log.info("register: ?????????????" + categoryDTO);
 
@@ -49,9 +49,9 @@ public class CategoryController {
     }
 
     //서비스 호출 
-    Long pno = categoryService.addCategory(categoryDTO);
+    CategoryDTO result = categoryService.addCategory(categoryDTO);
 
-    return DataResponseDTO.of(pno);
+    return DataResponseDTO.of(result);
   }
 
 
@@ -118,6 +118,8 @@ public class CategoryController {
     categoryService.modify(categoryDTO);
 
     CategoryDTO modifiedCategoryDTO = categoryService.get(cno);
+
+    log.info("modifiedCategoryDTO..." + modifiedCategoryDTO);
 
     return DataResponseDTO.of(modifiedCategoryDTO);
 

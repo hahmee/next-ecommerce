@@ -1,13 +1,13 @@
-import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserReviews from "@/components/Home/Profile/UserReviews";
 import {getUserReviews} from "@/api/mallAPI";
+import {getCookie} from "@/utils/cookie";
 
 export async function generateMetadata() {
 
-    const member = getCookie("member");
+    const member = await getCookie("member");
 
     return {
         title: `${member?.nickname} (${member?.email})`,

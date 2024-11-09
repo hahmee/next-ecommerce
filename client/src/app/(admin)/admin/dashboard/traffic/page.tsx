@@ -4,10 +4,10 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCookie} from "@/utils/getCookieUtil";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalytics} from "@/api/dashbaordAPI";
+import {getCookie} from "@/utils/cookie";
 
 export default async function DashBoardTrafficPage() {
     const endDate = new Date(); // today
@@ -27,7 +27,7 @@ export default async function DashBoardTrafficPage() {
         endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
     };
 
-    const member = getCookie("member");
+    const member = await getCookie("member");
 
     const prefetchOptions = [
         {

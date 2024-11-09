@@ -10,6 +10,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {getCategory, getCategoryPaths} from "@/api/adminAPI";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
+import {PageResponse} from "@/interface/PageResponse";
 
 
 interface Props {
@@ -61,7 +62,6 @@ const CategoryForm = ({type, id}: Props) => {
             const cname = formData.get('cname') || ""; // input의 cname 속성
             const cdesc = formData.get('cdesc') || ""; // input의 cdesc 속성
 
-            console.log('file입니다...', file);
 
             formData.append("parentCategoryId", id || "");
 
@@ -74,7 +74,7 @@ const CategoryForm = ({type, id}: Props) => {
                 throw new Error("이미지는 한 개 이상 첨부해주세요.");
             }
 
-            if (type ===  Mode.ADD) {
+            if (type === Mode.ADD) {
 
                 if (file) {
                     formData.append("file", file);
@@ -90,12 +90,12 @@ const CategoryForm = ({type, id}: Props) => {
             } else {
 
                 // 새로 첨부한 파일 없이 기존꺼 그대로 간다면
-                if(!file) {
+                if (!file) {
                     if (originalData) {
                         formData.append(`uploadFileName`, originalData.uploadFileName as string); // 실제 파일 객체
                         formData.append(`uploadFileKey`, originalData.uploadFileKey as string); // 실제 파일 객체
                     }
-                }else{ //새로운 파일 첨부했다면
+                } else { //새로운 파일 첨부했다면
                     formData.append("file", file);
                 }
 
@@ -108,20 +108,37 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            const newCategory = response.data;
-            console.log('response', newCategory);
+            const newCategory: Category = response.data; // 수정 및 추가된 data 반환 ...
             toast.success('업로드 성공했습니다.');
-            //최신 카테고리 목록 (네트워크 요청 )
-            // await queryClient.invalidateQueries({queryKey: ['categories']});
-            //setQueryData는 네트워크 요청 없이 캐시된 데이터를 즉시 업데이트 - 빠름
-            queryClient.setQueryData(['categories'], (oldData: Category[] | undefined) => {
-                console.log('oldData', oldData);
-                return oldData ? [...oldData, newCategory] : [newCategory];
-                // return null;
-            });
+            console.log('response', response.data);
 
+            if (queryClient.getQueryData(['adminCategories', {page: 1, size: 10, search: ""}])) {
+                queryClient.setQueryData(['adminCategories', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Category[] } }) => {
+                    // 카테고리 추가 로직
+                    if (type === Mode.ADD) {
+                        if (!newCategory.parentCategoryId) {
+                            // 메인 카테고리일 경우 맨 앞에 추가
+                            prevData.data.dtoList.unshift(newCategory);
+                        } else {
+                            // 서브 카테고리일 때, 부모 카테고리 찾아서 추가
+                            const parentCategory = prevData.data.dtoList.find(category => category.cno === newCategory.parentCategoryId);
+                            if (parentCategory) {
+                                if (!parentCategory.subCategories) {
+                                    parentCategory.subCategories = [];
+                                }
+                                parentCategory.subCategories.push(newCategory);
+                            }
+                        }
+                    } else {
+                        // 수정 로직: 기존 카테고리 및 자식 카테고리까지 수정
+                        prevData.data.dtoList = prevData.data.dtoList.map(category => updateCategory(category, newCategory));
+                    }
 
-            router.push(`/admin/category`);  // 모달 닫기 시 이 경로로 이동
+                    return prevData; // 수정된 데이터 반환
+                });
+
+                router.push(`/admin/category`); // 모달 닫기 시 이 경로로 이동
+            }
 
         },
         onError(error) {
@@ -130,10 +147,35 @@ const CategoryForm = ({type, id}: Props) => {
         }
     });
 
+    // 재귀적으로 카테고리 및 하위 카테고리 업데이트
+    const updateCategory = (category: Category, newCategory: Category) => {
+
+        if (category.cno === newCategory.cno) {
+            // 수정된 카테고리
+            const updatedCategory = {...category, ...newCategory};
+
+            // 자식 카테고리가 있을 경우, 재귀적으로 처리
+            if (updatedCategory.subCategories && updatedCategory.subCategories.length > 0) {
+                updatedCategory.subCategories = updatedCategory.subCategories.map(subCategory =>
+                    updateCategory(subCategory, newCategory) // 자식 카테고리까지 재귀적으로 수정
+                );
+            }
+
+            return updatedCategory;
+        }
+
+        // 자식 카테고리가 있을 경우, 그 자식도 재귀적으로 탐색
+        if (category.subCategories && category.subCategories.length > 0) {
+            category.subCategories = category.subCategories.map(subCategory =>
+                updateCategory(subCategory, newCategory)
+            );
+        }
+
+        return category;
+    };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];  // 선택된 첫 번째 파일
-        console.log('file', file);
-
         if (file) {
             setFile(file);  // 파일 이름 추출하여 상태에 저장
             setFilePreview(URL.createObjectURL(file));

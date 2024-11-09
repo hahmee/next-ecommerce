@@ -1,13 +1,13 @@
-import {getCookie} from "@/utils/getCookieUtil";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
 import {getPayments, getUserServer} from "@/api/mallAPI";
+import {getCookie} from "@/utils/cookie";
 
 export async function generateMetadata() {
 
-    const member = getCookie("member");
+    const member = await getCookie("member");
 
     return {
         title: `${member?.nickname} (${member?.email})`,
@@ -19,7 +19,7 @@ export default async function OrderHistoryPage()  {
 
     const prefetchOptions = [
         {
-            queryKey: ['user'],
+            queryKey: ['userServer'],
             queryFn: getUserServer,
         },
         {

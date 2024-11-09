@@ -10,7 +10,7 @@ import java.util.List;
 @Transactional
 public interface CategoryService {
 
-  Long addCategory(CategoryDTO categoryDTO);
+  CategoryDTO addCategory(CategoryDTO categoryDTO);
 
   PageResponseDTO<CategoryDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO);
 

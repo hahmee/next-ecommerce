@@ -6,17 +6,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.zerock.mallapi.domain.AdminCategory;
 import org.zerock.mallapi.domain.CategoryClosure;
 import org.zerock.mallapi.domain.CategoryClosureId;
 import org.zerock.mallapi.domain.CategoryImage;
-import org.zerock.mallapi.dto.*;
-import org.zerock.mallapi.exception.ErrorCode;
+import org.zerock.mallapi.dto.CategoryDTO;
+import org.zerock.mallapi.dto.PageRequestDTO;
+import org.zerock.mallapi.dto.PageResponseDTO;
+import org.zerock.mallapi.dto.SearchRequestDTO;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
-import org.zerock.mallapi.util.GeneralException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,12 +34,15 @@ public class CategoryServiceImpl implements CategoryService {
   // 카테고리 및 자식 카테고리들 조회 및 변환 로직
   public CategoryDTO convertToDTO(AdminCategory category) {
 
-    // 해당 카테고리의 자식 카테고리들  찾기
+    // 해당 카테고리의 자식 카테고리들 찾기
     List<AdminCategory> subCategories = categoryClosureRepository
             .findDescendantsByAncestor(category)
             .stream()
             .map(closure -> closure.getId().getDescendant())
             .collect(Collectors.toList());
+
+    //부모 카테고리 찾기
+
 
     // 카테고리 DTO 변환
     return CategoryDTO.builder()
@@ -106,11 +109,27 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public CategoryDTO get(Long cno) {
-    java.util.Optional<AdminCategory> result = categoryRepository.selectOne(cno);
+    Optional<AdminCategory> result = categoryRepository.selectOne(cno);
 
     AdminCategory category = result.orElseThrow();
 
-    CategoryDTO categoryDTO = entityToDTO(category);
+    CategoryDTO categoryDTO = convertToDTO(category);
+
+    //부모 카테고리 id 찾기
+    Optional<CategoryClosure> parentClosure = categoryClosureRepository.findParentByDescendantId(cno);
+
+    log.info("parentClosure... " + parentClosure);
+
+    if (parentClosure.isPresent()) { // 값이 있을 때만
+
+      Long parentCategoryId = parentClosure.get().getId().getAncestor().getCno(); // getParentCategoryId()는 예시 메서드입니다.
+
+
+      categoryDTO.setParentCategoryId(parentCategoryId);
+
+    }
+
+
 
     return categoryDTO;
 
@@ -181,7 +200,7 @@ public class CategoryServiceImpl implements CategoryService {
 
   //부모 카테고리에 카테고리 추가
   @Override
-  public Long addCategory(CategoryDTO categoryDTO) {
+  public CategoryDTO addCategory(CategoryDTO categoryDTO) {
 
     log.info("=================categoryDTO " + categoryDTO);
 
@@ -196,7 +215,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     // DB에 카테고리 저장
-    categoryRepository.save(newCategory);
+    AdminCategory adminCategory = categoryRepository.save(newCategory);
+
+    log.info("=================adminCategoryasdfkjasdl;fkja;sdlfk " + adminCategory);
 
     //부모 카테고리
     AdminCategory parentCategory = null;
@@ -262,7 +283,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     categoryClosureRepository.save(selfClosure);
 
-    return newCategory.getCno();
+    CategoryDTO result = entityToDTO(adminCategory);
+
+    result.setParentCategoryId(categoryDTO.getParentCategoryId());
+    result.setSubCategories(categoryDTO.getSubCategories());
+
+    return result;
+//    return entityToDTO(adminCategory);
+//    return categoryDTO;
 
   }
 

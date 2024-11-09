@@ -9,7 +9,7 @@ export default function CategoryPage() {
 
     const prefetchOptions =
         {
-            queryKey: ['categories', {page: 1, size: 10, search: ""}],
+            queryKey: ['adminCategories', {page: 1, size: 10, search: ""}],
             queryFn: () => getAdminCategories({page: 1, size: 10, search:""}),
         }
 

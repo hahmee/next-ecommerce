@@ -34,7 +34,7 @@
         const [search, setSearch] = useState<string>("");
 
         const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Category>>, Object, PageResponse<Category>, [_1: string, _2: Object]>({
-            queryKey: ['categories', {page, size, search}],
+            queryKey: ['adminCategories', {page, size, search}],
             queryFn: () => getAdminCategories( {page, size, search}),
             staleTime: 60 * 1000,
             gcTime: 300 * 1000,
@@ -46,8 +46,6 @@
         });
 
         useEffect(() => {
-            console.log('data', data);
-
             setCategoryData(data);
             if (data) {
 
