@@ -10,7 +10,6 @@ import {DataResponse} from "@/interface/DataResponse";
 import {getCategory, getCategoryPaths} from "@/api/adminAPI";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import {PageResponse} from "@/interface/PageResponse";
 
 
 interface Props {
@@ -136,9 +135,26 @@ const CategoryForm = ({type, id}: Props) => {
 
                     return prevData; // 수정된 데이터 반환
                 });
-
-                router.push(`/admin/category`); // 모달 닫기 시 이 경로로 이동
             }
+
+            if (queryClient.getQueryData(['category', newCategory.cno.toString()])) {
+                queryClient.setQueryData(['category', newCategory.cno.toString()], (prevData: { data: Category }) => {
+                    const shallow = {...prevData};
+                    shallow.data = newCategory;
+                    return shallow;
+                });
+            }
+
+            if (queryClient.getQueryData(['categoryPaths', newCategory.cno.toString()])) {
+                queryClient.setQueryData(['categoryPaths', newCategory.cno.toString()], (prevData: { data: Category[] }) => {
+                    const updatedPaths = prevData.data.map(category =>
+                        category.cno === newCategory.cno ? newCategory : category
+                    );
+                    return { data: updatedPaths };
+                });
+            }
+
+            router.push(`/admin/category`); // 모달 닫기 시 이 경로로 이동
 
         },
         onError(error) {

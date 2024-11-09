@@ -22,5 +22,5 @@ public interface CategoryService {
 
   void modify(CategoryDTO categoryDTO);
 
-  void remove(Long cno);
+  List<Long> remove(Long cno);
 }

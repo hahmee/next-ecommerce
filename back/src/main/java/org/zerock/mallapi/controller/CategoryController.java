@@ -127,11 +127,13 @@ public class CategoryController {
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @DeleteMapping("/{cno}")
-  public DataResponseDTO<String> remove(@PathVariable("cno") Long cno) {
+  public DataResponseDTO<List<Long>> remove(@PathVariable("cno") Long cno) {
 
-    categoryService.remove(cno);
+    List<Long> removedCno = categoryService.remove(cno);
 
-    return DataResponseDTO.of("SUCCESS");
+//    return DataResponseDTO.of("SUCCESS");
+    return DataResponseDTO.of(removedCno);
+
   }
 
 

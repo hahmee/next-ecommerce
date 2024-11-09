@@ -19,6 +19,7 @@ import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -295,7 +296,9 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public void remove(Long cno) {
+  public List<Long> remove(Long cno) {
+
+    List<Long> removedList = new ArrayList<>();
 
     //cno로 해당하는 AdminCategory찾기
     //step1 read
@@ -310,13 +313,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     //자신 삭제
     categoryRepository.updateToDelete(cno, true);
+    removedList.add(cno);
 
     //후손들 cno 찾아서 삭제
     for(CategoryClosure descendant: descendants) {
       Long descendantCno = descendant.getId().getDescendant().getCno();
-      log.info("descendantCnodescendantCnodescendantCno.." + descendantCno);
+      removedList.add(descendantCno);
       categoryRepository.updateToDelete(descendantCno, true);
     }
+
+    return removedList;
 
   }
 

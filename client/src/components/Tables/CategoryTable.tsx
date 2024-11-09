@@ -19,6 +19,7 @@
     import PageComponent from "@/components/Tables/PageComponent";
     import TableActions from "@/components/Tables/TableActions";
     import {getAdminCategories} from "@/api/adminAPI";
+    import {Mode} from "@/types/mode";
 
 
     const CategoryTable = () => {
@@ -46,9 +47,9 @@
         });
 
         useEffect(() => {
+            console.log('data', data);
             setCategoryData(data);
             if (data) {
-
                 const {dtoList, ...otherData} = data;
                 setPaging(otherData);
             }
@@ -61,24 +62,56 @@
                     credentials: 'include',
                 });
             },
-            onMutate: () => { // Optimistic Update (서버에 실제로 데이터가 전송되기 전에 실행)
-            // queryClient.setQueryData
+            onMutate: async (cno) => {
+                console.log('??언제실행 ');
+                // Get previous value of the query data
+                const previousData: DataResponse<PageResponse<Category>> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
 
 
+                // Optimistically update the query data by removing the deleted category
+                queryClient.setQueryData(['adminCategories', {page, size, search}], (oldData:any) => {
+                    return {
+                        ...oldData,
+                        dtoList: oldData.data.dtoList.filter((category:any) => category.cno !== cno),
+                    };
+                });
 
+                // Return context to roll back in case of failure
+                return { previousData };
             },
-            onSuccess: (data) => {
 
-
-                console.log('data...', data);
-                clickModal();
-                toast.success('삭제되었습니다..');
-                //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
-                // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
-                queryClient.invalidateQueries({queryKey: ['categories']}); //네트워크 요청
-
-
-            },
+            // onSuccess: (data) => {
+            //
+            //     console.log('data...', data);
+            //     const deletedCno: Array<number> = data.data; //삭제된 cno
+            //
+            //     // 기존 데이터 가져오기
+            //     const previousData: DataResponse<PageResponse<Category>> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
+            //
+            //     // 새로운 데이터로 업데이트
+            //     if (previousData) {
+            //         const updatedData: PageResponse<Category> = {
+            //             ...previousData.data,
+            //             dtoList: previousData.data.dtoList.filter(category => !deletedCno.includes(category.cno)),
+            //         };
+            //
+            //         // 쿼리 데이터를 업데이트
+            //         queryClient.setQueryData(['adminCategories', {page, size, search}], updatedData);
+            //
+            //         // 상태도 업데이트
+            //         setCategoryData(updatedData);
+            //     }
+            //     toast.success('삭제되었습니다..');
+            //     clickModal();
+            //     //queryClient.invalidateQueries가 호출되어 해당 쿼리가 무효화됩니다.
+            //     // 그러면 useQuery가 다시 실행되어 최신 데이터를 가져옵니다.
+            //     // queryClient.invalidateQueries({queryKey: ['categories']}); //네트워크 요청
+            //
+            //
+            //     //
+            //
+            //
+            // },
             onError(error) {
 
                 toast.error(`오류 발생: ${error}`);

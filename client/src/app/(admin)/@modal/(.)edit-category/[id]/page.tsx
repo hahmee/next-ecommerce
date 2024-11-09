@@ -14,6 +14,7 @@ interface Props {
 export default async function CategoryEditModal({params}: Props) {
 
     const {id} = params;
+    // const { id } = { id: Number(params.id) };
 
     const prefetchOptions = [
         {

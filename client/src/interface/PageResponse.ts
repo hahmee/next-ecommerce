@@ -7,5 +7,5 @@ export interface PageResponse<T> {
   prev: boolean;
   next: boolean;
   pageNumList: [number];
-  dtoList: [T];
+  dtoList: Array<T>;
 }
