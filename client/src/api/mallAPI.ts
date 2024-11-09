@@ -1,6 +1,8 @@
 "use server";
 import {fetchJWT} from "@/utils/fetchJWT";
 import {removeCookie} from "@/utils/cookie";
+import {DataResponse} from "@/interface/DataResponse";
+import {Member} from "@/interface/Member";
 
 export const getProductList = async ({
                                          queryKey,
@@ -159,17 +161,13 @@ export const getUserServer = async () => {
 
 export const logout = async () => {
 
-    const resultJson = await fetchJWT(`/api/member/logout`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/logout`, {
         method: "POST",
         credentials: 'include', //cookie
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        // cache: 'no-store',
     });
-
-    // await removeCookie("member");
-
-    return resultJson;
+    if (!response.ok) {
+        throw new Error('로그아웃에 실패했습니다. ');
+    }
+    await removeCookie("member");
 
 }

@@ -20,8 +20,21 @@ public class APILogoutSuccessHandler implements LogoutSuccessHandler {
 
   @Override
   public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.Authentication authentication) throws IOException {
+    log.info("-------------------------------------Logout successful");
+
+    Map logoutData =  Map.of("success", true, "code", 0, "message", "Ok");
+
+    Gson gson = new Gson();
+
+    String jsonStr = gson.toJson(logoutData);
+
     response.setStatus(HttpServletResponse.SC_OK);
-    response.getWriter().write("Logout successful");
+    response.setContentType("application/json; charset=UTF-8");
+    PrintWriter printWriter = response.getWriter();
+    printWriter.println(jsonStr);
+    printWriter.close();
+
+
   }
 
   

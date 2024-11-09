@@ -24,6 +24,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         // });
 
         await logout();
+
         router.push('/login');
 
     };
