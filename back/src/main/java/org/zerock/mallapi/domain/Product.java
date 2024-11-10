@@ -97,6 +97,8 @@ public class Product extends BaseEntity {
     this.brand = brand;
   }
 
+
+
 //  public void changeCategoryList(List<String> categoryList) {
 //    this.categoryList = categoryList;
 //  }

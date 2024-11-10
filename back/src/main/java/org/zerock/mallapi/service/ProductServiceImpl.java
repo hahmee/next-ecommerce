@@ -116,8 +116,6 @@ public class ProductServiceImpl implements ProductService{
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
-
-
       Product product = (Product) arr[0];
 
       ProductImage productImage = (ProductImage) arr[1];
@@ -375,7 +373,6 @@ public class ProductServiceImpl implements ProductService{
 
     log.info("asdfasdfasd email " + email);
 
-
     Product product = dtoToEntity(productDTO, email);
 
     //시간
@@ -460,7 +457,10 @@ public class ProductServiceImpl implements ProductService{
 
   public ProductDTO entityToDTO(Product product){
 
-    MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
+    log.info("dddd? product " + product);
+    AdminCategory adminCategory = product.getAdminCategory();
+
+    CategoryDTO categoryDTO = CategoryDTO.builder().cno(adminCategory.getCno()).cname(adminCategory.getCname()).cdesc(adminCategory.getCdesc()).build();
 
     ProductDTO productDTO = ProductDTO.builder()
     .pno(product.getPno())
@@ -475,8 +475,12 @@ public class ProductServiceImpl implements ProductService{
 //            .categoryList(product.getCategoryList())
             .sizeList(product.getSizeList())
             .categoryId(product.getAdminCategory().getCno())
-            .owner(memberDTO)
+            .category(categoryDTO)
+//            .owner(memberDTO)
     .build();
+
+    log.info("dddd?efasdasdf productDTO " + productDTO);
+
 
     //태그
     List<ColorTag> colorTagList = product.getColorList();
@@ -587,9 +591,10 @@ public class ProductServiceImpl implements ProductService{
     Optional<Product> result = productRepository.findById(productDTO.getPno());
     Product product = result.orElseThrow();
 
-
     AdminCategory adminCategory = AdminCategory.builder()
             .cno(productDTO.getCategoryId())
+            .cname(productDTO.getCategory().getCname())
+            .cdesc(productDTO.getCategory().getCdesc())
             .build();
 
     log.info("adminCategory...." + adminCategory);
@@ -633,7 +638,6 @@ public class ProductServiceImpl implements ProductService{
     List<FileDTO<String>> uploadFileKeys = productDTO.getUploadFileKeys();
 
 
-
     if (uploadFileNames != null && uploadFileNames.size() > 0) {
 
       uploadFileNames.stream().forEach(uploadName -> {
@@ -642,7 +646,6 @@ public class ProductServiceImpl implements ProductService{
 
       });
     }
-
 
     Product savedProduct = productRepository.save(product);
 

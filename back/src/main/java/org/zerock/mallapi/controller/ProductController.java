@@ -1,5 +1,7 @@
 package org.zerock.mallapi.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -137,10 +139,30 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/{pno}")
-    public DataResponseDTO<ProductDTO> modify(@PathVariable(name="pno")Long pno, @Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
+//  public DataResponseDTO<ProductDTO> modify(
+//          @PathVariable(name="pno") Long pno,
+//          @Valid @ModelAttribute ProductDTO productDTO, // FormData로 DTO 받기
+//          @RequestParam(name = "uploadFileNames", required = false) List<MultipartFile> uploadFileNames, // 파일 목록 받기
+//          @AuthenticationPrincipal UserDetails userDetails
+//  ) {
+    public DataResponseDTO<ProductDTO> modify(@PathVariable(name="pno")Long pno, @Valid @ModelAttribute ProductDTO productDTO, @RequestParam(value = "categoryJson", required = false) String categoryJson, @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
     log.info("==============pno " + pno);
+    log.info("==============category " + categoryJson);
 
+
+    // categoryJson이 null이 아니면 JSON 문자열을 CategoryDTO로 변환
+    if (categoryJson != null && !categoryJson.isEmpty()) {
+      ObjectMapper mapper = new ObjectMapper();
+      try {
+        CategoryDTO categoryDTO  = mapper.readValue(categoryJson, CategoryDTO.class);
+        productDTO.setCategory(categoryDTO);
+
+      } catch (JsonProcessingException e) {
+        System.out.println("exception"+e);
+      }
+
+    }
 
     productDTO.setPno(pno);
 
@@ -208,7 +230,7 @@ public class ProductController {
 
     }
 
-    return DataResponseDTO.of( resultDTO);
+    return DataResponseDTO.of(resultDTO);
   }
 
 

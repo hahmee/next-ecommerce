@@ -168,6 +168,7 @@ const ProductForm = ({type, id}: Props) => {
                 console.log('selectedCategory', selectedCategory);
                 formData.append("pdesc", pdesc);
                 formData.append("categoryId", selectedCategory.cno.toString());
+                formData.append("categoryJson", JSON.stringify(selectedCategory));
 
                 tagStore.tags.forEach((t, index) => {
                     formData.append(`colorList[${index}].text`, t.text);
@@ -194,7 +195,7 @@ const ProductForm = ({type, id}: Props) => {
 
                 formData.append("pdesc", pdesc);
                 formData.append("categoryId", selectedCategory.cno.toString());
-
+                formData.append("categoryJson", JSON.stringify(selectedCategory));
                 // formData.append("colorList", tagStore.tags as any);
                 tagStore.tags.forEach((t, index) => {
 
@@ -242,9 +243,7 @@ const ProductForm = ({type, id}: Props) => {
             if (queryClient.getQueryData(['adminProducts', {page: 1, size: 10, search: ""}])) {
                 queryClient.setQueryData(['adminProducts', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Product[] }
                 }) => {
-
                     console.log('prevData', prevData);
-
                     if (type === Mode.ADD) {
                         prevData.data.dtoList.unshift(newProduct);
                     }else{
@@ -253,7 +252,6 @@ const ProductForm = ({type, id}: Props) => {
                     return prevData; // 수정된 데이터 반환
                 });
             }
-
             if (queryClient.getQueryData(['productSingle', newProduct.pno.toString()])) {
                 queryClient.setQueryData(['productSingle', newProduct.pno.toString()], (prevData: { data: Product }) => {
                     const shallow = {...prevData};
@@ -261,6 +259,15 @@ const ProductForm = ({type, id}: Props) => {
                     return shallow;
                 });
             }
+
+            // if (queryClient.getQueryData(['categoryPaths', newProduct.category  .toString()])) {
+            //     queryClient.setQueryData(['categoryPaths', newProduct.pno.toString()], (prevData: { data: Product }) => {
+            //         const shallow = {...prevData};
+            //         shallow.data = newProduct;
+            //         return shallow;
+            //     });
+            // }
+
 
             // await queryClient.invalidateQueries({queryKey: ['categories']}); //set 해줄 필요 x
             // await queryClient.invalidateQueries({queryKey: ['productSingle',id]});
