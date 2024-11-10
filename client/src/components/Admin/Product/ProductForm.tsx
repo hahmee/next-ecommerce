@@ -259,20 +259,6 @@ const ProductForm = ({type, id}: Props) => {
                     return shallow;
                 });
             }
-
-            // if (queryClient.getQueryData(['categoryPaths', newProduct.category  .toString()])) {
-            //     queryClient.setQueryData(['categoryPaths', newProduct.pno.toString()], (prevData: { data: Product }) => {
-            //         const shallow = {...prevData};
-            //         shallow.data = newProduct;
-            //         return shallow;
-            //     });
-            // }
-
-
-            // await queryClient.invalidateQueries({queryKey: ['categories']}); //set 해줄 필요 x
-            // await queryClient.invalidateQueries({queryKey: ['productSingle',id]});
-            // await queryClient.invalidateQueries({queryKey: ['categoryPaths',id]});
-
             router.push(`/admin/products`);
 
         },
@@ -283,7 +269,6 @@ const ProductForm = ({type, id}: Props) => {
     });
 
     if (isLoading) return "Loading...";
-    if (error) return 'An error has occurred: ' + error;
 
     return (
         <>

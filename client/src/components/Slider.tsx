@@ -43,8 +43,6 @@ const Slider = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const notify = () => toast.success('Here is your toast.');
-
   return (
     <div className="h-[calc(100vh-80px)] overflow-hidden">
       <div
@@ -65,7 +63,7 @@ const Slider = () => {
                 {slide.title}
               </h1>
               <Link href={slide.url}>
-                <button className="rounded-md bg-black text-white py-3 px-4 " onClick={notify}>
+                <button className="rounded-md bg-black text-white py-3 px-4">
                   SHOP NOW
                 </button>
               </Link>

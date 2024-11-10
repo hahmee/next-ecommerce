@@ -457,11 +457,12 @@ public class ProductServiceImpl implements ProductService{
 
   public ProductDTO entityToDTO(Product product){
 
-    log.info("dddd? product " + product);
     AdminCategory adminCategory = product.getAdminCategory();
 
     CategoryDTO categoryDTO = CategoryDTO.builder().cno(adminCategory.getCno()).cname(adminCategory.getCname()).cdesc(adminCategory.getCdesc()).build();
 
+    MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
+    
     ProductDTO productDTO = ProductDTO.builder()
     .pno(product.getPno())
     .pname(product.getPname())
@@ -476,10 +477,9 @@ public class ProductServiceImpl implements ProductService{
             .sizeList(product.getSizeList())
             .categoryId(product.getAdminCategory().getCno())
             .category(categoryDTO)
-//            .owner(memberDTO)
+            .owner(memberDTO)
     .build();
 
-    log.info("dddd?efasdasdf productDTO " + productDTO);
 
 
     //태그
@@ -561,22 +561,28 @@ public class ProductServiceImpl implements ProductService{
             .map(this::entityToDTO)
             .collect(Collectors.toList());
 
-    log.info("productDTOs....." + productDTOs);
 
     return productDTOs;
 
   }
 
   @Override
-  public void modifySalesStatus(StockRequestDTO stockRequestDTO) {
+  public ProductDTO modifySalesStatus(StockRequestDTO stockRequestDTO) {
 
     //step1 read
     Optional<Product> result = productRepository.findById(stockRequestDTO.getPno());
+
     Product product = result.orElseThrow();
 
     product.changeSalesStatus(stockRequestDTO.getSalesStatus());
 
-    productRepository.save(product);
+    Product savedProduct =  productRepository.save(product);
+
+    ProductDTO resultDTO = entityToDTO(savedProduct);
+
+    log.info("resultDTO...." + resultDTO);
+
+    return resultDTO;
 
 
   }
@@ -596,8 +602,6 @@ public class ProductServiceImpl implements ProductService{
             .cname(productDTO.getCategory().getCname())
             .cdesc(productDTO.getCategory().getCdesc())
             .build();
-
-    log.info("adminCategory...." + adminCategory);
 
     //change pname, pdesc, price, ...etc
     product.changeName(productDTO.getPname());

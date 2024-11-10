@@ -310,15 +310,15 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/stock/{pno}")
-  public DataResponseDTO<String> modifySalesStatus(@PathVariable(name="pno")Long pno, @RequestBody StockRequestDTO stockRequestDTO,  @AuthenticationPrincipal UserDetails userDetails) {
+  public DataResponseDTO<ProductDTO> modifySalesStatus(@PathVariable(name="pno") Long pno, @RequestBody StockRequestDTO stockRequestDTO,  @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============pno " + pno);
     log.info("==============stockRequestDTO " + stockRequestDTO);
 
     //수정 작업
-    productService.modifySalesStatus(stockRequestDTO);
+    ProductDTO result =  productService.modifySalesStatus(stockRequestDTO);
 
 
-    return DataResponseDTO.of( "SUCCESS");
+    return DataResponseDTO.of( result);
 
 
   }

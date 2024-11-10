@@ -17,6 +17,7 @@ import Link from "next/link";
 import Select from "@/components/Admin/Product/Select";
 import toast from "react-hot-toast";
 import {getProductsByEmail} from "@/api/adminAPI";
+import {Category} from "@/interface/Category";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -90,13 +91,20 @@ const StockTable = () => {
                 body: JSON.stringify({ salesStatus, pno }),
             });
             console.log('response', response);
-            // if (!response.success) throw new Error("업데이트 실패");
         },
-        onSuccess: (data) => {
+        onSuccess: async (response) => {
+            console.log('data...', response);
             toast.success("수정되었습니다.");
-            queryClient.invalidateQueries({queryKey: ['adminStockProducts', {page, size, search}]});
-        },
-        onError: (error) => {
+
+            if (queryClient.getQueryData(['adminStockProducts', {page, size, search}])) {
+                queryClient.setQueryData(['adminStockProducts', {page, size, search}], (prevData: { data: { dtoList: Product[] } }) => {
+                    console.log('prevData', prevData);
+
+                });
+              }
+            },
+        onError: async (error) => {
+
             toast.error(`오류 발생: ${error}`);
         },
 

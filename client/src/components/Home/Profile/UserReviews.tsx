@@ -28,7 +28,6 @@ const UserReviews = () => {
 
 
     if (isLoading) return <div className="text-center py-4">Loading...</div>;
-    if (error) return <div className="text-center py-4 text-red-500">Error..</div>;
 
     return (
         <section className="w-full bg-white">

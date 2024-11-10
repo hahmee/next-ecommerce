@@ -96,8 +96,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
             });
         },
         onMutate: async (pno) => {
-            console.log('??언제실행 ', pno);
-
             // 기존 데이터 가져오기
             const previousData: DataResponse<PageResponse<Product>> | undefined = queryClient.getQueryData(['adminProducts', {page, size, search}]);
 

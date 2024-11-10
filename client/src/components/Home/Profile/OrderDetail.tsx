@@ -2,11 +2,11 @@
 
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
-import {getOrders} from "@/app/(home)/order/[orderId]/_lib/getOrders";
 import {Order} from "@/interface/Order";
 import {OrderStatus} from "@/types/orderStatus";
 import Image from "next/image";
 import Link from "next/link";
+import {getOrders} from "@/api/mallAPI";
 
 const getOrderStatusText = (status: OrderStatus): string => {
     switch (status) {
