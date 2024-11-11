@@ -54,15 +54,16 @@ const StockTable = () => {
         }
     });
 
-    console.log('data', data);
-
     const handleClick = (pno:number) => {
         router.push(`/admin/products/${pno}`);
     }
 
     useEffect(() => {
-        setProductData(data);
+        console.log('data', data);
+
         if (data) {
+            setProductData(data);
+
             const {dtoList, ...otherData} = data;
             setPaging(otherData);
         }
@@ -81,28 +82,40 @@ const StockTable = () => {
     }
 
     const mutation = useMutation({
-        mutationFn: async ({ salesStatus, pno }: { salesStatus: string; pno: number }) => {
-            const response = await fetchJWT(`/api/products/stock/${pno}`, {
+        mutationFn: async ({salesStatus, pno}: { salesStatus: string; pno: number }) => {
+            return await fetchJWT(`/api/products/stock/${pno}`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ salesStatus, pno }),
+                body: JSON.stringify({salesStatus, pno}),
             });
-            console.log('response', response);
         },
         onSuccess: async (response) => {
-            console.log('data...', response);
+            const newStock = response.data;
+
             toast.success("수정되었습니다.");
 
-            if (queryClient.getQueryData(['adminStockProducts', {page, size, search}])) {
-                queryClient.setQueryData(['adminStockProducts', {page, size, search}], (prevData: { data: { dtoList: Product[] } }) => {
-                    console.log('prevData', prevData);
+            const previousData: DataResponse<PageResponse<Product>> | undefined   = queryClient.getQueryData(['adminStockProducts', { page, size, search }]);
 
+            if (previousData) {
+                const updatedProducts = previousData.data.dtoList.map(product =>
+                    product.pno === newStock.pno ? newStock : product
+                );
+
+                queryClient.setQueryData(['adminStockProducts', { page, size, search }], {
+                    ...previousData, // 이전 데이터를 그대로 유지
+                    data: {
+                        ...previousData.data, // data 객체 복사
+                        dtoList: updatedProducts, // dtoList만 업데이트
+                    },
                 });
-              }
-            },
+
+                setProductData(undefined); //??
+            }
+
+        },
         onError: async (error) => {
 
             toast.error(`오류 발생: ${error}`);

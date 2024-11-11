@@ -9,7 +9,7 @@ import Image from "next/image";
 import {Member} from "@/interface/Member";
 import {getCategories} from "@/api/adminAPI";
 
-const FullMenu = ({member}: {member: Member | undefined}) => {
+const FullMenu = ({member}: {member: Member}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const categoryId = searchParams.get("category_id") || "";
@@ -63,8 +63,7 @@ const FullMenu = ({member}: {member: Member | undefined}) => {
             </div>
             {
                 mainCategory && <div>
-                    <div className="font-medium text-base cursor-pointer"
-                         onClick={() => onClickCategory(mainCategory.cno)}>{mainCategory.cname}</div>
+                    <div className="font-medium text-base cursor-pointer" onClick={() => onClickCategory(mainCategory.cno)}>{mainCategory.cname}</div>
                     {renderSubResult(subCategories)}
                 </div>
             }

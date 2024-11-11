@@ -9,18 +9,17 @@ import {logout} from "@/api/mallAPI";
 import {useRouter} from "next/navigation";
 import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import {MemberRole} from "@/types/memberRole";
+import {QueryClient} from "@tanstack/react-query";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const router = useRouter();
     const { cart, counter, getCart, changeOpen, open } = useCartStore();
     const [accountOpen, setAccountOpen] = useState(false);
+    const queryClient = new QueryClient();
 
     const onLogout = async () => {
 
-        // `posts`로 시작하는 키로 모든 쿼리를 무효화함
-        // queryClient.invalidateQueries({
-        //     queryKey: ["posts"],
-        // });
+        console.log('logout')
         // queryClient.invalidateQueries({
         //     queryKey: ["users"],
         // });

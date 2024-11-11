@@ -12,7 +12,7 @@ import {getCategories} from "@/api/adminAPI";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
-const Navbar = ({member}: { member: Member | undefined }) => {
+const Navbar = ({member}: { member: Member }) => {
 
   const prefetchOptions = [
     {
@@ -41,7 +41,10 @@ const Navbar = ({member}: { member: Member | undefined }) => {
 
             <Suspense fallback={<Loading/>}>
               <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                <FullMenu member={member}/>
+                {
+                  member && <FullMenu member={member}/>
+                }
+
               </PrefetchBoundary>
             </Suspense>
 
