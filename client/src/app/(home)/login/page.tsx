@@ -5,7 +5,8 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
 import {sendGTMEvent} from "@next/third-parties/google";
 import crypto from "crypto";
-import {setCookie, getCookie} from "@/utils/cookie";
+import {getCookie, setCookie} from "@/utils/cookie";
+import {MemberRole} from "@/types/memberRole";
 // import {getCookie} from "cookies-next";
 //
 // export function showMessage (message: string | null) {
@@ -36,13 +37,29 @@ const hashUserId = (userId: string) => {
     return crypto.createHash("sha256").update(userId).digest("hex");
 };
 
+
+//최고 role 선택하는 함수
+const getHighRole = (roles: MemberRole[]) => {
+
+    // 역할의 우선순위를 정의
+    const rolePriority = {
+        [MemberRole.MANAGER]: 3,
+        [MemberRole.ADMIN]: 2,
+        [MemberRole.USER]: 1,
+    };
+    // roles 배열을 우선순위에 따라 내림차순으로 정렬
+    const sortedRoles = roles.sort((a, b) => rolePriority[b] - rolePriority[a]);
+
+    // 가장 높은 우선순위의 역할 반환
+    return sortedRoles[0];
+};
+
 export default function LoginPage() {
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const router = useRouter();
     const [message, setMessage] = useState<string>("");
-
 
     const onSubmit: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
         try {
@@ -91,17 +108,19 @@ export default function LoginPage() {
                 if(member) {
 
                     const email = member.email;
+                    const roleNames = member.roleNames;
+
+                    const role = getHighRole(roleNames);
                     const encryptedId = hashUserId(email);
 
                     // 로그인 성공 시 GTM 이벤트 전송
                     sendGTMEvent({
                         event: 'login',
-                        user_id: encryptedId, // 백엔드에서 받은 사용자 ID를 전송
-                        user_role: "ADMIN" // 임의
+                        uid: encryptedId, // 백엔드에서 받은 사용자 ID를 전송
+                        user_role: role, // 임의
+                        custom_user_id: encryptedId,
                     });
                 }
-
-
                 router.replace('/');
             }
         } catch (error) {

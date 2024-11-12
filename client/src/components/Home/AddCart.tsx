@@ -24,7 +24,6 @@ const AddCart = ({
     const [quantity, setQuantity] = useState(1);
     const {cart, changeCart, isLoading, changeOpen} = useCartStore();
     const memberInfo = getCookie('member');
-    // const member = JSON.parse(memberInfo ? memberInfo : "");
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
     const handleQuantity = (type: "i" | "d") => {
@@ -66,8 +65,6 @@ const AddCart = ({
         }
 
         toast.success('장바구니에 담겼습니다.');
-        //스낵바 "장바구니 담겼습니다."
-
 
     };
 

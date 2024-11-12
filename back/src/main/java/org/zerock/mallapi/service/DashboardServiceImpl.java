@@ -676,37 +676,60 @@ public class DashboardServiceImpl implements DashboardService{
     return null;
   }
 
-  //최근 방문자
+  //실시간 보고서 - 최근 방문자
   private List<SessionDTO> getGARecentUser(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
     List<SessionDTO> recentUsers = new ArrayList<>();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
 
-      RunReportRequest request = RunReportRequest.newBuilder()
+      // Real Time Report 요청
+      RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-                .addDimensions(Dimension.newBuilder().setName("customUser:seller_id"))
-              .addMetrics(Metric.newBuilder().setName("activeUsers"))
-              .addDateRanges(DateRange.newBuilder()
-                      .setStartDate("7daysAgo")
-                      .setEndDate("today")
-                      .build()).build();
+              .addDimensions(Dimension.newBuilder().setName("customUser:custom_user_id"))
+              .addMetrics(Metric.newBuilder().setName("activeUsers"))  // 활성 사용자
+              .build();
 
-      RunReportResponse response = analyticsData.runReport(request);
+      // 실시간 보고서 실행
+      RunRealtimeReportResponse response = realTimeDataClient.runRealtimeReport(request);
 
-
+      // 응답 처리
       for (Row row : response.getRowsList()) {
-        String userId = row.getDimensionValues(0).getValue(); //user_id
-        String activeUsers = row.getMetricValues(0).getValue();// activeUsers
-
-        log.info("userId..." + userId);
-        log.info("activeUsers..." + activeUsers);
-        recentUsers.add(null); // TopPageDTO 객체 생성
-
-//        recentUsers.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
-
+        String pagePath = row.getDimensionValues(0).getValue();
+        String activeUsers = row.getMetricValues(0).getValue();
+        System.out.println("Page: " + pagePath + " - Active Users: " + activeUsers);
       }
+
+
+
+
+//      RunReportRequest request = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDimensions(Dimension.newBuilder().setName("customUser:custom_user_id"))
+//              .addMetrics(Metric.newBuilder().setName("activeUsers"))
+//              .addMetrics(Metric.newBuilder().setName("eventCount")) // eventCount 사용
+//              .addDateRanges(DateRange.newBuilder()
+//                      .setStartDate("7daysAgo")
+//                      .setEndDate("today")
+//                      .build()).build();
+//
+//      RunReportResponse response = analyticsData.runReport(request);
+//
+//
+//      for (Row row : response.getRowsList()) {
+//        String userId = row.getDimensionValues(0).getValue(); //user_id
+//        String activeUsers = row.getMetricValues(0).getValue();// activeUsers
+//        String eventCount = row.getMetricValues(1).getValue();// eventCount
+//
+//        log.info("userId..." + userId);
+//        log.info("activeUsers..." + activeUsers);
+//        log.info("eventCount..." + eventCount);
+//        recentUsers.add(null); // TopPageDTO 객체 생성
+//
+////        recentUsers.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
+//
+//      }
 
     }
 

@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/__tests__/components/AddCart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/components/Home.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jest.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jest.setup.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FullMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FullMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/ItemOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/ItemOverview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/Cart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/Cart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +57,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Jest.&lt;Home /&gt;.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Home /&gt;.renders a heading.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Sum function.adds 1 + 2 to equal 3.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Sum function.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -54,6 +69,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/node_modules/jest&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.TypeScript&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib&quot;,
@@ -69,17 +85,77 @@
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\__tests__\components" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\salesOverview" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\order\[orderId]" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\images" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\@modal\(.)add-category\[id]" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\category\add-category\[id]" />
     </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
+  </component>
+  <component name="RunManager" selected="Jest.&lt;Home /&gt;.renders a heading">
+    <configuration name="Sum function" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
+      <test-names>
+        <test-name value="Sum function" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Sum function.adds 1 + 2 to equal 3" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
+      <test-names>
+        <test-name value="Sum function" />
+        <test-name value="adds 1 + 2 to equal 3" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="&lt;Home /&gt;" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
+      <test-names>
+        <test-name value="&lt;Home /&gt;" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="&lt;Home /&gt;.renders a heading" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
+      <test-names>
+        <test-name value="&lt;Home /&gt;" />
+        <test-name value="renders a heading" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.&lt;Home /&gt;.renders a heading" />
+        <item itemvalue="Jest.&lt;Home /&gt;" />
+        <item itemvalue="Jest.Sum function.adds 1 + 2 to equal 3" />
+        <item itemvalue="Jest.Sum function" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -320,7 +396,12 @@
       <workItem from="1731144407938" duration="13829000" />
       <workItem from="1731164796826" duration="6976000" />
       <workItem from="1731199284421" duration="13548000" />
-      <workItem from="1731285902498" duration="8829000" />
+      <workItem from="1731285902498" duration="14101000" />
+      <workItem from="1731316215913" duration="12057000" />
+      <workItem from="1731383021275" duration="10262000" />
+      <workItem from="1731397497431" duration="2512000" />
+      <workItem from="1731420336612" duration="606000" />
+      <workItem from="1731421319910" duration="7455000" />
     </task>
     <servers />
   </component>
@@ -337,5 +418,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/jest.config.ts</url>
+          <line>1</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

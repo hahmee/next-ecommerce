@@ -5,8 +5,6 @@ import React from "react";
 import RQProvider from "@/components/RQProvider";
 import {Toaster} from "react-hot-toast";
 
-const GA_TRACKING_ID = process.env.GOOGLE_GA_TRACKING_ID;
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

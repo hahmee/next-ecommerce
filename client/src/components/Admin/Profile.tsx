@@ -6,7 +6,7 @@ import Image from "next/image";
 import {Member} from "@/interface/Member";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
-import {getUserInfo} from "@/app/(home)/shopping/_lib/getUserInfo";
+import {getUserInfo} from "@/api/mallAPI";
 
 const Profile = () => {
 

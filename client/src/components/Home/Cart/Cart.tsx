@@ -8,7 +8,6 @@ const Cart = () => {
     const router = useRouter();
 
     const cartButtonClick = () => {
-
         router.push("/checkout")
     };
 

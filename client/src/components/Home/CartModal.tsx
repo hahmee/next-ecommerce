@@ -1,7 +1,7 @@
 "use client";
 
 import {useCartStore} from "@/store/cartStore";
-import React, {useMemo} from "react";
+import React from "react";
 import CartItem from "@/components/Home/CartItem";
 import {useRouter} from "next/navigation";
 
@@ -19,6 +19,7 @@ const CartModal = () => {
     if(!open) {
         return null;
     }
+
     return (
         <>
             {/*모달 바깥 클릭 */}
