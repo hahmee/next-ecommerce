@@ -26,6 +26,8 @@ public class Member {
   @Builder.Default
   private List<MemberRole> memberRoleList = new ArrayList<>();
 
+  private String encryptedId; // User-ID 암호화 (GA4사용목적)
+
   public void addRole(MemberRole memberRole){
       memberRoleList.add(memberRole);
   }
@@ -45,5 +47,10 @@ public class Member {
   public void changeSocial(boolean social) {
     this.social = social;
   }
+
+  public void changeEncryptedId(String encryptedId) {
+    this.encryptedId = encryptedId;
+  }
+
 
 }

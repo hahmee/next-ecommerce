@@ -21,6 +21,7 @@ import org.zerock.mallapi.dto.ProductDTO;
 import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.MemberRepository;
 import org.zerock.mallapi.util.GeneralException;
+import org.zerock.mallapi.util.HashUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -53,9 +54,11 @@ public class MemberServiceImpl implements MemberService {
 
       Member member = dtoToEntity(memberDTO);
 
-
       //역할 주기
       member.addRole(MemberRole.USER);
+
+      // SHA-256 해싱 알고리즘
+      member.changeEncryptedId(HashUtil.hashUserId(member.getEmail()));
 
       Member result = memberRepository.save(member);
 

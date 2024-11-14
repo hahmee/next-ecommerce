@@ -47,7 +47,7 @@ public class TodoServiceImpl implements TodoService {
   @Override
   public TodoDTO get(Long tno) {
     
-    java.util.Optional<Todo> result = todoRepository.findById(tno);
+    Optional<Todo> result = todoRepository.findById(tno);
 
     Todo todo = result.orElseThrow();
 

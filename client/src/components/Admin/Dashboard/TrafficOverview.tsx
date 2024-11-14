@@ -9,7 +9,7 @@ import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
-
+``
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafiicSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });

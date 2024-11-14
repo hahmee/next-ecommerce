@@ -8,6 +8,7 @@ export interface Member {
   refreshToken: string;
   roleNames: MemberRole[];
   social: false;
+  encryptedId: string;
 }
 
 export type MemberModifyType = Omit<Member, 'social' | 'roleNames' | 'accessToken' | 'refreshToken' | 'error'>;

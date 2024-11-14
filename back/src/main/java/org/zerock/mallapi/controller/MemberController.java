@@ -25,13 +25,6 @@ public class MemberController {
         //서비스 호출
         MemberDTO registeredMemberDTO = memberService.register(memberDTO);
 
-        try {
-            Thread.sleep(0);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         return DataResponseDTO.of(registeredMemberDTO);
     }
 

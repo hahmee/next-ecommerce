@@ -32,11 +32,10 @@ import {MemberRole} from "@/types/memberRole";
 //     return message;
 // }
 
-// User-ID 암호화 함수
-const hashUserId = (userId: string) => {
-    return crypto.createHash("sha256").update(userId).digest("hex");
-};
-
+// // User-ID 암호화 함수
+// const hashUserId = (userId: string) => {
+//     return crypto.createHash("sha256").update(userId).digest("hex");
+// };
 
 //최고 role 선택하는 함수
 const getHighRole = (roles: MemberRole[]) => {
@@ -109,9 +108,10 @@ export default function LoginPage() {
 
                     const email = member.email;
                     const roleNames = member.roleNames;
-
                     const role = getHighRole(roleNames);
-                    const encryptedId = hashUserId(email);
+                    const encryptedId = member.encryptedId;
+                    console.log('encryptedId', encryptedId);
+                    // const encryptedId = hashUserId(email);
 
                     // 로그인 성공 시 GTM 이벤트 전송
                     sendGTMEvent({

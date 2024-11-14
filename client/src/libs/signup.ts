@@ -3,6 +3,7 @@
 import {redirect} from "next/navigation";
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
+import {MemberRole} from "@/types/memberRole";
 
 export default async (prevState: any, formData: FormData) => {
   console.log('formData', formData);
@@ -13,12 +14,12 @@ export default async (prevState: any, formData: FormData) => {
   if (!formData.get('nickname') || !(formData.get('nickname') as string)?.trim()) {
     return {message: 'no_name'};
   }
-  if (!formData.get('password') || !(formData.get('password') as string)?.trim()) {
+  if (!formData.get('password') || !( formData.get('password') as string)?.trim()) {
     return { message: 'no_password' };
   }
 
   formData.set('social', 'false');
-  formData.set('roleNames', 'USER');
+  formData.set('roleNames', MemberRole.USER);
 
   let shouldRedirect = false;
 
@@ -41,8 +42,6 @@ export default async (prevState: any, formData: FormData) => {
     console.log('response..', response.status);  //백엔드에서 보내는 에러코드 401
 
     if(!response.ok) { //백엔드에서 에러코드를 보냈다면
-
-      console.log('백엔드 오류 뜨면 이게 실행됨.')
       return { message: data.message };
     }
 

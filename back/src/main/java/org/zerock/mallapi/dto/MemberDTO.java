@@ -25,17 +25,16 @@ public class MemberDTO extends User {
 
   private List<String> roleNames = new ArrayList<>();
 
-  public MemberDTO(String email, String password, String nickname, boolean social, List<String> roleNames) {
-    super(
-            email,
-            password,
-            roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
-    
+  private String encryptedId; // User-ID 암호화 (GA4사용목적)
+
+  public MemberDTO(String email, String password, String nickname, boolean social, List<String> roleNames, String encryptedId) {
+    super(email, password, roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
     this.email = email;
     this.password = password;
     this.nickname = nickname;
     this.social = social;
     this.roleNames = roleNames;
+    this.encryptedId = encryptedId;
   }
 
   public Map<String, Object> getClaims() {
@@ -47,6 +46,7 @@ public class MemberDTO extends User {
     dataMap.put("nickname", nickname);
     dataMap.put("social", social);
     dataMap.put("roleNames", roleNames);
+    dataMap.put("encryptedId", encryptedId);
 
     return dataMap;
   }

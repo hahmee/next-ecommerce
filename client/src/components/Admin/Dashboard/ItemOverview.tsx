@@ -8,11 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import {getGARecentUsers} from "@/api/dashbaordAPI";
 
-const TrafficSessionChart = dynamic(() => import("./Charts/TrafiicSessionChart"), { ssr: false });
-const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
-const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
-const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
-const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ssr: false });
+const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
 
 
 const ItemOverview: React.FC = () => {
@@ -54,7 +50,7 @@ const ItemOverview: React.FC = () => {
       sellerEmail: member.email,
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,//comparedEndDate.toISOString().split("T")[0],
+      comparedEndDate: comparedDate.endDate,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -122,18 +118,15 @@ const ItemOverview: React.FC = () => {
         {/*</div>*/}
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-4">
+            <RecentVisitors gaData={gaData}/>
 
-            <div
-                className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-              <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
-                <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">
-                  Recent visitors
-                </h5>
-              </div>
-
-
-
-            </div>
+            {/*<div className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">*/}
+            {/*  <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">*/}
+            {/*    <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">*/}
+            {/*      Recent visitors*/}
+            {/*    </h5>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
 
           </div>
 

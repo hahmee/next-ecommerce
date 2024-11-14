@@ -21,5 +21,10 @@ public interface MemberRepository extends JpaRepository<Member, String> {
   @Query("select m from Member m where m.nickname = :nickname")
   Optional<Member> findByNickname(@Param("nickname") String nickname);
 
+
+  @Query("select m from Member m where m.encryptedId = :encryptedId")
+  Optional<Member> findByEncryptedId(@Param("encryptedId") String encryptedId);
+
+
 //  Member getWithRoles(@Param("email") String email);
 }

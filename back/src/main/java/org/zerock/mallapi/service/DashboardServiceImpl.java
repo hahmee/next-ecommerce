@@ -9,9 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.zerock.mallapi.domain.ChartFilter;
-import org.zerock.mallapi.domain.ColorTag;
+import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.repository.MemberRepository;
+import org.zerock.mallapi.repository.OrderRepository;
 
 import javax.swing.*;
 import java.time.DayOfWeek;
@@ -21,6 +22,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +37,8 @@ public class DashboardServiceImpl implements DashboardService{
   private final OrderService orderService;
 
   private final PaymentService paymentService;
+
+  private final MemberRepository memberRepository;
 
 
   @Override
@@ -689,6 +693,7 @@ public class DashboardServiceImpl implements DashboardService{
               .setProperty("properties/" + propertyId)
               .addDimensions(Dimension.newBuilder().setName("customUser:custom_user_id"))
               .addMetrics(Metric.newBuilder().setName("activeUsers"))  // 활성 사용자
+              .setLimit(5) // 가장 최근 사용자 5명만 가져오기
               .build();
 
       // 실시간 보고서 실행
@@ -696,42 +701,33 @@ public class DashboardServiceImpl implements DashboardService{
 
       // 응답 처리
       for (Row row : response.getRowsList()) {
-        String pagePath = row.getDimensionValues(0).getValue();
+        String custom_user_id = row.getDimensionValues(0).getValue();
         String activeUsers = row.getMetricValues(0).getValue();
-        System.out.println("Page: " + pagePath + " - Active Users: " + activeUsers);
+        System.out.println(" - custom_user_id: " + custom_user_id);
+        System.out.println(" - activeUsers: " + activeUsers);
+
+        recentUsers.add(new SessionDTO(custom_user_id, activeUsers));
+
+        // 이메일 찾기
+
+        //read
+        if (custom_user_id != null) {
+
+//          Optional<Member> result = memberRepository.findByEncryptedId(custom_user_id);
+//
+//          System.out.println(" - result: " + result);
+//
+//          Member member = result.orElseThrow();
+
+//          System.out.println(" - member: " + member);
+//
+//          recentUsers.add(new SessionDTO(member.getEmail(), activeUsers));
+          
+        }
       }
-
-
-
-
-//      RunReportRequest request = RunReportRequest.newBuilder()
-//              .setProperty("properties/" + propertyId)
-//              .addDimensions(Dimension.newBuilder().setName("customUser:custom_user_id"))
-//              .addMetrics(Metric.newBuilder().setName("activeUsers"))
-//              .addMetrics(Metric.newBuilder().setName("eventCount")) // eventCount 사용
-//              .addDateRanges(DateRange.newBuilder()
-//                      .setStartDate("7daysAgo")
-//                      .setEndDate("today")
-//                      .build()).build();
-//
-//      RunReportResponse response = analyticsData.runReport(request);
-//
-//
-//      for (Row row : response.getRowsList()) {
-//        String userId = row.getDimensionValues(0).getValue(); //user_id
-//        String activeUsers = row.getMetricValues(0).getValue();// activeUsers
-//        String eventCount = row.getMetricValues(1).getValue();// eventCount
-//
-//        log.info("userId..." + userId);
-//        log.info("activeUsers..." + activeUsers);
-//        log.info("eventCount..." + eventCount);
-//        recentUsers.add(null); // TopPageDTO 객체 생성
-//
-////        recentUsers.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
-//
-//      }
-
     }
+    System.out.println(" - recentUsers recentUsers: " + recentUsers);
+
 
     return recentUsers;
 
@@ -765,15 +761,13 @@ public class DashboardServiceImpl implements DashboardService{
         String cityCode = row.getDimensionValues(1).getValue();
         String sessions = row.getMetricValues(0).getValue();
 
-        log.info("citt..." + cityCode);
+        log.info("countryCode..." + countryCode);
 
         List<Double> coordinates = getCoordinates(countryCode);
 
         countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
 
       }
-
-
 
     }
     log.info("countries.." + countries);
@@ -1205,21 +1199,25 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  //국가 코드로 좌표 구하기(마커때문에)
+  // 국가 코드로 좌표 구하기(마커때문에)
   public List<Double> getCoordinates(String countryCode) {
     String url = String.format("https://restcountries.com/v3.1/alpha/%s", countryCode);
-
     RestTemplate restTemplate = new RestTemplate();
 
-    ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
-    CountryResponseDTO[] response = responseEntity.getBody();
+    try {
+      ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
+      CountryResponseDTO[] response = responseEntity.getBody();
 
-    if (response != null && response.length > 0 && response[0].getLatlng() != null) {
-      return response[0].getLatlng();
+      if (response != null && response.length > 0 && response[0].getLatlng() != null) {
+        return response[0].getLatlng();
+      }
+    } catch (Exception e) {
+      // 좌표 조회 중 예외 발생 시 기본값 반환
+      System.out.println("Error fetching coordinates for country code: " + countryCode + ". Returning default coordinates.");
     }
 
-    // 기본값을 반환하기 위해 ArrayList를 사용
-    return new ArrayList<>(Arrays.asList(0.0, 0.0)); // 기본값
+    // 기본값 반환
+    return Arrays.asList(0.0, 0.0);
   }
 
 }
