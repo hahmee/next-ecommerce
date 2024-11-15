@@ -3,7 +3,7 @@ import {SessionDTO} from "@/interface/GAResponse";
 import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
 
 
-const TrafficPageChart = ({topPages}:{topPages:Array<SessionDTO> | []}) => {
+const TrafficPageChart = ({topPages}:{topPages:Array<SessionDTO<number>> | []}) => {
 
     // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
     const maxSessions = Math.max(500, ...(topPages?.map((page) => Number(page?.value)) || []));

@@ -639,15 +639,15 @@ public class DashboardServiceImpl implements DashboardService{
 
       GAResponseDTO gaResponseDTO =  getGASessions(propertyId, gaRequestDTO);
 
-      List<SessionDTO> topPages =  getGATopPages(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> topPages =  getGATopPages(propertyId, gaRequestDTO);
 
-      List<SessionDTO> topSources =  getGATopSources(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> topSources =  getGATopSources(propertyId, gaRequestDTO);
 
       SessionChartDTO sessionChart = getGAChart(propertyId, gaRequestDTO);
 
-      List<SessionDTO> devices = getGADevices(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> devices = getGADevices(propertyId, gaRequestDTO);
 
-      List<SessionDTO> visitors = getGAVisitors(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> visitors = getGAVisitors(propertyId, gaRequestDTO);
 
       List<CountryChartDTO> countries = getGACountries(propertyId, gaRequestDTO);
 
@@ -674,17 +674,19 @@ public class DashboardServiceImpl implements DashboardService{
 
     try {
 
-      List<SessionDTO> recentVisitors = getGARecentUser(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> recentVisitors = getGARecentUser(propertyId, gaRequestDTO);
 
-      List<SessionDTO> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
 
       SessionChartDTO activeVisitChart = getGAActiveVisitChart(propertyId, gaRequestDTO);
 
+      List<SessionDTO<List<SessionDTO>>> pageRoutes = getGARoutes(propertyId, gaRequestDTO);
 
-      log.info(".....activeVisitChart " + activeVisitChart);
+
+      log.info(".....pageRoutes " + pageRoutes);
 
       //보낼데이터
-      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).build();
+      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).pageRoutes(pageRoutes).build();
 
       return gaRealTimeResponseDTO;
 
@@ -695,10 +697,10 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   //실시간 보고서 - 최근 방문자
-  private List<SessionDTO> getGARecentUser(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGARecentUser(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO> recentUsers = new ArrayList<>();
+    List<SessionDTO<String>> recentUsers = new ArrayList<>();
 
     try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
 
@@ -789,10 +791,6 @@ public class DashboardServiceImpl implements DashboardService{
         log.info("minutesAgo...." + minutesAgo);
         log.info("activeUsers...." + activeUsers);
 
-//        String formattedXaxis = "-" + minutesAgo + "분";
-//        xaxis.add(formattedXaxis);
-//        data.add(activeUsers);
-
 
         // "minutesAgo" 값은 -0분 ~ -30분 사이로 나오므로, 그 값에 맞는 인덱스를 찾음
         int index = 30 - Integer.parseInt(minutesAgo); // 0분부터 30분까지의 순서
@@ -818,11 +816,63 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  //실시간 보고서 - 지난 30분 동안의 활성 사용자 & 조회수
-  private List<SessionDTO> getGAActiveVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+  //실시간 보고서 - 최근 방문자
+  private List<SessionDTO<List<SessionDTO>>> getGARoutes(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO> result = new ArrayList<>();
+    List<SessionDTO<List<SessionDTO>>> results = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+
+      // Real Time Report 요청
+      RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("eventName")) // 페이지 경로
+              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 활성 사용자
+              .addMetrics(Metric.newBuilder().setName("screenPageViews")) // 페이지 조회수
+              .setLimit(100) // 최대 100개 데이터
+              .build();
+
+      // 실시간 보고서 실행
+      RunRealtimeReportResponse response = realTimeDataClient.runRealtimeReport(request);
+
+      // 응답 처리
+      for (Row row : response.getRowsList()) {
+        String pagePath = row.getDimensionValues(0).getValue();
+        String activeUsers = row.getMetricValues(0).getValue();
+        String screenPageViews = row.getMetricValues(1).getValue();
+
+
+        System.out.println(" - pagePath: " + pagePath);
+        System.out.println(" - activeUsers: " + activeUsers);
+        System.out.println(" - screenPageViews: " + screenPageViews);
+
+        List<SessionDTO> values = new ArrayList<>();
+        SessionDTO<String> activeUserDTO = SessionDTO.<String>builder().key("activeUsers").value(activeUsers).build();
+        SessionDTO<String> pageViewsDTO = SessionDTO.<String>builder().key("screenPageViews").value(screenPageViews).build();
+
+        values.add(activeUserDTO);
+        values.add(pageViewsDTO);
+
+        results.add(new SessionDTO(pagePath, values));
+
+      }
+    }
+    System.out.println(" - results: " + results);
+
+
+    return results;
+
+  }
+
+
+
+  //실시간 보고서 - 지난 30분 동안의 활성 사용자 & 조회수
+  private List<SessionDTO<String>> getGAActiveVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO<String>> result = new ArrayList<>();
 
     try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
 
@@ -914,10 +964,10 @@ public class DashboardServiceImpl implements DashboardService{
 
 
 
-  private List<SessionDTO> getGAVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGAVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO> visitors = new ArrayList<>();
+    List<SessionDTO<String>> visitors = new ArrayList<>();
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
@@ -949,10 +999,10 @@ public class DashboardServiceImpl implements DashboardService{
 
 
 
-  private List<SessionDTO> getGADevices(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGADevices(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO> devices = new ArrayList<>();
+    List<SessionDTO<String>> devices = new ArrayList<>();
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
 
@@ -1196,10 +1246,10 @@ public class DashboardServiceImpl implements DashboardService{
 
 
 
-  private List<SessionDTO> getGATopSources(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGATopSources(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO> topPages = new ArrayList<>();
+    List<SessionDTO<String>> topPages = new ArrayList<>();
 
 
     try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
@@ -1231,10 +1281,10 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  private List<SessionDTO> getGATopPages(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGATopPages(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO> topPages = new ArrayList<>();
+    List<SessionDTO<String>> topPages = new ArrayList<>();
 
 
 

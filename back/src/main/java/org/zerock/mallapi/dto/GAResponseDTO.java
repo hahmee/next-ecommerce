@@ -27,15 +27,15 @@ public class GAResponseDTO {
 
 
   ///////////////////////////////////////////
-  private List<SessionDTO> topPages;
+  private List<SessionDTO<String>> topPages;
 
-  private List<SessionDTO> topSources;
+  private List<SessionDTO<String>> topSources;
 
   private SessionChartDTO sessionChart;
 
-  private List<SessionDTO> devices;
+  private List<SessionDTO<String>> devices;
 
-  private List<SessionDTO> visitors;
+  private List<SessionDTO<String>> visitors;
 
   private List<CountryChartDTO> countries;
 

@@ -11,6 +11,7 @@ import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
 const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
 const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
+const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
 
 
 const RealtimeOverview: React.FC = () => {
@@ -118,12 +119,14 @@ const RealtimeOverview: React.FC = () => {
         {/*  <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period*/}
         {/*    ({comparedDate.startDate} ~ {comparedDate.endDate})</p>*/}
         {/*</div>*/}
+
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <div className="col-span-12 xl:col-span-6">
+          <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
             <ActiveVisitors gaData={gaData?.activeVisitors}/>
-          </div>
-          <div className="col-span-12 xl:col-span-6">
             <ActiveVisitChart chart={gaData?.activeVisitChart}/>
+          </div>
+          <div className="col-span-12">
+            <PageRoute gaData={gaData?.pageRoutes}/>
           </div>
           <div className="col-span-12 xl:col-span-4">
             <RecentVisitors gaData={gaData?.recentVisitors}/>

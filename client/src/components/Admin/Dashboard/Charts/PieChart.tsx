@@ -12,7 +12,7 @@ const getRandomColor = (length: number) => {
   return colors.slice(0, length);
 };
 
-const PieChart = ({data, title}:{data:Array<SessionDTO> | undefined , title: string}) => {
+const PieChart = ({data, title}:{data:Array<SessionDTO<number>> | undefined , title: string}) => {
 
   const series = data?.map(d =>Number(d.value)) || [];
   const labels = data?.map(d => d.key === "" ? "Unknown" : d.key) || [];

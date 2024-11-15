@@ -123,13 +123,13 @@ const ActiveVisitChart = ({chart} : {chart: SessionChart | undefined | null}) =>
 
     return (
         <div
-            className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-            <p className=" text-xs px-4.5 pt-4.5 font-semibold text-gray-600 dark:text-white">
+            className="col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
+            <p className="text-xs px-4.5 pt-4.5 font-semibold text-gray-600 dark:text-white">
                 분당 활성 사용자
             </p>
 
 
-            <div id="chartOne" className="-ml-5">
+            <div id="chartOne" className="">
                 {
                     chart && <ReactApexChart
                         options={options}

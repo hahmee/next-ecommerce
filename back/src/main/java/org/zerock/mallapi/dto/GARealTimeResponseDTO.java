@@ -13,11 +13,13 @@ import java.util.List;
 @Builder
 public class GARealTimeResponseDTO {
 
-  private List<SessionDTO> recentVisitors;
+  private List<SessionDTO<String>> recentVisitors;
 
-  private List<SessionDTO> activeVisitors;
+  private List<SessionDTO<String>> activeVisitors;
 
   private SessionChartDTO activeVisitChart;
+
+  private List<SessionDTO<List<SessionDTO>>> pageRoutes;
 
 
 }

@@ -1,6 +1,6 @@
 import {SessionDTO} from "@/interface/GAResponse";
 
-const BarChart = ({data, maxValue} : {data: SessionDTO, maxValue:number }) => {
+const BarChart = ({data, maxValue} : {data: SessionDTO<number>, maxValue:number }) => {
 
     return (
         <>
@@ -14,7 +14,7 @@ const BarChart = ({data, maxValue} : {data: SessionDTO, maxValue:number }) => {
 export default BarChart;
 
 
-export const BarChartThin = ({data, maxValue} : {data: SessionDTO, maxValue:number }) => {
+export const BarChartThin = ({data, maxValue} : {data: SessionDTO<number>, maxValue:number }) => {
 
     return (
         <>

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SessionDTO {
+public class SessionDTO<T> {
   String key;
-  String value;
+  T value;
 }
