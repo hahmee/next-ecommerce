@@ -17,4 +17,7 @@ public class GARealTimeResponseDTO {
 
   private List<SessionDTO> activeVisitors;
 
+  private SessionChartDTO activeVisitChart;
+
+
 }

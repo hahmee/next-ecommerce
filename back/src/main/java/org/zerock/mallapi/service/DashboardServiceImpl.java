@@ -678,10 +678,13 @@ public class DashboardServiceImpl implements DashboardService{
 
       List<SessionDTO> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
 
-      log.info(".....activeVisitors " + activeVisitors);
+      SessionChartDTO activeVisitChart = getGAActiveVisitChart(propertyId, gaRequestDTO);
+
+
+      log.info(".....activeVisitChart " + activeVisitChart);
 
       //보낼데이터
-      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).build();
+      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).build();
 
       return gaRealTimeResponseDTO;
 
@@ -741,6 +744,76 @@ public class DashboardServiceImpl implements DashboardService{
 
 
     return recentUsers;
+
+  }
+
+
+  private SessionChartDTO getGAActiveVisitChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    ArrayList<String> xaxis = new ArrayList<>(31); //0분에서 30분까지
+    List<String> data = new ArrayList<>(31);
+
+    // 0분부터 30분까지 -00분 ~ -30분 까지 기본 값으로 넣기
+    for (int i = 0; i < 31; i++) {
+      xaxis.add((30 - i)+"");
+      data.add("0"); // 데이터는 처음에 0으로 채움
+    }
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+
+      // 1분 동안의 실시간 데이터 요청
+      RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("minutesAgo")) //실시간 몇 분 전
+              .addMetrics(Metric.newBuilder().setName("activeUsers"))
+              .addOrderBys(OrderBy.newBuilder()
+                      .setDesc(true)
+                      .setDimension(OrderBy.DimensionOrderBy.newBuilder()
+                              .setDimensionName("minutesAgo")
+                              .build())
+                      .build())
+              .setLimit(31) //31개 제한
+              .build();
+
+      // 실시간 데이터 요청
+      RunRealtimeReportResponse response = analyticsData.runRealtimeReport(request);
+
+
+      for (Row row : response.getRowsList()) {
+
+        String minutesAgo = row.getDimensionValues(0).getValue();
+        String activeUsers = row.getMetricValues(0).getValue();
+
+
+
+        log.info("minutesAgo...." + minutesAgo);
+        log.info("activeUsers...." + activeUsers);
+
+//        String formattedXaxis = "-" + minutesAgo + "분";
+//        xaxis.add(formattedXaxis);
+//        data.add(activeUsers);
+
+
+        // "minutesAgo" 값은 -0분 ~ -30분 사이로 나오므로, 그 값에 맞는 인덱스를 찾음
+        int index = 30 - Integer.parseInt(minutesAgo); // 0분부터 30분까지의 순서
+
+        // 해당 index에 데이터 넣기
+        xaxis.set(index, minutesAgo);
+        data.set(index, activeUsers);  // 해당 분에 대한 activeUsers 값 설정
+
+      }
+
+    }
+
+
+    // sessionChart 객체 생성
+    SessionChartDTO sessionChart = SessionChartDTO.builder()
+            .xaxis(xaxis)  // xaxis 리스트 추가
+            .data(data)    // data 리스트 추가
+            .build();
+//
+    log.info("sessionChart..." + sessionChart);
+    return sessionChart;
 
   }
 

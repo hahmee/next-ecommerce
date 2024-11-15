@@ -165,7 +165,6 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
                     width={"100%"}
                 />
             }
-
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
 
 const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
+const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
 
 
 const RealtimeOverview: React.FC = () => {
@@ -122,7 +123,7 @@ const RealtimeOverview: React.FC = () => {
             <ActiveVisitors gaData={gaData?.activeVisitors}/>
           </div>
           <div className="col-span-12 xl:col-span-6">
-            <ActiveVisitors gaData={gaData?.activeVisitors}/>
+            <ActiveVisitChart chart={gaData?.activeVisitChart}/>
           </div>
           <div className="col-span-12 xl:col-span-4">
             <RecentVisitors gaData={gaData?.recentVisitors}/>
