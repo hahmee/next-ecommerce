@@ -3,9 +3,9 @@
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import React, {useCallback, useEffect} from "react";
-import {getSuccessPayment} from "@/app/(home)/order/success/_lib/getSuccessPayment";
 import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
+import {getSuccessPayment} from "@/api/mallAPI";
 
 interface Props {
     paymentKey: string;

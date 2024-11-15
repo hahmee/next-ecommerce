@@ -5,11 +5,11 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
-import ItemOverview from "@/components/Admin/Dashboard/ItemOverview";
+import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
 import {getGARecentUsers} from "@/api/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 
-export default async function DashBoardItemPage() {
+export default async function DashBoardRealTimePage() {
     const endDate = new Date(); // today
     const startDate = new Date(); // today
 
@@ -46,11 +46,11 @@ export default async function DashBoardItemPage() {
     ]
 
     return <div className="mx-auto">
-        <Breadcrumb pageName="Item Overview"/>
+        <Breadcrumb pageName="Real-time Overview"/>
         <div className="flex flex-col gap-5">
             <Suspense fallback={<Loading/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <ItemOverview/>
+                    <RealtimeOverview/>
                 </PrefetchBoundary>
             </Suspense>
         </div>

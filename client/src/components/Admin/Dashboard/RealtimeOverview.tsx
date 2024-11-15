@@ -2,16 +2,17 @@
 import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
-import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import {getGARecentUsers} from "@/api/dashbaordAPI";
+import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
 
 const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
+const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
 
 
-const ItemOverview: React.FC = () => {
+const RealtimeOverview: React.FC = () => {
 
   const endDate = new Date(); // today
   const startDate = new Date();  // today
@@ -42,7 +43,7 @@ const ItemOverview: React.FC = () => {
 
   const {
     data: gaData,
-  } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
+  } = useQuery<DataResponse<GARealTimeResponse>, Object, GARealTimeResponse>({
     queryKey: ['gaRecentUsers', date, currentFilter],
     queryFn: () => getGARecentUsers({
       startDate: date.startDate,
@@ -117,17 +118,14 @@ const ItemOverview: React.FC = () => {
         {/*    ({comparedDate.startDate} ~ {comparedDate.endDate})</p>*/}
         {/*</div>*/}
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
+          <div className="col-span-12 xl:col-span-6">
+            <ActiveVisitors gaData={gaData?.activeVisitors}/>
+          </div>
+          <div className="col-span-12 xl:col-span-6">
+            <ActiveVisitors gaData={gaData?.activeVisitors}/>
+          </div>
           <div className="col-span-12 xl:col-span-4">
-            <RecentVisitors gaData={gaData}/>
-
-            {/*<div className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">*/}
-            {/*  <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">*/}
-            {/*    <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">*/}
-            {/*      Recent visitors*/}
-            {/*    </h5>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-
+            <RecentVisitors gaData={gaData?.recentVisitors}/>
           </div>
 
         </div>
@@ -136,4 +134,4 @@ const ItemOverview: React.FC = () => {
   );
 };
 
-export default ItemOverview;
+export default RealtimeOverview;

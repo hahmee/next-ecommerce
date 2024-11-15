@@ -24,6 +24,6 @@ public interface DashboardService {
 
   GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO);
 
-  List<SessionDTO> getRealtimeUser(GARequestDTO gaRequestDTO);
+  GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO);
 }
 

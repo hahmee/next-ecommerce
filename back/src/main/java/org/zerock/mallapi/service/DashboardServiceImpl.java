@@ -1,6 +1,7 @@
 package org.zerock.mallapi.service;
 
 import com.google.analytics.data.v1beta.*;
+import com.google.protobuf.Timestamp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.zerock.mallapi.repository.OrderRepository;
 
 import javax.swing.*;
 import java.time.DayOfWeek;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
@@ -24,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.amazonaws.auth.internal.AWS4SignerUtils.formatTimestamp;
 
 @Service
 @Log4j2
@@ -664,15 +668,22 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public List<SessionDTO> getRealtimeUser(GARequestDTO gaRequestDTO) {
+  public GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO) {
 
     String propertyId = environment.getProperty("google.analytics.productId");
 
     try {
 
-      List<SessionDTO> gaResponseDTO =  getGARecentUser(propertyId, gaRequestDTO);
+      List<SessionDTO> recentVisitors = getGARecentUser(propertyId, gaRequestDTO);
 
-      return gaResponseDTO;
+      List<SessionDTO> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
+
+      log.info(".....activeVisitors " + activeVisitors);
+
+      //보낼데이터
+      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).build();
+
+      return gaRealTimeResponseDTO;
 
     } catch (Exception e) {
       log.error("Error while fetching analytics data: ", e);
@@ -734,6 +745,58 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
+  //실시간 보고서 - 지난 30분 동안의 활성 사용자 & 조회수
+  private List<SessionDTO> getGAActiveVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO> result = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+
+
+      // Real Time Report 요청
+      RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addMetrics(Metric.newBuilder().setName("activeUsers"))
+              .addMetrics(Metric.newBuilder().setName("screenPageViews")) // 페이지 조회수
+              .setLimit(1000) // 충분히 많은 데이터를 요청하여 합산
+              .build();
+
+
+      // 보고서 실행
+      RunRealtimeReportResponse response = realTimeDataClient.runRealtimeReport(request);
+
+
+      // 응답 처리
+      for (Row row : response.getRowsList()) {
+        // 활성 사용자 수
+        String activeUsers = row.getMetricValues(0).getValue();
+        // 조회수
+        String pageViews = row.getMetricValues(1).getValue();
+
+        System.out.println(" - real-time activeUsers: " + activeUsers);
+        System.out.println(" - real-time pageViews: " + pageViews);
+
+        result.add(new SessionDTO("activeUsers", activeUsers));
+        result.add(new SessionDTO("pageViews", pageViews));
+
+      }
+
+
+      return result;
+
+    }
+
+  }
+
+  // Timestamp 형식으로 변환
+  private String formatTimestamp(Instant instant) {
+    Timestamp timestamp = Timestamp.newBuilder()
+            .setSeconds(instant.getEpochSecond())
+            .setNanos(instant.getNano())
+            .build();
+    return timestamp.toString();
+  }
 
   private List<CountryChartDTO> getGACountries(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 

@@ -8,7 +8,7 @@ export async function getGARecentUsers (param: GARequest) {
     console.log('comparedEndDate ' + param.comparedEndDate);
     console.log('comparedStartDate ' + param.comparedStartDate);
 
-    return await fetchJWT(`/api/dashboard/item?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
+    return await fetchJWT(`/api/dashboard/real-time?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
         method: "GET",
         next: {
             tags: ['gaRecentUsers'], //다시
