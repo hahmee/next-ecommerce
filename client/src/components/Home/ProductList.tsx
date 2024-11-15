@@ -112,7 +112,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         key,
         value
     }));
-    console.log('categoryId', categoryId);
 
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
 
@@ -193,8 +192,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             return data.data;
         }, []),
     });
-
-    console.log('cccc', products);
 
     const {ref, inView} = useInView();
 

@@ -126,7 +126,7 @@ const RealtimeOverview: React.FC = () => {
             <ActiveVisitChart chart={gaData?.activeVisitChart}/>
           </div>
           <div className="col-span-12">
-            <PageRoute gaData={gaData?.pageRoutes}/>
+            <PageRoute gaData={gaData?.events}/>
           </div>
           <div className="col-span-12 xl:col-span-4">
             <RecentVisitors gaData={gaData?.recentVisitors}/>

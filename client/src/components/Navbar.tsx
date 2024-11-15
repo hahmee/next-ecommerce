@@ -26,7 +26,7 @@ const Navbar = ({member}: { member: Member }) => {
         {/* MOBILE */}
         <div className="h-full flex items-center justify-between md:hidden">
           <Link href="/">
-            <div className="text-2xl tracking-wide">E-COM</div>
+            <span className="text-2xl tracking-wide">E-COM</span>
           </Link>
           <Menu/>
         </div>
@@ -44,7 +44,6 @@ const Navbar = ({member}: { member: Member }) => {
                 {
                   member && <FullMenu member={member}/>
                 }
-
               </PrefetchBoundary>
             </Suspense>
 

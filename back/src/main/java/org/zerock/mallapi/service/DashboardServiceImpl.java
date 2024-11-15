@@ -10,12 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.zerock.mallapi.domain.*;
+import org.zerock.mallapi.domain.ChartFilter;
+import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.MemberRepository;
-import org.zerock.mallapi.repository.OrderRepository;
 
-import javax.swing.*;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,10 +23,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.amazonaws.auth.internal.AWS4SignerUtils.formatTimestamp;
 
 @Service
 @Log4j2
@@ -680,13 +676,13 @@ public class DashboardServiceImpl implements DashboardService{
 
       SessionChartDTO activeVisitChart = getGAActiveVisitChart(propertyId, gaRequestDTO);
 
-      List<SessionDTO<List<SessionDTO>>> pageRoutes = getGARoutes(propertyId, gaRequestDTO);
+      List<SessionDTO<String>> events = getGAEvents(propertyId, gaRequestDTO);
 
 
-      log.info(".....pageRoutes " + pageRoutes);
+      log.info(".....events " + events);
 
       //보낼데이터
-      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).pageRoutes(pageRoutes).build();
+      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).events(events).build();
 
       return gaRealTimeResponseDTO;
 
@@ -817,20 +813,19 @@ public class DashboardServiceImpl implements DashboardService{
 
 
 
-  //실시간 보고서 - 최근 방문자
-  private List<SessionDTO<List<SessionDTO>>> getGARoutes(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  //실시간 보고서 -
+  private List<SessionDTO<String>> getGAEvents(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
-    List<SessionDTO<List<SessionDTO>>> results = new ArrayList<>();
+    List<SessionDTO<String>> results = new ArrayList<>();
 
     try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
 
       // Real Time Report 요청
       RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("eventName")) // 페이지 경로
-              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 활성 사용자
-              .addMetrics(Metric.newBuilder().setName("screenPageViews")) // 페이지 조회수
+              .addDimensions(Dimension.newBuilder().setName("eventName")) // 이벤트명
+              .addMetrics(Metric.newBuilder().setName("eventCount")) // 이벤트 카운트
               .setLimit(100) // 최대 100개 데이터
               .build();
 
@@ -839,23 +834,14 @@ public class DashboardServiceImpl implements DashboardService{
 
       // 응답 처리
       for (Row row : response.getRowsList()) {
-        String pagePath = row.getDimensionValues(0).getValue();
-        String activeUsers = row.getMetricValues(0).getValue();
-        String screenPageViews = row.getMetricValues(1).getValue();
+        String eventName = row.getDimensionValues(0).getValue();
+        String eventCount = row.getMetricValues(0).getValue();
 
 
-        System.out.println(" - pagePath: " + pagePath);
-        System.out.println(" - activeUsers: " + activeUsers);
-        System.out.println(" - screenPageViews: " + screenPageViews);
+        System.out.println(" - eventName: " + eventName);
+        System.out.println(" - eventCount: " + eventCount);
 
-        List<SessionDTO> values = new ArrayList<>();
-        SessionDTO<String> activeUserDTO = SessionDTO.<String>builder().key("activeUsers").value(activeUsers).build();
-        SessionDTO<String> pageViewsDTO = SessionDTO.<String>builder().key("screenPageViews").value(screenPageViews).build();
-
-        values.add(activeUserDTO);
-        values.add(pageViewsDTO);
-
-        results.add(new SessionDTO(pagePath, values));
+        results.add(new SessionDTO(eventName, eventCount));
 
       }
     }

@@ -5,7 +5,6 @@ interface Props {
 }
 
 export default async function OrderFailPage({searchParams}: Props) {
-    console.log('searchParams', searchParams);
 
     const code = searchParams['code'];
     const message = searchParams['message'];

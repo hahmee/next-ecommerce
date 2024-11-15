@@ -19,7 +19,7 @@ public class GARealTimeResponseDTO {
 
   private SessionChartDTO activeVisitChart;
 
-  private List<SessionDTO<List<SessionDTO>>> pageRoutes;
+  private List<SessionDTO<String>> events;
 
 
 }

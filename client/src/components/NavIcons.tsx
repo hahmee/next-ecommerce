@@ -9,13 +9,11 @@ import {logout} from "@/api/mallAPI";
 import {useRouter} from "next/navigation";
 import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import {MemberRole} from "@/types/memberRole";
-import {QueryClient} from "@tanstack/react-query";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const router = useRouter();
-    const { cart, counter, getCart, changeOpen, open } = useCartStore();
+    const {  counter, getCart, changeOpen, open } = useCartStore();
     const [accountOpen, setAccountOpen] = useState(false);
-    const queryClient = new QueryClient();
 
     const onLogout = async () => {
 
@@ -32,7 +30,6 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
 
 
     useEffect(() => {
-        console.log('getCart...................');
         getCart();
 
     }, []);

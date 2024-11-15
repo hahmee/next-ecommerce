@@ -6,19 +6,12 @@ import {Params} from "@/components/Home/ProductList";
 
 const FiltersBadge = ({param, category}: { param: Params, category?: Category | undefined }) => {
 
-    console.log('params', param);
-    // console.log('category', category);
-
-
-
     const router = useRouter();
     const searchParams = useSearchParams();
 
     const deleteQueryString = () => {
 
         const params = new URLSearchParams(searchParams); // 기존 쿼리스트링을 복사
-
-        console.log('params', params);
         // param이 ['color', 'green'] 형태일 때 'color'의 모든 값을 가져옴
         const values = params.getAll(param.key); // 'color' 파라미터의 모든 값을 가져옴
 

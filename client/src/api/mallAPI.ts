@@ -56,7 +56,6 @@ export const getProductList = async ({
         }
     }
 
-    console.log('...........', params.toString());
     return await fetchJWT(`/api/products/list?${params.toString()}`, {
         method: "GET",
         next: {
