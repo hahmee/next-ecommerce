@@ -21,5 +21,7 @@ public class GARealTimeResponseDTO {
 
   private List<SessionDTO<String>> events;
 
+  private List<SessionDTO<String>> devices;
+
 
 }

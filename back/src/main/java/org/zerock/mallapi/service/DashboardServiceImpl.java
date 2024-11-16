@@ -678,11 +678,12 @@ public class DashboardServiceImpl implements DashboardService{
 
       List<SessionDTO<String>> events = getGAEvents(propertyId, gaRequestDTO);
 
+      List<SessionDTO<String>> devices = getGARealTimeDevices(propertyId, gaRequestDTO);
 
       log.info(".....events " + events);
 
       //보낼데이터
-      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).events(events).build();
+      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).events(events).devices(devices).build();
 
       return gaRealTimeResponseDTO;
 
@@ -851,6 +852,48 @@ public class DashboardServiceImpl implements DashboardService{
     return results;
 
   }
+
+
+
+
+  //실시간 보고서 -
+  private List<SessionDTO<String>> getGARealTimeDevices(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    // 결과 처리
+    List<SessionDTO<String>> results = new ArrayList<>();
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+
+      // Real Time Report 요청
+      RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDimensions(Dimension.newBuilder().setName("deviceCategory"))
+              .addMetrics(Metric.newBuilder().setName("activeUsers"))
+              .build();
+
+      // 실시간 보고서 실행
+      RunRealtimeReportResponse response = realTimeDataClient.runRealtimeReport(request);
+
+      // 응답 처리
+      for (Row row : response.getRowsList()) {
+        String deviceCategory = row.getDimensionValues(0).getValue();
+        String activeUsers = row.getMetricValues(0).getValue();
+
+
+        System.out.println(" - deviceCategory: " + deviceCategory);
+        System.out.println(" - activeUsers: " + activeUsers);
+
+        results.add(new SessionDTO(deviceCategory, activeUsers));
+
+      }
+    }
+    System.out.println(" - results: " + results);
+
+
+    return results;
+
+  }
+
 
 
 

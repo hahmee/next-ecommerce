@@ -17,7 +17,7 @@ const PageRoute = ({gaData}:{ gaData:Array<SessionDTO<number>> | undefined;}) =>
                     <div>이벤트 수</div>
                 </div>
                 {gaData?.map((data, index) =>
-                    <div key={data.key} className="flex justify-between">
+                    <div key={data.key} className=" border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 flex justify-between">
                         <div>{index + 1}</div>
                         <div>{data.key}</div>
                         <div>{data.value.toLocaleString()}</div>

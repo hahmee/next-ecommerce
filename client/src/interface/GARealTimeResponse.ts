@@ -5,5 +5,5 @@ export interface GARealTimeResponse {
   activeVisitors: Array<SessionDTO<number>>;
   activeVisitChart: SessionChart;
   events: Array<SessionDTO<number>>;
-
+  devices: Array<SessionDTO<number>>;
 }

@@ -12,6 +12,7 @@ const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: f
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
 const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
 const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
+const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 
 
 const RealtimeOverview: React.FC = () => {
@@ -130,6 +131,9 @@ const RealtimeOverview: React.FC = () => {
           </div>
           <div className="col-span-12 xl:col-span-4">
             <RecentVisitors gaData={gaData?.recentVisitors}/>
+          </div>
+          <div className="col-span-12 xl:col-span-4">
+            <PieChart data={gaData?.devices} title={"Users by device"} label="Active users"/>
           </div>
 
         </div>

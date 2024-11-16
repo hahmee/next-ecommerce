@@ -12,7 +12,7 @@ const getRandomColor = (length: number) => {
   return colors.slice(0, length);
 };
 
-const PieChart = ({data, title}:{data:Array<SessionDTO<number>> | undefined , title: string}) => {
+const PieChart = ({data, title, label}:{data:Array<SessionDTO<number>> | undefined , title: string, label:string}) => {
 
   const series = data?.map(d =>Number(d.value)) || [];
   const labels = data?.map(d => d.key === "" ? "Unknown" : d.key) || [];
@@ -40,7 +40,7 @@ const PieChart = ({data, title}:{data:Array<SessionDTO<number>> | undefined , ti
             total: {
               showAlways: true,
               show: true,
-              label:'Site sessions',
+              label,
               formatter: function (w) {
                 // Total 값을 toLocaleString()으로 포맷
                 const totalValue = w.globals.seriesTotals.reduce((a:number, b:number) => a + b, 0);
