@@ -4,18 +4,17 @@ import {
     FetchInfiniteQueryOptions,
     FetchQueryOptions,
     HydrationBoundary,
-    QueryCache,
     QueryClient
 } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import {ReactNode} from "react";
 
 type Props = {
     prefetchOptions?: FetchQueryOptions[] | FetchQueryOptions;
     prefetchInfiniteOptions?: FetchInfiniteQueryOptions[] | FetchInfiniteQueryOptions;
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
-export async function PrefetchBoundary({prefetchOptions, prefetchInfiniteOptions, children}: Props) {
+export async function PrefetchBoundary({prefetchOptions, prefetchInfiniteOptions, children} : Props) {
 
     // const queryErrorHandler = (error:Error) => {
     //     toast(`데이터를 가져오지 못했습니다! ${error.message}`);

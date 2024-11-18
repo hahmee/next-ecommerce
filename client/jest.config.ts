@@ -10,11 +10,9 @@ const createJestConfig = nextJest({
 const config: Config = {
     coverageProvider: 'v8',
     testEnvironment: 'jsdom',
-    // testMatch: [
-    //     '**/test/**',
-    //     '!**/src/**'
-    // ],
-    // testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$', // 변경
+    moduleDirectories: ['node_modules', 'src'],
+    modulePaths: ['<rootDir>/app/'],
+    roots: ['<rootDir>'],
     // Add more setup options before each test is run
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     preset: 'ts-jest'

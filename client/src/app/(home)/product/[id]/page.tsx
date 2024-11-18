@@ -1,4 +1,3 @@
-import {QueryClient} from "@tanstack/react-query";
 import React, {Suspense} from "react";
 import ProductSingle from "@/components/Home/ProductSingle";
 import Loading from "@/app/(admin)/admin/products/loading";
@@ -12,10 +11,6 @@ interface Props {
 export default async function ProductSinglePage({params}: Props) {
 
     const {id} = params;
-
-    const queryClient = new QueryClient();
-
-    await queryClient.prefetchQuery({queryKey: ['productCustomerSingle', id], queryFn: getProduct});
 
     const prefetchOptions = [
         {

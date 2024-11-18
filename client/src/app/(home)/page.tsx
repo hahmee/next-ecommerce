@@ -1,10 +1,9 @@
 import Slider from "@/components/Slider";
-import Skeleton from "@/components/Skeleton";
 import React, {Suspense} from "react";
+import {getCategories, getNewProducts} from "@/api/adminAPI";
+import Skeleton from "@/components/Skeleton";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Categories from "@/components/Home/Main/Categories";
-import MainProductList from "@/components/Admin/Product/MainProductList";
-import {getCategories, getNewProducts} from "@/api/adminAPI";
 
 const HomePage = () => {
 
@@ -34,11 +33,11 @@ const HomePage = () => {
             </div>
             <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
                <h1 className="text-2xl">New Products</h1>
-                <Suspense fallback={<Skeleton/>}>
-                    <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <MainProductList/>
-                    </PrefetchBoundary>
-                </Suspense>
+                {/*<Suspense fallback={<Skeleton/>}>*/}
+                {/*    <PrefetchBoundary prefetchOptions={prefetchOptions}>*/}
+                {/*        <MainProductList/>*/}
+                {/*    </PrefetchBoundary>*/}
+                {/*</Suspense>*/}
             </div>
         </div>
     )

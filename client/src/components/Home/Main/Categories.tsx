@@ -28,6 +28,7 @@ const Categories = () => {
         return <div>Loading...</div>; // 로딩 상태 표시
     }
 
+    console.log(categories);
     return <div className="px-4 overflow-x-auto scrollbar-hide">
         <div className="flex gap-4 md:gap-8">
             {categories?.map((ct) => (
