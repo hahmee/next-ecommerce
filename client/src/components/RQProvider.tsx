@@ -20,7 +20,6 @@ function RQProvider({children}: Props) {
           retry: false,
         },
       },
-
     })
   );
 

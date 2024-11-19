@@ -12,6 +12,9 @@ const config: Config = {
     testEnvironment: 'jsdom',
     moduleDirectories: ['node_modules', 'src'],
     modulePaths: ['<rootDir>/app/'],
+    moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1', // @ 경로를 src 디렉토리로 매핑
+    },
     roots: ['<rootDir>'],
     // Add more setup options before each test is run
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

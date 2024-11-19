@@ -9,12 +9,16 @@ import {
 import {ReactNode} from "react";
 
 type Props = {
-    prefetchOptions?: FetchQueryOptions[] | FetchQueryOptions;
-    prefetchInfiniteOptions?: FetchInfiniteQueryOptions[] | FetchInfiniteQueryOptions;
+    prefetchOptions?: FetchQueryOptions[] | FetchQueryOptions | undefined;
+    prefetchInfiniteOptions?: FetchInfiniteQueryOptions[] | FetchInfiniteQueryOptions | undefined;
     children: ReactNode;
 };
 
-export async function PrefetchBoundary({prefetchOptions, prefetchInfiniteOptions, children} : Props) {
+export async function PrefetchBoundary({
+                                           prefetchOptions,
+                                           prefetchInfiniteOptions,
+                                           children
+                                       }: Props) {
 
     // const queryErrorHandler = (error:Error) => {
     //     toast(`데이터를 가져오지 못했습니다! ${error.message}`);

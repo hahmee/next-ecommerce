@@ -1,8 +1,8 @@
 import Slider from "@/components/Slider";
 import React, {Suspense} from "react";
-import {getCategories, getNewProducts} from "@/api/adminAPI";
-import Skeleton from "@/components/Skeleton";
+import {getCategories} from "@/api/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
+import Skeleton from "@/components/Skeleton";
 import Categories from "@/components/Home/Main/Categories";
 
 const HomePage = () => {
@@ -12,10 +12,10 @@ const HomePage = () => {
             queryKey: ['categories'],
             queryFn: () => getCategories()
         },
-        {
-            queryKey: ['new-products'],
-            queryFn: () => getNewProducts()
-        }
+        // {
+        //     queryKey: ['new-products'],
+        //     queryFn: () => getNewProducts()
+        // }
     ];
 
     return (
