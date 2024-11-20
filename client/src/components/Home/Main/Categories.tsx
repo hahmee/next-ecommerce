@@ -31,7 +31,6 @@ const Categories = () => {
     // console.log(categories);
     return <div className="px-4 overflow-x-auto scrollbar-hide">
         <div className="flex gap-4 md:gap-8">
-            <span>dd</span>
             {categories?.map((ct) => (
                 <Link
                     href={`/list?category_id=${ct.cno}`}

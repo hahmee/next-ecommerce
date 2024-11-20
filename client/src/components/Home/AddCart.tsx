@@ -37,6 +37,8 @@ const AddCart = ({
 
     const handleClickAddCart = () => {
         changeOpen(true);
+
+        //같은 사이즈, 같은 컬러가 이미 담겨져있는지 확인한다.
         const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
 
         //해당하는 cino 의 개수를 바꿔야함

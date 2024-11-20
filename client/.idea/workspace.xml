@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useCarEventDetails.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/Home.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RQProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RQProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/PrefetchBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/PrefetchBoundary.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,12 +51,15 @@
     "Jest.<Categories/>.render component successfully.executor": "Run",
     "Jest.<Home />.executor": "Run",
     "Jest.<Home />.renders a heading.executor": "Run",
+    "Jest.AddCart Component.executor": "Run",
+    "Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor": "Run",
+    "Jest.AddCart Component.should increase quantity when the + button is clicked.executor": "Run",
     "Jest.Sum function.adds 1 + 2 to equal 3.executor": "Run",
     "Jest.Sum function.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/components/Home/Main",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/__tests__/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,15 +73,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\__tests__\components" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Main" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard\Charts" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\interface" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Product" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Main" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\__tests__\components" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Main" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\dashboard\salesOverview" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\order\[orderId]" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\images" />
@@ -92,17 +92,42 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.&lt;Categories/&gt;">
-    <configuration name="Sum function.adds 1 + 2 to equal 3" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.AddCart Component">
+    <configuration name="AddCart Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
+      <test-names>
+        <test-name value="AddCart Component" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="AddCart Component.should display success toast when Add to Cart button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
       <test-names>
-        <test-name value="Sum function" />
-        <test-name value="adds 1 + 2 to equal 3" />
+        <test-name value="AddCart Component" />
+        <test-name value="should display success toast when Add to Cart button is clicked" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="AddCart Component.should increase quantity when the + button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
+      <test-names>
+        <test-name value="AddCart Component" />
+        <test-name value="should increase quantity when the + button is clicked" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -131,38 +156,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="&lt;Home /&gt;" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
-      <test-names>
-        <test-name value="&lt;Home /&gt;" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="&lt;Home /&gt;.renders a heading" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/Home.test.tsx" />
-      <test-names>
-        <test-name value="&lt;Home /&gt;" />
-        <test-name value="renders a heading" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.AddCart Component" />
+        <item itemvalue="Jest.AddCart Component.should display success toast when Add to Cart button is clicked" />
+        <item itemvalue="Jest.AddCart Component.should increase quantity when the + button is clicked" />
         <item itemvalue="Jest.&lt;Categories/&gt;" />
         <item itemvalue="Jest.&lt;Categories/&gt;.render component successfully" />
-        <item itemvalue="Jest.&lt;Home /&gt;.renders a heading" />
-        <item itemvalue="Jest.&lt;Home /&gt;" />
-        <item itemvalue="Jest.Sum function.adds 1 + 2 to equal 3" />
       </list>
     </recent_temporary>
   </component>
@@ -426,6 +426,8 @@
       <workItem from="1731987032351" duration="5522000" />
       <workItem from="1731995959894" duration="8585000" />
       <workItem from="1732017362579" duration="7570000" />
+      <workItem from="1732070774099" duration="6803000" />
+      <workItem from="1732080436104" duration="4547000" />
     </task>
     <servers />
   </component>
