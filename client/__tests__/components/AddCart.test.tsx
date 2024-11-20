@@ -1,8 +1,7 @@
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import AddCart from "@/components/Home/AddCart";
 import {SalesStatus, SalesStatusKor} from "@/types/salesStatus";
 import {Size} from "@/types/size";
-import toast from "react-hot-toast";
 
 // Mock 처리
 jest.mock("@tanstack/react-query", () => ({
