@@ -22,10 +22,11 @@ const AddCart = ({
 }) => {
 
     const [quantity, setQuantity] = useState(1);
-    const {cart, changeCart, isLoading, changeOpen} = useCartStore();
+    const {carts, changeCart, isLoading, changeOpen} = useCartStore();
     const memberInfo = getCookie('member');
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
+    console.log('member', member);
     const handleQuantity = (type: "i" | "d") => {
         if (type === "d") {
             setQuantity((prev) => prev - 1);
@@ -39,7 +40,7 @@ const AddCart = ({
         changeOpen(true);
 
         //같은 사이즈, 같은 컬러가 이미 담겨져있는지 확인한다.
-        const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
+        const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
 
         //해당하는 cino 의 개수를 바꿔야함
         if (result && result.length > 0) { // 담겨있었음

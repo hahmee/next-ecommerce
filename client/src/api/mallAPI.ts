@@ -157,6 +157,16 @@ export const getUserServer = async () => {
     });
 }
 
+export const getCart = async  () => {
+    return await fetchJWT(`/api/cart/items`, {
+        method: "GET",
+        next: {
+            tags: ['carts'],
+        },
+        credentials: 'include',
+        cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
+    });
+}
 
 export const logout = async () => {
 

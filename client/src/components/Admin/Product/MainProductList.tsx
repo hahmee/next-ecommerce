@@ -16,7 +16,7 @@ import {getCategories} from "@/api/adminAPI";
 
 const MainProductList = () => {
 
-    const {cart, changeCart, changeOpen} = useCartStore();
+    const {carts, changeCart, changeOpen} = useCartStore();
     const memberInfo = getCookie('member');
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
@@ -33,7 +33,7 @@ const MainProductList = () => {
 
     const handleClickAddCart = (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
-        const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
+        const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
         //해당하는 cino 의 개수를 바꿔야함
         if (result && result.length > 0) { // 담겨있었음
             const cartItemChange: CartItem = {
@@ -58,7 +58,6 @@ const MainProductList = () => {
         }
 
         toast.success('장바구니에 담겼습니다.');
-        //스낵바 "장바구니 담겼습니다."
 
     };
 

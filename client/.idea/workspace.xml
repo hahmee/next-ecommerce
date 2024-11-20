@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/mallAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/mallAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Checkout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/cartStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/cartStore.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +68,10 @@
     "Jest.AddCart Component.executor": "Run",
     "Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor": "Run",
     "Jest.AddCart Component.should increase quantity when the + button is clicked.executor": "Run",
+    "Jest.AddCart Component.should render the AddCart component.executor": "Run",
+    "Jest.Categories Component.executor": "Run",
+    "Jest.SingleCartItem Component.executor": "Run",
+    "Jest.SingleCartItem Component.should render the SingleCart component.executor": "Run",
     "Jest.Sum function.adds 1 + 2 to equal 3.executor": "Run",
     "Jest.Sum function.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -92,7 +110,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.AddCart Component">
+  <component name="RunManager" selected="Jest.SingleCartItem Component.should render the SingleCart component">
     <configuration name="AddCart Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -105,7 +123,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AddCart Component.should display success toast when Add to Cart button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="AddCart Component.should render the AddCart component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
@@ -114,55 +132,54 @@
       <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
       <test-names>
         <test-name value="AddCart Component" />
-        <test-name value="should display success toast when Add to Cart button is clicked" />
+        <test-name value="should render the AddCart component" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AddCart Component.should increase quantity when the + button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
-      <test-names>
-        <test-name value="AddCart Component" />
-        <test-name value="should increase quantity when the + button is clicked" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="&lt;Categories/&gt;" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="Categories Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/src/components/Home/Main/Categories.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" />
       <test-names>
-        <test-name value="&lt;Categories/&gt;" />
+        <test-name value="Categories Component" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="&lt;Categories/&gt;.render component successfully" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="SingleCartItem Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
+      <test-names>
+        <test-name value="SingleCartItem Component" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="SingleCartItem Component.should render the SingleCart component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
       <test-names>
-        <test-name value="&lt;Categories/&gt;" />
-        <test-name value="render component successfully" />
+        <test-name value="SingleCartItem Component" />
+        <test-name value="should render the SingleCart component" />
       </test-names>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.SingleCartItem Component.should render the SingleCart component" />
+        <item itemvalue="Jest.SingleCartItem Component" />
+        <item itemvalue="Jest.AddCart Component.should render the AddCart component" />
         <item itemvalue="Jest.AddCart Component" />
-        <item itemvalue="Jest.AddCart Component.should display success toast when Add to Cart button is clicked" />
-        <item itemvalue="Jest.AddCart Component.should increase quantity when the + button is clicked" />
-        <item itemvalue="Jest.&lt;Categories/&gt;" />
-        <item itemvalue="Jest.&lt;Categories/&gt;.render component successfully" />
+        <item itemvalue="Jest.Categories Component" />
       </list>
     </recent_temporary>
   </component>
@@ -427,7 +444,8 @@
       <workItem from="1731995959894" duration="8585000" />
       <workItem from="1732017362579" duration="7570000" />
       <workItem from="1732070774099" duration="6803000" />
-      <workItem from="1732080436104" duration="4547000" />
+      <workItem from="1732080436104" duration="9022000" />
+      <workItem from="1732093557720" duration="10665000" />
     </task>
     <servers />
   </component>

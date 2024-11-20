@@ -9,6 +9,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {Member} from "@/interface/Member";
 import {getCategories} from "@/api/adminAPI";
+import {getCart} from "@/api/mallAPI";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
@@ -18,6 +19,10 @@ const Navbar = ({member}: { member: Member }) => {
     {
       queryKey: ['categories'],
       queryFn: () => getCategories(),
+    },
+    {
+      queryKey: ['carts'],
+      queryFn: () => getCart(),
     }
   ];
 

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CartItem: FC<Props> = ({item}) => {
-    const { cart, isLoading, removeItem } = useCartStore();
+    const { carts, isLoading, removeItem } = useCartStore();
 
     return (
 

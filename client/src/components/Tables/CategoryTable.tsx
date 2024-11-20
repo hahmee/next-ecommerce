@@ -19,7 +19,6 @@
     import PageComponent from "@/components/Tables/PageComponent";
     import TableActions from "@/components/Tables/TableActions";
     import {getAdminCategories} from "@/api/adminAPI";
-    import {Mode} from "@/types/mode";
 
 
     const CategoryTable = () => {

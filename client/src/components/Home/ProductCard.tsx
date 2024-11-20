@@ -17,7 +17,7 @@ type ProductCardProps = {
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const {cart, changeCart, isLoading, changeOpen} = useCartStore();
+    const {carts, changeCart, isLoading, changeOpen} = useCartStore();
     // const [isAddedToCart, setIsAddedToCart] = useState(false); // 아이콘 상태 관리
     const [color, setColor] = useState<ColorTag>(product.colorList[0]);
     const memberInfo = getCookie('member');
@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
     const handleClickAddCart = (pno: number, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
-        const result = cart.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
+        const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
         //해당하는 cino 의 개수를 바꿔야함
         if (result && result.length > 0) { // 담겨있었음
             const cartItemChange: CartItem = {

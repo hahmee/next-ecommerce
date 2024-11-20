@@ -6,12 +6,12 @@ import Link from "next/link";
 
 const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", cartButtonClick?: () => void }) => {
 
-    const {cart, isLoading , subtotal, shippingFee, tax , total} = useCartStore();
+    const {carts, isLoading , subtotal, shippingFee, tax , total} = useCartStore();
 
     return (
         <div className="w-full lg:w-1/3 bg-white p-6 shadow-sm rounded-lg">
             <div className="flex justify-between">
-                <h2 className="text-lg font-medium mb-4">Order Summary({cart.length})</h2>
+                <h2 className="text-lg font-medium mb-4">Order Summary({carts.length})</h2>
                 {type === "Payment" &&
                     <Link href="/cart" className="cursor-pointer">
                         <h2 className="text-base font-medium mb-4 underline">Edit Cart</h2>
@@ -23,7 +23,7 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
             {
                 type === "Payment" && <div className="flex flex-col gap-5 py-2 border-t border-b pt-4 pb-4">
                     {
-                        cart.map((item) =>
+                        carts.map((item) =>
                             <div className="flex justify-between" key={item.cino}>
                                 <div className="flex gap-2">
                                     <Image

@@ -4,8 +4,9 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import React, {useCallback, useEffect} from "react";
 import Link from "next/link";
+import {getCart, getSuccessPayment} from "@/api/mallAPI";
+import {CartItemList} from "@/interface/CartItemList";
 import {useCartStore} from "@/store/cartStore";
-import {getSuccessPayment} from "@/api/mallAPI";
 
 interface Props {
     paymentKey: string;
@@ -14,7 +15,7 @@ interface Props {
 }
 
 const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
-    const {getCart } = useCartStore();
+    const {setCarts} = useCartStore();
 
     //데이터 가져온 후 다른 페이지로 이동..?
     const {data: payment, error} = useQuery<DataResponse<any>, any, any, [_1: string, _2: string]>({
@@ -25,18 +26,28 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
         select: useCallback((data: DataResponse<any>) => {
             return data.data;
         }, []),
+    });
 
+    const { isFetched, isFetching, data:cartData, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({
+        queryKey: ['carts'],
+        queryFn: () => getCart(),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: true,
+        select: (data) => {
+            // 데이터 가공 로직만 처리
+            return data.data;
+        }
     });
 
     console.log('payments..', payment);
 
+    // React Query 데이터와 Zustand 동기화
     useEffect(() => {
-
-        if(payment){
-            getCart();
-
+        if (cartData) {
+            setCarts(cartData); // Zustand의 상태 업데이트
         }
-    }, [payment]);
+    }, [cartData, setCarts]);
 
     if(error) {
         console.log('error', error);
@@ -49,6 +60,7 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
         // router.push(`/order/fail?code=${}&message=${}`);
         return null;
     }
+
 
     return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">

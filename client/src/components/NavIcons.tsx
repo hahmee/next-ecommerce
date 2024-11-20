@@ -5,14 +5,17 @@ import React, {useEffect, useState} from "react";
 import {Member} from "@/interface/Member";
 import CartModal from "@/components/Home/CartModal";
 import {useCartStore} from "@/store/cartStore";
-import {logout} from "@/api/mallAPI";
+import {getCart, logout} from "@/api/mallAPI";
 import {useRouter} from "next/navigation";
 import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import {MemberRole} from "@/types/memberRole";
+import {useQuery} from "@tanstack/react-query";
+import {DataResponse} from "@/interface/DataResponse";
+import {CartItemList} from "@/interface/CartItemList";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const router = useRouter();
-    const {  counter, getCart, changeOpen, open } = useCartStore();
+    const {counter, changeOpen, open , setCarts} = useCartStore();
     const [accountOpen, setAccountOpen] = useState(false);
 
     const onLogout = async () => {
@@ -28,12 +31,24 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
 
     };
 
+    const { isFetched, isFetching, data:cartData, error, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({
+        queryKey: ['carts'],
+        queryFn: () => getCart(),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: true,
+        select: (data) => {
+            // 데이터 가공 로직만 처리
+            return data.data;
+        }
+    });
 
+    // React Query 데이터와 Zustand 동기화
     useEffect(() => {
-        getCart();
-
-    }, []);
-
+        if (cartData) {
+            setCarts(cartData); // Zustand의 상태 업데이트
+        }
+    }, [cartData, setCarts]);
 
     return (
         <div className="flex items-center gap-4 xl:gap-6 relative">

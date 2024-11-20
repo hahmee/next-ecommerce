@@ -8,7 +8,7 @@ import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
 
 const Checkout = () => {
-    const {cart, subtotal, tax, shippingFee, total} = useCartStore();
+    const {carts, subtotal, tax, shippingFee, total} = useCartStore();
 
     // 배송 정보 상태 관리
     const [shippingInfo, setShippingInfo] = useState<OrderShippingAddressInfo>({
@@ -41,7 +41,7 @@ const Checkout = () => {
         await tossPayments.requestPayment("카드", {
             amount: total,
             orderId: newOrderId,
-            orderName: cart.length > 1 ? `${cart[0].pname} 외 ${cart.length - 1}개` : `${cart[0].pname}`,
+            orderName: carts.length > 1 ? `${carts[0].pname} 외 ${carts.length - 1}개` : `${carts[0].pname}`,
             customerName: '판매자_테스트',
             successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
             failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
@@ -52,7 +52,7 @@ const Checkout = () => {
     const orderSave = async (orderId: string) => {
         const order: OrderRequest = {
             deliveryInfo: shippingInfo,
-            carts: cart,
+            carts: carts,
             totalAmount: total,
             shippingFee: shippingFee,
             tax: tax,

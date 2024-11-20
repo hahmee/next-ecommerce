@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {CartItemList} from "@/interface/CartItemList";
 import Image from "next/image";
-import {MinusIcon, PlusIcon, } from "@heroicons/react/20/solid";
+import {MinusIcon, PlusIcon,} from "@heroicons/react/20/solid";
 import {TrashIcon} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
@@ -14,10 +14,9 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
     const [quantity, setQuantity] = useState(cartItem.qty);
     const memberInfo = getCookie('member');
-    ()    // const member = JSON.parse(memberInfo ? memberInfo : "")
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-    const { cart, counter, getCart, changeCart, open, removeItem } = useCartStore();
+    const { carts, changeCart, removeItem } = useCartStore();
 
     // 수량이 변경될 때마다 장바구니 변경을 처리
     useEffect(() => {
@@ -31,7 +30,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
     const handleClickAddCart = useCallback(
         (pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
-            const result = cart.filter(
+            const result = carts.filter(
                 (item: CartItemList) => item.size === options.size && item.color.id === options.color.id
             );
 
@@ -57,7 +56,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                 changeCart(cartItem);
             }
         },
-        [cart, changeCart]
+        [carts, changeCart]
     );
 
     return (

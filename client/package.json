@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "clear_jest": "jest --clearCache"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",

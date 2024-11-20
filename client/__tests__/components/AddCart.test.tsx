@@ -19,8 +19,6 @@ describe("AddCart Component", () => {
     beforeEach(() => {
         jest.clearAllMocks(); // 테스트 전 Mock 초기화
 
-        console.log(toast.success); // jest.fn()이 출력되어야 함
-
     });
 
     const pno = 1;
