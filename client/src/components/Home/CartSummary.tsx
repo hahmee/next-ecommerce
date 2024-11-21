@@ -52,7 +52,6 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
                 </div>
             }
 
-
             <div className="flex justify-between py-2">
                 <span>Subtotal</span>
                 <span>{subtotal.toLocaleString()}</span>

@@ -1,4 +1,4 @@
-import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {act, fireEvent, render, screen} from "@testing-library/react";
 import SingleCartItem from "@/components/Home/SingleCartItem";
 import {getCookie} from "cookies-next";
 import {useCartStore} from "@/store/cartStore";

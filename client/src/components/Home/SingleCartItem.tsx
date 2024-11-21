@@ -23,9 +23,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
     }, [carts]);
 
     const handleClickAddCart = useCallback((pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
-            const result = carts.filter(
-                (item: CartItemList) => item.size === options.size && item.color.id === options.color.id
-            );
+            const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
 
             if (result.length > 0) {
                 const cartItemChange: CartItem = {
@@ -79,14 +77,14 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                 </div>
             </div>
             <div className="flex items-center space-x-8">
-                {cartItem.qty}
+
                 <div className="flex items-center">
                     <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200"
                             onClick={() => handleQuantity("d")} disabled={cartItem.qty === 1}
                             aria-label="Decrease Quantity">
                         <MinusIcon className="w-4 h-4 text-gray-600"/>
                     </button>
-                    <span className="px-4 py-2">{cartItem.qty}</span>
+                    <span className="px-4 py-2">{cartItem.qty.toLocaleString()}</span>
                     <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200"
                             onClick={() => handleQuantity("i")} aria-label="Increase Quantity">
                         <PlusIcon className="w-4 h-4 text-gray-600"/>
@@ -94,7 +92,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                 </div>
 
                 <div>
-                    <p className="text-lg font-semibold text-green-600">{cartItem.price} 원</p>
+                    <p className="text-lg font-semibold text-green-600">{(cartItem.price).toLocaleString()} 원</p>
                 </div>
                 <button className="text-red-500 hover:text-red-700 flex items-center"
                         onClick={() => removeItem(cartItem.cino)} aria-label="Remove Item">
