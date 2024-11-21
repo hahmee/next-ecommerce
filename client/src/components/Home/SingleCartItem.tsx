@@ -12,25 +12,17 @@ import {getCookie} from "cookies-next";
 
 const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
-    const [quantity, setQuantity] = useState(cartItem.qty);
     const memberInfo = getCookie('member');
-    console.log('memberInfo', memberInfo);
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
     const { carts, changeCart, removeItem } = useCartStore();
 
     // 수량이 변경될 때마다 장바구니 변경을 처리
-    useEffect(() => {
-        handleClickAddCart(cartItem.pno, { color: cartItem.color, size: cartItem.size }, quantity);
-    }, [quantity]);
+    const handleQuantity = useCallback((type: "i" | "d") => {
+        handleClickAddCart(cartItem.pno, {color: cartItem.color, size: cartItem.size}, type === "i" ? cartItem.qty +1 : cartItem.qty -1);
+    }, [carts]);
 
-    const handleQuantity = useCallback(
-        (type: "i" | "d") => {
-            setQuantity((prevQuantity) => (type === "i" ? prevQuantity + 1 : prevQuantity - 1));
-        }, []);
-
-    const handleClickAddCart = useCallback(
-        (pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
+    const handleClickAddCart = useCallback((pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
             const result = carts.filter(
                 (item: CartItemList) => item.size === options.size && item.color.id === options.color.id
             );
@@ -42,19 +34,19 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                     qty: newQuantity,
                     color: options.color,
                     size: options.size,
-                    sellerEmail: ""
+                    sellerEmail: cartItem.sellerEmail
                 };
                 changeCart(cartItemChange);
             } else {
-                const cartItem: CartItem = {
+                const cartItemChange: CartItem = {
                     email: member.email,
                     pno: pno,
                     qty: 1,
                     color: options.color,
                     size: options.size,
-                    sellerEmail: ""
+                    sellerEmail: cartItem.sellerEmail,
                 };
-                changeCart(cartItem);
+                changeCart(cartItemChange);
             }
         },
         [carts, changeCart]
@@ -87,21 +79,25 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                 </div>
             </div>
             <div className="flex items-center space-x-8">
-
+                {cartItem.qty}
                 <div className="flex items-center">
-                    <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200" onClick={() => handleQuantity("d")} disabled={quantity === 1} aria-label="Decrease Quantity">
+                    <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200"
+                            onClick={() => handleQuantity("d")} disabled={cartItem.qty === 1}
+                            aria-label="Decrease Quantity">
                         <MinusIcon className="w-4 h-4 text-gray-600"/>
                     </button>
-                    <span className="px-4 py-2">{quantity}</span>
-                    <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200" onClick={() => handleQuantity("i")} aria-label="Increase Quantity">
+                    <span className="px-4 py-2">{cartItem.qty}</span>
+                    <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-200"
+                            onClick={() => handleQuantity("i")} aria-label="Increase Quantity">
                         <PlusIcon className="w-4 h-4 text-gray-600"/>
                     </button>
                 </div>
 
                 <div>
-                    <p className="text-lg font-semibold text-green-600">{cartItem.price.toLocaleString()} 원</p>
+                    <p className="text-lg font-semibold text-green-600">{cartItem.price} 원</p>
                 </div>
-                <button className="text-red-500 hover:text-red-700 flex items-center" onClick={() => removeItem(cartItem.cino)} aria-label="Remove Item">
+                <button className="text-red-500 hover:text-red-700 flex items-center"
+                        onClick={() => removeItem(cartItem.cino)} aria-label="Remove Item">
                     <TrashIcon className="w-5 h-5 mr-1"/>
                 </button>
             </div>
