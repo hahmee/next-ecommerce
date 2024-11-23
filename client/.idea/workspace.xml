@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/CartSummary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +29,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -59,10 +62,16 @@
     &quot;Jest.AddCart Component.should render the AddCart component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.AddCart Component.should render the ll component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Categories Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login (1).executor&quot;: &quot;Run&quot;,
     &quot;Jest.Login.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Login.login form should be in the document.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Login.renders the login form correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should redirect to signup page when \&quot;계정이 없으신가요?\&quot; is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should show error message when login fails.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Login.should successfully login when correct credentials are provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.renders the signup form correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.should successfully signup when correct credentials are provided.executor&quot;: &quot;Run&quot;,
     &quot;Jest.SingleCartItem Component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.SingleCartItem Component.should decrease quantity when the - button is clicked.executor&quot;: &quot;Run&quot;,
     &quot;Jest.SingleCartItem Component.should increase quantity when the + button is clicked.executor&quot;: &quot;Run&quot;,
@@ -107,7 +116,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Login.should successfully login when correct credentials are provided">
+  <component name="RunManager" selected="Jest.Signup">
     <configuration name="Login" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -117,32 +126,6 @@
       <test-file value="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" />
       <test-names>
         <test-name value="Login" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Login.login form should be in the document" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" />
-      <test-names>
-        <test-name value="Login" />
-        <test-name value="login form should be in the document" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Login.renders the login form correctly" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" />
-      <test-names>
-        <test-name value="Login" />
-        <test-name value="renders the login form correctly" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -159,26 +142,51 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="SingleCartItem Component.should increase quantity when the + button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="Signup" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx" />
+      <test-names>
+        <test-name value="Signup" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Signup.renders the signup form correctly" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx" />
       <test-names>
-        <test-name value="SingleCartItem Component" />
-        <test-name value="should increase quantity when the + button is clicked" />
+        <test-name value="Signup" />
+        <test-name value="renders the signup form correctly" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Signup.should successfully signup when correct credentials are provided" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx" />
+      <test-names>
+        <test-name value="Signup" />
+        <test-name value="should successfully signup when correct credentials are provided" />
       </test-names>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.Signup" />
+        <item itemvalue="Jest.Signup.should successfully signup when correct credentials are provided" />
+        <item itemvalue="Jest.Signup.renders the signup form correctly" />
         <item itemvalue="Jest.Login.should successfully login when correct credentials are provided" />
-        <item itemvalue="Jest.Login.renders the login form correctly" />
         <item itemvalue="Jest.Login" />
-        <item itemvalue="Jest.Login.login form should be in the document" />
-        <item itemvalue="Jest.SingleCartItem Component.should increase quantity when the + button is clicked" />
       </list>
     </recent_temporary>
   </component>
@@ -446,7 +454,10 @@
       <workItem from="1732080436104" duration="9022000" />
       <workItem from="1732093557720" duration="18938000" />
       <workItem from="1732157593691" duration="18802000" />
-      <workItem from="1732186422891" duration="6976000" />
+      <workItem from="1732186422891" duration="8341000" />
+      <workItem from="1732241273395" duration="9050000" />
+      <workItem from="1732284534944" duration="6357000" />
+      <workItem from="1732336545647" duration="8389000" />
     </task>
     <servers />
   </component>

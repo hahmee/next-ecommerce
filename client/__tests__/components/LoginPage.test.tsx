@@ -6,7 +6,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
 import {useRouter} from "next/navigation";
 
-// fetch 모킹
+    // fetch 모킹
     global.fetch = jest.fn();
 
     jest.mock("@next/third-parties/google", () => ({
@@ -31,8 +31,6 @@ import {useRouter} from "next/navigation";
         replace: jest.fn(), // replace 메서드를 포함하는 객체 생성
         push: jest.fn(), // push 메서드를 포함하는 객체 생성
     };
-
-
 
     describe("Login", () => {
         beforeEach(() => {
@@ -104,7 +102,6 @@ import {useRouter} from "next/navigation";
             expect(mockRouter.replace).toHaveBeenCalledWith('/');
 
         });
-
 
         it('should show error message when login fails', async () => {
             render(<LoginPage />);
