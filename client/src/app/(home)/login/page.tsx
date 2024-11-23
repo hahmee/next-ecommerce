@@ -6,6 +6,7 @@
     import {sendGTMEvent} from "@next/third-parties/google";
     import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
+    import toast from "react-hot-toast";
     // import {getCookie} from "cookies-next";
     //
     // export function showMessage (message: string | null) {
@@ -100,6 +101,7 @@
                     const member = await getCookie("member") as Member | undefined;
 
                     if(member) {
+                        toast.success("로그인 되었습니다.");
                         const roleNames = member.roleNames;
                         const role = getHighRole(roleNames);
                         const encryptedId = member.encryptedId;
