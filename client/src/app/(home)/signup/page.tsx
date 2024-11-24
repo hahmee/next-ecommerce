@@ -60,7 +60,6 @@ export default function SignupPage() {
             }else{
                 toast.success("회원가입 되었습니다.");
                 router.replace('/login');
-
             }
             setPending(false);
 

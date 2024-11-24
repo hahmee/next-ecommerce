@@ -12,6 +12,7 @@ import {MemberRole} from "@/types/memberRole";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {CartItemList} from "@/interface/CartItemList";
+import toast from "react-hot-toast";
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const router = useRouter();
@@ -26,6 +27,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         // });
 
         await logout();
+        toast.success("로그아웃 되었습니다.");
 
         router.push('/login');
 

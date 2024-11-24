@@ -37,8 +37,6 @@ const SearchBar = () => {
     }
   };
 
-
-
   return (
     <form className="flex items-center justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1" onSubmit={handleSubmit}>
       <input
@@ -48,6 +46,7 @@ const SearchBar = () => {
         value={searchQuery} // searchQuery 상태를 input의 value로 사용
         className="flex-1 bg-transparent outline-none"
         onChange={(e) => setSearchQuery(e.target.value)} // 입력값 업데이트
+        data-testid="search-result"
       />
       <button className="cursor-pointer" type="submit">
         <Image src="/search.png" alt="search" width={16} height={16} />
