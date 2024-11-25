@@ -8,8 +8,6 @@ jest.mock("@tanstack/react-query", () => ({
     useQuery: jest.fn(),
 }));
 
-// jest.mock("@/store/cartStore");
-
 jest.mock('react-hot-toast', () => ({
     success: jest.fn(),
 }));

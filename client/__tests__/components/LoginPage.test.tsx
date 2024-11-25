@@ -6,16 +6,16 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
 import {useRouter} from "next/navigation";
 
-    // fetch 모킹
-    global.fetch = jest.fn();
+// fetch 모킹
+global.fetch = jest.fn();
 
-    jest.mock("@next/third-parties/google", () => ({
-        sendGTMEvent: jest.fn(),
-    }));
+jest.mock("@next/third-parties/google", () => ({
+    sendGTMEvent: jest.fn(),
+}));
 
-    jest.mock('next/navigation', () => ({
-        useRouter: jest.fn(), // useRouter를 jest.fn()으로 모킹
-    }));
+jest.mock('next/navigation', () => ({
+    useRouter: jest.fn(), // useRouter를 jest.fn()으로 모킹
+}));
 
     jest.mock("@/utils/cookie", () => ({
         setCookie: jest.fn(),
@@ -53,7 +53,6 @@ import {useRouter} from "next/navigation";
             expect(screen.getByPlaceholderText('비밀번호')).toBeInTheDocument();
             expect(screen.getByText('계정이 없으신가요?')).toBeInTheDocument();
             expect(screen.getByRole("button", { name: "login" })).toBeInTheDocument();
-
         });
 
         it('should successfully login when correct credentials are provided', async () => {
@@ -84,7 +83,6 @@ import {useRouter} from "next/navigation";
             await waitFor(() => {
                 // 쿠키가 세팅되었는지 확인
                 expect(setCookie).toHaveBeenCalledWith('member', JSON.stringify(mockMemberData));
-
             });
 
             console.log("sendGTMEvent 호출 전");
@@ -124,7 +122,6 @@ import {useRouter} from "next/navigation";
                 expect(screen.getByText('존재하지 않는 계정입니다.')).toBeInTheDocument();
             });
         });
-
         it('should redirect to signup page when "계정이 없으신가요?" is clicked', () => {
             render(<LoginPage />);
 
@@ -134,6 +131,5 @@ import {useRouter} from "next/navigation";
             // signup 페이지로 리다이렉트 됐는지 확인
             expect(mockRouter.push).toHaveBeenCalledWith('/signup');
         });
-
-
     });
+

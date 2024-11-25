@@ -60,7 +60,7 @@ describe("Signup", () => {
         };
 
         (fetch as jest.Mock).mockResolvedValueOnce({
-            json: async () => ({code: 0, data: mockMemberData, success: true, message: ""}) as DataResponse<Member>,
+            json: async () => ({code: 0, data: mockMemberData, success: true, message: ""}) as DataResponse<Member>
         });
 
         // 회원가입 클릭 및 상태 업데이트 처리
@@ -75,8 +75,7 @@ describe("Signup", () => {
             // mockRouter.replace가 호출되었는지 확인
             expect(mockRouter.replace).toHaveBeenCalledWith('/login');
         });
+
     });
-
-
 
 });

@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     Member member = memberRepository.getWithRoles(email);
 
     if(member == null){
-      throw new UsernameNotFoundException("Not Found");
+      throw new UsernameNotFoundException("Not Found"); //사용자 존재 안 함
     }
 
     MemberDTO memberDTO = new MemberDTO(

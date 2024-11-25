@@ -19,8 +19,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  //TypeScript 컴파일 시 아래 파일들을 무시
+  "exclude": ["node_modules", "**/*.cy.ts", "**/*.cy.tsx", "./cypress.config.ts", "cypress"]
 }

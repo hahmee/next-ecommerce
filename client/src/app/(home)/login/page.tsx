@@ -164,6 +164,7 @@
                     <button
                         className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed "
                         disabled={false}
+                        type="submit"
                         aria-label={"login"}
                     >
                         로그인

@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "clear_jest": "jest --clearCache"
+    "clear_jest": "jest --clearCache",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",
@@ -47,12 +48,13 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^16.0.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.16.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "eslint-plugin-jest-dom": "^5.4.0",

@@ -118,9 +118,6 @@ export default function SignupPage() {
                     회원가입
                 </button>
                 {message && <div className="text-green-600 text-sm">{message}</div>}
-
-                {/*{state.message && <div className="text-green-600 text-sm">{state?.message}</div>}*/}
-
             </form>
         </div>
     );
