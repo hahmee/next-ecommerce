@@ -63,11 +63,13 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
                 width={22}
                 height={22}
                 className="cursor-pointer"
+                aria-label={"my-menu"}
                 onClick={() => setAccountOpen((prev) => !prev)}
             />
             {
                 accountOpen && (
                     <div
+                        id="account-menu"
                         className="absolute animate-fadeInUp p-4 rounded-md top-12 left-0 bg-white text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20"
                         onClick={(e) => e.stopPropagation()}>
                         <div className="relative">
@@ -82,7 +84,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
                                 </div>
                             </Link>
                             <div className="mt-2 cursor-pointer">
-                                <button onClick={onLogout}>로그아웃</button>
+                                <button onClick={onLogout} aria-label={"logout"}>로그아웃</button>
                             </div>
 
                         </div>
