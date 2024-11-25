@@ -72,7 +72,14 @@
                     body: new URLSearchParams({
                         username: email as string,
                         password: password as string,
-                    })
+                    }),
+                    // headers: {
+                    //     'Content-Type': 'application/json',
+                    // },
+                    // body: JSON.stringify({
+                    //     username: email,
+                    //     password: password,
+                    // }),
                 });
 
                 const data: DataResponse<Member> = await response.json();
@@ -89,7 +96,7 @@
                     //쿠키 세팅
                     const expires = new Date();
                     expires.setUTCDate(expires.getUTCDate() + 1);
-    ``
+                    console.log(JSON.stringify(data.data));
                     // cookies().set("member", JSON.stringify(data), {expires: expires});
                     await setCookie("member", JSON.stringify(data.data));
 
@@ -100,7 +107,7 @@
 
                     const member = await getCookie("member") as Member | undefined;
 
-                    if(member) {
+                    if (member) {
                         toast.success("로그인 되었습니다.");
                         const roleNames = member.roleNames;
                         const role = getHighRole(roleNames);

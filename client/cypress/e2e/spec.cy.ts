@@ -1,5 +1,5 @@
 // 'My App'이라는 테스트 스위트를 정의합니다.
-describe('E-COMMERCE', () => {
+describe('Login test', () => {
 
   // 'Login'이라는 테스트 그룹을 정의합니다. 이 테스트 그룹은 로그인 기능과 관련된 테스트 케이스들을 묶어줍니다.
   context('Login test group', () => {
@@ -41,11 +41,13 @@ describe('E-COMMERCE', () => {
     it('Logout from main', () => {
       // 테스트할 내용을 작성합니다.
       cy.login('user1@aaa.com', '1111'); // cy.login()은 커스텀 커맨드로, 로그인을 수행하는 함수입니다.
-      cy.visit('http://localhost:3000'); // 메인 페이지에 접속합니다.
-      cy.get('img[aria-label="my-menu"]').click(); //메뉴 클릭
-      cy.get('#account-menu').should('be.visible');//메뉴가 열렸는지 확인
+
+
+      cy.get('img[aria-label="my-menu"]').should('be.visible').click(); //요소가 렌더링될 떄 까지 기다렸다가 클릭
       cy.get('button[aria-label="logout"]').click(); // 로그아웃 버튼을 클릭합니다.
       cy.url().should('include', '/login'); // 로그아웃이 성공하면 로그인 페이지로 이동합니다.
+
+
     });
 
   });
