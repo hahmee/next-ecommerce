@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.zerock.mallapi.domain.Member;
+import org.zerock.mallapi.domain.MemberRole;
 import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.repository.MemberRepository;
 
@@ -39,9 +40,10 @@ public class CustomUserDetailsService implements UserDetailsService{
             member.getPassword(),
             member.getNickname(),
             member.isSocial(),
-            member.getMemberRoleList()
-                    .stream()
-                    .map(memberRole -> memberRole.name()).collect(Collectors.toList()),
+//            member.getMemberRoleList().stream().map(memberRole -> MemberRole.valueOf(String.valueOf(memberRole))).collect(Collectors.toList()),
+//            member.getMemberRoleList(),
+            member.getMemberRoleList().stream().map(memberRole -> memberRole).collect(Collectors.toList()),
+//            member.getMemberRoleList().stream().map(memberRole -> memberRole.name()).collect(Collectors.toList()),
             member.getEncryptedId());
 
     log.info(memberDTO);

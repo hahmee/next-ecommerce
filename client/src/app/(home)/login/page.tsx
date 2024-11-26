@@ -66,6 +66,7 @@
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                     method: "POST",
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
@@ -73,16 +74,11 @@
                         username: email as string,
                         password: password as string,
                     }),
-                    // headers: {
-                    //     'Content-Type': 'application/json',
-                    // },
-                    // body: JSON.stringify({
-                    //     username: email,
-                    //     password: password,
-                    // }),
                 });
 
                 const data: DataResponse<Member> = await response.json();
+
+                console.log('data', data);
 
                 if (data.code != 0) { //에러있는 상황
                     setMessage(data.message);

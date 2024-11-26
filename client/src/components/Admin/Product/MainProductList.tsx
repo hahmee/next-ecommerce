@@ -12,7 +12,7 @@ import {useCartStore} from "@/store/cartStore";
 import {getCookie} from "cookies-next";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
-import {getCategories} from "@/api/adminAPI";
+import {getNewProducts} from "@/api/adminAPI";
 
 const MainProductList = () => {
 
@@ -22,7 +22,7 @@ const MainProductList = () => {
 
     const {data: newProducts, isFetched, isLoading, isError, isFetching} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
         queryKey: ['new-products'],
-        queryFn: () => getCategories(),
+        queryFn: () => getNewProducts(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
@@ -65,6 +65,10 @@ const MainProductList = () => {
         return <div>Loading...</div>; // 로딩 상태 표시
     }
 
+    if(!newProducts) {
+        return null;
+    }
+
     return (
         <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
             {newProducts?.map((product: Product) => (
@@ -94,18 +98,15 @@ const MainProductList = () => {
                                         />
                                     </>
                                 )
-
                             }
-
                         </div>
-                        <div className="flex justify-between">
-                        <span
-                            className="font-medium overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}</span>
+                        <div className="flex justify-between mt-1.5">
+                        <span className="font-medium overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}</span>
                             <span className="font-semibold">{product.price?.toLocaleString()} 원</span>
                         </div>
                         {product.pdesc && (
                             <div
-                                className="text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap"
+                                className="my-1 text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap"
                                 dangerouslySetInnerHTML={{__html: product.pdesc}}
                             ></div>
                         )}

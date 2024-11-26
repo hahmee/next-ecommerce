@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.zerock.mallapi.domain.MemberRole;
 import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.JWTUtil;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class JWTCheckFilter extends OncePerRequestFilter {
@@ -71,7 +73,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       String password = (String) claims.get("password");
       String nickname = (String) claims.get("nickname");
       Boolean social = (Boolean) claims.get("social");
-      List<String> roleNames = (List<String>) claims.get("roleNames");
+      List<String> rolesString = (List<String>) claims.get("roleNames");
+      List<MemberRole> roleNames = rolesString.stream().map(MemberRole::valueOf).collect(Collectors.toList()); // Stream -> List 변환
       String encryptedId = (String) claims.get("encryptedId");
 
       MemberDTO memberDTO = new MemberDTO(email, password, nickname, social.booleanValue(), roleNames, encryptedId);

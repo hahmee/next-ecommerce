@@ -41,6 +41,9 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler{
 
   log.info("-------------refreshToken" + refreshToken);
 
+  log.info("-------------claims" + claims);
+
+
   Map loginData =  Map.of("success", true, "code", 0, "message", "Ok", "data", claims);
 
   Gson gson = new Gson();

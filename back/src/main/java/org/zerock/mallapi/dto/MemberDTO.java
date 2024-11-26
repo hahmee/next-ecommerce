@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.zerock.mallapi.domain.MemberRole;
 
 @Getter
 @Setter
@@ -23,11 +24,11 @@ public class MemberDTO extends User {
 
   private boolean social;
 
-  private List<String> roleNames = new ArrayList<>();
+  private List<MemberRole> roleNames = new ArrayList<>();
 
   private String encryptedId; // User-ID 암호화 (GA4사용목적)
 
-  public MemberDTO(String email, String password, String nickname, boolean social, List<String> roleNames, String encryptedId) {
+  public MemberDTO(String email, String password, String nickname, boolean social, List<MemberRole> roleNames, String encryptedId) {
     super(email, password, roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
     this.email = email;
     this.password = password;

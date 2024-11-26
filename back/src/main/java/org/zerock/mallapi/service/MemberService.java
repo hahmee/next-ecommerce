@@ -25,12 +25,13 @@ public interface MemberService {
   default MemberDTO entityToDTO(Member member) {
 
     MemberDTO dto = new MemberDTO(
-            member.getEmail(),
-            member.getPassword(),
-            member.getNickname(),
-            member.isSocial(),
-            member.getMemberRoleList().stream().map(memberRole -> memberRole.name()).collect(Collectors.toList()),
-            member.getEncryptedId());
+                                  member.getEmail(),
+                                  member.getPassword(),
+                                  member.getNickname(),
+                                  member.isSocial(),
+                                  member.getMemberRoleList().stream().map(memberRole -> memberRole).collect(Collectors.toList()),
+                                  member.getEncryptedId()
+    );
     return dto;
   }
 

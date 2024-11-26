@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.ProductRepository;
+import org.zerock.mallapi.util.GeneralException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -368,12 +371,19 @@ public class ProductServiceImpl implements ProductService{
   public ProductDTO register(ProductDTO productDTO, UserDetails userDetails) {
     log.info("asdfasdfasd ProductDTO " + productDTO);
 
+
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();
+//    String email = userDetails.getUsername();
+//    String email = userDetails.getUsername();
+//    String email = userDetails.getUsername();
+
 
     log.info("asdfasdfasd email " + email);
 
-    Product product = dtoToEntity(productDTO, email);
+    Product product = dtoToEntity(productDTO, userDetails);
+
+    log.info("asdfasdfasd product " + product);
 
     //시간
     product.setCreatedAt(LocalDateTime.now());
@@ -391,9 +401,17 @@ public class ProductServiceImpl implements ProductService{
     return resultDTO;
   }
 
-  private Product dtoToEntity(ProductDTO productDTO, String email){
+  private Product dtoToEntity(ProductDTO productDTO, UserDetails userDetails) {
 
-    Member member = Member.builder().email(email).build();
+    log.info("asdfasdfasd userDetails " + userDetails);
+    Member member = null;
+    if (userDetails instanceof MemberDTO) {
+      MemberDTO memberDTO = (MemberDTO) userDetails;
+      member = Member.builder().email(memberDTO.getUsername()).password(memberDTO.getPassword()).nickname(memberDTO.getNickname()).encryptedId(memberDTO.getEncryptedId()).memberRoleList(memberDTO.getRoleNames()).build();
+    }else {
+      throw new GeneralException(ErrorCode.INTERNAL_ERROR);
+    }
+
 
     AdminCategory category = AdminCategory.builder().cno(productDTO.getCategoryId()).build();
 
@@ -427,7 +445,7 @@ public class ProductServiceImpl implements ProductService{
 
     List<FileDTO<String>> uploadFileKeys = productDTO.getUploadFileKeys();
 
-    if(uploadFileNames == null){
+    if (uploadFileNames == null) {
       return product;
     }
 
@@ -462,7 +480,11 @@ public class ProductServiceImpl implements ProductService{
     CategoryDTO categoryDTO = CategoryDTO.builder().cno(adminCategory.getCno()).cname(adminCategory.getCname()).cdesc(adminCategory.getCdesc()).build();
 
     MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
-    
+
+//    List<String> roleNames = new ArrayList<>();
+//    roleNames.add("asdfasd");
+//    MemberDTO memberDTO = new MemberDTO("user1@aaa.com", "1111", "user1", false, roleNames, "asd");
+
     ProductDTO productDTO = ProductDTO.builder()
     .pno(product.getPno())
     .pname(product.getPname())
@@ -479,7 +501,6 @@ public class ProductServiceImpl implements ProductService{
             .category(categoryDTO)
             .owner(memberDTO)
     .build();
-
 
 
     //태그

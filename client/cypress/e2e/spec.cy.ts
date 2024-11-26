@@ -7,7 +7,7 @@ describe('Login test', () => {
     // 'Valid user'라는 테스트 케이스를 정의합니다. 이 테스트 케이스는 유효한 사용자 정보로 로그인하는 것을 테스트합니다.
     it('Valid user', () => {
       // 테스트할 내용을 작성합니다.
-      cy.visit("http://localhost:3000/login"); // 로그인 페이지에 접속합니다.
+      cy.visit(`${Cypress.config("baseUrl")}/login`); // 로그인 페이지에 접속합니다.
       cy.get('input[name="email"]').type('user1@aaa.com');
       cy.get('input[name="password"]').type('1111');
       cy.get('button[type="submit"]').click();
@@ -17,7 +17,7 @@ describe('Login test', () => {
     // // 'Invalid user'라는 테스트 케이스를 정의합니다. 이 테스트 케이스는 유효하지 않은 사용자 정보로 로그인하는 것을 테스트합니다.
     it('Invalid user', () => {
       // 테스트할 내용을 작성합니다.
-      cy.visit('http://localhost:3000/login'); // 로그인 페이지에 접속합니다.
+      cy.visit(`${Cypress.config("baseUrl")}/login`); // 로그인 페이지에 접속합니다.
       cy.get('input[name="email"]').type('user1@aaa.com'); // 아이디 입력창에 'wrong'이라고 입력합니다.
       cy.get('input[name="password"]').type('0000'); // 비밀번호 입력창에 '4321'이라고 입력합니다.
       cy.get('button[type="submit"]').click(); // 로그인 버튼을 클릭합니다.
@@ -26,7 +26,7 @@ describe('Login test', () => {
 
     it('Not existed Email', () => {
       // 테스트할 내용을 작성합니다.
-      cy.visit('http://localhost:3000/login'); // 로그인 페이지에 접속합니다.
+      cy.visit(`${Cypress.config("baseUrl")}/login`); // 로그인 페이지에 접속합니다.
       cy.get('input[name="email"]').type('noemail@aaa.com'); // 아이디 입력창에 'wrong'이라고 입력합니다.
       cy.get('input[name="password"]').type('11111'); // 비밀번호 입력창에 '4321'이라고 입력합니다.
       cy.get('button[type="submit"]').click(); // 로그인 버튼을 클릭합니다.
@@ -46,6 +46,7 @@ describe('Login test', () => {
       cy.get('img[aria-label="my-menu"]').should('be.visible').click(); //요소가 렌더링될 떄 까지 기다렸다가 클릭
       cy.get('button[aria-label="logout"]').click(); // 로그아웃 버튼을 클릭합니다.
       cy.url().should('include', '/login'); // 로그아웃이 성공하면 로그인 페이지로 이동합니다.
+
 
 
     });

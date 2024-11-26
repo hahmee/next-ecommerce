@@ -11,6 +11,7 @@ import {fetchJWT} from "@/utils/fetchJWT";
 import {Review} from "@/interface/Review";
 import {useRouter} from "next/navigation";
 import {getOrder} from "@/api/mallAPI";
+import toast from "react-hot-toast";
 
 
 const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
@@ -46,32 +47,37 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
     const reviewSave = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        const reviewData: Review = {
-            content: content,
-            rating: rating,
-            orderId: orderId,
-            pno: order?.productInfo.pno || 0,
-            oid: Number(id),
-            owner: null,
-            order: null,
-            createdAt: null,
-            updatedAt: null
-        };
+        try {
+            const reviewData: Review = {
+                content: content,
+                rating: rating,
+                orderId: orderId,
+                pno: order?.productInfo.pno || 0,
+                oid: Number(id),
+                owner: null,
+                order: null,
+                createdAt: null,
+                updatedAt: null
+            };
 
-        const res  = await fetchJWT(`/api/reviews/`, {
-            method: "POST",
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(reviewData),
-        });
+            const res  = await fetchJWT(`/api/reviews/`, {
+                method: "POST",
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reviewData),
+            });
 
-        console.log('res...', res);
+            if(res.success) {
+                //모달 닫기
+                toast.success("리뷰를 작성했습니다.");
+                router.push(`/order/${orderId}`);  // 모달 닫기 시 이 경로로 이동
+            }
 
-        if(res.success) {
-            //모달 닫기
-            router.push(`/order/${orderId}`);  // 모달 닫기 시 이 경로로 이동
+        }catch (error) {
+            console.error(error);
+            toast.error(`업로드 중 에러가 발생했습니다. ${error}`);
         }
 
     }
@@ -89,18 +95,13 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
                 <h2 className="text-lg font-semibold mb-4 text-center">리뷰쓰기</h2>
                 <form onSubmit={reviewSave}>
                     <div className="flex items-center gap-4 mb-4">
-                        {/*<img src="https://via.placeholder.com/80" alt="상품 이미지"*/}
-                        {/*     className="w-20 h-20 object-cover rounded-md"/>*/}
-                        <Image src={order.productInfo.thumbnailUrl} alt={"상품 대표이미지"} width={500} height={500}
-                               className="w-20 h-20 object-cover rounded-md"/>
+                        <Image src={order.productInfo.thumbnailUrl} alt={"상품 대표이미지"} width={500} height={500} className="w-20 h-20 object-cover rounded-md"/>
                         <div>
                             <p className="text-gray-600 text-sm">{order?.productInfo.pname}</p>
                             <p className="text-gray-500 text-xs">{order?.productInfo.price.toLocaleString()} 원</p>
                             <p className="text-gray-500 text-xs">{order?.productInfo.qty} 개</p>
                             <p className="text-gray-500 text-xs">{order?.productInfo.size}</p>
                             <p className="text-gray-500 text-xs">{order?.productInfo.color.text}</p>
-
-
                         </div>
                     </div>
 

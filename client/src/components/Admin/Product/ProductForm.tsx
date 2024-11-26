@@ -143,9 +143,11 @@ const ProductForm = ({type, id}: Props) => {
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
+            console.log('pdesc.....', pdesc);
             e.preventDefault();
 
             if (quillRef.current) {
+                console.log('quillRef.current.value', quillRef.current.value);
                 setPdesc(quillRef.current.value);
             }
 
@@ -166,7 +168,8 @@ const ProductForm = ({type, id}: Props) => {
             if (type === Mode.ADD) {
 
                 console.log('selectedCategory', selectedCategory);
-                formData.append("pdesc", pdesc);
+                // formData.append("pdesc", pdesc);
+                formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
                 formData.append("categoryId", selectedCategory.cno.toString());
                 formData.append("categoryJson", JSON.stringify(selectedCategory));
 
@@ -193,7 +196,8 @@ const ProductForm = ({type, id}: Props) => {
 
                 // const formData = new FormData(e.target as HTMLFormElement);
 
-                formData.append("pdesc", pdesc);
+                // formData.append("pdesc", pdesc);
+                formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
                 formData.append("categoryId", selectedCategory.cno.toString());
                 formData.append("categoryJson", JSON.stringify(selectedCategory));
                 // formData.append("colorList", tagStore.tags as any);
@@ -231,7 +235,6 @@ const ProductForm = ({type, id}: Props) => {
                     // headers: { 'Content-Type': 'multipart/form-data' }
                 }); // json 형태로 이미 반환
             }
-
         },
         async onSuccess(response, variable) {
             console.log('variable', variable);
@@ -260,7 +263,6 @@ const ProductForm = ({type, id}: Props) => {
                 });
             }
             router.push(`/admin/products`);
-
         },
         onError(error) {
             console.error(error);

@@ -1,5 +1,9 @@
+import {MemberRole} from "../../src/types/memberRole";
+
 Cypress.Commands.add('login', (email: string, password: string) => {
-    cy.visit('http://localhost:3000/login'); // 로그인 페이지에 접속합니다.
+
+
+    cy.visit(`${Cypress.config("baseUrl")}/login`); // 로그인 페이지에 접속합니다.
 
     cy.get('input[name="email"]').type(email);
     cy.get('input[name="password"]').type(password);
@@ -20,6 +24,23 @@ Cypress.Commands.add('login', (email: string, password: string) => {
 
         // Verify the email property
         expect(cookieValue).to.have.property('email', email);
+
     });
+
+
+    // GTM 이벤트가 호출되었는지 확인
+    // cy.window().then((win) => {
+    //     win.sendGTMEvent = cy.stub().as('sendGTMEvent'); // Cypress Stub 생성
+    // });
+    //
+    // cy.get('@sendGTMEvent').should('have.been.calledWith', {
+    //     event: 'login',
+    //     uid: 'encryptedId123',
+    //     user_role: 'USER',
+    //     custom_user_id: 'encryptedId123',
+    // });
+
+
+
 
 });
