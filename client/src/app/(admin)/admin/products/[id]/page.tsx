@@ -3,9 +3,9 @@
 import React, {Suspense} from "react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategories, getCategoryPaths, getProduct} from "@/api/adminAPI";
+import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
 
 interface Props {
     params: {id: string }
@@ -30,7 +30,7 @@ export default async function ModifyProductPage({params}: Props) {
     ];
 
     return (
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<ProductFormSkeleton/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                 <ProductForm type={Mode.EDIT} id={id}/>
             </PrefetchBoundary>

@@ -4,6 +4,7 @@ import {Mode} from "@/types/mode";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategories} from "@/api/adminAPI";
+import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
 
 export default function AddProductPage() {
 
@@ -15,7 +16,7 @@ export default function AddProductPage() {
     ];
 
     return (
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<ProductFormSkeleton/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                  <ProductForm type={Mode.ADD}/>
             </PrefetchBoundary>

@@ -4,6 +4,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import CategoryTable from "@/components/Tables/CategoryTable";
 import {getAdminCategories} from "@/api/adminAPI";
+import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 export default function CategoryPage() {
 
@@ -17,7 +18,7 @@ export default function CategoryPage() {
         <div className="mx-auto">
             <Breadcrumb pageName="Categories"/>
             <div className="flex flex-col gap-10">
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<TableSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
                         <CategoryTable/>
                     </PrefetchBoundary>

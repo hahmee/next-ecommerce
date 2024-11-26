@@ -22,6 +22,8 @@ import Link from "next/link";
 import {getProductsByEmail} from "@/api/adminAPI";
 import {Category} from "@/interface/Category";
 import toast from "react-hot-toast";
+import Skeleton from "@/components/Skeleton/Skeleton";
+import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -47,7 +49,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
     const router = useRouter();
     const queryClient = useQueryClient();
 
-    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
+    const { isFetched,isLoading , isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
         queryKey: ['adminProducts', {page, size, search}],
         queryFn: () => getProductsByEmail({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -129,8 +131,12 @@ const ProductTable = () => { //{page, size, search} : PageParam
         mutation.mutate(deleteId);
     }
 
+    if (isLoading || isFetching) {
+        return <TableSkeleton/>;
+    }
+
+
     return (
-        // <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm ">
             {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
                                    doAction={deleteProduct}/>}

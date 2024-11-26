@@ -67,7 +67,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       String accessToken = authHeaderStr.substring(7);
       Map<String, Object> claims = JWTUtil.validateToken(accessToken); //accessToken 검증 -> 1분으로 했으니 당연히 예외 EXPIRED 뜨겠지?
 
-      log.info("JWT claims: dddddddd" + claims);
+      log.info("JWT claims: " + claims);
 
       String email = (String) claims.get("email");
       String password = (String) claims.get("password");

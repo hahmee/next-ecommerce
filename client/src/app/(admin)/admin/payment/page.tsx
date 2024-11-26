@@ -5,6 +5,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import PaymentOverview from "@/components/Admin/Payment/PaymentOverview";
 import PaymentTable from "@/components/Tables/PaymentTable";
 import {getPaymentsByEmail, getPaymentsOverview} from "@/api/adminAPI";
+import PaymentSkeleton from "@/components/Skeleton/PaymentSkeleton";
 
 export default async function AdminPaymentPage() {
     const endDate = new Date(); // today
@@ -45,7 +46,7 @@ export default async function AdminPaymentPage() {
         <div className="mx-auto">
             <Breadcrumb pageName="Payments"/>
             <div className="flex flex-col gap-10" >
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<PaymentSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
                         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
                             <div className="col-span-12">

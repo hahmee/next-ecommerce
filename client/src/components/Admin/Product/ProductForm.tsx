@@ -31,11 +31,6 @@ export const brandOptions:  Array<Option<string>> = [
     {id: 'brand-option2', content:'브랜드 옵션2'},
     {id: 'brand-option3', content:'브랜드 옵션3'},
 ];
-// export const categoryOptions: Array<Option<string>> = [
-//     {id:'category-option1', content:'카테고리 옵션1'},
-//     {id:'category-option2', content:'카테고리 옵션2'},
-//     {id:'category-option3', content:'카테고리 옵션3'},
-// ]
 
 export const sizeOptions: Array<Option<string>> = [
     {id: Size.XS, content: 'XS'},
@@ -59,7 +54,6 @@ interface Props {
     id?: string;
 }
 
-
 const ProductForm = ({type, id}: Props) => {
     const router = useRouter();
 
@@ -72,7 +66,6 @@ const ProductForm = ({type, id}: Props) => {
 
     //type 변경하기
     const quillRef = useRef<any>(null);
-
 
     // edit일 때만 getProduct하기
     const {isLoading, data: originalData, error} = useQuery<DataResponse<Product>, Object, Product, [_1: string, _2: string]>({
@@ -91,15 +84,14 @@ const ProductForm = ({type, id}: Props) => {
 
             productImageStore.setFiles(uploadFileNames || []);
 
-
-
             return data.data;
         }, []),
 
     });
 
-    const [pdesc, setPdesc] = useState(originalData?.pdesc || '');
+    console.log('originalData', originalData);
 
+    const [pdesc, setPdesc] = useState(originalData?.pdesc || '');
 
     // 선택했던 카테고리들을 가져온다.
     const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
@@ -115,8 +107,6 @@ const ProductForm = ({type, id}: Props) => {
         }, []),
 
     });
-
-    console.log('dat', categoryPaths);
 
     //카테고리 가져오기
     const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
@@ -360,14 +350,6 @@ const ProductForm = ({type, id}: Props) => {
                                                 originalData={originalData?.brand}
                                                 name="brand"/>
                                     </div>
-
-                                    {/*<div className="mb-4.5">*/}
-                                    {/*    <MultiSelect label={"카테고리"} optionList={categoryOptions}*/}
-                                    {/*                 id="multiSelect"*/}
-                                    {/*                 originalData={originalData?.categoryList}*/}
-                                    {/*                 name="categoryList"*/}
-                                    {/*                 defaultOption={"카테고리를 선택해주세요."}/>*/}
-                                    {/*</div>*/}
 
                                     <div className="mb-4.5">
                                         <label

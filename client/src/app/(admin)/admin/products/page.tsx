@@ -4,6 +4,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import ProductTable from "@/components/Tables/ProductTable";
 import {getProductsByEmail} from "@/api/adminAPI";
+import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 
 export default async function ProductsPage() {
@@ -18,7 +19,7 @@ export default async function ProductsPage() {
         <div className="mx-auto">
             <Breadcrumb pageName="Products"/>
             <div className="flex flex-col gap-10">
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<TableSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
                         <ProductTable/>
                     </PrefetchBoundary>

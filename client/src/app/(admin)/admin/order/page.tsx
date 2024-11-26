@@ -4,6 +4,7 @@ import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import OrderTable from "@/components/Tables/OrderTable";
 import {getOrdersByEmail} from "@/api/adminAPI";
+import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 export default async function AdminOrderPage() {
     const endDate = new Date(); // today
@@ -29,7 +30,7 @@ export default async function AdminOrderPage() {
             <div className="mx-auto my-auto h-auto">
                 <Breadcrumb pageName="Orders"/>
                 <div className="flex flex-col gap-10 ">
-                    <Suspense fallback={<Loading/>}>
+                    <Suspense fallback={<TableSkeleton/>}>
                         <PrefetchBoundary prefetchOptions={prefetchOptions}>
                             <OrderTable/>
                         </PrefetchBoundary>

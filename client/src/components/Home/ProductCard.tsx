@@ -51,9 +51,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         toast.success('장바구니에 담겼습니다.');
         //스낵바 "장바구니 담겼습니다."
-
-
     };
+
     return (
         <Link href={`/product/${product.pno}`}>
             <div className="group relative transition-shadow duration-300">

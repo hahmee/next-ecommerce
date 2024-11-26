@@ -65,8 +65,7 @@ const PaymentOverview = () => {
 
 
     return (
-        <div
-            className="grid grid-cols-2 grid-rows-[auto,1fr] divide-y rounded-sm border shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
+        <div className="grid grid-cols-2 grid-rows-[auto,1fr] divide-y rounded-sm border shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
             <div className="pl-7.5 py-3 col-span-2 font-semibold text-lg flex items-center relative">
                 <div>개요:</div>
 

@@ -13,6 +13,7 @@ import {getCookie} from "cookies-next";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
 import {getNewProducts} from "@/api/adminAPI";
+import Skeleton from "@/components/Skeleton/Skeleton";
 
 const MainProductList = () => {
 
@@ -62,7 +63,8 @@ const MainProductList = () => {
     };
 
     if (isLoading || isFetching) {
-        return <div>Loading...</div>; // 로딩 상태 표시
+        // return <div>Loading...</div>; // 로딩 상태 표시
+        return <Skeleton/>
     }
 
     if(!newProducts) {

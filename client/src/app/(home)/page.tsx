@@ -2,7 +2,7 @@ import Slider from "@/components/Slider";
 import React, {Suspense} from "react";
 import {getCategories} from "@/api/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import Skeleton from "@/components/Skeleton";
+import Skeleton from "@/components/Skeleton/Skeleton";
 import Categories from "@/components/Home/Main/Categories";
 import MainProductList from "@/components/Admin/Product/MainProductList";
 

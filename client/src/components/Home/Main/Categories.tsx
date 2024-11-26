@@ -5,6 +5,7 @@ import {Category} from "@/interface/Category";
 import Link from "next/link";
 import Image from "next/image";
 import {getCategories} from "@/api/adminAPI";
+import Skeleton from "@/components/Skeleton/Skeleton";
 
 const Categories = () => {
     //카테고리 가져오기
@@ -25,7 +26,7 @@ const Categories = () => {
     });
 
     if (isLoading || isFetching) {
-        return <div>Loading...</div>; // 로딩 상태 표시
+        return <Skeleton/>; // 로딩 상태 표시
     }
 
     // console.log(categories);
