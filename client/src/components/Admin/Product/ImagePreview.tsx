@@ -12,13 +12,12 @@ interface Props {
     index: number;
     moveImage: (dragIndex:number, hoverIndex:number) => void
     id: number;
-
 }
 
 interface DragItem {
-    index: number
-    id: string
-    type: string
+    index: number;
+    id: string;
+    type: string;
 }
 
 export const ItemTypes = {

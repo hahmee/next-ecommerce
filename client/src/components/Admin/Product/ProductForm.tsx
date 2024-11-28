@@ -56,9 +56,7 @@ interface Props {
 
 const ProductForm = ({type, id}: Props) => {
     const router = useRouter();
-
     const queryClient = useQueryClient();
-
     const productImageStore = useProductImageStore();
     const tagStore = useTagStore();
     //최하위 카테고리
@@ -304,7 +302,7 @@ const ProductForm = ({type, id}: Props) => {
                                 </div>
                                 <div className="p-6.5">
                                     <div className="mb-6">
-                                        <ImageUploadForm/>
+                                        {/*<ImageUploadForm/>*/}
                                     </div>
                                 </div>
                             </div>

@@ -1,9 +1,7 @@
 "use client";
 
 import React, {useState} from "react";
-import {QueryClientProvider, QueryClient, QueryCache} from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import toast from "react-hot-toast";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 type Props = {
   children: React.ReactNode;

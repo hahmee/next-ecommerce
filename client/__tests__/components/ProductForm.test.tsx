@@ -2,8 +2,9 @@ import {setupServer} from 'msw/node'; // msw/node에서 setupServer를 가져옵
 import {http, HttpResponse} from "msw";
 import {mockProducts} from "../__mocks__/productFormMockData";
 import ProductForm from "@/components/Admin/Product/ProductForm";
-import {render} from "@testing-library/react";
 import {Mode} from "@/types/mode";
+import {QueryClient} from "@tanstack/react-query";
+import {customRender} from "../utils/testUtils";
 
 const pno = '49';
 // 기본 API 응답값 - 수정일 때 원래 값
@@ -28,8 +29,18 @@ afterAll(() => server.close());
 
 describe("API 응답 테스트", () => {
     it("상품 조회에 성공하면 상품 정보가 렌더링된다", async () => {
+        const queryClient = new QueryClient({
+            defaultOptions: {
+                queries: {
+                    retry: false, // 테스트 환경에서는 재시도를 비활성화
+                },
+            },
+        });
         // 주문금액: 10,000원
-        render(<ProductForm type={Mode.EDIT} id={pno}/>);
+        // render(<TestForm type={Mode.EDIT} id={pno}/>);
+        // render(<CustomRender><ProductForm type={Mode.EDIT} id={pno}/></CustomRender>);
+        customRender(<ProductForm type={Mode.EDIT} id={pno} />);
+
 
         // // API 응답 대기 상태에 로더가 렌더링되는지 확인
         // expect(screen.getByText("Loading...")).toBeInTheDocument();

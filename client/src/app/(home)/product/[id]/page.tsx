@@ -3,6 +3,7 @@ import ProductSingle from "@/components/Home/ProductSingle";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getProduct, getReviews} from "@/api/adminAPI";
+import ProductSingleSkeleton from "@/components/Skeleton/ProductSingleSkeleton";
 
 interface Props {
     params: {id: string }
@@ -23,7 +24,7 @@ export default async function ProductSinglePage({params}: Props) {
         }
     ];
     return (
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<ProductSingleSkeleton/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                 <ProductSingle id={id}/>
             </PrefetchBoundary>

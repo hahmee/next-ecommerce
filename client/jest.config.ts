@@ -19,6 +19,13 @@ const config: Config = {
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1', // @ 경로를 src 디렉토리로 매핑
     },
+    transform: {
+        '^.+\\.tsx?$': 'ts-jest', // TypeScript 파일을 트랜스파일
+        '^.+\\.js$': 'babel-jest', // ESM 형식의 JS 파일 트랜스파일
+    },
+    transformIgnorePatterns: [
+        '/node_modules/(?!(react-dnd|dnd-core|@react-dnd)/)', // 변환할 ESM 패키지
+    ],
     roots: ['<rootDir>'],
     // Add more setup options before each test is run
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

@@ -77,7 +77,6 @@ const ProductSingle = ({id}: Props) => {
                 <h2 className="font-medium text-2xl">{product?.price.toLocaleString()} 원</h2>
 
                 <div className="h-[1px] bg-gray-100"/>
-
                 {
                     (product && product.colorList && product.sizeList) &&
                     <OptionSelect colorList={product.colorList} sizeList={product.sizeList}
