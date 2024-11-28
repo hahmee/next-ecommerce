@@ -1,9 +1,7 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react';
-import { Inter } from 'next/font/google';
-import { Router } from 'next/router'; // next/router에서 RouterContext를 가져옵니다.
-
-const inter = Inter({ subsets: ['latin'] });
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {render} from '@testing-library/react';
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 export const customRender = (ui: React.ReactElement) => {
     const queryClient = new QueryClient({
@@ -14,35 +12,13 @@ export const customRender = (ui: React.ReactElement) => {
         },
     });
 
-    // Mock App Router Context
-    const appRouterContext = {
-        basePath: '',
-        pathname: '/',
-        query: {},
-        asPath: '/',
-        push: jest.fn(),
-        replace: jest.fn(),
-        reload: jest.fn(),
-        back: jest.fn(),
-        prefetch: jest.fn(),
-        beforePopState: jest.fn(),
-        events: {
-            on: jest.fn(),
-            off: jest.fn(),
-            emit: jest.fn(),
-        },
-    };
-
     return render(ui, {
         wrapper: ({children}: { children: React.ReactNode }) => (
-            <html lang="en">
-            <body className={inter.className} suppressHydrationWarning={true}>
             <QueryClientProvider client={queryClient}>
-                {/*<Router value={appRouterContext}>*/}
-                    {children}
+                {/*<DndProvider  backend={HTML5Backend}>*/}
+-                {children}
+                {/*</DndProvider>*/}
             </QueryClientProvider>
-            </body>
-            </html>
         ),
     });
 };

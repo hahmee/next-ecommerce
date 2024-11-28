@@ -77,3 +77,90 @@ export const mockProducts = {
         }
     }
 };
+
+export const mockCategoryPaths =
+    [
+        {
+            cno: 63,
+            cname: "ㅁㄴㅇㄹ",
+            cdesc: "ㅁㄴㅇㄹ",
+            delFlag: false,
+            parentCategoryId: null,
+            subCategories: [
+                {
+                    cno: 65,
+                    cname: "ㅇㅇㅇㅇ",
+                    cdesc: "ㅁㄴㅇㄹㄴㅇ",
+                    delFlag: false,
+                    parentCategoryId: null,
+                    subCategories: null,
+                    file: null,
+                    uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/c8024893-26dc-42ff-905c-e2bd2276a91e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg",
+                    uploadFileKey: "category/c8024893-26dc-42ff-905c-e2bd2276a91e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg"
+                }
+            ],
+            file: null,
+            uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/7b3db926-43a1-4ac2-84bf-cd72428f82d2_ë¤í¨2_ë³µì¬ë³¸-001.png",
+            uploadFileKey: "category/7b3db926-43a1-4ac2-84bf-cd72428f82d2_ë¤í¨2_ë³µì¬ë³¸-001.png"
+        },
+        {
+            cno: 65,
+            cname: "ㅇㅇㅇㅇ",
+            cdesc: "ㅁㄴㅇㄹㄴㅇ",
+            delFlag: false,
+            parentCategoryId: null,
+            subCategories: null,
+            file: null,
+            uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/c8024893-26dc-42ff-905c-e2bd2276a91e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg",
+            uploadFileKey: "category/c8024893-26dc-42ff-905c-e2bd2276a91e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg"
+        }
+    ];
+
+
+export const mockCategories = [
+    {
+        cno: 57,
+        cname: "ㄴㅇㄹ",
+        cdesc: "ㄴㅇㄹ",
+        delFlag: false,
+        parentCategoryId: null,
+        subCategories: null,
+        file: null,
+        uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/d64b1523-b625-4622-8c83-8a0dc3471db9_75b617c1cbbd0a0c90724c14b8834352.jpg",
+        uploadFileKey: "category/d64b1523-b625-4622-8c83-8a0dc3471db9_75b617c1cbbd0a0c90724c14b8834352.jpg"
+    },
+    {
+        cno: 63,
+        cname: "ㅁㄴㅇㄹ",
+        cdesc: "ㅁㄴㅇㄹ",
+        delFlag: false,
+        parentCategoryId: null,
+        subCategories: [
+            {
+                cno: 65,
+                cname: "ㅇㅇㅇㅇ",
+                cdesc: "ㅁㄴㅇㄹㄴㅇ",
+                delFlag: false,
+                parentCategoryId: null,
+                subCategories: null,
+                file: null,
+                uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/c8024893-26dc-42ff-905c-e2bd2276a91e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg",
+                uploadFileKey: "category/c8024893-26dc-42ff-905c-e2bd2276a91e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg"
+            }
+        ],
+        file: null,
+        uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/7b3db926-43a1-4ac2-84bf-cd72428f82d2_ë¤í¨2_ë³µì¬ë³¸-001.png",
+        uploadFileKey: "category/7b3db926-43a1-4ac2-84bf-cd72428f82d2_ë¤í¨2_ë³µì¬ë³¸-001.png"
+    },
+    {
+        cno: 66,
+        cname: "3번째 카테고리",
+        cdesc: "ㅇㅋㅋㅋ",
+        delFlag: false,
+        parentCategoryId: null,
+        subCategories: null,
+        file: null,
+        uploadFileName: "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/b044f9e7-55a4-4a93-8daf-09f088ced748_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (2).jpg",
+        uploadFileKey: "category/b044f9e7-55a4-4a93-8daf-09f088ced748_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (2).jpg"
+    }
+]

@@ -7,11 +7,9 @@ const CategorySelect = ({categories, setSelectedCategory, categoryPaths}: { cate
 
     useEffect(() => {
         if (categoryPaths && categoryPaths.length > 0) {
-            console.log('categoryPaths',categoryPaths)
             setSelectedCategories(categoryPaths);
         }
     }, [categoryPaths]);
-
 
     const handleCategorySelect = (category: Category, level: number) => {
         const updatedCategories = [...selectedCategories];

@@ -33,7 +33,6 @@ const ImageUploadForm = () => {
                 return prev.concat(acceptedFiles.map((file, index) => {
                         return Object.assign(file, {
                             dataUrl: URL.createObjectURL(file), file, id: imgIdxEnd + index
-
                         })
                     }
                 ));
@@ -41,10 +40,8 @@ const ImageUploadForm = () => {
         }
     });
 
-
     const deleteImage = useCallback((image: string) => {
         const index = images.findIndex(img => img?.dataUrl === image);
-
         setImages((images) => {
             const prev = [...images] as Array<ImageType>;
             prev.splice(index, 1);
@@ -52,7 +49,6 @@ const ImageUploadForm = () => {
         });
 
     },[images]);
-
 
     const handleMouseOver= (image: string)=> {
         setHoveredImg(image);
@@ -71,7 +67,6 @@ const ImageUploadForm = () => {
             const [draggedItem] = updatedImages.splice(dragIndex, 1); // 복사된 배열에서 항목을 제거
             updatedImages.splice(hoverIndex, 0, draggedItem); // 새로운 배열에 항목을 추가
             return updatedImages;  // 복사된 새로운 배열을 반환
-
         });
 
 
@@ -99,24 +94,6 @@ const ImageUploadForm = () => {
 
     return (
         <div className="flex flex-col justify-center w-full gap-7">
-
-            {/*<div className="grid grid-cols-auto-fill-100 gap-4">*/}
-            {/*    <div className="w-58 h-58 col-span-2 row-span-2 flex rounded overflow-hidden">*/}
-            {/*        <img src={imageList[0]} alt="Main Image" className="w-full h-full object-cover"/>*/}
-            {/*    </div>*/}
-            {/*    {*/}
-            {/*        imageList.map((image, index) => {*/}
-            {/*            return (*/}
-            {/*                <div key={index} className="w-25 h-25 rounded overflow-hidden flex ">*/}
-            {/*                    <img src={image} alt="Image 1" className="w-full h-full object-cover"/>*/}
-            {/*                </div>*/}
-            {/*            );*/}
-            {/*        })*/}
-            {/*    }*/}
-
-            {/*</div>*/}
-
-
             <div className="grid grid-cols-auto-fill-100 gap-4">
                 <DndProvider backend={HTML5Backend}>
                     {
@@ -132,7 +109,6 @@ const ImageUploadForm = () => {
                                           handleMouseOut={handleMouseOut}/>
                         ))
                     }
-
                 </DndProvider>
             </div>
 

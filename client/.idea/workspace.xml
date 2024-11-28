@@ -5,22 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__tests__/components/Test.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/__tests__/utils/testUtils.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/babel.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Product/TestForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Skeleton/ProductSingleSkeleton.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/__mocks__/productFormMockData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/__mocks__/productFormMockData.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/utils/testUtils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/utils/testUtils.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/babel.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/CategorySelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/CategorySelect.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductSingle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RQProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RQProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Slider.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +59,7 @@
     &quot;Jest.&lt;Home /&gt;.executor&quot;: &quot;Run&quot;,
     &quot;Jest.&lt;Home /&gt;.renders a heading.executor&quot;: &quot;Run&quot;,
     &quot;Jest.API 응답 테스트.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다.executor&quot;: &quot;Run&quot;,
     &quot;Jest.AddCart Component (1).executor&quot;: &quot;Run&quot;,
     &quot;Jest.AddCart Component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor&quot;: &quot;Run&quot;,
@@ -134,6 +128,19 @@
     </option>
   </component>
   <component name="RunManager" selected="Jest.API 응답 테스트">
+    <configuration name="API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
+      <test-names>
+        <test-name value="API 응답 테스트" />
+        <test-name value="상품 조회에 성공하면 상품 정보가 렌더링된다" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="API 응답 테스트" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -158,7 +165,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AddCart Component.should render the AddCart component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="AddCart Component.should increase quantity when the + button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
@@ -167,7 +174,7 @@
       <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
       <test-names>
         <test-name value="AddCart Component" />
-        <test-name value="should render the AddCart component" />
+        <test-name value="should increase quantity when the + button is clicked" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -183,25 +190,13 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="SearchBar Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/SearchBar.test.tsx" />
-      <test-names>
-        <test-name value="SearchBar Component" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Jest.API 응답 테스트" />
-        <item itemvalue="Jest.Login" />
-        <item itemvalue="Jest.SearchBar Component" />
+        <item itemvalue="Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다" />
+        <item itemvalue="Jest.AddCart Component.should increase quantity when the + button is clicked" />
         <item itemvalue="Jest.AddCart Component" />
-        <item itemvalue="Jest.AddCart Component.should render the AddCart component" />
+        <item itemvalue="Jest.Login" />
       </list>
     </recent_temporary>
   </component>
@@ -484,6 +479,9 @@
       <workItem from="1732688473752" duration="3928000" />
       <workItem from="1732702430284" duration="10215000" />
       <workItem from="1732769871388" duration="3403000" />
+      <workItem from="1732775494866" duration="4596000" />
+      <workItem from="1732784403215" duration="3032000" />
+      <workItem from="1732799888054" duration="6291000" />
     </task>
     <servers />
   </component>
@@ -508,12 +506,6 @@
           <url>file://$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx</url>
           <line>19</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx</url>
-          <line>29</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

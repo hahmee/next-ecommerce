@@ -18,14 +18,24 @@ const config: Config = {
     modulePaths: ['<rootDir>/app/'],
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1', // @ 경로를 src 디렉토리로 매핑
+        '^react-dnd$': '<rootDir>/node_modules/react-dnd/dist/index.js',
+        '^react-dnd-html5-backend$': '<rootDir>/node_modules/react-dnd-html5-backend/dist/index.js',
+        '^dnd-core$': '<rootDir>/node_modules/dnd-core/dist/index.js',
     },
     transform: {
         '^.+\\.tsx?$': 'ts-jest', // TypeScript 파일을 트랜스파일
-        '^.+\\.js$': 'babel-jest', // ESM 형식의 JS 파일 트랜스파일
+        // '^.+\\.js$': 'babel-jest', // ESM 형식의 JS 파일 트랜스파일
+        '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
     },
     transformIgnorePatterns: [
-        '/node_modules/(?!(react-dnd|dnd-core|@react-dnd)/)', // 변환할 ESM 패키지
+        '/node_modules/(?!(react-dnd|dnd-core|@react-dnd|react-dnd-html5-backend)/)',
     ],
+    // transformIgnorePatterns: (nextDefaultPatterns) => {
+    //     return [
+    //         ...nextDefaultPatterns,
+    //         // Extend or override
+    //     ]
+    // },
     roots: ['<rootDir>'],
     // Add more setup options before each test is run
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
@@ -39,4 +49,10 @@ const config: Config = {
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config)
+export default async () => ({
+    ...(await createJestConfig(config)()),
+    transformIgnorePatterns: ['/node_modules/(?!(react-dnd|dnd-core|@react-dnd|react-dnd-html5-backend)/)'],
+});
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+// export default createJestConfig(config)

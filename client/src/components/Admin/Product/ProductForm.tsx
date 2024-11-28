@@ -87,8 +87,6 @@ const ProductForm = ({type, id}: Props) => {
 
     });
 
-    console.log('originalData', originalData);
-
     const [pdesc, setPdesc] = useState(originalData?.pdesc || '');
 
     // 선택했던 카테고리들을 가져온다.
@@ -119,27 +117,23 @@ const ProductForm = ({type, id}: Props) => {
         }
     });
 
+    console.log('categoryPaths', categoryPaths);
+    console.log('categories', categories);
 
     useEffect(() => {
         //최하단 카테고리를 저장한다.
         if(categoryPaths) {
             setSelectedCategory(categoryPaths[categoryPaths.length - 1]);
         }
-
     }, [categoryPaths]);
-
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
-            console.log('pdesc.....', pdesc);
             e.preventDefault();
 
             if (quillRef.current) {
-                console.log('quillRef.current.value', quillRef.current.value);
                 setPdesc(quillRef.current.value);
             }
-
-            console.log('selectedCategory', selectedCategory);
 
             if (!selectedCategory) {
                 throw new Error("카테고리를 선택해야합니다.");
@@ -152,10 +146,8 @@ const ProductForm = ({type, id}: Props) => {
 
             const formData = new FormData(e.target as HTMLFormElement);
 
-
             if (type === Mode.ADD) {
 
-                console.log('selectedCategory', selectedCategory);
                 // formData.append("pdesc", pdesc);
                 formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
                 formData.append("categoryId", selectedCategory.cno.toString());
@@ -225,8 +217,7 @@ const ProductForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            console.log('variable', variable);
-            console.log('response', response);
+
             const newProduct: Product = response.data; // 수정 및 추가된 data 반환 ...
 
             toast.success('업로드 성공했습니다.');
@@ -234,7 +225,6 @@ const ProductForm = ({type, id}: Props) => {
             if (queryClient.getQueryData(['adminProducts', {page: 1, size: 10, search: ""}])) {
                 queryClient.setQueryData(['adminProducts', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Product[] }
                 }) => {
-                    console.log('prevData', prevData);
                     if (type === Mode.ADD) {
                         prevData.data.dtoList.unshift(newProduct);
                     }else{
@@ -261,25 +251,21 @@ const ProductForm = ({type, id}: Props) => {
     if (isLoading) return "Loading...";
 
     return (
-        <>
             <form onSubmit={mutation.mutate}>
                 <div className="mx-auto">
                     <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>
                     <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                         <BackButton/>
-                        <button type="submit"
-                                className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                             {
                                 type === Mode.ADD ? "저장하기" : "수정하기"
                             }
                         </button>
                     </div>
 
-
                     <div className="grid grid-cols-1 gap-9">
                         <div className="flex flex-col gap-9">
-                            <div
-                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                                 <div className="flex justify-between border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         카테고리
@@ -293,8 +279,7 @@ const ProductForm = ({type, id}: Props) => {
                         </div>
 
                         <div className="flex flex-col gap-9">
-                            <div
-                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                                     <h3 className="font-medium text-black dark:text-white">
                                         이미지
@@ -302,7 +287,7 @@ const ProductForm = ({type, id}: Props) => {
                                 </div>
                                 <div className="p-6.5">
                                     <div className="mb-6">
-                                        {/*<ImageUploadForm/>*/}
+                                        <ImageUploadForm/>
                                     </div>
                                 </div>
                             </div>
@@ -470,11 +455,9 @@ const ProductForm = ({type, id}: Props) => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </form>
-        </>
     );
 };
 
