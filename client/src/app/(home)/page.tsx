@@ -1,6 +1,6 @@
 import Slider from "@/components/Slider";
 import React, {Suspense} from "react";
-import {getCategories} from "@/api/adminAPI";
+import {getCategories, getFeaturedProducts, getNewProducts} from "@/api/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import Categories from "@/components/Home/Main/Categories";
@@ -13,10 +13,14 @@ const HomePage = () => {
             queryKey: ['categories'],
             queryFn: () => getCategories()
         },
-        // {
-        //     queryKey: ['new-products'],
-        //     queryFn: () => getNewProducts()
-        // }
+        {
+            queryKey: ['new-products'],
+            queryFn: () => getNewProducts()
+        },
+        {
+            queryKey: ['featured-products'],
+            queryFn: () => getFeaturedProducts()
+        }
     ];
 
     return (
@@ -32,12 +36,22 @@ const HomePage = () => {
                     </PrefetchBoundary>
                 </Suspense>
             </div>
-            <div className=" mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+            <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
                 <h1 className="text-2xl font-bold text-gray-600 text-center">New Products</h1>
                 <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
                 <Suspense fallback={<Skeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <MainProductList/>
+                        <MainProductList type="new"/>
+                    </PrefetchBoundary>
+                </Suspense>
+            </div>
+
+            <div className=" mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+                <h1 className="text-2xl font-bold text-gray-600 text-center">Featured Products</h1>
+                <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
+                <Suspense fallback={<Skeleton/>}>
+                    <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                        <MainProductList type="featured"/>
                     </PrefetchBoundary>
                 </Suspense>
             </div>

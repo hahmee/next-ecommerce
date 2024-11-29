@@ -12,14 +12,15 @@ import {useCartStore} from "@/store/cartStore";
 import {getCookie} from "cookies-next";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
-import {getNewProducts} from "@/api/adminAPI";
+import {getFeaturedProducts, getNewProducts} from "@/api/adminAPI";
 import Skeleton from "@/components/Skeleton/Skeleton";
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-const MainProductList = () => {
+const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
     const {carts, changeCart, changeOpen} = useCartStore();
     const memberInfo = getCookie('member');
+    const [data, setData] = useState<Product[] | undefined>(undefined);
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
     const {data: newProducts, isFetched, isLoading, isError, isFetching} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
@@ -28,12 +29,32 @@ const MainProductList = () => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
+        enabled: type === "new",
+        select: (data) => {
+            return data.data;
+        },
+    });
+
+    const {data: featuredProducts,} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
+        queryKey: ['featured-products'],
+        queryFn: () => getFeaturedProducts(),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: true,
+        enabled: type === "featured",
         select: (data) => {
             return data.data;
         }
     });
 
-    console.log('newProducts', newProducts);
+    useEffect(() => {
+        if(type === "featured") {
+            setData(featuredProducts);
+        }else {
+            setData(newProducts);
+        }
+    }, [data]);
+
     const handleClickAddCart = (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
         const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
@@ -74,8 +95,8 @@ const MainProductList = () => {
     }
 
     return (
-        <div className="mt-20 flex justify-between flex-wrap">
-            {newProducts?.map((product: Product) => (
+        <div className="mt-20 flex justify-between gap-y-5 flex-wrap">
+            {data?.map((product: Product) => (
                 <Link
                     href={"/product/" + product.pno}
                     className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-60"
@@ -108,18 +129,15 @@ const MainProductList = () => {
                             {
                                 product.averageRating !== 0 ?
                                     <div className="flex gap-1 my-3">
-                                        {Array.from({length:product.averageRating || 0}).map((_, index) => (
+                                        {Array.from({length: product.averageRating || 0}).map((_, index) => (
                                             <StarIcon key={index} className="w-4.5 h-4.5 text-ecom"/>
                                         ))}
                                     </div>
                                     :
-
                                     <div className="flex gap-1 my-3 text-xs text-gray-600">평점 없음</div>
 
                             }
 
-
-                            {/*<span className="font-semibold text-gray-600">{product.averageRating}</span>*/}
                             <span
                                 className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
                             <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>

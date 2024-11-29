@@ -303,8 +303,14 @@ public class ProductController {
   @GetMapping("/newProductList")
   public DataResponseDTO<List<ProductDTO>> getNewProducts() {
 
-
     return DataResponseDTO.of(productService.getNewProducts());
+
+  }
+
+  @GetMapping("/featuredProductList")
+  public DataResponseDTO<List<ProductDTO>> getFeaturedProducts() {
+
+    return DataResponseDTO.of(productService.getFeaturedProducts());
 
   }
 

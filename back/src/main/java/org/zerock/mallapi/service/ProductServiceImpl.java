@@ -587,6 +587,29 @@ public class ProductServiceImpl implements ProductService{
 
   }
 
+
+  @Override
+  public List<ProductDTO> getFeaturedProducts() {
+
+    Pageable pageable = PageRequest.of(0, 8);
+    List<Object[]> results = productRepository.findFeaturedProducts(pageable);
+
+    // Object[]를 ProductDTO로 변환
+    List<ProductDTO> productDTOs = results.stream().map(arr -> {
+              Product product = (Product) arr[0];
+              Double averageRating = (Double) arr[2];  // 평균 별점
+
+              ProductDTO productDTO = entityToDTO(product);
+              productDTO.setAverageRating(averageRating);
+              return productDTO;
+
+            })
+            .collect(Collectors.toList());
+
+    return productDTOs;
+
+  }
+
   @Override
   public ProductDTO modifySalesStatus(StockRequestDTO stockRequestDTO) {
 

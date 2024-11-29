@@ -24,6 +24,17 @@ export async function getAdminCategories (pageParam: PageParam) {
     });
 }
 
+export async function getFeaturedProducts() {
+    return await fetchJWT(`/api/products/featuredProductList`, {
+        method: "GET",
+        next: {
+            tags: ['featured-products'],
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
+
 export async function getNewProducts () {
     return await fetchJWT(`/api/products/newProductList`, {
         method: "GET",
