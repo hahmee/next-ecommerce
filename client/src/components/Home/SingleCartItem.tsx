@@ -1,5 +1,5 @@
 "use client";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback} from "react";
 import {CartItemList} from "@/interface/CartItemList";
 import Image from "next/image";
 import {MinusIcon, PlusIcon,} from "@heroicons/react/20/solid";

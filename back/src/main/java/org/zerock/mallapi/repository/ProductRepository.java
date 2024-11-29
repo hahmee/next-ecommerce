@@ -52,12 +52,15 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "GROUP BY p.pno")
   Page<Object[]> searchAdminList(Pageable pageable, @Param("search") String search, @Param("email") String email);
 
-  @Query("SELECT p, pi FROM Product p  left JOIN p.imageList pi " +
+  @Query("SELECT p, pi, AVG(COALESCE(r.rating, 0)) as avgRating " +
+          "FROM Product p " +
+          "LEFT JOIN p.imageList pi " +
+          "LEFT JOIN Review r ON r.product.pno = p.pno " +
           "WHERE (NULLIF(pi.ord, ' ') IS NULL OR pi.ord = 0) " +
           "AND p.delFlag = false " +
           "GROUP BY p.pno " +
           "ORDER BY p desc")
-  List<Product> findNewProducts(Pageable pageable);
+  List<Object[]>  findNewProducts(Pageable pageable);
 
 
 }

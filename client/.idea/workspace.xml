@@ -7,13 +7,17 @@
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__tests__/__mocks__/productFormMockData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/__mocks__/productFormMockData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__tests__/utils/testUtils.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/utils/testUtils.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/babel.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/babel.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/CategorySelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/CategorySelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/TestForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/TestForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SingleCartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Slider.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +72,8 @@
     &quot;Jest.AddCart Component.should render the AddCart component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.AddCart Component.should render the ll component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Categories Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.renders categories after fetching data.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.renders loading state initially.executor&quot;: &quot;Run&quot;,
     &quot;Jest.E2E Login Test.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Login (1).executor&quot;: &quot;Run&quot;,
     &quot;Jest.Login.executor&quot;: &quot;Run&quot;,
@@ -91,6 +97,7 @@
     &quot;Jest.SingleCartItem Component.should render the SingleCartItem component.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Sum function.adds 1 + 2 to equal 3.executor&quot;: &quot;Run&quot;,
     &quot;Jest.Sum function.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.수정일 때 .executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
@@ -127,17 +134,16 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.API 응답 테스트">
-    <configuration name="API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.수정일 때 ">
+    <configuration name="수정일 때 " type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
-      <scope-kind value="TEST" />
+      <scope-kind value="SUITE" />
       <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
       <test-names>
-        <test-name value="API 응답 테스트" />
-        <test-name value="상품 조회에 성공하면 상품 정보가 렌더링된다" />
+        <test-name value="수정일 때 " />
       </test-names>
       <method v="2" />
     </configuration>
@@ -153,50 +159,51 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AddCart Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="Categories Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" />
       <test-names>
-        <test-name value="AddCart Component" />
+        <test-name value="Categories Component" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AddCart Component.should increase quantity when the + button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="Categories Component.renders loading state initially" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" />
       <test-names>
-        <test-name value="AddCart Component" />
-        <test-name value="should increase quantity when the + button is clicked" />
+        <test-name value="Categories Component" />
+        <test-name value="renders loading state initially" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Login" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="Login.renders the login form correctly" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
-      <scope-kind value="SUITE" />
+      <scope-kind value="TEST" />
       <test-file value="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" />
       <test-names>
         <test-name value="Login" />
+        <test-name value="renders the login form correctly" />
       </test-names>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.수정일 때 " />
+        <item itemvalue="Jest.Categories Component" />
+        <item itemvalue="Jest.Categories Component.renders loading state initially" />
         <item itemvalue="Jest.API 응답 테스트" />
-        <item itemvalue="Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다" />
-        <item itemvalue="Jest.AddCart Component.should increase quantity when the + button is clicked" />
-        <item itemvalue="Jest.AddCart Component" />
-        <item itemvalue="Jest.Login" />
+        <item itemvalue="Jest.Login.renders the login form correctly" />
       </list>
     </recent_temporary>
   </component>
@@ -481,7 +488,9 @@
       <workItem from="1732769871388" duration="3403000" />
       <workItem from="1732775494866" duration="4596000" />
       <workItem from="1732784403215" duration="3032000" />
-      <workItem from="1732799888054" duration="6291000" />
+      <workItem from="1732799888054" duration="9545000" />
+      <workItem from="1732849537575" duration="13928000" />
+      <workItem from="1732864487909" duration="3750000" />
     </task>
     <servers />
   </component>

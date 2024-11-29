@@ -50,7 +50,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
         try {
             const reviewData: Review = {
                 content: content,
-                rating: rating,
+                rating: rating + 1,
                 orderId: orderId,
                 pno: order?.productInfo.pno || 0,
                 oid: Number(id),

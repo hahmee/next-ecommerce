@@ -5,6 +5,9 @@ import {setCookie} from "@/utils/cookie";
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
 import {useRouter} from "next/navigation";
+import {Mode} from "@/types/mode";
+import ProductForm from "@/components/Admin/Product/ProductForm";
+import {customRender} from "../utils/testUtils";
 
 // fetch 모킹
 global.fetch = jest.fn();
@@ -17,20 +20,20 @@ jest.mock('next/navigation', () => ({
     useRouter: jest.fn(), // useRouter를 jest.fn()으로 모킹
 }));
 
-    jest.mock("@/utils/cookie", () => ({
-        setCookie: jest.fn(),
-        getCookie: jest.fn(),
-    }));
+jest.mock("@/utils/cookie", () => ({
+    setCookie: jest.fn(),
+    getCookie: jest.fn(),
+}));
 
-    const userInfo = {
-        email:"user1@aaa.com",
-        password: "1111",
-    }
+const userInfo = {
+    email: "user1@aaa.com",
+    password: "1111",
+};
 
-    const mockRouter = {
-        replace: jest.fn(), // replace 메서드를 포함하는 객체 생성
-        push: jest.fn(), // push 메서드를 포함하는 객체 생성
-    };
+const mockRouter = {
+    replace: jest.fn(), // replace 메서드를 포함하는 객체 생성
+    push: jest.fn(), // push 메서드를 포함하는 객체 생성
+};
 
     describe("Login", () => {
         beforeEach(() => {
@@ -44,6 +47,7 @@ jest.mock('next/navigation', () => ({
         });
 
         it('renders the login form correctly', () => {
+
 
             render(<LoginPage/>);
 

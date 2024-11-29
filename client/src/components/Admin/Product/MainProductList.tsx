@@ -1,5 +1,5 @@
 "use client";
-
+import {StarIcon} from "@heroicons/react/20/solid";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
@@ -14,6 +14,7 @@ import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
 import {getNewProducts} from "@/api/adminAPI";
 import Skeleton from "@/components/Skeleton/Skeleton";
+import React from "react";
 
 const MainProductList = () => {
 
@@ -32,6 +33,7 @@ const MainProductList = () => {
         }
     });
 
+    console.log('newProducts', newProducts);
     const handleClickAddCart = (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
         const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
@@ -72,7 +74,7 @@ const MainProductList = () => {
     }
 
     return (
-        <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
+        <div className="mt-20 flex justify-between flex-wrap">
             {newProducts?.map((product: Product) => (
                 <Link
                     href={"/product/" + product.pno}
@@ -102,29 +104,39 @@ const MainProductList = () => {
                                 )
                             }
                         </div>
-                        <div className="flex justify-between mt-1.5">
-                        <span className="font-medium overflow-hidden text-ellipsis whitespace-nowrap">{product.pname}</span>
-                            <span className="font-semibold">{product.price?.toLocaleString()} 원</span>
+                        <div className="flex mt-1.5 flex-col items-center">
+                            {
+                                product.averageRating !== 0 ?
+                                    <div className="flex gap-1 my-3">
+                                        {Array.from({length:product.averageRating || 0}).map((_, index) => (
+                                            <StarIcon key={index} className="w-4.5 h-4.5 text-ecom"/>
+                                        ))}
+                                    </div>
+                                    :
+
+                                    <div className="flex gap-1 my-3 text-xs text-gray-600">평점 없음</div>
+
+                            }
+
+
+                            {/*<span className="font-semibold text-gray-600">{product.averageRating}</span>*/}
+                            <span
+                                className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
+                            <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
+                            <button
+                                disabled={product.salesStatus != SalesStatus.ONSALE}
+                                className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
+                                onClick={(e) => {
+                                    e.preventDefault(); // 페이지 이동 방지
+                                    e.stopPropagation();// 부모로의 이벤트 전파 방지
+                                    handleClickAddCart(product.pno, product.owner.email, {
+                                        color: product.colorList[0],
+                                        size: product.sizeList[0]
+                                    });
+                                }}>
+                                Add to Cart
+                            </button>
                         </div>
-                        {product.pdesc && (
-                            <div
-                                className="my-1 text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap"
-                                dangerouslySetInnerHTML={{__html: product.pdesc}}
-                            ></div>
-                        )}
-                        <button
-                            disabled={product.salesStatus != SalesStatus.ONSALE}
-                            className="rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-                            onClick={(e) => {
-                                e.preventDefault(); // 페이지 이동 방지
-                                e.stopPropagation();// 부모로의 이벤트 전파 방지
-                                handleClickAddCart(product.pno, product.owner.email, {
-                                    color: product.colorList[0],
-                                    size: product.sizeList[0]
-                                });
-                            }}>
-                            Add to Cart
-                        </button>
                     </div>
                 </Link>))
             }

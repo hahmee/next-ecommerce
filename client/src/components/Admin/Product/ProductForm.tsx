@@ -75,6 +75,7 @@ const ProductForm = ({type, id}: Props) => {
         enabled: !!id && type === Mode.EDIT, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
         select: useCallback((data: DataResponse<Product>) => {
 
+            console.log('data', data);
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
 
                 return { dataUrl:name.file, file: undefined , uploadKey: data.data.uploadFileKeys?.[idx].file, id:name.ord} as ImageType;
@@ -117,9 +118,6 @@ const ProductForm = ({type, id}: Props) => {
         }
     });
 
-    console.log('categoryPaths', categoryPaths);
-    console.log('categories', categories);
-
     useEffect(() => {
         //최하단 카테고리를 저장한다.
         if(categoryPaths) {
@@ -146,18 +144,15 @@ const ProductForm = ({type, id}: Props) => {
 
             const formData = new FormData(e.target as HTMLFormElement);
 
+            formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
+            formData.append("categoryId", selectedCategory.cno.toString());
+            formData.append("categoryJson", JSON.stringify(selectedCategory));
+            tagStore.tags.forEach((t, index) => {
+                formData.append(`colorList[${index}].text`, t.text);
+                formData.append(`colorList[${index}].color`, t.color);
+            });
+
             if (type === Mode.ADD) {
-
-                // formData.append("pdesc", pdesc);
-                formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
-                formData.append("categoryId", selectedCategory.cno.toString());
-                formData.append("categoryJson", JSON.stringify(selectedCategory));
-
-                tagStore.tags.forEach((t, index) => {
-                    formData.append(`colorList[${index}].text`, t.text);
-                    formData.append(`colorList[${index}].color`, t.color);
-                });
-
 
                 productImageStore.files.forEach((p, index) => {
 
@@ -173,20 +168,6 @@ const ProductForm = ({type, id}: Props) => {
                 }); // json 형태로 이미 반환
 
             } else { //수정
-
-                // const formData = new FormData(e.target as HTMLFormElement);
-
-                // formData.append("pdesc", pdesc);
-                formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
-                formData.append("categoryId", selectedCategory.cno.toString());
-                formData.append("categoryJson", JSON.stringify(selectedCategory));
-                // formData.append("colorList", tagStore.tags as any);
-                tagStore.tags.forEach((t, index) => {
-
-                    formData.append(`colorList[${index}].text`, t.text);
-                    formData.append(`colorList[${index}].color`, t.color);
-
-                });
 
                 let newFileIdx = 0;
                 let uploadIdx = 0;
@@ -247,6 +228,11 @@ const ProductForm = ({type, id}: Props) => {
             toast.error(`업로드 중 에러가 발생했습니다. ${error}`);
         }
     });
+
+
+    console.log('originalData', originalData);
+    console.log('categories', categories);
+    console.log('categoryPaths', categoryPaths);
 
     if (isLoading) return "Loading...";
 

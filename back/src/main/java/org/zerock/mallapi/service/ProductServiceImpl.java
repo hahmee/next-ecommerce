@@ -109,13 +109,7 @@ public class ProductServiceImpl implements ProductService{
     log.info("query... " + query);
     log.info("productSizes... " + productSizes);
 
-//    Optional<Page<Object[]>> resultOptional = Optional.ofNullable(productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes, minPrice, maxPrice, query));
-//
-//    Page<Object[]> result = resultOptional.orElseThrow();
-
-
     Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice,query);
-
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
@@ -297,6 +291,7 @@ public class ProductServiceImpl implements ProductService{
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
+
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
       Double averageRating = (Double) arr[2];  // 평균 별점
@@ -411,7 +406,6 @@ public class ProductServiceImpl implements ProductService{
     }else {
       throw new GeneralException(ErrorCode.INTERNAL_ERROR);
     }
-
 
     AdminCategory category = AdminCategory.builder().cno(productDTO.getCategoryId()).build();
 
@@ -575,13 +569,19 @@ public class ProductServiceImpl implements ProductService{
   public List<ProductDTO> getNewProducts() {
 
     Pageable pageable = PageRequest.of(0, 4);
-    List<Product> products = productRepository.findNewProducts(pageable);
+    List<Object[]> results = productRepository.findNewProducts(pageable);
 
-    // Product 엔티티 리스트를 ProductDTO 리스트로 변환
-    List<ProductDTO> productDTOs = products.stream()
-            .map(this::entityToDTO)
+    // Object[]를 ProductDTO로 변환
+    List<ProductDTO> productDTOs = results.stream().map(arr -> {
+              Product product = (Product) arr[0];
+              Double averageRating = (Double) arr[2];  // 평균 별점
+
+              ProductDTO productDTO = entityToDTO(product);
+              productDTO.setAverageRating(averageRating);
+              return productDTO;
+
+            })
             .collect(Collectors.toList());
-
 
     return productDTOs;
 

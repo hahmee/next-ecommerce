@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 const slides = [
   {
     id: 1,
-    title: "sssssssssssss",
+    title: "Summer Sale Collections",
     description: "Sale! Up to 50% off!",
     img: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
     url: "/list",

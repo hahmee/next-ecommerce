@@ -89,7 +89,6 @@ public class ProductController {
   @GetMapping("/list") // list?page=7&size=2&categoryId=1&color=green&color=green&minPrice=1&order
   public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
-
     return DataResponseDTO.of(productService.getList(pageCategoryRequestDTO));
 
   }
