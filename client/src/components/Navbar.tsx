@@ -27,7 +27,7 @@ const Navbar = ({member}: { member: Member }) => {
   ];
 
   return (
-      <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative border-b border-gray-100">
+      <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-ecom fixed top-0">
         {/* MOBILE */}
         <div className="h-full flex items-center justify-between md:hidden">
           <Link href="/">

@@ -5,6 +5,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import Categories from "@/components/Home/Main/Categories";
 import MainProductList from "@/components/Admin/Product/MainProductList";
+import MainInfo from "@/components/Admin/Product/MainInfo";
 
 const HomePage = () => {
 
@@ -36,7 +37,7 @@ const HomePage = () => {
                     </PrefetchBoundary>
                 </Suspense>
             </div>
-            <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+            <div className="mt-24 px-4">
                 <h1 className="text-2xl font-bold text-gray-600 text-center">New Products</h1>
                 <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
                 <Suspense fallback={<Skeleton/>}>
@@ -46,7 +47,7 @@ const HomePage = () => {
                 </Suspense>
             </div>
 
-            <div className=" mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+            <div className="mt-24 px-4">
                 <h1 className="text-2xl font-bold text-gray-600 text-center">Featured Products</h1>
                 <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
                 <Suspense fallback={<Skeleton/>}>
@@ -56,6 +57,8 @@ const HomePage = () => {
                 </Suspense>
             </div>
 
+
+            <MainInfo/>
 
         </div>
     );

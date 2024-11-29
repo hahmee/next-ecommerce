@@ -95,69 +95,73 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
     }
 
     return (
-        <div className="mt-20 flex justify-between gap-y-5 flex-wrap">
-            {data?.map((product: Product) => (
-                <Link
-                    href={"/product/" + product.pno}
-                    className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-60"
-                    key={product.pno}
-                >
-                    <div>
-                        <div className="relative w-full h-65">
-                            {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
-                                (
-                                    <>
-                                        <Image
-                                            src={product.uploadFileNames[0]?.file || "/product.png"}
-                                            alt="product"
-                                            fill
-                                            sizes="25vw"
-                                            className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
-                                        />
-                                        <Image
-                                            src={product.uploadFileNames[1]?.file || "/product.png"}
-                                            alt=""
-                                            fill
-                                            sizes="25vw"
-                                            className="absolute object-cover rounded-md"
-                                        />
-                                    </>
-                                )
-                            }
-                        </div>
-                        <div className="flex mt-1.5 flex-col items-center">
-                            {
-                                product.averageRating !== 0 ?
-                                    <div className="flex gap-1 my-3">
-                                        {Array.from({length: product.averageRating || 0}).map((_, index) => (
-                                            <StarIcon key={index} className="w-4.5 h-4.5 text-ecom"/>
-                                        ))}
-                                    </div>
-                                    :
-                                    <div className="flex gap-1 my-3 text-xs text-gray-600">평점 없음</div>
+        <div className="mt-20 w-full m-auto flex justify-center">
+            <div className="flex justify-center gap-x-4 gap-y-5 flex-wrap w-270">
 
-                            }
+                {data?.map((product: Product) => (
+                    <Link
+                        href={"/product/" + product.pno}
+                        // className="flex flex-col gap-4 lg:w-60 xl:w-60 sm: w-full "
+                        className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-60"
+                        key={product.pno}
+                    >
+                        <div>
+                            <div className="relative w-full h-65">
+                                {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
+                                    (
+                                        <>
+                                            <Image
+                                                src={product.uploadFileNames[0]?.file || "/product.png"}
+                                                alt="product"
+                                                fill
+                                                sizes="25vw"
+                                                className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
+                                            />
+                                            <Image
+                                                src={product.uploadFileNames[1]?.file || "/product.png"}
+                                                alt=""
+                                                fill
+                                                sizes="25vw"
+                                                className="absolute object-cover rounded-md"
+                                            />
+                                        </>
+                                    )
+                                }
+                            </div>
+                            <div className="flex mt-1.5 flex-col items-center">
+                                {
+                                    product.averageRating !== 0 ?
+                                        <div className="flex gap-1 my-3">
+                                            {Array.from({length: product.averageRating || 0}).map((_, index) => (
+                                                <StarIcon key={index} className="w-4.5 h-4.5 text-ecom"/>
+                                            ))}
+                                        </div>
+                                        :
+                                        <div className="flex gap-1 my-3 text-xs text-gray-600">평점 없음</div>
 
-                            <span
-                                className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
-                            <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
-                            <button
-                                disabled={product.salesStatus != SalesStatus.ONSALE}
-                                className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-                                onClick={(e) => {
-                                    e.preventDefault(); // 페이지 이동 방지
-                                    e.stopPropagation();// 부모로의 이벤트 전파 방지
-                                    handleClickAddCart(product.pno, product.owner.email, {
-                                        color: product.colorList[0],
-                                        size: product.sizeList[0]
-                                    });
-                                }}>
-                                Add to Cart
-                            </button>
+                                }
+
+                                <span
+                                    className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
+                                <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
+                                <button
+                                    disabled={product.salesStatus != SalesStatus.ONSALE}
+                                    className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
+                                    onClick={(e) => {
+                                        e.preventDefault(); // 페이지 이동 방지
+                                        e.stopPropagation();// 부모로의 이벤트 전파 방지
+                                        handleClickAddCart(product.pno, product.owner.email, {
+                                            color: product.colorList[0],
+                                            size: product.sizeList[0]
+                                        });
+                                    }}>
+                                    Add to Cart
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </Link>))
-            }
+                    </Link>))
+                }
+            </div>
         </div>
     );
 
