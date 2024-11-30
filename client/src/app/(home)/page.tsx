@@ -27,8 +27,8 @@ const HomePage = () => {
     return (
         <div className="">
             <Slider/>
-            <div className="mt-24">
-                <h1 className="text-2xl px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 mb-3">
+            <div className="mt-24 bg-[#F9F9F9] m-auto">
+                <h1 className="text-4xl font-bold text-gray-600 text-center py-10 px-4.5">
                     Categories
                 </h1>
                 <Suspense fallback={<Skeleton/>}>

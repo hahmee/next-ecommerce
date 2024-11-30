@@ -29,9 +29,8 @@ const Categories = () => {
         return <Skeleton/>; // 로딩 상태 표시
     }
 
-    // console.log(categories);
     return <div className="px-4 overflow-x-auto scrollbar-hide">
-        <div className="flex gap-4 md:gap-8">
+        <div className="flex gap-4 justify-center md:gap-8 items-center ">
             {categories?.map((ct) => (
                 <Link
                     href={`/list?category_id=${ct.cno}`}
@@ -39,7 +38,7 @@ const Categories = () => {
                     key={ct.cno}
                 >
                     <div>
-                        <div className="relative bg-slate-100 w-full h-65">
+                        <div className="relative bg-slate-100 w-30 h-30">
                             <Image
                                 src={ct.uploadFileName || "https://via.placeholder.com/640x480"}
                                 alt="categoryImage"
@@ -49,7 +48,7 @@ const Categories = () => {
                                 className="object-cover w-full h-full"
                             />
                         </div>
-                        <h1 className="mt-4 font-normal  tracking-wide">
+                        <h1 className="mt-4 font-medium text-gray-800 tracking-wide">
                             {ct.cname}
                         </h1>
                     </div>

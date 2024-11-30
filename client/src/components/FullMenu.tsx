@@ -44,7 +44,8 @@ const FullMenu = ({member}: {member: Member}) => {
         return <div className="grid grid-cols-2 gap-8 m-5 w-full">
             <div className="flex gap-5">
                 <div className="relative">
-                    <Image src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    <Image
+                        src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
                         alt="image" width={600} height={600} className=" object-cover h-50 w-50 rounded-lg"/>
                     <div className='text-sm w-full bottom-0 flex p-4 flex-col'>
                         <div className="font-bold">New Arrivals</div>
@@ -63,12 +64,13 @@ const FullMenu = ({member}: {member: Member}) => {
             </div>
             {
                 mainCategory && <div>
-                    <div className="font-medium text-base cursor-pointer" onClick={() => onClickCategory(mainCategory.cno)}>{mainCategory.cname}</div>
+                    <div className="font-medium text-base cursor-pointer"
+                         onClick={() => onClickCategory(mainCategory.cno)}>{mainCategory.cname}</div>
                     {renderSubResult(subCategories)}
                 </div>
             }
 
-        </div>
+        </div>;
     };
 
     const renderSubResult = (subCategories: Category[], depth: number = 0) => {
@@ -89,7 +91,7 @@ const FullMenu = ({member}: {member: Member}) => {
         return categories.map((category) => (
             <Fragment key={category.cno}>
                 <div className="flex items-center cursor-pointer px-3 gap-0.5 hover:bg-gray-100 hover:rounded-2xl mx-1.5 py-2.5" onClick={expandedRow === category.cno ? () => setExpandedRow(null) : () => setExpandedRow(category.cno)}>
-                    <div className={category.cno.toString() === categoryId ? "text-ecom font-bold" : ""}>{category.cname}</div>
+                    <div className={category.cno.toString() === categoryId ? "text-ecom font-bold text-base" : "font-medium text-gray-900 text-base"}>{category.cname}</div>
                         {category.subCategories && (
                             <div onClick={(e) => {
                                 e.stopPropagation(); // 부모 onClick 이벤트 방지
@@ -114,7 +116,7 @@ const FullMenu = ({member}: {member: Member}) => {
             </ul>
 
             {/*Drop down*/}
-            <div className="absolute left-0 w-full top-20 bg-gray-50 shadow z-1 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex gap-25">
+            <div className="absolute left-0 w-full top-0 bg-gray-50 shadow z-9999 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex gap-25">
                 {
                     expandedRow && renderSubCategory()
                 }
