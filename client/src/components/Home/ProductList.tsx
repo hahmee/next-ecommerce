@@ -1,6 +1,5 @@
 "use client";
 
-import {FunnelIcon, Squares2X2Icon} from "@heroicons/react/20/solid";
 import React, {Fragment, Suspense, useCallback, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
@@ -17,7 +16,7 @@ import FiltersBadge from "@/components/Home/FiltersBadge";
 import {getCategories, getCategory} from "@/api/adminAPI";
 import {getProductList} from "@/api/mallAPI";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCartSkeleton";
-import Loading from "@/app/(admin)/admin/products/loading";
+import ProductCardListSkeleton from "@/components/Skeleton/ProductCartListSkeleton";
 
 export type SortOption = {
     name: string;
@@ -133,7 +132,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             return getProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,
-                row: 3,
+                row: 9,
                 categoryId: categoryId,
                 colors: colors,
                 productSizes: sizes,
@@ -253,9 +252,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                 <ProductOrders/>
                             </div>
 
-                            <div
-                                className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
-
+                            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
                                 {
                                     products?.pages[0].data.dtoList.length < 1 ?
                                         <div>상품이 없습니다.</div> : products?.pages.map((page, index) => (
@@ -269,7 +266,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                         ))
                                 }
                             </div>
-                            {isFetchingNextPage ? (<div><ProductCardSkeleton/></div>) : (<div ref={ref}></div>)}
+                            {isFetchingNextPage ? (<div><ProductCardListSkeleton/></div>) : (<div ref={ref}></div>)}
                         </div>
                     </div>
                 </section>

@@ -84,8 +84,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
                     </div>
 
-                    <div
-                        className="absolute bottom-42.5 flex justify-center items-center w-full flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
+                    <div className="absolute bottom-42.5 flex justify-center items-center w-full flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto">
                         {/*사이즈 버튼 */}
                         {
                             product.sizeList.map((size, index) => (

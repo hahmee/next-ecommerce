@@ -1,9 +1,9 @@
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import OrderDetail from "@/components/Home/Profile/OrderDetail";
 import {getOrders} from "@/api/mallAPI";
 import {getCookie} from "@/utils/cookie";
+import OrderDetailSkeleton from "@/components/Skeleton/OrderDetailSkeleton";
 
 interface Props {
     params: {orderId: string }
@@ -30,7 +30,7 @@ export default async function OrderPage({params}: Props)  {
     ]
 
     return (
-        <Suspense fallback={<Loading/>}>
+        <Suspense fallback={<OrderDetailSkeleton/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                 <OrderDetail orderId={orderId}/>
             </PrefetchBoundary>

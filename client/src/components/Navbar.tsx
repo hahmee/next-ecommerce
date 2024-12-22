@@ -6,7 +6,6 @@ import SearchBar from "@/components/SearchBar";
 import React, {Suspense} from "react";
 import {Member} from "@/interface/Member";
 import {getCategories} from "@/api/adminAPI";
-import {getCart} from "@/api/mallAPI";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import FullMenu from "@/components/FullMenu";

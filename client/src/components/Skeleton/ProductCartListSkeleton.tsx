@@ -1,4 +1,4 @@
-const ProductCardSkeleton = () => {
+const ProductCardListSkeleton = () => {
     return (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
             <div className="group relative transition-shadow duration-300">
@@ -37,4 +37,4 @@ const ProductCardSkeleton = () => {
     );
 };
 
-export default ProductCardSkeleton;
+export default ProductCardListSkeleton;
