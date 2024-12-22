@@ -37,44 +37,8 @@ const FullMenu = ({member}: {member: Member}) => {
 
     };
 
-
-    const renderSubCategory = () => {
-        const subCategories = categories?.find(ct => ct.cno === expandedRow)?.subCategories || [];
-        const mainCategory = categories?.find(ct => ct.cno === expandedRow);
-        return <div className="grid grid-cols-2 gap-8 m-5 w-full">
-            <div className="flex gap-5">
-                <div className="relative">
-                    <Image
-                        src="https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
-                        alt="image" width={600} height={600} className=" object-cover h-50 w-50 rounded-lg"/>
-                    <div className='text-sm w-full bottom-0 flex p-4 flex-col'>
-                        <div className="font-bold">New Arrivals</div>
-                        <div className="text-gray-500">Shop now</div>
-                    </div>
-                </div>
-                <div className="relative">
-                    <Image
-                        src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=800"
-                        alt="image" width={600} height={600} className=" object-cover h-50 w-50 rounded-lg"/>
-                    <div className='text-sm w-full bottom-0 flex p-4 flex-col'>
-                        <div className="font-bold">New Arrivals</div>
-                        <div className="text-gray-500">Shop now</div>
-                    </div>
-                </div>
-            </div>
-            {
-                mainCategory && <div>
-                    <div className="font-medium text-base cursor-pointer"
-                         onClick={() => onClickCategory(mainCategory.cno)}>{mainCategory.cname}</div>
-                    {renderSubResult(subCategories)}
-                </div>
-            }
-
-        </div>;
-    };
-
     const renderSubResult = (subCategories: Category[], depth: number = 0) => {
-        return subCategories?.map((sub) => (
+        return  subCategories?.map((sub) => (
             <div key={sub.cno} className="m-4">
                 <div className="flex items-center cursor-pointer justify-between" onClick={() => onClickCategory(sub.cno)}>
                     <div className="text-sm font-medium text-gray-900">{sub.cname}</div>
@@ -86,41 +50,41 @@ const FullMenu = ({member}: {member: Member}) => {
         ));
     }
 
-    // 메인 카테고리를 렌더링하는 함수
-    const renderMainCategory = (categories: Category[], depth: number = 0) => {
-        return categories.map((category) => (
-            <Fragment key={category.cno}>
-                <div className="flex items-center cursor-pointer px-3 gap-0.5 hover:bg-gray-100 hover:rounded-2xl mx-1.5 py-2.5" onClick={expandedRow === category.cno ? () => setExpandedRow(null) : () => setExpandedRow(category.cno)}>
-                    <div className={category.cno.toString() === categoryId ? "text-ecom font-bold text-base" : "font-medium text-gray-900 text-base"}>{category.cname}</div>
-                        {category.subCategories && (
-                            <div onClick={(e) => {
-                                e.stopPropagation(); // 부모 onClick 이벤트 방지
-                                setExpandedRow(category.cno)//현재 expand누른 카테고리 넘버
-                            }}>
-                                <ChevronDownIcon className="h-5 w-5 text-gray-400 "/>
-                            </div>
-                        )}
-                </div>
-
-            </Fragment>
-        ));
-    };
-
-    return <div className="hidden xl:flex gap-4">
+    return <div className="hidden xl:flex gap-4 relative">
         {/*모달 바깥 클릭 */}
-        <div className={`z-1 fixed w-full overflow-hidden h-screen top-0 left-0 ${expandedRow === null && "hidden"}`} onClick={() => setExpandedRow(null)}></div>
+        <div className={`z-1 fixed w-full overflow-hidden h-screen top-0 left-0 ${expandedRow === null && "hidden"}`}
+             onClick={() => setExpandedRow(null)}></div>
 
         <div onClick={(e) => e.stopPropagation()}>
-            <ul role="list" className="flex items-center justify-center w-full text-sm font-medium text-gray-900">
-                {categories && renderMainCategory(categories)}
-            </ul>
-
-            {/*Drop down*/}
-            <div className="absolute left-0 w-full top-0 bg-gray-50 shadow z-9999 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex gap-25">
+            <div role="list" className="flex items-center justify-center w-full text-sm font-medium text-gray-900">
                 {
-                    expandedRow && renderSubCategory()
+                    categories && categories.map((category) => (
+                        <Fragment key={category.cno}>
+                            <div
+                                className="relative flex items-center cursor-pointer px-3 gap-0.5 hover:bg-gray-100 hover:rounded-2xl mx-1.5 py-2.5"
+                                onClick={expandedRow === category.cno ? () => setExpandedRow(null) : () => setExpandedRow(category.cno)}>
+                                <div className={category.cno.toString() === categoryId ? "text-ecom font-bold text-base" : "font-medium text-gray-900 text-base"}>{category.cname}</div>
+                                {category.subCategories && (
+                                    <>
+                                        <div onClick={(e) => {
+                                            e.stopPropagation(); // 부모 onClick 이벤트 방지
+                                            setExpandedRow(category.cno)//현재 expand누른 카테고리 넘버
+                                        }}>
+                                            <ChevronDownIcon className="h-5 w-5 text-gray-400"/>
+                                        </div>
+                                        <div className={`absolute w-56 rounded-lg bg-white shadow-lg top-12 z-20 transition-all duration-300 ${expandedRow===category.cno ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}>
+                                            { expandedRow===category.cno && renderSubResult(category.subCategories || [])}
+                                        </div>
+                                    </>
+                                )}
+
+                            </div>
+                        </Fragment>))
                 }
+
             </div>
+
+
         </div>
 
     </div>;

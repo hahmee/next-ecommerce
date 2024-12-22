@@ -27,7 +27,7 @@ const HomePage = () => {
     return (
         <div className="">
             <Slider/>
-            <div className="mt-24 bg-[#F9F9F9] m-auto">
+            <div className="mt-24 bg-[#F9F9F9] m-auto py-10">
                 <h1 className="text-4xl font-bold text-gray-600 text-center py-10 px-4.5">
                     Categories
                 </h1>
@@ -56,7 +56,6 @@ const HomePage = () => {
                     </PrefetchBoundary>
                 </Suspense>
             </div>
-
 
             <MainInfo/>
 

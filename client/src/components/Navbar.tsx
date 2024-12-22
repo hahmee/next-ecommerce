@@ -55,15 +55,16 @@ const Navbar = ({member}: { member: Member }) => {
               }
             </div>
           </div>
-          <div className="h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white w-full flex items-center fixed top-20 ">
-            <Suspense fallback={<Loading/>}>
-              <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                {
-                    member && <FullMenu member={member}/>
-                }
-              </PrefetchBoundary>
-            </Suspense>
-          </div>
+          {
+              member && <div className="h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white w-full flex items-center fixed top-20 ">
+                <Suspense fallback={<Loading/>}>
+                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                    <FullMenu member={member}/>
+                  </PrefetchBoundary>
+                </Suspense>
+              </div>
+          }
+
         </div>
       </div>
   );
