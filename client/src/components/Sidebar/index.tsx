@@ -149,7 +149,7 @@ const menuGroups = [
         ),
         label: "Users",
         route: "#",
-        children: [{label: "Users", route: "/"}],
+        children: [{label: "Users", route: "/admin/users"}],
 
       },
       {
@@ -270,10 +270,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
               {menuGroups.map((group, groupIndex) => (
                   <div key={groupIndex}>
-                    <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-                      {group.name}
-                    </h3>
-
                     <ul className="mb-6 flex flex-col gap-1.5">
                       {group.menuItems.map((menuItem, menuIndex) => (
                           <SidebarItem

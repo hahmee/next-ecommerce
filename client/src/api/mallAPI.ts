@@ -146,17 +146,6 @@ export const getUserInfo = async () => {
     });
 }
 
-export const getUserServer = async () => {
-    return await fetchJWT(`/api/profile`, {
-        method: "GET",
-        next: {
-            tags: ['userServer'],
-        },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-}
-
 export const getCart = async  () => {
     return await fetchJWT(`/api/cart/items`, {
         method: "GET",

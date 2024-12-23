@@ -1,7 +1,7 @@
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
-import {getPayments, getUserServer} from "@/api/mallAPI";
+import {getPayments} from "@/api/mallAPI";
 import {getCookie} from "@/utils/cookie";
 import ShoppingSkeleton from "@/components/Skeleton/ShoppingSkeleton";
 
@@ -18,10 +18,6 @@ export async function generateMetadata() {
 export default async function OrderHistoryPage()  {
 
     const prefetchOptions = [
-        {
-            queryKey: ['userServer'],
-            queryFn: getUserServer,
-        },
         {
             queryKey: ['payments'],
             queryFn: () => getPayments({queryKey: ['payments']}),

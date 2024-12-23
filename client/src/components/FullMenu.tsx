@@ -52,8 +52,7 @@ const FullMenu = ({member}: {member: Member}) => {
 
     return <div className="hidden xl:flex gap-4 relative">
         {/*모달 바깥 클릭 */}
-        <div className={`z-1 fixed w-full overflow-hidden h-screen top-0 left-0 ${expandedRow === null && "hidden"}`}
-             onClick={() => setExpandedRow(null)}></div>
+        <div className={`z-1 fixed w-full overflow-hidden h-screen top-0 left-0 ${expandedRow === null && "hidden"}`} onClick={() => setExpandedRow(null)}></div>
 
         <div onClick={(e) => e.stopPropagation()}>
             <div role="list" className="flex items-center justify-center w-full text-sm font-medium text-gray-900">
@@ -77,16 +76,11 @@ const FullMenu = ({member}: {member: Member}) => {
                                         </div>
                                     </>
                                 )}
-
                             </div>
                         </Fragment>))
                 }
-
             </div>
-
-
         </div>
-
     </div>;
 };
 

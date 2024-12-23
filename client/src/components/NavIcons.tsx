@@ -27,9 +27,10 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         // });
 
         await logout();
-        toast.success("로그아웃 되었습니다.");
 
         router.push('/login');
+        toast.success("로그아웃 되었습니다.");
+
 
     };
 

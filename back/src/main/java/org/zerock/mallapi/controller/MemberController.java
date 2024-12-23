@@ -2,6 +2,7 @@ package org.zerock.mallapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,11 @@ public class MemberController {
         return DataResponseDTO.of(registeredMemberDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/api/profile")
     public DataResponseDTO<MemberDTO> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+
+        log.info("..... userDetails " + userDetails);
 
         //서비스 호출
         MemberDTO profileDTO = memberService.getProfile(userDetails);

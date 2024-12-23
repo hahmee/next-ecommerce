@@ -20,6 +20,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @PostMapping("/")
     public DataResponseDTO<String> register(@RequestBody OrderRequestDTO orderRequestDTO, Principal principal) {
@@ -51,7 +52,6 @@ public class OrderController {
         return DataResponseDTO.of(orderService.get(id));
 
     }
-
 
 
 }

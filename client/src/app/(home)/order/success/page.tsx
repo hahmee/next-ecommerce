@@ -18,11 +18,13 @@ export default async function OrderSuccessPage({searchParams}: Props) {
     const {paymentKey, orderId, amount} = searchParams;
 
     //결제 요청이 토스페이먼츠로 전송되고 성공했을 때 url로 orderId, paymentKey, amount가 나오는데 그 값들을 스프링으로 넘겨준다.
-    const prefetchOptions = [{
-        queryKey: ['payment', orderId],
-        queryFn: () => getSuccessPayment({queryKey: ['payment', orderId], paymentKey, orderId, amount}), // queryKey를 전달하여 호출
-    },
+    const prefetchOptions = [
         {
+            queryKey: ['payment', orderId],
+            queryFn: () => getSuccessPayment({queryKey: ['payment', orderId], paymentKey, orderId, amount}), // queryKey를 전달하여 호출
+        },
+        {
+
             queryKey: ['carts'],
             queryFn: () => getCart(),
         }

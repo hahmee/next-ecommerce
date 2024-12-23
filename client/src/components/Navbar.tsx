@@ -6,9 +6,9 @@ import SearchBar from "@/components/SearchBar";
 import React, {Suspense} from "react";
 import {Member} from "@/interface/Member";
 import {getCategories} from "@/api/adminAPI";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import FullMenu from "@/components/FullMenu";
+import FullMenuSkeleton from "./Skeleton/FullMenuSkeleton";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
@@ -56,7 +56,7 @@ const Navbar = ({member}: { member: Member }) => {
           </div>
           {
               member && <div className="h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white w-full flex items-center fixed top-20 ">
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<FullMenuSkeleton/>}>
                   <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <FullMenu member={member}/>
                   </PrefetchBoundary>

@@ -19,8 +19,8 @@ export async function generateMetadata() {
 export default async function ProfilePage() {
 
     const prefetchOptions = {
-            queryKey: ['user'],
-            queryFn: () => getUserInfo,
+        queryKey: ['user'],
+        queryFn: () => getUserInfo(),
     }
 
     return (
