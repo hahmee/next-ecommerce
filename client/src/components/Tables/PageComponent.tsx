@@ -6,7 +6,12 @@ import {Paging} from "@/interface/Paging";
 
 const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Paging, size: number, search: string, changePage: (page:number) => void }) => {
 
-
+    // console.log('pageData', pagingData);
+    // console.log('size', size);
+    // console.log('search', search);
+    if(pagingData.totalCount  < size) {
+        return null;
+    }
     return (
         <>
             <div className="flex flex-1 justify-between sm:hidden">

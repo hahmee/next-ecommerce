@@ -14,8 +14,6 @@ public interface ProductService {
 
   PageResponseDTO<ProductDTO> getList(PageCategoryRequestDTO pageCategoryRequestDTO);
 
-  PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails);
-
   PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails);
 
   ProductDTO register(ProductDTO productDTO, UserDetails userDetails);

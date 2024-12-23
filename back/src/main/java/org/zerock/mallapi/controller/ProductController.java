@@ -93,28 +93,11 @@ public class ProductController {
 
   }
 
-  //ADMIN 페이지 추가
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
-  @GetMapping("/adminList") // adminList?page=7
-  public DataResponseDTO<PageResponseDTO<ProductDTO>> adminList(PageRequestDTO pageRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
-
-    try {
-      Thread.sleep(0);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-    return DataResponseDTO.of(productService.getAdminList(pageRequestDTO, userDetails));
-
-  }
-
 
   //ADMIN 페이지 추가
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/searchAdminList") // searchAdminList?search=검색어&page=1&size=10
   public DataResponseDTO<PageResponseDTO<ProductDTO>> searchAdminList(SearchRequestDTO searchRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
-
 
     DataResponseDTO<PageResponseDTO<ProductDTO>> result =  DataResponseDTO.of(productService.getSearchAdminList(searchRequestDTO, userDetails));
 

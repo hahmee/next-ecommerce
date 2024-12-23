@@ -14,7 +14,7 @@ export async function getCategories () {
 
 export async function getAdminCategories (pageParam: PageParam) {
     const {page, size,search} = pageParam;
-    return await fetchJWT(`/api/category/adminList?page=${page}&size=${size}&search=${search}`, {
+    return await fetchJWT(`/api/category/searchAdminList?page=${page}&size=${size}&search=${search}`, {
         method: "GET",
         next: {
             tags:  ['adminCategories'],
@@ -50,12 +50,24 @@ export async function getProductsByEmail (pageParam: PageParam) {
     return await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
         next: {
-            tags:  ['adminStockProducts'], //다시
+            tags:  ['adminProducts'],
         },
         credentials: 'include',
         cache: 'no-store',
     });
 }
+
+export async function getAdminStock (pageParam: PageParam) {
+    return await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
+        method: "GET",
+        next: {
+            tags:  ['adminStockProducts'],
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
+
 
 export const getCategory = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, cno] = queryKey;

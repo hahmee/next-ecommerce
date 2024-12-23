@@ -20,10 +20,7 @@ import {StarIcon} from "@heroicons/react/20/solid";
 import TableActions from "@/components/Tables/TableActions";
 import Link from "next/link";
 import {getProductsByEmail} from "@/api/adminAPI";
-import {Category} from "@/interface/Category";
 import toast from "react-hot-toast";
-import Skeleton from "@/components/Skeleton/Skeleton";
-import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -62,10 +59,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
         }
     });
 
-    const handleClick = (pno:number) => {
-        router.push(`/admin/products/${pno}`);
-    }
-
     useEffect(() => {
         if (data) {
             setProductData(data);
@@ -74,16 +67,14 @@ const ProductTable = () => { //{page, size, search} : PageParam
         }
     }, [data]);
 
-    const handleOpenMenu = (pno:number) => {
-        setCurrentPno(pno);
-    }
-
     const handleSearch = (value:string) => {
         setSearch(value);  // 검색어 업데이트
+        value && setPage(1);
     };
 
     const changeSize = (size:number) => {
         setSize(size);
+        setPage(1);
     }
 
     const changePage = (page:number) =>{
@@ -115,10 +106,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
             }
         },
         onSuccess: (data) => {
-            console.log('data...', data);
             toast.success('삭제되었습니다.');
             clickModal();
-
         }
 
     });
@@ -131,20 +120,19 @@ const ProductTable = () => { //{page, size, search} : PageParam
         mutation.mutate(deleteId);
     }
 
-    if (isLoading || isFetching) {
-        return <TableSkeleton/>;
-    }
-
+    //
+    // if (isLoading || isFetching) {
+    //     return <TableSkeleton/>;
+    // }
 
     return (
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm ">
             {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
                                    doAction={deleteProduct}/>}
 
-            <div
-                className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2">
-                    <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
+                    <TableSearch onSearch={handleSearch} placeholder={"Search the product name"}/> {/* 검색어 전달 */}
                 </div>
                 <div
                     className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
@@ -176,80 +164,87 @@ const ProductTable = () => { //{page, size, search} : PageParam
                     </tr>
                     </thead>
                     <tbody>
-                    {productData?.dtoList?.map((product, key) => (
-                        <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                            <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                <Link href={`/admin/products/${product.pno}`} className="flex items-center gap-2">
-                                    {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
-                                        <Image
-                                            src={product.uploadFileNames[0]?.file}
-                                            width={500}
-                                            height={500}
-                                            className="object-cover w-15 h-10 flex-none"
-                                            alt="Product"
-                                        />
-                                    }
-                                    <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap w-full">
-                                        {product.pname}
-                                    </p>
-                                </Link>
-                            </th>
-                            <td className="px-4 py-3 whitespace-nowrap">
+                    {(productData?.dtoList && productData?.dtoList.length > 0) ? productData?.dtoList?.map((product, key) => (
+                            <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
+                                <th scope="row"
+                                    className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <Link href={`/admin/products/${product.pno}`} className="flex items-center gap-2">
+                                        {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
+                                            <Image
+                                                src={product.uploadFileNames[0]?.file}
+                                                width={500}
+                                                height={500}
+                                                className="object-cover w-15 h-10 flex-none"
+                                                alt="Product"
+                                            />
+                                        }
+                                        <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap w-full">
+                                            {product.pname}
+                                        </p>
+                                    </Link>
+                                </th>
+                                <td className="px-4 py-3 whitespace-nowrap">
                                 <span
                                     className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{product.category?.cname}</span>
-                            </td>
-                            <td className="px-4 py-3 whitespace-nowrap">Apple</td>
-                            <td className="px-4 py-3 whitespace-nowrap">300</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{product.sku}</td>
-                            <td className="px-4 py-3 whitespace-nowrap ">
-                                <div className="flex items-center gap-1">
-                                    <StarIcon className="w-5 h-5 text-ecom"/>
-                                    <span>{product.averageRating || "평점없음"}</span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-3 whitespace-nowrap">판매</td>
-                            <td className="px-4 py-3 whitespace-nowrap">레베뉴</td>
-                            <td className="px-4 py-3 whitespace-nowrap">{(product.price).toLocaleString()} 원</td>
-                            <td className="px-4 py-3 whitespace-nowrap">
-                                <div className="flex items-center">
-                                    <div
-                                        className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400" : "bg-yellow-300"}`}/>
-                                    {salesOptions.find(option => option.id === product.salesStatus)?.content}
-                                </div>
-                            </td>
+                                </td>
+                                <td className="px-4 py-3 whitespace-nowrap">Apple</td>
+                                <td className="px-4 py-3 whitespace-nowrap">300</td>
+                                <td className="px-4 py-3 whitespace-nowrap">{product.sku}</td>
+                                <td className="px-4 py-3 whitespace-nowrap ">
+                                    <div className="flex items-center gap-1">
+                                        <StarIcon className="w-5 h-5 text-ecom"/>
+                                        <span>{product.averageRating || "평점없음"}</span>
+                                    </div>
+                                </td>
+                                <td className="px-4 py-3 whitespace-nowrap">판매</td>
+                                <td className="px-4 py-3 whitespace-nowrap">레베뉴</td>
+                                <td className="px-4 py-3 whitespace-nowrap">{(product.price).toLocaleString()} 원</td>
+                                <td className="px-4 py-3 whitespace-nowrap">
+                                    <div className="flex items-center">
+                                        <div
+                                            className={`inline-block w-4 h-4 mr-2 rounded-full ${product.salesStatus === SalesStatus.ONSALE ? "bg-green-400" : product.salesStatus === SalesStatus.STOPSALE ? "bg-red-400" : "bg-yellow-300"}`}/>
+                                        {salesOptions.find(option => option.id === product.salesStatus)?.content}
+                                    </div>
+                                </td>
 
 
-                            <td className="px-4 py-3 justify-end whitespace-nowrap">
-                                <TableActions>
-                                    <div id="apple-imac-27-dropdown"
-                                         className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                            aria-labelledby="apple-imac-27-dropdown-button">
-                                            <li>
-                                                <Link href={`/product/${product.pno}`}
-                                                      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
-                                            </li>
-                                            <li>
-                                                <Link href={`/admin/products/${product.pno}`}
-                                                      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
-                                            </li>
-                                        </ul>
-                                        <div className="py-1">
-                                            <div
-                                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                onClick={() => {
-                                                    setShowDialog(true);
-                                                    setDeleteId(product.pno);
-                                                }}>
-                                                삭제하기
+                                <td className="px-4 py-3 justify-end whitespace-nowrap">
+                                    <TableActions>
+                                        <div id="apple-imac-27-dropdown"
+                                             className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                aria-labelledby="apple-imac-27-dropdown-button">
+                                                <li>
+                                                    <Link href={`/product/${product.pno}`}
+                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
+                                                </li>
+                                                <li>
+                                                    <Link href={`/admin/products/${product.pno}`}
+                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
+                                                </li>
+                                            </ul>
+                                            <div className="py-1">
+                                                <div
+                                                    className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                                    onClick={() => {
+                                                        setShowDialog(true);
+                                                        setDeleteId(product.pno);
+                                                    }}>
+                                                    삭제하기
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </TableActions>
+                                    </TableActions>
 
+                                </td>
+                            </tr>
+                        ))
+                        : <tr>
+                            <td scope="row" colSpan={11} className="text-center px-4 py-3 text-gray-500 whitespace-nowrap dark:text-white">
+                                No results
                             </td>
                         </tr>
-                    ))}
+                    }
 
                     </tbody>
                 </table>

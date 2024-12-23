@@ -23,11 +23,11 @@ const DropdownUser = () => {
           </span>
           <span className="block text-xs">{member.roleNames}</span>
         </span>
-                <span className="h-12 w-12 rounded-full">
+                <span className="h-12 w-12 rounded-full flex items-center justify-center">
                   <Image
-                      width={112}
-                      height={112}
-                      src={"/images/user/user-01.png"}
+                      width={500}
+                      height={500}
+                      src={"/images/mall/profile.png"}
                       style={{
                           width: "auto",
                           height: "auto",

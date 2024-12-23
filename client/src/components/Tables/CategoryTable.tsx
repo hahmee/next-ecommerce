@@ -20,7 +20,6 @@
     import TableActions from "@/components/Tables/TableActions";
     import {getAdminCategories} from "@/api/adminAPI";
 
-
     const CategoryTable = () => {
         const [paging, setPaging] = useState<Paging>(initalPagingData);
         const [expandedRows, setExpandedRows] = useState<number[]>([]);
@@ -46,10 +45,8 @@
         });
 
         useEffect(() => {
-            console.log('data', data);
             if (data) {
                 setCategoryData(data);
-
                 const {dtoList, ...otherData} = data;
                 setPaging(otherData);
             }
@@ -63,7 +60,6 @@
                 });
             },
             onMutate: async (cno) => {
-                console.log('??언제실행 ');
 
                 // Get previous value of the query data
                 // const previousData: DataResponse<PageResponse<Category>> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
@@ -85,7 +81,6 @@
 
             onSuccess: (data) => {
 
-                console.log('data...', data);
                 const deletedCno: Array<number> = data.data; //삭제된 cno
 
                 // 기존 데이터 가져오기
@@ -134,7 +129,6 @@
 
         // 행 클릭 시 확장 여부 토글
         const toggleRow = (id: number) => {
-            console.log('id', id);
 
             setExpandedRows((prevExpandedRows) =>
                 prevExpandedRows.includes(id)
@@ -146,7 +140,6 @@
 
         // Toggle dropdown modal for each category
         const toggleDropdown = (id: number) => {
-            console.log('id', id);
             setDropdownOpen((prevState) => ({
                 ...prevState,
                 [id]: !prevState[id], // toggle the dropdown for specific category
@@ -283,10 +276,12 @@
 
         const handleSearch = (value:string) => {
             setSearch(value);  // 검색어 업데이트
+            value && setPage(1);
         };
 
         const changeSize = (size: number) => {
             setSize(size);
+            setPage(1);
         };
 
         const changePage = (page: number) => {
@@ -295,13 +290,11 @@
 
         return (
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm">
-                <div
-                    className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">
-                        <TableSearch onSearch={handleSearch}/> {/* 검색어 전달 */}
+                        <TableSearch onSearch={handleSearch} placeholder="Search the category name"/> {/* 검색어 전달 */}
                     </div>
-                    <div
-                        className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                    <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         <TableAddButton content={"Add Main Category"} location={"/admin/category/add-category"}/>
                         <div className="flex items-center space-x-3 w-full md:w-auto">
                             <FilterButton/>

@@ -5,103 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Skeleton/FullMenuSkeleton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bigtree.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/cart.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/cart.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/category.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/category.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/close.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/close.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/discover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/dragable.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/dragable.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/edit.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/edit2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/edit2.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/facebook.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/facebook.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/best-value-banner.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cards/cards-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cards/cards-02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cards/cards-03.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cards/cards-04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cards/cards-05.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cards/cards-06.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/country/country-01.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/country/country-02.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/country/country-03.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/country/country-04.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/country/country-05.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/country/country-06.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cover/cover-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/icon/icon-arrow-down.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/icon/icon-calendar.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/icon/icon-copy-alt.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/icon/icon-moon.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/icon/icon-sun.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/illustration/illustration-01.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/illustration/illustration-02.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/illustration/illustration-03.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/illustration/illustration-04.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/logo/logo-dark.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/logo/logo-icon.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/logo/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/product/no_image.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/product/product-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/product/product-02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/product/product-03.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/product/product-04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/product/product-thumb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/task/task-01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-03.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-05.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-06.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-07.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-08.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-09.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/user/user-13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/instagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/instagram.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/main_kid.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/main_kid.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mastercard.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/mastercard.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/menu.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/menu.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/noImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/notification.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/notification.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/paypal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/photo.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/photo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/pinterest.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/pinterest.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/plus.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/plus.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/product.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/product.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/profile.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/profile.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/search.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/search.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/skrill.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/star.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/star.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/visa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/woman.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/x.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/youtube.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/mall/youtube.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/mallAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/mallAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/adminAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/adminAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Profile.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FullMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FullMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/DropdownMessage.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/DropdownNotification.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/DropdownUser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/DropdownUser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RQProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RQProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PageComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/TableSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableSearch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -585,7 +502,7 @@
       <workItem from="1733894494998" duration="1000" />
       <workItem from="1734843127287" duration="8340000" />
       <workItem from="1734873946088" duration="1950000" />
-      <workItem from="1734914922809" duration="8063000" />
+      <workItem from="1734914922809" duration="19841000" />
     </task>
     <servers />
   </component>

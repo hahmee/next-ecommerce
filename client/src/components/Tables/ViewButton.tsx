@@ -42,58 +42,60 @@ const ViewButton= ({changeSize}:{changeSize: (size: number) => void}) => {
                                     className="hidden peer"
                                 />
                                 <label htmlFor="ten" className="flex items-center cursor-pointer">
-                    <span
-                        className="w-4 h-4 mr-2 border border-gray-300 rounded-full flex items-center justify-center peer-checked:bg-primary-600 peer-checked:border-transparent">
-                        {selectedOption === "10" && (
-                            <span className="w-2 h-2 dark:bg-white bg-primary-500 rounded-full"></span>
-                        )}
-                    </span>
+                                    <span
+                                        className="w-4 h-4 mr-2 border border-gray-300 rounded-full flex items-center justify-center peer-checked:bg-primary-600 peer-checked:border-transparent">
+                                        {selectedOption === "10" && (
+                                            <span className="w-2 h-2 dark:bg-white bg-primary-500 rounded-full"></span>
+                                        )}
+                                    </span>
                                     <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                        10개씩 보기
-                    </span>
+                                        10개씩 보기
+                                    </span>
                                 </label>
                             </li>
-                            <li className="flex items-center">
-                                <input
-                                    id="twenty"
-                                    type="radio"
-                                    value="20"
-                                    checked={selectedOption === "20"}
-                                    onChange={handleOptionChange}
-                                    className="hidden peer"
-                                />
-                                <label htmlFor="twenty" className="flex items-center cursor-pointer">
-                    <span
-                        className="w-4 h-4 mr-2 border border-gray-300 rounded-full flex items-center justify-center peer-checked:bg-primary-600 peer-checked:border-transparent">
-                        {selectedOption === "20" && (
-                            <span className="w-2 h-2 dark:bg-white bg-primary-500 rounded-full"></span>
-                        )}
-                    </span>
-                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                        20개씩 보기
-                    </span>
-                                </label>
 
-                            </li>
+
                             <li className="flex items-center">
                                 <input
-                                    id="thirty"
+                                    id="one"
                                     type="radio"
-                                    value="30"
-                                    checked={selectedOption === "30"}
+                                    value="1"
+                                    checked={selectedOption === "1"}
                                     onChange={handleOptionChange}
                                     className="hidden peer"
                                 />
-                                <label htmlFor="thirty" className="flex items-center cursor-pointer">
-                    <span
-                        className="w-4 h-4 mr-2 border border-gray-300 rounded-full flex items-center justify-center peer-checked:bg-primary-600 peer-checked:border-transparent">
-                        {selectedOption === "30" && (
-                            <span className="w-2 h-2 dark:bg-white bg-primary-500 rounded-full"></span>
-                        )}
-                    </span>
+                                <label htmlFor="one" className="flex items-center cursor-pointer">
+                                <span
+                                    className="w-4 h-4 mr-2 border border-gray-300 rounded-full flex items-center justify-center peer-checked:bg-primary-600 peer-checked:border-transparent">
+                                    {selectedOption === "1" && (
+                                        <span className="w-2 h-2 dark:bg-white bg-primary-500 rounded-full"></span>
+                                    )}
+                                </span>
                                     <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                        30개씩 보기
-                    </span>
+                                        1개씩 보기
+                                    </span>
+                                </label>
+                            </li>
+
+                            <li className="flex items-center">
+                                <input
+                                    id="three"
+                                    type="radio"
+                                    value="3"
+                                    checked={selectedOption === "3"}
+                                    onChange={handleOptionChange}
+                                    className="hidden peer"
+                                />
+                                <label htmlFor="three" className="flex items-center cursor-pointer">
+                                <span
+                                    className="w-4 h-4 mr-2 border border-gray-300 rounded-full flex items-center justify-center peer-checked:bg-primary-600 peer-checked:border-transparent">
+                                    {selectedOption === "3" && (
+                                        <span className="w-2 h-2 dark:bg-white bg-primary-500 rounded-full"></span>
+                                    )}
+                                </span>
+                                    <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                        3개씩 보기
+                                    </span>
                                 </label>
                             </li>
                         </ul>

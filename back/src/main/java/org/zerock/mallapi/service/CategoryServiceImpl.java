@@ -42,8 +42,6 @@ public class CategoryServiceImpl implements CategoryService {
             .map(closure -> closure.getId().getDescendant())
             .collect(Collectors.toList());
 
-    //부모 카테고리 찾기
-
 
     // 카테고리 DTO 변환
     return CategoryDTO.builder()
@@ -71,12 +69,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     String search = searchRequestDTO.getSearch();
 
-
+    //서치할 때 자긴 아니더라도 subCategory가 해당되면 함께 찾아줘야한다.
     Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
+
+    log.info("categories..... 입니다..." + categories);
 
     //여기에서 subCategory있으면 넣어주기
     List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
 
+    log.info("responseDTO..... 입니다..." + responseDTO);
 
     long totalCount = categories.getTotalElements();
 
@@ -87,7 +88,6 @@ public class CategoryServiceImpl implements CategoryService {
             .totalCount(totalCount)
             .pageRequestDTO(pageRequestDTO)
             .build();
-
 
   }
 

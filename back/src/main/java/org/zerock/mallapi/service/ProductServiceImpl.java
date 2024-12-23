@@ -189,79 +189,6 @@ public class ProductServiceImpl implements ProductService{
                 .build();
   }
 
-  @Override
-  public PageResponseDTO<ProductDTO> getAdminList(PageRequestDTO pageRequestDTO, UserDetails userDetails) {
-
-    log.info("pageRequestDTO...." + pageRequestDTO);
-    //현재 접속자 이메일 넣기
-    String email = userDetails.getUsername();
-
-
-    Pageable pageable = PageRequest.of(
-            pageRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
-            pageRequestDTO.getSize(),
-            Sort.by("pno").descending());
-
-    Page<Object[]> result = productRepository.selectAdminList(pageable, email); // 내 이메일 주소
-
-
-    List<ProductDTO> dtoList = result.get().map(arr -> {
-
-      Product product = (Product) arr[0];
-      ProductImage productImage = (ProductImage) arr[1];
-
-      MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
-
-
-      ProductDTO productDTO = ProductDTO.builder()
-              .pno(product.getPno())
-              .pname(product.getPname())
-              .pdesc(product.getPdesc())
-              .price(product.getPrice())
-              .refundPolicy(product.getRefundPolicy())
-              .changePolicy(product.getChangePolicy())
-              .sku(product.getSku())
-              .brand(product.getBrand())
-//              .categoryList(product.getCategoryList())
-              .delFlag(product.isDelFlag()) // 원래 없었음
-              .salesStatus(product.getSalesStatus())
-              .owner(memberDTO)
-              .build();
-
-      if(productImage !=null ) {
-
-        String imageNameStr = productImage.getFileName(); //null이 올 수도 있음
-        String imageKeyStr = productImage.getFileKey();
-
-
-        FileDTO<String> uploadFileName = new FileDTO<>();
-        uploadFileName.setFile(imageNameStr);
-
-        FileDTO<String> uploadFileKey = new FileDTO<>();
-        uploadFileKey.setFile(imageKeyStr);
-
-
-
-        productDTO.setUploadFileNames(List.of(uploadFileName));
-        productDTO.setUploadFileKeys(List.of(uploadFileKey));
-
-
-      }
-
-      return productDTO;
-
-    }).collect(Collectors.toList());
-
-
-
-    long totalCount = result.getTotalElements();
-
-    return PageResponseDTO.<ProductDTO>withAll()
-            .dtoList(dtoList)
-            .totalCount(totalCount)
-            .pageRequestDTO(pageRequestDTO)
-            .build();
-  }
 
   @Override
   public PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails) {
@@ -290,7 +217,6 @@ public class ProductServiceImpl implements ProductService{
     log.info("........result " + result);
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
-
 
       Product product = (Product) arr[0];
       ProductImage productImage = (ProductImage) arr[1];
