@@ -13,31 +13,32 @@ import {TossPaymentStatusKR, TossPaymentTypeKR} from "@/types/toss";
 import TableDatePicker from "@/components/Admin/TableDatePicker";
 import {getPaymentsByEmail} from "@/api/adminAPI";
 
-
 const PaymentTable = () => {
-
-    const endDate = new Date(); // today
-    const startDate = new Date();  // today
-
-    const [date, setDate] = useState({
-        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-    });
-
+    const todayEndDate = new Date(); // today
+    const todayStartDate = new Date();  // today
+    console.log('todayEndDate', todayEndDate);
+    const defaultDate = {
+        startDate: todayStartDate,
+        endDate: todayEndDate
+    };
+    // const defaultDate = {
+    //     startDate: todayStartDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    //     endDate: todayEndDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    // };
+    const [date, setDate] = useState(defaultDate);
     const [paging, setPaging] = useState<Paging>(initalPagingData);
-
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
     const [payments,setPayments] = useState<PageResponse<Payment>>();
-
     const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Payment>>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
         queryKey: ['adminPayments', {page, size, search, date}],
-        queryFn: () => getPaymentsByEmail({page, size, search, startDate: date.startDate, endDate: date.endDate}),
+        queryFn: () => getPaymentsByEmail({page, size, search, startDate: defaultDate.startDate, endDate: defaultDate.startDate}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
+        enabled: !!date, // date 가 있을 때만 쿼리 요청
         throwOnError: true,
         select: (data) => {
             return data.data;
@@ -54,9 +55,9 @@ const PaymentTable = () => {
         }
     }, [data]);
 
-
     const handleSearch = (value:string) => {
         setSearch(value);  // 검색어 업데이트
+        value && setPage(1);
     };
 
     const changeSize = (size:number) => {
@@ -67,8 +68,12 @@ const PaymentTable = () => {
         setPage(page);
     }
 
-
     const dateChange = (value:any) => {
+        console.log('value', value);
+        if (!value.endDate && !value.startDate) { //null값이면
+            setDate(defaultDate);
+            return;
+        }
 
         // value.startDate와 value.endDate를 Date 객체로 변환
         const startDate = new Date(value.startDate);

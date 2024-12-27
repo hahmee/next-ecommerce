@@ -1,7 +1,7 @@
 import Datepicker from "react-tailwindcss-datepicker";
 import React from "react";
 
-const TableDatePicker = ({ date, dateChange }: { date: any; dateChange: (value: any) => void }) => {
+const TableDatePicker = ({date, dateChange}: { date: any; dateChange: (value: any) => void }) => {
 
     const handleDateChange = (value: any) => {
         dateChange(value);
@@ -13,8 +13,8 @@ const TableDatePicker = ({ date, dateChange }: { date: any; dateChange: (value: 
             value={date}
             onChange={handleDateChange}
             showShortcuts={true}
-        />
-    );
+            popupClassName={(existingClasses) => `${existingClasses || ""} z-9999`.trim()}
+        />);
 };
 
 export default TableDatePicker;

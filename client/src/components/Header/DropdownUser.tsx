@@ -24,16 +24,16 @@ const DropdownUser = () => {
           <span className="block text-xs">{member.roleNames}</span>
         </span>
                 <span className="h-12 w-12 rounded-full flex items-center justify-center">
-                  <Image
-                      width={500}
-                      height={500}
-                      src={"/images/mall/profile.png"}
-                      style={{
-                          width: "auto",
-                          height: "auto",
-                      }}
-                      alt="User"
-                  />
+                  {/*<Image*/}
+                  {/*    width={500}*/}
+                  {/*    height={500}*/}
+                  {/*    src={"/images/admin/person.jpg"}*/}
+                  {/*    style={{*/}
+                  {/*        width: "auto",*/}
+                  {/*        height: "auto",*/}
+                  {/*    }}*/}
+                  {/*    alt="User"*/}
+                  {/*/>*/}
             </span>
                 {/*<svg*/}
                 {/*    className="hidden fill-current sm:block"*/}

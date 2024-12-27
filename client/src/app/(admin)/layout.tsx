@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
+
 export default function AdminLayout({children, modal}: { children: React.ReactNode, modal: React.ReactNode }) {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function AdminLayout({children, modal}: { children: React.ReactNo
                         {/* <!-- ===== Header End ===== --> */}
 
                         {/* <!-- ===== Main Content Start ===== --> */}
-                        <main className="overflow-y-hidden lg:ml-72.5 mt-18">
+                        <main className="lg:ml-72.5 mt-20 ">
                             <div className="mx-auto w-full max-w-screen-2xl p-4 md:p-6 2xl:p-10 min-h-screen h-auto">
                                 {children}
                             </div>

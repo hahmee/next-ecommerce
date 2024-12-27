@@ -95,9 +95,8 @@ export const getCategoryPaths = async ({queryKey}: { queryKey: [string, string] 
     });
 }
 
-
 export async function getOrdersByEmail (pageParam: PageParam) {
-
+    console.log('pageParam', pageParam);
     return await fetchJWT(`/api/payments/searchAdminOrders?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
         next: {
@@ -106,7 +105,6 @@ export async function getOrdersByEmail (pageParam: PageParam) {
         credentials: 'include',
         cache: 'no-store',
     });
-
 }
 
 export async function getPaymentsByEmail (pageParam: PageParam) {

@@ -14,9 +14,6 @@ const SearchBar = () => {
   const pathname = usePathname(); // 현재 경로 가져오기
 
   useEffect(() => {
-    console.log('pathname', pathname);
-    console.log('queryValue', queryValue);
-
     if (pathname) {
       // GTM 이벤트 전송
       sendGTMEvent({

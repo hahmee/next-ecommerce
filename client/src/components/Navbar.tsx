@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Menu from "@/components/Menu";
 import SearchBar from "@/components/SearchBar";
@@ -9,6 +8,7 @@ import {getCategories} from "@/api/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import FullMenu from "@/components/FullMenu";
 import FullMenuSkeleton from "./Skeleton/FullMenuSkeleton";
+import {ShoppingBagIcon} from "@heroicons/react/24/outline";
 
 const NavIcons = dynamic(() => import("./NavIcons"), { ssr: false });
 
@@ -27,17 +27,17 @@ const Navbar = ({member}: { member: Member }) => {
           {/* MOBILE */}
           <div className="h-full flex items-center justify-between md:hidden">
             <Link href="/">
-              <span className="text-2xl tracking-wide">E-COM</span>
+              <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
             </Link>
             <Menu/>
           </div>
           {/* BIGGER SCREENS */}
           <div className="hidden md:flex items-center justify-between gap-8 h-full ">
             {/* LEFT */}
-            <div className="w-1/3 xl:w-1/2 flex items-center gap-12 ">
-              <Link href="/" className="flex items-center gap-3">
-                <Image src="/logo.png" alt="" width={24} height={24}/>
-                <div className="text-2xl tracking-wide">E-COM</div>
+            <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
+              <Link href="/" className="flex gap-1">
+                <ShoppingBagIcon className="h-7 w-7 text-ecom"/>
+                <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
               </Link>
 
 

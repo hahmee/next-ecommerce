@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "E-Commerce Application",
     description: "A e-commerce application with Next.js",
     icons: {
-        icon: "/logo.png",
+        icon: "/images/main/logo.svg", // 절대 경로로 수정
     },
 };
 
