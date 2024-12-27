@@ -7,17 +7,19 @@ import {getOrdersByEmail} from "@/api/adminAPI";
 import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 export default async function AdminOrderPage() {
-    // const endDate = new Date(); // today
-    // const startDate = new Date(); // today
+
     //테이블 기간
     const date = {
-        startDate: null,// startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: null, //endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        startDate: null,
+        endDate: null,
     };
 
     const prefetchOptions = {
         queryKey: ['adminOrders', {page: 1, size: 10, search: "", date}],
-        queryFn: () => getOrdersByEmail({page: 1, size: 10, search: "", startDate:  date.startDate ?? "", endDate:  date.endDate ?? ""}),
+        queryFn: () => getOrdersByEmail({page: 1, size: 10, search: "",
+            startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
+            endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+        }),
     };
 
     return (

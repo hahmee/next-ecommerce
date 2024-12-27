@@ -50,7 +50,6 @@ const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
   const endDate = new Date(); // today
   const startDate = new Date();  // today
-
   startDate.setDate(endDate.getDate() - 30); // 30 days ago
   // 새로운 날짜 계산
   const comparedEndDate = new Date(startDate); // endDate 복사
@@ -58,7 +57,6 @@ const SalesOverview: React.FC = () => {
 
   const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
   comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
-
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
   const memberInfo = getCookie('member');
@@ -68,7 +66,6 @@ const SalesOverview: React.FC = () => {
     startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
     endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
   });
-
   const [comparedDate, setComparedDate] = useState({
     startDate: comparedStartDate.toISOString().split("T")[0],
     endDate: comparedEndDate.toISOString().split("T")[0],
@@ -80,12 +77,12 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
     queryKey: ['salesCards', currentFilter, date, selectedCard],
     queryFn: () => getSalesCards({
-      startDate: date.startDate,
-      endDate: date.endDate,
+      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
+      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,
+      comparedStartDate: comparedDate.startDate ? new Date(comparedDate.startDate).toISOString().split("T")[0] : "",
+      comparedEndDate: comparedDate.endDate ? new Date(comparedDate.endDate).toISOString().split("T")[0] : "",
       context: selectedCard,
     }),
     staleTime: 60 * 1000,
@@ -102,12 +99,12 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
     queryKey: ['salesCharts', currentFilter, date, selectedCard],
     queryFn: () => getSalesCharts({
-      startDate: date.startDate,
-      endDate: date.endDate,
+      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
+      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,
+      comparedStartDate: comparedDate.startDate ? new Date(comparedDate.startDate).toISOString().split("T")[0] : "",
+      comparedEndDate: comparedDate.endDate ? new Date(comparedDate.endDate).toISOString().split("T")[0] : "",
       context: selectedCard,// ChartContext.TOPSALES,
     }),
     staleTime: 60 * 1000,
@@ -125,8 +122,8 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
     queryKey: ['customers', date],
     queryFn: () => getTopCustomers({
-      startDate: date.startDate,
-      endDate: date.endDate,
+      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
+      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
@@ -144,8 +141,8 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<TopProductResponse>>, Object, Array<TopProductResponse>>({
     queryKey: ['products', date],
     queryFn: () => getTopProducts({
-      startDate: date.startDate,
-      endDate: date.endDate,
+      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
+      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
@@ -162,8 +159,8 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<MapResponse>>, Object, Array<MapResponse>>({
     queryKey: ['countries', date],
     queryFn: () => getSalesByCountry({
-      startDate: date.startDate,
-      endDate: date.endDate,
+      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
+      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
@@ -176,48 +173,33 @@ const SalesOverview: React.FC = () => {
   });
 
 
-  console.log('countries', countries);
+    const dateChange = (value: any) => {
 
-  const dateChange = (value:any) => {
+      console.log('value', value);
+      if(value.startDate === null || value.endDate === null) {
+        return;
+      }
 
-    // value.startDate와 value.endDate를 Date 객체로 변환
-    const startDate = new Date(value.startDate);
-    const endDate = new Date(value.endDate);
+      setDate(value);
 
-    // YYYY-MM-DD 형식으로 변환
-    const formattedStartDate = startDate.toISOString().split("T")[0];
-    const formattedEndDate = endDate.toISOString().split("T")[0];
+      // 문자열을 Date 객체로 변환
+      const diffInMilliseconds = new Date(value.startDate).getTime() - new Date(value.endDate).getTime();
+      // 밀리초를 일수로 변환
+      const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
-    // 두 날짜 간의 차이를 밀리초 단위로 계산
-    const timeDifference = endDate.getTime() - startDate.getTime();
-    // 밀리초를 일 단위로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
-    const dayDifference = timeDifference / (1000 * 60 * 60 * 24); // 일 단위 차이
+      console.log('diffInDays', diffInDays);
+      // 새로운 날짜 계산
+      const comparedEndDate = new Date(value.startDate);
+      comparedEndDate.setDate(comparedEndDate.getTime() - 24 * 60 * 60 * 1000); // 1일 빼기
 
-    // 새로운 날짜 계산
-    const newEndDate = new Date(startDate); // endDate 복사
-    newEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
+      const comparedStartDate = new Date(comparedEndDate);
+      comparedStartDate.setDate(comparedEndDate.getDate() + diffInDays);
 
-    const newStartDate = new Date(newEndDate); // newEndDate 복사
-    newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
-
-    // YYYY-MM-DD 형식으로 변환
-    const formattedNewStartDate = newStartDate.toISOString().split("T")[0];
-    const formattedNewEndDate = newEndDate.toISOString().split("T")[0];
-
-    // 날짜 객체 설정
-    const date = {
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
+      setComparedDate({
+        startDate: comparedStartDate.toISOString().split("T")[0],
+        endDate: comparedEndDate.toISOString().split("T")[0],
+      });
     };
-
-    const comparedDate = {
-      startDate: formattedNewStartDate,
-      endDate: formattedNewEndDate,
-    };
-
-    setDate(date);
-    setComparedDate(comparedDate);
-  };
 
   const filterChange = (filter: ChartFilter) => {
     setCurrentFilter(filter);

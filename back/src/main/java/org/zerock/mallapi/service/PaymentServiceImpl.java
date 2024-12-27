@@ -3,6 +3,7 @@ package org.zerock.mallapi.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -208,16 +209,27 @@ public class PaymentServiceImpl implements PaymentService{
 
     String search = searchRequestDTO.getSearch();
 
+    LocalDateTime startDateTime;
+    LocalDateTime endDateTime;
 
+    // 전체 기간 클릭 시 내용 X
+    if (searchRequestDTO.getStartDate() == null  || searchRequestDTO.getStartDate().isEmpty()) {
 
-    //날짜 변환
-    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    LocalDate startDate = LocalDate.parse(searchRequestDTO.getStartDate(), dateformatter);
-    LocalDateTime startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+      // 시작일: 데이터의 최소 날짜로 설정 (예: 1970-01-01)
+      startDateTime = LocalDate.of(1970, 1, 1).atStartOfDay();
+      // 종료일: 현재 날짜로 설정
+      endDateTime = LocalDateTime.now();
 
-    LocalDate endDate = LocalDate.parse(searchRequestDTO.getEndDate(), dateformatter);
-    LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+    }else {
 
+      //날짜 변환
+      DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+      LocalDate startDate = LocalDate.parse(searchRequestDTO.getStartDate(), dateformatter);
+      startDateTime = startDate.atStartOfDay();//startDate의 끝시간 xx:00:00
+
+      LocalDate endDate = LocalDate.parse(searchRequestDTO.getEndDate(), dateformatter);
+      endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+    }
 
 
     log.info("--------------pageable      " + pageable);
@@ -348,7 +360,7 @@ private PaymentDTO convertToDTO(Payment payment){
     LocalDateTime endDateTime;
 
     // 전체 기간 클릭 시
-    if (searchRequestDTO.getStartDate() == null || searchRequestDTO.getStartDate().isEmpty()) {
+    if (searchRequestDTO.getStartDate() == null  || searchRequestDTO.getStartDate().isEmpty()) { // || searchRequestDTO.getStartDate().isEmpty()
       // 시작일: 데이터의 최소 날짜로 설정 (예: 1970-01-01)
       startDateTime = LocalDate.of(1970, 1, 1).atStartOfDay();
       // 종료일: 현재 날짜로 설정
@@ -359,9 +371,13 @@ private PaymentDTO convertToDTO(Payment payment){
       DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
       LocalDate startDate = LocalDate.parse(searchRequestDTO.getStartDate(), dateFormatter);
       startDateTime = startDate.atStartOfDay(); // startDate의 시작 시간 xx:00:00
-
       LocalDate endDate = LocalDate.parse(searchRequestDTO.getEndDate(), dateFormatter);
       endDateTime = endDate.atTime(23, 59, 59); // endDate의 끝 시간을 xx:59:59으로 설정
+
+//       startDateTime = searchRequestDTO.getStartDate().toLocalDate().atStartOfDay();//startDate의 끝시간 xx:00:00
+//       endDateTime = searchRequestDTO.getEndDate().toLocalDate().atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
+//
+
 
     }
 
@@ -375,7 +391,6 @@ private PaymentDTO convertToDTO(Payment payment){
   @Override
   public PageResponseDTO<AdminOrderDTO> getSearchAdminOrders(SearchRequestDTO searchRequestDTO, String email) {
 
-    log.info("searchRequestDTO..." + searchRequestDTO);
     Pageable pageable = PageRequest.of(
             searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
             searchRequestDTO.getSize(),
@@ -383,30 +398,30 @@ private PaymentDTO convertToDTO(Payment payment){
 
     String search = searchRequestDTO.getSearch();
 
-
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
 
     // 전체 기간 클릭 시
-    if (searchRequestDTO.getStartDate() == null || searchRequestDTO.getStartDate().isEmpty()) {
+    if (searchRequestDTO.getStartDate() == null  || searchRequestDTO.getStartDate().isEmpty()) {
       // 시작일: 데이터의 최소 날짜로 설정 (예: 1970-01-01)
       startDateTime = LocalDate.of(1970, 1, 1).atStartOfDay();
       // 종료일: 현재 날짜로 설정
       endDateTime = LocalDateTime.now();
     } else {
 
+
       // 날짜 변환
       DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
       LocalDate startDate = LocalDate.parse(searchRequestDTO.getStartDate(), dateFormatter);
       startDateTime = startDate.atStartOfDay(); // startDate의 시작 시간 xx:00:00
 
+
       LocalDate endDate = LocalDate.parse(searchRequestDTO.getEndDate(), dateFormatter);
       endDateTime = endDate.atTime(23, 59, 59); // endDate의 끝 시간을 xx:59:59으로 설정
 
+
     }
 
-
-    log.info("--------------pageable      " + pageable);
 
 
     Page<Object[]> payments = paymentRepository.searchAdminOrders(pageable, search, email, startDateTime, endDateTime);
