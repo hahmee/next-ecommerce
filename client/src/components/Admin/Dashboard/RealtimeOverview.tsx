@@ -7,6 +7,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import {getGARecentUsers} from "@/api/dashbaordAPI";
 import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
+import formatDate from "@/libs/formatDate";
 
 const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
@@ -34,13 +35,13 @@ const RealtimeOverview: React.FC = () => {
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState({
-    startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-    endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    startDate: formatDate(startDate),
+    endDate:formatDate(endDate)
   });
 
   const [comparedDate, setComparedDate] = useState({
-    startDate: comparedStartDate.toISOString().split("T")[0],
-    endDate: comparedEndDate.toISOString().split("T")[0],
+    startDate: formatDate(comparedStartDate),
+    endDate: formatDate(comparedEndDate),
   });
 
 
@@ -75,8 +76,8 @@ const RealtimeOverview: React.FC = () => {
     const endDate = new Date(value.endDate);
 
     // YYYY-MM-DD 형식으로 변환
-    const formattedStartDate = startDate.toISOString().split("T")[0];
-    const formattedEndDate = endDate.toISOString().split("T")[0];
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
 
     // 두 날짜 간의 차이를 밀리초 단위로 계산
     const timeDifference = endDate.getTime() - startDate.getTime();
@@ -91,8 +92,8 @@ const RealtimeOverview: React.FC = () => {
     newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
 
     // YYYY-MM-DD 형식으로 변환
-    const formattedNewStartDate = newStartDate.toISOString().split("T")[0];
-    const formattedNewEndDate = newEndDate.toISOString().split("T")[0];
+    const formattedNewStartDate = formatDate(newStartDate);
+    const formattedNewEndDate = formatDate(newEndDate);
 
     // 날짜 객체 설정
     const date = {

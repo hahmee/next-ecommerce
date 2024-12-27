@@ -8,6 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {PaymentSummaryDTO} from "@/interface/PaymentSummaryDTO";
 import {getPaymentsOverview} from "@/api/adminAPI";
+import formatDate from "@/libs/formatDate";
 
 
 const PaymentOverview = () => {
@@ -16,34 +17,35 @@ const PaymentOverview = () => {
     const startDate = new Date();  // today
 
     const [date, setDate] = useState({
-        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        startDate: formatDate(startDate),
+        endDate: formatDate(endDate),
     });
-
-
-    const formatDate = (date: Date) => {
-        return date.toISOString().split('T')[0]; // YYYY-MM-DD 형식
-    }
 
     const getDateRange = (days: number) => {
         const today = new Date();
         const endDate = formatDate(today);
         const startDate = formatDate(new Date(today.setDate(today.getDate() - days + 1)));
-        return { startDate, endDate };
+        return {startDate, endDate};
     }
 
     const paymentMenuOption: Array<Option<string>> = [
-        {id: "today", content: '오늘', startDate: formatDate(new Date()), endDate: formatDate(new Date()) },
+        {id: "today", content: '오늘', startDate: formatDate(new Date()), endDate: formatDate(new Date())},
         {id: "last7days", content: '지난 7일', ...getDateRange(7)},
         {id: "last30days", content: '지난 30일', ...getDateRange(30)},
         {id: "last90days", content: '지난 90일', ...getDateRange(90)},
-        {id: "all", content: '전체 기간',  startDate: "", endDate: "" },
+        {id: "all", content: '전체 기간', startDate: "", endDate: ""},
     ];
 
     const [showMenu, setShowMenu] = useState<boolean>(false);
     const [menuValue, setMenuValue] = useState<Option<string>>(paymentMenuOption[0]);
 
-    const { isFetched, isFetching, data: paymentSummary, error, isError} = useQuery<DataResponse<PaymentSummaryDTO>, Object, PaymentSummaryDTO, [_1: string, _2: Object]>({
+    const {
+        isFetched,
+        isFetching,
+        data: paymentSummary,
+        error,
+        isError
+    } = useQuery<DataResponse<PaymentSummaryDTO>, Object, PaymentSummaryDTO, [_1: string, _2: Object]>({
         queryKey: ['adminPaymentOverview', {date}],
         queryFn: () => getPaymentsOverview({
             startDate: date.startDate,
@@ -57,7 +59,7 @@ const PaymentOverview = () => {
         }
     });
 
-    const handleDateClick = (option : Option<string>) => {
+    const handleDateClick = (option: Option<string>) => {
         setMenuValue(option);
         setShowMenu(false);
         setDate({startDate: option.startDate || "", endDate: option.endDate || ""});
@@ -65,11 +67,13 @@ const PaymentOverview = () => {
 
 
     return (
-        <div className="grid grid-cols-2 grid-rows-[auto,1fr] divide-y rounded-sm border shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
+        <div
+            className="grid grid-cols-2 grid-rows-[auto,1fr] divide-y rounded-sm border shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
             <div className="pl-7.5 py-3 col-span-2 font-semibold text-lg flex items-center relative">
                 <div>개요:</div>
 
-                <div className="cursor-pointer font-semibold underline px-2 text-center inline-flex items-center" onClick={() => setShowMenu(!showMenu)}>
+                <div className="cursor-pointer font-semibold underline px-2 text-center inline-flex items-center"
+                     onClick={() => setShowMenu(!showMenu)}>
                     {menuValue.content}
                     <ChevronDownIcon className="ml-2 h-5 w-5"/>
                 </div>
@@ -77,14 +81,15 @@ const PaymentOverview = () => {
                 {
                     showMenu &&
                     <ClickOutside onClick={() => setShowMenu(false)}>
-                        <div className="z-99 absolute top-12 left-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <div
+                            className="z-99 absolute top-12 left-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                                 {
                                     paymentMenuOption.map((option: Option<string>) => (
                                         <li key={option.id}>
                                             <div
                                                 className={`block cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${option.id === menuValue.id ? "bg-primary-500 text-white" : ""}`}
-                                                onClick={()=>handleDateClick(option)}
+                                                onClick={() => handleDateClick(option)}
                                             >{option.content}</div>
                                         </li>
                                     ))

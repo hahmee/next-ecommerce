@@ -8,6 +8,7 @@ import {ChartFilter} from "@/types/chartFilter";
 import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
 import {getGARecentUsers} from "@/api/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
+import formatDate from "@/libs/formatDate";
 
 export default async function DashBoardRealTimePage() {
     const endDate = new Date(); // today
@@ -23,8 +24,8 @@ export default async function DashBoardRealTimePage() {
     comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
 
     const date = {
-        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        startDate: formatDate(startDate), // format as YYYY-MM-DD
+        endDate: formatDate(endDate), // format as YYYY-MM-DD
     };
 
     const member = await getCookie("member");
@@ -34,12 +35,12 @@ export default async function DashBoardRealTimePage() {
             queryKey: ['gaRecentUsers', date, ChartFilter.DAY],
             queryFn: () => getGARecentUsers(
                 {
-                    startDate: startDate.toISOString().split("T")[0],
-                    endDate: endDate.toISOString().split("T")[0],
+                    startDate: formatDate(startDate),
+                    endDate: formatDate(endDate),
                     sellerEmail: member?.email || "",
                     filter: ChartFilter.DAY,
-                    comparedStartDate: comparedStartDate.toISOString().split("T")[0],
-                    comparedEndDate: comparedEndDate.toISOString().split("T")[0],
+                    comparedStartDate: formatDate(comparedStartDate),
+                    comparedEndDate: formatDate(comparedEndDate),
                 }
             ),
         },

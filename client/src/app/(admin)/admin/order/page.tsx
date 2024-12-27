@@ -17,8 +17,8 @@ export default async function AdminOrderPage() {
     const prefetchOptions = {
         queryKey: ['adminOrders', {page: 1, size: 10, search: "", date}],
         queryFn: () => getOrdersByEmail({page: 1, size: 10, search: "",
-            startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-            endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+            startDate: date.startDate ? new Date(date.startDate).toLocaleDateString('en-CA') : "",
+            endDate: date.endDate ? new Date(date.endDate).toLocaleDateString('en-CA') : "",
         }),
     };
 

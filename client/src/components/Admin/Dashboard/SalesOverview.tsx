@@ -17,6 +17,7 @@ import {TopProductResponse} from "@/interface/TopProductResponse";
 import dynamic from "next/dynamic";
 import {MapResponse} from "@/interface/MapResponse";
 import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/api/dashbaordAPI";
+import formatDate from "@/libs/formatDate";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -63,12 +64,13 @@ const SalesOverview: React.FC = () => {
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState({
-    startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-    endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    startDate: formatDate(startDate),
+    endDate:formatDate(endDate)
   });
+
   const [comparedDate, setComparedDate] = useState({
-    startDate: comparedStartDate.toISOString().split("T")[0],
-    endDate: comparedEndDate.toISOString().split("T")[0],
+    startDate: formatDate(comparedStartDate),
+    endDate: formatDate(comparedEndDate),
   });
 
 
@@ -77,17 +79,18 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
     queryKey: ['salesCards', currentFilter, date, selectedCard],
     queryFn: () => getSalesCards({
-      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? new Date(comparedDate.startDate).toISOString().split("T")[0] : "",
-      comparedEndDate: comparedDate.endDate ? new Date(comparedDate.endDate).toISOString().split("T")[0] : "",
+      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
+      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
       context: selectedCard,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: true,
+    enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -99,17 +102,18 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
     queryKey: ['salesCharts', currentFilter, date, selectedCard],
     queryFn: () => getSalesCharts({
-      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? new Date(comparedDate.startDate).toISOString().split("T")[0] : "",
-      comparedEndDate: comparedDate.endDate ? new Date(comparedDate.endDate).toISOString().split("T")[0] : "",
-      context: selectedCard,// ChartContext.TOPSALES,
+      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
+      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+     context: selectedCard,// ChartContext.TOPSALES,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: true,
+    enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -122,12 +126,13 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
     queryKey: ['customers', date],
     queryFn: () => getTopCustomers({
-      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
+    enabled: !!date.startDate && !!date.endDate,
     throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
@@ -141,12 +146,13 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<TopProductResponse>>, Object, Array<TopProductResponse>>({
     queryKey: ['products', date],
     queryFn: () => getTopProducts({
-      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
+    enabled: !!date.startDate && !!date.endDate,
     throwOnError: true,
     select: (data) => {
       // 데이터 가공 로직만 처리
@@ -159,11 +165,12 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<MapResponse>>, Object, Array<MapResponse>>({
     queryKey: ['countries', date],
     queryFn: () => getSalesByCountry({
-      startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-      endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
+    enabled: !!date.startDate && !!date.endDate,
     gcTime: 300 * 1000,
     throwOnError: true,
     select: (data) => {
@@ -176,28 +183,33 @@ const SalesOverview: React.FC = () => {
     const dateChange = (value: any) => {
 
       console.log('value', value);
+      setDate(value);
+
       if(value.startDate === null || value.endDate === null) {
         return;
       }
 
-      setDate(value);
+      const startDate = new Date(value.startDate);
+      const endDate = new Date(value.endDate);
 
       // 문자열을 Date 객체로 변환
-      const diffInMilliseconds = new Date(value.startDate).getTime() - new Date(value.endDate).getTime();
+      const diffInMilliseconds = endDate.getTime() - startDate.getTime();
       // 밀리초를 일수로 변환
       const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
       console.log('diffInDays', diffInDays);
+
+      console.log('startDate', startDate);
       // 새로운 날짜 계산
-      const comparedEndDate = new Date(value.startDate);
-      comparedEndDate.setDate(comparedEndDate.getTime() - 24 * 60 * 60 * 1000); // 1일 빼기
+      const comparedEndDate = new Date(startDate);
+      comparedEndDate.setDate(comparedEndDate.getDate() - 1); // 1일 빼기
 
       const comparedStartDate = new Date(comparedEndDate);
-      comparedStartDate.setDate(comparedEndDate.getDate() + diffInDays);
+      comparedStartDate.setDate(comparedEndDate.getDate() - diffInDays);
 
       setComparedDate({
-        startDate: comparedStartDate.toISOString().split("T")[0],
-        endDate: comparedEndDate.toISOString().split("T")[0],
+        startDate: formatDate(comparedStartDate),
+        endDate: formatDate(comparedEndDate),
       });
     };
 

@@ -1,11 +1,11 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import PaymentOverview from "@/components/Admin/Payment/PaymentOverview";
 import PaymentTable from "@/components/Tables/PaymentTable";
 import {getPaymentsByEmail, getPaymentsOverview} from "@/api/adminAPI";
 import PaymentSkeleton from "@/components/Skeleton/PaymentSkeleton";
+import formatDate from "@/libs/formatDate";
 
 export default async function AdminPaymentPage() {
     const endDate = new Date(); // today
@@ -13,30 +13,30 @@ export default async function AdminPaymentPage() {
 
     //테이블 기간
     const date = {
-        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        startDate: formatDate(startDate), // format as YYYY-MM-DD
+        endDate: formatDate(endDate), // format as YYYY-MM-DD
     };
 
     //오버뷰 기간
     const overViewDate = {
-        startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        startDate: formatDate(startDate), // format as YYYY-MM-DD
+        endDate: formatDate(endDate), // format as YYYY-MM-DD
     }
 
     const prefetchOptions = [
         {
             queryKey: ['adminPaymentOverview', {date: overViewDate}],
             queryFn: () => getPaymentsOverview({
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
+                startDate: formatDate(startDate), // format as YYYY-MM-DD
+                endDate: formatDate(endDate), // format as YYYY-MM-DD
             }),
         },
         {
             queryKey: ['adminPayments', {page: 1, size: 10, search: "", date}],
             queryFn: () => getPaymentsByEmail({
                 page: 1, size: 10, search: "",
-                startDate: startDate.toISOString().split("T")[0],
-                endDate: endDate.toISOString().split("T")[0],
+                startDate: formatDate(startDate), // format as YYYY-MM-DD
+                endDate: formatDate(endDate), // format as YYYY-MM-DD
             }),
         }
     ];

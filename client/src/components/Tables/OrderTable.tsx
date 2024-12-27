@@ -36,8 +36,8 @@ const OrderTable = () => {
         queryFn: () => getOrdersByEmail(
             {
                 page, size, search,
-                startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-                endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+                startDate: date.startDate ? new Date(date.startDate).toLocaleDateString('en-CA') : "",
+                endDate: date.endDate ? new Date(date.endDate).toLocaleDateString('en-CA') : "",
             }
         ),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준

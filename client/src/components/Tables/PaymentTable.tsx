@@ -12,14 +12,15 @@ import {initalPagingData} from "@/components/Tables/ProductTable";
 import {TossPaymentStatusKR, TossPaymentTypeKR} from "@/types/toss";
 import TableDatePicker from "@/components/Admin/TableDatePicker";
 import {getPaymentsByEmail} from "@/api/adminAPI";
+import formatDate from "@/libs/formatDate";
 
 const PaymentTable = () => {
     const todayEndDate = new Date(); // today
     const todayStartDate = new Date();  // today
     console.log('todayEndDate', todayEndDate);
     const defaultDate = {
-        startDate: todayStartDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-        endDate: todayEndDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+        startDate: formatDate(todayStartDate),
+        endDate: formatDate(todayEndDate),
     };
     const [date, setDate] = useState(defaultDate);
     const [paging, setPaging] = useState<Paging>(initalPagingData);
@@ -30,8 +31,8 @@ const PaymentTable = () => {
     const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Payment>>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
         queryKey: ['adminPayments', {page, size, search, date}],
         queryFn: () => getPaymentsByEmail({page, size, search,
-            startDate: date.startDate ? new Date(date.startDate).toISOString().split("T")[0] : "",
-            endDate: date.endDate ? new Date(date.endDate).toISOString().split("T")[0] : "",
+            startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+            endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
         }),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,

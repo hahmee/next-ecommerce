@@ -9,6 +9,7 @@ import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
+import formatDate from "@/libs/formatDate";
 ``
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafiicSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
@@ -30,19 +31,18 @@ const TrafficOverview: React.FC = () => {
   const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
   comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
 
-
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
   const memberInfo = getCookie('member');
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState({
-    startDate: startDate.toISOString().split("T")[0], // format as YYYY-MM-DD
-    endDate: endDate.toISOString().split("T")[0], // format as YYYY-MM-DD
+    startDate: formatDate(startDate),
+    endDate: formatDate(endDate),
   });
 
   const [comparedDate, setComparedDate] = useState({
-    startDate: comparedStartDate.toISOString().split("T")[0],
-    endDate: comparedEndDate.toISOString().split("T")[0],
+    startDate: formatDate(comparedStartDate),
+    endDate: formatDate(comparedEndDate),
   });
 
 
@@ -51,16 +51,18 @@ const TrafficOverview: React.FC = () => {
   } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
     queryKey: ['ga', date, currentFilter],
     queryFn: () => getGoogleAnalytics({
-      startDate: date.startDate,
-      endDate: date.endDate,
+
+      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+      endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,//comparedEndDate.toISOString().split("T")[0],
+      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
+      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: true,
+    enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
     select: (data) => {
       // 데이터 가공 로직만 처리
       return data.data;
@@ -71,14 +73,13 @@ const TrafficOverview: React.FC = () => {
   console.log('gaData', gaData);
 
   const dateChange = (value:any) => {
-
+    setDate(value);
+    if(value.startDate === null || value.endDate === null) {
+      return;
+    }
     // value.startDate와 value.endDate를 Date 객체로 변환
     const startDate = new Date(value.startDate);
     const endDate = new Date(value.endDate);
-
-    // YYYY-MM-DD 형식으로 변환
-    const formattedStartDate = startDate.toISOString().split("T")[0];
-    const formattedEndDate = endDate.toISOString().split("T")[0];
 
     // 두 날짜 간의 차이를 밀리초 단위로 계산
     const timeDifference = endDate.getTime() - startDate.getTime();
@@ -93,21 +94,14 @@ const TrafficOverview: React.FC = () => {
     newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
 
     // YYYY-MM-DD 형식으로 변환
-    const formattedNewStartDate = newStartDate.toISOString().split("T")[0];
-    const formattedNewEndDate = newEndDate.toISOString().split("T")[0];
-
-    // 날짜 객체 설정
-    const date = {
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-    };
+    const formattedNewStartDate = formatDate(newStartDate);
+    const formattedNewEndDate = formatDate(newEndDate);
 
     const comparedDate = {
       startDate: formattedNewStartDate,
       endDate: formattedNewEndDate,
     };
 
-    setDate(date);
     setComparedDate(comparedDate);
   };
 
