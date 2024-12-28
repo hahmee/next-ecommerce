@@ -146,7 +146,7 @@ const StockTable = () => {
                 </div>
             </div>
 
-            <div className="w-auto overflow-x-auto overflow-y-hidden ">
+            <div className="w-auto overflow-x-auto overflow-y-hidden">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -189,25 +189,19 @@ const StockTable = () => {
                                     />
                                 </td>
 
-                                <td className="px-4 py-3 justify-end whitespace-nowrap">
+                                <td className="px-4 py-3 justify-end whitespace-nowrap bg-ecom">
                                     <TableActions>
-                                        <div id="apple-imac-27-dropdown"
-                                             className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="apple-imac-27-dropdown-button">
+                                        <div id="table-dropdown" className="absolute  bottom-0 w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="table-dropdown-button">
                                                 <li>
-                                                    <Link href={`/product/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
+                                                    <Link href={`/product/${product.pno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
                                                 </li>
                                                 <li>
-                                                    <Link href={`/admin/products/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제품정보
-                                                        편집</Link>
+                                                    <Link href={`/admin/products/${product.pno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제품정보 편집</Link>
                                                 </li>
                                             </ul>
                                         </div>
                                     </TableActions>
-
                                 </td>
                             </tr>
 

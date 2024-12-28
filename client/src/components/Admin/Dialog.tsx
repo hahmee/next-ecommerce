@@ -1,5 +1,4 @@
 interface DialogProps {
-
     content: string;
     clickModal: () => void;
     showDialog: boolean;

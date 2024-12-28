@@ -130,7 +130,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
             {showDialog && <Dialog content={"정말 삭제하시겠습니까?"} clickModal={clickModal} showDialog={showDialog}
                                    doAction={deleteProduct}/>}
 
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+            <div
+                className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div className="w-full md:w-1/2">
                     <TableSearch onSearch={handleSearch} placeholder={"Search product name"}/> {/* 검색어 전달 */}
                 </div>
@@ -190,9 +191,12 @@ const ProductTable = () => { //{page, size, search} : PageParam
                                 <td className="px-4 py-3 whitespace-nowrap">Apple</td>
                                 <td className="px-4 py-3 whitespace-nowrap">300</td>
                                 <td className="px-4 py-3 whitespace-nowrap">{product.sku}</td>
-                                <td className="px-4 py-3 whitespace-nowrap ">
+                                <td className="px-4 py-3 whitespace-nowrap">
                                     <div className="flex items-center gap-1">
-                                        <StarIcon className="w-5 h-5 text-ecom"/>
+                                        {
+                                            product.averageRating ?
+                                                <StarIcon className="w-5 h-5 text-ecom"/> : null
+                                        }
                                         <span>{product.averageRating || "평점없음"}</span>
                                     </div>
                                 </td>
@@ -210,10 +214,10 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
                                 <td className="px-4 py-3 justify-end whitespace-nowrap">
                                     <TableActions>
-                                        <div id="apple-imac-27-dropdown"
+                                        <div id="table-dropdown"
                                              className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="apple-imac-27-dropdown-button">
+                                                aria-labelledby="table-dropdown-button">
                                                 <li>
                                                     <Link href={`/product/${product.pno}`}
                                                           className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
@@ -235,12 +239,12 @@ const ProductTable = () => { //{page, size, search} : PageParam
                                             </div>
                                         </div>
                                     </TableActions>
-
                                 </td>
                             </tr>
                         ))
                         : <tr>
-                            <td scope="row" colSpan={11} className="text-center px-4 py-3 text-gray-500 whitespace-nowrap dark:text-white">
+                            <td scope="row" colSpan={11}
+                                className="text-center px-4 py-3 text-gray-500 whitespace-nowrap dark:text-white">
                                 No results
                             </td>
                         </tr>

@@ -200,7 +200,7 @@ const CategoryForm = ({type, id}: Props) => {
     };
 
     return (
-        <form className="p-4 md:p-5" onSubmit={mutation.mutate}>
+        <form className="p-4 md:p-5 " onSubmit={mutation.mutate}>
             <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                     <CategoryBreadcrumb categoryPaths={categoryPaths ?? []}/>
