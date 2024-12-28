@@ -5,7 +5,6 @@ import {Category} from "@/interface/Category";
 import React, {Fragment, useState} from "react";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
-import Image from "next/image";
 import {Member} from "@/interface/Member";
 import {getCategories} from "@/api/adminAPI";
 
@@ -50,7 +49,7 @@ const FullMenu = ({member}: {member: Member}) => {
         ));
     }
 
-    return <div className="hidden xl:flex gap-4 relative">
+    return <div className="hidden md:flex gap-4 relative">
         {/*모달 바깥 클릭 */}
         <div className={`z-1 fixed w-full overflow-hidden h-screen top-0 left-0 ${expandedRow === null && "hidden"}`} onClick={() => setExpandedRow(null)}></div>
 

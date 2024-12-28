@@ -1,33 +1,35 @@
 "use client";
 
-import {useCartStore} from "@/store/cartStore";
+import { useCartStore } from "@/store/cartStore";
 import React from "react";
 import CartItem from "@/components/Home/CartItem";
-import {useRouter} from "next/navigation";
-
+import { useRouter } from "next/navigation";
 
 const CartModal = () => {
-
-    const {carts, isLoading, open,subtotal ,changeOpen} = useCartStore();
+    const { carts, isLoading, open, subtotal, changeOpen } = useCartStore();
     const router = useRouter();
 
-    const handleCheckout =  () => {
-
+    const handleCheckout = () => {
         router.push("/checkout");
     };
 
-    if(!open) {
+    if (!open) {
         return null;
     }
 
     return (
         <>
             {/*모달 바깥 클릭 */}
-            <div className={`z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${!open && "hidden"}`} onClick={() => changeOpen(false)}></div>
+            <div
+                className={`z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${
+                    !open && "hidden"
+                }`}
+                onClick={() => changeOpen(false)}
+            ></div>
 
             <div
-                className={`w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 animate-fadeInUp`}>
-
+                className={`w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 animate-fadeInUp max-h-[80vh] overflow-y-auto`}
+            >
                 {carts && carts.length < 1 ? (
                     <div className="">Cart is Empty</div>
                 ) : (
@@ -36,11 +38,9 @@ const CartModal = () => {
                         {/* LIST */}
                         <div className="flex flex-col gap-8">
                             {/* ITEM */}
-                            {
-                                carts.map((item) => (
-                                    <CartItem key={item.cino} item={item}/>
-                                ))
-                            }
+                            {carts.map((item) => (
+                                <CartItem key={item.cino} item={item} />
+                            ))}
                         </div>
                         {/* BOTTOM */}
                         <div className="">
@@ -52,8 +52,10 @@ const CartModal = () => {
                                 Shipping and taxes calculated at checkout.
                             </p>
                             <div className="flex justify-between text-sm">
-                                <button className="rounded-md py-3 px-4 ring-1 ring-gray-300"
-                                        onClick={() => router.replace("/cart")}>
+                                <button
+                                    className="rounded-md py-3 px-4 ring-1 ring-gray-300"
+                                    onClick={() => router.replace("/cart")}
+                                >
                                     View Cart
                                 </button>
                                 <button

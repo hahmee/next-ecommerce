@@ -30,8 +30,6 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
 
         router.push('/login');
         toast.success("로그아웃 되었습니다.");
-
-
     };
 
     const { isFetched, isFetching, data:cartData, error, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({

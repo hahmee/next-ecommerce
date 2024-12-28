@@ -22,14 +22,19 @@ const Navbar = ({member}: { member: Member }) => {
   ];
 
   return (
-      <div className="pt-32 relative">
-        <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-9999">
+      <div className="pt-20 md:pt-32 relative">
+        <div
+            className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-9999">
           {/* MOBILE */}
           <div className="h-full flex items-center justify-between md:hidden">
             <Link href="/">
               <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
             </Link>
-            <Menu/>
+
+            {
+                member && <Menu memberInfo={member}/>
+            }
+
           </div>
           {/* BIGGER SCREENS */}
           <div className="hidden md:flex items-center justify-between gap-8 h-full ">
@@ -55,7 +60,8 @@ const Navbar = ({member}: { member: Member }) => {
             </div>
           </div>
           {
-              member && <div className="h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white w-full flex items-center fixed top-20 ">
+              member && <div
+                  className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20 ">
                 <Suspense fallback={<FullMenuSkeleton/>}>
                   <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <FullMenu member={member}/>
