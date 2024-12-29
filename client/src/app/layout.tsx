@@ -21,9 +21,9 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <body className={inter.className} suppressHydrationWarning={true}>
         {/* <AuthSession>*/}
         <RQProvider>
+            <div id="portal-root"></div> {/* 포탈을 위한 DOM 요소 */}
             {children}
             <Toaster/>
-            <div id="portal-root"></div> {/* 포탈을 위한 DOM 요소 */}
         </RQProvider>
         {/*</AuthSession>*/}
         </body>

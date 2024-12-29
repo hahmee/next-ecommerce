@@ -11,13 +11,3 @@ const Portal: React.FC<PortalProps> = ({ children }) => {
 
 export default Portal;
 
-
-//const Portal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-//     const el = document.createElement('div');
-//     document.body.appendChild(el);
-//     return ReactDOM.createPortal(children, el);
-// };
-//
-// export default Portal;
-
-

@@ -120,6 +120,9 @@ const ProductTable = () => { //{page, size, search} : PageParam
         mutation.mutate(deleteId);
     }
 
+    const clickTest = () => {
+        console.log('clickTest');
+    }
     //
     // if (isLoading || isFetching) {
     //     return <TableSkeleton/>;
@@ -214,25 +217,27 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
                                 <td className="px-4 py-3 justify-end whitespace-nowrap">
                                     <TableActions>
-                                        <div id="table-dropdown"
-                                             className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="table-dropdown-button">
+                                        <div id="table-dropdown" className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="table-dropdown-button">
                                                 <li>
-                                                    <Link href={`/product/${product.pno}`}
-                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
+                                                    <div onClick={clickTest}>ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄹ</div>
+                                                    {/*<Link href={`/product/${product.pno}`}*/}
+                                                    {/*      className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>*/}
                                                 </li>
                                                 <li>
                                                     <Link href={`/admin/products/${product.pno}`}
+                                                          onClick={(e) => { e.stopPropagation()}}
                                                           className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">수정하기</Link>
                                                 </li>
                                             </ul>
                                             <div className="py-1">
                                                 <div
                                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                    onClick={() => {
+
+                                                    onClick={(e) => {
                                                         setShowDialog(true);
                                                         setDeleteId(product.pno);
+                                                        e.stopPropagation();
                                                     }}>
                                                     삭제하기
                                                 </div>

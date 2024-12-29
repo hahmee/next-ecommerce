@@ -161,7 +161,8 @@ const StockTable = () => {
                     <tbody>
                     {(productData?.dtoList && productData?.dtoList.length > 0) ? productData?.dtoList?.map((product, key) => (
                             <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700" key={key}>
-                                <th scope="row" className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row"
+                                    className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <Link href={`/admin/products/${product.pno}`} className="flex items-center gap-2">
                                         {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
                                             <Image
@@ -189,15 +190,18 @@ const StockTable = () => {
                                     />
                                 </td>
 
-                                <td className="px-4 py-3 justify-end whitespace-nowrap bg-ecom">
+                                <td className="px-4 py-3 justify-end whitespace-nowrap">
                                     <TableActions>
-                                        <div id="table-dropdown" className="absolute  bottom-0 w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <div id="table-dropdown" className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="table-dropdown-button">
                                                 <li>
-                                                    <Link href={`/product/${product.pno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
+                                                    <Link href={`/product/${product.pno}`}
+                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">상품보기</Link>
                                                 </li>
                                                 <li>
-                                                    <Link href={`/admin/products/${product.pno}`} className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제품정보 편집</Link>
+                                                    <Link href={`/admin/products/${product.pno}`}
+                                                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">제품정보
+                                                        편집</Link>
                                                 </li>
                                             </ul>
                                         </div>
@@ -207,7 +211,8 @@ const StockTable = () => {
 
                         ))
                         : <tr>
-                            <td scope="row" colSpan={4} className="text-center px-4 py-3 text-gray-500 whitespace-nowrap dark:text-white">
+                            <td scope="row" colSpan={4}
+                                className="text-center px-4 py-3 text-gray-500 whitespace-nowrap dark:text-white">
                                 No results
                             </td>
                         </tr>

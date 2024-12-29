@@ -6,23 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/order/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/test/page.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/AdminModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/AdminModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dialog.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/SidebarDropdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/SidebarDropdown.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/SidebarItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/SidebarItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Common/Portal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/Portal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Slider.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/OrderTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/PaymentTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ProductTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/StockTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableActions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/TableAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/TableAddButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/TestComponent.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tables/ViewButton.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -519,6 +511,10 @@
       <workItem from="1735353250769" duration="8323000" />
       <workItem from="1735364503465" duration="1500000" />
       <workItem from="1735366060070" duration="3112000" />
+      <workItem from="1735369820035" duration="1480000" />
+      <workItem from="1735378485192" duration="1604000" />
+      <workItem from="1735433652887" duration="2719000" />
+      <workItem from="1735436886759" duration="4201000" />
     </task>
     <servers />
   </component>

@@ -11,7 +11,6 @@
     import Dialog from "@/components/Admin/Dialog";
     import TableSearch from "@/components/Tables/TableSearch";
     import TableAddButton from "@/components/Tables/TableAddButton";
-    import FilterButton from "@/components/Tables/FilterButton";
     import ViewButton from "@/components/Tables/ViewButton";
     import {PageResponse} from "@/interface/PageResponse";
     import {Paging} from "@/interface/Paging";
@@ -217,32 +216,33 @@
                             사용중
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap">
-
-                            <TableActions>
-                                <div id="table-dropdown" onClick={(e) => e.stopPropagation()} className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
-                                    <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="table-dropdown-button">
-                                        <Link href={`/admin/category/add-category/${category.cno}`}
-                                              className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            서브 카테고리 추가
-                                        </Link>
-                                        <Link href={`/admin/category/edit-category/${category.cno}`}
-                                              className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            수정
-                                        </Link>
-                                    </ul>
-                                    <div className="py-1">
-                                        <div
-                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                            onClick={() => {
-                                                setShowDialog(true);
-                                                setDeleteId(category.cno);
-                                            }}>
-                                            삭제
+                                <TableActions>
+                                    <div id="table-dropdown" onClick={(e) => e.stopPropagation()}
+                                         className="absolute right-0 z-50 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400">
+                                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                            aria-labelledby="table-dropdown-button">
+                                            <Link href={`/admin/category/add-category/${category.cno}`}
+                                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                서브 카테고리 추가
+                                            </Link>
+                                            <Link href={`/admin/category/edit-category/${category.cno}`}
+                                                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                수정
+                                            </Link>
+                                        </ul>
+                                        <div className="py-1">
+                                            <div
+                                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                                onClick={() => {
+                                                    setShowDialog(true);
+                                                    setDeleteId(category.cno);
+                                                }}>
+                                                삭제
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                            </TableActions>
+                                </TableActions>
 
                         </td>
                     </tr>
