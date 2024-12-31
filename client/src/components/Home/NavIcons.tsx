@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
 import {Member} from "@/interface/Member";
-import CartModal from "@/components/Home/Cart/CartModal";
 import {useCartStore} from "@/store/cartStore";
 import {getCart, logout} from "@/apis/mallAPI";
 import {useRouter} from "next/navigation";
@@ -13,6 +12,9 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {CartItemList} from "@/interface/CartItemList";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
+
+const CartModal = dynamic(() => import('../Home/Cart/CartModal'))
 
 const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const router = useRouter();

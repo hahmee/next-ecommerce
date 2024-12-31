@@ -7,9 +7,12 @@ import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/Common/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
-import Dialog from "@/components/Admin/Dialog";
 import {logout} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
+
+
+const Dialog = dynamic(() => import('../Admin/Dialog'))
 
 interface SidebarProps {
   sidebarOpen: boolean;

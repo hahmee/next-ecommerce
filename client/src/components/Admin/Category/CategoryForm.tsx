@@ -35,7 +35,6 @@ const CategoryForm = ({type, id}: Props) => {
         select: useCallback((data: DataResponse<Category>) => {
             return data.data;
         }, []),
-
     });
 
     const [filePreview, setFilePreview] = useState<string>(originalData?.uploadFileName || "");

@@ -8,7 +8,6 @@
     import toast from "react-hot-toast";
     import Image from "next/image";
     import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
-    import Dialog from "@/components/Admin/Dialog";
     import TableSearch from "@/components/Admin/Tables/TableSearch";
     import TableAddButton from "@/components/Admin/Tables/TableAddButton";
     import ViewButton from "@/components/Admin/Tables/ViewButton";
@@ -18,6 +17,9 @@
     import PageComponent from "@/components/Admin/Tables/PageComponent";
     import TableActions from "@/components/Admin/Tables/TableActions";
     import {getAdminCategories} from "@/apis/adminAPI";
+    import dynamic from "next/dynamic";
+
+    const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
     const CategoryTable = () => {
         const [paging, setPaging] = useState<Paging>(initalPagingData);

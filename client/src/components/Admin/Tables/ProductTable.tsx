@@ -14,12 +14,14 @@ import {SalesStatus} from "@/types/salesStatus";
 import React, {useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
 import {fetchJWT} from "@/utils/fetchJWT";
-import Dialog from "@/components/Admin/Dialog";
 import {StarIcon} from "@heroicons/react/20/solid";
 import TableActions from "@/components/Admin/Tables/TableActions";
 import Link from "next/link";
 import {getProductsByEmail} from "@/apis/adminAPI";
 import toast from "react-hot-toast";
+import dynamic from "next/dynamic";
+
+const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
 export const initalPagingData: Paging = {
     totalCount: 0,

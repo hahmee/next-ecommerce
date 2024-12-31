@@ -18,7 +18,6 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const {carts, changeCart, isLoading, changeOpen} = useCartStore();
-    // const [isAddedToCart, setIsAddedToCart] = useState(false); // 아이콘 상태 관리
     const [color, setColor] = useState<ColorTag>(product.colorList[0]);
     const memberInfo = getCookie('member');
     const member = memberInfo ? JSON.parse(memberInfo) : null;
@@ -50,7 +49,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         }
 
         toast.success('장바구니에 담겼습니다.');
-        //스낵바 "장바구니 담겼습니다."
     };
 
     return (
