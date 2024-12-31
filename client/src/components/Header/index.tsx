@@ -2,7 +2,7 @@ import Link from "next/link";
 import DarkModeSwitcher from "./DarkModeSwitcher";
 import React from "react";
 import {BuildingStorefrontIcon, ShoppingBagIcon} from "@heroicons/react/24/outline";
-import DropdownUser from "@/components/Header/DropdownUser";
+import AdminUser from "@/components/Header/AdminUser";
 
 const Header = (props: {
     sidebarOpen: string | boolean | undefined;
@@ -68,12 +68,12 @@ const Header = (props: {
                     </ul>
 
                     <Link href="/" className="text-right block">
-                       <ShoppingBagIcon className="h-6 w-6 block text-sm font-medium text-black dark:text-white"/>
+                        <ShoppingBagIcon className="h-6 w-6 block text-sm font-medium text-black dark:text-white"/>
                         <span className="block text-xs">Mall</span>
                     </Link>
 
                     {/* <!-- User Area --> */}
-                    <DropdownUser/>
+                    <AdminUser/>
                     {/* <!-- User Area --> */}
                 </div>
             </div>

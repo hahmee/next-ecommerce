@@ -14,7 +14,6 @@ export async function setCookie(key: string, value: string, days = 1) {
 export async function getCookie(key: string) {
     const cookieValue  = cookies().get(key)?.value;
     return cookieValue ? JSON.parse(cookieValue) : undefined;
-
 }
 
 export async function removeCookie(name: string) {
