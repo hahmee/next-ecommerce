@@ -18,11 +18,11 @@ const Footer = () => {
           <span className="font-semibold">hamye4143@gmail.com</span>
           <span className="font-semibold">+82 10 2111 1111</span>
           <div className="flex gap-6">
-            <Image src="/facebook.png" alt="" width={16} height={16} />
-            <Image src="/instagram.png" alt="" width={16} height={16} />
-            <Image src="/youtube.png" alt="" width={16} height={16} />
-            <Image src="/pinterest.png" alt="" width={16} height={16} />
-            <Image src="/x.png" alt="" width={16} height={16} />
+            <Image src="/images/mall/facebook.png" alt="facebook" width={16} height={16} />
+            <Image src="/images/mall/instagram.png" alt="instagram" width={16} height={16} />
+            <Image src="/images/mall/youtube.png" alt="youtube" width={16} height={16} />
+            <Image src="/images/mall/pinterest.png" alt="pinterest" width={16} height={16} />
+            <Image src="/images/mall/x.png" alt="x" width={16} height={16} />
           </div>
         </div>
         {/* CENTER */}

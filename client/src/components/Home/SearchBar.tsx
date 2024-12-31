@@ -46,7 +46,7 @@ const SearchBar = () => {
         data-testid="search-result"
       />
       <button className="cursor-pointer" type="submit">
-        <Image src="/search.png" alt="search" width={16} height={16} />
+        <Image src="/images/mall/search.png" alt="search" width={16} height={16} />
       </button>
     </form>
   );

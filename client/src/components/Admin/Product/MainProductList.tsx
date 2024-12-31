@@ -111,14 +111,14 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                     (
                                         <>
                                             <Image
-                                                src={product.uploadFileNames[0]?.file || "/product.png"}
+                                                src={product.uploadFileNames[0]?.file || "/images/mall/product.png"}
                                                 alt="product"
                                                 fill
                                                 sizes="25vw"
                                                 className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
                                             />
                                             <Image
-                                                src={product.uploadFileNames[1]?.file || "/product.png"}
+                                                src={product.uploadFileNames[1]?.file || "/images/mall/product.png"}
                                                 alt=""
                                                 fill
                                                 sizes="25vw"

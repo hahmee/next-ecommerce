@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import StockTable from "@/components/Admin/Tables/StockTable";
 import {getAdminStock} from "@/apis/adminAPI";
-import Loading from "@/app/(admin)/admin/products/loading";
+import Loading from "@/app/(admin)/admin/profile/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 
 export default function StockPage() {

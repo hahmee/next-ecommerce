@@ -6,10 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/ProductTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/category/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/loading.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/@modal/(.)add-reveiw/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/@modal/(.)add-reveiw/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +106,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/components/Skeleton",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(admin)/admin/products",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -107,18 +120,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\products" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Skeleton" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Main" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\admin" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\user" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Product" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\profile" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Product" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Cart" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Tables" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Category" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -519,7 +532,7 @@
       <workItem from="1735521555505" duration="1000" />
       <workItem from="1735524836201" duration="6281000" />
       <workItem from="1735549369485" duration="1000" />
-      <workItem from="1735607909093" duration="11051000" />
+      <workItem from="1735607909093" duration="15094000" />
     </task>
     <servers />
   </component>

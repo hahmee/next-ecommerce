@@ -37,7 +37,7 @@ const Menu = ({memberInfo}: {memberInfo: Member}) => {
     return (
         <div className="">
             <Image
-                src="/menu.png"
+                src="/images/mall/menu.png"
                 alt="menu"
                 width={28}
                 height={28}

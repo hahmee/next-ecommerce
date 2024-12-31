@@ -58,7 +58,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
             <div className={` z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`}
                  onClick={() => setAccountOpen(false)}></div>
             <Image
-                src="/profile.png"
+                src="/images/mall/profile.png"
                 alt="profile"
                 width={22}
                 height={22}
@@ -99,7 +99,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
             )}
 
             <Image
-                src="/notification.png"
+                src="/images/mall/notification.png"
                 alt=""
                 width={22}
                 height={22}
@@ -109,7 +109,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
                 className="relative cursor-pointer"
                 onClick={() => changeOpen(!open)}
             >
-                <Image src="/cart.png" alt="" width={22} height={22}/>
+                <Image src="/images/mall/cart.png" alt="" width={22} height={22}/>
                 <div
                     className="absolute -top-4 -right-4 w-6 h-6 bg-ecom rounded-full text-white text-sm flex items-center justify-center">
                     {counter}

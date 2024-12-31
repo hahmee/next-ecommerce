@@ -8,7 +8,7 @@ const MainInfo = () => {
             {/* 왼쪽: 이미지 */}
             <div className="relative flex-1">
                 <Image
-                    src="/main_kid.png"
+                    src="/images/mall/main_kid.png"
                     alt="kid"
                     width={1000}
                     height={1000}
