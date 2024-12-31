@@ -102,10 +102,10 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
         return (
             <div className="flex justify-end items-center gap-2 mt-2">
                 <div className="mr-2" onClick={() => deleteImage(image)}>
-                    <Image width={500} height={500} src={"/close.svg"} alt="close" className="h-4 w-4"/>
+                    <Image width={500} height={500} src={"/images/mall/close.svg"} alt="close" className="h-4 w-4"/>
                 </div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <Image width={500} height={500} src={"/dragable.svg"} alt="close" className="h-10 w-10"/>
+                    <Image width={500} height={500} src={"/images/mall/dragable.svg"} alt="close" className="h-10 w-10"/>
                 </div>
                 {
                     index === 0 &&

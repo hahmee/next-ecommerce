@@ -5,24 +5,57 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../back/upload/023be780-ff0d-4729-b422-e65d6f69fe2e_M7.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/0ad8e863-191d-4e85-9dac-240c0cefdd54_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/17d577c9-fdc7-4217-ad15-e338c4f93166_korea.png.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/25e5efb4-388b-4abe-83b0-e3a4a986710f_TalkMedia_i_f5c6f18a855e.jpeg.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/2d069a56-9b72-40c3-a6b2-b2423fb41334_bigtree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/3ef581f2-1676-4b40-8157-7ecc2a10c493_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/4be68d2c-e2b1-4ebf-8b86-e3b9e1d0a955_kfc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/5c42bf84-1f9c-4617-993c-79ea9cde66af_5711c80a8e070bfed1712e9bb6f02500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/664afac9-1954-4ae2-a739-697d760fc331_5711c80a8e070bfed1712e9bb6f02500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/69f29384-fce5-4f1b-be8a-99e8a54b5a6a_korea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/7a5231a7-d95e-4975-b976-29246a1e3671_bigtree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/992ac1b3-d545-49d8-abaf-ac0d45a388d2_korea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/9b560734-8690-4f8f-bcf6-d43b6cce8049_KakaoTalk_20240729_134832741.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/IMAGE1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/IMAGE2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/a8e164b2-5046-4030-abd7-0f626a548bac_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/ac19b8f4-2988-4f9e-93d2-5956acea59b3_KakaoTalk_20240721_110927549.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/acddf1ac-37ed-4043-871c-032621a2c77e_M14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/b357d0d8-676a-4237-a292-3b54fdbad8c4_476b12cf1a3623bc4cd2060495bef990.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/b6be331e-f22a-4288-bbd2-e240c0b64602_5711c80a8e070bfed1712e9bb6f02500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/b8d0a4c6-e880-46f3-b10a-d6670236aacf_IMG_0159.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/dd384975-6d66-4a4b-a3fd-6ba535f82c3d_korea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/ddb3e0c7-78d3-43df-b3d5-a9c4bea69134_IMG_0159.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/e48fd7fb-6975-4f20-af53-8aa7f4b2de7a_M10.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/eb75f1c0-2ef3-4393-a7b5-9c51212f2086_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/ef447a18-a225-4d86-91ad-7ef0c1480347_KakaoTalk_20240729_134832741.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_023be780-ff0d-4729-b422-e65d6f69fe2e_M7.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_0ad8e863-191d-4e85-9dac-240c0cefdd54_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_17d577c9-fdc7-4217-ad15-e338c4f93166_korea.png.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_25e5efb4-388b-4abe-83b0-e3a4a986710f_TalkMedia_i_f5c6f18a855e.jpeg.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_2d069a56-9b72-40c3-a6b2-b2423fb41334_bigtree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_3ef581f2-1676-4b40-8157-7ecc2a10c493_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_4be68d2c-e2b1-4ebf-8b86-e3b9e1d0a955_kfc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_5c42bf84-1f9c-4617-993c-79ea9cde66af_5711c80a8e070bfed1712e9bb6f02500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_664afac9-1954-4ae2-a739-697d760fc331_5711c80a8e070bfed1712e9bb6f02500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_69f29384-fce5-4f1b-be8a-99e8a54b5a6a_korea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_7a5231a7-d95e-4975-b976-29246a1e3671_bigtree.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_992ac1b3-d545-49d8-abaf-ac0d45a388d2_korea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_9b560734-8690-4f8f-bcf6-d43b6cce8049_KakaoTalk_20240729_134832741.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_a8e164b2-5046-4030-abd7-0f626a548bac_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_ac19b8f4-2988-4f9e-93d2-5956acea59b3_KakaoTalk_20240721_110927549.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_acddf1ac-37ed-4043-871c-032621a2c77e_M14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_b357d0d8-676a-4237-a292-3b54fdbad8c4_476b12cf1a3623bc4cd2060495bef990.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_b6be331e-f22a-4288-bbd2-e240c0b64602_5711c80a8e070bfed1712e9bb6f02500.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_b8d0a4c6-e880-46f3-b10a-d6670236aacf_IMG_0159.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_dd384975-6d66-4a4b-a3fd-6ba535f82c3d_korea.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_ddb3e0c7-78d3-43df-b3d5-a9c4bea69134_IMG_0159.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_e48fd7fb-6975-4f20-af53-8aa7f4b2de7a_M10.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_eb75f1c0-2ef3-4393-a7b5-9c51212f2086_KakaoTalk_20230812_102414803_10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/upload/s_ef447a18-a225-4d86-91ad-7ef0c1480347_KakaoTalk_20240729_134832741.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/category/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/loading.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/loading.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/@modal/(.)add-reveiw/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/@modal/(.)add-reveiw/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -532,7 +565,7 @@
       <workItem from="1735521555505" duration="1000" />
       <workItem from="1735524836201" duration="6281000" />
       <workItem from="1735549369485" duration="1000" />
-      <workItem from="1735607909093" duration="15094000" />
+      <workItem from="1735607909093" duration="16702000" />
     </task>
     <servers />
   </component>
