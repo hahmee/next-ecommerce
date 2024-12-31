@@ -1,7 +1,7 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
-import StockTable from "@/components/Tables/StockTable";
-import {getAdminStock} from "@/api/adminAPI";
+import StockTable from "@/components/Admin/Tables/StockTable";
+import {getAdminStock} from "@/apis/adminAPI";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 

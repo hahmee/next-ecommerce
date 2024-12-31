@@ -2,7 +2,7 @@ import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserReviews from "@/components/Home/Profile/UserReviews";
-import {getUserReviews} from "@/api/mallAPI";
+import {getUserReviews} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
 
 export async function generateMetadata() {

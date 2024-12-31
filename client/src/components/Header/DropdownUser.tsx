@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ClickOutside from "@/components/ClickOutside";
+import ClickOutside from "@/components/Common/ClickOutside";
 import {getCookie} from "cookies-next";
 
 const DropdownUser = () => {
@@ -25,6 +25,7 @@ const DropdownUser = () => {
         </span>
                 <span className="h-12 w-12 rounded-full flex items-center justify-center">
                   <Image
+
                       width={500}
                       height={500}
                       src="/images/admin/user-01.png"

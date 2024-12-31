@@ -10,7 +10,7 @@ import React, {useState} from "react";
 import {fetchJWT} from "@/utils/fetchJWT";
 import {Review} from "@/interface/Review";
 import {useRouter} from "next/navigation";
-import {getOrder} from "@/api/mallAPI";
+import {getOrder} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
 
 

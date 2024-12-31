@@ -13,7 +13,6 @@ export interface Product {
   uploadFileNames: Array<FileDTO<string>> | null;
   uploadFileKeys: Array<FileDTO<string>> | null;
   brand: string;
-  // categoryList: string[];
   sizeList: string[];
   colorList: Array<ColorTag>;
   sku: string;

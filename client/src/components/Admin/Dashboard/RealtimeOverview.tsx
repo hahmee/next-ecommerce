@@ -5,7 +5,7 @@ import {ChartFilter} from "@/types/chartFilter";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
-import {getGARecentUsers} from "@/api/dashbaordAPI";
+import {getGARecentUsers} from "@/apis/dashbaordAPI";
 import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
 import formatDate from "@/libs/formatDate";
 
@@ -14,7 +14,6 @@ const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: f
 const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
 const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
 const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
-
 
 const RealtimeOverview: React.FC = () => {
 
@@ -67,61 +66,8 @@ const RealtimeOverview: React.FC = () => {
   });
 
 
-  console.log('gaData', gaData);
-
-  const dateChange = (value:any) => {
-
-    // value.startDate와 value.endDate를 Date 객체로 변환
-    const startDate = new Date(value.startDate);
-    const endDate = new Date(value.endDate);
-
-    // YYYY-MM-DD 형식으로 변환
-    const formattedStartDate = formatDate(startDate);
-    const formattedEndDate = formatDate(endDate);
-
-    // 두 날짜 간의 차이를 밀리초 단위로 계산
-    const timeDifference = endDate.getTime() - startDate.getTime();
-    // 밀리초를 일 단위로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
-    const dayDifference = timeDifference / (1000 * 60 * 60 * 24); // 일 단위 차이
-
-    // 새로운 날짜 계산
-    const newEndDate = new Date(startDate); // endDate 복사
-    newEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
-
-    const newStartDate = new Date(newEndDate); // newEndDate 복사
-    newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
-
-    // YYYY-MM-DD 형식으로 변환
-    const formattedNewStartDate = formatDate(newStartDate);
-    const formattedNewEndDate = formatDate(newEndDate);
-
-    // 날짜 객체 설정
-    const date = {
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-    };
-
-    const comparedDate = {
-      startDate: formattedNewStartDate,
-      endDate: formattedNewEndDate,
-    };
-
-    setDate(date);
-    setComparedDate(comparedDate);
-  };
-
-  const filterChange = (filter: ChartFilter) => {
-    setCurrentFilter(filter);
-  }
-
   return (
       <>
-        {/*<div>*/}
-        {/*  <AdminDatePicker date={date} dateChange={dateChange}/>*/}
-        {/*  <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period*/}
-        {/*    ({comparedDate.startDate} ~ {comparedDate.endDate})</p>*/}
-        {/*</div>*/}
-
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
             <ActiveVisitors gaData={gaData?.activeVisitors}/>

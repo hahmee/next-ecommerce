@@ -3,20 +3,20 @@ import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
 import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
-import AdminDatePicker from "@/components/Admin/AdminDatePicker";
-import {getGoogleAnalytics} from "@/api/dashbaordAPI";
+import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
+import {getGoogleAnalytics} from "@/apis/dashbaordAPI";
 import {GAResponse} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
+
 ``
-const TrafficSessionChart = dynamic(() => import("./Charts/TrafiicSessionChart"), { ssr: false });
+const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
 const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ssr: false });
-
 
 const TrafficOverview: React.FC = () => {
 
@@ -69,8 +69,6 @@ const TrafficOverview: React.FC = () => {
     }
   });
 
-
-  console.log('gaData', gaData);
 
   const dateChange = (value:any) => {
     setDate(value);

@@ -2,7 +2,7 @@ import React, {Suspense} from "react";
 import ReviewAddModal from "@/components/Home/Profile/ReviewAddModal";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {getOrder} from "@/api/mallAPI";
+import {getOrder} from "@/apis/mallAPI";
 
 
 interface Props {

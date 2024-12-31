@@ -1,8 +1,7 @@
 "use client";
 import React, {useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
-import AdminDatePicker from "@/components/Admin/AdminDatePicker";
-import SalesChart from "@/components/Admin/Dashboard/Charts/SalesChart";
+import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {getCookie} from "cookies-next";
@@ -10,13 +9,11 @@ import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {CardResponse} from "@/interface/CardResponse";
-import TopOrderTable from "@/components/Tables/TopOrderTable";
-import TopCustomers from "@/components/Chats/TopCustomers";
 import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
 import {TopProductResponse} from "@/interface/TopProductResponse";
 import dynamic from "next/dynamic";
 import {MapResponse} from "@/interface/MapResponse";
-import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/api/dashbaordAPI";
+import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
 import formatDate from "@/libs/formatDate";
 
 const data = {
@@ -46,6 +43,9 @@ const data = {
 
 const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
 const SalesPieChart = dynamic(() => import("./Charts/SalesPieChart"), { ssr: false });
+const SalesChart = dynamic(() => import("./Charts/SalesChart"), { ssr: false });
+const TopOrderTable = dynamic(() => import("../Tables/TopOrderTable"), { ssr: false });
+const TopCustomers = dynamic(() => import("./TopCustomers"), { ssr: false });
 
 const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);

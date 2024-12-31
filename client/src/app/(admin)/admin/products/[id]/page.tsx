@@ -4,7 +4,7 @@ import React, {Suspense} from "react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCategories, getCategoryPaths, getProduct} from "@/api/adminAPI";
+import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
 
 interface Props {

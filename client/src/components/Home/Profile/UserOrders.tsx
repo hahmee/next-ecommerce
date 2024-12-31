@@ -4,7 +4,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Payment} from "@/interface/Payment";
 import {TossPaymentStatus} from "@/types/toss";
 import {useRouter} from "next/navigation";
-import {getPayments} from "@/api/mallAPI";
+import {getPayments} from "@/apis/mallAPI";
 
 const UserOrders = () => {
     const router = useRouter();
@@ -20,9 +20,6 @@ const UserOrders = () => {
             return data.data;
         }
     });
-
-
-    console.log('payments', payments);
 
 
     if (isLoading) return <div className="text-center py-4">Loading...</div>;

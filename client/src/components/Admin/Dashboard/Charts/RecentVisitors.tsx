@@ -23,12 +23,8 @@ const RecentVisitors = ({gaData}:{gaData:Array<SessionDTO<number>> | undefined})
                             <span> Visitor # {visitor.key || "(알 수 없음)"}</span>
                             <span className={` z-1 h-3.5 w-3.5 rounded-full bg-meta-3 inline`}><span className="-z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-3 opacity-75"></span>
                           </span>
-
-
                         </div>
-                        <div
-                            className="text-sm font-bold row-span-1 text-right"> {Number(visitor.value).toLocaleString()}</div>
-
+                        <div className="text-sm font-bold row-span-1 text-right"> {Number(visitor.value).toLocaleString()}</div>
                         <div className="col-span-2 font-semibold text-xs text-gray-500">Browsing</div>
                     </div>
                 ))}

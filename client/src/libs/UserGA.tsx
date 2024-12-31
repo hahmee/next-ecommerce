@@ -19,11 +19,9 @@ const UserGA = () => {
 
     useEffect(() => {
         if(member) {
-            console.log('member', member.email);
             const email = member.email;
 
             const encryptedId = hashUserId(email);
-            console.log('encryptedId', encryptedId);
             setHashedUserId(encryptedId);
         }
     }, [member]);

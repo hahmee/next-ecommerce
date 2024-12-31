@@ -1,6 +1,6 @@
-import Slider from "@/components/Slider";
+import Slider from "@/components/Home/Slider";
 import React, {Suspense} from "react";
-import {getCategories, getFeaturedProducts, getNewProducts} from "@/api/adminAPI";
+import {getCategories, getFeaturedProducts, getNewProducts} from "@/apis/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import Categories from "@/components/Home/Main/Categories";
@@ -58,7 +58,6 @@ const HomePage = () => {
             </div>
 
             <MainInfo/>
-
         </div>
     );
 };

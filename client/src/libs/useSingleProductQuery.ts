@@ -1,4 +1,4 @@
-import {getProduct} from "@/api/adminAPI";
+import {getProduct} from "@/apis/adminAPI";
 
 export const productSingleQueryOptions = (id:string) => ({
     queryKey: ['productSingle', id],

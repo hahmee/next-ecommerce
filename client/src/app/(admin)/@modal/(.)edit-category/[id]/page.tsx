@@ -1,6 +1,6 @@
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
-import {getCategory, getCategoryPaths} from "@/api/adminAPI";
+import {getCategory, getCategoryPaths} from "@/apis/adminAPI";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
 import {Mode} from "@/types/mode";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";

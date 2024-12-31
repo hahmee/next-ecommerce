@@ -19,7 +19,6 @@ const PieChart = ({data, title, label}:{data:Array<SessionDTO<number>> | undefin
 
   const colors = getRandomColor(data?.length || 0);
 
-  console.log('colors', colors);
   const options: ApexOptions = {
     chart: {
       fontFamily: "Satoshi, sans-serif",

@@ -2,8 +2,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import Profile from "@/components/Admin/Profile";
-import {getUserInfo} from "@/api/mallAPI";
+import Profile from "@/components/Admin/Profile/Profile";
+import {getUserInfo} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
 
 export async function generateMetadata() {

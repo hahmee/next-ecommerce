@@ -5,7 +5,7 @@ import { ColorTag } from "@/interface/ColorTag";
 import { HexColorPicker } from "react-colorful";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { XCircleIcon } from "@heroicons/react/24/outline";
-import ClickOutside from "@/components/ClickOutside";
+import ClickOutside from "@/components/Common/ClickOutside";
 
 interface DropdownProps {
     label: string;

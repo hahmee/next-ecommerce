@@ -1,6 +1,6 @@
 "use client";
-import CartList from "@/components/Home/CartList";
-import CartSummary from "@/components/Home/CartSummary";
+import CartList from "@/components/Home/Cart/CartList";
+import CartSummary from "@/components/Home/Cart/CartSummary";
 import React from "react";
 import {useRouter} from "next/navigation";
 

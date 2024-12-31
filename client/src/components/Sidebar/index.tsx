@@ -1,14 +1,14 @@
 "use client";
 
 import React, {useState} from "react";
-import {usePathname, useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import Link from "next/link";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
-import ClickOutside from "@/components/ClickOutside";
+import ClickOutside from "@/components/Common/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import Dialog from "@/components/Admin/Dialog";
-import {logout} from "@/api/mallAPI";
+import {logout} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
 
 interface SidebarProps {
@@ -260,11 +260,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         >
           {/* <!-- SIDEBAR HEADER --> */}
           <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-            <Link href="/" className="flex items-center gap-2">
-
+            <Link href="/admin/order" className="flex items-center gap-2">
               <BuildingStorefrontIcon className="h-7 w-7 text-ecom"/>
-              <div className="text-2xl tracking-wide text-white">ADMIN</div>
-
+              <div className="text-2xl tracking-wide text-white font-semibold">ADMIN</div>
             </Link>
 
             <button

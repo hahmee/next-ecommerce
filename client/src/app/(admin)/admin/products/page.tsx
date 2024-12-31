@@ -2,8 +2,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import ProductTable from "@/components/Tables/ProductTable";
-import {getProductsByEmail} from "@/api/adminAPI";
+import ProductTable from "@/components/Admin/Tables/ProductTable";
+import {getProductsByEmail} from "@/apis/adminAPI";
 import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 

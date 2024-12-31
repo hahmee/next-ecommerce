@@ -1,8 +1,8 @@
 import React, {Suspense} from "react";
-import ProductSingle from "@/components/Home/ProductSingle";
+import ProductSingle from "@/components/Home/Product/ProductSingle";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getProduct, getReviews} from "@/api/adminAPI";
+import {getProduct, getReviews} from "@/apis/adminAPI";
 import ProductSingleSkeleton from "@/components/Skeleton/ProductSingleSkeleton";
 
 interface Props {

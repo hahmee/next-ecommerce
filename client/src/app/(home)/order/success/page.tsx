@@ -3,7 +3,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
-import {getCart, getSuccessPayment} from "@/api/mallAPI";
+import {getCart, getSuccessPayment} from "@/apis/mallAPI";
 
 interface Props {
     // searchParams: { [key: string]: string | string[] | undefined }
@@ -14,7 +14,6 @@ interface Props {
 //결제 성공 페이지
 export default async function OrderSuccessPage({searchParams}: Props) {
 
-    console.log('searchParams', searchParams);
     const {paymentKey, orderId, amount} = searchParams;
 
     //결제 요청이 토스페이먼츠로 전송되고 성공했을 때 url로 orderId, paymentKey, amount가 나오는데 그 값들을 스프링으로 넘겨준다.

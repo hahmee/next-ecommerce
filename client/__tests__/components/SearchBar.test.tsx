@@ -1,5 +1,5 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/Home/SearchBar";
 import {useRouter} from "next/navigation";
 
 // Next.js 내비게이션 훅 모킹

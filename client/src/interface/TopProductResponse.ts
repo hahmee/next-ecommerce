@@ -10,5 +10,4 @@ export interface TopProductResponse {
   change: number;
   grossSales: number;
   thumbnail: string;
-
 }

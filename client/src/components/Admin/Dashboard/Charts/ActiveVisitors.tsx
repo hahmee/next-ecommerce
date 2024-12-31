@@ -21,8 +21,6 @@ const ActiveVisitors = ({gaData} : {gaData:Array<SessionDTO<number>> | undefined
                     {gaData?.find(g => g.key === "pageViews")?.value.toLocaleString() || 0}
                 </div>
             </div>
-
-
         </div>
     );
 };

@@ -7,7 +7,7 @@ jest.mock("@tanstack/react-query", () => ({
     useQuery: jest.fn(),
 }));
 
-jest.mock("@/api/adminAPI", () => ({
+jest.mock("@/apis/adminAPI", () => ({
     getCategories: jest.fn(),
 }));
 

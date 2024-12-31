@@ -16,7 +16,7 @@
 //       isLoading: true,
 //       getCategories: async () => {
 //         try {
-//           const categories = await fetchJWT(`/api/category/list`, {
+//           const categories = await fetchJWT(`/apis/category/list`, {
 //             method: "GET",
 //             credentials: 'include',
 //           });

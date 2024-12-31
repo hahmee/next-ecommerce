@@ -1,9 +1,8 @@
 import React, {Suspense} from "react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCategories} from "@/api/adminAPI";
+import {getCategories} from "@/apis/adminAPI";
 import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
 
 export default function AddProductPage() {
@@ -16,7 +15,7 @@ export default function AddProductPage() {
     ];
 
     return (
-        <Suspense fallback={<ProductFormSkeleton/>}>
+        <Suspense>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
                  <ProductForm type={Mode.ADD}/>
             </PrefetchBoundary>

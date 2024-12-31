@@ -10,7 +10,6 @@
     // import {getCookie} from "cookies-next";
     //
     // export function showMessage (message: string | null) {
-    //     console.log('message', message);
     //     if (message === 'no_email') {
     //         return '이메일을 입력하세요.';
     //     }
@@ -78,13 +77,11 @@
 
                 const data: DataResponse<Member> = await response.json();
 
-                console.log('data', data);
-
                 if (data.code != 0) { //에러있는 상황
                     setMessage(data.message);
                 } else {
-                    /*해결법- api route에서 set Cookie 한다.*/
-                    // await fetch("/api/auth", {
+                    /*해결법- apis route에서 set Cookie 한다.*/
+                    // await fetch("/apis/auth", {
                     //     method: "POST",
                     //     body: JSON.stringify(data.data),
                     // });
@@ -92,7 +89,6 @@
                     //쿠키 세팅
                     const expires = new Date();
                     expires.setUTCDate(expires.getUTCDate() + 1);
-                    console.log(JSON.stringify(data.data));
                     // cookies().set("member", JSON.stringify(data), {expires: expires});
                     await setCookie("member", JSON.stringify(data.data));
 
@@ -108,7 +104,6 @@
                         const roleNames = member.roleNames;
                         const role = getHighRole(roleNames);
                         const encryptedId = member.encryptedId;
-                        console.log('encryptedId', encryptedId);
                         // const encryptedId = hashUserId(email);
 
                         // 로그인 성공 시 GTM 이벤트 전송

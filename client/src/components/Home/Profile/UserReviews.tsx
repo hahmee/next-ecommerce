@@ -6,7 +6,7 @@ import {Review} from "@/interface/Review";
 import {StarIcon} from "@heroicons/react/20/solid";
 import React from "react";
 import Image from "next/image";
-import {getUserReviews} from "@/api/mallAPI";
+import {getUserReviews} from "@/apis/mallAPI";
 
 const UserReviews = () => {
     const router = useRouter();
@@ -22,9 +22,6 @@ const UserReviews = () => {
             return data.data;
         }
     });
-
-
-    console.log('myReviews', myReviews);
 
 
     if (isLoading) return <div className="text-center py-4">Loading...</div>;
@@ -43,12 +40,6 @@ const UserReviews = () => {
                                 <span className="text-gray-500 text-xs">{review.order?.productInfo.size} | {review.order?.productInfo.color.text}</span>
                                 </div>
                             </li>
-                            {/*<li className="flex py-1.5">*/}
-                            {/*    <span className="font-semibold">{review.order?.productInfo.pname}</span>*/}
-                            {/*</li>*/}
-                            {/*<li className="flex py-1.5">*/}
-                            {/*    <span className="text-gray-500 text-xs">{review.order?.productInfo.size} | {review.order?.productInfo.color.text}</span>*/}
-                            {/*</li>*/}
                             <li className="flex items-center py-1.5 gap-1">
                                 <span className="flex">
                                   {Array.from({length: 5}).map((_, index) => (

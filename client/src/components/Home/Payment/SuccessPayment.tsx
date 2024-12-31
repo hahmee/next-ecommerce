@@ -4,7 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import React, {useCallback, useEffect} from "react";
 import Link from "next/link";
-import {getCart, getSuccessPayment} from "@/api/mallAPI";
+import {getCart, getSuccessPayment} from "@/apis/mallAPI";
 import {CartItemList} from "@/interface/CartItemList";
 import {useCartStore} from "@/store/cartStore";
 

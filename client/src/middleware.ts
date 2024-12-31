@@ -4,7 +4,6 @@ import { MemberRole } from "@/types/memberRole";
 // 쿠키에서 "member"를 읽기
 function getCookie(request: NextRequest, cookieName: string) {
   const cookie = request.cookies.get(cookieName);
-  console.log('cookie', cookie);
   return cookie ? JSON.parse(cookie.value) : null;
 }
 
@@ -12,11 +11,6 @@ function getCookie(request: NextRequest, cookieName: string) {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const member = getCookie(request, "member");
-
-  console.log('middleware-----------------------------------', request.method, request.url);
-
-  console.log('member-----------------------------------', member);
-
 
   // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
   if (!member) {
@@ -47,12 +41,12 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
+     * - apis (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      * - login and signup pages
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|signup).*)',
+    '/((?!apis|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|login|signup).*)',
   ],
 };

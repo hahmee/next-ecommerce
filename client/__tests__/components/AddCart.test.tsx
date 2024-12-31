@@ -1,5 +1,5 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import AddCart from "@/components/Home/AddCart";
+import AddCart from "@/components/Home/Cart/AddCart";
 import {SalesStatus, SalesStatusKor} from "@/types/salesStatus";
 import {Size} from "@/types/size";
 

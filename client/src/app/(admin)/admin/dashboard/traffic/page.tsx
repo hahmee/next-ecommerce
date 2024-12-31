@@ -2,13 +2,13 @@
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
-import {getGoogleAnalytics} from "@/api/dashbaordAPI";
+import {getGoogleAnalytics} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
+import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 
 export default async function DashBoardTrafficPage() {
     const endDate = new Date(); // today
@@ -49,7 +49,7 @@ export default async function DashBoardTrafficPage() {
     return <div className="mx-auto">
         <Breadcrumb pageName="Traffic Overview"/>
         <div className="flex flex-col gap-5">
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <TrafficOverview/>
                 </PrefetchBoundary>

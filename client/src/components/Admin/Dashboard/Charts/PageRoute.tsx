@@ -2,7 +2,6 @@ import {SessionDTO} from "@/interface/GAResponse";
 import React from "react";
 
 const PageRoute = ({gaData}:{ gaData:Array<SessionDTO<number>> | undefined;}) => {
-    console.log('gaData', gaData);
     return (
         <div
             className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark">

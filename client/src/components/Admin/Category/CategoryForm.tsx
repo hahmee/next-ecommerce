@@ -1,5 +1,5 @@
 'use client';
-import CategoryBreadcrumb from "@/components/Admin/CategoryBreadcrumb";
+import CategoryBreadcrumb from "@/components/Admin/Category/CategoryBreadcrumb";
 import React, {FormEvent, useCallback, useState} from "react";
 import {Mode} from "@/types/mode";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
@@ -7,7 +7,7 @@ import {Category} from "@/interface/Category";
 import {fetchJWT} from "@/utils/fetchJWT";
 import toast from "react-hot-toast";
 import {DataResponse} from "@/interface/DataResponse";
-import {getCategory, getCategoryPaths} from "@/api/adminAPI";
+import {getCategory, getCategoryPaths} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
 
@@ -107,10 +107,8 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            console.log('variable', variable);
             const newCategory: Category = response.data; // 수정 및 추가된 data 반환 ...
             toast.success('업로드 성공했습니다.');
-            console.log('response', response.data);
 
             if (queryClient.getQueryData(['adminCategories', {page: 1, size: 10, search: ""}])) {
                 queryClient.setQueryData(['adminCategories', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Category[] } }) => {

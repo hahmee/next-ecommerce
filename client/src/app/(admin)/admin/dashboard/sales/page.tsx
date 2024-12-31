@@ -3,13 +3,13 @@
 import SalesOverview from "@/components/Admin/Dashboard/SalesOverview";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
-import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/api/dashbaordAPI";
+import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
+import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 
 export default async function DashBoardSalesPage() {
     const endDate = new Date(); // today
@@ -85,7 +85,7 @@ export default async function DashBoardSalesPage() {
     return <div className="mx-auto">
         <Breadcrumb pageName="Sales Overview"/>
         <div className="flex flex-col gap-5">
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <SalesOverview/>
                 </PrefetchBoundary>

@@ -1,8 +1,8 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import OrderTable from "@/components/Tables/OrderTable";
-import {getOrdersByEmail} from "@/api/adminAPI";
+import OrderTable from "@/components/Admin/Tables/OrderTable";
+import {getOrdersByEmail} from "@/apis/adminAPI";
 import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
 
 export default async function AdminOrderPage() {

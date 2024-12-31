@@ -23,7 +23,7 @@ import {Mode} from "@/types/mode";
 import CategorySelect from "@/components/Admin/Product/CategorySelect";
 import {Category} from "@/interface/Category";
 import Link from "next/link";
-import {getCategories, getCategoryPaths, getProduct} from "@/api/adminAPI";
+import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 
 export const brandOptions:  Array<Option<string>> = [
@@ -75,7 +75,6 @@ const ProductForm = ({type, id}: Props) => {
         enabled: !!id && type === Mode.EDIT, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
         select: useCallback((data: DataResponse<Product>) => {
 
-            console.log('data', data);
             const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
 
                 return { dataUrl:name.file, file: undefined , uploadKey: data.data.uploadFileKeys?.[idx].file, id:name.ord} as ImageType;
@@ -229,10 +228,6 @@ const ProductForm = ({type, id}: Props) => {
         }
     });
 
-
-    console.log('originalData', originalData);
-    console.log('categories', categories);
-    console.log('categoryPaths', categoryPaths);
 
     if (isLoading) return "Loading...";
 

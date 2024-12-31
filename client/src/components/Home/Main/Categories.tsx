@@ -2,12 +2,15 @@
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
-import Link from "next/link";
 import Image from "next/image";
-import {getCategories} from "@/api/adminAPI";
+import {getCategories} from "@/apis/adminAPI";
 import Skeleton from "@/components/Skeleton/Skeleton";
+import React from "react";
+import {useRouter} from "next/navigation";
 
 const Categories = () => {
+    const router = useRouter();
+
     //카테고리 가져오기
     const {
         isFetching,
@@ -29,33 +32,33 @@ const Categories = () => {
         return <Skeleton/>; // 로딩 상태 표시
     }
 
-    return <div className="px-4 overflow-x-auto scrollbar-hide">
-        <div className="flex gap-4 justify-center md:gap-8 items-center ">
-            {categories?.map((ct) => (
-                <Link
-                    href={`/list?category_id=${ct.cno}`}
-                    className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 xl:w-1/6 py-6"
-                    key={ct.cno}
-                >
-                    <div>
-                        <div className="relative bg-slate-100 w-30 h-30">
+
+    return (
+
+        <section className="py-16 ">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                    {categories?.map((category) => (
+                        <div
+                            onClick={()=>router.push(`/list?category_id=${category.cno}`)}
+                            key={category.cno}
+                            className="relative bg-white shadow-md rounded p-4 hover:scale-105 transform transition"
+                        >
                             <Image
-                                src={ct.uploadFileName || "https://via.placeholder.com/640x480"}
-                                alt="categoryImage"
-                                width={500}
-                                height={500}
-                                sizes="20vw"
-                                className="object-cover w-full h-full"
+                                src={category.uploadFileName || "https://via.placeholder.com/640x480"}
+                                alt='image_category'
+                                width={300}
+                                height={300}
+                                className="rounded object-cover w-full h-60"
                             />
+                            <h3 className="text-lg font-medium mt-2 text-center">
+                                {category.cname}
+                            </h3>
                         </div>
-                        <h1 className="mt-4 font-medium text-gray-800 tracking-wide">
-                            {ct.cname}
-                        </h1>
-                    </div>
-                </Link>
-            ))}
-        </div>
-    </div>
-        ;
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 }
 export default Categories;

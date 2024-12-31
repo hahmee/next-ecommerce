@@ -1,9 +1,9 @@
 import React, {Suspense} from 'react'
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import ProductList from "@/components/Home/ProductList";
+import ProductList from "@/components/Home/Product/ProductList";
 import {FetchInfiniteQueryOptions} from "@tanstack/react-query";
-import {getCategories, getCategory} from "@/api/adminAPI";
-import {getProductList} from "@/api/mallAPI";
+import {getCategories, getCategory} from "@/apis/adminAPI";
+import {getProductList} from "@/apis/mallAPI";
 import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";
 
 interface Props {

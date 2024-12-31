@@ -2,8 +2,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import PaymentOverview from "@/components/Admin/Payment/PaymentOverview";
-import PaymentTable from "@/components/Tables/PaymentTable";
-import {getPaymentsByEmail, getPaymentsOverview} from "@/api/adminAPI";
+import PaymentTable from "@/components/Admin/Tables/PaymentTable";
+import {getPaymentsByEmail, getPaymentsOverview} from "@/apis/adminAPI";
 import PaymentSkeleton from "@/components/Skeleton/PaymentSkeleton";
 import formatDate from "@/libs/formatDate";
 

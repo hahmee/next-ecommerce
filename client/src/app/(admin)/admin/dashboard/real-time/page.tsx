@@ -2,13 +2,13 @@
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
 import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
-import {getGARecentUsers} from "@/api/dashbaordAPI";
+import {getGARecentUsers} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
+import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 
 export default async function DashBoardRealTimePage() {
     const endDate = new Date(); // today
@@ -49,7 +49,7 @@ export default async function DashBoardRealTimePage() {
     return <div className="mx-auto">
         <Breadcrumb pageName="Real-time Overview"/>
         <div className="flex flex-col gap-5">
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <RealtimeOverview/>
                 </PrefetchBoundary>

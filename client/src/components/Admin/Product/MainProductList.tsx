@@ -12,7 +12,7 @@ import {useCartStore} from "@/store/cartStore";
 import {getCookie} from "cookies-next";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
-import {getFeaturedProducts, getNewProducts} from "@/api/adminAPI";
+import {getFeaturedProducts, getNewProducts} from "@/apis/adminAPI";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import React, {useEffect, useState} from "react";
 

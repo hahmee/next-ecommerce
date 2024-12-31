@@ -6,7 +6,7 @@ import {Order} from "@/interface/Order";
 import {OrderStatus} from "@/types/orderStatus";
 import Image from "next/image";
 import Link from "next/link";
-import {getOrders} from "@/api/mallAPI";
+import {getOrders} from "@/apis/mallAPI";
 
 const getOrderStatusText = (status: OrderStatus): string => {
     switch (status) {

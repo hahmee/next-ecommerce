@@ -3,7 +3,7 @@ import AdminModal from "@/components/Admin/AdminModal";
 import React, {Suspense} from "react";
 import Loading from "@/app/(admin)/admin/products/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getCategoryPaths} from "@/api/adminAPI";
+import {getCategoryPaths} from "@/apis/adminAPI";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
 import {Mode} from "@/types/mode";
 
@@ -21,15 +21,7 @@ export default async function CategoryAddModal({params}: Props) {
             queryFn: () => getCategoryPaths({queryKey: ['categoryPaths', id]})
         },
     ]
-    // return (
-    //     <Portal>
-    //         <Suspense fallback={<Loading/>}>
-    //             <PrefetchBoundary prefetchOptions={prefetchOptions}>
-    //                 <CategoryForm type={Mode.ADD} id={id}/>
-    //             </PrefetchBoundary>
-    //         </Suspense>
-    //     </Portal>
-    // );
+
     return (
         <AdminModal modalTitle={"상품 카테고리 추가"}>
             <Suspense fallback={<Loading/>}>

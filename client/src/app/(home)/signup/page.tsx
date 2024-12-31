@@ -47,13 +47,11 @@ export default function SignupPage() {
 
             const data:DataResponse<Member> = await response.json();
 
-            console.log('data..', data);
             //data.. {
             //   success: false,
             //   code: 401,
             //   message: 'DUPLICATED_EMAIL - 이미 사용하고 있는 이메일입니다.'
             // }
-            console.log('response..', response);  //백엔드에서 보내는 에러코드 401
 
             if(!response.ok) { //백엔드에서 에러코드를 보냈다면
                 setMessage(data.message);

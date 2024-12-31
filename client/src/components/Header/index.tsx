@@ -1,7 +1,7 @@
 import Link from "next/link";
 import DarkModeSwitcher from "./DarkModeSwitcher";
 import React from "react";
-import { BuildingStorefrontIcon } from "@heroicons/react/24/outline";
+import {BuildingStorefrontIcon, ShoppingBagIcon} from "@heroicons/react/24/outline";
 import DropdownUser from "@/components/Header/DropdownUser";
 
 const Header = (props: {
@@ -66,6 +66,11 @@ const Header = (props: {
                         {/* <!-- Dark Mode Toggler --> */}
                         <DarkModeSwitcher/>
                     </ul>
+
+                    <Link href="/" className="text-right block">
+                       <ShoppingBagIcon className="h-6 w-6 block text-sm font-medium text-black dark:text-white"/>
+                        <span className="block text-xs">Mall</span>
+                    </Link>
 
                     {/* <!-- User Area --> */}
                     <DropdownUser/>

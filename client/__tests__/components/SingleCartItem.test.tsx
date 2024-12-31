@@ -1,5 +1,5 @@
 import {act, fireEvent, render, screen} from "@testing-library/react";
-import SingleCartItem from "@/components/Home/SingleCartItem";
+import SingleCartItem from "@/components/Home/Cart/SingleCartItem";
 import {getCookie} from "cookies-next";
 import {useCartStore} from "@/store/cartStore";
 import {CartItemList} from "@/interface/CartItemList";

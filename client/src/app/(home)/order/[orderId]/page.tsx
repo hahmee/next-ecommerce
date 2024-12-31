@@ -1,7 +1,7 @@
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import OrderDetail from "@/components/Home/Profile/OrderDetail";
-import {getOrders} from "@/api/mallAPI";
+import {getOrders} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
 import OrderDetailSkeleton from "@/components/Skeleton/OrderDetailSkeleton";
 
