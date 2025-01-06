@@ -1,11 +1,11 @@
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/profile/loading";
 import {getCategory, getCategoryPaths} from "@/apis/adminAPI";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
 import {Mode} from "@/types/mode";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Portal from "@/components/Common/Portal";
 import AdminModal from "@/components/Admin/AdminModal";
+import Loading from "@/app/loading";
 
 interface Props {
     params: {id:string};

@@ -1,6 +1,5 @@
 import React, {Suspense} from "react";
 import ProductSingle from "@/components/Home/Product/ProductSingle";
-import Loading from "@/app/(admin)/admin/profile/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getProduct, getReviews} from "@/apis/adminAPI";
 import ProductSingleSkeleton from "@/components/Skeleton/ProductSingleSkeleton";

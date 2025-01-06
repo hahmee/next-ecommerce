@@ -2,9 +2,9 @@ package org.zerock.mallapi.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.zerock.mallapi.domain.*;
-
-import java.util.List;
+import org.zerock.mallapi.domain.TossPaymentMethod;
+import org.zerock.mallapi.domain.TossPaymentStatus;
+import org.zerock.mallapi.domain.TossPaymentType;
 
 @Data
 @Builder

@@ -1,0 +1,57 @@
+
+services: # 컨테이너 설정
+  db:
+    image: mariadb
+    container_name: mariadb-container
+    restart: always
+    networks:
+      - app-network
+    volumes:
+      - db-data:/var/lib/mariadb  # MariaDB 데이터 디렉토리
+      - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql  # init.sql을 지정된 디렉토리로 마운트
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+
+  back:
+    container_name: backend-container
+    image: next-ecommerce-back
+    restart: always
+    networks:
+      - app-network
+    build:
+      context: ./back  # 백엔드 디렉토리에서 Dockerfile을 빌드
+    ports:
+      - "8080:8080"  # 백엔드 포트
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/apidb
+      SPRING_DATASOURCE_USERNAME: apidbuser
+      SPRING_DATASOURCE_PASSWORD: apidbuser
+      
+  client:
+    container_name: client-container
+    image: next-ecommerce-client
+    build:
+      context: ./client  # 프론트엔드 디렉토리에서 Dockerfile을 빌드
+    ports:
+      - "3000:3000"  # 프론트엔드 포트
+    networks:
+      - app-network  # 같은 네트워크에 속하도록 설정
+    environment:
+      BACKEND_URL: http://back:8080 # 환경 변수 설정
+    depends_on:
+      - back
+
+networks:
+  app-network:
+    driver: bridge
+
+
+volumes:
+  db-data:  # MariaDB 데이터를 저장할 볼륨

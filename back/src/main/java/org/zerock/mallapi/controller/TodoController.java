@@ -33,6 +33,14 @@ public class TodoController {
     return service.get(tno);
   }
 
+  @GetMapping("/test")
+  public String test(PageRequestDTO pageRequestDTO ) {
+
+    log.info(pageRequestDTO);
+
+    return "asdfasdf";
+  }
+
   @GetMapping("/list")
   public PageResponseDTO<TodoDTO> list(PageRequestDTO pageRequestDTO ) {
 

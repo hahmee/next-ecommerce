@@ -42,11 +42,12 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         select: (data) => {
             // 데이터 가공 로직만 처리
             return data.data;
-        }
+        },
     });
 
     // React Query 데이터와 Zustand 동기화
     useEffect(() => {
+        console.log('cartData입니다....', cartData);
         if (cartData) {
             setCarts(cartData); // Zustand의 상태 업데이트
         }
@@ -55,7 +56,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     return (
         <div className="flex items-center gap-4 xl:gap-6 relative">
             {/*모달 바깥 클릭 */}
-            <div className={` z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`}
+            <div className={`z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${!accountOpen && "hidden"}`}
                  onClick={() => setAccountOpen(false)}></div>
             <Image
                 src="/images/mall/profile.png"

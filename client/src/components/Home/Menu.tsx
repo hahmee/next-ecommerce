@@ -8,7 +8,6 @@ import {usePathname, useRouter} from "next/navigation";
 import {logout} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
 import {MemberRole} from "@/types/memberRole";
-import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import {Member} from "@/interface/Member";
 
 const Menu = ({memberInfo}: {memberInfo: Member}) => {
@@ -59,7 +58,6 @@ const Menu = ({memberInfo}: {memberInfo: Member}) => {
                                 어드민
                             </Link>
                         )}
-
                         <span onClick={onLogout} className="cursor-pointer">로그아웃</span>
                     </div>
                 </div>

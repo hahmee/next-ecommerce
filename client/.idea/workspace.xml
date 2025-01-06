@@ -5,7 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../back/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/resources/data.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../script/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../back/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/TodoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/TodoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/PaymentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CartRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CartRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CategoryRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/CategoryRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/MemberRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/MemberRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/ProductRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/repository/ProductRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/CategoryServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/CategoryServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/ProductServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/ProductServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/TodoServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/test/java/org/zerock/mallapi/service/TodoServiceTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/apis/mallAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/mallAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)add-category/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/@modal/(.)edit-category/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/category/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/category/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/stock/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/@modal/(.)add-reveiw/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/@modal/(.)add-reveiw/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/product/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/review/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/error.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/error.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/CustomColorPicker.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/TagSelect2.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetchJWT.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchJWT.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,12 +59,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/node_modules/@testing-library/jest-dom/types/matchers.d.ts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/@heroicons/react/24/outline/ShoppingBagIcon.d.ts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/@heroicons/react/package.json" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/apexcharts/types/apexcharts.d.ts" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/actions/auth-actions.ts" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/components/Tables/CategoryTable.tsx" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -44,70 +86,70 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Jest.<Categories/>.executor": "Run",
-    "Jest.<Categories/>.render component successfully.executor": "Run",
-    "Jest.<Home />.executor": "Run",
-    "Jest.<Home />.renders a heading.executor": "Run",
-    "Jest.API 응답 테스트.executor": "Run",
-    "Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다.executor": "Run",
-    "Jest.AddCart Component (1).executor": "Run",
-    "Jest.AddCart Component.executor": "Run",
-    "Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor": "Run",
-    "Jest.AddCart Component.should increase quantity when the + button is clicked.executor": "Run",
-    "Jest.AddCart Component.should render the AddCart component (1).executor": "Run",
-    "Jest.AddCart Component.should render the AddCart component.executor": "Run",
-    "Jest.AddCart Component.should render the ll component.executor": "Run",
-    "Jest.Categories Component.executor": "Run",
-    "Jest.Categories Component.renders categories after fetching data.executor": "Run",
-    "Jest.Categories Component.renders loading state initially.executor": "Run",
-    "Jest.E2E Login Test.executor": "Run",
-    "Jest.Login (1).executor": "Run",
-    "Jest.Login.executor": "Run",
-    "Jest.Login.login form should be in the document.executor": "Run",
-    "Jest.Login.renders the login form correctly.executor": "Run",
-    "Jest.Login.should redirect to signup page when \"계정이 없으신가요?\" is clicked.executor": "Run",
-    "Jest.Login.should show error message when login fails.executor": "Run",
-    "Jest.Login.should successfully login when correct credentials are provided.executor": "Run",
-    "Jest.Search Header.executor": "Run",
-    "Jest.Search Header.동적 url로 접속했을때 입력창에 keyword가 들어가는지 확인.executor": "Run",
-    "Jest.SearchBar Component.executor": "Run",
-    "Jest.SearchBar Component.submits the form and navigates to the correct URL.executor": "Run",
-    "Jest.Signup.executor": "Run",
-    "Jest.Signup.renders the signup form correctly.executor": "Run",
-    "Jest.Signup.should successfully signup when correct credentials are provided.executor": "Run",
-    "Jest.SingleCartItem Component.executor": "Run",
-    "Jest.SingleCartItem Component.should decrease quantity when the - button is clicked.executor": "Run",
-    "Jest.SingleCartItem Component.should increase quantity when the + button is clicked.executor": "Run",
-    "Jest.SingleCartItem Component.should not decrease quantity below 1.executor": "Run",
-    "Jest.SingleCartItem Component.should render the SingleCart component.executor": "Run",
-    "Jest.SingleCartItem Component.should render the SingleCartItem component.executor": "Run",
-    "Jest.Sum function.adds 1 + 2 to equal 3.executor": "Run",
-    "Jest.Sum function.executor": "Run",
-    "Jest.수정일 때 .executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/app/(admin)/admin/products",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.jest.jest_package": "C:/dev/youtube/next-ecommerce2/client/node_modules/jest",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.TypeScript",
-    "ts.external.directory.path": "C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Jest.&lt;Categories/&gt;.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Categories/&gt;.render component successfully.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Home /&gt;.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Home /&gt;.renders a heading.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.API 응답 테스트.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should increase quantity when the + button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should render the AddCart component (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should render the AddCart component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should render the ll component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.renders categories after fetching data.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.renders loading state initially.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.E2E Login Test.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.login form should be in the document.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.renders the login form correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should redirect to signup page when \&quot;계정이 없으신가요?\&quot; is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should show error message when login fails.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should successfully login when correct credentials are provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Search Header.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Search Header.동적 url로 접속했을때 입력창에 keyword가 들어가는지 확인.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar Component.submits the form and navigates to the correct URL.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.renders the signup form correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.should successfully signup when correct credentials are provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should decrease quantity when the - button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should increase quantity when the + button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should not decrease quantity below 1.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should render the SingleCart component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should render the SingleCartItem component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Sum function.adds 1 + 2 to equal 3.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Sum function.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.수정일 때 .executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.TypeScript&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\products" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Skeleton" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Main" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\admin" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\public\images\user" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app" />
@@ -183,6 +225,12 @@
         <test-name value="Login" />
         <test-name value="renders the login form correctly" />
       </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -515,7 +563,28 @@
       <workItem from="1735521555505" duration="1000" />
       <workItem from="1735524836201" duration="6281000" />
       <workItem from="1735549369485" duration="1000" />
-      <workItem from="1735607909093" duration="17889000" />
+      <workItem from="1735607909093" duration="18726000" />
+      <workItem from="1735637054616" duration="4000" />
+      <workItem from="1735637785719" duration="2319000" />
+      <workItem from="1735640780142" duration="437000" />
+      <workItem from="1735642762409" duration="795000" />
+      <workItem from="1735657268852" duration="3683000" />
+      <workItem from="1735814228820" duration="1842000" />
+      <workItem from="1735868514250" duration="7033000" />
+      <workItem from="1735882160787" duration="2945000" />
+      <workItem from="1735885448776" duration="7583000" />
+      <workItem from="1735898155160" duration="2862000" />
+      <workItem from="1735914040626" duration="1325000" />
+      <workItem from="1735942042286" duration="2189000" />
+      <workItem from="1735951657935" duration="11611000" />
+      <workItem from="1735968131013" duration="8170000" />
+      <workItem from="1735989220246" duration="8889000" />
+      <workItem from="1736039628570" duration="2637000" />
+      <workItem from="1736042619102" duration="6477000" />
+      <workItem from="1736054970676" duration="7632000" />
+      <workItem from="1736069993179" duration="8224000" />
+      <workItem from="1736085916465" duration="661000" />
+      <workItem from="1736122487540" duration="303000" />
     </task>
     <servers />
   </component>
@@ -542,9 +611,7 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/app/(home)/review/page.tsx</url>
-          <line>3</line>
-          <properties lambdaOrdinal="-1" />
+          <url>file://$PROJECT_DIR$/src/apis/adminAPI.ts</url>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: false,
+    output: 'standalone', // standalone 설정 추가
     async rewrites() {
         return [
             {
                 source: '/apis/:path*',
-                destination: 'http://localhost:8080/api/:path*', // 실제 백엔드 서버 주소
+                destination : `${process.env.NEXT_PUBLIC_BASE_URL}/api/:path*`, // 실제 백엔드 서버 주소
             },
         ];
     },
@@ -26,10 +27,6 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "via.placeholder.com",
             },
-            // {
-            //     protocol: "https",
-            //     hostname: "www.gravatar.com",
-            // },
             {
                 protocol: "http",
                 hostname: '**',

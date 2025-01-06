@@ -145,6 +145,17 @@ export const getUserInfo = async () => {
 }
 
 export const getCart = async  () => {
+
+    // const data = await fetch(`${process.env.BACKEND_URL}/api/todo/test`, {
+    //     method: "GET",
+    //     credentials: 'include',
+    //     cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
+    // });
+    //
+    // console.log('data....', data);
+    //
+    // return data.json();
+
     return await fetchJWT(`/api/cart/items`, {
         method: "GET",
         next: {
@@ -157,13 +168,12 @@ export const getCart = async  () => {
 
 export const logout = async () => {
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/logout`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/member/logout`, {
         method: "POST",
         credentials: 'include', //cookie
     });
     if (!response.ok) {
-        throw new Error('로그아웃에 실패했습니다. ');
+        throw new Error('로그아웃에 실패했습니다.');
     }
     await removeCookie("member");
-
 }

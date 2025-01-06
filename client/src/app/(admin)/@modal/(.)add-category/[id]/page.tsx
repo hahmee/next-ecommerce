@@ -1,11 +1,11 @@
 "use server";
 import AdminModal from "@/components/Admin/AdminModal";
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/profile/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategoryPaths} from "@/apis/adminAPI";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
 import {Mode} from "@/types/mode";
+import Loading from "@/app/loading";
 
 interface Props {
     params: { id: string};

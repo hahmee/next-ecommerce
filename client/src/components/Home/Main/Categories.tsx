@@ -28,14 +28,16 @@ const Categories = () => {
         }
     });
 
-    if (isLoading || isFetching) {
+    // if (isLoading || isFetching) {
+    //     return <Skeleton/>; // 로딩 상태 표시
+    // }
+
+    if(!categories) {
         return <Skeleton/>; // 로딩 상태 표시
     }
 
-
     return (
-
-        <section className="py-16 ">
+        <section className="py-16">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     {categories?.map((category) => (

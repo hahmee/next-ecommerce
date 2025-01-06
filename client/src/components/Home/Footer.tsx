@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row justify-between gap-24">
         {/* LEFT */}
         <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
-          <Link href="/public">
+          <Link href="/">
             <div className="text-2xl tracking-wide">E-COMMERCE</div>
           </Link>
           <p>

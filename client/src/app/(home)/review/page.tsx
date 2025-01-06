@@ -1,9 +1,9 @@
 import React, {Suspense} from "react";
-import Loading from "@/app/(admin)/admin/profile/loading";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserReviews from "@/components/Home/Profile/UserReviews";
 import {getUserReviews} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
+import Loading from "@/app/loading";
 
 export async function generateMetadata() {
 

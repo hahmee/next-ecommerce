@@ -85,13 +85,13 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
     };
 
-    if (isLoading || isFetching) {
-        // return <div>Loading...</div>; // 로딩 상태 표시
-        return <Skeleton/>
-    }
+    // if (isLoading || isFetching) {
+    //     // return <div>Loading...</div>; // 로딩 상태 표시
+    //     return <Skeleton/>
+    // }
 
-    if(!newProducts) {
-        return null;
+    if(!newProducts || !featuredProducts) {
+        return <Skeleton/>;
     }
 
     return (

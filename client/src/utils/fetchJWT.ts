@@ -3,7 +3,7 @@
 import {Member} from "@/interface/Member";
 import {getCookie, setCookie} from "@/utils/cookie";
 
-const host = process.env.NEXT_PUBLIC_BASE_URL;
+const host = process.env.BACKEND_URL;
 
 interface IRequestInit {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -18,6 +18,7 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
 
     //쿠키 가져오기
     const member = await getCookie("member") as Member | undefined;
+    console.log('member......입니다.zzzz..', member);
 
     //쿠키 없음
     if (!member) {
@@ -35,7 +36,8 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
     //configData만들기
     const configData = getConfigData(requestInit, accessToken);
 
-    const response = await fetch(`${host}${url}`, configData);
+    const response = await fetch(host + url, configData);
+    console.log('responseddddd입니다....', response);
     const data = await response.json();
 
     // console.log('data...입니다..', data); //{ message: 'ERROR_ACCESS_TOKEN', code: 401, ERROR_ACCESS_TOKEN: true }
@@ -52,7 +54,7 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
         const newConfigData = getConfigData(configData, newJWT.accessToken);
 
         //제대로 시도한다.
-        const reResponse = await fetch(`${host}${url}`, newConfigData);
+        const reResponse = await fetch(host + url, newConfigData);
         const reData = await reResponse.json();
 
         if (!reResponse.ok) {
@@ -66,7 +68,6 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
     // This will activate the closest `error.js` Error Boundary
     console.error(data.message);
     throw new Error(data.message);
-
 
 };
 
@@ -82,7 +83,7 @@ const getConfigData = (requestInit: IRequestInit, accessToken: string) => {
 
 //서버값: return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
 const refreshJWT = async (accessToken: string, refreshToken: string, email: string, member:Member) => {
-    const response = await fetch(`${host}/api/member/refresh?refreshToken=${refreshToken}`, {
+    const response = await fetch(host + '/api/member/refresh?refreshToken=' + refreshToken, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${accessToken}`,
