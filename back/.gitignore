@@ -24,6 +24,9 @@ bin/
 
 ### IntelliJ IDEA ###
 application.properties
+application-local.properties
+application-docker.properties
+
 
 .idea
 *.iws
