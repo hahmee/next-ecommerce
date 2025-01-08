@@ -1,6 +1,6 @@
 services: # 컨테이너 설정
   db:
-    image: mariadb
+    image: mariadb #docker Hub에서 MariaDB 이미지를 다운로드하여 컨테이너를 실행
     container_name: mariadb-container
     restart: always
     networks:

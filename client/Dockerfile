@@ -41,7 +41,6 @@ WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
-
 # 시스템 권한 설정 및 중복되지 않는 uid 설정하여 유저 및 그룹 추가
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
