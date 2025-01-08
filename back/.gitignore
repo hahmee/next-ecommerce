@@ -5,10 +5,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-
 #GA#
 /src/main/resources/credentials/*.json
-
 
 ### STS ###
 .apt_generated

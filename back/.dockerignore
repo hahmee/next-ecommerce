@@ -1,0 +1,4 @@
+# 빌드 결과물 (Gradle 캐시 및 JAR 파일)
+.gradle/
+.dockerignore
+

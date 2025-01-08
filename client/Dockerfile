@@ -11,29 +11,38 @@ COPY package.json package-lock.json* ./
 # 의존성 설치 -> ci : package-lock.json 버전에 맞춰서 다운
 RUN npm ci --production
 
+# 빌드 캐시 제거
 RUN rm -rf ./.next/cache
 
 
 ###########################################################
 # 2단계: next.js 빌드 단계
+
+# 이전 단계인 base 단계를 기반으로 builder라는 새로운 단계를 정의
 FROM base AS builder
+
 # 명령어를 실행할 디렉토리 지정
 WORKDIR /usr/src/app
 
-
-# node_modules 등의 dependancy를 복사함.
-COPY --from=deps /usr/src/app/node_modules ./node_modules
+#.dockerignore에 지정된 파일들을 제외하고 나머지 파일들을 복사
 COPY . .
+
+# 빌드한다..
 RUN npm run build
 
 ###########################################################
-
 # 3단계: next.js 실행 단계
+
+# 이전 단계인 base 단계를 기반으로 새로운 단계 runner를 정의
 FROM base AS runner
+
+# 작업 디렉토리를 /usr/src/app으로 설정
 WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
 
+
+# 시스템 권한 설정 및 중복되지 않는 uid 설정하여 유저 및 그룹 추가
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 

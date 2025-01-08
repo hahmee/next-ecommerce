@@ -31,7 +31,6 @@ services: # 컨테이너 설정
       SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/${DB_NAME}
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
 
-
   client:
     container_name: client-container
     image: next-ecommerce-client
