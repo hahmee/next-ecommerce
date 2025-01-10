@@ -10,6 +10,7 @@ COPY package.json package-lock.json* ./
 
 # 의존성 설치 -> ci : package-lock.json 버전에 맞춰서 다운
 RUN npm ci --production
+#RUN npm install
 
 # 빌드 캐시 제거
 RUN rm -rf ./.next/cache
@@ -26,6 +27,8 @@ WORKDIR /usr/src/app
 
 #.dockerignore에 지정된 파일들을 제외하고 나머지 파일들을 복사
 COPY . .
+
+COPY --from=deps /usr/src/app/node_modules ./node_modules
 
 # 빌드한다..
 RUN npm run build
