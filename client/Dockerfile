@@ -9,7 +9,8 @@ WORKDIR /usr/src/app
 COPY package.json package-lock.json* ./
 
 # 의존성 설치 -> ci : package-lock.json 버전에 맞춰서 다운
-RUN npm ci --production
+RUN npm ci
+#RUN npm ci --production
 #RUN npm install
 
 # 빌드 캐시 제거
