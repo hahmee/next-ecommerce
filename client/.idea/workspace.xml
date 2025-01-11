@@ -7,7 +7,7 @@
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../back/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../back/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -560,7 +560,12 @@
       <workItem from="1736355648915" duration="900000" />
       <workItem from="1736390562188" duration="7807000" />
       <workItem from="1736472551725" duration="2000" />
-      <workItem from="1736489519141" duration="1057000" />
+      <workItem from="1736489519141" duration="2857000" />
+      <workItem from="1736493329425" duration="432000" />
+      <workItem from="1736501426659" duration="696000" />
+      <workItem from="1736513875771" duration="7175000" />
+      <workItem from="1736567843166" duration="496000" />
+      <workItem from="1736568728729" duration="2087000" />
     </task>
     <servers />
   </component>

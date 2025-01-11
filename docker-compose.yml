@@ -30,20 +30,25 @@ services: # 컨테이너 설정
     environment:
       SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/${DB_NAME}
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
-
-  client:
-    container_name: client-container
-    image: next-ecommerce-client
-    build:
-      context: ./client  # 프론트엔드 디렉토리에서 Dockerfile을 빌드
-    ports:
-      - "3000:3000"  # 프론트엔드 포트
-    networks:
-      - app-network  # 같은 네트워크에 속하도록 설정
-    depends_on:
-      - back
-    env_file:
-      - ./client/.env.docker  # client 폴더의 .env.docker 파일을 적용
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+#
+#  client:
+#    container_name: client-container
+#    image: next-ecommerce-client
+#    build:
+#      context: ./client  # 프론트엔드 디렉토리에서 Dockerfile을 빌드
+#    ports:
+#      - "3000:3000"  # 프론트엔드 포트
+#    networks:
+#      - app-network  # 같은 네트워크에 속하도록 설정
+#    depends_on:
+#      - back
+#    env_file:
+#      - ./client/.env.docker  # client 폴더의 .env.docker 파일을 적용
+##    environment:
+##      BACKEND_URL: http://back:8080
+##      NEXT_PUBLIC_BASE_URL: http://back:8080
 
 networks:
   app-network:

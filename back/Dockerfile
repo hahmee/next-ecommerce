@@ -56,13 +56,14 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
     && chmod +x /usr/local/bin/dockerize
 
 # 빌드된 JAR 파일을 app.jar로 복사
-# COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/app.jar
-COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/
+COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/app.jar ./
+# COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/
 
 # 컨테이너에서 사용할 포트 설정
 EXPOSE 8080
 
 # JAR 파일을 실행하는 명령어
 CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/app.jar"]
+# CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/*.jar"]
 
 
