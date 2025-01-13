@@ -1,8 +1,6 @@
 "use server";
 import {fetchJWT} from "@/utils/fetchJWT";
 import {removeCookie} from "@/utils/cookie";
-import {DataResponse} from "@/interface/DataResponse";
-import {Member} from "@/interface/Member";
 
 export const getProductList = async ({
                                          queryKey,
@@ -145,16 +143,6 @@ export const getUserInfo = async () => {
 }
 
 export const getCart = async  () => {
-
-    // const data = await fetch(`${process.env.BACKEND_URL}/api/todo/test`, {
-    //     method: "GET",
-    //     credentials: 'include',
-    //     cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
-    // });
-    //
-    // console.log('data....', data);
-    //
-    // return data.json();
 
     return await fetchJWT(`/api/cart/items`, {
         method: "GET",

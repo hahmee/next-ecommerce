@@ -58,7 +58,6 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 # 빌드된 JAR 파일을 app.jar로 복사
 COPY --from=builder-app /usr/src/app/build/libs/mallapi-0.0.1-SNAPSHOT.jar /usr/src/app/app.jar
 # COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/app.jar ./
-# COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/
 
 # 컨테이너에서 사용할 포트 설정
 EXPOSE 8080
