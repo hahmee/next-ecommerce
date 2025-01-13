@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/healthcheck")
+@RequestMapping("/api/healthcheck")
 public class HealthController {
 
   @GetMapping("/")
