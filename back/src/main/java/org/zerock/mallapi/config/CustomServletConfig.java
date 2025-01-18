@@ -16,14 +16,14 @@ public class CustomServletConfig implements WebMvcConfigurer{
   }
 
   //추가
-   @Override
-   public void addCorsMappings(CorsRegistry registry) {
-
-     registry.addMapping("/**")
-             .allowedOrigins("*")
-             .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS")
-             .maxAge(300)
-             .allowedHeaders("Authorization", "Cache-Control", "Content-Type");
-   }
+//   @Override
+//   public void addCorsMappings(CorsRegistry registry) {
+//
+//     registry.addMapping("/**")
+//             .allowedOrigins("*")
+//             .allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "OPTIONS")
+//             .maxAge(300)
+//             .allowedHeaders("Authorization", "Cache-Control", "Content-Type");
+//   }
 
 }
