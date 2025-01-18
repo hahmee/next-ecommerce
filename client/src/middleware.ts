@@ -13,10 +13,10 @@ export async function middleware(request: NextRequest) {
   const member = getCookie(request, "member");
 
   // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
-  // if (!member) {
-  //   console.log('User not authenticated, redirecting to login');
-  //   return NextResponse.redirect(new URL('/login', request.url)); // 로그인 페이지로 리다이렉션
-  // }
+  if (!member) {
+    console.log('User not authenticated, redirecting to login');
+    return NextResponse.redirect(new URL('/login', request.url)); // 로그인 페이지로 리다이렉션
+  }
 
   // 관리자와 매니저만 접근 가능
   if (
