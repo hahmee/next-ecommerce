@@ -1,14 +1,12 @@
 services: # 컨테이너 설정
-
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
-    volumes:
-      - /var/jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 9091:8080
-
+#  jenkins:
+#    image: jenkins/jenkins:lts
+#    container_name: jenkins
+#    volumes:
+#      - /var/jenkins_home:/var/jenkins_home
+#      - /var/run/docker.sock:/var/run/docker.sock
+#    ports:
+#      - 9091:8080
   db:
     image: mariadb #docker Hub에서 MariaDB 이미지를 다운로드하여 컨테이너를 실행
     container_name: mariadb-container
