@@ -1,5 +1,6 @@
 package org.zerock.mallapi.service;
 
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.analytics.data.v1beta.*;
 import com.google.protobuf.Timestamp;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,8 @@ public class DashboardServiceImpl implements DashboardService{
   private final PaymentService paymentService;
 
   private final MemberRepository memberRepository;
+
+  private final GoogleCredentials googleCredentials;
 
 
   @Override
@@ -699,7 +702,12 @@ public class DashboardServiceImpl implements DashboardService{
     // 결과 처리
     List<SessionDTO<String>> recentUsers = new ArrayList<>();
 
-    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create(settings)) {
 
       // Real Time Report 요청
       RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
@@ -758,7 +766,12 @@ public class DashboardServiceImpl implements DashboardService{
       data.add("0"); // 데이터는 처음에 0으로 채움
     }
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
       // 1분 동안의 실시간 데이터 요청
       RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
@@ -820,7 +833,12 @@ public class DashboardServiceImpl implements DashboardService{
     // 결과 처리
     List<SessionDTO<String>> results = new ArrayList<>();
 
-    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create(settings)) {
 
       // Real Time Report 요청
       RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
@@ -862,7 +880,11 @@ public class DashboardServiceImpl implements DashboardService{
     // 결과 처리
     List<SessionDTO<String>> results = new ArrayList<>();
 
-    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create(settings)) {
 
       // Real Time Report 요청
       RunRealtimeReportRequest request = RunRealtimeReportRequest.newBuilder()
@@ -903,7 +925,11 @@ public class DashboardServiceImpl implements DashboardService{
     // 결과 처리
     List<SessionDTO<String>> result = new ArrayList<>();
 
-    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+    try (BetaAnalyticsDataClient realTimeDataClient = BetaAnalyticsDataClient.create(settings)) {
 
 
       // Real Time Report 요청
@@ -954,8 +980,11 @@ public class DashboardServiceImpl implements DashboardService{
 
     // 결과 처리
     List<CountryChartDTO> countries = new ArrayList<>();
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
@@ -997,8 +1026,11 @@ public class DashboardServiceImpl implements DashboardService{
 
     // 결과 처리
     List<SessionDTO<String>> visitors = new ArrayList<>();
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
@@ -1032,8 +1064,10 @@ public class DashboardServiceImpl implements DashboardService{
 
     // 결과 처리
     List<SessionDTO<String>> devices = new ArrayList<>();
-
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
@@ -1069,7 +1103,11 @@ public class DashboardServiceImpl implements DashboardService{
 
     String sellerEmail = gaRequestDTO.getSellerEmail();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
 //      // 사용자의 ID로 필터링 설정 (맞춤 차원으로 필터링)
 //      FilterExpression filterByUserId = FilterExpression.newBuilder()
@@ -1199,7 +1237,12 @@ public class DashboardServiceImpl implements DashboardService{
     }
 
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
       // 상위 페이지 요청
       RunReportRequest.Builder requestBuilder = RunReportRequest.newBuilder()
@@ -1280,8 +1323,11 @@ public class DashboardServiceImpl implements DashboardService{
     // 결과 처리
     List<SessionDTO<String>> topPages = new ArrayList<>();
 
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
 
       // 상위 페이지 요청
@@ -1315,11 +1361,11 @@ public class DashboardServiceImpl implements DashboardService{
     // 결과 처리
     List<SessionDTO<String>> topPages = new ArrayList<>();
 
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
 
-
-
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create()) {
-
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
       // 상위 페이지 요청
       RunReportRequest topPagesRequest = RunReportRequest.newBuilder()
