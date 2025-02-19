@@ -42,7 +42,7 @@ services: # 컨테이너 설정
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/src/main/resources/credentials/credentials.json
     volumes:
-      - ./src/main/resources/credentials/credentials.json:/usr/src/app/src/main/resources/credentials/credentials.json
+      - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
 
   client:
     container_name: client-container
