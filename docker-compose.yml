@@ -40,6 +40,9 @@ services: # 컨테이너 설정
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/src/main/resources/credentials/credentials.json
+    volumes:
+      - ./src/main/resources/credentials/credentials.json:/usr/src/app/src/main/resources/credentials/credentials.json
 
   client:
     container_name: client-container
