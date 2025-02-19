@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Configuration
-public class GAConfig {
+public class GoogleConfig {
     @Value("${google.credentials.path}")
     private String credentialsPath;
 

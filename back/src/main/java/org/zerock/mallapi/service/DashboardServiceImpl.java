@@ -670,6 +670,7 @@ public class DashboardServiceImpl implements DashboardService{
   public GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO) {
 
     String propertyId = environment.getProperty("google.analytics.productId");
+    System.out.println("GoogleCredentials: " + googleCredentials);
 
     try {
 
