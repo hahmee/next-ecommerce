@@ -4,5 +4,5 @@ ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast
 cd ~/next-ecommerce
 git pull
 docker-compose down
-docker-compose up -d
+docker-compose up --build -d
 EOF
