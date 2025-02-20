@@ -142,6 +142,14 @@ const ProductForm = ({type, id}: Props) => {
             }
 
             const formData = new FormData(e.target as HTMLFormElement);
+            const maxSize = 10 * 1024 * 1024; // 10MB
+
+            // 각 파일의 크기를 체크
+            for (const file of productImageStore.files) {
+                if (file && file.size !== undefined && file.size > maxSize) {
+                    throw new Error("파일의 크기가 100MB를 초과합니다.");
+                }
+            }
 
             formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
             formData.append("categoryId", selectedCategory.cno.toString());

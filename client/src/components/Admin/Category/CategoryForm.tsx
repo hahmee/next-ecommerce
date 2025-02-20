@@ -39,7 +39,6 @@ const CategoryForm = ({type, id}: Props) => {
 
     const [filePreview, setFilePreview] = useState<string>(originalData?.uploadFileName || "");
 
-
     const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', id!],
         queryFn: getCategoryPaths,
@@ -60,7 +59,6 @@ const CategoryForm = ({type, id}: Props) => {
             const cname = formData.get('cname') || ""; // input의 cname 속성
             const cdesc = formData.get('cdesc') || ""; // input의 cdesc 속성
 
-
             formData.append("parentCategoryId", id || "");
 
             if (cname === "" || cdesc === "") {
@@ -70,6 +68,14 @@ const CategoryForm = ({type, id}: Props) => {
             //add인데 file까지 없으면
             if (!originalData && !file) {
                 throw new Error("이미지는 한 개 이상 첨부해주세요.");
+            }
+
+            const maxSize = 10 * 1024 * 1024; // 10MB
+
+            console.log("file",file)
+            // 각 파일의 크기를 체크
+            if (file && file.size !== undefined && file.size > maxSize) {
+                throw new Error("파일의 크기가 100MB를 초과합니다.");
             }
 
             if (type === Mode.ADD) {

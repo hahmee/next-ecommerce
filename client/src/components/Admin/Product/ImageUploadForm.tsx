@@ -12,6 +12,7 @@ export interface ImageType {
     uploadKey?: string; //file key
     file: File | undefined;
     id: number; //drag and drop
+    size: number | undefined;
 }
 
 
