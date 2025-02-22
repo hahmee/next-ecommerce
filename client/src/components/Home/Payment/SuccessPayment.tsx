@@ -16,6 +16,7 @@ interface Props {
 }
 
 const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
+
     const {setCarts} = useCartStore();
     const router = useRouter();
 
@@ -29,9 +30,6 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
             return data.data;
         }, []),
     });
-
-    //이 컴포넌트를 들어오는데... getSuccessPayment와 getCart를 하지 못함  요청 자체가 없음
-    //
 
     const { isFetched, isFetching, data:cartData, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({
         queryKey: ['carts'],

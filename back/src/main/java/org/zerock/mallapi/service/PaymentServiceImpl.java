@@ -275,6 +275,8 @@ public class PaymentServiceImpl implements PaymentService{
   //결제 승인
   private PaymentSuccessDTO requestPaymentAccept(PaymentRequestDTO paymentRequestDTO) {
 
+    log.info("결제 승인 로직 한 번만 실행되어야함....");
+
     log.info("PaymentRequestDTO....." + paymentRequestDTO);
 
     RestTemplate restTemplate = new RestTemplate();

@@ -34,6 +34,7 @@ const Checkout = () => {
         const tossPayments = await loadTossPayments(
             process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
         );
+        console.log('이거 한 번만 되어야함');
         await tossPayments.requestPayment("카드", {
             amount: total,
             orderId: newOrderId,
