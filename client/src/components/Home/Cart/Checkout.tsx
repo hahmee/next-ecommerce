@@ -28,22 +28,18 @@ const Checkout = () => {
     // 결제 요청 처리
     const handlePaymentClick = async (event: React.FormEvent) => {
         event.preventDefault();
-
         const newOrderId = Math.random().toString(36).slice(2);
         console.log('newOrderId', newOrderId);
-
         await orderSave(newOrderId);
-
         const tossPayments = await loadTossPayments(
             process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
         );
-
         await tossPayments.requestPayment("카드", {
             amount: total,
             orderId: newOrderId,
             orderName: carts.length > 1 ? `${carts[0].pname} 외 ${carts.length - 1}개` : `${carts[0].pname}`,
             customerName: '판매자_테스트',
-            successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
+            successUrl:  process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
             failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
         });
     };

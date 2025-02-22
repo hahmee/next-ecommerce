@@ -7,6 +7,7 @@ import Link from "next/link";
 import {getCart, getSuccessPayment} from "@/apis/mallAPI";
 import {CartItemList} from "@/interface/CartItemList";
 import {useCartStore} from "@/store/cartStore";
+import {useRouter} from "next/navigation";
 
 interface Props {
     paymentKey: string;
@@ -16,6 +17,7 @@ interface Props {
 
 const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
     const {setCarts} = useCartStore();
+    const router = useRouter();
 
     //데이터 가져온 후 다른 페이지로 이동..?
     const {data: payment, error} = useQuery<DataResponse<any>, any, any, [_1: string, _2: string]>({
@@ -27,6 +29,9 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
             return data.data;
         }, []),
     });
+
+    //이 컴포넌트를 들어오는데... getSuccessPayment와 getCart를 하지 못함  요청 자체가 없음
+    //
 
     const { isFetched, isFetching, data:cartData, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({
         queryKey: ['carts'],
@@ -41,6 +46,7 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
     });
 
     console.log('payments..', payment);
+    console.log('cartData..', cartData);
 
     // React Query 데이터와 Zustand 동기화
     useEffect(() => {
@@ -49,16 +55,17 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
         }
     }, [cartData, setCarts]);
 
+    useEffect(()=>{
+        console.log("start..with...");
+    },[]);
+
     if(error) {
         console.log('error', error);
     }
-
     // success 페이지에서 새로고침시 다른 에러가 발생할 수 있다. 따라서 처리를 해줘야 한다.
-    if(!payment) {
-        //에러 페이지로 전환
-        //서버에서 내려준 걸 에러 코드와 메시지로..
-        // router.push(`/order/fail?code=${}&message=${}`);
-        return null;
+    if(!payment && error) {
+        router.push(`/order/fail`);
+        // return null;
     }
 
 

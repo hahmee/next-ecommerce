@@ -23,7 +23,6 @@ export default async function OrderSuccessPage({searchParams}: Props) {
             queryFn: () => getSuccessPayment({queryKey: ['payment', orderId], paymentKey, orderId, amount}), // queryKey를 전달하여 호출
         },
         {
-
             queryKey: ['carts'],
             queryFn: () => getCart(),
         }

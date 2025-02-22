@@ -64,7 +64,6 @@ public class PaymentServiceImpl implements PaymentService{
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
 
-
     //DONE이라면
     if(paymentSuccessDTO.getStatus() == TossPaymentStatus.DONE) {
 
@@ -276,11 +275,14 @@ public class PaymentServiceImpl implements PaymentService{
   //결제 승인
   private PaymentSuccessDTO requestPaymentAccept(PaymentRequestDTO paymentRequestDTO) {
 
-    RestTemplate restTemplate = new RestTemplate();
+    log.info("PaymentRequestDTO....." + paymentRequestDTO);
 
+    RestTemplate restTemplate = new RestTemplate();
 
     //헤더 구성
     HttpHeaders headers = getHeaders();
+
+    log.info("headers....." + headers);
 
     // 요청 객체 생성
     HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);

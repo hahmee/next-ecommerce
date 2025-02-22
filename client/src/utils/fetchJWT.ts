@@ -23,6 +23,7 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
     //쿠키 없음
     if (!member) {
         //다시 로그인 요망
+        console.log('로그인이 필요합니다.');
         throw new Error("로그인이 필요합니다.");
     }
 

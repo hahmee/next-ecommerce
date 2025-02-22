@@ -41,7 +41,7 @@ public class CartController {
 
         String email = principal.getName();
         log.info("--------------------------------------------");
-        log.info("email: " + email );
+        log.info("items email: " + email );
 
         return DataResponseDTO.of(cartService.getCartItems(email));
 
