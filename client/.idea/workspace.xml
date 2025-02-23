@@ -7,7 +7,6 @@
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/cookie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/cookie.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +30,7 @@
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -623,7 +622,8 @@
       <workItem from="1740209300794" duration="1439000" />
       <workItem from="1740211250665" duration="1437000" />
       <workItem from="1740216615214" duration="2483000" />
-      <workItem from="1740230436869" duration="678000" />
+      <workItem from="1740230436869" duration="8196000" />
+      <workItem from="1740300028630" duration="10977000" />
     </task>
     <servers />
   </component>
