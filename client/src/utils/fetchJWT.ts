@@ -18,7 +18,6 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
 
     //쿠키 가져오기
     const member = await getCookie("member") as Member | undefined;
-    console.log('member......입니다.zzzz..', member);
 
     //쿠키 없음
     if (!member) {
@@ -38,7 +37,6 @@ export const fetchJWT = async (url: string, requestInit: IRequestInit) => {
     const configData = getConfigData(requestInit, accessToken);
 
     const response = await fetch(host + url, configData);
-    console.log('responseddddd입니다....', response);
     const data = await response.json();
 
     // console.log('data...입니다..', data); //{ message: 'ERROR_ACCESS_TOKEN', code: 401, ERROR_ACCESS_TOKEN: true }

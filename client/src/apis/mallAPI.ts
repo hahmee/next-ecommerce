@@ -64,7 +64,17 @@ export const getProductList = async ({
     });
 };
 
-
+export async function getPayment({paymentKey}: { paymentKey: string; }) {
+    console.log("paymentKey...", paymentKey);
+    return await fetchJWT(`/api/payments/${paymentKey}`, {
+        method: "GET",
+        next: {
+            tags: ['paymentKey', paymentKey],
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
 export async function getOrder({id}: { id: string; }) {
     return await fetchJWT(`/api/orders/${id}`, {
         method: "GET",

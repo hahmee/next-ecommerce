@@ -58,8 +58,38 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
     // 로그인 및 상태 동기화 useEffect
     useEffect(() => {
         console.log("로그인/동기화 useEffect 실행");
+        const syncData = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        username: "user1@aaa.com",
+                        password: "1111",
+                    }),
+                });
 
+                const data: DataResponse<Member> = await response.json();
+                console.log("로그인 응답:", data);
+                await setCookie("member", JSON.stringify(data.data));
+                // 로그인 성공 후 쿼리 무효화해서 재실행
+                // 로그인 성공 후 쿼리 무효화하여 재실행 (await 추가)
+                // await queryClient.invalidateQueries({ queryKey: ['payment', orderId] });
+                // await queryClient.invalidateQueries({ queryKey: ['carts'] });
 
+            } catch (error) {
+                console.error("로그인 에러:", error);
+            }
+
+            // if (cartData) {
+            //     setCarts(cartData);
+            // }
+        };
+
+        syncData();
     }, []);
 
     // if(error) {

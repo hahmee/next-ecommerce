@@ -17,6 +17,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
     @Query("SELECT p FROM Payment p WHERE p.owner.email = :email ORDER BY p DESC ")
     List<Payment> findByUserEmail(@Param("email") String email);
 
+    @Query("SELECT p FROM Payment p WHERE p.paymentKey = :paymentKey")
+    Optional<Payment> findByPaymentKey(@Param("paymentKey") String paymentKey);
+
     @Query("SELECT p FROM Payment p WHERE p.owner.email = :email AND p.orderId = :orderId")
     Optional<Payment> findByEmailAndOrderId(@Param("email") String email, @Param("orderId") String orderId);
 

@@ -1,6 +1,7 @@
 export enum TossPaymentMethod {
     CARD = "카드",  // 카드 결제
-    CASH = "현금"  // 현금 결제
+    CASH = "현금",  // 현금 결제
+    FAST = "간편결제"  // 현금 결제
 }
 
 export enum TossPaymentStatus {

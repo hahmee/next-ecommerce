@@ -1,5 +1,6 @@
 package org.zerock.mallapi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -63,6 +65,8 @@ public class PaymentServiceImpl implements PaymentService{
 
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
+
+    log.info("paymentSuccessDTO...." + paymentSuccessDTO);
 
     //DONE이라면
     if(paymentSuccessDTO.getStatus() == TossPaymentStatus.DONE) {
@@ -184,6 +188,26 @@ public class PaymentServiceImpl implements PaymentService{
     return responseDTO;
   }
 
+
+  @Override
+  public PaymentDTO getByPaymentKey(String paymentKey) {
+
+    log.info("조회용 paymentKey: [" + paymentKey + "]");
+
+    Optional<Payment> result = paymentRepository.findByPaymentKey(paymentKey);
+
+    log.info("result.........???" + result);
+
+    Payment payment = result.orElseThrow();// 없으면 에러
+
+    log.info("payment.........???" + payment);
+
+    PaymentDTO paymentDTO = convertToDTO(payment);
+
+    return paymentDTO;
+  }
+
+
   @Override
   public PaymentDTO getByEmailAndOrderId(String email, String orderId) {
 
@@ -280,6 +304,7 @@ public class PaymentServiceImpl implements PaymentService{
     log.info("PaymentRequestDTO....." + paymentRequestDTO);
 
     RestTemplate restTemplate = new RestTemplate();
+    restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
 
     //헤더 구성
     HttpHeaders headers = getHeaders();
@@ -289,8 +314,24 @@ public class PaymentServiceImpl implements PaymentService{
     // 요청 객체 생성
     HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
 
+    // ✅ JSON 응답을 `String`으로 먼저 받아서 로그 출력
+    String responseBody = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, String.class);
+
+    log.info("💡 Toss API Response (Raw JSON): " + responseBody);
+
+    // ✅ ObjectMapper로 JSON을 직접 변환 (매핑 오류 확인)
+    ObjectMapper objectMapper = new ObjectMapper();
+    PaymentSuccessDTO result = null;
+
+    try {
+      result = objectMapper.readValue(responseBody, PaymentSuccessDTO.class);
+      log.info("✅ JSON 매핑 성공: " + result);
+    } catch (Exception e) {
+      log.error("❌ JSON 매핑 오류 발생!", e);
+    }
+
     //응답 객체 TossPayment객체로 결제 응답받기
-    PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
+//    PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
 
 
     return result;

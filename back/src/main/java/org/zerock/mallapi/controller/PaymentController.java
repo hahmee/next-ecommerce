@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.mallapi.dto.*;
@@ -27,13 +28,8 @@ public class PaymentController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/success") // payment/success?
     public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, Principal principal) {
-        log.info("한 번 나와야하는데..");
-
-        log.info("===== paymentRequestDTO + " + paymentRequestDTO);
 
         String email = principal.getName();
-
-        log.info("ddddd email" + email);
 
         PaymentSuccessDTO paymentSuccessDTO = paymentService.tossPaymentSuccess(paymentRequestDTO, email);
 
@@ -41,6 +37,19 @@ public class PaymentController {
 
         return DataResponseDTO.of(paymentSuccessDTO);
 
+    }
+
+    //성공시 여기로 redirect
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @GetMapping("/{id}") // payments/123123
+    public DataResponseDTO<PaymentDTO> get(@PathVariable(name ="id") String id) {
+        log.info("id.....입니다.. " + id);
+
+        PaymentDTO paymentDTO = paymentService.getByPaymentKey(id);
+
+        log.info("결과.....입니다.. " + paymentDTO);
+
+        return DataResponseDTO.of(paymentDTO);
 
     }
 

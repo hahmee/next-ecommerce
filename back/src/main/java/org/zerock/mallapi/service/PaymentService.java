@@ -14,6 +14,8 @@ public interface PaymentService {
 
   List<PaymentDTO> getList();
 
+  PaymentDTO getByPaymentKey(String paymentKey);
+
   PaymentDTO getByEmailAndOrderId(String email, String orderId);
 
   PageResponseDTO<PaymentDTO> getSearchAdminPaymentList(SearchRequestDTO searchRequestDTO, String email);

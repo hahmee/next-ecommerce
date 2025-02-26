@@ -1,9 +1,9 @@
 //결제 완료 페이지로 라우팅 시키기
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import React, {Suspense} from "react";
-import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
 import {getCart, getSuccessPayment} from "@/apis/mallAPI";
 import Loading from "@/app/loading";
+import Success from "@/components/Home/Payment/Success";
 
 interface Props {
     // searchParams: { [key: string]: string | string[] | undefined }
@@ -22,15 +22,16 @@ export default async function OrderSuccessPage({searchParams}: Props) {
             queryKey: ['payment', orderId],
             queryFn: () => getSuccessPayment({queryKey: ['payment', orderId], paymentKey, orderId, amount}), // queryKey를 전달하여 호출
         },
-        {
-            queryKey: ['carts'],
-            queryFn: () => getCart(),
-        }
+        // {
+        //     queryKey: ['carts'],
+        //     queryFn: () => getCart(),
+        // }
     ];
 
     return <Suspense fallback={<Loading/>}>
         <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <SuccessPayment paymentKey={paymentKey} orderId={orderId} amount={amount}/>
+            <Success paymentKey={paymentKey} orderId={orderId} amount={amount}/>
+            {/*<SuccessPayment paymentKey={paymentKey} orderId={orderId} amount={amount}/>*/}
         </PrefetchBoundary>
     </Suspense>;
 

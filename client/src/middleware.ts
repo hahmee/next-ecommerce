@@ -11,7 +11,6 @@ function getCookie(request: NextRequest, cookieName: string) {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const member = getCookie(request, "member");
-  console.log("member........입니다.", member);
   // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
   if (!member) {
     console.log('User not authenticated, redirecting to login');

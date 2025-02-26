@@ -35,14 +35,19 @@ const Checkout = () => {
             process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
         );
         console.log('이거 한 번만 되어야함');
-        await tossPayments.requestPayment("카드", {
-            amount: total,
-            orderId: newOrderId,
-            orderName: carts.length > 1 ? `${carts[0].pname} 외 ${carts.length - 1}개` : `${carts[0].pname}`,
-            customerName: '판매자_테스트',
-            successUrl:  process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
-            failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
-        });
+        try {
+            await tossPayments.requestPayment("카드", {
+                amount: total,
+                orderId: newOrderId,
+                orderName: carts.length > 1 ? `${carts[0].pname} 외 ${carts.length - 1}개` : `${carts[0].pname}`,
+                customerName: '판매자_테스트',
+                successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
+                failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
+            });
+        } catch (error) {
+            console.error("결제 요청 중 에러 발생:", error);
+            // 추가 에러 처리 로직(예: 사용자에게 알림)을 작성할 수 있습니다.
+        }
     };
 
     // 주문을 DB에 저장
@@ -56,7 +61,6 @@ const Checkout = () => {
             status: OrderStatus.ORDER_CHECKING,
             orderId: orderId,
         };
-
         await fetchJWT(`/api/orders/`, {
             method: "POST",
             credentials: 'include',
