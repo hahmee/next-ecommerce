@@ -137,6 +137,11 @@ const CategoryForm = ({type, id}: Props) => {
                         prevData.data.dtoList = prevData.data.dtoList.map(category => updateCategory(category, newCategory));
                     }
 
+                    //categories 업데이트
+                    queryClient.invalidateQueries({
+                        queryKey: ["categories"],
+                    });
+
                     return prevData; // 수정된 데이터 반환
                 });
             }

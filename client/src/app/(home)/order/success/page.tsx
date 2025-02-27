@@ -14,10 +14,8 @@ export default async function OrderSuccessPage({searchParams}: Props) {
 
     const {paymentKey, orderId, amount} = searchParams;
 
-    return (
-        <Suspense fallback={<Loading/>}>
-            <Success paymentKey={paymentKey} orderId={orderId} amount={amount}/>
-        </Suspense>
-    );
 
+    return <Suspense fallback={<Loading/>}>
+        <Success paymentKey={paymentKey} orderId={orderId} amount={amount}/>
+    </Suspense>;
 };

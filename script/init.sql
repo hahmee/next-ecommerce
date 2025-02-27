@@ -116,7 +116,6 @@ create table tbl_product
         primary key,
     created_at     datetime(6)  null,
     updated_at     datetime(6)  null,
-    brand          varchar(255) null,
     change_policy  varchar(255) null,
     del_flag       bit          not null,
     pdesc          varchar(255) null,
@@ -332,31 +331,45 @@ INSERT INTO apidb.tbl_cart (member_owner) VALUES
 
 --------------------------------------------------
 -- 4. tbl_category (10개)
-INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES
-(NOW(), NOW(), 'Category Description 1', 'Category 1', 0, 'key1', 'cat1.jpg'),
-(NOW(), NOW(), 'Category Description 2', 'Category 2', 0, 'key2', 'cat2.jpg'),
-(NOW(), NOW(), 'Category Description 3', 'Category 3', 0, 'key3', 'cat3.jpg'),
-(NOW(), NOW(), 'Category Description 4', 'Category 4', 0, 'key4', 'cat4.jpg'),
-(NOW(), NOW(), 'Category Description 5', 'Category 5', 0, 'key5', 'cat5.jpg'),
-(NOW(), NOW(), 'Category Description 6', 'Category 6', 0, 'key6', 'cat6.jpg'),
-(NOW(), NOW(), 'Category Description 7', 'Category 7', 0, 'key7', 'cat7.jpg'),
-(NOW(), NOW(), 'Category Description 8', 'Category 8', 0, 'key8', 'cat8.jpg'),
-(NOW(), NOW(), 'Category Description 9', 'Category 9', 0, 'key9', 'cat9.jpg'),
-(NOW(), NOW(), 'Category Description 10', 'Category 10', 0, 'key10', 'cat10.jpg');
+
+INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-27 23:26:02.988972', '2025-02-27 23:47:36.236467', 'category1', 'category1', false, 'category/bea0a557-8dfe-4035-a08e-eba3c7ceea28_3b144b3d12dbae362a2597e10d536c75.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/bea0a557-8dfe-4035-a08e-eba3c7ceea28_3b144b3d12dbae362a2597e10d536c75.jpg');
+INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-27 23:26:27.151694', '2025-02-27 23:26:27.151694', 'subCategory1', 'subCategory1', false, 'category/608818f9-33d2-4413-86b1-4903099ddaef_íë©´ ìº¡ì² 2025-02-02 185420.png', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/608818f9-33d2-4413-86b1-4903099ddaef_íë©´ ìº¡ì² 2025-02-02 185420.png');
+INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-27 23:27:05.954157', '2025-02-27 23:47:32.470709', 'category2', 'category2', false, 'category/206cc559-1ab8-49c0-a34f-0cb26f091fa1_landscape-desktop-wallpaper.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/206cc559-1ab8-49c0-a34f-0cb26f091fa1_landscape-desktop-wallpaper.jpg');
+
+
+-- INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES
+-- (NOW(), NOW(), 'Category Description 1', 'Category 1', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 2', 'Category 2', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 3', 'Category 3', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 4', 'Category 4', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 5', 'Category 5', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 6', 'Category 6', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 7', 'Category 7', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 8', 'Category 8', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 9', 'Category 9', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+-- (NOW(), NOW(), 'Category Description 10', 'Category 10', 0, 'category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ee30b863-42f7-4ea0-9439-7c9af1cb0f92_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg'),
+--
+--
 
 --------------------------------------------------
 -- 5. tbl_category_closure (10개, 자기 자신에 대한 self-reference)
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES
-(0, 1, 1),
-(0, 2, 2),
-(0, 3, 3),
-(0, 4, 4),
-(0, 5, 5),
-(0, 6, 6),
-(0, 7, 7),
-(0, 8, 8),
-(0, 9, 9),
-(0, 10, 10);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 1, 1);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 2, 1);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 2, 2);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 3, 3);
+
+
+-- INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES
+-- (0, 1, 1),
+-- (0, 2, 2),
+-- (0, 3, 3),
+-- (0, 4, 4),
+-- (0, 5, 5),
+-- (0, 6, 6),
+-- (0, 7, 7),
+-- (0, 8, 8),
+-- (0, 9, 9),
+-- (0, 10, 10);
 
 --------------------------------------------------
 -- 6. tbl_order_payment (10개)
@@ -388,17 +401,17 @@ INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id
 
 --------------------------------------------------
 -- 8. tbl_product (10개)
-INSERT INTO apidb.tbl_product (created_at, updated_at, brand, change_policy, del_flag, pdesc, pname, price, refund_policy, sales_status, sku, admin_category, member_owner) VALUES
-(NOW(), NOW(), 'Brand A', 'Policy A', 0, 'Product Description 1', 'Product 1', 1000, 'Refund A', 0, 'SKU1', 1, 'user1@aaa.com'),
-(NOW(), NOW(), 'Brand B', 'Policy B', 0, 'Product Description 2', 'Product 2', 2000, 'Refund B', 1, 'SKU2', 2, 'user2@aaa.com'),
-(NOW(), NOW(), 'Brand C', 'Policy C', 0, 'Product Description 3', 'Product 3', 3000, 'Refund C', 2, 'SKU3', 3, 'user3@aaa.com'),
-(NOW(), NOW(), 'Brand D', 'Policy D', 0, 'Product Description 4', 'Product 4', 4000, 'Refund D', 0, 'SKU4', 4, 'user4@aaa.com'),
-(NOW(), NOW(), 'Brand E', 'Policy E', 0, 'Product Description 5', 'Product 5', 5000, 'Refund E', 1, 'SKU5', 5, 'user5@aaa.com'),
-(NOW(), NOW(), 'Brand F', 'Policy F', 0, 'Product Description 6', 'Product 6', 6000, 'Refund F', 2, 'SKU6', 6, 'user6@aaa.com'),
-(NOW(), NOW(), 'Brand G', 'Policy G', 0, 'Product Description 7', 'Product 7', 7000, 'Refund G', 0, 'SKU7', 7, 'user7@aaa.com'),
-(NOW(), NOW(), 'Brand H', 'Policy H', 0, 'Product Description 8', 'Product 8', 8000, 'Refund H', 1, 'SKU8', 8, 'user8@aaa.com'),
-(NOW(), NOW(), 'Brand I', 'Policy I', 0, 'Product Description 9', 'Product 9', 9000, 'Refund I', 2, 'SKU9', 9, 'user9@aaa.com'),
-(NOW(), NOW(), 'Brand J', 'Policy J', 0, 'Product Description 10', 'Product 10', 10000, 'Refund J', 0, 'SKU10', 10, 'user10@aaa.com');
+INSERT INTO apidb.tbl_product (created_at, updated_at, change_policy, del_flag, pdesc, pname, price, refund_policy, sales_status, sku, admin_category, member_owner) VALUES
+(NOW(), NOW(), 'Policy A', 0, 'Product Description 1', 'Product 1', 1000, 'Refund A', 0, 'SKU1', 1, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy B', 0, 'Product Description 2', 'Product 2', 2000, 'Refund B', 1, 'SKU2', 2, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy C', 0, 'Product Description 3', 'Product 3', 3000, 'Refund C', 2, 'SKU3', 3, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy D', 0, 'Product Description 4', 'Product 4', 4000, 'Refund D', 0, 'SKU4', 1, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy E', 0, 'Product Description 5', 'Product 5', 5000, 'Refund E', 1, 'SKU5', 2, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy F', 0, 'Product Description 6', 'Product 6', 6000, 'Refund F', 2, 'SKU6', 3, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy G', 0, 'Product Description 7', 'Product 7', 7000, 'Refund G', 0, 'SKU7', 1, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy H', 0, 'Product Description 8', 'Product 8', 8000, 'Refund H', 1, 'SKU8', 2, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy I', 0, 'Product Description 9', 'Product 9', 9000, 'Refund I', 2, 'SKU9', 3, 'user1@aaa.com'),
+(NOW(), NOW(), 'Policy J', 0, 'Product Description 10', 'Product 10', 10000, 'Refund J', 0, 'SKU10', 1, 'user1@aaa.com');
 
 --------------------------------------------------
 -- 9. product_category_list (10개)
@@ -416,17 +429,16 @@ INSERT INTO apidb.product_category_list (product_pno, category_list) VALUES
 
 --------------------------------------------------
 -- 10. product_image_list (10개)
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES
-(1, 'imgkey1', 'img1.jpg', 1),
-(2, 'imgkey2', 'img2.jpg', 2),
-(3, 'imgkey3', 'img3.jpg', 3),
-(4, 'imgkey4', 'img4.jpg', 4),
-(5, 'imgkey5', 'img5.jpg', 5),
-(6, 'imgkey6', 'img6.jpg', 6),
-(7, 'imgkey7', 'img7.jpg', 7),
-(8, 'imgkey8', 'img8.jpg', 8),
-(9, 'imgkey9', 'img9.jpg', 9),
-(10, 'imgkey10', 'img10.jpg', 10);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/66c8028e-859d-43cb-8ea3-7dae4f218a44_kizkopop-aYGvHIwhm5c-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/66c8028e-859d-43cb-8ea3-7dae4f218a44_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/65f265e6-b051-4f0f-9750-5d8ffb2128e9_ali-choubin-Cjekb8Mq3Lg-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/65f265e6-b051-4f0f-9750-5d8ffb2128e9_ali-choubin-Cjekb8Mq3Lg-unsplash.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (3, 'product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/7da835b6-ba72-4bf5-ae8f-014fc05251dc_db0abe1c1d046a46913d8a60a9fd3457.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/7da835b6-ba72-4bf5-ae8f-014fc05251dc_db0abe1c1d046a46913d8a60a9fd3457.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/150b4225-9f89-4a5d-8c3d-5f8685ff3870_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/150b4225-9f89-4a5d-8c3d-5f8685ff3870_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/803fa809-228a-4b18-85cb-25c969947dc2_korea.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/803fa809-228a-4b18-85cb-25c969947dc2_korea.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/134d409d-c2c9-418d-a745-1e7480fc738d_kfc.png', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/134d409d-c2c9-418d-a745-1e7480fc738d_kfc.png', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (8, 'product/a4e2024c-9d10-49e0-92c6-22c2c9ad3b12_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/a4e2024c-9d10-49e0-92c6-22c2c9ad3b12_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/ceb4016b-6087-44f1-a805-8ed70e301742_d275ad3059fd0958e0087916a0aaff45.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/ceb4016b-6087-44f1-a805-8ed70e301742_d275ad3059fd0958e0087916a0aaff45.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (10, 'product/464b67ed-2ac2-4fc6-a271-c05bf3a5d41e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (2).jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/464b67ed-2ac2-4fc6-a271-c05bf3a5d41e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (2).jpg', 0);
 
 --------------------------------------------------
 -- 11. product_size_list (10개)

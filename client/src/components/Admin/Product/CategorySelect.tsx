@@ -24,8 +24,6 @@ const CategorySelect = ({categories, setSelectedCategory, categoryPaths}: { cate
         }
     };
 
-
-
     return (
         <div className="w-full">
             <div className="flex flex-nowrap overflow-x-auto">

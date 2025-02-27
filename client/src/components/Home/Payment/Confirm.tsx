@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, {useEffect} from "react";
 import Link from "next/link";
-import {useQuery} from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {getPayment} from "@/apis/mallAPI";
 import {Payment} from "@/interface/Payment";
@@ -12,6 +12,8 @@ interface Props {
 }
 
 const Confirm = ({paymentKey}: Props) => {
+    const queryClient = useQueryClient();
+
     const {data: payment} = useQuery<DataResponse<Payment>, Payment, any>({
         queryKey: ['payment-confirm', paymentKey],
         queryFn: () => getPayment({paymentKey}),
@@ -23,7 +25,13 @@ const Confirm = ({paymentKey}: Props) => {
         }
     });
 
-    console.log("payment.....?", payment);
+    // invalidateQueries는 사이드 이펙트이므로 useEffect 내부에서 실행
+    useEffect(() => {
+        queryClient.invalidateQueries({
+            queryKey: ["carts"],
+        });
+    }, [queryClient]);
+
 
     if(payment) {
         return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
