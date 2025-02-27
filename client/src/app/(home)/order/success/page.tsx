@@ -1,7 +1,7 @@
 //결제 완료 페이지로 라우팅 시키기
 import React, {Suspense} from "react";
 import Loading from "@/app/loading";
-import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
+import Success from "@/components/Home/Payment/Success";
 
 interface Props {
     // searchParams: { [key: string]: string | string[] | undefined }
@@ -16,7 +16,7 @@ export default async function OrderSuccessPage({searchParams}: Props) {
 
     return (
         <Suspense fallback={<Loading/>}>
-            <SuccessPayment paymentKey={paymentKey} orderId={orderId} amount={amount}/>
+            <Success paymentKey={paymentKey} orderId={orderId} amount={amount}/>
         </Suspense>
     );
 

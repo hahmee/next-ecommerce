@@ -9,7 +9,6 @@ import {CartItemList} from "@/interface/CartItemList";
 import {Member} from "@/interface/Member";
 import {setCookie} from "@/utils/cookie";
 import {getCookie} from "cookies-next";
-import {useRouter} from "next/navigation";
 
 interface Props {
     paymentKey: string;
