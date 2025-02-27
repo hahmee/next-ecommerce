@@ -134,15 +134,6 @@ create table tbl_product
 )
     collate = utf8mb4_general_ci;
 
-create table product_category_list
-(
-    product_pno   bigint       not null,
-    category_list varchar(255) null,
-    constraint FKq6qjm84i5fsmrnnpxgns0qkf4
-        foreign key (product_pno) references tbl_product (pno)
-)
-    collate = utf8mb4_general_ci;
-
 create table product_image_list
 (
     product_pno bigint       not null,
@@ -413,19 +404,6 @@ INSERT INTO apidb.tbl_product (created_at, updated_at, change_policy, del_flag, 
 (NOW(), NOW(), 'Policy I', 0, 'Product Description 9', 'Product 9', 9000, 'Refund I', 2, 'SKU9', 3, 'user1@aaa.com'),
 (NOW(), NOW(), 'Policy J', 0, 'Product Description 10', 'Product 10', 10000, 'Refund J', 0, 'SKU10', 1, 'user1@aaa.com');
 
---------------------------------------------------
--- 9. product_category_list (10개)
-INSERT INTO apidb.product_category_list (product_pno, category_list) VALUES
-(1, '1,2'),
-(2, '2,3'),
-(3, '3,4'),
-(4, '4,5'),
-(5, '5,6'),
-(6, '6,7'),
-(7, '7,8'),
-(8, '8,9'),
-(9, '9,10'),
-(10, '10,1');
 
 --------------------------------------------------
 -- 10. product_image_list (10개)
@@ -457,16 +435,16 @@ INSERT INTO apidb.product_size_list (product_pno, size_list) VALUES
 --------------------------------------------------
 -- 12. tbl_color_tag (10개)
 INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES
-('Red', 'Red Color', 1),
-('Blue', 'Blue Color', 2),
-('Green', 'Green Color', 3),
-('Yellow', 'Yellow Color', 4),
-('Black', 'Black Color', 5),
-('White', 'White Color', 6),
-('Purple', 'Purple Color', 7),
-('Orange', 'Orange Color', 8),
-('Pink', 'Pink Color', 9),
-('Gray', 'Gray Color', 10);
+('#ff0000', 'Red', 1),
+('#ff0000', 'Blue', 2),
+('#ff0000', 'Green', 3),
+('#ff0000', 'Yellow', 4),
+('#ff0000', 'Black', 5),
+('#ff0000', 'White', 6),
+('#ff0000', 'Purple', 7),
+('#ff0000', 'Orange', 8),
+('#ff0000', 'Pink', 9),
+('#ff0000', 'Gray', 10);
 
 --------------------------------------------------
 -- 13. tbl_cart_item (10개)
