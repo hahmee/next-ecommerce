@@ -13,29 +13,18 @@ GRANT ALL PRIVILEGES ON apidb.* TO 'apidbuser'@'%';
 -- 권한 적용
 FLUSH PRIVILEGES;
 
-create table brand
-(
-    bno   bigint auto_increment
-        primary key,
-    brand varchar(255) null
-);
-
-create table category
-(
-    ctno     bigint auto_increment
-        primary key,
-    category varchar(255) null
-);
+-- 테이블 생성
 
 create table member
 (
     email        varchar(255) not null
         primary key,
-    encrypted_id varchar(255) null,
     nickname     varchar(255) null,
     password     varchar(255) null,
-    social       bit          not null
-);
+    social       bit          not null,
+    encrypted_id varchar(255) null
+)
+    collate = utf8mb4_general_ci;
 
 create table member_member_role_list
 (
@@ -44,7 +33,8 @@ create table member_member_role_list
         check (`member_role_list` between 0 and 2),
     constraint FK2cojwm6nbbasi0xkedqjjagap
         foreign key (member_email) references member (email)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_cart
 (
@@ -55,7 +45,8 @@ create table tbl_cart
         unique (member_owner),
     constraint FK4pvmyvyqisuytcxntao9kimj7
         foreign key (member_owner) references member (email)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create index idx_cart_email
     on tbl_cart (member_owner);
@@ -71,7 +62,8 @@ create table tbl_category
     del_flag   bit          not null,
     file_key   varchar(255) null,
     file_name  varchar(255) null
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_category_closure
 (
@@ -83,7 +75,8 @@ create table tbl_category_closure
         foreign key (ancestor_cno) references tbl_category (cno),
     constraint FKtqmnhrab7f7o30ivo487p3ppv
         foreign key (descendant_cno) references tbl_category (cno)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_order_payment
 (
@@ -91,7 +84,8 @@ create table tbl_order_payment
         primary key,
     order_id   bigint null,
     payment_id bigint null
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_payment
 (
@@ -101,7 +95,7 @@ create table tbl_payment
     updated_at   datetime(6)  null,
     country      varchar(255) null,
     method       tinyint      null
-        check (`method` between 0 and 1),
+        check (`method` between 0 and 2),
     order_id     varchar(255) null,
     order_name   varchar(255) null,
     payment_key  varchar(255) null,
@@ -113,7 +107,8 @@ create table tbl_payment
     member_owner varchar(255) null,
     constraint FKe7v3apj7ter215xcr54xhbkwc
         foreign key (member_owner) references member (email)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_product
 (
@@ -126,7 +121,7 @@ create table tbl_product
     del_flag       bit          not null,
     pdesc          varchar(255) null,
     pname          varchar(255) null,
-    price          int          not null,
+    price          bigint       null,
     refund_policy  varchar(255) null,
     sales_status   tinyint      null
         check (`sales_status` between 0 and 2),
@@ -137,7 +132,17 @@ create table tbl_product
         foreign key (member_owner) references member (email),
     constraint FKs8hga2mxmtge74loayofk62u8
         foreign key (admin_category) references tbl_category (cno)
-);
+)
+    collate = utf8mb4_general_ci;
+
+create table product_category_list
+(
+    product_pno   bigint       not null,
+    category_list varchar(255) null,
+    constraint FKq6qjm84i5fsmrnnpxgns0qkf4
+        foreign key (product_pno) references tbl_product (pno)
+)
+    collate = utf8mb4_general_ci;
 
 create table product_image_list
 (
@@ -147,7 +152,8 @@ create table product_image_list
     ord         int          not null,
     constraint FKfqvvs4dg13jiki1fur4s3qa43
         foreign key (product_pno) references tbl_product (pno)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table product_size_list
 (
@@ -155,7 +161,8 @@ create table product_size_list
     size_list   varchar(255) null,
     constraint FKebo33vum2b33xe71t95kncyoy
         foreign key (product_pno) references tbl_product (pno)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_color_tag
 (
@@ -166,7 +173,8 @@ create table tbl_color_tag
     product_id bigint       null,
     constraint FKcqi4pxvfqeyah7bsuewbnw6m5
         foreign key (product_id) references tbl_product (pno)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_cart_item
 (
@@ -186,7 +194,8 @@ create table tbl_cart_item
         foreign key (color_id) references tbl_color_tag (id),
     constraint FKs7vg62w3nq7igdxgssq1u0biw
         foreign key (product_pno) references tbl_product (pno)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create index idx_cartitem_cart
     on tbl_cart_item (cart_cno);
@@ -208,7 +217,7 @@ create table tbl_order
     order_id      varchar(255) null,
     pname         varchar(255) null,
     pno           bigint       null,
-    price         int          not null,
+    price         bigint       null,
     qty           int          not null,
     size          varchar(255) null,
     thumbnail_url varchar(255) null,
@@ -229,7 +238,8 @@ create table tbl_order
         foreign key (member_owner) references member (email),
     constraint FKlfw5r6lmcliepoxoekjqqccnh
         foreign key (member_seller) references member (email)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_review
 (
@@ -251,17 +261,20 @@ create table tbl_review
         foreign key (member_owner) references member (email),
     constraint FKnbgpjjqfg4r71hrv4lui41ngd
         foreign key (oid) references tbl_order (id)
-);
+)
+    collate = utf8mb4_general_ci;
 
 create table tbl_todo
 (
     tno      bigint auto_increment
         primary key,
     complete bit          not null,
+    content  varchar(255) null,
     due_date date         null,
-    title    varchar(255) null,
+    title    varchar(500) not null,
     writer   varchar(255) null
-);
+)
+    collate = utf8mb4_general_ci;
 
 
 
