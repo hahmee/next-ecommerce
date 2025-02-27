@@ -34,7 +34,6 @@ const Checkout = () => {
         const tossPayments = await loadTossPayments(
             process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
         );
-        console.log('이거 한 번만 되어야함');
         try {
             await tossPayments.requestPayment("카드", {
                 amount: total,
@@ -61,6 +60,7 @@ const Checkout = () => {
             status: OrderStatus.ORDER_CHECKING,
             orderId: orderId,
         };
+
         await fetchJWT(`/api/orders/`, {
             method: "POST",
             credentials: 'include',
