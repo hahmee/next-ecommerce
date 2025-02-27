@@ -9,7 +9,7 @@ const ReviewSingle = ({review}:{ review: Review;}) => {
         {/* USER */}
         <div className="flex items-center gap-4 font-medium">
             <Image
-                src="https://via.placeholder.com/80"
+                src="/images/admin/user-01.png"
                 alt="유저_이미지"
                 width={32}
                 height={32}

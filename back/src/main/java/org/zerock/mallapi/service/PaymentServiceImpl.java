@@ -330,10 +330,6 @@ public class PaymentServiceImpl implements PaymentService{
       log.error("❌ JSON 매핑 오류 발생!", e);
     }
 
-    //응답 객체 TossPayment객체로 결제 응답받기
-//    PaymentSuccessDTO result = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, PaymentSuccessDTO.class);
-
-
     return result;
 
   }

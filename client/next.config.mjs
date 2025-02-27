@@ -24,10 +24,6 @@ const nextConfig = {
                 hostname: "images.pexels.com",
             },
             {
-                protocol: "https",
-                hostname: "via.placeholder.com",
-            },
-            {
                 protocol: "http",
                 hostname: '**',
                 port: '8080',

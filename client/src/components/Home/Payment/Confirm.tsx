@@ -51,8 +51,6 @@ const Confirm = ({paymentKey}: Props) => {
         </div>;
     }
 
-
-
 };
 
 export default Confirm;

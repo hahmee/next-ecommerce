@@ -28,10 +28,6 @@ const Categories = () => {
         }
     });
 
-    // if (isLoading || isFetching) {
-    //     return <Skeleton/>; // 로딩 상태 표시
-    // }
-
     if(!categories) {
         return <Skeleton/>; // 로딩 상태 표시
     }
@@ -47,7 +43,7 @@ const Categories = () => {
                             className="relative bg-white shadow-md rounded p-4 hover:scale-105 transform transition"
                         >
                             <Image
-                                src={category.uploadFileName || "https://via.placeholder.com/640x480"}
+                                src={category.uploadFileName || "/images/mall/no_image.png"}
                                 alt='image_category'
                                 width={300}
                                 height={300}

@@ -19,10 +19,10 @@ export default async function ConfirmPage({params}: Props) {
             queryKey: ['payment-confirm', paymentKey],
             queryFn: () => getPayment({paymentKey}),
         },
-        {
-            queryKey: ['carts'],
-            queryFn: () => getCart(),
-        }
+        // {
+        //     queryKey: ['carts'],
+        //     queryFn: () => getCart(),
+        // }
     ];
 
     return <Suspense fallback={<Loading/>}>

@@ -198,7 +198,7 @@
                                 }
                             </div>
                             <Image
-                                src={category.uploadFileName || "https://via.placeholder.com/640x480"}
+                                src={category.uploadFileName || "/images/mall/no_image.png"}
                                 width={500}
                                 height={500}
                                 className="object-cover w-15 h-10 flex-none"

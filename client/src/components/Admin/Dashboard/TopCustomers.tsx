@@ -20,7 +20,7 @@ const TopCustomers = ({topCustomers}:{ topCustomers: Array<TopCustomerResponse> 
                             <Image
                                 width={56}
                                 height={56}
-                                src="https://via.placeholder.com/100"
+                                src="/images/mall/no_image.png"
                                 alt="User"
                                 style={{
                                     width: "auto",
