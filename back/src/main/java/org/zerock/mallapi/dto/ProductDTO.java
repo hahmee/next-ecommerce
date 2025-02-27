@@ -25,7 +25,7 @@ public class ProductDTO {
   private String pname;
 
   @NotNull(message = "판매가격은 필수값입니다.")
-  private int price;
+  private Long price;
 
   @NotNull(message = "상품 설명은 필수값입니다.")
   @Size(min = 1, message = "상품 설명은 한 글자 이상이여야 합니다.")
@@ -33,8 +33,6 @@ public class ProductDTO {
 
   private boolean delFlag;
 
-  @NotNull(message = "브랜드는 필수값입니다.")
-  private String brand;
 
 //  @NotNull(message = "카테고리는 필수값입니다.")
 //  @Size(min = 1, message = "카테고리는 필수값입니다.")

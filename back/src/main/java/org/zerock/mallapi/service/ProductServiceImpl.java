@@ -142,7 +142,6 @@ public class ProductServiceImpl implements ProductService{
               .refundPolicy(product.getRefundPolicy())
               .changePolicy(product.getChangePolicy())
               .sku(product.getSku())
-              .brand(product.getBrand())
 //              .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag())
               .salesStatus(product.getSalesStatus())
@@ -241,7 +240,6 @@ public class ProductServiceImpl implements ProductService{
               .refundPolicy(product.getRefundPolicy())
               .changePolicy(product.getChangePolicy())
               .sku(product.getSku())
-              .brand(product.getBrand())
               .averageRating(averageRating)
 //              .categoryList(product.getCategoryList())
               .delFlag(product.isDelFlag()) // 원래 없었음
@@ -340,7 +338,6 @@ public class ProductServiceImpl implements ProductService{
             .pname(productDTO.getPname())
             .pdesc(productDTO.getPdesc())
             .price(productDTO.getPrice())
-            .brand(productDTO.getBrand())
             .changePolicy(productDTO.getChangePolicy())
             .refundPolicy(productDTO.getRefundPolicy())
 //            .categoryList(productDTO.getCategoryList())
@@ -410,7 +407,6 @@ public class ProductServiceImpl implements ProductService{
     .pname(product.getPname())
     .pdesc(product.getPdesc())
     .price(product.getPrice())
-            .brand(product.getBrand())
             .sku(product.getSku())
             .changePolicy(product.getChangePolicy())
             .refundPolicy(product.getRefundPolicy())
@@ -580,7 +576,6 @@ public class ProductServiceImpl implements ProductService{
     product.changeChangePolicy(productDTO.getChangePolicy());
     product.changeRefundPolicy(productDTO.getRefundPolicy());
     product.changeSku(productDTO.getSku());
-    product.changeBrand(productDTO.getBrand());
 //    product.changeCategoryList(productDTO.getCategoryList());
     product.changeSizeList(productDTO.getSizeList());
     product.changeSalesStatus(productDTO.getSalesStatus());

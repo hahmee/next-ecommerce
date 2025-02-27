@@ -12,7 +12,7 @@ export interface Product {
   delFlag: boolean;
   uploadFileNames: Array<FileDTO<string>> | null;
   uploadFileKeys: Array<FileDTO<string>> | null;
-  brand: string;
+  // brand: string;
   sizeList: string[];
   colorList: Array<ColorTag>;
   sku: string;

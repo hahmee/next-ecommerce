@@ -23,13 +23,12 @@ public class Product extends BaseEntity {
 
   private String pname;
 
-  private int price;
+  private Long price;
 
   private String pdesc;
 
   private boolean delFlag;
 
-  private String brand;
 
 //  @ElementCollection(fetch = FetchType.LAZY)
 //  @Builder.Default
@@ -69,7 +68,7 @@ public class Product extends BaseEntity {
     this.delFlag = delFlag;
   }
 
-  public void changePrice(int price) {
+  public void changePrice(Long price) {
     this.price = price;
   }
 
@@ -92,11 +91,6 @@ public class Product extends BaseEntity {
   public void changeSku(String sku) {
     this.sku = sku;
   }
-
-  public void changeBrand(String brand) {
-    this.brand = brand;
-  }
-
 
 
 //  public void changeCategoryList(List<String> categoryList) {

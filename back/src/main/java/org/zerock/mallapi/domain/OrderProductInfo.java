@@ -20,7 +20,7 @@ public class OrderProductInfo {
 
     private int qty; // 몇 개
 
-    private int price; // 상품에 대한 최종적으로 결제해야하는 금액 (오리지널가..할인가 등 생략)
+    private Long price; // 상품에 대한 최종적으로 결제해야하는 금액 (오리지널가..할인가 등 생략)
 
     private String thumbnailUrl;
 

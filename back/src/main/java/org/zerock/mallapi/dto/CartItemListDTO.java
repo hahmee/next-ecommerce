@@ -17,7 +17,7 @@ public class CartItemListDTO {
 
     private String pname;
 
-    private int price;
+    private Long price;
 
     private String imageFile;
 
@@ -27,7 +27,7 @@ public class CartItemListDTO {
 
     private String sellerEmail; //판매자 이메일
 
-    public CartItemListDTO(Long cino, int qty, Long pno, String pname, int price, String imageFile, String size, ColorTagDTO color, String sellerEmail) {
+    public CartItemListDTO(Long cino, int qty, Long pno, String pname, Long price, String imageFile, String size, ColorTagDTO color, String sellerEmail) {
         this.cino = cino;
         this.qty = qty;
         this.pno = pno;

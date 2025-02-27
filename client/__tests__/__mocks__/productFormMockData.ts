@@ -11,7 +11,7 @@ export const mockProducts: DataResponse<any> = {
             price: 12312,
             pdesc: "<p>123</p>",
             delFlag: false,
-            brand: "brand-option3",
+            // brand: "brand-option3",
             sizeList: [
                 "S"
             ],

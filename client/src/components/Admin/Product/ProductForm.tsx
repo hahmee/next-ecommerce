@@ -17,7 +17,6 @@ import {Size} from "@/types/size";
 import {useTagStore} from "@/store/tagStore";
 import ColorSelector from "@/components/Admin/Product/ColorSelector";
 import RadioButton from "@/components/Admin/Product/RadioButton";
-import Select from "@/components/Admin/Product/Select";
 import QuillEditor from "@/components/Admin/Product/QuillEditor";
 import {Mode} from "@/types/mode";
 import CategorySelect from "@/components/Admin/Product/CategorySelect";
@@ -26,11 +25,11 @@ import Link from "next/link";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 
-export const brandOptions:  Array<Option<string>> = [
-    {id: 'brand-option1', content:'브랜드 옵션1'},
-    {id: 'brand-option2', content:'브랜드 옵션2'},
-    {id: 'brand-option3', content:'브랜드 옵션3'},
-];
+// export const brandOptions:  Array<Option<string>> = [
+//     {id: 'brand-option1', content:'브랜드 옵션1'},
+//     {id: 'brand-option2', content:'브랜드 옵션2'},
+//     {id: 'brand-option3', content:'브랜드 옵션3'},
+// ];
 
 export const sizeOptions: Array<Option<string>> = [
     {id: Size.XS, content: 'XS'},
@@ -316,12 +315,12 @@ const ProductForm = ({type, id}: Props) => {
                                                      originalData={originalData?.salesStatus}/>
                                     </div>
 
-                                    <div className="mb-4.5">
-                                        <Select label={"브랜드"} options={brandOptions}
-                                                defaultOption={"브랜드를 선택해주세요."}
-                                                originalData={originalData?.brand}
-                                                name="brand"/>
-                                    </div>
+                                    {/*<div className="mb-4.5">*/}
+                                    {/*    <Select label={"브랜드"} options={brandOptions}*/}
+                                    {/*            defaultOption={"브랜드를 선택해주세요."}*/}
+                                    {/*            originalData={originalData?.brand}*/}
+                                    {/*            name="brand"/>*/}
+                                    {/*</div>*/}
 
                                     <div className="mb-4.5">
                                         <label
