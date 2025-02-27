@@ -28,6 +28,7 @@ public class PaymentController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
     @GetMapping("/success") // payment/success?
     public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, Principal principal) {
+        log.info("tossPaymentSuccess..... ");
 
         String email = principal.getName();
 
