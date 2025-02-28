@@ -111,10 +111,18 @@ public class DashboardController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/real-time")
   public DataResponseDTO<GARealTimeResponseDTO> gaRealTime(GARequestDTO gaRequestDTO) {
+    long startTime = System.currentTimeMillis();
 
     log.info("googleAnalyticsRequestDTO " + gaRequestDTO);
 
-    return DataResponseDTO.of(dashboardService.getRealtime(gaRequestDTO));
+    GARealTimeResponseDTO gaRealTimeResponseDTO = dashboardService.getRealtime(gaRequestDTO);
+
+    long endTime = System.currentTimeMillis();
+    long duration = endTime - startTime;
+    log.info("GA API 요청 처리 시간: " + duration + "ms"); //
+
+
+    return DataResponseDTO.of(gaRealTimeResponseDTO);
 
   }
 

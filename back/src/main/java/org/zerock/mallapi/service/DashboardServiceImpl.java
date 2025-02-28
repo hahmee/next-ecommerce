@@ -50,13 +50,9 @@ public class DashboardServiceImpl implements DashboardService{
 
     SalesCardDTO cardDTO = orderService.getOverviewCards(chartRequestDTO);
 
-    log.info("cardDTO: {}", cardDTO);
 
     List<Object[]> currentSales = cardDTO.getCurrentSales();
     List<Object[]> comparedSales = cardDTO.getComparedSales();
-
-    log.info("currentSales: {}", currentSales);
-    log.info("comparedSales: {}", comparedSales); // []
 
     // 데이터가 없는 경우를 처리
     if (currentSales.isEmpty() && comparedSales.isEmpty()) {
@@ -139,19 +135,12 @@ public class DashboardServiceImpl implements DashboardService{
     Long comparedTotalQty = (Long) comparedSales.get(0)[1];
     Double comparedAvgQty = (Double) comparedSales.get(0)[2];
 
-    log.info("currentTotalSales...." + currentTotalSales);
-    log.info("currentTotalQty...." + currentTotalQty);
-    log.info("currentAvgQty...." + currentAvgQty);
-    log.info("comparedTotalSales...." + comparedTotalSales);
-    log.info("comparedTotalQty...." + comparedTotalQty);
-    log.info("comparedAvgQty...." + comparedAvgQty);
 
     // 차이 계산
     Long salesDifferencePercentage = ((currentTotalSales - comparedTotalSales) / comparedTotalSales) * 100;
     Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty ) /comparedTotalQty) * 100;
     Double avgQtyDifferencePercentage = ((currentAvgQty - comparedAvgQty) / comparedAvgQty) * 100;
 
-    log.info("qtyDifferencePercentage...." + qtyDifferencePercentage);
 
     // 결과를 CardResponseDTO에 설정
     CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
@@ -187,8 +176,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<SeriesDTO<Long>> series = new ArrayList<>();
 
-
-    log.info("orders.... " + results);
 
     if (filter != null) {
       switch (filter) {
@@ -287,7 +274,6 @@ public class DashboardServiceImpl implements DashboardService{
     series.add(salesSeriesDTO);
     series.add(revenueSeriesDTO);
 
-    log.info("seriesData.... " + salesSeriesDTO);
 
     ChartResponseDTO<Long> chartResponseDTO = ChartResponseDTO.<Long>builder()
             .startDate(chartRequestDTO.getStartDate())
@@ -604,7 +590,6 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
-    log.info("....topCustomerRequestDTO " + topCustomerRequestDTO);
 
     //TOP 5
     List<Object[]> results = paymentService.getSalesByCountry(topCustomerRequestDTO);
@@ -634,29 +619,78 @@ public class DashboardServiceImpl implements DashboardService{
     String propertyId = environment.getProperty("google.analytics.productId");
 
     try {
+      CompletableFuture<GAResponseDTO> sessionsFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGASessions(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
 
-      GAResponseDTO gaResponseDTO =  getGASessions(propertyId, gaRequestDTO);
+      CompletableFuture<List<SessionDTO<String>>> topPagesFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGATopPages(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
+      CompletableFuture<List<SessionDTO<String>>> topSourcesFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGATopSources(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
+      CompletableFuture<SessionChartDTO> chartFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGAChart(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
+      CompletableFuture<List<SessionDTO<String>>> devicesFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGADevices(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
+      CompletableFuture<List<SessionDTO<String>>> visitorsFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGAVisitors(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
+      CompletableFuture<List<CountryChartDTO>> countriesFuture = CompletableFuture.supplyAsync(() -> {
+          try {
+              return getGACountries(propertyId, gaRequestDTO);
+          } catch (Exception e) {
+              throw new RuntimeException(e);
+          }
+      });
 
-      List<SessionDTO<String>> topPages =  getGATopPages(propertyId, gaRequestDTO);
+    // 모든 작업이 완료될 때까지 기다림
+        CompletableFuture.allOf(
+                sessionsFuture, topPagesFuture, topSourcesFuture, chartFuture,
+                devicesFuture, visitorsFuture, countriesFuture
+        ).join();
 
-      List<SessionDTO<String>> topSources =  getGATopSources(propertyId, gaRequestDTO);
 
-      SessionChartDTO sessionChart = getGAChart(propertyId, gaRequestDTO);
+      // 최종 GAResponseDTO 구성 (각 작업 결과를 조합)
+      GAResponseDTO finalResult = GAResponseDTO.builder()
+              .sessions(sessionsFuture.get().getSessions())
+              .uniqueVisitors(sessionsFuture.get().getUniqueVisitors())
+              .avgSessionDuration(sessionsFuture.get().getAvgSessionDuration())
+              .topPages(topPagesFuture.get())
+              .topSources(topSourcesFuture.get())
+              .sessionChart(chartFuture.get())
+              .devices(devicesFuture.get())
+              .visitors(visitorsFuture.get())
+              .countries(countriesFuture.get())
+              .build();
 
-      List<SessionDTO<String>> devices = getGADevices(propertyId, gaRequestDTO);
-
-      List<SessionDTO<String>> visitors = getGAVisitors(propertyId, gaRequestDTO);
-
-      List<CountryChartDTO> countries = getGACountries(propertyId, gaRequestDTO);
-
-      gaResponseDTO.setTopPages(topPages);
-      gaResponseDTO.setTopSources(topSources);
-      gaResponseDTO.setSessionChart(sessionChart);
-      gaResponseDTO.setDevices(devices);
-      gaResponseDTO.setVisitors(visitors);
-      gaResponseDTO.setCountries(countries);
-
-      return gaResponseDTO;
+      return finalResult;
 
     } catch (Exception e) {
       log.error("Error while fetching analytics data: ", e);
@@ -669,26 +703,83 @@ public class DashboardServiceImpl implements DashboardService{
   public GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO) {
 
     String propertyId = environment.getProperty("google.analytics.productId");
-    System.out.println("GoogleCredentials: " + googleCredentials);
 
     try {
 
-      List<SessionDTO<String>> recentVisitors = getGARecentUser(propertyId, gaRequestDTO);
+      CompletableFuture<List<SessionDTO<String>>> recentVisitorsFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGARecentUser(propertyId, gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
 
-      List<SessionDTO<String>> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
+      CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGAActiveVisitors(propertyId, gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
 
-      SessionChartDTO activeVisitChart = getGAActiveVisitChart(propertyId, gaRequestDTO);
+      CompletableFuture<SessionChartDTO> activeVisitChartFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGAActiveVisitChart(propertyId, gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
 
-      List<SessionDTO<String>> events = getGAEvents(propertyId, gaRequestDTO);
+      CompletableFuture<List<SessionDTO<String>>> eventsFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGAEvents(propertyId, gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
 
-      List<SessionDTO<String>> devices = getGARealTimeDevices(propertyId, gaRequestDTO);
+      CompletableFuture<List<SessionDTO<String>>> devicesFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGARealTimeDevices(propertyId, gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
 
-      log.info(".....events " + events);
+      // 모든 병렬 작업이 완료될 때까지 기다림
+      CompletableFuture.allOf(
+              recentVisitorsFuture,
+              activeVisitorsFuture,
+              activeVisitChartFuture,
+              eventsFuture,
+              devicesFuture
+      ).join();
 
-      //보낼데이터
-      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).events(events).devices(devices).build();
+      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder()
+              .recentVisitors(recentVisitorsFuture.get())
+              .activeVisitors(activeVisitorsFuture.get())
+              .activeVisitChart(activeVisitChartFuture.get())
+              .events(eventsFuture.get())
+              .devices(devicesFuture.get())
+              .build();
 
       return gaRealTimeResponseDTO;
+
+
+//      List<SessionDTO<String>> recentVisitors = getGARecentUser(propertyId, gaRequestDTO);
+//
+//      List<SessionDTO<String>> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
+//
+//      SessionChartDTO activeVisitChart = getGAActiveVisitChart(propertyId, gaRequestDTO);
+//
+//      List<SessionDTO<String>> events = getGAEvents(propertyId, gaRequestDTO);
+//
+//      List<SessionDTO<String>> devices = getGARealTimeDevices(propertyId, gaRequestDTO);
+//
+//      //보낼데이터
+//      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).events(events).devices(devices).build();
+
+//      return gaRealTimeResponseDTO;
 
     } catch (Exception e) {
       log.error("Error while fetching analytics data: ", e);
@@ -743,7 +834,7 @@ public class DashboardServiceImpl implements DashboardService{
 //          System.out.println(" - member: " + member);
 //
 //          recentUsers.add(new SessionDTO(member.getEmail(), activeUsers));
-          
+
         }
       }
     }
@@ -797,11 +888,6 @@ public class DashboardServiceImpl implements DashboardService{
         String activeUsers = row.getMetricValues(0).getValue();
 
 
-
-        log.info("minutesAgo...." + minutesAgo);
-        log.info("activeUsers...." + activeUsers);
-
-
         // "minutesAgo" 값은 -0분 ~ -30분 사이로 나오므로, 그 값에 맞는 인덱스를 찾음
         int index = 30 - Integer.parseInt(minutesAgo); // 0분부터 30분까지의 순서
 
@@ -820,7 +906,6 @@ public class DashboardServiceImpl implements DashboardService{
             .data(data)    // data 리스트 추가
             .build();
 //
-    log.info("sessionChart..." + sessionChart);
     return sessionChart;
 
   }
@@ -1005,7 +1090,6 @@ public class DashboardServiceImpl implements DashboardService{
         String cityCode = row.getDimensionValues(1).getValue();
         String sessions = row.getMetricValues(0).getValue();
 
-        log.info("countryCode..." + countryCode);
 
         List<Double> coordinates = getCoordinates(countryCode);
 
@@ -1014,7 +1098,6 @@ public class DashboardServiceImpl implements DashboardService{
       }
 
     }
-    log.info("countries.." + countries);
 
     return countries;
 
@@ -1097,7 +1180,7 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   //original
-  private GAResponseDTO getGASessions2(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     GAResponseDTO gaResponseDTO = null; // 객체 초기화
 
@@ -1118,7 +1201,7 @@ public class DashboardServiceImpl implements DashboardService{
 //                              .setValue(sellerEmail)
 //                      ))
 //              .build();
-      
+
       //첫번째 기간에 대한 요청
       RunReportRequest request = RunReportRequest.newBuilder()
               .setProperty("properties/" + propertyId)
@@ -1128,7 +1211,7 @@ public class DashboardServiceImpl implements DashboardService{
               .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
 //              .setDimensionFilter(filterByUserId)
               .build();
-      
+
       // 첫번째 기간에 대한 Run the report
       RunReportResponse response = analyticsData.runReport(request);
 
@@ -1145,10 +1228,6 @@ public class DashboardServiceImpl implements DashboardService{
         avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
       }
 
-      log.info("sessions", sessions);
-      log.info("uniqueVisitors", uniqueVisitors);
-      log.info("userEngagementDuration", userEngagementDuration);
-      log.info("avgSessionDuration", avgSessionDuration);
 
 //////////////////////
 
@@ -1179,11 +1258,6 @@ public class DashboardServiceImpl implements DashboardService{
 
       }
 
-      log.info("sessionsCompared", sessionsCompared);
-      log.info("uniqueVisitorsCompared", uniqueVisitorsCompared);
-      log.info("userEngagementDurationCompared", userEngagementDurationCompared);
-      log.info("avgSessionDurationCompared", avgSessionDurationCompared);
-
 
       gaResponseDTO = gaResponseDTO.builder()
               .sessions(sessions)
@@ -1200,85 +1274,81 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  //CompletableFuture 으로 병렬 요청하여 시간 단축
-  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
-
-    GAResponseDTO gaResponseDTO = null; // 객체 초기화
-
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
-
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
-
-      //첫번째 기간에 대한 요청
-      RunReportRequest request = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
-              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
-              .build();
-
-      // 두 번째 기간의 요청 생성 (예: 비교 기간, 실제로 다른 날짜 범위를 설정해야 함)
-      RunReportRequest compareRequest = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
-              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
-              .build();
-
-      // 병렬로 두 요청 실행
-      CompletableFuture<RunReportResponse> future1 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(request));
-      CompletableFuture<RunReportResponse> future2 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(compareRequest));
-
-
-      RunReportResponse response = future1.get();
-      RunReportResponse compareResponse = future2.get();
-
-
-      // 첫 번째 기간의 결과를 저장
-      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
-
-      Double avgSessionDuration = 0.0;
-
-
-      if (!response.getRowsList().isEmpty()) {
-        Row row = response.getRows(0); // 첫 번째 행을 가져옴
-        sessions = row.getMetricValues(0).getValue(); //사이트 세션
-        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
-        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
-        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
-      }
-
-
-
-
-      // 두 번째 기간 데이터 처리
-      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
-      Double avgSessionDurationCompared = 0.0;
-      if (!compareResponse.getRowsList().isEmpty()) {
-        Row compareRow = compareResponse.getRows(0);
-        sessionsCompared = compareRow.getMetricValues(0).getValue();
-        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
-        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue();
-        avgSessionDurationCompared = Double.parseDouble(userEngagementDurationCompared) / Double.parseDouble(sessionsCompared);
-      }
-
-
-      gaResponseDTO = gaResponseDTO.builder()
-              .sessions(sessions)
-              .uniqueVisitors(uniqueVisitors)
-              .avgSessionDuration(avgSessionDuration.toString())
-              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
-              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
-              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
-              .build();
-    }
-
-    return gaResponseDTO;
-  }
+//  //CompletableFuture 으로 병렬 요청하여 시간 단축
+//  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+//
+//    GAResponseDTO gaResponseDTO = null; // 객체 초기화
+//
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//      //첫번째 기간에 대한 요청
+//      RunReportRequest request = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+//              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+//              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
+//              .build();
+//
+//      // 두 번째 기간의 요청 생성 (예: 비교 기간, 실제로 다른 날짜 범위를 설정해야 함)
+//      RunReportRequest compareRequest = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+//              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+//              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
+//              .build();
+//
+//      // 병렬로 두 요청 실행
+//      CompletableFuture<RunReportResponse> future1 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(request));
+//      CompletableFuture<RunReportResponse> future2 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(compareRequest));
+//
+//
+//      RunReportResponse response = future1.get();
+//      RunReportResponse compareResponse = future2.get();
+//
+//
+//      // 첫 번째 기간의 결과를 저장
+//      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
+//
+//      Double avgSessionDuration = 0.0;
+//
+//
+//      if (!response.getRowsList().isEmpty()) {
+//        Row row = response.getRows(0); // 첫 번째 행을 가져옴
+//        sessions = row.getMetricValues(0).getValue(); //사이트 세션
+//        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
+//        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
+//        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
+//      }
+//
+//      // 두 번째 기간 데이터 처리
+//      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
+//      Double avgSessionDurationCompared = 0.0;
+//      if (!compareResponse.getRowsList().isEmpty()) {
+//        Row compareRow = compareResponse.getRows(0);
+//        sessionsCompared = compareRow.getMetricValues(0).getValue();
+//        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
+//        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue();
+//        avgSessionDurationCompared = Double.parseDouble(userEngagementDurationCompared) / Double.parseDouble(sessionsCompared);
+//      }
+//
+//      gaResponseDTO = gaResponseDTO.builder()
+//              .sessions(sessions)
+//              .uniqueVisitors(uniqueVisitors)
+//              .avgSessionDuration(avgSessionDuration.toString())
+//              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
+//              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
+//              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
+//              .build();
+//    }
+//
+//    return gaResponseDTO;
+//  }
 
 
   private SessionChartDTO getGAChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
@@ -1347,7 +1417,6 @@ public class DashboardServiceImpl implements DashboardService{
       for (Row row : response.getRowsList()) {
         String date = row.getDimensionValues(0).getValue(); //20240110 or 41 or 10 or 2024
 
-        log.info("date...." + date);
 
         String formattedDate = "";
 
@@ -1389,7 +1458,6 @@ public class DashboardServiceImpl implements DashboardService{
             .data(data)    // data 리스트 추가
             .build();
 //
-    log.info("sessionChart..." + sessionChart);
     return sessionChart;
 
   }
@@ -1471,8 +1539,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   // 비율 차이 계산 메서드
   private String calculatePercentageDifference(Double currentValue, Double comparedValue) {
-    log.info("currentValue???" + currentValue);
-    log.info("comparedValue???" + comparedValue);
 
 
     //-100% : 비교 데이터 값이 있는데, 기준 데이터가 없을 때
@@ -1488,15 +1554,12 @@ public class DashboardServiceImpl implements DashboardService{
 
     double difference = ((currentValue - comparedValue) / comparedValue) * 100;
 
-    log.info("???" + difference);
     return String.format("%.2f", difference);
   }
 
   // 오버로딩된 메서드
   private String calculatePercentageDifference(String currentValue, String comparedValue) {
 
-    log.info("currentValue....." + currentValue);
-    log.info("comparedValue......" + comparedValue); //계속 0 이 나와
 
     if (currentValue == null || comparedValue == null) {
       return "-"; // 비교 데이터 또는 기준 데이터가 없을 때
@@ -1514,24 +1577,19 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   private LocalDate getWeekStartDate(Integer year, Integer week) { //2024 41주차
-    log.info("year....." + year);
-    log.info("week......" + week); //41
 
     // 연도의 첫 번째 날을 가져옴
     LocalDate firstDayOfYear = LocalDate.of(year, 1, 1);
 
-    log.info("firstDayOfYear......" + firstDayOfYear);
 
     // 한국 로케일에 맞춰 첫 번째 주의 시작일을 계산 (월요일로 설정)
     WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY, 1); // 월요일 시작, 첫 주는 1일 이상 포함해야 첫 번째 주로 계산
     LocalDate firstMonday = firstDayOfYear.with(weekFields.dayOfWeek(), 1); // 월요일로 맞춤
 
-    log.info("firstMonday......" + firstMonday);
 
     // 해당 주의 시작일 계산 (주의 시작일 + (주 번호 - 1) 주)
     LocalDate weekStartDate = firstMonday.plusWeeks(week - 1);
 
-    log.info("weekStartDate......" + weekStartDate);
 
     return weekStartDate;
 
