@@ -24,6 +24,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -630,9 +631,7 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
 
-
     String propertyId = environment.getProperty("google.analytics.productId");
-
 
     try {
 
@@ -1097,8 +1096,8 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-
-  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  //original
+  private GAResponseDTO getGASessions2(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
     GAResponseDTO gaResponseDTO = null; // 객체 초기화
 
@@ -1196,11 +1195,89 @@ public class DashboardServiceImpl implements DashboardService{
               .build();
     }
 
-
-    log.info("asdfasdfgaResponseDTO + " + gaResponseDTO);
-
     return gaResponseDTO; // 마지막 행의 객체 반환
 
+  }
+
+
+  //CompletableFuture 으로 병렬 요청하여 시간 단축
+  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+
+    GAResponseDTO gaResponseDTO = null; // 객체 초기화
+
+    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+            .setCredentialsProvider(() -> googleCredentials)
+            .build();
+
+    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+
+      //첫번째 기간에 대한 요청
+      RunReportRequest request = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
+              .build();
+
+      // 두 번째 기간의 요청 생성 (예: 비교 기간, 실제로 다른 날짜 범위를 설정해야 함)
+      RunReportRequest compareRequest = RunReportRequest.newBuilder()
+              .setProperty("properties/" + propertyId)
+              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
+              .build();
+
+      // 병렬로 두 요청 실행
+      CompletableFuture<RunReportResponse> future1 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(request));
+      CompletableFuture<RunReportResponse> future2 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(compareRequest));
+
+
+      RunReportResponse response = future1.get();
+      RunReportResponse compareResponse = future2.get();
+
+
+      // 첫 번째 기간의 결과를 저장
+      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
+
+      Double avgSessionDuration = 0.0;
+
+
+      if (!response.getRowsList().isEmpty()) {
+        Row row = response.getRows(0); // 첫 번째 행을 가져옴
+        sessions = row.getMetricValues(0).getValue(); //사이트 세션
+        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
+        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
+        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
+      }
+
+
+
+
+      // 두 번째 기간 데이터 처리
+      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
+      Double avgSessionDurationCompared = 0.0;
+      if (!compareResponse.getRowsList().isEmpty()) {
+        Row compareRow = compareResponse.getRows(0);
+        sessionsCompared = compareRow.getMetricValues(0).getValue();
+        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
+        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue();
+        avgSessionDurationCompared = Double.parseDouble(userEngagementDurationCompared) / Double.parseDouble(sessionsCompared);
+      }
+
+
+      gaResponseDTO = gaResponseDTO.builder()
+              .sessions(sessions)
+              .uniqueVisitors(uniqueVisitors)
+              .avgSessionDuration(avgSessionDuration.toString())
+              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
+              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
+              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
+              .build();
+    }
+
+    return gaResponseDTO;
   }
 
 

@@ -17,24 +17,28 @@ interface Props {
 
 const Success = ({ paymentKey, orderId, amount }: Props) => {
     const router = useRouter();
+    const isProduction = process.env.NEXT_PUBLIC_MODE === 'production';
 
     const mutation = useMutation({
         mutationFn: async () => {
-            // 로그인 요청 및 쿠키 설정
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: new URLSearchParams({
-                    username: "user1@aaa.com",
-                    password: "1111",
-                }),
-            });
-            const data: DataResponse<Member> = await response.json();
-            console.log("로그인 응답:", data);
-            await setCookie("member", JSON.stringify(data.data));
+            // 로그인 요청 및 쿠키 설정 (로컬에서만 필요)
+
+            if(!isProduction) {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        username: "user1@aaa.com",
+                        password: "1111",
+                    }),
+                });
+                const data: DataResponse<Member> = await response.json();
+                console.log("로그인 응답:", data);
+                await setCookie("member", JSON.stringify(data.data));
+            }
 
             // 결제 승인 (저장) API 호출
             const paymentResponse = await getSuccessPayment({

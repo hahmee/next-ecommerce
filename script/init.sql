@@ -379,15 +379,15 @@ INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES
 --------------------------------------------------
 -- 7. tbl_payment (10개)
 INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES
-(NOW(), NOW(), 'KR', 0, 'ORD1', 'Order Name 1', 'PAY1', 0, 1000, 0, 'user1@aaa.com'),
+(NOW(), NOW(), 'KR', 0, 'ORD1', 'Order Name 1', 'PAY1', 1, 1000, 0, 'user1@aaa.com'),
 (NOW(), NOW(), 'KR', 1, 'ORD2', 'Order Name 2', 'PAY2', 1, 2000, 1, 'user2@aaa.com'),
-(NOW(), NOW(), 'KR', 0, 'ORD3', 'Order Name 3', 'PAY3', 2, 3000, 2, 'user3@aaa.com'),
-(NOW(), NOW(), 'KR', 1, 'ORD4', 'Order Name 4', 'PAY4', 3, 4000, 0, 'user4@aaa.com'),
-(NOW(), NOW(), 'KR', 0, 'ORD5', 'Order Name 5', 'PAY5', 4, 5000, 1, 'user5@aaa.com'),
-(NOW(), NOW(), 'KR', 1, 'ORD6', 'Order Name 6', 'PAY6', 5, 6000, 2, 'user6@aaa.com'),
-(NOW(), NOW(), 'KR', 0, 'ORD7', 'Order Name 7', 'PAY7', 6, 7000, 0, 'user7@aaa.com'),
-(NOW(), NOW(), 'KR', 1, 'ORD8', 'Order Name 8', 'PAY8', 7, 8000, 1, 'user8@aaa.com'),
-(NOW(), NOW(), 'KR', 0, 'ORD9', 'Order Name 9', 'PAY9', 0, 9000, 2, 'user9@aaa.com'),
+(NOW(), NOW(), 'KR', 0, 'ORD3', 'Order Name 3', 'PAY3', 1, 3000, 2, 'user3@aaa.com'),
+(NOW(), NOW(), 'KR', 1, 'ORD4', 'Order Name 4', 'PAY4', 1, 4000, 0, 'user4@aaa.com'),
+(NOW(), NOW(), 'KR', 0, 'ORD5', 'Order Name 5', 'PAY5', 1, 5000, 1, 'user5@aaa.com'),
+(NOW(), NOW(), 'KR', 1, 'ORD6', 'Order Name 6', 'PAY6', 1, 6000, 2, 'user6@aaa.com'),
+(NOW(), NOW(), 'KR', 0, 'ORD7', 'Order Name 7', 'PAY7', 1, 7000, 0, 'user7@aaa.com'),
+(NOW(), NOW(), 'KR', 1, 'ORD8', 'Order Name 8', 'PAY8', 1, 8000, 1, 'user8@aaa.com'),
+(NOW(), NOW(), 'KR', 0, 'ORD9', 'Order Name 9', 'PAY9', 1, 9000, 2, 'user9@aaa.com'),
 (NOW(), NOW(), 'KR', 1, 'ORD10', 'Order Name 10', 'PAY10', 1, 10000, 0, 'user10@aaa.com');
 
 --------------------------------------------------
@@ -410,10 +410,10 @@ INSERT INTO apidb.tbl_product (created_at, updated_at, change_policy, del_flag, 
 INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/66c8028e-859d-43cb-8ea3-7dae4f218a44_kizkopop-aYGvHIwhm5c-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/66c8028e-859d-43cb-8ea3-7dae4f218a44_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0);
 INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/65f265e6-b051-4f0f-9750-5d8ffb2128e9_ali-choubin-Cjekb8Mq3Lg-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/65f265e6-b051-4f0f-9750-5d8ffb2128e9_ali-choubin-Cjekb8Mq3Lg-unsplash.jpg', 0);
 INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (3, 'product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/7da835b6-ba72-4bf5-ae8f-014fc05251dc_db0abe1c1d046a46913d8a60a9fd3457.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/7da835b6-ba72-4bf5-ae8f-014fc05251dc_db0abe1c1d046a46913d8a60a9fd3457.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/150b4225-9f89-4a5d-8c3d-5f8685ff3870_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/150b4225-9f89-4a5d-8c3d-5f8685ff3870_3ca83260-3b83-428c-a372-7898e714b07a_5711c80a8e070bfed1712e9bb6f02500.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/803fa809-228a-4b18-85cb-25c969947dc2_korea.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/803fa809-228a-4b18-85cb-25c969947dc2_korea.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/134d409d-c2c9-418d-a745-1e7480fc738d_kfc.png', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/134d409d-c2c9-418d-a745-1e7480fc738d_kfc.png', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d2b25ad9-7f99-403e-b96d-4b8d31a1e932_c514a46322bdc8d4f1e0c6f96f510597.jpg', 0);
 INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (8, 'product/a4e2024c-9d10-49e0-92c6-22c2c9ad3b12_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/a4e2024c-9d10-49e0-92c6-22c2c9ad3b12_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (1).jpg', 0);
 INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/ceb4016b-6087-44f1-a805-8ed70e301742_d275ad3059fd0958e0087916a0aaff45.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/ceb4016b-6087-44f1-a805-8ed70e301742_d275ad3059fd0958e0087916a0aaff45.jpg', 0);
 INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (10, 'product/464b67ed-2ac2-4fc6-a271-c05bf3a5d41e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (2).jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/464b67ed-2ac2-4fc6-a271-c05bf3a5d41e_3ca0b8b0-c89a-4ef9-9225-5224d8b51c87_476b12cf1a3623bc4cd2060495bef990 (2).jpg', 0);
@@ -437,15 +437,16 @@ INSERT INTO apidb.product_size_list (product_pno, size_list) VALUES
 -- 12. tbl_color_tag (10개)
 INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES
 ('#ff0000', 'Red', 1),
-('#ff0000', 'Blue', 2),
-('#ff0000', 'Green', 3),
-('#ff0000', 'Yellow', 4),
-('#ff0000', 'Black', 5),
-('#ff0000', 'White', 6),
-('#ff0000', 'Purple', 7),
-('#ff0000', 'Orange', 8),
-('#ff0000', 'Pink', 9),
-('#ff0000', 'Gray', 10);
+('#0000ff', 'Blue', 2),
+('#008000', 'Green', 3),
+('#ffff00', 'Yellow', 4),
+('#000000', 'Black', 5),
+('#ffffff', 'White', 6),
+('#800080', 'Purple', 7),
+('#ffa500', 'Orange', 8),
+('#ffc0cb', 'Pink', 9),
+('#808080', 'Gray', 10);
+
 
 --------------------------------------------------
 -- 13. tbl_cart_item (10개)

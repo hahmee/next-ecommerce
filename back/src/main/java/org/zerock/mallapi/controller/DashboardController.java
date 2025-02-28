@@ -93,10 +93,17 @@ public class DashboardController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/traffic")
   public DataResponseDTO<GAResponseDTO> getAnalytics(GARequestDTO gaRequestDTO) {
+    long startTime = System.currentTimeMillis();
 
     log.info("googleAnalyticsRequestDTO " + gaRequestDTO);
 
-    return DataResponseDTO.of(dashboardService.getGoogleAnalytics(gaRequestDTO));
+    GAResponseDTO gaResponseDTO = dashboardService.getGoogleAnalytics(gaRequestDTO);
+
+    long endTime = System.currentTimeMillis();
+    long duration = endTime - startTime;
+    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+
+    return DataResponseDTO.of(gaResponseDTO);
 
   }
 
