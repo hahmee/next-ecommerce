@@ -421,16 +421,17 @@ INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VAL
 --------------------------------------------------
 -- 11. product_size_list (10개)
 INSERT INTO apidb.product_size_list (product_pno, size_list) VALUES
-(1, 'S,M,L'),
-(2, 'M,L,XL'),
-(3, 'S,L'),
-(4, 'M,XL'),
-(5, 'S,M'),
-(6, 'L,XL,XXL'),
-(7, 'XS,S,M'),
-(8, 'M,L'),
-(9, 'S,M,L,XL'),
-(10, 'M,L,XL,XXL');
+(1, 'S'),
+(2, 'XL'),
+(2, 'L'),
+(3, 'L'),
+(4, 'XL'),
+(5, 'M'),
+(6, '2XL'),
+(7, '3XL'),
+(8, 'FREE'),
+(9, 'FREE'),
+(10, 'FREE');
 
 --------------------------------------------------
 -- 12. tbl_color_tag (10개)
@@ -462,29 +463,34 @@ INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, mem
 
 --------------------------------------------------
 -- 14. tbl_order (10개)
-INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES
-(NOW(), NOW(), 'Address 1', 'Message 1', '010-1111-1111', 'Receiver 1', '12345', 'ORD1', 'Product 1', 1, 1000, 1, 'M', 'thumb1.jpg', 10, 1, 100, 1110, 'user1@aaa.com', 1, 'user2@aaa.com', 1),
-(NOW(), NOW(), 'Address 2', 'Message 2', '010-2222-2222', 'Receiver 2', '23456', 'ORD2', 'Product 2', 2, 2000, 2, 'L', 'thumb2.jpg', 20, 2, 200, 4440, 'user2@aaa.com', 2, 'user3@aaa.com', 2),
-(NOW(), NOW(), 'Address 3', 'Message 3', '010-3333-3333', 'Receiver 3', '34567', 'ORD3', 'Product 3', 3, 3000, 3, 'S', 'thumb3.jpg', 30, 3, 300, 9300, 'user3@aaa.com', 3, 'user4@aaa.com', 3),
-(NOW(), NOW(), 'Address 4', 'Message 4', '010-4444-4444', 'Receiver 4', '45678', 'ORD4', 'Product 4', 4, 4000, 4, 'XL', 'thumb4.jpg', 40, 4, 400, 17600, 'user4@aaa.com', 4, 'user5@aaa.com', 4),
-(NOW(), NOW(), 'Address 5', 'Message 5', '010-5555-5555', 'Receiver 5', '56789', 'ORD5', 'Product 5', 5, 5000, 5, 'M', 'thumb5.jpg', 50, 5, 500, 27500, 'user5@aaa.com', 5, 'user6@aaa.com', 5),
-(NOW(), NOW(), 'Address 6', 'Message 6', '010-6666-6666', 'Receiver 6', '67890', 'ORD6', 'Product 6', 6, 6000, 6, 'L', 'thumb6.jpg', 60, 6, 600, 39600, 'user6@aaa.com', 6, 'user7@aaa.com', 6),
-(NOW(), NOW(), 'Address 7', 'Message 7', '010-7777-7777', 'Receiver 7', '78901', 'ORD7', 'Product 7', 7, 7000, 7, 'S', 'thumb7.jpg', 70, 7, 700, 53900, 'user7@aaa.com', 7, 'user8@aaa.com', 7),
-(NOW(), NOW(), 'Address 8', 'Message 8', '010-8888-8888', 'Receiver 8', '89012', 'ORD8', 'Product 8', 8, 8000, 8, 'XL', 'thumb8.jpg', 80, 8, 800, 70400, 'user8@aaa.com', 8, 'user9@aaa.com', 8),
-(NOW(), NOW(), 'Address 9', 'Message 9', '010-9999-9999', 'Receiver 9', '90123', 'ORD9', 'Product 9', 9, 9000, 9, 'M', 'thumb9.jpg', 90, 9, 900, 89100, 'user9@aaa.com', 9, 'user10@aaa.com', 9),
-(NOW(), NOW(), 'Address 10', 'Message 10', '010-1010-1010', 'Receiver 10', '01234', 'ORD10', 'Product 10', 10, 10000, 10, 'L', 'thumb10.jpg', 100, 10, 100, 111000, 'user10@aaa.com', 10, 'user1@aaa.com', 10);
+INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-27 23:49:07.209828', '2025-02-27 23:50:37.637059', '영등포', '123', '123', '홍길동', '11111', 'u2wpgb1wbp', 'Product1', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/92daea48-57ea-4dfb-a753-420677abfcb4_image.png', 3500, 1, 775, 16275, 'user1@aaa.com', 1, 'user1@aaa.com', 1);
+INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 00:24:43.872991', '2025-02-28 00:25:14.721507', '영등포', '123', '123', '홍길동', '11111', 'eegy5wh642q', 'Product1', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/92daea48-57ea-4dfb-a753-420677abfcb4_image.png', 3500, 1, 1975, 41475, 'user1@aaa.com', 1, 'user1@aaa.com', 2);
+INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 00:24:43.874997', '2025-02-28 00:25:14.728805', '영등포', '123', '123', '홍길동', '11111', 'eegy5wh642q', 'Product2', 2, 12000, 2, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0e60f6c1-cb51-408b-ba2d-4f1b7ca3eea7_landscape-desktop-wallpaper.jpg', 3500, 1, 1975, 41475, 'user1@aaa.com', 2, 'user1@aaa.com', 2);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES
+-- (NOW(), NOW(), 'Address 1', 'Message 1', '010-1111-1111', 'Receiver 1', '12345', 'ORD1', 'Product 1', 1, 1000, 1, 'M', 'thumb1.jpg', 10, 1, 100, 1110, 'user1@aaa.com', 1, 'user2@aaa.com', 1),
+-- (NOW(), NOW(), 'Address 2', 'Message 2', '010-2222-2222', 'Receiver 2', '23456', 'ORD2', 'Product 2', 2, 2000, 2, 'L', 'thumb2.jpg', 20, 2, 200, 4440, 'user2@aaa.com', 2, 'user3@aaa.com', 2),
+-- (NOW(), NOW(), 'Address 3', 'Message 3', '010-3333-3333', 'Receiver 3', '34567', 'ORD3', 'Product 3', 3, 3000, 3, 'S', 'thumb3.jpg', 30, 3, 300, 9300, 'user3@aaa.com', 3, 'user4@aaa.com', 3),
+-- (NOW(), NOW(), 'Address 4', 'Message 4', '010-4444-4444', 'Receiver 4', '45678', 'ORD4', 'Product 4', 4, 4000, 4, 'XL', 'thumb4.jpg', 40, 4, 400, 17600, 'user4@aaa.com', 4, 'user5@aaa.com', 4),
+-- (NOW(), NOW(), 'Address 5', 'Message 5', '010-5555-5555', 'Receiver 5', '56789', 'ORD5', 'Product 5', 5, 5000, 5, 'M', 'thumb5.jpg', 50, 5, 500, 27500, 'user5@aaa.com', 5, 'user6@aaa.com', 5),
+-- (NOW(), NOW(), 'Address 6', 'Message 6', '010-6666-6666', 'Receiver 6', '67890', 'ORD6', 'Product 6', 6, 6000, 6, 'L', 'thumb6.jpg', 60, 6, 600, 39600, 'user6@aaa.com', 6, 'user7@aaa.com', 6),
+-- (NOW(), NOW(), 'Address 7', 'Message 7', '010-7777-7777', 'Receiver 7', '78901', 'ORD7', 'Product 7', 7, 7000, 7, 'S', 'thumb7.jpg', 70, 7, 700, 53900, 'user7@aaa.com', 7, 'user8@aaa.com', 7),
+-- (NOW(), NOW(), 'Address 8', 'Message 8', '010-8888-8888', 'Receiver 8', '89012', 'ORD8', 'Product 8', 8, 8000, 8, 'XL', 'thumb8.jpg', 80, 8, 800, 70400, 'user8@aaa.com', 8, 'user9@aaa.com', 8),
+-- (NOW(), NOW(), 'Address 9', 'Message 9', '010-9999-9999', 'Receiver 9', '90123', 'ORD9', 'Product 9', 9, 9000, 9, 'M', 'thumb9.jpg', 90, 9, 900, 89100, 'user9@aaa.com', 9, 'user10@aaa.com', 9),
+-- (NOW(), NOW(), 'Address 10', 'Message 10', '010-1010-1010', 'Receiver 10', '01234', 'ORD10', 'Product 10', 10, 10000, 10, 'L', 'thumb10.jpg', 100, 10, 100, 111000, 'user10@aaa.com', 10, 'user1@aaa.com', 10);
 
 --------------------------------------------------
 -- 15. tbl_review (10개)
-INSERT INTO apidb.tbl_review (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id) VALUES
-(NOW(), NOW(), 'Review content 1', 'ORD1', 5, 1, 'user1@aaa.com', 1),
-(NOW(), NOW(), 'Review content 2', 'ORD2', 4, 2, 'user2@aaa.com', 2),
-(NOW(), NOW(), 'Review content 3', 'ORD3', 3, 3, 'user3@aaa.com', 3),
-(NOW(), NOW(), 'Review content 4', 'ORD4', 5, 4, 'user4@aaa.com', 4),
-(NOW(), NOW(), 'Review content 5', 'ORD5', 2, 5, 'user5@aaa.com', 5),
-(NOW(), NOW(), 'Review content 6', 'ORD6', 4, 6, 'user6@aaa.com', 6),
-(NOW(), NOW(), 'Review content 7', 'ORD7', 5, 7, 'user7@aaa.com', 7),
-(NOW(), NOW(), 'Review content 8', 'ORD8', 3, 8, 'user8@aaa.com', 8),
-(NOW(), NOW(), 'Review content 9', 'ORD9', 4, 9, 'user9@aaa.com', 9),
-(NOW(), NOW(), 'Review content 10', 'ORD10', 5, 10, 'user10@aaa.com', 10);
+INSERT INTO apidb.tbl_review (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id) VALUES ('2025-02-28 11:10:03.123487', '2025-02-28 11:10:03.123487', 'GOOD!', 'eegy5wh642q', 5, 2, 'user1@aaa.com', 1);
 
+-- INSERT INTO apidb.tbl_review (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id) VALUES
+-- (NOW(), NOW(), 'Review content 1', 'ORD1', 5, 1, 'user1@aaa.com', 1),
+-- (NOW(), NOW(), 'Review content 2', 'ORD2', 4, 2, 'user2@aaa.com', 2),
+-- (NOW(), NOW(), 'Review content 3', 'ORD3', 3, 3, 'user3@aaa.com', 3),
+-- (NOW(), NOW(), 'Review content 4', 'ORD4', 5, 4, 'user4@aaa.com', 4),
+-- (NOW(), NOW(), 'Review content 5', 'ORD5', 2, 5, 'user5@aaa.com', 5),
+-- (NOW(), NOW(), 'Review content 6', 'ORD6', 4, 6, 'user6@aaa.com', 6),
+-- (NOW(), NOW(), 'Review content 7', 'ORD7', 5, 7, 'user7@aaa.com', 7),
+-- (NOW(), NOW(), 'Review content 8', 'ORD8', 3, 8, 'user8@aaa.com', 8),
+-- (NOW(), NOW(), 'Review content 9', 'ORD9', 4, 9, 'user9@aaa.com', 9),
+-- (NOW(), NOW(), 'Review content 10', 'ORD10', 5, 10, 'user10@aaa.com', 10);
+--
