@@ -18,7 +18,6 @@ export async function getGARecentUsers (param: GARequest) {
 
 
 export async function getGoogleAnalytics (param: GARequest) {
-
     return await fetchJWT(`/api/dashboard/traffic?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
         method: "GET",
         next: {

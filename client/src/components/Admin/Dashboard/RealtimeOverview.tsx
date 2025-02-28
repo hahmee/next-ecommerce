@@ -76,12 +76,17 @@ const RealtimeOverview: React.FC = () => {
           <div className="col-span-12">
             <PageRoute gaData={gaData?.events}/>
           </div>
-          <div className="col-span-12 xl:col-span-4">
+          <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
             <RecentVisitors gaData={gaData?.recentVisitors}/>
-          </div>
-          <div className="col-span-12 xl:col-span-4">
             <PieChart data={gaData?.devices} title={"Users by device"} label="Active users"/>
           </div>
+
+          {/*<div className="col-span-12 xl:col-span-4">*/}
+          {/*  <RecentVisitors gaData={gaData?.recentVisitors}/>*/}
+          {/*</div>*/}
+          {/*<div className="col-span-12 xl:col-span-4">*/}
+          {/*  <PieChart data={gaData?.devices} title={"Users by device"} label="Active users"/>*/}
+          {/*</div>*/}
 
         </div>
 

@@ -561,7 +561,6 @@ public class DashboardServiceImpl implements DashboardService{
       String thumbnail = (String) arr[6]; // total
 
 
-
       ColorTagDTO colorTagDTO = ColorTagDTO.builder()
               .color(color.getColor())
               .text(color.getText())
@@ -1090,9 +1089,7 @@ public class DashboardServiceImpl implements DashboardService{
         String cityCode = row.getDimensionValues(1).getValue();
         String sessions = row.getMetricValues(0).getValue();
 
-
         List<Double> coordinates = getCoordinates(countryCode);
-
         countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
 
       }

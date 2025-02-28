@@ -1,14 +1,13 @@
 "use client";
 
-import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
-import React, {useCallback, useEffect} from "react";
-import Link from "next/link";
-import {getCart, getSuccessPayment} from "@/apis/mallAPI";
-import {CartItemList} from "@/interface/CartItemList";
-import {Member} from "@/interface/Member";
+import {useMutation} from "@tanstack/react-query";
+import {useRouter} from "next/navigation";
+import {getSuccessPayment} from "@/apis/mallAPI";
 import {setCookie} from "@/utils/cookie";
-import {getCookie} from "cookies-next";
+import Loading from "@/app/loading";
+import React, {useEffect} from "react";
+import {DataResponse} from "@/interface/DataResponse";
+import {Member} from "@/interface/Member";
 
 interface Props {
     paymentKey: string;
@@ -16,42 +15,15 @@ interface Props {
     amount: string;
 }
 
-const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
+const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
+    const router = useRouter();
+    const isProduction = process.env.NEXT_PUBLIC_MODE === 'production';
 
-    //데이터 가져온 후 다른 페이지로 이동..?
-    const {data: payment, error} = useQuery<DataResponse<any>, any, any, [_1: string, _2: string]>({
-        queryKey: ['payment', orderId],
-        queryFn: () => getSuccessPayment({queryKey: ['payment', orderId], paymentKey, orderId, amount}),
-        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
-        gcTime: 300 * 1000,
-        enabled: !!getCookie('member'),
-        throwOnError: true,
-        select: useCallback((data: DataResponse<any>) => {
-            return data.data;
-        }, []),
-    });
+    const mutation = useMutation({
+        mutationFn: async () => {
+            // 로그인 요청 및 쿠키 설정 (로컬에서만 필요)
 
-    const { isFetched, isFetching, data:cartData, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({
-        queryKey: ['carts'],
-        queryFn: () => getCart(),
-        staleTime: 60 * 1000,
-        gcTime: 300 * 1000,
-        enabled: !!getCookie('member'),
-        throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
-    });
-
-    console.log('payments..', payment);
-    console.log('cartData..', cartData);
-
-    // 로그인 및 상태 동기화 useEffect
-    useEffect(() => {
-        console.log("로그인/동기화 useEffect 실행");
-        const syncData = async () => {
-            try {
+            if(!isProduction) {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                     method: "POST",
                     credentials: "include",
@@ -59,53 +31,38 @@ const SuccessPayment = ({paymentKey, orderId, amount}: Props) => {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
                     body: new URLSearchParams({
-                        username: "user1@aaa.com",
+                        username: "user2@aaa.com",
                         password: "1111",
                     }),
                 });
-
                 const data: DataResponse<Member> = await response.json();
-                console.log("로그인 응답:", data);
                 await setCookie("member", JSON.stringify(data.data));
-            } catch (error) {
-                console.error("로그인 에러:", error);
             }
 
-            // if (cartData) {
-            //     setCarts(cartData);
-            // }
-        };
+            // 결제 승인 (저장) API 호출
+            const paymentResponse = await getSuccessPayment({
+                queryKey: ["payment", orderId],
+                paymentKey,
+                orderId,
+                amount,
+            });
+            return paymentResponse;
+        },
+        onSuccess: (result) => {
+            console.log("결제 승인 후 결과:", result);
+            router.push(`/order/confirmation/${paymentKey}`);
+        },
+        onError: (error) => {
+            console.error("결제 승인 에러:", error);
+        },
+    });
 
-        // syncData();
-    }, [paymentKey, orderId, amount]);
+    useEffect(() => {
+        if (!orderId || !paymentKey || !amount) return;
+        mutation.mutate();
+    }, [orderId, paymentKey, amount]);
 
-    if(payment) {
-        return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
-                <h1 className="text-2xl font-bold text-green-600 mb-4">주문이 완료되었습니다!</h1>
-                <p className="text-gray-700 mb-4">주문이름: {payment.orderName}</p>
-                <p className="text-gray-700 mb-4">주문번호: <strong>{payment.orderId}</strong></p>
-                <p className="text-gray-700 mb-4">총 결제 금액: <strong>{payment.totalAmount.toLocaleString()}원</strong></p>
-                <p className="text-gray-700 mb-6">카드번호: {payment.card.number}</p>
-
-                <div className="flex flex-col space-y-4">
-                    <Link href="/">
-                        <div
-                            className="w-full text-center text-sm rounded-md ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
-                            계속 쇼핑하기
-                        </div>
-                    </Link>
-                    <Link href={`/order/${payment.orderId}`}>
-                        <div
-                            className="w-full text-center text-sm rounded-md ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
-                            주문 내역 확인하기
-                        </div>
-                    </Link>
-                </div>
-            </div>
-        </div>;
-    }
-
+    return <Loading />;
 };
 
 export default SuccessPayment;

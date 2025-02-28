@@ -77,8 +77,8 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
           <div id="mapOne" className="mapOne map-btn col-span-8"></div>
           <div className="col-span-4">
             <div className="text-sm font-semibold">Countries</div>
-            {countries?.map((country) => (
-                <div key={country.key} className="mt-3">
+            {countries?.map((country, index) => (
+                <div key={index} className="mt-3">
                   <div className="flex justify-between mb-1">
                     <span className="text-sm font-normal">{country.key}</span>
                     <span className="text-sm font-bold">{Number(country.value).toLocaleString()}</span>

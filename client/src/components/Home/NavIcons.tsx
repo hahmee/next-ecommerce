@@ -47,7 +47,6 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
 
     // React Query 데이터와 Zustand 동기화
     useEffect(() => {
-        console.log('cartData입니다....', cartData);
         if (cartData) {
             setCarts(cartData); // Zustand의 상태 업데이트
         }

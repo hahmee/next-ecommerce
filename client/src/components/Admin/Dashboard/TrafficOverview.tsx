@@ -10,8 +10,8 @@ import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
+import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 
-``
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
@@ -48,10 +48,11 @@ const TrafficOverview: React.FC = () => {
 
   const {
     data: gaData,
+    isLoading,
+    isFetching
   } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
     queryKey: ['ga', date, currentFilter],
     queryFn: () => getGoogleAnalytics({
-
       startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
       endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
       sellerEmail: member.email,
@@ -105,6 +106,10 @@ const TrafficOverview: React.FC = () => {
 
   const filterChange = (filter: ChartFilter) => {
     setCurrentFilter(filter);
+  }
+
+  if(isLoading || isFetching) {
+    return <DashboardSkeleton/>;
   }
 
   return (

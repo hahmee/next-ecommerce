@@ -78,7 +78,7 @@ const PieChart = ({data, title, label}:{data:Array<SessionDTO<number>> | undefin
 
 
   return (
-      <div className="rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+      <div className="col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm px-5 pb-5 pt-7.5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
         <div className="mb-3 justify-between gap-4 sm:flex">
           <h5 className="text-xl font-semibold text-black dark:text-white">
             {title}

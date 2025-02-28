@@ -120,7 +120,6 @@ const SalesOverview: React.FC = () => {
     }
   });
 
-
   const {
     data: topCustomers,
   } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
@@ -139,7 +138,6 @@ const SalesOverview: React.FC = () => {
       return data.data;
     }
   });
-
 
   const {
     data: topProducts,
@@ -182,7 +180,6 @@ const SalesOverview: React.FC = () => {
 
     const dateChange = (value: any) => {
 
-      console.log('value', value);
       setDate(value);
 
       if(value.startDate === null || value.endDate === null) {
@@ -197,9 +194,6 @@ const SalesOverview: React.FC = () => {
       // 밀리초를 일수로 변환
       const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
-      console.log('diffInDays', diffInDays);
-
-      console.log('startDate', startDate);
       // 새로운 날짜 계산
       const comparedEndDate = new Date(startDate);
       comparedEndDate.setDate(comparedEndDate.getDate() - 1); // 1일 빼기

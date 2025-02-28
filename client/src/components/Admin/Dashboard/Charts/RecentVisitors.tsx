@@ -6,7 +6,7 @@ import {ComputerDesktopIcon} from "@heroicons/react/24/outline";
 const RecentVisitors = ({gaData}:{gaData:Array<SessionDTO<number>> | undefined}) => {
 
     return (
-        <div className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+        <div className="col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
             <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
                 <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">
                     Recent visitors
