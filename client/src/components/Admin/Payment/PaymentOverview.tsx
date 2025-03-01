@@ -13,8 +13,9 @@ import formatDate from "@/libs/formatDate";
 
 const PaymentOverview = () => {
 
-    const endDate = new Date(); // today
-    const startDate = new Date();  // today
+    const endDate = new Date(); // 기본 값: 30일
+    const startDate = new Date();  // 기본 값: 30일
+    startDate.setDate(startDate.getDate() - 30); // 오늘 기준으로 30일 전
 
     const [date, setDate] = useState({
         startDate: formatDate(startDate),
@@ -29,10 +30,10 @@ const PaymentOverview = () => {
     }
 
     const paymentMenuOption: Array<Option<string>> = [
-        {id: "today", content: '오늘', startDate: formatDate(new Date()), endDate: formatDate(new Date())},
+        {id: "last30days", content: '지난 30일', ...getDateRange(30)}, // 기본 값
         {id: "last7days", content: '지난 7일', ...getDateRange(7)},
-        {id: "last30days", content: '지난 30일', ...getDateRange(30)},
         {id: "last90days", content: '지난 90일', ...getDateRange(90)},
+        {id: "today", content: '오늘', startDate: formatDate(new Date()), endDate: formatDate(new Date())},
         {id: "all", content: '전체 기간', startDate: "", endDate: ""},
     ];
 

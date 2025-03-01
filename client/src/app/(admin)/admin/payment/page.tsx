@@ -10,6 +10,7 @@ import formatDate from "@/libs/formatDate";
 export default async function AdminPaymentPage() {
     const endDate = new Date(); // today
     const startDate = new Date(); // today
+    startDate.setDate(startDate.getDate() - 30); // 오늘 기준으로 30일 전
 
     //테이블 기간
     const date = {

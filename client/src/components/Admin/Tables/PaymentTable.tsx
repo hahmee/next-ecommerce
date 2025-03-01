@@ -17,6 +17,8 @@ import formatDate from "@/libs/formatDate";
 const PaymentTable = () => {
     const todayEndDate = new Date(); // today
     const todayStartDate = new Date();  // today
+    todayStartDate.setDate(todayStartDate.getDate() - 30); // 오늘 기준으로 30일 전
+
     const defaultDate = {
         startDate: formatDate(todayStartDate),
         endDate: formatDate(todayEndDate),
