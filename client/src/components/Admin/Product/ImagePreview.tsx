@@ -93,10 +93,7 @@ const ImagePreview = ({image, deleteImage, handleMouseOver, handleMouseOut, hove
         }),
     });
 
-    const opacity = isDragging ? 0 : 1;
-
     drag(drop(ref));
-
 
     const hoverActionComponent = () => {
         return (

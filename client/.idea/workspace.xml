@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/DashboardServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/dashbaordAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/dashbaordAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/ActiveVisitChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/ActiveVisitChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/ActiveVisitors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/ActiveVisitors.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/PieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/RecentVisitors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/RecentVisitors.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/RealtimeOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/RealtimeOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/PaymentTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/Success.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../script/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../script/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImagePreview.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -647,7 +633,8 @@
       <workItem from="1740650823143" duration="11432000" />
       <workItem from="1740707521002" duration="18316000" />
       <workItem from="1740739778617" duration="304000" />
-      <workItem from="1740741320044" duration="9193000" />
+      <workItem from="1740741320044" duration="9898000" />
+      <workItem from="1740795468664" duration="3290000" />
     </task>
     <servers />
   </component>
