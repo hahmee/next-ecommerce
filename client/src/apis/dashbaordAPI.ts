@@ -13,9 +13,7 @@ export async function getGARecentUsers (param: GARequest) {
         credentials: 'include',
         cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
     });
-
 }
-
 
 export async function getGoogleAnalytics (param: GARequest) {
     return await fetchJWT(`/api/dashboard/traffic?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {

@@ -669,7 +669,7 @@ public class DashboardServiceImpl implements DashboardService{
           }
       });
 
-    // 모든 작업이 완료될 때까지 기다림
+      // 모든 작업이 완료될 때까지 기다림
         CompletableFuture.allOf(
                 sessionsFuture, topPagesFuture, topSourcesFuture, chartFuture,
                 devicesFuture, visitorsFuture, countriesFuture

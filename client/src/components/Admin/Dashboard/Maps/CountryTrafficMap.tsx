@@ -1,12 +1,13 @@
 "use client";
 import jsVectorMap from "jsvectormap";
 import "jsvectormap/dist/jsvectormap.css";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "../../../../js/world"; // 지도 파일
 import {CountryChartDTO} from "@/interface/GAResponse";
 import {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
 
 const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
+  console.log(countries)
   // const countries: Array<CountryChartDTO> = [
   //   { key: "KR", value: 18, latlng: [37.0, 127.5] },
   //   { key: "JP", value: 18, latlng: [36.0,138.0] },
@@ -14,6 +15,24 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
 
   // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
   const maxSessions = Math.max(500, ...(countries?.map((country) => Number(country?.value)) || []));
+
+  // 한 페이지에 보여줄 아이템 수
+  const pageSize = 5;
+  // 총 페이지 수 계산
+  const totalPages = countries ? Math.ceil(countries.length / pageSize) : 0;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // 현재 페이지에 해당하는 countries 배열 슬라이스
+  const paginatedCountries = countries
+      ? countries.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+      : [];
+
+  // 페이지 변경 함수
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   useEffect(() => {
     // 각 나라에 대한 마커 데이터 생성
@@ -67,29 +86,63 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
   }, [countries]);
 
   return (
-      <div
-          className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
+      <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
           Sessions by country
-
         </h4>
         <div className="h-90 grid grid-cols-12 gap-4">
           <div id="mapOne" className="mapOne map-btn col-span-8"></div>
-          <div className="col-span-4">
-            <div className="text-sm font-semibold">Countries</div>
-            {countries?.map((country, index) => (
-                <div key={index} className="mt-3">
-                  <div className="flex justify-between mb-1">
-                    <span className="text-sm font-normal">{country.key}</span>
-                    <span className="text-sm font-bold">{Number(country.value).toLocaleString()}</span>
+          <div className="col-span-4 flex flex-col h-full">
+            <div>
+              <div className="text-sm font-semibold">Countries</div>
+              {paginatedCountries?.map((country, index) => (
+                  <div key={index} className="mt-3">
+                    <div className="flex justify-between mb-1">
+                      <span className="text-sm font-normal">{country.key}</span>
+                      <span className="text-sm font-bold">
+                  {Number(country.value).toLocaleString()}
+                </span>
+                    </div>
+                    <BarChartThin data={country} maxValue={maxSessions} />
                   </div>
-                  <BarChartThin data={country} maxValue={maxSessions}/>
+              ))}
+            </div>
+
+            {/* 페이징 버튼 영역에 mt-auto로 하단 고정 */}
+            {totalPages > 1 && (
+                <div className="mt-auto flex justify-center space-x-2">
+                  <button
+                      className="px-3 py-1 border rounded"
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                  >
+                    이전
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                      <button
+                          key={i + 1}
+                          className={`px-3 py-1 border rounded ${
+                              currentPage === i + 1 ? 'bg-primary-500 text-white' : ''
+                          }`}
+                          onClick={() => handlePageChange(i + 1)}
+                      >
+                        {i + 1}
+                      </button>
+                  ))}
+                  <button
+                      className="px-3 py-1 border rounded"
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                  >
+                    다음
+                  </button>
                 </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
   );
+
 };
 
 export default CountryTrafficMap;
