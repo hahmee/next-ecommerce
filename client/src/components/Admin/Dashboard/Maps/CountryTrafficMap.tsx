@@ -7,7 +7,6 @@ import {CountryChartDTO} from "@/interface/GAResponse";
 import {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
 
 const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
-  console.log(countries)
   // const countries: Array<CountryChartDTO> = [
   //   { key: "KR", value: 18, latlng: [37.0, 127.5] },
   //   { key: "JP", value: 18, latlng: [36.0,138.0] },

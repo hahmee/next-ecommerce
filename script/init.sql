@@ -86,7 +86,6 @@ INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, 
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-28 16:01:44.993172', '2025-02-28 17:31:38.307731', 'subCategory1-1-1', '서브카테고리1-1-1', false, 'category/14bbd0dd-1098-41cf-b582-9e375ea1fcb2_KakaoTalk_20241008_144033593.png', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/14bbd0dd-1098-41cf-b582-9e375ea1fcb2_KakaoTalk_20241008_144033593.png');
 
 
-
 create table tbl_product
 (
     pno            bigint auto_increment
@@ -372,16 +371,16 @@ INSERT INTO apidb.product_size_list (product_pno, size_list) VALUES (10, 'FREE')
 
 create table tbl_category_closure
 (
-    depth          int    not null,
-    descendant_cno bigint not null,
-    ancestor_cno   bigint not null,
-    primary key (ancestor_cno, descendant_cno),
-    constraint FK4ocjdplm8qkynki9xbv8u9ewa
-        foreign key (ancestor_cno) references tbl_category (cno),
-    constraint FKtqmnhrab7f7o30ivo487p3ppv
-        foreign key (descendant_cno) references tbl_category (cno)
+	depth int not null,
+	descendant_cno bigint not null,
+	ancestor_cno bigint not null,
+	primary key (ancestor_cno, descendant_cno),
+	constraint FK4ocjdplm8qkynki9xbv8u9ewa
+		foreign key (ancestor_cno) references tbl_category (cno),
+	constraint FKtqmnhrab7f7o30ivo487p3ppv
+		foreign key (descendant_cno) references tbl_category (cno)
 )
-    collate = utf8mb4_general_ci;
+collate=utf8mb4_general_ci;
 
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 1, 1);
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 2, 1);
@@ -396,6 +395,7 @@ INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VAL
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 6, 6);
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 7, 7);
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 8, 8);
+
 
 
 

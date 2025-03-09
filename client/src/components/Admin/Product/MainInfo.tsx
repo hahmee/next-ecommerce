@@ -10,8 +10,8 @@ const MainInfo = () => {
                 <Image
                     src="/images/mall/main_kid.png"
                     alt="kid"
-                    width={1000}
-                    height={1000}
+                    width={400}
+                    height={400}
                     className="h-full w-full object-cover rounded-lg"
                 />
             </div>
@@ -25,7 +25,7 @@ const MainInfo = () => {
                     Fashion is a form of self-expression and autonomy at a <br />
                     particular period and place.
                 </div>
-                <Link href={`/list?category_id=${66}`}>
+                <Link href={`/list?category_id=${1}`}>
                 <button className="mt-10 w-40 h-12 text-xl font-medium rounded-3xl ring-1 ring-ecom text-white py-2 px-4 bg-ecom hover:bg-ecomHigh hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none">
                     Discover me
                 </button>

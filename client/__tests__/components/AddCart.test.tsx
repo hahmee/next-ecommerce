@@ -15,7 +15,6 @@ jest.mock('react-hot-toast', () => ({
 describe("AddCart Component", () => {
     beforeEach(() => {
         jest.clearAllMocks(); // 테스트 전 Mock 초기화
-
     });
 
     const pno = 1;
@@ -64,7 +63,6 @@ describe("AddCart Component", () => {
 
 
 //모달에서
-
 // describe("CartComponent", () => {
 //     it("renders items from the cart", () => {
 //         // Mock 상태 정의

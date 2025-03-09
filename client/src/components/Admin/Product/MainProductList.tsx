@@ -96,8 +96,9 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
     return (
         <div className="mt-20 w-full m-auto flex justify-center">
-            <div className="flex justify-center gap-x-4 gap-y-5 flex-wrap w-270">
 
+
+            <div className="flex justify-center gap-x-4 gap-y-5 flex-wrap w-270">
                 {data?.map((product: Product) => (
                     <Link
                         href={"/product/" + product.pno}
@@ -140,9 +141,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                         <div className="flex gap-1 my-3 text-xs text-gray-600">평점 없음</div>
 
                                 }
-
-                                <span
-                                    className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
+                                <span className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
                                 <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
                                 <button
                                     disabled={product.salesStatus != SalesStatus.ONSALE}

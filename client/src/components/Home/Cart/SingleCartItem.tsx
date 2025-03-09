@@ -24,7 +24,6 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
     const handleClickAddCart = useCallback((pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
             const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
-
             if (result.length > 0) {
                 const cartItemChange: CartItem = {
                     email: member.email,

@@ -5,9 +5,6 @@ import {setCookie} from "@/utils/cookie";
 import {DataResponse} from "@/interface/DataResponse";
 import {Member} from "@/interface/Member";
 import {useRouter} from "next/navigation";
-import {Mode} from "@/types/mode";
-import ProductForm from "@/components/Admin/Product/ProductForm";
-import {customRender} from "../utils/testUtils";
 
 // fetch 모킹
 global.fetch = jest.fn();
@@ -47,10 +44,7 @@ const mockRouter = {
         });
 
         it('renders the login form correctly', () => {
-
-
             render(<LoginPage/>);
-
             const labelNode = screen.getByText("사용자 이메일");
             expect(labelNode).toBeInTheDocument();
             expect(screen.getByPlaceholderText('이메일')).toBeInTheDocument();

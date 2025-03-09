@@ -6,8 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/dashbaordAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/dashbaordAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/AddCart.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/SingleCartItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../script/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../script/init.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,65 +132,68 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Docker.Dockerfile builder">
-    <configuration name="수정일 때 " type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.SingleCartItem Component.should decrease quantity when the - button is clicked">
+    <configuration name="Login" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/LoginPage.test.tsx" />
       <test-names>
-        <test-name value="수정일 때 " />
+        <test-name value="Login" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="API 응답 테스트" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="SingleCartItem Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
       <test-names>
-        <test-name value="API 응답 테스트" />
+        <test-name value="SingleCartItem Component" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Categories Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" />
-      <test-names>
-        <test-name value="Categories Component" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Categories Component.renders loading state initially" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="SingleCartItem Component.should decrease quantity when the - button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/Categories.test.tsx" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
       <test-names>
-        <test-name value="Categories Component" />
-        <test-name value="renders loading state initially" />
+        <test-name value="SingleCartItem Component" />
+        <test-name value="should decrease quantity when the - button is clicked" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Dockerfile builder" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="imageTag" value="base_builder" />
-          <option name="buildCliOptions" value="--target builder" />
-          <option name="buildOnly" value="true" />
-          <option name="sourceFilePath" value="Dockerfile" />
-        </settings>
-      </deployment>
+    <configuration name="SingleCartItem Component.should increase quantity when the + button is clicked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
+      <test-names>
+        <test-name value="SingleCartItem Component" />
+        <test-name value="should increase quantity when the + button is clicked" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="SingleCartItem Component.should render the SingleCartItem component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/SingleCartItem.test.tsx" />
+      <test-names>
+        <test-name value="SingleCartItem Component" />
+        <test-name value="should render the SingleCartItem component" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
@@ -193,11 +204,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.Dockerfile builder" />
-        <item itemvalue="Jest.수정일 때 " />
-        <item itemvalue="Jest.Categories Component" />
-        <item itemvalue="Jest.Categories Component.renders loading state initially" />
-        <item itemvalue="Jest.API 응답 테스트" />
+        <item itemvalue="Jest.SingleCartItem Component.should decrease quantity when the - button is clicked" />
+        <item itemvalue="Jest.SingleCartItem Component.should increase quantity when the + button is clicked" />
+        <item itemvalue="Jest.SingleCartItem Component" />
+        <item itemvalue="Jest.SingleCartItem Component.should render the SingleCartItem component" />
+        <item itemvalue="Jest.Login" />
       </list>
     </recent_temporary>
   </component>
@@ -638,7 +649,12 @@
       <workItem from="1740834669210" duration="2000" />
       <workItem from="1741074829506" duration="1303000" />
       <workItem from="1741331624047" duration="1000" />
-      <workItem from="1741331642687" duration="2268000" />
+      <workItem from="1741331642687" duration="5772000" />
+      <workItem from="1741345027607" duration="2146000" />
+      <workItem from="1741350390399" duration="843000" />
+      <workItem from="1741403509587" duration="1698000" />
+      <workItem from="1741408935857" duration="11723000" />
+      <workItem from="1741485959000" duration="6228000" />
     </task>
     <servers />
   </component>

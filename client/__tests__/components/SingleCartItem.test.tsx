@@ -72,7 +72,6 @@ describe("SingleCartItem Component", () => {
 
         (useCartStore as jest.MockedFunction<typeof useCartStore>).mockReturnValue(mockCartStore);
         (getCookie as jest.Mock).mockReturnValue(cookieValue);
-
     });
 
 
@@ -103,61 +102,40 @@ describe("SingleCartItem Component", () => {
 
         expect(await screen.findByText(7)).toBeInTheDocument();
 
-        // const increaseButton = screen.getByRole("button", { name: /increase quantity/i });
-        // fireEvent.click(increaseButton);
         await clickButton({type: "button", value: "Increase Quantity"});
 
-        expect(await screen.findByText(8)).toBeInTheDocument();
-        //
-        // // changeCart가 호출되었는지 확인
-        // expect(mockCartStore.changeCart).toHaveBeenCalledWith({
-        //     email: "user1@aaa.com",
-        //     pno: mockCartItem.pno,
-        //     qty: mockCartItem.qty + 1,
-        //     color: mockCartItem.color,
-        //     size: mockCartItem.size,
-        //     sellerEmail: mockCartItem.sellerEmail,
-        // });
-        //
-        // // carts 업데이트 확인
-        // expect(mockCartStore.carts[0].qty).toBe(mockCartItem.qty + 1);
-        //
-        // console.log('mockCartStore.carts', mockCartStore.carts); //qty는 8로 잘 나옴
-        //
-        // // 상태 업데이트 후 DOM 확인
-        // await waitFor(() => {
-        //     expect(screen.getByText("8")).toBeInTheDocument();
-        // });
+        // changeCart 함수가 호출되었는지, 그리고 qty가 8로 변경되었는지 확인
+        expect(mockCartStore.changeCart).toHaveBeenCalledWith({
+            email: "user1@aaa.com",
+            pno: mockCartItem.pno,
+            qty: mockCartItem.qty + 1, // 즉, 8
+            color: mockCartItem.color,
+            size: mockCartItem.size,
+            sellerEmail: mockCartItem.sellerEmail,
+        });
 
     });
 
-    // it('should decrease quantity when the - button is clicked', async () => {
-    //
-    //     render(<SingleCartItem cartItem={mockCartItem} />);
-    //
-    //     const decreaseButton = screen.getByRole("button", { name: /decrease quantity/i });
-    //     fireEvent.click(decreaseButton);
-    //
-    //     // changeCart가 호출되었는지 확인
-    //     expect(mockCartStore.changeCart).toHaveBeenCalledWith({
-    //         email: "user1@aaa.com",
-    //         pno: mockCartItem.pno,
-    //         qty: mockCartItem.qty - 1,
-    //         color: mockCartItem.color,
-    //         size: mockCartItem.size,
-    //         sellerEmail: mockCartItem.sellerEmail,
-    //     });
-    //
-    //     // carts 업데이트 확인
-    //     expect(mockCartStore.carts[0].qty).toBe(mockCartItem.qty - 1);
-    //
-    //     console.log('mockCartStore.carts', mockCartStore.carts); //qty는 8로 잘 나옴
-    //
-    //     // 상태 업데이트 후 DOM 확인
-    //     await waitFor(() => {
-    //         expect(screen.getByText("6")).toBeInTheDocument();
-    //     });
-    // });
+    it('should decrease quantity when the - button is clicked', async () => {
+
+        render(<SingleCartItem cartItem={mockCartItem} />);
+        expect(await screen.findByText(7)).toBeInTheDocument();
+
+        await clickButton({type: "button", value: "Decrease Quantity"});
+
+        // changeCart가 호출되었는지 확인
+        expect(mockCartStore.changeCart).toHaveBeenCalledWith({
+            email: "user1@aaa.com",
+            pno: mockCartItem.pno,
+            qty: mockCartItem.qty - 1,
+            color: mockCartItem.color,
+            size: mockCartItem.size,
+            sellerEmail: mockCartItem.sellerEmail,
+        });
+
+        console.log('mockCartStore.carts', mockCartStore.carts); //qty는 6로 잘 나옴
+
+    });
 
 
     it('should remove item when the remove button is clicked', () => {
