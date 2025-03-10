@@ -290,6 +290,13 @@ public class ProductController {
 
   }
 
+  @GetMapping("/expertProducts")
+  public DataResponseDTO<List<ProductDTO>> getExpertProducts() {
+
+    return DataResponseDTO.of(productService.getExpertProducts());
+
+  }
+
   @GetMapping("/featuredProductList")
   public DataResponseDTO<List<ProductDTO>> getFeaturedProducts() {
 

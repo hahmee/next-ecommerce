@@ -28,6 +28,8 @@ public interface ProductService {
 
   List<ProductDTO> getNewProducts();
 
+  List<ProductDTO> getExpertProducts();
+
   List<ProductDTO> getFeaturedProducts();
 
   ProductDTO modifySalesStatus(StockRequestDTO stockRequestDTO);

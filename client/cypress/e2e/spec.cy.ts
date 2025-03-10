@@ -48,7 +48,6 @@ describe('Login test', () => {
       cy.url().should('include', '/login'); // 로그아웃이 성공하면 로그인 페이지로 이동합니다.
 
 
-
     });
 
   });

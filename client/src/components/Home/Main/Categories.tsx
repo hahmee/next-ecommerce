@@ -29,8 +29,6 @@ const Categories = () => {
         }
     });
 
-    console.log('categories',categories)
-
     if(!categories) {
         return <Skeleton/>; // 로딩 상태 표시
     }

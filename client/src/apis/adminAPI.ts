@@ -1,6 +1,7 @@
 import {fetchJWT} from "@/utils/fetchJWT";
 import {PageParam} from "@/interface/PageParam";
 
+
 export async function getCategories () {
     return await fetchJWT(`/api/category/list`, {
         method: "GET",
@@ -21,6 +22,18 @@ export async function getAdminCategories (pageParam: PageParam) {
         },
         credentials: 'include',
         cache: 'no-store',
+    });
+}
+
+
+export async function getExpertProducts () {
+    return await fetchJWT(`/api/products/expertProducts`, {
+        method: "GET",
+        next: {
+            tags: ['expert-products'], // 외부 API next.tags 옵션은 필요 X
+        },
+        credentials: 'include',
+        cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
     });
 }
 

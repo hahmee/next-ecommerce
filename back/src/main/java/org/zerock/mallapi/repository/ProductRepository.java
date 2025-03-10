@@ -62,6 +62,17 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "ORDER BY p DESC")
   List<Object[]>  findNewProducts(Pageable pageable);
 
+
+  @Query("SELECT p, pi, AVG(COALESCE(r.rating, 0)) as avgRating " +
+          "FROM Product p " +
+          "LEFT JOIN p.imageList pi " +
+          "LEFT JOIN Review r ON r.product.pno = p.pno " +
+          "WHERE (NULLIF(pi.ord, ' ') IS NULL OR pi.ord = 0) " +
+          "AND p.delFlag = false " +
+          "GROUP BY p.pno " +
+          "ORDER BY p ASC")
+  List<Object[]> findExpertProducts(Pageable pageable);
+
   @Query("SELECT p, pi, AVG(COALESCE(r.rating, 0)) as avgRating " +
           "FROM Product p " +
           "LEFT JOIN p.imageList pi " +

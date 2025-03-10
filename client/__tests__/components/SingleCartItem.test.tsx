@@ -75,6 +75,7 @@ describe("SingleCartItem Component", () => {
     });
 
 
+
     it('should render the SingleCartItem component', () => {
 
         render(<SingleCartItem cartItem={mockCartItem}/>);
