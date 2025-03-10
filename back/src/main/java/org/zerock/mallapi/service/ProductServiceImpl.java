@@ -520,9 +520,12 @@ public class ProductServiceImpl implements ProductService{
     List<ProductDTO> productDTOs = results.stream().map(arr -> {
               Product product = (Product) arr[0];
               Double averageRating = (Double) arr[2];  // 평균 별점
+              Long reviewCount = (Long) arr[3];  // 리뷰 개수
 
               ProductDTO productDTO = entityToDTO(product);
               productDTO.setAverageRating(averageRating);
+              productDTO.setReviewCount(reviewCount);
+
               return productDTO;
 
             })

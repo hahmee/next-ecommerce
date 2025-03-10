@@ -63,7 +63,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
   List<Object[]>  findNewProducts(Pageable pageable);
 
 
-  @Query("SELECT p, pi, AVG(COALESCE(r.rating, 0)) as avgRating " +
+  @Query("SELECT p, pi, AVG(COALESCE(r.rating, 0)) as avgRating, COUNT(DISTINCT r) as reviewCount " +
           "FROM Product p " +
           "LEFT JOIN p.imageList pi " +
           "LEFT JOIN Review r ON r.product.pno = p.pno " +

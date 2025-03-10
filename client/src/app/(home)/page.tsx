@@ -6,8 +6,8 @@ import Skeleton from "@/components/Skeleton/Skeleton";
 import Categories from "@/components/Home/Main/Categories";
 import MainProductList from "@/components/Admin/Product/MainProductList";
 import MainInfo from "@/components/Admin/Product/MainInfo";
-import Image from "next/image";
 import ExpertList from "@/components/Admin/Product/ExpertList";
+import ExpertListSkeleton from "@/components/Skeleton/ExpertListSkeleton";
 // 예시 데이터
 const products = [
     {
@@ -92,7 +92,7 @@ const HomePage = () => {
             </div>
 
             <div className="mt-40 px-4">
-                <Suspense fallback={<Skeleton/>}>
+                <Suspense fallback={<ExpertListSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
                         <ExpertList/>
                     </PrefetchBoundary>
