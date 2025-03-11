@@ -369,6 +369,39 @@ INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#000000', 'bl
 INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#ff0000', 'red', 10);
 
 
+create table tbl_cart_item
+(
+    cino          bigint auto_increment
+        primary key,
+    qty           int          not null,
+    size          varchar(255) null,
+    cart_cno      bigint       null,
+    color_id      bigint       null,
+    product_pno   bigint       null,
+    member_seller varchar(255) null,
+    constraint FKem31i0jytusbded0v2wvnntyw
+        foreign key (cart_cno) references tbl_cart (cno),
+    constraint FKlsgw78tsc9ttlupegjqjle9wk
+        foreign key (member_seller) references member (email),
+    constraint FKr6uyw4bbjis2mv6nm18oedndp
+        foreign key (color_id) references tbl_color_tag (id),
+    constraint FKs7vg62w3nq7igdxgssq1u0biw
+        foreign key (product_pno) references tbl_product (pno)
+)
+    collate = utf8mb4_general_ci;
+
+create index idx_cartitem_cart
+    on tbl_cart_item (cart_cno);
+
+create index idx_cartitem_pno_cart
+    on tbl_cart_item (product_pno, cart_cno);
+
+
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (2, 'S', 1, 49, 3, 'user1@aaa.com');
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'L', 1, 51, 3, 'user1@aaa.com');
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
+
     create table product_size_list
 (
     product_pno bigint       not null,
@@ -485,39 +518,6 @@ INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, re
 INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.698179', '2025-02-28 22:15:08.948941', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 6);
 
 
-
-create table tbl_cart_item
-(
-    cino          bigint auto_increment
-        primary key,
-    qty           int          not null,
-    size          varchar(255) null,
-    cart_cno      bigint       null,
-    color_id      bigint       null,
-    product_pno   bigint       null,
-    member_seller varchar(255) null,
-    constraint FKem31i0jytusbded0v2wvnntyw
-        foreign key (cart_cno) references tbl_cart (cno),
-    constraint FKlsgw78tsc9ttlupegjqjle9wk
-        foreign key (member_seller) references member (email),
-    constraint FKr6uyw4bbjis2mv6nm18oedndp
-        foreign key (color_id) references tbl_color_tag (id),
-    constraint FKs7vg62w3nq7igdxgssq1u0biw
-        foreign key (product_pno) references tbl_product (pno)
-)
-    collate = utf8mb4_general_ci;
-
-create index idx_cartitem_cart
-    on tbl_cart_item (cart_cno);
-
-create index idx_cartitem_pno_cart
-    on tbl_cart_item (product_pno, cart_cno);
-
-
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (2, 'S', 1, 49, 3, 'user1@aaa.com');
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'L', 1, 51, 3, 'user1@aaa.com');
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
 
 
 
