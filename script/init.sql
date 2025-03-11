@@ -84,6 +84,8 @@ INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, 
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-28 16:01:05.240311', '2025-02-28 17:21:30.082312', 'category3', '카테고리3', false, 'category/3dc6e333-3eb5-412d-8ee2-7365199b935b_sven-d-a4S6KUuLeoM-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/3dc6e333-3eb5-412d-8ee2-7365199b935b_sven-d-a4S6KUuLeoM-unsplash.jpg');
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-28 16:01:14.250236', '2025-02-28 17:21:25.866749', 'category4', '카테고리4', false, 'category/2184ee10-af36-4a7e-bdb1-0abd39482384_mediamodifier-elbKS4DY21g-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/2184ee10-af36-4a7e-bdb1-0abd39482384_mediamodifier-elbKS4DY21g-unsplash.jpg');
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-28 16:01:44.993172', '2025-02-28 17:31:38.307731', 'subCategory1-1-1', '서브카테고리1-1-1', false, 'category/14bbd0dd-1098-41cf-b582-9e375ea1fcb2_KakaoTalk_20241008_144033593.png', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/14bbd0dd-1098-41cf-b582-9e375ea1fcb2_KakaoTalk_20241008_144033593.png');
+INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-03-09 14:45:39.283070', '2025-03-09 14:46:20.058058', 'category5', '카테고리5', false, 'category/1dbcc5db-022d-46d9-9a03-59e782e7c8ec_nathan-dumlao-6VhPY27jdps-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/1dbcc5db-022d-46d9-9a03-59e782e7c8ec_nathan-dumlao-6VhPY27jdps-unsplash.jpg');
+INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-03-09 14:46:33.447235', '2025-03-09 14:46:33.447235', 'category6', '카테고리6', false, 'category/8904cb49-79e4-4416-a3be-989d0d875407_anna-pelzer-IGfIGP5ONV0-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/8904cb49-79e4-4416-a3be-989d0d875407_anna-pelzer-IGfIGP5ONV0-unsplash.jpg');
 
 
 create table tbl_product
@@ -395,6 +397,9 @@ INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VAL
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 6, 6);
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 7, 7);
 INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 8, 8);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 9, 9);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 10, 10);
+
 
 
 
