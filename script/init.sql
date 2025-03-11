@@ -5,16 +5,15 @@ CREATE DATABASE apidb;
 USE apidb;
 
 
--- 사용자 생성 (비밀번호는 환경변수에서 설정한 값을 사용)
-CREATE USER IF NOT EXISTS 'apidbuser'@'localhost' IDENTIFIED BY 'apidbuser';
-CREATE USER IF NOT EXISTS 'apidbuser'@'%' IDENTIFIED BY 'apidbuser';
-
--- 사용자에게 데이터베이스에 대한 모든 권한 부여
-GRANT ALL PRIVILEGES ON apidb.* TO 'apidbuser'@'localhost';
-GRANT ALL PRIVILEGES ON apidb.* TO 'apidbuser'@'%';
-
--- 권한 적용
-FLUSH PRIVILEGES;
+-- -- 사용자 생성 (아이디와 비밀번호는 환경변수로 치환)
+-- CREATE USER IF NOT EXISTS '${APIDB_USER}'@'localhost' IDENTIFIED BY '${APIDB_PASSWORD}';
+-- CREATE USER IF NOT EXISTS '${APIDB_USER}'@'%' IDENTIFIED BY '${APIDB_PASSWORD}';
+--
+-- GRANT ALL PRIVILEGES ON apidb.* TO '${APIDB_USER}'@'localhost';
+-- GRANT ALL PRIVILEGES ON apidb.* TO '${APIDB_USER}'@'%';;
+--
+-- -- 권한 적용
+-- FLUSH PRIVILEGES;
 
 -- 테이블 생성
 
