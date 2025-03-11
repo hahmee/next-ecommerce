@@ -429,38 +429,6 @@ INSERT INTO apidb.product_size_list (product_pno, size_list) VALUES (10, 'FREE')
 
 
 
-create table tbl_cart_item
-(
-    cino          bigint auto_increment
-        primary key,
-    qty           int          not null,
-    size          varchar(255) null,
-    cart_cno      bigint       null,
-    color_id      bigint       null,
-    product_pno   bigint       null,
-    member_seller varchar(255) null,
-    constraint FKem31i0jytusbded0v2wvnntyw
-        foreign key (cart_cno) references tbl_cart (cno),
-    constraint FKlsgw78tsc9ttlupegjqjle9wk
-        foreign key (member_seller) references member (email),
-    constraint FKr6uyw4bbjis2mv6nm18oedndp
-        foreign key (color_id) references tbl_color_tag (id),
-    constraint FKs7vg62w3nq7igdxgssq1u0biw
-        foreign key (product_pno) references tbl_product (pno)
-)
-    collate = utf8mb4_general_ci;
-
-create index idx_cartitem_cart
-    on tbl_cart_item (cart_cno);
-
-create index idx_cartitem_pno_cart
-    on tbl_cart_item (product_pno, cart_cno);
-
-
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (2, 'S', 1, 49, 3, 'user1@aaa.com');
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'L', 1, 51, 3, 'user1@aaa.com');
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
-INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
 
 create table tbl_order
 (
@@ -517,6 +485,96 @@ INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, re
 INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.696874', '2025-02-28 22:15:08.936607', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 6);
 INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.698179', '2025-02-28 22:15:08.948941', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 6);
 
+
+
+create table tbl_cart_item
+(
+    cino          bigint auto_increment
+        primary key,
+    qty           int          not null,
+    size          varchar(255) null,
+    cart_cno      bigint       null,
+    color_id      bigint       null,
+    product_pno   bigint       null,
+    member_seller varchar(255) null,
+    constraint FKem31i0jytusbded0v2wvnntyw
+        foreign key (cart_cno) references tbl_cart (cno),
+    constraint FKlsgw78tsc9ttlupegjqjle9wk
+        foreign key (member_seller) references member (email),
+    constraint FKr6uyw4bbjis2mv6nm18oedndp
+        foreign key (color_id) references tbl_color_tag (id),
+    constraint FKs7vg62w3nq7igdxgssq1u0biw
+        foreign key (product_pno) references tbl_product (pno)
+)
+    collate = utf8mb4_general_ci;
+
+create index idx_cartitem_cart
+    on tbl_cart_item (cart_cno);
+
+create index idx_cartitem_pno_cart
+    on tbl_cart_item (product_pno, cart_cno);
+
+
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (2, 'S', 1, 49, 3, 'user1@aaa.com');
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'L', 1, 51, 3, 'user1@aaa.com');
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
+--
+-- create table tbl_order
+-- (
+--     id            bigint auto_increment
+--         primary key,
+--     created_at    datetime(6)  null,
+--     updated_at    datetime(6)  null,
+--     address       varchar(255) null,
+--     message       varchar(255) null,
+--     phone         varchar(255) null,
+--     receiver      varchar(255) null,
+--     zip_code      varchar(255) null,
+--     order_id      varchar(255) null,
+--     pname         varchar(255) null,
+--     pno           bigint       null,
+--     price         bigint       null,
+--     qty           int          not null,
+--     size          varchar(255) null,
+--     thumbnail_url varchar(255) null,
+--     shipping_fee  int          not null,
+--     status        tinyint      null
+--         check (`status` between 0 and 8),
+--     tax           int          not null,
+--     total_amount  int          not null,
+--     member_owner  varchar(255) null,
+--     color_id      bigint       null,
+--     member_seller varchar(255) null,
+--     payment_id    bigint       null,
+--     constraint FK9hi7ee9ie9g5b3gl1wojlaiix
+--         foreign key (payment_id) references tbl_payment (id),
+--     constraint FKh3u1s2xeuavndib8eoo1vm8t8
+--         foreign key (color_id) references tbl_color_tag (id),
+--     constraint FKk81x5d8ow20kj9n01ye3w944t
+--         foreign key (member_owner) references member (email),
+--     constraint FKlfw5r6lmcliepoxoekjqqccnh
+--         foreign key (member_seller) references member (email)
+-- )
+--     collate = utf8mb4_general_ci;
+--
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-27 23:49:07.209828', '2025-02-27 23:50:37.637059', '영등포', '123', '123', '함영은', '07247', 'u2wpgb1wbp', 'Product1', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/92daea48-57ea-4dfb-a753-420677abfcb4_image.png', 3500, 1, 775, 16275, 'user1@aaa.com', 1, 'user1@aaa.com', 1);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 00:24:43.872991', '2025-02-28 00:25:14.721507', '영등포', '123', '123', '함영은', '07247', 'eegy5wh642q', 'Product1', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/92daea48-57ea-4dfb-a753-420677abfcb4_image.png', 3500, 1, 1975, 41475, 'user1@aaa.com', 1, 'user1@aaa.com', 2);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 00:24:43.874997', '2025-02-28 00:25:14.728805', '영등포', '123', '123', '함영은', '07247', 'eegy5wh642q', 'Product2', 2, 12000, 2, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0e60f6c1-cb51-408b-ba2d-4f1b7ca3eea7_landscape-desktop-wallpaper.jpg', 3500, 1, 1975, 41475, 'user1@aaa.com', 2, 'user1@aaa.com', 2);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.167922', '2025-02-28 17:34:03.237237', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '좋은 short sleeves', 5, 15800, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/2d547579-46ea-4e08-b7e5-ed8764e8497d_man-red-polo-shirt-apparel-studio-shoot_53876-102825.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 38, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.173910', '2025-02-28 17:34:03.263835', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '멋진 Sport item', 6, 20000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/fe0796bb-b6d1-4203-8efd-5a15df2d27b9_sporty-woman-carrying-blue-duffle-bag-gym-essentials-studio-shoot_53876-104988.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 39, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.174910', '2025-02-28 17:34:03.270125', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '비싸고 좋은 Bag', 1, 12000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 3, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', 'Nice woman dress', 3, 12500, 1, 'M', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/be1bcd38-b96e-44e8-b6fb-cccc7e7afe98_1705649353000-Btpm4F.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 8, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '굿 퀄리티 White Shirts', 4, 5000, 1, '2XL', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0334ab8c-d8b2-482c-9893-af28853c6883_simple-white-crew-neck-unisex-streetwear-apparel_53876-123185.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 9, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '비싸고 좋은 Bag', 1, 12000, 1, 'L', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 3, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '비싸고 좋은 Bag', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 1, 'user1@aaa.com', 3);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 21:02:11.810300', '2025-02-28 21:02:45.928928', '영등포', '경비실에 두고가주세요.', '1111111', 'HWEWON', '07247', '78ktbzfkrqa', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 4);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 21:02:11.813285', '2025-02-28 21:02:45.938620', '영등포', '경비실에 두고가주세요.', '1111111', 'HWEWON', '07247', '78ktbzfkrqa', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 4);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:10:01.682707', '2025-02-28 22:10:35.753065', '여의도', '문 앞 부탁드려요 ', '12312312', 'Jane Doe', '123123', 'hgdb2sq57le', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 5);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:10:01.688236', '2025-02-28 22:10:35.758933', '여의도', '문 앞 부탁드려요 ', '12312312', 'Jane Doe', '123123', 'hgdb2sq57le', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 5);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.696874', '2025-02-28 22:15:08.936607', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 6);
+-- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.698179', '2025-02-28 22:15:08.948941', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 6);
+--
 
 
 
