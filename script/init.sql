@@ -60,7 +60,63 @@ INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUE
 INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUES ('user9@aaa.com', 1);
 
 
+create table tbl_payment
+(
+    id           bigint auto_increment
+        primary key,
+    created_at   datetime(6)  null,
+    updated_at   datetime(6)  null,
+    country      varchar(255) null,
+    method       tinyint      null
+        check (`method` between 0 and 2),
+    order_id     varchar(255) null,
+    order_name   varchar(255) null,
+    payment_key  varchar(255) null,
+    status       tinyint      null
+        check (`status` between 0 and 7),
+    total_amount int          not null,
+    type         tinyint      null
+        check (`type` between 0 and 2),
+    member_owner varchar(255) null,
+    constraint FKe7v3apj7ter215xcr54xhbkwc
+        foreign key (member_owner) references member (email)
+)
+    collate = utf8mb4_general_ci;
 
+INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-27 23:50:37.628792', '2025-02-27 23:50:37.628792', 'KR', 2, 'u2wpgb1wbp', 'Product1', 'tviva20250227234908E4dn5', 3, 16275, 0, 'user1@aaa.com');
+INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 00:25:14.717991', '2025-02-28 00:25:14.717991', 'KR', 2, 'eegy5wh642q', 'Product1 외 1개', 'tviva20250228002445uJ1u2', 3, 41475, 0, 'user1@aaa.com');
+INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 17:34:03.216548', '2025-02-28 17:34:03.216548', 'KR', 2, 'cn63g68bike', '좋은 short sleeves 외 6개', 'tviva20250228173327EgPH9', 3, 97440, 0, 'user1@aaa.com');
+INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 21:02:45.922932', '2025-02-28 21:02:45.922932', 'KR', 2, '78ktbzfkrqa', '여성 반팔티 외 1개', 'tviva20250228210213q5TM8', 3, 640920, 0, 'user1@aaa.com');
+INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 22:10:35.746542', '2025-02-28 22:10:35.746542', 'KR', 2, 'hgdb2sq57le', '여성 반팔티 외 1개', 'tviva20250228221003v9nJ7', 3, 640920, 0, 'user1@aaa.com');
+INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 22:15:08.930605', '2025-02-28 22:15:08.930605', 'KR', 2, 'f8orvy9vthp', '여성 반팔티 외 1개', 'tviva20250228221432r5tv9', 3, 640920, 0, 'user2@aaa.com');
+
+
+
+create table tbl_order_payment
+(
+    id         bigint auto_increment
+        primary key,
+    order_id   bigint null,
+    payment_id bigint null
+)
+    collate = utf8mb4_general_ci;
+
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (1, 1);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (2, 2);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (3, 2);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (4, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (5, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (6, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (7, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (8, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (9, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (10, 3);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (11, 4);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (12, 4);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (13, 5);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (14, 5);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (15, 6);
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (16, 6);
 
 create table tbl_category
 (
@@ -86,6 +142,38 @@ INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, 
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-02-28 16:01:44.993172', '2025-02-28 17:31:38.307731', 'subCategory1-1-1', '서브카테고리1-1-1', false, 'category/14bbd0dd-1098-41cf-b582-9e375ea1fcb2_KakaoTalk_20241008_144033593.png', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/14bbd0dd-1098-41cf-b582-9e375ea1fcb2_KakaoTalk_20241008_144033593.png');
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-03-09 14:45:39.283070', '2025-03-09 14:46:20.058058', 'category5', '카테고리5', false, 'category/1dbcc5db-022d-46d9-9a03-59e782e7c8ec_nathan-dumlao-6VhPY27jdps-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/1dbcc5db-022d-46d9-9a03-59e782e7c8ec_nathan-dumlao-6VhPY27jdps-unsplash.jpg');
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-03-09 14:46:33.447235', '2025-03-09 14:46:33.447235', 'category6', '카테고리6', false, 'category/8904cb49-79e4-4416-a3be-989d0d875407_anna-pelzer-IGfIGP5ONV0-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/8904cb49-79e4-4416-a3be-989d0d875407_anna-pelzer-IGfIGP5ONV0-unsplash.jpg');
+
+
+create table tbl_category_closure
+(
+	depth int not null,
+	descendant_cno bigint not null,
+	ancestor_cno bigint not null,
+	primary key (ancestor_cno, descendant_cno),
+	constraint FK4ocjdplm8qkynki9xbv8u9ewa
+		foreign key (ancestor_cno) references tbl_category (cno),
+	constraint FKtqmnhrab7f7o30ivo487p3ppv
+		foreign key (descendant_cno) references tbl_category (cno)
+)
+collate=utf8mb4_general_ci;
+
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 1, 1);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 2, 1);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 4, 1);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (2, 8, 1);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 2, 2);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 8, 2);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 3, 3);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 5, 3);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 4, 4);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 5, 5);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 6, 6);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 7, 7);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 8, 8);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 9, 9);
+INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 10, 10);
+
+
 
 
 
@@ -373,70 +461,6 @@ INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, mem
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
 
-create table tbl_category_closure
-(
-	depth int not null,
-	descendant_cno bigint not null,
-	ancestor_cno bigint not null,
-	primary key (ancestor_cno, descendant_cno),
-	constraint FK4ocjdplm8qkynki9xbv8u9ewa
-		foreign key (ancestor_cno) references tbl_category (cno),
-	constraint FKtqmnhrab7f7o30ivo487p3ppv
-		foreign key (descendant_cno) references tbl_category (cno)
-)
-collate=utf8mb4_general_ci;
-
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 1, 1);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 2, 1);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 4, 1);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (2, 8, 1);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 2, 2);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 8, 2);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 3, 3);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (1, 5, 3);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 4, 4);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 5, 5);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 6, 6);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 7, 7);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 8, 8);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 9, 9);
-INSERT INTO apidb.tbl_category_closure (depth, descendant_cno, ancestor_cno) VALUES (0, 10, 10);
-
-
-
-
-
-create table tbl_payment
-(
-    id           bigint auto_increment
-        primary key,
-    created_at   datetime(6)  null,
-    updated_at   datetime(6)  null,
-    country      varchar(255) null,
-    method       tinyint      null
-        check (`method` between 0 and 2),
-    order_id     varchar(255) null,
-    order_name   varchar(255) null,
-    payment_key  varchar(255) null,
-    status       tinyint      null
-        check (`status` between 0 and 7),
-    total_amount int          not null,
-    type         tinyint      null
-        check (`type` between 0 and 2),
-    member_owner varchar(255) null,
-    constraint FKe7v3apj7ter215xcr54xhbkwc
-        foreign key (member_owner) references member (email)
-)
-    collate = utf8mb4_general_ci;
-
-INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-27 23:50:37.628792', '2025-02-27 23:50:37.628792', 'KR', 2, 'u2wpgb1wbp', 'Product1', 'tviva20250227234908E4dn5', 3, 16275, 0, 'user1@aaa.com');
-INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 00:25:14.717991', '2025-02-28 00:25:14.717991', 'KR', 2, 'eegy5wh642q', 'Product1 외 1개', 'tviva20250228002445uJ1u2', 3, 41475, 0, 'user1@aaa.com');
-INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 17:34:03.216548', '2025-02-28 17:34:03.216548', 'KR', 2, 'cn63g68bike', '좋은 short sleeves 외 6개', 'tviva20250228173327EgPH9', 3, 97440, 0, 'user1@aaa.com');
-INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 21:02:45.922932', '2025-02-28 21:02:45.922932', 'KR', 2, '78ktbzfkrqa', '여성 반팔티 외 1개', 'tviva20250228210213q5TM8', 3, 640920, 0, 'user1@aaa.com');
-INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 22:10:35.746542', '2025-02-28 22:10:35.746542', 'KR', 2, 'hgdb2sq57le', '여성 반팔티 외 1개', 'tviva20250228221003v9nJ7', 3, 640920, 0, 'user1@aaa.com');
-INSERT INTO apidb.tbl_payment (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner) VALUES ('2025-02-28 22:15:08.930605', '2025-02-28 22:15:08.930605', 'KR', 2, 'f8orvy9vthp', '여성 반팔티 외 1개', 'tviva20250228221432r5tv9', 3, 640920, 0, 'user2@aaa.com');
-
-
 create table tbl_order
 (
     id            bigint auto_increment
@@ -493,31 +517,6 @@ INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, re
 INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.698179', '2025-02-28 22:15:08.948941', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 6);
 
 
-create table tbl_order_payment
-(
-    id         bigint auto_increment
-        primary key,
-    order_id   bigint null,
-    payment_id bigint null
-)
-    collate = utf8mb4_general_ci;
-
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (1, 1);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (2, 2);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (3, 2);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (4, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (5, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (6, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (7, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (8, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (9, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (10, 3);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (11, 4);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (12, 4);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (13, 5);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (14, 5);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (15, 6);
-INSERT INTO apidb.tbl_order_payment (order_id, payment_id) VALUES (16, 6);
 
 
 create table tbl_review
