@@ -68,8 +68,8 @@ const Header = (props: {
                     </ul>
 
                     <Link href="/" className="text-right block">
-                        <ShoppingBagIcon className="h-6 w-6 block text-sm font-medium text-black dark:text-white"/>
-                        <span className="block text-xs">Mall</span>
+                        <ShoppingBagIcon className="h-6 w-6 block text-sm font-medium text-ecom dark:text-ecom"/>
+                        <span className="block text-xs text-ecom">Mall</span>
                     </Link>
 
                     {/* <!-- User Area --> */}

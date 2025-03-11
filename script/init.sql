@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS apidb;
-
+DROP DATABASE IF EXISTS apidb;
+CREATE DATABASE apidb;
 USE apidb;
 
 -- 사용자 생성 (비밀번호는 환경변수에서 설정한 값을 사용)
