@@ -38,6 +38,26 @@ INSERT INTO apidb.member (email, nickname, password, social, encrypted_id) VALUE
 INSERT INTO apidb.member (email, nickname, password, social, encrypted_id) VALUES ('user9@aaa.com', 'USER9', '$2a$10$mvxa85LaAKv6n72WHmaq5.eagqUZbr6TxK/FNR4/TbtoXQyykJI5q', false, null);
 
 
+
+create table tbl_cart
+(
+    cno          bigint auto_increment
+        primary key,
+    member_owner varchar(255) null,
+    constraint UK_4x59g5i516ao54rb4tnf1x85d
+        unique (member_owner),
+    constraint FK4pvmyvyqisuytcxntao9kimj7
+        foreign key (member_owner) references member (email)
+)
+    collate = utf8mb4_general_ci;
+
+create index idx_cart_email
+    on tbl_cart (member_owner);
+
+INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user1@aaa.com');
+INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user2@aaa.com');
+
+
 create table member_member_role_list
 (
     member_email     varchar(255) not null,
@@ -464,24 +484,6 @@ INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, re
 INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.696874', '2025-02-28 22:15:08.936607', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 6);
 INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.698179', '2025-02-28 22:15:08.948941', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 6);
 
-
-create table tbl_cart
-(
-    cno          bigint auto_increment
-        primary key,
-    member_owner varchar(255) null,
-    constraint UK_4x59g5i516ao54rb4tnf1x85d
-        unique (member_owner),
-    constraint FK4pvmyvyqisuytcxntao9kimj7
-        foreign key (member_owner) references member (email)
-)
-    collate = utf8mb4_general_ci;
-
-create index idx_cart_email
-    on tbl_cart (member_owner);
-
-INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user1@aaa.com');
-INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user2@aaa.com');
 
 
 create table tbl_cart_item
