@@ -88,6 +88,7 @@ INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, 
 INSERT INTO apidb.tbl_category (created_at, updated_at, cdesc, cname, del_flag, file_key, file_name) VALUES ('2025-03-09 14:46:33.447235', '2025-03-09 14:46:33.447235', 'category6', '카테고리6', false, 'category/8904cb49-79e4-4416-a3be-989d0d875407_anna-pelzer-IGfIGP5ONV0-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/8904cb49-79e4-4416-a3be-989d0d875407_anna-pelzer-IGfIGP5ONV0-unsplash.jpg');
 
 
+
 create table tbl_product
 (
     pno            bigint auto_increment
@@ -142,6 +143,48 @@ INSERT INTO apidb.tbl_product (created_at, updated_at, change_policy, del_flag, 
 INSERT INTO apidb.tbl_product (created_at, updated_at, change_policy, del_flag, pdesc, pname, price, refund_policy, sales_status, sku, admin_category, member_owner) VALUES ('2025-02-28 17:30:36.199663', '2025-02-28 17:30:36.199663', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 ', false, '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&nbsp;&nbsp;</p><p><br></p>', '여성 반팔티', 55400, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 ', 0, 'sku-1231', 8, 'user2@aaa.com');
+
+
+create table product_image_list
+(
+    product_pno bigint       not null,
+    file_key    varchar(255) null,
+    file_name   varchar(255) null,
+    ord         int          not null,
+    constraint FKfqvvs4dg13jiki1fur4s3qa43
+        foreign key (product_pno) references tbl_product (pno)
+)
+    collate = utf8mb4_general_ci;
+
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/fe0796bb-b6d1-4203-8efd-5a15df2d27b9_sporty-woman-carrying-blue-duffle-bag-gym-essentials-studio-shoot_53876-104988.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/fe0796bb-b6d1-4203-8efd-5a15df2d27b9_sporty-woman-carrying-blue-duffle-bag-gym-essentials-studio-shoot_53876-104988.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/6c47a9b1-64e5-4fee-bbe1-7a183fad5b98_view-trucker-hat-with-badminton-set_23-2149410093.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/6c47a9b1-64e5-4fee-bbe1-7a183fad5b98_view-trucker-hat-with-badminton-set_23-2149410093.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/2d547579-46ea-4e08-b7e5-ed8764e8497d_man-red-polo-shirt-apparel-studio-shoot_53876-102825.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/2d547579-46ea-4e08-b7e5-ed8764e8497d_man-red-polo-shirt-apparel-studio-shoot_53876-102825.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/875dc8b8-9a48-4754-985f-bcff87236abc_man-wearing-basic-gray-polo-shirt-apparel_53876-102221.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/875dc8b8-9a48-4754-985f-bcff87236abc_man-wearing-basic-gray-polo-shirt-apparel_53876-102221.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/6fe44e37-05af-4bb7-97b6-e177dc62295e_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/6fe44e37-05af-4bb7-97b6-e177dc62295e_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 2);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/0334ab8c-d8b2-482c-9893-af28853c6883_simple-white-crew-neck-unisex-streetwear-apparel_53876-123185.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0334ab8c-d8b2-482c-9893-af28853c6883_simple-white-crew-neck-unisex-streetwear-apparel_53876-123185.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/d927dfd5-4144-40a9-bc8c-375de8d5c7c1_man-wearing-white-sweater-close-up-rear-view_53876-128791.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d927dfd5-4144-40a9-bc8c-375de8d5c7c1_man-wearing-white-sweater-close-up-rear-view_53876-128791.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/4a40ac2f-b80d-48e3-9192-37d676f94201_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/4a40ac2f-b80d-48e3-9192-37d676f94201_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 2);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (3, 'product/be1bcd38-b96e-44e8-b6fb-cccc7e7afe98_1705649353000-Btpm4F.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/be1bcd38-b96e-44e8-b6fb-cccc7e7afe98_1705649353000-Btpm4F.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (3, 'product/1e4e2d5b-2435-470f-9a52-a8133761bcc6_1705392906000-42mkpA.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/1e4e2d5b-2435-470f-9a52-a8133761bcc6_1705392906000-42mkpA.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/a2358edf-e8da-43b3-9af5-8162d645588a_new-pair-white-sneakers-isolated-white_93675-126299.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/a2358edf-e8da-43b3-9af5-8162d645588a_new-pair-white-sneakers-isolated-white_93675-126299.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/9b8d4252-7922-4d3a-880e-a93cf37d7e3a_one-white-sneaker-shoe-isolated-white_93675-134695.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9b8d4252-7922-4d3a-880e-a93cf37d7e3a_one-white-sneaker-shoe-isolated-white_93675-134695.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/f5d68121-8cd5-4c97-9761-bd01d2f85500_white-sneakers-woman-model_53876-97149.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f5d68121-8cd5-4c97-9761-bd01d2f85500_white-sneakers-woman-model_53876-97149.jpg', 2);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/c8670bba-ce02-4d70-83c4-73490c54937e_pink-tote-shopping-bag-with-blank-space_53876-102026.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/c8670bba-ce02-4d70-83c4-73490c54937e_pink-tote-shopping-bag-with-blank-space_53876-102026.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/eb82eb12-4252-48c3-b458-854eefd16210_still-life-hanging-bag_23-2151008976.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/eb82eb12-4252-48c3-b458-854eefd16210_still-life-hanging-bag_23-2151008976.jpg', 2);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/32c08527-5cc0-43ab-a2f0-81e303f9e8b8_still-life-hanging-bag_23-2151008988.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/32c08527-5cc0-43ab-a2f0-81e303f9e8b8_still-life-hanging-bag_23-2151008988.jpg', 3);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/eecc3f52-0190-4894-9293-c2de1f24ed0c_woman-holding-yellow-tote-bag-her-hand_53876-145634.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/eecc3f52-0190-4894-9293-c2de1f24ed0c_woman-holding-yellow-tote-bag-her-hand_53876-145634.jpg', 4);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/508c1dd9-d099-4a31-9754-4920cce837b3_engin-akyurt-ahs1R32GG9Y-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/508c1dd9-d099-4a31-9754-4920cce837b3_engin-akyurt-ahs1R32GG9Y-unsplash.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/6ed54a44-af4d-49ae-9666-b10622bf3023_jason-leung-EtOMMg1nSR8-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/6ed54a44-af4d-49ae-9666-b10622bf3023_jason-leung-EtOMMg1nSR8-unsplash.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/9deb1ffe-d2d3-4853-a965-a612eba6e28f_mnz-m1m2EZOZVwA-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9deb1ffe-d2d3-4853-a965-a612eba6e28f_mnz-m1m2EZOZVwA-unsplash.jpg', 2);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (8, 'product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (8, 'product/43391bd1-51fc-4025-8a7e-aa9a5599df87_lea-ochel-nsRBbE6-YLs-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/43391bd1-51fc-4025-8a7e-aa9a5599df87_lea-ochel-nsRBbE6-YLs-unsplash.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/e429c5bc-8505-4b96-a80e-171992f3e376_kemal-alkan-_BDBEP0ePQc-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/e429c5bc-8505-4b96-a80e-171992f3e376_kemal-alkan-_BDBEP0ePQc-unsplash.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/16580050-2f10-416b-9ba4-412e98e0ac92_kai-gabriel-2s3GhhJz2uY-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/16580050-2f10-416b-9ba4-412e98e0ac92_kai-gabriel-2s3GhhJz2uY-unsplash.jpg', 1);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/3748384d-dc40-4cf4-8367-dd6093d0ed85_jason-leung-EtOMMg1nSR8-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/3748384d-dc40-4cf4-8367-dd6093d0ed85_jason-leung-EtOMMg1nSR8-unsplash.jpg', 2);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (10, 'product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0);
+INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (10, 'product/0af2da98-3833-4766-b846-817c86cb7a67_patrik-velich-AgZc04zHJ-Y-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0af2da98-3833-4766-b846-817c86cb7a67_patrik-velich-AgZc04zHJ-Y-unsplash.jpg', 1);
+
 
 
 create table tbl_color_tag
@@ -266,52 +309,11 @@ create index idx_cartitem_cart
 create index idx_cartitem_pno_cart
     on tbl_cart_item (product_pno, cart_cno);
 
+
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (2, 'S', 1, 49, 3, 'user1@aaa.com');
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'L', 1, 51, 3, 'user1@aaa.com');
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
-
-
-create table product_image_list
-(
-    product_pno bigint       not null,
-    file_key    varchar(255) null,
-    file_name   varchar(255) null,
-    ord         int          not null,
-    constraint FKfqvvs4dg13jiki1fur4s3qa43
-        foreign key (product_pno) references tbl_product (pno)
-)
-    collate = utf8mb4_general_ci;
-
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/fe0796bb-b6d1-4203-8efd-5a15df2d27b9_sporty-woman-carrying-blue-duffle-bag-gym-essentials-studio-shoot_53876-104988.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/fe0796bb-b6d1-4203-8efd-5a15df2d27b9_sporty-woman-carrying-blue-duffle-bag-gym-essentials-studio-shoot_53876-104988.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (6, 'product/6c47a9b1-64e5-4fee-bbe1-7a183fad5b98_view-trucker-hat-with-badminton-set_23-2149410093.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/6c47a9b1-64e5-4fee-bbe1-7a183fad5b98_view-trucker-hat-with-badminton-set_23-2149410093.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/2d547579-46ea-4e08-b7e5-ed8764e8497d_man-red-polo-shirt-apparel-studio-shoot_53876-102825.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/2d547579-46ea-4e08-b7e5-ed8764e8497d_man-red-polo-shirt-apparel-studio-shoot_53876-102825.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/875dc8b8-9a48-4754-985f-bcff87236abc_man-wearing-basic-gray-polo-shirt-apparel_53876-102221.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/875dc8b8-9a48-4754-985f-bcff87236abc_man-wearing-basic-gray-polo-shirt-apparel_53876-102221.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (5, 'product/6fe44e37-05af-4bb7-97b6-e177dc62295e_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/6fe44e37-05af-4bb7-97b6-e177dc62295e_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 2);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/0334ab8c-d8b2-482c-9893-af28853c6883_simple-white-crew-neck-unisex-streetwear-apparel_53876-123185.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0334ab8c-d8b2-482c-9893-af28853c6883_simple-white-crew-neck-unisex-streetwear-apparel_53876-123185.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/d927dfd5-4144-40a9-bc8c-375de8d5c7c1_man-wearing-white-sweater-close-up-rear-view_53876-128791.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/d927dfd5-4144-40a9-bc8c-375de8d5c7c1_man-wearing-white-sweater-close-up-rear-view_53876-128791.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (4, 'product/4a40ac2f-b80d-48e3-9192-37d676f94201_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/4a40ac2f-b80d-48e3-9192-37d676f94201_woman-white-long-sleeve-tee-men-s-fashion-studio-portrait_53876-104312.jpg', 2);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (3, 'product/be1bcd38-b96e-44e8-b6fb-cccc7e7afe98_1705649353000-Btpm4F.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/be1bcd38-b96e-44e8-b6fb-cccc7e7afe98_1705649353000-Btpm4F.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (3, 'product/1e4e2d5b-2435-470f-9a52-a8133761bcc6_1705392906000-42mkpA.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/1e4e2d5b-2435-470f-9a52-a8133761bcc6_1705392906000-42mkpA.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/a2358edf-e8da-43b3-9af5-8162d645588a_new-pair-white-sneakers-isolated-white_93675-126299.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/a2358edf-e8da-43b3-9af5-8162d645588a_new-pair-white-sneakers-isolated-white_93675-126299.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/9b8d4252-7922-4d3a-880e-a93cf37d7e3a_one-white-sneaker-shoe-isolated-white_93675-134695.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9b8d4252-7922-4d3a-880e-a93cf37d7e3a_one-white-sneaker-shoe-isolated-white_93675-134695.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (2, 'product/f5d68121-8cd5-4c97-9761-bd01d2f85500_white-sneakers-woman-model_53876-97149.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f5d68121-8cd5-4c97-9761-bd01d2f85500_white-sneakers-woman-model_53876-97149.jpg', 2);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/c8670bba-ce02-4d70-83c4-73490c54937e_pink-tote-shopping-bag-with-blank-space_53876-102026.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/c8670bba-ce02-4d70-83c4-73490c54937e_pink-tote-shopping-bag-with-blank-space_53876-102026.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/eb82eb12-4252-48c3-b458-854eefd16210_still-life-hanging-bag_23-2151008976.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/eb82eb12-4252-48c3-b458-854eefd16210_still-life-hanging-bag_23-2151008976.jpg', 2);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/32c08527-5cc0-43ab-a2f0-81e303f9e8b8_still-life-hanging-bag_23-2151008988.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/32c08527-5cc0-43ab-a2f0-81e303f9e8b8_still-life-hanging-bag_23-2151008988.jpg', 3);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (1, 'product/eecc3f52-0190-4894-9293-c2de1f24ed0c_woman-holding-yellow-tote-bag-her-hand_53876-145634.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/eecc3f52-0190-4894-9293-c2de1f24ed0c_woman-holding-yellow-tote-bag-her-hand_53876-145634.jpg', 4);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/508c1dd9-d099-4a31-9754-4920cce837b3_engin-akyurt-ahs1R32GG9Y-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/508c1dd9-d099-4a31-9754-4920cce837b3_engin-akyurt-ahs1R32GG9Y-unsplash.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/6ed54a44-af4d-49ae-9666-b10622bf3023_jason-leung-EtOMMg1nSR8-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/6ed54a44-af4d-49ae-9666-b10622bf3023_jason-leung-EtOMMg1nSR8-unsplash.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (7, 'product/9deb1ffe-d2d3-4853-a965-a612eba6e28f_mnz-m1m2EZOZVwA-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9deb1ffe-d2d3-4853-a965-a612eba6e28f_mnz-m1m2EZOZVwA-unsplash.jpg', 2);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (8, 'product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (8, 'product/43391bd1-51fc-4025-8a7e-aa9a5599df87_lea-ochel-nsRBbE6-YLs-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/43391bd1-51fc-4025-8a7e-aa9a5599df87_lea-ochel-nsRBbE6-YLs-unsplash.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/e429c5bc-8505-4b96-a80e-171992f3e376_kemal-alkan-_BDBEP0ePQc-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/e429c5bc-8505-4b96-a80e-171992f3e376_kemal-alkan-_BDBEP0ePQc-unsplash.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/16580050-2f10-416b-9ba4-412e98e0ac92_kai-gabriel-2s3GhhJz2uY-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/16580050-2f10-416b-9ba4-412e98e0ac92_kai-gabriel-2s3GhhJz2uY-unsplash.jpg', 1);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (9, 'product/3748384d-dc40-4cf4-8367-dd6093d0ed85_jason-leung-EtOMMg1nSR8-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/3748384d-dc40-4cf4-8367-dd6093d0ed85_jason-leung-EtOMMg1nSR8-unsplash.jpg', 2);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (10, 'product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0);
-INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord) VALUES (10, 'product/0af2da98-3833-4766-b846-817c86cb7a67_patrik-velich-AgZc04zHJ-Y-unsplash.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0af2da98-3833-4766-b846-817c86cb7a67_patrik-velich-AgZc04zHJ-Y-unsplash.jpg', 1);
-
 
 create table product_size_list
 (
