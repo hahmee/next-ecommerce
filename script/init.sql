@@ -1,6 +1,9 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
 DROP DATABASE IF EXISTS apidb;
 CREATE DATABASE apidb;
 USE apidb;
+
 
 -- 사용자 생성 (비밀번호는 환경변수에서 설정한 값을 사용)
 CREATE USER IF NOT EXISTS 'apidbuser'@'localhost' IDENTIFIED BY 'apidbuser';
@@ -617,3 +620,7 @@ create table tbl_todo
     writer   varchar(255) null
 )
     collate = utf8mb4_general_ci;
+
+
+SET FOREIGN_KEY_CHECKS = 1;
+
