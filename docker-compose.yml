@@ -22,41 +22,41 @@ services: # 컨테이너 설정
       - "3306:3306"
     env_file:
       - .env
-#
-#  back:
-#    container_name: backend-container
-#    image: next-ecommerce-back
-#    restart: always
-#    networks:
-#      - app-network
-#    build:
-#      context: ./back  # 백엔드 디렉토리에서 Dockerfile을 빌드
-#    ports:
-#      - "8080:8080"  # 백엔드 포트
-#    depends_on:
-#      - db
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/${DB_NAME}
-#      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
-#      SPRING_DATASOURCE_USERNAME: ${DB_USER}
-#      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-#      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
-#    volumes:
-#      - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
-#
-#  client:
-#    container_name: client-container
-#    image: next-ecommerce-client
-#    build:
-#      context: ./client  # 프론트엔드 디렉토리에서 Dockerfile을 빌드
-#    ports:
-#      - "3000:3000"  # 프론트엔드 포트
-#    networks:
-#      - app-network  # 같은 네트워크에 속하도록 설정
-#    depends_on:
-#      - back
-#    env_file:
-#      - ./client/.env.docker  # client 폴더의 .env.docker 파일을 적용
+
+  back:
+    container_name: backend-container
+    image: next-ecommerce-back
+    restart: always
+    networks:
+      - app-network
+    build:
+      context: ./back  # 백엔드 디렉토리에서 Dockerfile을 빌드
+    ports:
+      - "8080:8080"  # 백엔드 포트
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/${DB_NAME}
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
+    volumes:
+      - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
+
+  client:
+    container_name: client-container
+    image: next-ecommerce-client
+    build:
+      context: ./client  # 프론트엔드 디렉토리에서 Dockerfile을 빌드
+    ports:
+      - "3000:3000"  # 프론트엔드 포트
+    networks:
+      - app-network  # 같은 네트워크에 속하도록 설정
+    depends_on:
+      - back
+    env_file:
+      - ./client/.env.docker  # client 폴더의 .env.docker 파일을 적용
 
 networks:
   app-network:

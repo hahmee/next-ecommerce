@@ -10,7 +10,7 @@ USE apidb;
 -- CREATE USER IF NOT EXISTS '${APIDB_USER}'@'%' IDENTIFIED BY '${APIDB_PASSWORD}';
 --
 -- GRANT ALL PRIVILEGES ON apidb.* TO '${APIDB_USER}'@'localhost';
--- GRANT ALL PRIVILEGES ON apidb.* TO '${APIDB_USER}'@'%';;
+-- GRANT ALL PRIVILEGES ON apidb.* TO '${APIDB_USER}'@'%';
 --
 -- -- 권한 적용
 -- FLUSH PRIVILEGES;
