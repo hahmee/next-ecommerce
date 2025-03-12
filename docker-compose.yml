@@ -18,6 +18,7 @@ services: # 컨테이너 설정
       - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql  # init.sql을 지정된 디렉토리로 마운트
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
       MARIADB_USER: ${DB_USER}
       MARIADB_PASSWORD: ${DB_PASSWORD}
     ports:
