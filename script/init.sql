@@ -4,16 +4,6 @@ DROP DATABASE IF EXISTS apidb;
 CREATE DATABASE apidb;
 USE apidb;
 
---
--- -- 사용자 생성 (아이디와 비밀번호는 환경변수로 치환)
--- CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';
--- CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';
---
--- GRANT ALL PRIVILEGES ON apidb.* TO '${DB_USER}'@'localhost';
--- GRANT ALL PRIVILEGES ON apidb.* TO '${DB_USER}'@'%';
---
--- -- 권한 적용
--- FLUSH PRIVILEGES;
 
 -- 테이블 생성
 
