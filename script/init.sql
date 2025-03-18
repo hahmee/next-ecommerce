@@ -375,7 +375,6 @@ INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#9ea29d', 'gr
 
 
 
-
     create table product_size_list
 (
     product_pno bigint       not null,
@@ -526,63 +525,6 @@ INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, mem
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'L', 1, 51, 3, 'user1@aaa.com');
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'S', 2, 49, 3, 'user1@aaa.com');
 INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller) VALUES (1, 'XS', 2, 68, 10, 'user2@aaa.com');
---
--- create table tbl_order
--- (
---     id            bigint auto_increment
---         primary key,
---     created_at    datetime(6)  null,
---     updated_at    datetime(6)  null,
---     address       varchar(255) null,
---     message       varchar(255) null,
---     phone         varchar(255) null,
---     receiver      varchar(255) null,
---     zip_code      varchar(255) null,
---     order_id      varchar(255) null,
---     pname         varchar(255) null,
---     pno           bigint       null,
---     price         bigint       null,
---     qty           int          not null,
---     size          varchar(255) null,
---     thumbnail_url varchar(255) null,
---     shipping_fee  int          not null,
---     status        tinyint      null
---         check (`status` between 0 and 8),
---     tax           int          not null,
---     total_amount  int          not null,
---     member_owner  varchar(255) null,
---     color_id      bigint       null,
---     member_seller varchar(255) null,
---     payment_id    bigint       null,
---     constraint FK9hi7ee9ie9g5b3gl1wojlaiix
---         foreign key (payment_id) references tbl_payment (id),
---     constraint FKh3u1s2xeuavndib8eoo1vm8t8
---         foreign key (color_id) references tbl_color_tag (id),
---     constraint FKk81x5d8ow20kj9n01ye3w944t
---         foreign key (member_owner) references member (email),
---     constraint FKlfw5r6lmcliepoxoekjqqccnh
---         foreign key (member_seller) references member (email)
--- )
---     collate = utf8mb4_general_ci;
---
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-27 23:49:07.209828', '2025-02-27 23:50:37.637059', '영등포', '123', '123', '함영은', '07247', 'u2wpgb1wbp', 'Product1', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/92daea48-57ea-4dfb-a753-420677abfcb4_image.png', 3500, 1, 775, 16275, 'user1@aaa.com', 1, 'user1@aaa.com', 1);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 00:24:43.872991', '2025-02-28 00:25:14.721507', '영등포', '123', '123', '함영은', '07247', 'eegy5wh642q', 'Product1', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/92daea48-57ea-4dfb-a753-420677abfcb4_image.png', 3500, 1, 1975, 41475, 'user1@aaa.com', 1, 'user1@aaa.com', 2);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 00:24:43.874997', '2025-02-28 00:25:14.728805', '영등포', '123', '123', '함영은', '07247', 'eegy5wh642q', 'Product2', 2, 12000, 2, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0e60f6c1-cb51-408b-ba2d-4f1b7ca3eea7_landscape-desktop-wallpaper.jpg', 3500, 1, 1975, 41475, 'user1@aaa.com', 2, 'user1@aaa.com', 2);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.167922', '2025-02-28 17:34:03.237237', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '좋은 short sleeves', 5, 15800, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/2d547579-46ea-4e08-b7e5-ed8764e8497d_man-red-polo-shirt-apparel-studio-shoot_53876-102825.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 38, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.173910', '2025-02-28 17:34:03.263835', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '멋진 Sport item', 6, 20000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/fe0796bb-b6d1-4203-8efd-5a15df2d27b9_sporty-woman-carrying-blue-duffle-bag-gym-essentials-studio-shoot_53876-104988.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 39, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.174910', '2025-02-28 17:34:03.270125', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '비싸고 좋은 Bag', 1, 12000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 3, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', 'Nice woman dress', 3, 12500, 1, 'M', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/be1bcd38-b96e-44e8-b6fb-cccc7e7afe98_1705649353000-Btpm4F.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 8, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '굿 퀄리티 White Shirts', 4, 5000, 1, '2XL', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/0334ab8c-d8b2-482c-9893-af28853c6883_simple-white-crew-neck-unisex-streetwear-apparel_53876-123185.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 9, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '비싸고 좋은 Bag', 1, 12000, 1, 'L', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 3, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 17:33:25.175334', '2025-02-28 17:34:03.279832', '영등포', '문 앞 부탁드려요', '123123', 'YoungEun', '123123', 'cn63g68bike', '비싸고 좋은 Bag', 1, 12000, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/930e6424-b6e5-4f76-be0d-446ff377f114_back-view-man-carrying-tote-bag_53876-96623.jpg', 3500, 1, 4640, 97440, 'user1@aaa.com', 1, 'user1@aaa.com', 3);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 21:02:11.810300', '2025-02-28 21:02:45.928928', '영등포', '경비실에 두고가주세요.', '1111111', 'HWEWON', '07247', '78ktbzfkrqa', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 4);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 21:02:11.813285', '2025-02-28 21:02:45.938620', '영등포', '경비실에 두고가주세요.', '1111111', 'HWEWON', '07247', '78ktbzfkrqa', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 4);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:10:01.682707', '2025-02-28 22:10:35.753065', '여의도', '문 앞 부탁드려요 ', '12312312', 'Jane Doe', '123123', 'hgdb2sq57le', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 5);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:10:01.688236', '2025-02-28 22:10:35.758933', '여의도', '문 앞 부탁드려요 ', '12312312', 'Jane Doe', '123123', 'hgdb2sq57le', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 5);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.696874', '2025-02-28 22:15:08.936607', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '여성 반팔티', 10, 55400, 1, 'XS', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/9d20964b-a428-4bd7-b59a-86c5eff86a45_kizkopop-aYGvHIwhm5c-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 68, 'user2@aaa.com', 6);
--- INSERT INTO apidb.tbl_order (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id) VALUES ('2025-02-28 22:14:30.698179', '2025-02-28 22:15:08.948941', '사천', '문 앞 부탁드립니다.', '123123', 'Jungook', '123123', 'f8orvy9vthp', '방수 블랙 재킷', 8, 555000, 1, 'S', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/f317f660-11e1-491a-bf1e-930fc0fea31f_loly-galina-qQB04yQdosk-unsplash.jpg', 0, 1, 30520, 640920, 'user2@aaa.com', 60, 'user2@aaa.com', 6);
---
-
 
 
 
@@ -628,3 +570,148 @@ create table tbl_todo
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+
+
+-- [추가 데이터 입력 예시]
+
+/* 1. tbl_cart: 기존에 cart가 없는 회원에 대해 추가 */
+INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user3@aaa.com');
+INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user4@aaa.com');
+INSERT INTO apidb.tbl_cart (member_owner) VALUES ('user5@aaa.com');
+
+/* 2. tbl_cart_item: 신규 장바구니(cart_cno는 위에서 추가된 순서에 따라 3,4,5라고 가정)
+   ※ color_id, product_pno, member_seller 값은 기존 데이터와 호환되도록 설정 */
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller)
+VALUES (1, 'M', 3, 5, 2, 'user3@aaa.com');
+
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller)
+VALUES (2, 'L', 4, 7, 4, 'user4@aaa.com');
+
+INSERT INTO apidb.tbl_cart_item (qty, size, cart_cno, color_id, product_pno, member_seller)
+VALUES (1, 'S', 5, 8, 1, 'user5@aaa.com');
+
+/* 3. tbl_payment: 신규 결제 데이터 추가 */
+INSERT INTO apidb.tbl_payment
+  (created_at, updated_at, country, method, order_id, order_name, payment_key, status, total_amount, type, member_owner)
+VALUES
+  ('2025-03-10 10:00:00', '2025-03-10 10:00:00', 'KR', 1, 'newpay1', 'New Payment 1', 'paykey1', 2, 50000, 0, 'user3@aaa.com'),
+  ('2025-03-10 11:00:00', '2025-03-10 11:00:00', 'KR', 2, 'newpay2', 'New Payment 2', 'paykey2', 3, 75000, 0, 'user4@aaa.com'),
+  ('2025-03-10 12:00:00', '2025-03-10 12:00:00', 'KR', 0, 'newpay3', 'New Payment 3', 'paykey3', 1, 60000, 1, 'user5@aaa.com');
+
+/* 4. tbl_order: 신규 주문 데이터 추가
+   - order_id는 결제의 order_id와 동일하게 입력하고, payment_id는 서브쿼리로 해당 결제의 id를 참조하도록 함
+   - color_id 값은 tbl_color_tag에 존재하는 (예, 5, 7, 8 등) 유효한 값으로 설정 */
+INSERT INTO apidb.tbl_order
+  (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id)
+VALUES
+  ('2025-03-10 10:05:00', '2025-03-10 10:05:00', 'Seoul', 'Leave at door', '01011112222', 'User Three', '10001', 'newpay1', 'Extra Product Order', 2, 12000, 1, 'M', 'https://example.com/thumb1.jpg', 2500, 1, 500, 50000, 'user3@aaa.com', 5, 'user3@aaa.com',
+      (SELECT id FROM apidb.tbl_payment WHERE order_id='newpay1'));
+
+INSERT INTO apidb.tbl_order
+  (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id)
+VALUES
+  ('2025-03-10 11:05:00', '2025-03-10 11:05:00', 'Busan', 'Call on arrival', '01033334444', 'User Four', '20002', 'newpay2', 'Extra Product Order', 4, 5000, 2, 'L', 'https://example.com/thumb2.jpg', 3000, 1, 600, 75000, 'user4@aaa.com', 7, 'user4@aaa.com',
+      (SELECT id FROM apidb.tbl_payment WHERE order_id='newpay2'));
+
+INSERT INTO apidb.tbl_order
+  (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id)
+VALUES
+  ('2025-03-10 12:05:00', '2025-03-10 12:05:00', 'Incheon', 'Please deliver fast', '01055556666', 'User Five', '30003', 'newpay3', 'Extra Product Order', 1, 12000, 1, 'XS', 'https://example.com/thumb3.jpg', 2000, 1, 400, 60000, 'user5@aaa.com', 8, 'user5@aaa.com',
+      (SELECT id FROM apidb.tbl_payment WHERE order_id='newpay3'));
+
+/* 5. tbl_order_payment: 주문과 결제의 연결 (신규 주문에 대해) */
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id)
+VALUES
+  ((SELECT id FROM apidb.tbl_order WHERE order_id='newpay1'), (SELECT id FROM apidb.tbl_payment WHERE order_id='newpay1'));
+
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id)
+VALUES
+  ((SELECT id FROM apidb.tbl_order WHERE order_id='newpay2'), (SELECT id FROM apidb.tbl_payment WHERE order_id='newpay2'));
+
+INSERT INTO apidb.tbl_order_payment (order_id, payment_id)
+VALUES
+  ((SELECT id FROM apidb.tbl_order WHERE order_id='newpay3'), (SELECT id FROM apidb.tbl_payment WHERE order_id='newpay3'));
+
+/* 6. tbl_review: 신규 리뷰 추가 */
+INSERT INTO apidb.tbl_review
+  (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id)
+VALUES
+  ('2025-03-10 13:00:00', '2025-03-10 13:00:00', 'Excellent product!', 'newpay1', 5,
+      (SELECT id FROM apidb.tbl_order WHERE order_id='newpay1'), 'user3@aaa.com', 2);
+
+INSERT INTO apidb.tbl_review
+  (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id)
+VALUES
+  ('2025-03-10 13:05:00', '2025-03-10 13:05:00', 'Good value for money.', 'newpay2', 4,
+      (SELECT id FROM apidb.tbl_order WHERE order_id='newpay2'), 'user4@aaa.com', 4);
+
+INSERT INTO apidb.tbl_review
+  (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id)
+VALUES
+  ('2025-03-10 13:10:00', '2025-03-10 13:10:00', 'Satisfactory.', 'newpay3', 3,
+      (SELECT id FROM apidb.tbl_order WHERE order_id='newpay3'), 'user5@aaa.com', 1);
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE insert_50_products()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+    DECLARE new_prod_id BIGINT;
+
+    WHILE i <= 50 DO
+        -- 1. tbl_product에 신규 제품 추가
+        INSERT INTO apidb.tbl_product
+            (created_at, updated_at, change_policy, del_flag, pdesc, pname, price, refund_policy, sales_status, sku, admin_category, member_owner)
+        VALUES
+            (
+              NOW(), NOW(),
+              'Standard change policy applies.',
+              false,
+              CONCAT('<p>Description for Extra Product ', i, '</p>'),
+              CONCAT('Extra Product ', i),
+              10000 + i * 100,
+              'Standard refund policy applies.',
+              0,
+              CONCAT('SKU_EXTRA_', i),
+              ((i - 1) MOD 10) + 1,
+              IF(MOD(i,2)=1, 'user1@aaa.com', 'user2@aaa.com')
+            );
+
+        SET new_prod_id = LAST_INSERT_ID();
+
+        -- 2. 해당 제품의 이미지 3건 추가 (기존 이미지 URL 사용, 중복 삽입 가능)
+        INSERT INTO apidb.product_image_list (product_pno, file_key, file_name, ord)
+        VALUES
+            (new_prod_id, 'product/sample1.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/sample1.jpg', 0),
+            (new_prod_id, 'product/sample2.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/sample2.jpg', 1),
+            (new_prod_id, 'product/sample3.jpg', 'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/product/sample3.jpg', 2);
+
+        -- 3. 해당 제품의 사이즈 정보 추가 (예시: S, M, L)
+        INSERT INTO apidb.product_size_list (product_pno, size_list)
+        VALUES
+            (new_prod_id, 'S'),
+            (new_prod_id, 'M'),
+            (new_prod_id, 'L');
+
+        -- 4. 해당 제품의 컬러 태그 추가 (예시: red와 blue)
+        INSERT INTO apidb.tbl_color_tag (color, text, product_id)
+        VALUES
+            ('#ff0000', 'red', new_prod_id),
+            ('#0000ff', 'blue', new_prod_id);
+
+        SET i = i + 1;
+    END WHILE;
+END //
+
+DELIMITER ;
+
+-- 저장 프로시저 호출
+CALL insert_50_products();
+
+-- 사용 후 프로시저 삭제
+DROP PROCEDURE insert_50_products;
