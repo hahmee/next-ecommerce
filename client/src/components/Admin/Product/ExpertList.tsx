@@ -5,9 +5,7 @@ import React, {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {getExpertProducts} from "@/apis/adminAPI";
-import Skeleton from "@/components/Skeleton/Skeleton";
 import {ArrowLongLeftIcon, ArrowLongRightIcon, StarIcon} from "@heroicons/react/20/solid";
-
 import Link from "next/link";
 
 const ExpertList = () => {
@@ -20,7 +18,7 @@ const ExpertList = () => {
         throwOnError: true,
         select: (data) => {
             return data.data;
-        }
+        },
     });
 
     // 현재 페이지 번호 (0부터 시작)

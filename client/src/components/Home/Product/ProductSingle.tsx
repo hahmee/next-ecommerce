@@ -26,7 +26,6 @@ const ProductSingle = ({id}: Props) => {
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
-
     });
 
     const {data:reviews} = useQuery<DataResponse<Array<Review>>, Object, Array<Review>, [_1: string, _2: string]>({

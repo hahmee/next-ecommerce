@@ -360,6 +360,21 @@ INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#00d0ff', 'sk
 INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#000000', 'black', 10);
 INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#ff0000', 'red', 10);
 
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#000000', 'black', 8);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#c9c9c9', 'gray', 8);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#ff0000', 'red', 9);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#ff00f0', 'pink', 9);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#7e00ff', 'purple', 9);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#00d0ff', 'skyblue', 9);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#000000', 'black', 10);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#ff0000', 'red', 10);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#06ff00', 'green', null);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#9ea29d', 'gray', null);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#06ff00', 'green', 6);
+INSERT INTO apidb.tbl_color_tag (color, text, product_id) VALUES ('#9ea29d', 'gray', 6);
+
+
+
 
     create table product_size_list
 (

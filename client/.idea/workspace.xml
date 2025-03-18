@@ -5,6 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ExpertList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ExpertList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/TopOrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/TopOrderTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../script/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../script/init.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -653,7 +659,9 @@
       <workItem from="1741598252021" duration="3162000" />
       <workItem from="1741614802969" duration="1585000" />
       <workItem from="1741654596863" duration="18126000" />
-      <workItem from="1741741424498" duration="4578000" />
+      <workItem from="1741741424498" duration="8115000" />
+      <workItem from="1742262740299" duration="641000" />
+      <workItem from="1742283215561" duration="472000" />
     </task>
     <servers />
   </component>

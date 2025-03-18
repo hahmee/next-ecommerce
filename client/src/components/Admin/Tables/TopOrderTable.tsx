@@ -97,7 +97,7 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
               >
                 <div className="flex items-center gap-3 p-2.5">
                   <div className="flex-shrink-0">
-                    <Image src={product.thumbnail} alt="image" width={500} height={500} className="object-cover w-15 h-10 flex-none"/>
+                    <Image src={product.thumbnail || "/images/mall/no_image.png"} alt="image" width={500} height={500} className="object-cover w-15 h-10 flex-none"/>
                   </div>
                   <p className="hidden text-black dark:text-white sm:block">
                     {product.pname}
