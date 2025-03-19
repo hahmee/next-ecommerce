@@ -34,7 +34,7 @@ const UserReviews = () => {
                     <div className="mb-2 cursor-pointer" key={review.rno} onClick={()=>router.push(`/product/${review.pno}`)} >
                         <ul className="border border-gray-200 rounded p-3 text-sm">
                             <li className="flex py-1.5 gap-2">
-                                <Image src={review.order?.productInfo.thumbnailUrl || ""} alt={'image'} width={500} height={500} className="w-20 h-20 rounded object-cover"/>
+                                <Image src={review.order?.productInfo.thumbnailUrl || "/images/mall/no_image.png"} alt={'image'} width={500} height={500} className="w-20 h-20 rounded object-cover"/>
                                 <div className="flex flex-col gap-2 justify-center">
                                 <span className="font-semibold">{review.order?.productInfo.pname}</span>
                                 <span className="text-gray-500 text-xs">{review.order?.productInfo.size} | {review.order?.productInfo.color.text}</span>

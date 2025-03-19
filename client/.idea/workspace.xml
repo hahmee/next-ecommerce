@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../script/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../script/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/FullMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/FullMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/UserReviews.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserReviews.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -657,6 +659,7 @@
       <workItem from="1741741424498" duration="8115000" />
       <workItem from="1742262740299" duration="641000" />
       <workItem from="1742283215561" duration="3428000" />
+      <workItem from="1742366386981" duration="4178000" />
     </task>
     <servers />
   </component>

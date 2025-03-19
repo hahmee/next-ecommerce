@@ -88,9 +88,7 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
                                 <div className="flex gap-3 justify-between">
                                     <div className="flex gap-x-3">
                                         <Link href={`/product/${item.productInfo.pno}`}>
-                                            <Image src={item.productInfo.thumbnailUrl} alt={'image'} width={500}
-                                                   height={500}
-                                                   className="w-20 h-20 rounded object-cover"/>
+                                            <Image src={item.productInfo.thumbnailUrl || "/images/mall/no_image.png"} alt={'image'} width={500} height={500} className="w-20 h-20 rounded object-cover"/>
                                         </Link>
                                         <div className="flex flex-col text-xs">
                                             <span>{item.productInfo.pname}</span>
