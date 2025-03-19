@@ -2,7 +2,10 @@ package org.zerock.mallapi.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.zerock.mallapi.exception.ErrorCode;
 
 import javax.crypto.SecretKey;
@@ -11,9 +14,20 @@ import java.util.Date;
 import java.util.Map;
 
 @Log4j2
+@Component
 public class JWTUtil {
 
-  private static String key = "";
+  @Value("${jwt.secret}")
+  private String secretKey;
+
+  private static String key;
+
+  @PostConstruct
+  public void init() {
+    key = this.secretKey;  // ✅ Spring이 초기화된 후 값 설정
+    log.info("JWT Secret Key Initialized: " + key);  // ✅ 초기화 로그 추가
+  }
+
 
   public static String generateToken(Map<String, Object> valueMap, int min) {
 
