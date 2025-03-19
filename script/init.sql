@@ -750,3 +750,147 @@ CALL insert_50_products();
 
 -- 사용 후 프로시저 삭제
 DROP PROCEDURE insert_50_products;
+
+
+
+
+-----------------------------------------------------------
+-- [추가 제품 리뷰 50건 삽입]
+-----------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE insert_additional_reviews()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  DECLARE order_id_val BIGINT;
+  DECLARE prod_val BIGINT;
+  DECLARE mem VARCHAR(255);
+
+  WHILE i <= 50 DO
+    -- 기존 리뷰에 없는 주문을 선택 (한 주문에 한 리뷰 제약을 만족)
+    SELECT id
+      INTO order_id_val
+      FROM tbl_order
+      WHERE id NOT IN (SELECT oid FROM tbl_review)
+      ORDER BY RAND()
+      LIMIT 1;
+
+    -- 임의의 제품 선택
+    SELECT pno
+      INTO prod_val
+      FROM tbl_product
+      ORDER BY RAND()
+      LIMIT 1;
+
+    SET mem = CASE MOD(i,3)
+                WHEN 0 THEN 'user1@aaa.com'
+                WHEN 1 THEN 'user2@aaa.com'
+                ELSE 'user3@aaa.com'
+              END;
+
+    INSERT INTO tbl_review
+      (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id)
+    VALUES
+      (NOW(), NOW(), CONCAT('Review content ', i),
+       CONCAT('order_review_', i), FLOOR(1 + RAND()*5),
+       order_id_val, mem, prod_val);
+
+    SET i = i + 1;
+  END WHILE;
+END //
+
+DELIMITER ;
+
+CALL insert_additional_reviews();
+DROP PROCEDURE insert_additional_reviews;
+
+-----------------------------------------------------------
+-- [추가 주문 20건 삽입]
+-----------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE insert_additional_orders()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  DECLARE prod_val BIGINT;
+  DECLARE mem VARCHAR(255);
+
+  WHILE i <= 20 DO
+    -- 임의의 제품 선택
+    SELECT pno
+      INTO prod_val
+      FROM tbl_product
+      ORDER BY RAND()
+      LIMIT 1;
+
+    SET mem = CASE MOD(i,3)
+                WHEN 0 THEN 'user1@aaa.com'
+                WHEN 1 THEN 'user2@aaa.com'
+                ELSE 'user3@aaa.com'
+              END;
+
+    INSERT INTO tbl_order
+      (created_at, updated_at, address, message, phone, receiver, zip_code, order_id, pname, pno, price, qty, size, thumbnail_url, shipping_fee, status, tax, total_amount, member_owner, color_id, member_seller, payment_id)
+    VALUES
+      (NOW(), NOW(), 'Sample Address', 'Test order message', '0100000000', 'Receiver', '00000',
+       CONCAT('order_new_', i), 'Test Product', prod_val, 10000, FLOOR(1 + RAND()*5), 'M',
+       'https://example.com/thumb.jpg', 3000, 1, 500, 13500, mem, NULL, mem, NULL);
+
+    SET i = i + 1;
+  END WHILE;
+END //
+
+DELIMITER ;
+
+CALL insert_additional_orders();
+DROP PROCEDURE insert_additional_orders;
+
+-----------------------------------------------------------
+-- [추가 장바구니 항목(cart item) 20건 삽입]
+-----------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE insert_additional_cart_items()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  DECLARE cart_val BIGINT;
+  DECLARE prod_val BIGINT;
+  DECLARE mem VARCHAR(255);
+  DECLARE size_val VARCHAR(10);
+
+  WHILE i <= 20 DO
+    -- 임의의 cart 선택 (tbl_cart는 회원당 한 건이므로 이미 생성된 cart 중 임의 선택)
+    SELECT cno
+      INTO cart_val
+      FROM tbl_cart
+      ORDER BY RAND()
+      LIMIT 1;
+
+    -- 임의의 제품 선택
+    SELECT pno
+      INTO prod_val
+      FROM tbl_product
+      ORDER BY RAND()
+      LIMIT 1;
+
+    SET mem = (SELECT member_owner FROM tbl_cart WHERE cno = cart_val LIMIT 1);
+
+    SET size_val = CASE FLOOR(RAND()*3)
+                     WHEN 0 THEN 'S'
+                     WHEN 1 THEN 'M'
+                     ELSE 'L'
+                   END;
+
+    INSERT INTO tbl_cart_item
+      (qty, size, cart_cno, color_id, product_pno, member_seller)
+    VALUES
+      (FLOOR(1 + RAND()*3), size_val, cart_val, NULL, prod_val, mem);
+
+    SET i = i + 1;
+  END WHILE;
+END //
+
+DELIMITER ;
+
+CALL insert_additional_cart_items();
+DROP PROCEDURE insert_additional_cart_items;
