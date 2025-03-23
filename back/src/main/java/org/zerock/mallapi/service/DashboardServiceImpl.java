@@ -7,6 +7,7 @@ import com.google.protobuf.Timestamp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,6 @@ import org.zerock.mallapi.repository.MemberRepository;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +45,11 @@ public class DashboardServiceImpl implements DashboardService{
 
   private final GoogleCredentials googleCredentials;
 
+  @Value("${google.analytics.productId}")
+  private String propertyId;
+
+  @Value("${google.cloud.projectId}")
+  private String projectId;
 
   @Override
   public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO) {
@@ -616,12 +621,10 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
 
-    String propertyId = environment.getProperty("google.analytics.productId");
-
     try {
       CompletableFuture<GAResponseDTO> sessionsFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGASessions(propertyId, gaRequestDTO);
+              return getGASessions(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
@@ -629,42 +632,42 @@ public class DashboardServiceImpl implements DashboardService{
 
       CompletableFuture<List<SessionDTO<String>>> topPagesFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGATopPages(propertyId, gaRequestDTO);
+              return getGATopPages(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
       });
       CompletableFuture<List<SessionDTO<String>>> topSourcesFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGATopSources(propertyId, gaRequestDTO);
+              return getGATopSources(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
       });
       CompletableFuture<SessionChartDTO> chartFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGAChart(propertyId, gaRequestDTO);
+              return getGAChart(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
       });
       CompletableFuture<List<SessionDTO<String>>> devicesFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGADevices(propertyId, gaRequestDTO);
+              return getGADevices(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
       });
       CompletableFuture<List<SessionDTO<String>>> visitorsFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGAVisitors(propertyId, gaRequestDTO);
+              return getGAVisitors(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
       });
       CompletableFuture<List<CountryChartDTO>> countriesFuture = CompletableFuture.supplyAsync(() -> {
           try {
-              return getGACountries(propertyId, gaRequestDTO);
+              return getGACountries(gaRequestDTO);
           } catch (Exception e) {
               throw new RuntimeException(e);
           }
@@ -702,13 +705,11 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO) {
 
-    String propertyId = environment.getProperty("google.analytics.productId");
-
     try {
 
       CompletableFuture<List<SessionDTO<String>>> recentVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
-          return getGARecentUser(propertyId, gaRequestDTO);
+          return getGARecentUser(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -716,7 +717,7 @@ public class DashboardServiceImpl implements DashboardService{
 
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
-          return getGAActiveVisitors(propertyId, gaRequestDTO);
+          return getGAActiveVisitors(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -724,7 +725,7 @@ public class DashboardServiceImpl implements DashboardService{
 
       CompletableFuture<SessionChartDTO> activeVisitChartFuture = CompletableFuture.supplyAsync(() -> {
         try {
-          return getGAActiveVisitChart(propertyId, gaRequestDTO);
+          return getGAActiveVisitChart(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -732,7 +733,7 @@ public class DashboardServiceImpl implements DashboardService{
 
       CompletableFuture<List<SessionDTO<String>>> eventsFuture = CompletableFuture.supplyAsync(() -> {
         try {
-          return getGAEvents(propertyId, gaRequestDTO);
+          return getGAEvents( gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -740,7 +741,7 @@ public class DashboardServiceImpl implements DashboardService{
 
       CompletableFuture<List<SessionDTO<String>>> devicesFuture = CompletableFuture.supplyAsync(() -> {
         try {
-          return getGARealTimeDevices(propertyId, gaRequestDTO);
+          return getGARealTimeDevices(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
@@ -788,7 +789,7 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   //실시간 보고서 - 최근 방문자
-  private List<SessionDTO<String>> getGARecentUser(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGARecentUser(GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
     List<SessionDTO<String>> recentUsers = new ArrayList<>();
@@ -846,7 +847,7 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  private SessionChartDTO getGAActiveVisitChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private SessionChartDTO getGAActiveVisitChart(GARequestDTO gaRequestDTO) throws Exception {
 
     ArrayList<String> xaxis = new ArrayList<>(31); //0분에서 30분까지
     List<String> data = new ArrayList<>(31);
@@ -913,7 +914,7 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   //실시간 보고서 -
-  private List<SessionDTO<String>> getGAEvents(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGAEvents(GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
     List<SessionDTO<String>> results = new ArrayList<>();
@@ -960,7 +961,7 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   //실시간 보고서 -
-  private List<SessionDTO<String>> getGARealTimeDevices(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGARealTimeDevices(GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
     List<SessionDTO<String>> results = new ArrayList<>();
@@ -1005,7 +1006,7 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   //실시간 보고서 - 지난 30분 동안의 활성 사용자 & 조회수
-  private List<SessionDTO<String>> getGAActiveVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGAActiveVisitors(GARequestDTO gaRequestDTO) throws Exception {
 
     // 결과 처리
     List<SessionDTO<String>> result = new ArrayList<>();
@@ -1061,118 +1062,236 @@ public class DashboardServiceImpl implements DashboardService{
     return timestamp.toString();
   }
 
-  private List<CountryChartDTO> getGACountries(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<CountryChartDTO> getGACountries(GARequestDTO gaRequestDTO) throws Exception {
 
-    // 결과 처리
     List<CountryChartDTO> countries = new ArrayList<>();
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+    // BigQuery 클라이언트 생성
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
 
-      RunReportRequest request = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder()
-                      .setStartDate(gaRequestDTO.getStartDate())
-                      .setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .addDimensions(Dimension.newBuilder().setName("countryId")) // 국가별 차원 추가
-              .addDimensions(Dimension.newBuilder().setName("cityId")) // 도시별 차원 추가
-              .build();
+    // 날짜 범위 형식 (예: "YYYYMMDD")
+    String startDate = formatDate(gaRequestDTO.getStartDate());
+    String endDate = formatDate(gaRequestDTO.getEndDate());
 
+    // BigQuery SQL 쿼리 작성
+    // - geo.country와 geo.city 필드를 사용해 그룹화하고, event_name이 'session_start'인 이벤트의 개수를 집계합니다.
+    String query = "SELECT " +
+            "IFNULL(geo.country, 'Unknown') AS country, " +
+            "IFNULL(geo.city, 'Unknown') AS city, " +
+            "COUNTIF(event_name = 'session_start') AS sessions " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE _TABLE_SUFFIX BETWEEN '" + startDate + "' " +
+            "AND '" + endDate + "' " +
+            "GROUP BY country, city " +
+            "ORDER BY sessions DESC";
 
-      // 상위 페이지 보고서 실행
-      RunReportResponse response = analyticsData.runReport(request);
+    QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
+    TableResult result = bigQuery.query(queryConfig);
 
-      for (Row row : response.getRowsList()) {
-        String countryCode = row.getDimensionValues(0).getValue();
-        String cityCode = row.getDimensionValues(1).getValue();
-        String sessions = row.getMetricValues(0).getValue();
+    // 쿼리 결과 처리
+    for (FieldValueList row : result.iterateAll()) {
+      String countryCode = (row.get("country") == null || row.get("country").isNull())
+              ? "Unknown" : row.get("country").getStringValue();
+      String cityCode = (row.get("city") == null || row.get("city").isNull())
+              ? "Unknown" : row.get("city").getStringValue();
+      String sessions = (row.get("sessions") == null || row.get("sessions").isNull())
+              ? "0" : row.get("sessions").getStringValue();
 
-        List<Double> coordinates = getCoordinates(countryCode);
-        countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
+      // 예시: countryCode에 따른 좌표를 가져오는 메서드 호출 (필요시 cityCode 사용)
+      List<Double> coordinates = getCoordinates(countryCode);
 
-      }
-
+      // CountryChartDTO 객체 생성 (필드: country, sessions, coordinates)
+      countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
     }
 
     return countries;
 
+
+//    // 결과 처리
+//    List<CountryChartDTO> countries = new ArrayList<>();
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//      RunReportRequest request = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder()
+//                      .setStartDate(gaRequestDTO.getStartDate())
+//                      .setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .addDimensions(Dimension.newBuilder().setName("countryId")) // 국가별 차원 추가
+//              .addDimensions(Dimension.newBuilder().setName("cityId")) // 도시별 차원 추가
+//              .build();
+//
+//
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse response = analyticsData.runReport(request);
+//
+//      for (Row row : response.getRowsList()) {
+//        String countryCode = row.getDimensionValues(0).getValue();
+//        String cityCode = row.getDimensionValues(1).getValue();
+//        String sessions = row.getMetricValues(0).getValue();
+//
+//        List<Double> coordinates = getCoordinates(countryCode);
+//        countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
+//
+//      }
+//
+//    }
+//
+//    return countries;
+
   }
 
 
 
-  private List<SessionDTO<String>> getGAVisitors(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGAVisitors(GARequestDTO gaRequestDTO) throws Exception {
 
-    // 결과 처리
+
     List<SessionDTO<String>> visitors = new ArrayList<>();
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+    // BigQuery 클라이언트 생성
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
 
-      RunReportRequest request = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder()
-                      .setStartDate(gaRequestDTO.getStartDate())
-                      .setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .addDimensions(Dimension.newBuilder().setName("newVsReturning")) // 새로운 방문자 vs 기존 방문자
-              .build();
+    // 날짜 포맷 (예: YYYYMMDD 형식) - formatDate() 함수가 이를 반환한다고 가정합니다.
+    String startDate = formatDate(gaRequestDTO.getStartDate());
+    String endDate = formatDate(gaRequestDTO.getEndDate());
 
+    // BigQuery SQL 쿼리 작성:
+    // 1. WITH user_status: 사용자별로 'first_visit' 이벤트가 있는지 여부와 session_start 이벤트 수를 집계합니다.
+    // 2. 메인 쿼리: 사용자별 집계 결과를 기반으로 신규(1) vs 기존(0) 방문자 그룹으로 나누고, 각 그룹의 세션 수 합계를 계산합니다.
+    String query = "WITH user_status AS (\n" +
+            "  SELECT \n" +
+            "    user_pseudo_id,\n" +
+            "    MAX(CASE WHEN event_name = 'first_visit' THEN 1 ELSE 0 END) AS is_new,\n" +
+            "    COUNTIF(event_name = 'session_start') AS sessions\n" +
+            "  FROM `" + projectId + ".analytics_" + propertyId + ".events_*`\n" +
+            "  WHERE _TABLE_SUFFIX BETWEEN '" + startDate + "' AND '" + endDate + "'\n" +
+            "  GROUP BY user_pseudo_id\n" +
+            ")\n" +
+            "SELECT \n" +
+            "  CASE WHEN is_new = 1 THEN 'new' ELSE 'returning' END AS newVsReturning,\n" +
+            "  SUM(sessions) AS sessions\n" +
+            "FROM user_status\n" +
+            "GROUP BY newVsReturning\n" +
+            "ORDER BY sessions DESC\n" +
+            "LIMIT 5";
 
-      // 상위 페이지 보고서 실행
-      RunReportResponse response = analyticsData.runReport(request);
+    QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
+    TableResult result = bigQuery.query(queryConfig);
 
-      for (Row row : response.getRowsList()) {
-        String trafficSource = row.getDimensionValues(0).getValue();
-        String sessions = row.getMetricValues(0).getValue();
-
-
-        visitors.add(new SessionDTO(trafficSource, sessions));
-      }
-
+    for (FieldValueList row : result.iterateAll()) {
+      String newVsReturning = (row.get("newVsReturning") == null || row.get("newVsReturning").isNull())
+              ? "Unknown" : row.get("newVsReturning").getStringValue();
+      String sessionsValue = (row.get("sessions") == null || row.get("sessions").isNull())
+              ? "0" : row.get("sessions").getStringValue();
+      visitors.add(new SessionDTO<>(newVsReturning, sessionsValue));
     }
+
     return visitors;
 
+//    // 결과 처리
+//    List<SessionDTO<String>> visitors = new ArrayList<>();
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//      RunReportRequest request = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder()
+//                      .setStartDate(gaRequestDTO.getStartDate())
+//                      .setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .addDimensions(Dimension.newBuilder().setName("newVsReturning")) // 새로운 방문자 vs 기존 방문자
+//              .build();
+//
+//
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse response = analyticsData.runReport(request);
+//
+//      for (Row row : response.getRowsList()) {
+//        String trafficSource = row.getDimensionValues(0).getValue();
+//        String sessions = row.getMetricValues(0).getValue();
+//
+//
+//        visitors.add(new SessionDTO(trafficSource, sessions));
+//      }
+//
+//    }
+//    return visitors;
+
   }
 
 
 
-  private List<SessionDTO<String>> getGADevices(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private List<SessionDTO<String>> getGADevices(GARequestDTO gaRequestDTO) throws Exception {
 
-    // 결과 처리
+
     List<SessionDTO<String>> devices = new ArrayList<>();
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
-      RunReportRequest request = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder()
-                      .setStartDate(gaRequestDTO.getStartDate())
-                      .setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .addDimensions(Dimension.newBuilder().setName("deviceCategory")) // 기기별 세션 보기
-              .build();
+    // BigQuery 클라이언트 생성
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
 
+    // SQL 쿼리 구성:
+    // event_name이 'session_start'인 이벤트에서 device.category 값을 기준으로 세션 수를 집계
+    String query = "SELECT " +
+            "IFNULL(device.category, 'Unknown') AS deviceCategory, " +
+            "COUNTIF(event_name = 'session_start') AS sessions " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE event_name = 'session_start' " +
+            "AND _TABLE_SUFFIX BETWEEN '" + formatDate(gaRequestDTO.getStartDate()) + "' " +
+            "AND '" + formatDate(gaRequestDTO.getEndDate()) + "' " +
+            "GROUP BY deviceCategory " +
+            "ORDER BY sessions DESC " +
+            "LIMIT 5";
 
-      // 상위 페이지 보고서 실행
-      RunReportResponse response = analyticsData.runReport(request);
+    QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
+    TableResult result = bigQuery.query(queryConfig);
 
-      for (Row row : response.getRowsList()) {
-        String trafficSource = row.getDimensionValues(0).getValue();
-        String sessions = row.getMetricValues(0).getValue();
-
-
-        devices.add(new SessionDTO(trafficSource, sessions));
-      }
-
+    for (FieldValueList row : result.iterateAll()) {
+      String deviceCategory = (row.get("deviceCategory") == null || row.get("deviceCategory").isNull())
+              ? "Unknown" : row.get("deviceCategory").getStringValue();
+      String sessions = (row.get("sessions") == null || row.get("sessions").isNull())
+              ? "0" : row.get("sessions").getStringValue();
+      devices.add(new SessionDTO<>(deviceCategory, sessions));
     }
+
     return devices;
+
+//    // 결과 처리
+//    List<SessionDTO<String>> devices = new ArrayList<>();
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//      RunReportRequest request = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder()
+//                      .setStartDate(gaRequestDTO.getStartDate())
+//                      .setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .addDimensions(Dimension.newBuilder().setName("deviceCategory")) // 기기별 세션 보기
+//              .build();
+//
+//
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse response = analyticsData.runReport(request);
+//
+//      for (Row row : response.getRowsList()) {
+//        String trafficSource = row.getDimensionValues(0).getValue();
+//        String sessions = row.getMetricValues(0).getValue();
+//
+//
+//        devices.add(new SessionDTO(trafficSource, sessions));
+//      }
+//
+//    }
+//    return devices;
 
   }
 
@@ -1184,9 +1303,9 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private GAResponseDTO getGASessions(GARequestDTO gaRequestDTO) throws Exception {
 
-    String projectId = environment.getProperty("google.cloud.project-id");
+//    String projectId = environment.getProperty("google.cloud.project-id");
 
     log.info("gaRequestDTO..." + gaRequestDTO);
     // BigQuery 클라이언트 생성
@@ -1374,10 +1493,212 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-//  //CompletableFuture 으로 병렬 요청하여 시간 단축
-//  private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+  private SessionChartDTO getGAChart(GARequestDTO gaRequestDTO) throws Exception {
+
+    List<String> xaxis = new ArrayList<>();
+    List<String> data = new ArrayList<>();
+
+    ChartFilter filter = gaRequestDTO.getFilter();
+    String dimensionExpression = "";
+
+    // 필터에 따라 차원(날짜)를 결정합니다.
+    if (filter == ChartFilter.DAY) {
+      // event_date는 'YYYYMMDD' 형식이므로, 이를 'YYYY-MM-DD'로 포맷합니다.
+      dimensionExpression = "FORMAT_DATE('%Y-%m-%d', PARSE_DATE('%Y%m%d', event_date))";
+    } else if (filter == ChartFilter.WEEK) {
+      // 주 단위: event_date를 날짜로 변환 후, 해당 주의 시작일(MONDAY 기준)로 변환
+      dimensionExpression = "FORMAT_DATE('%Y-%m-%d', DATE_TRUNC(PARSE_DATE('%Y%m%d', event_date), WEEK(MONDAY)))";
+    } else if (filter == ChartFilter.MONTH) {
+      // 월 단위: event_date의 앞 6자리 (YYYYMM)
+      dimensionExpression = "SUBSTR(event_date, 1, 6)";
+    } else if (filter == ChartFilter.YEAR) {
+      // 연 단위: event_date의 앞 4자리 (YYYY)
+      dimensionExpression = "SUBSTR(event_date, 1, 4)";
+    } else {
+      // 기본값
+      dimensionExpression = "event_date";
+    }
+
+    // BigQuery 쿼리 문자열 작성
+    // 이 쿼리는 지정한 기간 내의 이벤트 테이블에서 event_name이 'session_start'인 행을 대상으로,
+    // dimensionExpression으로 계산된 차원별 세션 수를 집계합니다.
+    String query = "SELECT " + dimensionExpression + " AS chartDimension, " +
+            "COUNTIF(event_name = 'session_start') AS sessions " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE _TABLE_SUFFIX BETWEEN '" + formatDate(gaRequestDTO.getStartDate()) + "' " +
+            "AND '" + formatDate(gaRequestDTO.getEndDate()) + "' " +
+            "GROUP BY chartDimension " +
+            "ORDER BY chartDimension";
+
+    // BigQuery 클라이언트 생성 및 쿼리 실행
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
+    QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
+    TableResult result = bigQuery.query(queryConfig);
+
+    // 쿼리 결과 처리: 각 행에서 차원 값과 세션 수를 추출하여 xaxis와 data 리스트에 추가
+    for (FieldValueList row : result.iterateAll()) {
+      String chartDimension = row.get("chartDimension").getStringValue();
+      String sessionsStr = row.get("sessions").getStringValue();
+      xaxis.add(chartDimension);
+      data.add(sessionsStr);
+    }
+
+    // SessionChartDTO 객체 생성하여 반환
+    SessionChartDTO sessionChart = SessionChartDTO.builder()
+            .xaxis(xaxis)
+            .data(data)
+            .build();
+
+    return sessionChart;
 //
-//    GAResponseDTO gaResponseDTO = null; // 객체 초기화
+//    List<String> xaxis = new ArrayList<>();
+//    List<String> data = new ArrayList<>();
+//
+//    ChartFilter filter = gaRequestDTO.getFilter();
+//
+//    String filterString = "date";
+//
+//    if( filter != null) {
+//      switch (filter) {
+//
+//        case DAY:
+//          filterString = "date";
+//          break;
+//
+//        case WEEK:
+//          filterString = "week";
+//          break;
+//
+//        case MONTH:
+//          filterString = "month";
+//          break;
+//
+//        case YEAR:
+//          filterString = "year";
+//          break;
+//
+//        default:
+//          break;
+//      }
+//    }
+//
+//
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//      // 상위 페이지 요청
+//      RunReportRequest.Builder requestBuilder = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .addDimensions(Dimension.newBuilder().setName(filterString)); // day, week, month, year 세션 보기
+//
+//      // 필터가 WEEK 일 경우 'year' 차원 추가
+//      if (filter == ChartFilter.WEEK) {
+//        requestBuilder.addDimensions(Dimension.newBuilder().setName("year")); // year 세션 보기
+//      }
+//
+//
+//      // 날짜별 정렬 추가
+//      requestBuilder.addOrderBys(OrderBy.newBuilder().setDimension(OrderBy.DimensionOrderBy.newBuilder().setDimensionName(filterString)).build());
+//
+//      RunReportRequest request = requestBuilder.build();
+//
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse response = analyticsData.runReport(request);
+//
+//
+//      for (Row row : response.getRowsList()) {
+//        String date = row.getDimensionValues(0).getValue(); //20240110 or 41 or 10 or 2024
+//
+//
+//        String formattedDate = "";
+//
+//        //DAY라면
+//        if(filter == ChartFilter.DAY) {
+//
+//          // yyyyMMdd 형식으로 LocalDate로 변환
+//          DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
+//          LocalDate yymmdd = LocalDate.parse(date, originalFormat);
+//
+//          // yyyy-MM-dd 형식으로 변환
+//          DateTimeFormatter targetFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//          formattedDate = yymmdd.format(targetFormat);
+//
+//        } else if (filter == ChartFilter.WEEK) {
+//          String year = row.getDimensionValues(1).getValue(); //20240110 or 41 or 10 or 2024
+//
+//          LocalDate weekStartDate = getWeekStartDate(Integer.parseInt(year), Integer.parseInt(date));
+//          formattedDate = weekStartDate.toString();
+//
+//        } else {
+//          formattedDate = date;
+//        }
+//
+//
+//        String sessions = row.getMetricValues(0).getValue();
+//
+//        xaxis.add(formattedDate);
+//        data.add(sessions);
+//
+//      }
+//
+//    }
+//
+//
+//    // sessionChart 객체 생성
+//    SessionChartDTO sessionChart = SessionChartDTO.builder()
+//            .xaxis(xaxis)  // xaxis 리스트 추가
+//            .data(data)    // data 리스트 추가
+//            .build();
+//
+//    return sessionChart;
+
+  }
+
+
+
+  private List<SessionDTO<String>> getGATopSources(GARequestDTO gaRequestDTO) throws Exception {
+
+    List<SessionDTO<String>> topSources = new ArrayList<>();
+
+    // BigQuery 클라이언트 생성
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
+
+    // 상위 소스 쿼리 작성
+    // event_name이 'session_start'인 이벤트에서 traffic_source.source 필드를 기준으로 세션 수 집계
+    String topSourcesQuery = "SELECT " +
+            "IFNULL(traffic_source.source, 'Unknown') AS trafficSource, " +
+            "COUNT(*) AS sessions " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE event_name = 'session_start' " +
+            "AND _TABLE_SUFFIX BETWEEN '" + formatDate(gaRequestDTO.getStartDate()) + "' " +
+            "AND '" + formatDate(gaRequestDTO.getEndDate()) + "' " +
+            "GROUP BY trafficSource " +
+            "ORDER BY sessions DESC " +
+            "LIMIT 5";
+
+    QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(topSourcesQuery).build();
+    TableResult result = bigQuery.query(queryConfig);
+
+    log.info("...result.." + result);
+    for (FieldValueList row : result.iterateAll()) {
+      String trafficSource = (row.get("trafficSource") == null || row.get("trafficSource").isNull())
+              ? "Unknown" : row.get("trafficSource").getStringValue();
+      String sessions = (row.get("sessions") == null || row.get("sessions").isNull())
+              ? "0" : row.get("sessions").getStringValue();
+      topSources.add(new SessionDTO<>(trafficSource, sessions));
+    }
+
+    return topSources;
+
+
+//    // 결과 처리
+//    List<SessionDTO<String>> topPages = new ArrayList<>();
 //
 //    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
 //            .setCredentialsProvider(() -> googleCredentials)
@@ -1385,255 +1706,99 @@ public class DashboardServiceImpl implements DashboardService{
 //
 //    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 //
-//      //첫번째 기간에 대한 요청
-//      RunReportRequest request = RunReportRequest.newBuilder()
+//
+//      // 상위 페이지 요청
+//      RunReportRequest topSourcesRequest = RunReportRequest.newBuilder()
 //              .setProperty("properties/" + propertyId)
+//              .addDimensions(Dimension.newBuilder().setName("manualSource"))  // 트래픽 소스
 //              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-//              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
-//              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-//              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .setLimit(5)
 //              .build();
 //
-//      // 두 번째 기간의 요청 생성 (예: 비교 기간, 실제로 다른 날짜 범위를 설정해야 함)
-//      RunReportRequest compareRequest = RunReportRequest.newBuilder()
-//              .setProperty("properties/" + propertyId)
-//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-//              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
-//              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-//              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
-//              .build();
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse topSourcesResponse = analyticsData.runReport(topSourcesRequest);
 //
-//      // 병렬로 두 요청 실행
-//      CompletableFuture<RunReportResponse> future1 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(request));
-//      CompletableFuture<RunReportResponse> future2 = CompletableFuture.supplyAsync(() -> analyticsData.runReport(compareRequest));
+//      for (Row row : topSourcesResponse.getRowsList()) {
+//        String trafficSource = row.getDimensionValues(0).getValue();
+//        String sessions = row.getMetricValues(0).getValue();
 //
 //
-//      RunReportResponse response = future1.get();
-//      RunReportResponse compareResponse = future2.get();
-//
-//
-//      // 첫 번째 기간의 결과를 저장
-//      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
-//
-//      Double avgSessionDuration = 0.0;
-//
-//
-//      if (!response.getRowsList().isEmpty()) {
-//        Row row = response.getRows(0); // 첫 번째 행을 가져옴
-//        sessions = row.getMetricValues(0).getValue(); //사이트 세션
-//        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
-//        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
-//        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
+//        topPages.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
 //      }
 //
-//      // 두 번째 기간 데이터 처리
-//      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
-//      Double avgSessionDurationCompared = 0.0;
-//      if (!compareResponse.getRowsList().isEmpty()) {
-//        Row compareRow = compareResponse.getRows(0);
-//        sessionsCompared = compareRow.getMetricValues(0).getValue();
-//        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
-//        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue();
-//        avgSessionDurationCompared = Double.parseDouble(userEngagementDurationCompared) / Double.parseDouble(sessionsCompared);
-//      }
-//
-//      gaResponseDTO = gaResponseDTO.builder()
-//              .sessions(sessions)
-//              .uniqueVisitors(uniqueVisitors)
-//              .avgSessionDuration(avgSessionDuration.toString())
-//              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
-//              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
-//              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
-//              .build();
 //    }
-//
-//    return gaResponseDTO;
-//  }
-
-
-  private SessionChartDTO getGAChart(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
-
-    List<String> xaxis = new ArrayList<>();
-    List<String> data = new ArrayList<>();
-
-    ChartFilter filter = gaRequestDTO.getFilter();
-
-    String filterString = "date";
-
-    if( filter != null) {
-      switch (filter) {
-
-        case DAY:
-          filterString = "date";
-          break;
-
-        case WEEK:
-          filterString = "week";
-          break;
-
-        case MONTH:
-          filterString = "month";
-          break;
-
-        case YEAR:
-          filterString = "year";
-          break;
-
-        default:
-          break;
-      }
-    }
-
-
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
-
-
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
-
-      // 상위 페이지 요청
-      RunReportRequest.Builder requestBuilder = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .addDimensions(Dimension.newBuilder().setName(filterString)); // day, week, month, year 세션 보기
-
-      // 필터가 WEEK 일 경우 'year' 차원 추가
-      if (filter == ChartFilter.WEEK) {
-        requestBuilder.addDimensions(Dimension.newBuilder().setName("year")); // year 세션 보기
-      }
-
-
-      // 날짜별 정렬 추가
-      requestBuilder.addOrderBys(OrderBy.newBuilder().setDimension(OrderBy.DimensionOrderBy.newBuilder().setDimensionName(filterString)).build());
-
-      RunReportRequest request = requestBuilder.build();
-
-      // 상위 페이지 보고서 실행
-      RunReportResponse response = analyticsData.runReport(request);
-
-
-      for (Row row : response.getRowsList()) {
-        String date = row.getDimensionValues(0).getValue(); //20240110 or 41 or 10 or 2024
-
-
-        String formattedDate = "";
-
-        //DAY라면
-        if(filter == ChartFilter.DAY) {
-
-          // yyyyMMdd 형식으로 LocalDate로 변환
-          DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
-          LocalDate yymmdd = LocalDate.parse(date, originalFormat);
-
-          // yyyy-MM-dd 형식으로 변환
-          DateTimeFormatter targetFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-          formattedDate = yymmdd.format(targetFormat);
-
-        } else if (filter == ChartFilter.WEEK) {
-          String year = row.getDimensionValues(1).getValue(); //20240110 or 41 or 10 or 2024
-
-          LocalDate weekStartDate = getWeekStartDate(Integer.parseInt(year), Integer.parseInt(date));
-          formattedDate = weekStartDate.toString();
-
-        } else {
-          formattedDate = date;
-        }
-
-
-        String sessions = row.getMetricValues(0).getValue();
-
-        xaxis.add(formattedDate);
-        data.add(sessions);
-
-      }
-
-    }
-
-
-    // sessionChart 객체 생성
-    SessionChartDTO sessionChart = SessionChartDTO.builder()
-            .xaxis(xaxis)  // xaxis 리스트 추가
-            .data(data)    // data 리스트 추가
-            .build();
-//
-    return sessionChart;
+//    return topPages;
 
   }
 
 
+  private List<SessionDTO<String>> getGATopPages(GARequestDTO gaRequestDTO) throws Exception {
 
-  private List<SessionDTO<String>> getGATopSources(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
-
-    // 결과 처리
     List<SessionDTO<String>> topPages = new ArrayList<>();
 
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
+    // BigQuery 클라이언트 생성
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+    // 상위 페이지 쿼리 작성
+    // 각 페이지별 session_start 이벤트 수(세션 수)를 집계
+    String topPagesQuery = "SELECT " +
+            "IFNULL((SELECT ep.value.string_value " +
+            "        FROM UNNEST(event_params) AS ep " +
+            "        WHERE ep.key = 'page_location'), 'Unknown') AS pageLocation, " +
+            "COUNT(*) AS sessions " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE event_name = 'page_view' " +
+            "AND _TABLE_SUFFIX BETWEEN '" + formatDate(gaRequestDTO.getStartDate()) + "' " +
+            "AND '" + formatDate(gaRequestDTO.getEndDate()) + "' " +
+            "GROUP BY pageLocation " +
+            "ORDER BY sessions DESC " +
+            "LIMIT 5";
 
-
-      // 상위 페이지 요청
-      RunReportRequest topSourcesRequest = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("manualSource"))  // 트래픽 소스
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .setLimit(5)
-              .build();
-
-      // 상위 페이지 보고서 실행
-      RunReportResponse topSourcesResponse = analyticsData.runReport(topSourcesRequest);
-
-      for (Row row : topSourcesResponse.getRowsList()) {
-        String trafficSource = row.getDimensionValues(0).getValue();
-        String sessions = row.getMetricValues(0).getValue();
-
-
-        topPages.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
-      }
-
-    }
-    return topPages;
-
-  }
-
-
-  private List<SessionDTO<String>> getGATopPages(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
+    QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(topPagesQuery).build();
+    TableResult result = bigQuery.query(queryConfig);
 
     // 결과 처리
-    List<SessionDTO<String>> topPages = new ArrayList<>();
-
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
-
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
-
-      // 상위 페이지 요청
-      RunReportRequest topPagesRequest = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 기준
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-              .setLimit(5)
-              .build();
-
-      // 상위 페이지 보고서 실행
-      RunReportResponse topPagesResponse = analyticsData.runReport(topPagesRequest);
-
-
-      for (Row row : topPagesResponse.getRowsList()) {
-        String pagePath = row.getDimensionValues(0).getValue();
-        String pageSessions = row.getMetricValues(0).getValue();
-        topPages.add(new SessionDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성
-      }
-
+    for (FieldValueList row : result.iterateAll()) {
+      String pagePath = row.get("pageLocation").getStringValue();
+      String sessions = row.get("sessions").getStringValue();
+      topPages.add(new SessionDTO<>(pagePath, sessions));
     }
+
     return topPages;
+
+
+
+    //    // 결과 처리
+//    List<SessionDTO<String>> topPages = new ArrayList<>();
+//
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//      // 상위 페이지 요청
+//      RunReportRequest topPagesRequest = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 기준
+//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
+//              .setLimit(5)
+//              .build();
+//
+//      // 상위 페이지 보고서 실행
+//      RunReportResponse topPagesResponse = analyticsData.runReport(topPagesRequest);
+//
+//
+//      for (Row row : topPagesResponse.getRowsList()) {
+//        String pagePath = row.getDimensionValues(0).getValue();
+//        String pageSessions = row.getMetricValues(0).getValue();
+//        topPages.add(new SessionDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성
+//      }
+//
+//    }
+//    return topPages;
 
   }
 
