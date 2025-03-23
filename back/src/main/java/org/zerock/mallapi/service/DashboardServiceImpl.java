@@ -1,7 +1,8 @@
 package org.zerock.mallapi.service;
 
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.analytics.data.v1beta.*;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.bigquery.*;
 import com.google.protobuf.Timestamp;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -1175,98 +1176,200 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
+  /**
+   * GARequestDTO의 날짜(예:"2024-03-01")를 BigQuery Export 테이블의 _TABLE_SUFFIX 형식(예:"20240301")으로 변환.
+   */
+  private String formatDate(String date) {
+    return date.replace("-", "");
+  }
 
-  //original
+
   private GAResponseDTO getGASessions(String propertyId, GARequestDTO gaRequestDTO) throws Exception {
 
-    GAResponseDTO gaResponseDTO = null; // 객체 초기화
+    String projectId = environment.getProperty("google.cloud.project-id");
 
-    String sellerEmail = gaRequestDTO.getSellerEmail();
+    log.info("gaRequestDTO..." + gaRequestDTO);
+    // BigQuery 클라이언트 생성
+    BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
+    log.info("bigQuery..." + bigQuery);
 
-    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-            .setCredentialsProvider(() -> googleCredentials)
-            .build();
+    // 메인 기간 쿼리 작성 (백틱(`)을 사용하여 테이블 참조)
+    String mainQuery = "SELECT " +
+            "COUNTIF(event_name = 'session_start') AS sessions, " +
+            "COUNT(DISTINCT user_pseudo_id) AS activeUsers, " +
+            "SUM(CAST((SELECT ep.value.int_value " +
+            "     FROM UNNEST(event_params) AS ep " +
+            "     WHERE ep.key = 'engagement_time_msec') AS INT64)) / 1000.0 AS userEngagementDuration " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE _TABLE_SUFFIX BETWEEN '" + formatDate(gaRequestDTO.getStartDate()) + "' " +
+            "AND '" + formatDate(gaRequestDTO.getEndDate()) + "'";
 
-    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
 
-//      // 사용자의 ID로 필터링 설정 (맞춤 차원으로 필터링)
-//      FilterExpression filterByUserId = FilterExpression.newBuilder()
-//              .setFilter(Filter.newBuilder()
-//                      .setFieldName("customUser:seller_id") // 사용자 유형 기반으로 필터링
-//                      .setStringFilter(Filter.StringFilter.newBuilder()
-//                              .setMatchType(Filter.StringFilter.MatchType.EXACT)
-//                              .setValue(sellerEmail)
-//                      ))
-//              .build();
+    QueryJobConfiguration mainQueryConfig = QueryJobConfiguration.newBuilder(mainQuery).build();
+    TableResult mainResult = bigQuery.query(mainQueryConfig);
+    log.info("mainResult..." + mainResult);
 
-      //첫번째 기간에 대한 요청
-      RunReportRequest request = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
-              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
-//              .setDimensionFilter(filterByUserId)
-              .build();
+    // 기본 값 설정
+    String sessions = "0";
+    String activeUsers = "0";
+    String userEngagementDuration = "0";
+    double avgSessionDuration = 0.0;
 
-      // 첫번째 기간에 대한 Run the report
-      RunReportResponse response = analyticsData.runReport(request);
+    // 첫 번째 행의 결과 파싱
+    for (FieldValueList row : mainResult.iterateAll()) {
+      sessions = (row.get("sessions") == null || row.get("sessions").isNull())
+              ? "0" : row.get("sessions").getStringValue();
+      activeUsers = (row.get("activeUsers") == null || row.get("activeUsers").isNull())
+              ? "0" : row.get("activeUsers").getStringValue();
+      userEngagementDuration = (row.get("userEngagementDuration") == null || row.get("userEngagementDuration").isNull())
+              ? "0" : row.get("userEngagementDuration").getStringValue();
 
-      // 첫 번째 기간의 결과를 저장
-      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
-
-      Double avgSessionDuration = 0.0;
-
-      if (!response.getRowsList().isEmpty()) {
-        Row row = response.getRows(0); // 첫 번째 행을 가져옴
-        sessions = row.getMetricValues(0).getValue(); //사이트 세션
-        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
-        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
-        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
+      double s = Double.parseDouble(sessions);
+      double u = Double.parseDouble(userEngagementDuration);
+      if (s != 0) {
+        avgSessionDuration = u / s;
       }
-
-
-//////////////////////
-
-
-      // 두 번째 기간에 대한 요청
-      RunReportRequest compareRequest = RunReportRequest.newBuilder()
-              .setProperty("properties/" + propertyId)
-              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
-              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
-              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
-              .build();
-
-      // 두 번째 기간에 대한 보고서 실행
-      RunReportResponse compareResponse = analyticsData.runReport(compareRequest);
-
-      // 두 번째 기간의 결과를 저장
-      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
-
-      Double avgSessionDurationCompared = 0.0;
-
-      if (!compareResponse.getRowsList().isEmpty()) {
-        Row compareRow = compareResponse.getRows(0); // 첫 번째 행을 가져옴
-        sessionsCompared = compareRow.getMetricValues(0).getValue();
-        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
-        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue(); //사용자 참여도
-        avgSessionDurationCompared =  Double.parseDouble(userEngagementDurationCompared) /  Double.parseDouble(sessionsCompared);  // avg.session duration
-
-      }
-
-
-      gaResponseDTO = gaResponseDTO.builder()
-              .sessions(sessions)
-              .uniqueVisitors(uniqueVisitors)
-              .avgSessionDuration(avgSessionDuration.toString())
-              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
-              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
-              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
-              .build();
+      break; // 첫 번째 행만 사용
     }
 
-    return gaResponseDTO; // 마지막 행의 객체 반환
+    // 비교 기간 날짜 설정 (비교 날짜가 없다면 메인 기간과 동일하게 사용)
+    String compareStartDate = (gaRequestDTO.getComparedStartDate() != null && !gaRequestDTO.getComparedStartDate().isEmpty())
+            ? gaRequestDTO.getComparedStartDate() : gaRequestDTO.getStartDate();
+    String compareEndDate = (gaRequestDTO.getComparedEndDate() != null && !gaRequestDTO.getComparedEndDate().isEmpty())
+            ? gaRequestDTO.getComparedEndDate() : gaRequestDTO.getEndDate();
+
+    // 비교 기간 쿼리 작성 (백틱(`) 사용)
+    String compareQuery = "SELECT " +
+            "COUNTIF(event_name = 'session_start') AS sessions, " +
+            "COUNT(DISTINCT user_pseudo_id) AS activeUsers, " +
+            "SUM(CAST((SELECT ep.value.int_value " +
+            "     FROM UNNEST(event_params) AS ep " +
+            "     WHERE ep.key = 'engagement_time_msec') AS INT64)) / 1000.0 AS userEngagementDuration " +
+            "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
+            "WHERE _TABLE_SUFFIX BETWEEN '" + formatDate(compareStartDate) + "' " +
+            "AND '" + formatDate(compareEndDate) + "'";
+
+    QueryJobConfiguration compareQueryConfig = QueryJobConfiguration.newBuilder(compareQuery).build();
+    TableResult compareResult = bigQuery.query(compareQueryConfig);
+    log.info("compareResult..." + compareResult);
+
+    String sessionsCompared = "0";
+    String activeUsersCompared = "0";
+    String userEngagementDurationCompared = "0";
+    double avgSessionDurationCompared = 0.0;
+
+    for (FieldValueList row : compareResult.iterateAll()) {
+      sessionsCompared = (row.get("sessions") == null || row.get("sessions").isNull())
+              ? "0" : row.get("sessions").getStringValue();
+      activeUsersCompared = (row.get("activeUsers") == null || row.get("activeUsers").isNull())
+              ? "0" : row.get("activeUsers").getStringValue();
+      userEngagementDurationCompared = (row.get("userEngagementDuration") == null || row.get("userEngagementDuration").isNull())
+              ? "0" : row.get("userEngagementDuration").getStringValue();
+
+      double s2 = Double.parseDouble(sessionsCompared);
+      double u2 = Double.parseDouble(userEngagementDurationCompared);
+      if (s2 != 0) {
+        avgSessionDurationCompared = u2 / s2;
+      }
+      break;
+    }
+
+    // GAResponseDTO 생성 (calculatePercentageDifference()는 기존 함수 사용)
+    GAResponseDTO gaResponseDTO = GAResponseDTO.builder()
+            .sessions(sessions)
+            .uniqueVisitors(activeUsers)
+            .avgSessionDuration(Double.toString(avgSessionDuration))
+            .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
+            .uniqueVisitorsCompared(calculatePercentageDifference(activeUsers, activeUsersCompared))
+            .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
+            .build();
+
+    log.info("gaResponseDTO..." + gaResponseDTO);
+
+    return gaResponseDTO;
+
+
+
+//
+//    GAResponseDTO gaResponseDTO = null; // 객체 초기화
+//
+//    String sellerEmail = gaRequestDTO.getSellerEmail();
+//
+//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
+//            .setCredentialsProvider(() -> googleCredentials)
+//            .build();
+//
+//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
+//
+//
+//      //첫번째 기간에 대한 요청
+//      RunReportRequest request = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+//              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+//              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) // 사용자 참여도
+////              .setDimensionFilter(filterByUserId)
+//              .build();
+//
+//      // 첫번째 기간에 대한 Run the report
+//      RunReportResponse response = analyticsData.runReport(request);
+//
+//      // 첫 번째 기간의 결과를 저장
+//      String sessions = "0", uniqueVisitors = "0", userEngagementDuration = "0";
+//
+//      Double avgSessionDuration = 0.0;
+//
+//      if (!response.getRowsList().isEmpty()) {
+//        Row row = response.getRows(0); // 첫 번째 행을 가져옴
+//        sessions = row.getMetricValues(0).getValue(); //사이트 세션
+//        uniqueVisitors = row.getMetricValues(1).getValue(); // 고유 방문자자
+//        userEngagementDuration = row.getMetricValues(2).getValue(); //사용자 참여도
+//        avgSessionDuration =  Double.parseDouble(userEngagementDuration) /  Double.parseDouble(sessions);  // avg.session duration
+//      }
+//
+//
+////////////////////////
+//
+//
+//      // 두 번째 기간에 대한 요청
+//      RunReportRequest compareRequest = RunReportRequest.newBuilder()
+//              .setProperty("properties/" + propertyId)
+//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
+//              .addMetrics(Metric.newBuilder().setName("sessions")) // 사이트 세션
+//              .addMetrics(Metric.newBuilder().setName("activeUsers")) // 고유 방문자
+//              .addMetrics(Metric.newBuilder().setName("userEngagementDuration")) //사용자 참여도
+//              .build();
+//
+//      // 두 번째 기간에 대한 보고서 실행
+//      RunReportResponse compareResponse = analyticsData.runReport(compareRequest);
+//
+//      // 두 번째 기간의 결과를 저장
+//      String sessionsCompared = "0", uniqueVisitorsCompared = "0", userEngagementDurationCompared = "0";
+//
+//      Double avgSessionDurationCompared = 0.0;
+//
+//      if (!compareResponse.getRowsList().isEmpty()) {
+//        Row compareRow = compareResponse.getRows(0); // 첫 번째 행을 가져옴
+//        sessionsCompared = compareRow.getMetricValues(0).getValue();
+//        uniqueVisitorsCompared = compareRow.getMetricValues(1).getValue();
+//        userEngagementDurationCompared = compareRow.getMetricValues(2).getValue(); //사용자 참여도
+//        avgSessionDurationCompared =  Double.parseDouble(userEngagementDurationCompared) /  Double.parseDouble(sessionsCompared);  // avg.session duration
+//
+//      }
+//
+//
+//      gaResponseDTO = gaResponseDTO.builder()
+//              .sessions(sessions)
+//              .uniqueVisitors(uniqueVisitors)
+//              .avgSessionDuration(avgSessionDuration.toString())
+//              .sessionsCompared(calculatePercentageDifference(sessions, sessionsCompared))
+//              .uniqueVisitorsCompared(calculatePercentageDifference(uniqueVisitors, uniqueVisitorsCompared))
+//              .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
+//              .build();
+//    }
+//
+//    return gaResponseDTO; // 마지막 행의 객체 반환
 
   }
 
