@@ -15,6 +15,7 @@ import dynamic from "next/dynamic";
 import {MapResponse} from "@/interface/MapResponse";
 import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
 import formatDate from "@/libs/formatDate";
+import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -63,14 +64,14 @@ const SalesOverview: React.FC = () => {
   const memberInfo = getCookie('member');
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-  const [date, setDate] = useState({
-    startDate: formatDate(startDate),
-    endDate:formatDate(endDate)
+  const [date, setDate] = useState<DateRangeType>({
+    startDate: startDate,
+    endDate: endDate
   });
 
-  const [comparedDate, setComparedDate] = useState({
-    startDate: formatDate(comparedStartDate),
-    endDate: formatDate(comparedEndDate),
+  const [comparedDate, setComparedDate] = useState<DateRangeType>({
+    startDate: comparedStartDate,
+    endDate: comparedEndDate,
   });
 
 
@@ -202,8 +203,8 @@ const SalesOverview: React.FC = () => {
       comparedStartDate.setDate(comparedEndDate.getDate() - diffInDays);
 
       setComparedDate({
-        startDate: formatDate(comparedStartDate),
-        endDate: formatDate(comparedEndDate),
+        startDate: comparedStartDate,
+        endDate: comparedEndDate,
       });
     };
 
@@ -219,9 +220,10 @@ const SalesOverview: React.FC = () => {
   return (
       <>
         <div>
-          <AdminDatePicker date={date} dateChange={dateChange}/>
+          <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
+            ({comparedDate?.startDate?.toLocaleDateString('en-CA')} ~ {comparedDate?.endDate?.toLocaleDateString('en-CA')})
+          </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           <CardDataStats title="Total Sales" total={salesCards?.totalSales} rate={salesCards?.totalSalesCompared} id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
