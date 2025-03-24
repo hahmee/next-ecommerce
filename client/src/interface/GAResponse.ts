@@ -5,10 +5,8 @@ export interface GAResponse {
   sessionsCompared: string; // 숫자 or '-'
   uniqueVisitorsCompared: string;
   avgSessionDurationCompared: string;
-
   topPages: Array<SessionDTO<number>>;
   topSources: Array<SessionDTO<number>>;
-
   sessionChart: SessionChart;
   devices: Array<SessionDTO<number>>;
   visitors: Array<SessionDTO<number>>;

@@ -11,6 +11,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
 
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
@@ -20,10 +21,12 @@ const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ss
 
 const TrafficOverview: React.FC = () => {
 
-  const endDate = new Date(); // today
+  const endDate = new Date() ; // today
   const startDate = new Date();  // today
 
-  startDate.setDate(endDate.getDate() - 30); // 30 days ago
+  startDate.setDate(endDate.getDate() - 31); // 31 days ago
+  endDate.setDate(endDate.getDate() - 1); // 1 days ago
+
   // 새로운 날짜 계산
   const comparedEndDate = new Date(startDate); // endDate 복사
   comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
@@ -35,14 +38,14 @@ const TrafficOverview: React.FC = () => {
   const memberInfo = getCookie('member');
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-  const [date, setDate] = useState({
-    startDate: formatDate(startDate),
-    endDate: formatDate(endDate),
+  const [date, setDate] = useState<DateRangeType>({
+    startDate: startDate, // formatDate(startDate),
+    endDate: endDate,// formatDate(endDate),
   });
 
-  const [comparedDate, setComparedDate] = useState({
-    startDate: formatDate(comparedStartDate),
-    endDate: formatDate(comparedEndDate),
+  const [comparedDate, setComparedDate] = useState<DateRangeType>({
+    startDate: comparedStartDate,// formatDate(comparedStartDate),
+    endDate: comparedEndDate, //formatDate(comparedEndDate),
   });
 
 
@@ -93,12 +96,12 @@ const TrafficOverview: React.FC = () => {
     newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
 
     // YYYY-MM-DD 형식으로 변환
-    const formattedNewStartDate = formatDate(newStartDate);
-    const formattedNewEndDate = formatDate(newEndDate);
+    // const formattedNewStartDate = formatDate(newStartDate);
+    // const formattedNewEndDate = formatDate(newEndDate);
 
-    const comparedDate = {
-      startDate: formattedNewStartDate,
-      endDate: formattedNewEndDate,
+    const comparedDate: DateRangeType = {
+      startDate: newStartDate, // formattedNewStartDate,
+      endDate: newEndDate, //formattedNewEndDate,
     };
 
     setComparedDate(comparedDate);
@@ -115,9 +118,10 @@ const TrafficOverview: React.FC = () => {
   return (
       <>
         <div>
-          <AdminDatePicker date={date} dateChange={dateChange}/>
+          <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate.startDate} ~ {comparedDate.endDate})</p>
+            ({comparedDate?.startDate?.toLocaleDateString('en-CA')} ~ {comparedDate?.endDate?.toLocaleDateString('en-CA')})
+          </p>
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">

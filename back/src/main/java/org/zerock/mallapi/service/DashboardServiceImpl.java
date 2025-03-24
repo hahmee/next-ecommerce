@@ -620,6 +620,7 @@ public class DashboardServiceImpl implements DashboardService{
 
   @Override
   public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
+    log.info("GARequestDTO..." + gaRequestDTO);
 
     try {
       CompletableFuture<GAResponseDTO> sessionsFuture = CompletableFuture.supplyAsync(() -> {
@@ -685,6 +686,9 @@ public class DashboardServiceImpl implements DashboardService{
               .sessions(sessionsFuture.get().getSessions())
               .uniqueVisitors(sessionsFuture.get().getUniqueVisitors())
               .avgSessionDuration(sessionsFuture.get().getAvgSessionDuration())
+              .avgSessionDurationCompared(sessionsFuture.get().getAvgSessionDurationCompared())
+              .sessionsCompared(sessionsFuture.get().getSessionsCompared())
+              .uniqueVisitorsCompared(sessionsFuture.get().getUniqueVisitorsCompared())
               .topPages(topPagesFuture.get())
               .topSources(topSourcesFuture.get())
               .sessionChart(chartFuture.get())
@@ -1090,18 +1094,19 @@ public class DashboardServiceImpl implements DashboardService{
 
     // 쿼리 결과 처리
     for (FieldValueList row : result.iterateAll()) {
-      String countryCode = (row.get("country") == null || row.get("country").isNull())
+      String countryName = (row.get("country") == null || row.get("country").isNull())
               ? "Unknown" : row.get("country").getStringValue();
-      String cityCode = (row.get("city") == null || row.get("city").isNull())
+      String cityName = (row.get("city") == null || row.get("city").isNull())
               ? "Unknown" : row.get("city").getStringValue();
       String sessions = (row.get("sessions") == null || row.get("sessions").isNull())
               ? "0" : row.get("sessions").getStringValue();
 
-      // 예시: countryCode에 따른 좌표를 가져오는 메서드 호출 (필요시 cityCode 사용)
-      List<Double> coordinates = getCoordinates(countryCode);
+
+      // 예시: countryCode에 따른 좌표를 가져오는 메서드 호출
+      List<Double> coordinates = getCoordinates(countryName);
 
       // CountryChartDTO 객체 생성 (필드: country, sessions, coordinates)
-      countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
+      countries.add(new CountryChartDTO(countryName, sessions, coordinates));
     }
 
     return countries;
@@ -1305,10 +1310,8 @@ public class DashboardServiceImpl implements DashboardService{
 
   private GAResponseDTO getGASessions(GARequestDTO gaRequestDTO) throws Exception {
 
-    log.info("gaRequestDTO..." + gaRequestDTO);
     // BigQuery 클라이언트 생성
     BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
-    log.info("bigQuery..." + bigQuery);
 
     // 메인 기간 쿼리 작성 (백틱(`)을 사용하여 테이블 참조)
     String mainQuery = "SELECT " +
@@ -1320,7 +1323,6 @@ public class DashboardServiceImpl implements DashboardService{
             "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
             "WHERE _TABLE_SUFFIX BETWEEN '" + formatDate(gaRequestDTO.getStartDate()) + "' " +
             "AND '" + formatDate(gaRequestDTO.getEndDate()) + "'";
-
 
     QueryJobConfiguration mainQueryConfig = QueryJobConfiguration.newBuilder(mainQuery).build();
     TableResult mainResult = bigQuery.query(mainQueryConfig);
@@ -1401,7 +1403,7 @@ public class DashboardServiceImpl implements DashboardService{
             .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
             .build();
 
-    log.info("gaResponseDTO..." + gaResponseDTO);
+      log.info("gaResponseDTO..." + gaResponseDTO);
 
     return gaResponseDTO;
 
@@ -1860,8 +1862,11 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   // 국가 코드로 좌표 구하기(마커때문에)
-  public List<Double> getCoordinates(String countryCode) {
-    String url = String.format("https://restcountries.com/v3.1/alpha/%s", countryCode);
+  public List<Double> getCoordinates(String countryName) {
+//    String url = String.format("https://restcountries.com/v3.1/alpha/%s", countryCode);
+//    String url = String.format("https://restcountries.com/v3.1/name/%s", countryCode);
+    String url = String.format("https://restcountries.com/v3.1/name/%s?fullText=true", countryName);
+
     RestTemplate restTemplate = new RestTemplate();
 
     try {
@@ -1873,7 +1878,7 @@ public class DashboardServiceImpl implements DashboardService{
       }
     } catch (Exception e) {
       // 좌표 조회 중 예외 발생 시 기본값 반환
-      System.out.println("Error fetching coordinates for country code: " + countryCode + ". Returning default coordinates.");
+      System.out.println("Error fetching coordinates for country code: " + countryName + ". Returning default coordinates.");
     }
 
     // 기본값 반환

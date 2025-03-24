@@ -14,7 +14,8 @@ export default async function DashBoardTrafficPage() {
     const endDate = new Date(); // today
     const startDate = new Date(); // today
 
-    startDate.setDate(endDate.getDate() - 30); // 30 days ago
+    startDate.setDate(endDate.getDate() - 31); // 31 days ago
+    endDate.setDate(endDate.getDate() - 1); // 1 days ago
 
     // 새로운 날짜 계산
     const comparedEndDate = new Date(startDate); // endDate 복사
