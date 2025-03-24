@@ -1305,8 +1305,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   private GAResponseDTO getGASessions(GARequestDTO gaRequestDTO) throws Exception {
 
-//    String projectId = environment.getProperty("google.cloud.project-id");
-
     log.info("gaRequestDTO..." + gaRequestDTO);
     // BigQuery 클라이언트 생성
     BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
@@ -1393,7 +1391,7 @@ public class DashboardServiceImpl implements DashboardService{
       break;
     }
 
-    // GAResponseDTO 생성 (calculatePercentageDifference()는 기존 함수 사용)
+    // GAResponseDTO 생성
     GAResponseDTO gaResponseDTO = GAResponseDTO.builder()
             .sessions(sessions)
             .uniqueVisitors(activeUsers)
