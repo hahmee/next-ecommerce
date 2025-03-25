@@ -96,13 +96,9 @@ const TrafficOverview: React.FC = () => {
     const newStartDate = new Date(newEndDate); // newEndDate 복사
     newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
 
-    // YYYY-MM-DD 형식으로 변환
-    // const formattedNewStartDate = formatDate(newStartDate);
-    // const formattedNewEndDate = formatDate(newEndDate);
-
     const comparedDate: DateRangeType = {
-      startDate: newStartDate, // formattedNewStartDate,
-      endDate: newEndDate, //formattedNewEndDate,
+      startDate: newStartDate,
+      endDate: newEndDate,
     };
 
     setComparedDate(comparedDate);
@@ -120,24 +116,37 @@ const TrafficOverview: React.FC = () => {
       <>
         <div>
           <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-              ({comparedDate?.startDate?.toLocaleDateString('en-CA')} ~ {comparedDate?.endDate?.toLocaleDateString('en-CA')})
-            </p>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
+            ({comparedDate?.startDate?.toLocaleDateString('en-CA')} ~ {comparedDate?.endDate?.toLocaleDateString('en-CA')})
+          </p>
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">
             <CardTraffic gaData={gaData}/>
             <TrafficSessionChart chart={gaData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
-            <div className="grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-              <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
-              <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
-              <SemiCircleChart percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]} title={"Daily Target"} labels={['Site sessions', 'Unique visitors', 'Avg. session duration']} total={gaData?.sessions || ""}/>
-            </div>
-
           </div>
+
           <div className="col-span-12 xl:col-span-4">
+            <SemiCircleChart
+                percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]}
+                title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
+                total={gaData?.sessions || ""}/>
+          </div>
+
+          <div className="col-span-12">
             <TrafficPageChart topPages={gaData?.topPages || []}/>
-            {/*<TrafficSourceChart topSources={gaData?.topSources || []}/>*/}
+          </div>
+
+          <div className="col-span-12 xl:col-span-4">
+            <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
+          </div>
+
+          <div className="col-span-12 xl:col-span-4">
+            <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
+          </div>
+
+          <div className="col-span-12 xl:col-span-4">
+            <TrafficSourceChart topSources={gaData?.topSources || []}/>
           </div>
 
           <div className="col-span-12">

@@ -33,12 +33,6 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
       toolbar: {
         show: false,
       },
-
-      // events: {
-      //   click: function(chart, w, e) {
-      //     // console.log(chart, w, e)
-      //   }
-      // }
     },
     responsive: [
       {
@@ -60,7 +54,22 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
     ],
     colors: ["#3c50e0"],
     grid: {
-      show:false,
+      show: true,
+      borderColor: "#e0e0e0",
+      strokeDashArray: 3, // 실선으로 그리드 표시
+    },
+    tooltip: {
+      enabled: true,
+      theme: 'light', // 원하는 테마 (light 또는 dark)
+      x: {
+        show: false, // x축 정보는 표시하지 않음
+      },
+      y: {
+        title: {
+          formatter: (seriesName: string) => 'Sessions:'
+        }
+      },
+
     },
     plotOptions: {
       bar: {
@@ -115,7 +124,7 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
 
 
   return (
-      <div className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+      <div className=" col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
         <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
           <div className="flex w-full flex-wrap gap-3 sm:gap-5">
             <div className="flex min-w-47.5">

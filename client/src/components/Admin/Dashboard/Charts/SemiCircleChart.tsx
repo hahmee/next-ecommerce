@@ -1,11 +1,13 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
+import {ArrowUpIcon} from "@heroicons/react/20/solid";
+import {ArrowDownIcon} from "@heroicons/react/20/solid";
 
 interface MultiRadialChartProps {
-  percentages: number[]; // 예: [67, 84, 97]
+  percentages: number[];
   title: string;
-  labels: string[];      // 예: ['Apples', 'Oranges', 'Bananas']
+  labels: string[];
   total: string;
 }
 
@@ -62,16 +64,34 @@ const SemiCircleChart = ({ percentages, title, labels, total }: MultiRadialChart
   };
 
   return (
-      <div className="col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm px-5 pb-5 pt-7.5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
-        <div className="mb-3 justify-between gap-4 sm:flex">
+      <div className="h-full col-span-2 rounded-sm px-5 pt-7.5 pb-5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1 flex flex-col">
+        {/* 상단 제목 */}
+        <div className="mb-3 sm:flex justify-between gap-4">
           <h5 className="text-xl font-semibold text-black dark:text-white">
             {title}
           </h5>
         </div>
-        <div className="mb-2">
-          <div id="chartMultiple" className="mx-auto flex justify-center">
-            <ReactApexChart options={options} series={series} type="radialBar" height={350} />
-          </div>
+
+        {/* 차트 영역 - flex-grow로 공간을 채움 */}
+        <div id="chartMultiple" className="mx-auto flex justify-center flex-grow">
+          <ReactApexChart options={options} series={series} type="radialBar" height={350}/>
+        </div>
+
+        {/* 하단 영역 - mt-auto로 하단에 고정 */}
+        <div className="mt-auto flex bg-gray-50 p-4 rounded-lg shadow-sm divide-x divide-gray-200">
+          {labels.map((label, index) => (
+              <div key={index} className="flex flex-col items-center justify-center flex-1 py-2">
+                <span className="text-sm text-gray-600">{label}</span>
+                <div className="flex items-center space-x-1 font-semibold text-lg">
+                  <span>{percentages[index]}%</span>
+                  {percentages[index] >= 0 ? (
+                      <ArrowUpIcon className="w-5 h-5 text-green-500"/>
+                  ) : (
+                      <ArrowDownIcon className="w-5 h-5 text-red-700"/>
+                  )}
+                </div>
+              </div>
+          ))}
         </div>
       </div>
   );

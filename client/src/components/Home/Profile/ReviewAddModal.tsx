@@ -5,7 +5,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import Image from "next/image";
 import {Order} from "@/interface/Order";
 import {StarIcon} from "@heroicons/react/20/solid";
-import {XMarkIcon } from "@heroicons/react/20/solid";
+import {XMarkIcon} from "@heroicons/react/20/solid";
 import React, {useState} from "react";
 import {fetchJWT} from "@/utils/fetchJWT";
 import {Review} from "@/interface/Review";

@@ -3,12 +3,12 @@ import {SessionDTO} from "@/interface/GAResponse";
 import HorizontalBarChart from "@/components/Admin/Dashboard/Charts/HorizontalBarChart";
 
 
-const TrafficPageChart = ({topSources}:{topSources:Array<SessionDTO<number>> | []}) => {
+const TrafficSourceChart = ({topSources}:{topSources:Array<SessionDTO<number>> | []}) => {
 
     const totalSources = topSources ? topSources.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
     return (
-        <div className="col-span-12 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+        <div className="h-full rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
             <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
                 <h5 className="text-xl px-4.5 py-4.5 font-semibold text-black dark:text-white">
                     Top traffic by sessions
@@ -32,4 +32,4 @@ const TrafficPageChart = ({topSources}:{topSources:Array<SessionDTO<number>> | [
     );
 };
 
-export default TrafficPageChart;
+export default TrafficSourceChart;
