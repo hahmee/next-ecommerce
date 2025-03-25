@@ -8,21 +8,22 @@ import {MapResponse} from "@/interface/MapResponse";
 
 const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
   useEffect(() => {
+
     // const data = [{"country": "KR", totalSales: 123377},{"country": "AM", totalSales: 1000}]
     let result = {};
     countries?.map((d) => {
-      if (d.totalSales < 1000000 ) { //1000000
-        result = {...result, [d.country]: "Under_1000000"};
-      } else if (d.totalSales < 2000000) { //2000000
-        result = {...result, [d.country]: "Under_2000000"};
-      } else if (d.totalSales < 3000000 ) { //3000000
-        result = {...result, [d.country]: "Under_3000000"};
+      if (d.totalSales < 100000 ) {
+        result = {...result, [d.country]: "10만원 이하"};
+      } else if (d.totalSales < 200000) {
+        result = {...result, [d.country]: "20만원 이하"};
+      } else if (d.totalSales < 300000 ) {
+        result = {...result, [d.country]: "30만원 이하"};
       } else {
-        result = {...result, [d.country]: "More_than_3000000"};
+        result = {...result, [d.country]: "30만원 이상"};
       }
     });
 
-    console.log('result', result);
+
     const mapOne = new jsVectorMap({
       selector: "#mapOne",
       focusOn: {
@@ -36,10 +37,10 @@ const CountryMap = ({countries}:{countries:Array<MapResponse> | undefined}) => {
             title: "Country"
           },
           scale: {
-            Under_1000000: "#A2B6F2",
-            Under_2000000: "#6a8df7",
-            Under_3000000: "#2d5df7",
-            More_than_3000000: "#033fff"
+            "10만원 이하": "#A2B6F2",
+            "20만원 이하" : "#6a8df7",
+            "30만원 이하": "#2d5df7",
+            "30만원 이상": "#033fff"
           },
           values: {...result},
           // values: {
