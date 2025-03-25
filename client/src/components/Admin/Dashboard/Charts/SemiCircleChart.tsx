@@ -2,61 +2,63 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-interface SemiCircleChartProps {
-  percentage: number;
+interface MultiRadialChartProps {
+  percentages: number[]; // 예: [67, 84, 97]
   title: string;
-  label: string;
+  labels: string[];      // 예: ['Apples', 'Oranges', 'Bananas']
+  total: string;
 }
 
-const SemiCircleChart = ({ percentage, title, label }: SemiCircleChartProps) => {
-  const series = [percentage];
-
+const SemiCircleChart = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
+  const series = percentages;
   const options: ApexOptions = {
+    series: series,
     chart: {
       type: 'radialBar',
-      offsetY: -20,
       sparkline: { enabled: true },
       fontFamily: "Satoshi, sans-serif",
     },
-
     plotOptions: {
       radialBar: {
-        startAngle: -90,
-        endAngle: 90,
+        offsetY: 0,
+        startAngle: 0,
+        endAngle: 360,
         hollow: {
-          size: '70%',
-        },
-        track: {
-          background: "#e7e7e7",
-          strokeWidth: '97%',
-          margin: 5, // margin in pixels
+          margin: 10,
+          size: '50%', // hollow 영역의 크기를 줄이면, 진행바 두께가 늘어남
+          background: 'transparent',
         },
         dataLabels: {
           name: {
-            show: false,
-            // offsetY: 50,
-            // fontSize: '20px',
+            show: true,
+            fontSize: '16px',
           },
           value: {
-            offsetY: -2,
-            fontSize: '27px',
+            fontSize: '22px',
             fontWeight: 800,
-            formatter: function(val: number) {
-              return val.toFixed(0) + "%";
-            },
+            // formatter: function(val: number) {
+            //   return `${val.toFixed(0)}%`;
+            // },
           },
+          // total 옵션은 전체 합계를 표시할 때 사용
+          total: {
+            show: true,
+            label: 'Sessions',
+            fontWeight:800,
+            formatter: function (w) {
+              return total;
+            }
+          }
         },
       },
     },
-    colors: ["#3c50e0"],
+    colors: ["#3c50e0", "#8FD0EF", "#0FADCF"],
     grid: {
       padding: {
-        top: -10,
+        top: 0,
       },
     },
-
-    // 전달받은 label로 설정
-    labels: [label],
+    labels: labels,
   };
 
   return (
@@ -67,11 +69,8 @@ const SemiCircleChart = ({ percentage, title, label }: SemiCircleChartProps) => 
           </h5>
         </div>
         <div className="mb-2">
-          <div id="chartThree" className="mx-auto flex justify-center">
-            <ReactApexChart options={options} series={series} type="radialBar" height={500}/>
-          </div>
-          <div>
-            사이트 세션이 비교 날짜에 비해 {percentage}% 상승했습니다.
+          <div id="chartMultiple" className="mx-auto flex justify-center">
+            <ReactApexChart options={options} series={series} type="radialBar" height={350} />
           </div>
         </div>
       </div>

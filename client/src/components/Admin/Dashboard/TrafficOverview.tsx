@@ -131,7 +131,7 @@ const TrafficOverview: React.FC = () => {
             <div className="grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
               <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
               <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
-              <SemiCircleChart percentage={Number(gaData?.sessionsCompared)} title={"Daily Target"} label="Daily Target"/>
+              <SemiCircleChart percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]} title={"Daily Target"} labels={['Site sessions', 'Unique visitors', 'Avg. session duration']} total={gaData?.sessions || ""}/>
             </div>
 
           </div>
