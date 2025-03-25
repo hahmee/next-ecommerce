@@ -5,15 +5,13 @@ import React, {useEffect, useState} from "react";
 import "../../../../js/world"; // 지도 파일
 import {CountryChartDTO} from "@/interface/GAResponse";
 import {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
+import Image from "next/image";
 
 const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
   // const countries: Array<CountryChartDTO> = [
   //   { key: "KR", value: 18, latlng: [37.0, 127.5] },
   //   { key: "JP", value: 18, latlng: [36.0,138.0] },
   // ];
-
-  // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
-  const maxSessions = Math.max(500, ...(countries?.map((country) => Number(country?.value)) || []));
 
   // 한 페이지에 보여줄 아이템 수
   const pageSize = 5;
@@ -25,6 +23,8 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
   const paginatedCountries = countries
       ? countries.slice((currentPage - 1) * pageSize, currentPage * pageSize)
       : [];
+
+  const totalSessions = countries ? countries.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
   // 페이지 변경 함수
   const handlePageChange = (page: number) => {
@@ -85,24 +85,31 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
   }, [countries]);
 
   return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
+      <div className="col-span-5 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
           Sessions by country
         </h4>
-        <div className="h-90 grid grid-cols-12 gap-4">
-          <div id="mapOne" className="mapOne map-btn col-span-8"></div>
-          <div className="col-span-4 flex flex-col h-full">
-            <div>
+        <div className="h-90 grid grid-cols-12 gap-4 sm:grid-cols-1">
+          <div id="mapOne" className="mapOne map-btn sm:col-span-8 col-span-12"></div>
+          <div className="sm:col-span-4 flex flex-col h-full col-span-12">
+            <div className="bg-ecomLow">
               <div className="text-sm font-semibold">Countries</div>
               {paginatedCountries?.map((country, index) => (
-                  <div key={index} className="mt-3">
-                    <div className="flex justify-between mb-1">
-                      <span className="text-sm font-normal">{country.key}</span>
-                      <span className="text-sm font-bold">
-                  {Number(country.value).toLocaleString()}
-                </span>
+                  <div key={index} className="mt-3 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Image width={500} height={500} src={country.svg} alt={country.key} className="rounded-full h-8 w-8 object-cover "/>
+                      <span className="flex flex-col">
+                      <span className="text-sm font-bold">{country.key}</span>
+                      <span className="text-xs font-normal text-gray-600">
+                      {Number(country.value).toLocaleString()} Sessions
+                      </span>
+                    </span>
+
                     </div>
-                    <BarChartThin data={country} maxValue={maxSessions} />
+
+                    <div className="w-36">
+                      <BarChartThin data={country} totalSessions={totalSessions}/>
+                    </div>
                   </div>
               ))}
             </div>
@@ -117,7 +124,7 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
                   >
                     이전
                   </button>
-                  {Array.from({ length: totalPages }, (_, i) => (
+                  {Array.from({length: totalPages}, (_, i) => (
                       <button
                           key={i + 1}
                           className={`px-3 py-1 border rounded ${

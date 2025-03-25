@@ -17,6 +17,7 @@ const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart")
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
 const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
+const SemiCircleChart = dynamic(() => import("./Charts/SemiCircleChart"), { ssr: false });
 const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ssr: false });
 
 const TrafficOverview: React.FC = () => {
@@ -130,12 +131,13 @@ const TrafficOverview: React.FC = () => {
             <div className="grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
               <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
               <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
+              <SemiCircleChart percentage={Number(gaData?.sessionsCompared)} title={"Daily Target"} label="Daily Target"/>
             </div>
 
           </div>
           <div className="col-span-12 xl:col-span-4">
             <TrafficPageChart topPages={gaData?.topPages || []}/>
-            <TrafficSourceChart topSources={gaData?.topSources || []}/>
+            {/*<TrafficSourceChart topSources={gaData?.topSources || []}/>*/}
           </div>
 
           <div className="col-span-12">

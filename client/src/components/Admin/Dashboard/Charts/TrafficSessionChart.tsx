@@ -58,7 +58,6 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
         },
       },
     ],
-
     colors: ["#3c50e0"],
     grid: {
       show:false,

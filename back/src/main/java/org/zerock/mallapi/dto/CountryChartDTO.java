@@ -14,5 +14,6 @@ import java.util.List;
 public class CountryChartDTO {
   String key;
   String value;
-  private List<Double> latlng; // 위도와 경도를 담는 리스트
+  List<Double> latlng; // 위도와 경도를 담는 리스트
+  String svg; // 국가 이미지
 }

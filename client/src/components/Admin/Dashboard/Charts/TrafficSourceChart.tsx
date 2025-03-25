@@ -1,13 +1,11 @@
 import React from "react";
-import BarChart from "@/components/Admin/Dashboard/Charts/BarChart";
 import {SessionDTO} from "@/interface/GAResponse";
+import HorizontalBarChart from "@/components/Admin/Dashboard/Charts/HorizontalBarChart";
 
 
 const TrafficPageChart = ({topSources}:{topSources:Array<SessionDTO<number>> | []}) => {
 
-    // 최대 세션 수를 구하여 바의 길이를 상대적으로 계산하기 위해 사용
-    const maxSessions = Math.max(500, ...(topSources?.map((page) => Number(page?.value)) || []));
-
+    const totalSources = topSources ? topSources.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
     return (
         <div className="col-span-12 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
@@ -25,7 +23,7 @@ const TrafficPageChart = ({topSources}:{topSources:Array<SessionDTO<number>> | [
                             <span className="text-sm font-normal">{source.key}</span>
                             <span className="text-sm font-bold">{Number(source.value).toLocaleString()}</span>
                         </div>
-                        <BarChart data={source} maxValue={maxSessions}/>
+                        <HorizontalBarChart percentage={((source.value/totalSources)*100)} count={source.value}/>
                     </div>
                 ))}
             </div>

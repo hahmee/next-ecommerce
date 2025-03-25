@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.zerock.mallapi.domain.ChartFilter;
-import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.MemberRepository;
 
@@ -1107,10 +1106,11 @@ public class DashboardServiceImpl implements DashboardService{
 
 
       // 예시: countryCode에 따른 좌표를 가져오는 메서드 호출
-      List<Double> coordinates = getCoordinates(countryName);
+      List<Double> coordinates = getCountryData(countryName).getCoordinates();
+      String svg = getCountryData(countryName).getSvg();
 
       // CountryChartDTO 객체 생성 (필드: country, sessions, coordinates)
-      countries.add(new CountryChartDTO(countryName, sessions, coordinates));
+      countries.add(new CountryChartDTO(countryName, sessions, coordinates, svg));
     }
 
     return countries;
@@ -1864,12 +1864,9 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
-
-  // 국가 코드로 좌표 구하기(마커때문에)
-  public List<Double> getCoordinates(String countryName) {
-//    String url = String.format("https://restcountries.com/v3.1/alpha/%s", countryCode);
-//    String url = String.format("https://restcountries.com/v3.1/name/%s", countryCode);
+  public CountryDataDTO getCountryData(String countryName) {
     String url = String.format("https://restcountries.com/v3.1/name/%s?fullText=true", countryName);
+    log.info("url: " + url);
 
     RestTemplate restTemplate = new RestTemplate();
 
@@ -1877,16 +1874,18 @@ public class DashboardServiceImpl implements DashboardService{
       ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
       CountryResponseDTO[] response = responseEntity.getBody();
 
+      // svg URL 확인
+      log.info("svg: " + response[0].getFlags().getSvg());
+
       if (response != null && response.length > 0 && response[0].getLatlng() != null) {
-        return response[0].getLatlng();
+        return new CountryDataDTO(response[0].getLatlng(), response[0].getFlags().getSvg());
       }
     } catch (Exception e) {
-      // 좌표 조회 중 예외 발생 시 기본값 반환
-      System.out.println("Error fetching coordinates for country code: " + countryName + ". Returning default coordinates.");
+      System.out.println("Error fetching data for country: " + countryName + ". Returning default values.");
     }
 
     // 기본값 반환
-    return Arrays.asList(0.0, 0.0);
+    return new CountryDataDTO(Arrays.asList(0.0, 0.0), "");
   }
 
 }

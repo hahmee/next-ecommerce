@@ -24,6 +24,7 @@ export interface CountryChartDTO {
   key: string;
   value: number;
   latlng: Array<number>;
+  svg: string;
 }
 export interface SessionChart {
   xaxis: Array<string>;
