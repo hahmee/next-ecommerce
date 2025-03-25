@@ -53,7 +53,7 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
         </h4>
 
         <div className="flex flex-col">
-          <div className="grid grid-cols-4 rounded-sm bg-gray-50 dark:bg-meta-4 sm:grid-cols-6">
+          <div className="grid grid-cols-4 rounded-sm bg-gray-50 dark:bg-meta-4 sm:grid-cols-5">
             <div className="p-2.5 text-center">
               <h5 className="text-sm font-bold uppercase xsm:text-base">
                 Item name
@@ -74,11 +74,6 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
                 % of total
               </h5>
             </div>
-            <div className="hidden p-2.5 text-center sm:block">
-              <h5 className="text-sm font-bold uppercase xsm:text-base">
-                Change
-              </h5>
-            </div>
             <div className="hidden p-2.5 text-center sm:block ">
               <h5 className="text-sm font-bold uppercase xsm:text-base">
                 Gross sales
@@ -88,7 +83,7 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
 
           {topProducts?.map((product, key) => (
               <div
-                  className={`grid grid-cols-4 sm:grid-cols-6 ${
+                  className={`grid grid-cols-4 sm:grid-cols-5 ${
                       key === brandData.length - 1
                           ? ""
                           : "border-b border-stroke dark:border-strokedark"
@@ -120,15 +115,12 @@ const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | 
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
-                  <p className="text-meta-3">{product.total.toLocaleString()}</p>
+                  <p className="text-meta-3">{product.total.toLocaleString()}%</p>
                 </div>
 
-                <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                  <p className="text-black dark:text-white">{product.change}</p>
-                </div>
 
                 <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-                  <p className="text-meta-5">{product.grossSales}</p>
+                  <p className="text-meta-5">{product.grossSales.toLocaleString()}</p>
                 </div>
               </div>
           ))}

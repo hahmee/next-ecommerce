@@ -219,10 +219,33 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
             "AND o.createdAt BETWEEN :startDate AND :endDate " +
             "GROUP BY o.productInfo.pno " +
             "ORDER BY SUM(o.productInfo.qty) DESC")
+    List<Object[]> findTopProducts1(@Param("email") String email,
+                                   @Param("startDate") LocalDateTime startDate,
+                                   @Param("endDate") LocalDateTime endDate,
+                                   Pageable pageable);
+
+
+
+
+    @Query(value = "SELECT t.pno, t.pname, t.size, c.text AS color_name, COUNT(t.qty) AS cnt, " +
+            "SUM(t.qty * t.price + t.shipping_fee + t.tax) AS gross, t.thumbnail_url, " +
+            "ROUND(COUNT(t.qty) * 100.0 / (SELECT COUNT(*) FROM tbl_order " +
+            "                              WHERE member_seller = :email " +
+            "                                AND status = 1 " +
+            "                                AND created_at BETWEEN :startDate AND :endDate), 2) AS percent_of_total " +
+            "FROM tbl_order t " +
+            "JOIN tbl_color_tag c ON t.color_id = c.id " +
+            "WHERE t.member_seller = :email " +
+            "  AND t.status = 1 " +
+            "  AND t.created_at BETWEEN :startDate AND :endDate " +
+            "GROUP BY t.pno, t.pname, t.size, c.text, t.thumbnail_url " +
+            "ORDER BY cnt DESC",
+            nativeQuery = true)
     List<Object[]> findTopProducts(@Param("email") String email,
                                    @Param("startDate") LocalDateTime startDate,
                                    @Param("endDate") LocalDateTime endDate,
                                    Pageable pageable);
+
 
 
     ///////////////////////////////////////////////////////////////////////////////////////

@@ -18,6 +18,7 @@ import org.zerock.mallapi.domain.ColorTag;
 import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.MemberRepository;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -558,19 +559,20 @@ public class DashboardServiceImpl implements DashboardService{
 
     List<TopProductResponseDTO> dtoList = results.stream().map(arr -> {
 
-      Long pno = (Long) arr[0]; //pno
-      String pname = (String) arr[1]; // pname
-      ColorTag color = (ColorTag) arr[2]; // color
-      String size = (String) arr[3]; // size
-      Long count = (Long) arr[4]; // count
-      Long total = (Long) arr[5]; // total
-      String thumbnail = (String) arr[6]; // total
+      Long pno = (Long) arr[0];                         // pno
+      String pname = (String) arr[1];                   // pname
+      String size = (String) arr[2];                    // size (arr[2]가 t.size)
+      String colorName = (String) arr[3];                     // 색상의 경우, ID를 가져옴 (필요 시 별도로 ColorTag 조회)
+      Long count = (Long) arr[4];                       // count (판매 건수)
+      BigDecimal grossSalesDecimal = (BigDecimal) arr[5];  // gross (매출 합계)
+      Long grossSales = grossSalesDecimal.longValue();
+      String thumbnail = (String) arr[6];               // thumbnail_url
+      BigDecimal percentOfTotalDecimal = (BigDecimal) arr[7];  // percent_of_total
+      Long percentOfTotal = percentOfTotalDecimal.longValue();
 
 
       ColorTagDTO colorTagDTO = ColorTagDTO.builder()
-              .color(color.getColor())
-              .text(color.getText())
-              .id(color.getId())
+              .text(colorName)
               .build();
 
       TopProductResponseDTO topCustomerResponseDTO = TopProductResponseDTO.builder()
@@ -579,8 +581,10 @@ public class DashboardServiceImpl implements DashboardService{
               .size(size)
               .color(colorTagDTO)
               .quantity(count)
-              .total(total)
+              .total(percentOfTotal)
               .thumbnail(thumbnail)
+              .grossSales(grossSales)
+//              .change()
               .build();
 
       return topCustomerResponseDTO;

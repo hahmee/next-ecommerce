@@ -286,7 +286,6 @@ public class OrderServiceImpl implements OrderService{
 
     String sellerEmail = topCustomerRequestDTO.getSellerEmail();
 
-
     Pageable pageable = PageRequest.of(0, 5); // 0번째 페이지, 5개의 결과만
 
     return orderRepository.findTopProducts(sellerEmail, startDateTime, endDateTime, pageable);
