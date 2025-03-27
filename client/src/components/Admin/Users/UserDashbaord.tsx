@@ -1,14 +1,14 @@
 "use client";
 import React, {useState} from "react";
 import TestChart from "@/components/Admin/Dashboard/Charts/TestChart";
-import UserListVeiw from "@/components/Admin/Users/UserListVeiw";
+import UserListView from "@/components/Admin/Users/UserListVeiw";
 import HeatmapChart from "@/components/Admin/Dashboard/Charts/HeatmapChart";
 import {useQuery} from "@tanstack/react-query";
 import {DataResponse} from "@/interface/DataResponse";
 import {PageResponse} from "@/interface/PageResponse";
-import {Product} from "@/interface/Product";
 import {getAllMembers} from "@/apis/adminAPI";
 import {Member} from "@/interface/Member";
+import {useRouter} from "next/navigation";
 
 const UserDashboard = () => {
     // 예시 데이터 (실제 데이터로 교체)
@@ -42,6 +42,7 @@ const UserDashboard = () => {
     const [page, setPage] = useState<number>(1);
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
+    const router = useRouter();
 
     const { isFetched, isFetching, data:users, error, isError} = useQuery<DataResponse<PageResponse<Member>>, Object, PageResponse<Member>, [_1: string, _2: Object]>({
         queryKey: ['adminMembers', {page, size, search}],
@@ -70,7 +71,7 @@ const UserDashboard = () => {
                     <p className="text-3xl font-bold mt-2">{stats.active}</p>
                 </div>
                 <div className="p-4 border rounded-lg bg-yellow-50 flex flex-col items-center">
-                    <h3 className="text-lg font-semibold text-gray-700">최근 가입자</h3>
+                    <h3 className="text-lg font-semibold text-gray-700">오늘 가입자</h3>
                     <p className="text-3xl font-bold mt-2">{stats.newSignups}</p>
                 </div>
             </div>
@@ -89,7 +90,9 @@ const UserDashboard = () => {
 
             <div className="mt-6">
                 <h4 className="text-xl font-semibold text-gray-700 mb-2">User List</h4>
-                <UserListVeiw users={users}/>
+                <UserListView users={users} onPageChange={(page) => {
+                    // router.push(`/admin/user?page=${page}`);
+                }} />
             </div>
 
         </div>

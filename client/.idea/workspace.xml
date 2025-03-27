@@ -5,21 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/admin/users/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/HeatmapChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TestChart.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Users/UserDashbaord.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Users/UserListVeiw.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/adminAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/adminAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/dashbaordAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/dashbaordAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/PieChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/SemiCircleChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/MultiCirclesChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TrafficPageChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/TrafficPageChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Maps/CountryTrafficMap.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Member.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Member.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/registerProduct.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/registerProduct.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/spec.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/spec.cy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/support/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/commands.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Users/UserDashbaord.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Users/UserDashbaord.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Users/UserListVeiw.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Users/UserListVeiw.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/CartSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/CartSummary.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -691,7 +685,9 @@
       <workItem from="1742894772018" duration="3525000" />
       <workItem from="1742902601157" duration="12667000" />
       <workItem from="1742951164108" duration="5250000" />
-      <workItem from="1743047241288" duration="9727000" />
+      <workItem from="1743047241288" duration="16056000" />
+      <workItem from="1743064700556" duration="360000" />
+      <workItem from="1743065808080" duration="9323000" />
     </task>
     <servers />
   </component>
