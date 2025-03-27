@@ -29,8 +29,6 @@ public class CategoryController {
 //  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
   public DataResponseDTO<CategoryDTO> register(@Valid CategoryDTO categoryDTO) {
 
-    log.info("register: ?????????????" + categoryDTO);
-
     MultipartFile file = categoryDTO.getFile();//파일 객체들
 
     if(file != null) {
@@ -38,7 +36,6 @@ public class CategoryController {
       Map<String,String> awsResult = awsFileUtil.uploadSingleFile(file, CATEGORY_IMG_DIR);//AWS에 저장
 
       log.info("awsResult.............." + awsResult);
-
 
       String uploadFileName = awsResult.get("uploadName");
       String uploadFileKey = awsResult.get("uploadKey");

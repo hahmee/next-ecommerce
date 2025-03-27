@@ -1,7 +1,10 @@
 package org.zerock.mallapi.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+import org.zerock.mallapi.domain.AdminCategory;
 import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Product;
 
@@ -26,5 +29,10 @@ public interface MemberRepository extends JpaRepository<Member, String> {
   Optional<Member> findByEncryptedId(@Param("encryptedId") String encryptedId);
 
 
-//  Member getWithRoles(@Param("email") String email);
+  @EntityGraph(attributePaths = {"memberRoleList"})
+  @Query("select m from Member m")
+  Page<Member> getMembers(Pageable pageable, @Param("search") String search);
+
+
+
 }

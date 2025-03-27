@@ -1,5 +1,6 @@
 package org.zerock.mallapi.dto;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,11 @@ public class MemberDTO extends User {
 
   private String encryptedId; // User-ID 암호화 (GA4사용목적)
 
-  public MemberDTO(String email, String password, String nickname, boolean social, List<MemberRole> roleNames, String encryptedId) {
+  private LocalDateTime createdAt;
+
+  private LocalDateTime updatedAt;
+
+  public MemberDTO(String email, String password, String nickname, boolean social, List<MemberRole> roleNames, String encryptedId, LocalDateTime createdAt, LocalDateTime updatedAt) {
     super(email, password, roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
     this.email = email;
     this.password = password;
@@ -36,6 +41,8 @@ public class MemberDTO extends User {
     this.social = social;
     this.roleNames = roleNames;
     this.encryptedId = encryptedId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   public Map<String, Object> getClaims() {

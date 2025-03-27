@@ -32,5 +32,4 @@ public class OrderDTO extends BaseDTO {
 
     private OrderProductInfo productInfo; //-- 제품 정보
 
-
 }

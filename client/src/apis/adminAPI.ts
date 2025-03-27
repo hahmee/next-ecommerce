@@ -69,6 +69,17 @@ export async function getProductsByEmail (pageParam: PageParam) {
         cache: 'no-store',
     });
 }
+export async function getAllMembers (pageParam: PageParam) {
+    return await fetchJWT(`/api/members?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
+        method: "GET",
+        next: {
+            tags:  ['adminMembers'],
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
+
 
 export async function getAdminStock (pageParam: PageParam) {
     return await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {

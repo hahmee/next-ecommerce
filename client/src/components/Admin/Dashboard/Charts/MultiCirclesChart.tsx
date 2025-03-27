@@ -11,7 +11,7 @@ interface MultiRadialChartProps {
   total: string;
 }
 
-const SemiCircleChart = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
+const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
   const series = percentages;
   const options: ApexOptions = {
     series: series,
@@ -81,7 +81,7 @@ const SemiCircleChart = ({ percentages, title, labels, total }: MultiRadialChart
         <div className="mt-auto flex bg-gray-50 p-4 rounded-lg shadow-sm divide-x divide-gray-200">
           {labels.map((label, index) => (
               <div key={index} className="flex flex-col items-center justify-center flex-1 py-2">
-                <span className="text-sm text-gray-600">{label}</span>
+                <span className="text-sm text-gray-600 text-center">{label}</span>
                 <div className="flex items-center space-x-1 font-semibold text-lg">
                   <span>{percentages[index]}%</span>
                   {percentages[index] >= 0 ? (
@@ -97,4 +97,4 @@ const SemiCircleChart = ({ percentages, title, labels, total }: MultiRadialChart
   );
 };
 
-export default SemiCircleChart;
+export default MultiCirclesChart;

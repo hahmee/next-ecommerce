@@ -93,7 +93,7 @@ public class ReviewServiceImpl implements ReviewService{
 
     OrderDTO orderDTO = orderService.convertToDTO(review.getOrder());
 
-    ReviewDTO reviewDTO =  ReviewDTO.builder()
+    ReviewDTO reviewDTO = ReviewDTO.builder()
             .content(review.getContent())
             .oid(review.getOrder().getId())
             .rating(review.getRating())

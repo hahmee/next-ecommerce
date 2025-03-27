@@ -58,9 +58,7 @@ public class AwsFileUtil {
         String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
 
         uploadName = url;
-
         uploadKey = savedName;
-
 
     } catch (IOException e) {
       throw new GeneralException(e.getMessage());

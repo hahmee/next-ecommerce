@@ -11,7 +11,7 @@ import java.util.*;
 @NoArgsConstructor
 @Getter
 @ToString (exclude = "memberRoleList")
-public class Member {
+public class Member extends BaseEntity{
 
   @Id
   private String email;

@@ -9,6 +9,8 @@ export interface Member {
   roleNames: MemberRole[];
   social: false;
   encryptedId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type MemberModifyType = Omit<Member, 'social' | 'roleNames' | 'accessToken' | 'refreshToken' | 'error'>;

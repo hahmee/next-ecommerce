@@ -2,6 +2,10 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,19 +16,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.zerock.mallapi.domain.Member;
-import org.zerock.mallapi.domain.MemberRole;
-import org.zerock.mallapi.domain.Product;
-import org.zerock.mallapi.dto.MemberDTO;
-import org.zerock.mallapi.dto.MemberModifyDTO;
-import org.zerock.mallapi.dto.ProductDTO;
+import org.zerock.mallapi.domain.*;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.MemberRepository;
 import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.HashUtil;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +62,9 @@ public class MemberServiceImpl implements MemberService {
 
       // SHA-256 해싱 알고리즘
       member.changeEncryptedId(HashUtil.hashUserId(member.getEmail()));
+
+      member.setCreatedAt(LocalDateTime.now());
+      member.setUpdatedAt(LocalDateTime.now());
 
       Member result = memberRepository.save(member);
 
@@ -217,6 +223,40 @@ public class MemberServiceImpl implements MemberService {
         return memberDTO;
 
     }
+
+    @Override
+    public PageResponseDTO<MemberDTO> getUsers(SearchRequestDTO searchRequestDTO) {
+
+        Pageable pageable = PageRequest.of(
+                searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+                searchRequestDTO.getSize(),
+                Sort.by("id").descending());
+
+        String search = searchRequestDTO.getSearch();
+
+        Page<Member> members = memberRepository.getMembers(pageable, search);
+
+        log.info("members..." + members);
+
+//        //여기에서 subCategory있으면 넣어주기
+        List<MemberDTO> responseDTO = members.stream().map(this::entityToDTO).collect(Collectors.toList());
+
+        log.info("responseDTO..... 입니다..." + responseDTO);
+
+        long totalCount = members.getTotalElements();
+
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
+
+        return PageResponseDTO.<MemberDTO>withAll()
+                .dtoList(responseDTO)
+                .totalCount(totalCount)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+
+
+    }
+
+
 
 
     @Override

@@ -8,7 +8,6 @@ const colors = ["#c3d6f3", "#0FADCF", "#3C50E0", "#6577F3"];
 
 // 랜덤한 색상 선택 함수
 const getRandomColor = (length: number) => {
-
   return colors.slice(0, length);
 };
 

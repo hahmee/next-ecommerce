@@ -3,6 +3,8 @@ import {fetchJWT} from "@/utils/fetchJWT";
 import {TopCustomerRequest} from "@/interface/TopCustomerRequest";
 import {ChartRequest} from "@/interface/ChartRequest";
 
+
+
 export async function getGARecentUsers (param: GARequest) {
 
     return await fetchJWT(`/api/dashboard/real-time?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {

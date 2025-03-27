@@ -17,7 +17,7 @@ const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart")
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
 const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
-const SemiCircleChart = dynamic(() => import("./Charts/SemiCircleChart"), { ssr: false });
+const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { ssr: false });
 const CountryTrafficMap = dynamic(() => import("./Maps/CountryTrafficMap"), { ssr: false });
 
 const TrafficOverview: React.FC = () => {
@@ -127,7 +127,7 @@ const TrafficOverview: React.FC = () => {
           </div>
 
           <div className="col-span-12 xl:col-span-4">
-            <SemiCircleChart
+            <MultiCirclesChart
                 percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]}
                 title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
                 total={gaData?.sessions || ""}/>

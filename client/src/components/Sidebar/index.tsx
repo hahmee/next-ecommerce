@@ -53,10 +53,7 @@ const menuGroups = [
         ),
         label: "쇼핑몰 제품",
         route: "#",
-        children: [{label: "제품", route: "/admin/products"}, {label: "카테고리", route: "/admin/category"}, {
-          label: "재고",
-          route: "/admin/stock"
-        }],
+        children: [{label: "제품", route: "/admin/products"}, {label: "카테고리", route: "/admin/category"}, {label: "재고", route: "/admin/stock"}],
       },
       {
         icon: (
@@ -156,6 +153,8 @@ const menuGroups = [
         label: "Users",
         route: "#",
         children: [{label: "Users", route: "/admin/users"}],
+
+
       },
       {
         icon: (

@@ -17,6 +17,7 @@ import org.zerock.mallapi.util.JWTUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -81,8 +82,10 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       List<String> rolesString = (List<String>) claims.get("roleNames");
       List<MemberRole> roleNames = rolesString.stream().map(MemberRole::valueOf).collect(Collectors.toList()); // Stream -> List 변환
       String encryptedId = (String) claims.get("encryptedId");
+      LocalDateTime createdAt = (LocalDateTime) claims.get("createdAt");
+      LocalDateTime updatedAt = (LocalDateTime) claims.get("updatedAt");
 
-      MemberDTO memberDTO = new MemberDTO(email, password, nickname, social.booleanValue(), roleNames, encryptedId);
+      MemberDTO memberDTO = new MemberDTO(email, password, nickname, social.booleanValue(), roleNames, encryptedId, createdAt, updatedAt);
 
       log.info("-----------------------------------");
       log.info(memberDTO);

@@ -7,8 +7,6 @@ const TrafficPageChart = ({topPages}:{topPages:Array<SessionDTO<number>> | []}) 
 
     const totalSessions = topPages ? topPages.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
-    console.log('totalSessions', totalSessions);
-
     return (
         <div className="col-span-12 rounded-sm border border-stroke bg-white pb-5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
             <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">

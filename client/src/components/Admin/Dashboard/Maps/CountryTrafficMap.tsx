@@ -89,10 +89,10 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
         <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
           Sessions by country
         </h4>
-        <div className="h-90 grid grid-cols-12 gap-4 sm:grid-cols-1">
-          <div id="mapOne" className="mapOne map-btn sm:col-span-8 col-span-12"></div>
-          <div className="sm:col-span-4 flex flex-col h-full col-span-12">
-            <div className="bg-ecomLow">
+        <div className="h-90 grid grid-cols-12 gap-4">
+          <div id="mapOne" className="mapOne map-btn xl:col-span-8 col-span-12"></div>
+          <div className="xl:col-span-4 flex flex-col h-full col-span-12">
+            <div className="">
               <div className="text-sm font-semibold">Countries</div>
               {paginatedCountries?.map((country, index) => (
                   <div key={index} className="mt-3 flex items-center justify-between">
@@ -128,7 +128,7 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
                       <button
                           key={i + 1}
                           className={`px-3 py-1 border rounded ${
-                              currentPage === i + 1 ? 'bg-primary-500 text-white' : ''
+                              currentPage === i + 1 ? "bg-primary-500 text-white" : ""
                           }`}
                           onClick={() => handlePageChange(i + 1)}
                       >
@@ -151,4 +151,4 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
 
 };
 
-export default CountryTrafficMap;
+export default CountryTrafficMap

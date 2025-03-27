@@ -44,7 +44,10 @@ public class CustomUserDetailsService implements UserDetailsService{
 //            member.getMemberRoleList(),
             member.getMemberRoleList().stream().map(memberRole -> memberRole).collect(Collectors.toList()),
 //            member.getMemberRoleList().stream().map(memberRole -> memberRole.name()).collect(Collectors.toList()),
-            member.getEncryptedId());
+            member.getEncryptedId(),
+            member.getCreatedAt(),
+            member.getUpdatedAt()
+    );
 
     log.info(memberDTO);
 
