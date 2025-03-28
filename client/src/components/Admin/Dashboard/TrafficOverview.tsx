@@ -2,7 +2,6 @@
 import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
-import CardTraffic from "@/components/Admin/Dashboard/CardTraffic";
 import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {getGoogleAnalytics} from "@/apis/dashbaordAPI";
 import {GAResponse} from "@/interface/GAResponse";
@@ -12,7 +11,9 @@ import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
+import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 
+const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false });
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
@@ -122,35 +123,51 @@ const TrafficOverview: React.FC = () => {
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">
-            <CardTraffic gaData={gaData}/>
-            <TrafficSessionChart chart={gaData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <CardTraffic gaData={gaData}/>
+            </LazyLoadWrapper>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <TrafficSessionChart chart={gaData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12 xl:col-span-4">
-            <MultiCirclesChart
-                percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]}
-                title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
-                total={gaData?.sessions || ""}/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <MultiCirclesChart
+                  percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]}
+                  title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
+                  total={gaData?.sessions || ""}/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12">
-            <TrafficPageChart topPages={gaData?.topPages || []}/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <TrafficPageChart topPages={gaData?.topPages || []}/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12 xl:col-span-4">
-            <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12 xl:col-span-4">
-            <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12 xl:col-span-4">
-            <TrafficSourceChart topSources={gaData?.topSources || []}/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <TrafficSourceChart topSources={gaData?.topSources || []}/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12">
-            <CountryTrafficMap countries={gaData?.countries}/>
+            <LazyLoadWrapper fallback={<div>Loading PieChart...</div>}>
+              <CountryTrafficMap countries={gaData?.countries}/>
+            </LazyLoadWrapper>
           </div>
         </div>
 

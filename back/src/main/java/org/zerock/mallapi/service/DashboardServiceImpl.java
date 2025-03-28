@@ -1866,16 +1866,12 @@ public class DashboardServiceImpl implements DashboardService{
 
   public CountryDataDTO getCountryData(String countryName) {
     String url = String.format("https://restcountries.com/v3.1/name/%s?fullText=true", countryName);
-    log.info("url: " + url);
 
     RestTemplate restTemplate = new RestTemplate();
 
     try {
       ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
       CountryResponseDTO[] response = responseEntity.getBody();
-
-      // svg URL 확인
-      log.info("svg: " + response[0].getFlags().getSvg());
 
       if (response != null && response.length > 0 && response[0].getLatlng() != null) {
         return new CountryDataDTO(response[0].getLatlng(), response[0].getFlags().getSvg());

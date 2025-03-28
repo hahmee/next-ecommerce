@@ -12,7 +12,6 @@ interface CheckboxProps {
 const RadioButton = memo(({options, name, originalData}: CheckboxProps) => {
     const [checkedValue, setCheckedValue] = useState<string>();
 
-
     return (
         <>
             <div className="flex flex-wrap">
