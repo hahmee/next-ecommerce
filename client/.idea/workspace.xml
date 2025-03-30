@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/www.next-ecommerce.shop_2025-03-28_17-09-08.report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/google-search/google7db928cfae2e56fc.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/google7db928cfae2e56fc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/real-time/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/real-time/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +92,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/src/components/Home/Product",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,10 +106,10 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Home\Product" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard\Charts" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\users" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Product" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -690,7 +691,7 @@
       <workItem from="1743212753756" duration="940000" />
       <workItem from="1743246324603" duration="1941000" />
       <workItem from="1743300359676" duration="342000" />
-      <workItem from="1743302031386" duration="18308000" />
+      <workItem from="1743302031386" duration="19434000" />
     </task>
     <servers />
   </component>
