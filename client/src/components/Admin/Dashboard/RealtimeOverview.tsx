@@ -10,11 +10,11 @@ import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
 import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 
-const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
-const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
-const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
-const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
-const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
+// const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
+// const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
+// const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
+// const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
+// const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 
 const RealtimeOverview: React.FC = () => {
 
@@ -46,7 +46,6 @@ const RealtimeOverview: React.FC = () => {
     endDate: formatDate(comparedEndDate),
   });
 
-
   const {
     data: gaData,
   } = useQuery<DataResponse<GARealTimeResponse>, Object, GARealTimeResponse>({
@@ -73,9 +72,9 @@ const RealtimeOverview: React.FC = () => {
       <>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
-              <ActiveVisitors gaData={gaData?.activeVisitors}/>
-            </LazyLoadWrapper>
+            {/*<LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">*/}
+            {/*  <ActiveVisitors gaData={gaData?.activeVisitors}/>*/}
+            {/*</LazyLoadWrapper>*/}
           </div>
           {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">*/}
           {/*    <ActiveVisitChart chart={gaData?.activeVisitChart}/>*/}
