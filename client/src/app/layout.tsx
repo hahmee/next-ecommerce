@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     icons: {
         icon: "/images/main/logo.svg", // 절대 경로로 수정
     },
+    other: {
+        "google-site-verification": "Al9v_xjka2c-c1TtoimoHoEXJYG2A565b2iwaXqzhAw",
+    },
 };
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
