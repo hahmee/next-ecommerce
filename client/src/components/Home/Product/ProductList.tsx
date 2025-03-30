@@ -17,6 +17,7 @@ import {getCategories, getCategory} from "@/apis/adminAPI";
 import {getProductList} from "@/apis/mallAPI";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCartSkeleton";
 import ProductCardListSkeleton from "@/components/Skeleton/ProductCartListSkeleton";
+import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";
 
 export type SortOption = {
     name: string;
@@ -98,8 +99,6 @@ export interface Params {
 const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order, query}: Props) => {
     const searchParams = useSearchParams();
     const searchValue = searchParams.get("query");
-    // 모든 쿼리 파라미터를 객체 형태로 가져오기
-    // const params = Object.fromEntries(searchParams.entries());
     // 모든 쿼리 파라미터를 [{ key, value }] 형태로 변환
     const paramsArray: Params[] = Array.from(searchParams.entries()).map(([key, value]) => ({
         key,
@@ -118,12 +117,12 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         isFetchingNextPage,
         status,
     } = useInfiniteQuery({
-        queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
+        queryKey: ['profducts', categoryId, colors, sizes, minPrice, maxPrice, order, query],
         queryFn: ({pageParam, meta}) => {
             return getProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,
-                row: 9,
+                row: 3,
                 categoryId: categoryId,
                 colors: colors,
                 productSizes: sizes,
@@ -134,6 +133,10 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             });
         },
         getNextPageParam: (lastPage, allPages) => {
+            // 만약 현재 페이지의 상품 목록이 비어있다면, 다음 페이지가 없음을 의미
+            if (lastPage.data.dtoList.length === 0) {
+                return undefined;
+            }
             return lastPage.data.current + 1;
         },
         initialPageParam: 1,
@@ -144,6 +147,8 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         refetchOnWindowFocus: false,
     });
 
+
+    const allProducts = products?.pages.flatMap(page => page.data.dtoList) || [];
 
     const {data: categories} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
         queryKey: ['categories'],
@@ -169,22 +174,32 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         }, []),
     });
 
-    const {ref, inView} = useInView();
+    // const {ref, inView} = useInView();
+
+    const { ref, inView } = useInView({
+        rootMargin: "200px", // 뷰포트에서 200px 떨어져도 미리 감지
+        threshold: 0,
+    });
 
     useEffect(() => {
-        const inViewFunc = async () => {
-            await fetchNextPage();
-        };
-        if (inView && hasNextPage)
-            inViewFunc();
-
-    }, [inView]);
+        if (inView && hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+    // useEffect(() => {
+    //     console.log("inView:", inView);
+    //     const inViewFunc = async () => {
+    //         await fetchNextPage();
+    //     };
+    //     if (inView && hasNextPage)
+    //         inViewFunc();
+    //
+    // // }, [inView]);
+    // }, [inView, hasNextPage, fetchNextPage]);
 
     if (isLoading) {
         return (
-            <div>
-                Loading...
-            </div>
+           <ListPageSkeleton/>
         );
     }
 
@@ -243,10 +258,13 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                 <ProductOrders/>
                             </div>
 
-                            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+                            <div
+                                className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
                                 {
-                                    products?.pages[0].data.dtoList.length < 1 ?
-                                        <div>상품이 없습니다.</div> : products?.pages.map((page, index) => (
+                                    allProducts.length < 1 ? (
+                                        <div>상품이 없습니다.</div>
+                                    ) : (
+                                        products?.pages.map((page, index) => (
                                             <Fragment key={index}>
                                                 {page?.data?.dtoList.map((product: Product) => (
                                                     <Suspense fallback={<ProductCardSkeleton/>} key={product.pno}>
@@ -255,9 +273,23 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                                 ))}
                                             </Fragment>
                                         ))
+                                    )
                                 }
                             </div>
-                            {isFetchingNextPage ? (<div><ProductCardListSkeleton/></div>) : (<div ref={ref}></div>)}
+
+                            {isFetchingNextPage ? (
+                                <div className="mt-6">
+                                    <ProductCardListSkeleton />
+                                </div>
+                            ) : hasNextPage ? (
+                                <div ref={ref} className="h-10 flex justify-center items-center mt-4">
+                                    스크롤을 내려주세요.
+                                </div>
+                            ) : (
+                                <div className="mt-4 flex justify-center items-center">
+                                    더 이상 없습니다.
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>

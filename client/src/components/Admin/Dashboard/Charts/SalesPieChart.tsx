@@ -3,9 +3,6 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import {MapResponse} from "@/interface/MapResponse";
 
-interface ChartThreeState {
-  series: number[];
-}
 
 const colors = ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF"];
 
@@ -78,7 +75,7 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
     ],
   };
   return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
+      <>
         <div className="mb-3 justify-between gap-4 sm:flex">
           <h5 className="text-xl font-semibold text-black dark:text-white">
             Country Analytics
@@ -106,7 +103,7 @@ const SalesPieChart = ({countries}:{countries:Array<MapResponse> | undefined}) =
             })
           }
         </div>
-      </div>
+      </>
   );
 };
 

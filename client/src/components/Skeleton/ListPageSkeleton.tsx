@@ -60,13 +60,6 @@ const ListPageSkeleton = () => {
                                 </div>
                             ))}
                         </div>
-
-                        {/* 추가로 로딩 중일 때 스켈레톤 */}
-                        <div className="mt-6">
-                            <div className="h-64 bg-gray-300 rounded-lg mb-4"></div>
-                            <div className="h-64 bg-gray-300 rounded-lg mb-4"></div>
-                            <div className="h-64 bg-gray-300 rounded-lg"></div>
-                        </div>
                     </div>
                 </div>
             </section>

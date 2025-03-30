@@ -5,6 +5,7 @@ import {FetchInfiniteQueryOptions} from "@tanstack/react-query";
 import {getCategories, getCategory} from "@/apis/adminAPI";
 import {getProductList} from "@/apis/mallAPI";
 import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";
+import ProductListTest from "@/components/Home/Product/ProductListTest";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
@@ -39,9 +40,9 @@ export default async function ListPage({searchParams}: Props) {
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
             queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order,query],
-            queryFn: ({pageParam}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 9 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
+            queryFn: ({pageParam}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 1 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
             initialPageParam: 1,
-            staleTime: 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
+            staleTime: Infinity,// 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },
     ];
 
@@ -59,10 +60,11 @@ export default async function ListPage({searchParams}: Props) {
     return (
         <Suspense fallback={<ListPageSkeleton/>}>
             <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions} prefetchOptions={prefetchOptions}>
+                {/*<ProductListTest/>*/}
                 <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice} maxPrice={maxPrice} order={order} query={query}/>
             </PrefetchBoundary>
         </Suspense>
-    )
+    );
 };
 
 

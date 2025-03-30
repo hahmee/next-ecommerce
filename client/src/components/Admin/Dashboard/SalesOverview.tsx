@@ -16,6 +16,7 @@ import {MapResponse} from "@/interface/MapResponse";
 import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
 import formatDate from "@/libs/formatDate";
 import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
+import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -226,7 +227,8 @@ const SalesOverview: React.FC = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-          <CardDataStats title="Total Sales" total={salesCards?.totalSales} rate={salesCards?.totalSalesCompared} id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Total Sales" total={salesCards?.totalSales} rate={salesCards?.totalSalesCompared}
+                         id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="22"
@@ -245,7 +247,8 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Number of Orders" total={salesCards?.totalOrders} rate={salesCards?.totalOrdersCompared}  id={ChartContext.ORDERS} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Number of Orders" total={salesCards?.totalOrders} rate={salesCards?.totalOrdersCompared}
+                         id={ChartContext.ORDERS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="20"
@@ -268,7 +271,8 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Avg. order value" total={salesCards?.avgOrders} rate={salesCards?.avgOrdersCompared}  id={ChartContext.AVGORDERS} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Avg. order value" total={salesCards?.avgOrders} rate={salesCards?.avgOrdersCompared}
+                         id={ChartContext.AVGORDERS} selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="22"
@@ -287,7 +291,8 @@ const SalesOverview: React.FC = () => {
               />
             </svg>
           </CardDataStats>
-          <CardDataStats title="Refund Rate" total={0} rate={0.95} id={ChartContext.TOTALVIEWS} selectedCard={selectedCard} clickCard={clickCard}>
+          <CardDataStats title="Refund Rate" total={0} rate={0.95} id={ChartContext.TOTALVIEWS}
+                         selectedCard={selectedCard} clickCard={clickCard}>
             <svg
                 className="fill-primary-500 dark:fill-white"
                 width="22"
@@ -313,15 +318,36 @@ const SalesOverview: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
-          {
-            countries && <CountryMap countries={countries}/>
-          }
-          <SalesPieChart countries={countries}/>
-          <div className="col-span-12 xl:col-span-8">
-            <TopOrderTable topProducts={topProducts}/>
+          <div
+              className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
+            </LazyLoadWrapper>
           </div>
-          <TopCustomers topCustomers={topCustomers} />
+          {
+              countries &&
+              <div
+                  className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
+                <LazyLoadWrapper fallback={<div>Loading...</div>}><CountryMap countries={countries}/></LazyLoadWrapper>
+              </div>
+          }
+          <div
+              className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <SalesPieChart countries={countries}/>
+            </LazyLoadWrapper>
+          </div>
+          <div className="col-span-12 xl:col-span-8">
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <TopOrderTable topProducts={topProducts}/>
+            </LazyLoadWrapper>
+
+          </div>
+          <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <TopCustomers topCustomers={topCustomers}/>
+            </LazyLoadWrapper>
+          </div>
         </div>
       </>
   );

@@ -8,6 +8,7 @@ import {getCookie} from "cookies-next";
 import {getGARecentUsers} from "@/apis/dashbaordAPI";
 import {GARealTimeResponse} from "@/interface/GARealTimeResponse";
 import formatDate from "@/libs/formatDate";
+import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 
 const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
@@ -70,18 +71,28 @@ const RealtimeOverview: React.FC = () => {
       <>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-            <ActiveVisitors gaData={gaData?.activeVisitors}/>
-            <ActiveVisitChart chart={gaData?.activeVisitChart}/>
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <ActiveVisitors gaData={gaData?.activeVisitors}/>
+            </LazyLoadWrapper>
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <ActiveVisitChart chart={gaData?.activeVisitChart}/>
+            </LazyLoadWrapper>
           </div>
           <div className="col-span-12">
-            <PageRoute gaData={gaData?.events}/>
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <PageRoute gaData={gaData?.events}/>
+            </LazyLoadWrapper>
           </div>
           <div className="col-span-12 xl:col-span-6 md:gap-6 2xl:gap-7.5">
-            <RecentVisitors gaData={gaData?.recentVisitors}/>
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <RecentVisitors gaData={gaData?.recentVisitors}/>
+            </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12 xl:col-span-6  md:gap-6 2xl:gap-7.5">
-            <PieChart data={gaData?.devices} title={"Users by device"} label="Active users"/>
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <PieChart data={gaData?.devices} title={"Users by device"} label="Active users"/>
+            </LazyLoadWrapper>
           </div>
 
         </div>
