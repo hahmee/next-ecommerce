@@ -320,7 +320,7 @@ const SalesOverview: React.FC = () => {
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div
               className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
               <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
             </LazyLoadWrapper>
           </div>
@@ -328,23 +328,25 @@ const SalesOverview: React.FC = () => {
               countries &&
               <div
                   className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
-                <LazyLoadWrapper fallback={<div>Loading...</div>}><CountryMap countries={countries}/></LazyLoadWrapper>
+                <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]"><CountryMap
+                    countries={countries}/></LazyLoadWrapper>
               </div>
           }
           <div
               className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
               <SalesPieChart countries={countries}/>
             </LazyLoadWrapper>
           </div>
           <div className="col-span-12 xl:col-span-8">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
               <TopOrderTable topProducts={topProducts}/>
             </LazyLoadWrapper>
 
           </div>
-          <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+          <div
+              className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
               <TopCustomers topCustomers={topCustomers}/>
             </LazyLoadWrapper>
           </div>

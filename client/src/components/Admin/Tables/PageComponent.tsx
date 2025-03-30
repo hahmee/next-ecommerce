@@ -9,6 +9,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
     if(pagingData.totalCount  < size) {
         return null;
     }
+
     return (
         <>
             <div className="flex flex-1 justify-between sm:hidden">
@@ -91,7 +92,6 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                         }
                         {
                             pagingData.next ?
-
                                 <div className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                                     onClick={() => changePage(pagingData.nextPage)}
                                 >

@@ -22,7 +22,7 @@ const LazyLoadWrapper = ({
     });
 
     return (
-        <div ref={ref} className={`${className ?? ""} min-h-[400px]`}>
+        <div ref={ref} className={`${className ?? ""}`}>
             {inView ? children : fallback}
         </div>
     );

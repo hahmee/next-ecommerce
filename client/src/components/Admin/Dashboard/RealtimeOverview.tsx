@@ -71,30 +71,29 @@ const RealtimeOverview: React.FC = () => {
       <>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
               <ActiveVisitors gaData={gaData?.activeVisitors}/>
             </LazyLoadWrapper>
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
               <ActiveVisitChart chart={gaData?.activeVisitChart}/>
             </LazyLoadWrapper>
           </div>
           <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
               <PageRoute gaData={gaData?.events}/>
             </LazyLoadWrapper>
           </div>
           <div className="col-span-12 xl:col-span-6 md:gap-6 2xl:gap-7.5">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
               <RecentVisitors gaData={gaData?.recentVisitors}/>
             </LazyLoadWrapper>
           </div>
 
-          <div className="col-span-12 xl:col-span-6  md:gap-6 2xl:gap-7.5">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+          <div className="col-span-12 xl:col-span-6 md:gap-6 2xl:gap-7.5">
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
               <PieChart data={gaData?.devices} title={"Users by device"} label="Active users"/>
             </LazyLoadWrapper>
           </div>
-
         </div>
 
       </>

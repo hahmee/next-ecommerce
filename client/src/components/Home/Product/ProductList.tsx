@@ -122,7 +122,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             return getProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,
-                row: 3,
+                row: 2,
                 categoryId: categoryId,
                 colors: colors,
                 productSizes: sizes,
@@ -174,8 +174,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         }, []),
     });
 
-    // const {ref, inView} = useInView();
-
     const { ref, inView } = useInView({
         rootMargin: "200px", // 뷰포트에서 200px 떨어져도 미리 감지
         threshold: 0,
@@ -186,16 +184,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
             fetchNextPage();
         }
     }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
-    // useEffect(() => {
-    //     console.log("inView:", inView);
-    //     const inViewFunc = async () => {
-    //         await fetchNextPage();
-    //     };
-    //     if (inView && hasNextPage)
-    //         inViewFunc();
-    //
-    // // }, [inView]);
-    // }, [inView, hasNextPage, fetchNextPage]);
+
 
     if (isLoading) {
         return (

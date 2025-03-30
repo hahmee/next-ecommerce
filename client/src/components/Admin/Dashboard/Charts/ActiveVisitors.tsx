@@ -5,7 +5,7 @@ import {SessionDTO} from "@/interface/GAResponse";
 const ActiveVisitors = ({gaData} : {gaData:Array<SessionDTO<number>> | undefined}) => {
 
     return (
-        <div className="col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
+        <div className="h-full col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
             <div className="justify-between grid grid-cols-2 row-span-2 ">
                 <div className="underline text-xs px-4.5 pt-4.5 font-semibold text-gray-600 dark:text-white">
                     지난 30분동안의 활성 사용자

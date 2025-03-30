@@ -37,26 +37,13 @@ const ListPageSkeleton = () => {
                         </div>
 
                         {/* 상품 목록 그리드 */}
-                        <div
-                            className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+                        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
                             {/* 상품 카드들 */}
                             {Array.from({length: 9}).map((_, index) => (
-                                <div key={index} className="w-full bg-white rounded-lg shadow-md">
-                                    {/* 상품 카드 이미지 스켈레톤 */}
-                                    <div className="w-full h-64 bg-gray-300 rounded-t-lg"></div>
-                                    <div className="px-4 py-6">
-                                        {/* 상품명 스켈레톤 */}
-                                        <div className="h-6 bg-gray-300 rounded-md w-3/4 mb-2"></div>
-                                        {/* 가격 스켈레톤 */}
-                                        <div className="h-6 bg-gray-300 rounded-md w-1/3 mb-4"></div>
-                                        {/* 상품 설명 스켈레톤 */}
-                                        <div className="h-4 bg-gray-200 rounded-md w-full mb-2"></div>
-                                        {/* 리뷰 스켈레톤 */}
-                                        <div className="flex items-center space-x-2">
-                                            <div className="h-5 w-5 bg-gray-300 rounded-full"></div>
-                                            <div className="h-4 bg-gray-200 rounded-md w-16"></div>
-                                        </div>
-                                    </div>
+                                <div key={index} className="animate-pulse space-y-4">
+                                    <div className="w-full h-64 bg-gray-200 rounded-lg"/>
+                                    <div className="h-4 bg-gray-200 rounded w-3/4"/>
+                                    <div className="h-4 bg-gray-100 rounded w-1/2"/>
                                 </div>
                             ))}
                         </div>

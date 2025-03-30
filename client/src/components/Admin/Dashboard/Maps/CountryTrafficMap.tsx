@@ -116,18 +116,24 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
 
             {/* 페이징 버튼 영역에 mt-auto로 하단 고정 */}
             {totalPages > 1 && (
-                <div className="mt-auto flex justify-center space-x-2">
+                <div className="mt-auto flex justify-center ">
                   <button
-                      className="px-3 py-1 border rounded"
+                      className=" hover:bg-gray-50 inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
                   >
-                    이전
+                    <span className="sr-only">Previous</span>
+                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                      <path fillRule="evenodd"
+                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                            clipRule="evenodd"/>
+                    </svg>
                   </button>
                   {Array.from({length: totalPages}, (_, i) => (
                       <button
                           key={i + 1}
-                          className={`px-3 py-1 border rounded ${
+                          className={` hover:bg-gray-50 relative text-gray-500 inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ${
                               currentPage === i + 1 ? "bg-primary-500 text-white" : ""
                           }`}
                           onClick={() => handlePageChange(i + 1)}
@@ -136,11 +142,17 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
                       </button>
                   ))}
                   <button
-                      className="px-3 py-1 border rounded"
+                      className=" hover:bg-gray-50 inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === totalPages}
                   >
-                    다음
+                    <span className="sr-only">Next</span>
+                    <svg className="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                      <path fillRule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clipRule="evenodd"/>
+                    </svg>
                   </button>
                 </div>
             )}

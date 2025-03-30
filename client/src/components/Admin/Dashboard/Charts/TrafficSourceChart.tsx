@@ -15,15 +15,14 @@ const TrafficSourceChart = ({topSources}:{topSources:Array<SessionDTO<number>> |
                 </h5>
             </div>
 
-
             <div className="w-full space-y-2 flex flex-col px-4.5 pt-4.5 pb-2.5">
-                {topSources.map((source,index) => (
+                {topSources.map((source, index) => (
                     <div key={index}>
                         <div className="flex justify-between mb-2">
                             <span className="text-sm font-normal">{source.key}</span>
                             <span className="text-sm font-bold">{Number(source.value).toLocaleString()}</span>
                         </div>
-                        <HorizontalBarChart percentage={((source.value/totalSources)*100)} count={source.value}/>
+                        <HorizontalBarChart percentage={((source.value / totalSources) * 100)} count={source.value}/>
                     </div>
                 ))}
             </div>

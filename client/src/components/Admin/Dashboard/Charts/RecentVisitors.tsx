@@ -13,7 +13,6 @@ const RecentVisitors = ({gaData}:{gaData:Array<SessionDTO<number>> | undefined})
                 </h5>
             </div>
 
-
             <div className="w-full space-y-2 flex flex-col px-4.5 pt-4.5 pb-2.5">
 
                 {gaData?.map((visitor) => (
