@@ -332,8 +332,7 @@ const SalesOverview: React.FC = () => {
                     countries={countries}/></LazyLoadWrapper>
               </div>
           }
-          <div
-              className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
+          <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
               <SalesPieChart countries={countries}/>
             </LazyLoadWrapper>
