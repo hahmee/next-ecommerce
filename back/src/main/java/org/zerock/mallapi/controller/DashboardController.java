@@ -90,6 +90,7 @@ public class DashboardController {
   }
 
 
+  //original
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/traffic")
   public DataResponseDTO<GAResponseDTO> getAnalytics(GARequestDTO gaRequestDTO) {
@@ -106,6 +107,54 @@ public class DashboardController {
     return DataResponseDTO.of(gaResponseDTO);
 
   }
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @GetMapping("/trafficTop")
+  public DataResponseDTO<GAResponseTopDTO> getAnalyticsTop(GARequestDTO gaRequestDTO) {
+    long startTime = System.currentTimeMillis();
+
+    log.info("googleAnalyticsRequestDTOTop" + gaRequestDTO);
+
+    GAResponseTopDTO gaResponseTopDTO = dashboardService.getGoogleAnalyticsTop(gaRequestDTO);
+
+    long endTime = System.currentTimeMillis();
+    long duration = endTime - startTime;
+    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    return DataResponseDTO.of(gaResponseTopDTO);
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @GetMapping("/trafficMiddle")
+  public DataResponseDTO<GAResponseMiddleDTO> getAnalyticsMiddle(GARequestDTO gaRequestDTO) {
+    long startTime = System.currentTimeMillis();
+
+    log.info("googleAnalyticsRequestDTOTop" + gaRequestDTO);
+
+    GAResponseMiddleDTO gaResponseMiddleDTO = dashboardService.getGoogleAnalyticsMiddle(gaRequestDTO);
+
+    long endTime = System.currentTimeMillis();
+    long duration = endTime - startTime;
+    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    return DataResponseDTO.of(gaResponseMiddleDTO);
+  }
+
+
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @GetMapping("/trafficBottom")
+  public DataResponseDTO<GAResponseBottomDTO> getAnalyticsBottom(GARequestDTO gaRequestDTO) {
+    long startTime = System.currentTimeMillis();
+
+    log.info("googleAnalyticsRequestDTOTop" + gaRequestDTO);
+
+    GAResponseBottomDTO gaResponseBottomDTO = dashboardService.getGoogleAnalyticsBottom(gaRequestDTO);
+
+    long endTime = System.currentTimeMillis();
+    long duration = endTime - startTime;
+    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    return DataResponseDTO.of(gaResponseBottomDTO);
+  }
+
 
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")

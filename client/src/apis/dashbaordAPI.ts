@@ -28,6 +28,42 @@ export async function getGoogleAnalytics (param: GARequest) {
     });
 }
 
+export async function getGoogleAnalyticsTop (param: GARequest) {
+    return await fetchJWT(`/api/dashboard/trafficTop?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
+        method: "GET",
+        next: {
+            tags: ['gaTop'], //다시
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
+
+
+export async function getGoogleAnalyticsMiddle (param: GARequest) {
+    return await fetchJWT(`/api/dashboard/trafficMiddle?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
+        method: "GET",
+        next: {
+            tags: ['gaMiddle'],
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
+
+
+
+export async function getGoogleAnalyticsBottom (param: GARequest) {
+    return await fetchJWT(`/api/dashboard/trafficBottom?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
+        method: "GET",
+        next: {
+            tags: ['gaBottom'],
+        },
+        credentials: 'include',
+        cache: 'no-store',
+    });
+}
+
 export async function getSalesByCountry (param: TopCustomerRequest) {
 
     return await fetchJWT(`/api/dashboard/salesByCountry?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}`, {

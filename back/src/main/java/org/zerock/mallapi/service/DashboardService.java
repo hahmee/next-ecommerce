@@ -24,6 +24,16 @@ public interface DashboardService {
 
   GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO);
 
+
+  GAResponseTopDTO getGoogleAnalyticsTop(GARequestDTO gaRequestDTO);
+
+
+  GAResponseMiddleDTO getGoogleAnalyticsMiddle(GARequestDTO gaRequestDTO);
+
+
+  GAResponseBottomDTO getGoogleAnalyticsBottom(GARequestDTO gaRequestDTO);
+
+
   GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO);
 }
 

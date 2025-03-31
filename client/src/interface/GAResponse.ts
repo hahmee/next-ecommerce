@@ -1,3 +1,26 @@
+export interface GAResponseTop {//상단 데이터
+  sessions: string;
+  uniqueVisitors: string;
+  avgSessionDuration: string;
+  sessionsCompared: string; // 숫자 or '-'
+  uniqueVisitorsCompared: string;
+  avgSessionDurationCompared: string;
+  sessionChart: SessionChart;
+}
+
+export interface GAResponseMiddle {//중간 데이터
+  topPages: Array<SessionDTO<number>>;
+  topSources: Array<SessionDTO<number>>;
+  devices: Array<SessionDTO<number>>;
+  visitors: Array<SessionDTO<number>>;
+  countries: Array<CountryChartDTO>;
+}
+
+export interface GAResponseBottom {//하단 데이터
+  countries: Array<CountryChartDTO>;
+}
+
+//original
 export interface GAResponse {
   sessions: string;
   uniqueVisitors: string;
@@ -11,8 +34,6 @@ export interface GAResponse {
   devices: Array<SessionDTO<number>>;
   visitors: Array<SessionDTO<number>>;
   countries: Array<CountryChartDTO>;
-
-
 }
 
 export interface SessionDTO<T>{

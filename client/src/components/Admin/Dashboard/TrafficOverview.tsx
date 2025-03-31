@@ -3,8 +3,8 @@ import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
 import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
-import {getGoogleAnalytics} from "@/apis/dashbaordAPI";
-import {GAResponse} from "@/interface/GAResponse";
+import {getGoogleAnalyticsBottom, getGoogleAnalyticsMiddle, getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
+import {GAResponseBottom, GAResponseMiddle, GAResponseTop} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
@@ -15,14 +15,18 @@ import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 
 const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false });
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
-const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
-const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
-const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { ssr: false });
-const CountryTrafficMap = dynamic(() => {
-  console.log("CountryTrafficMap imported!");
-  return import("./Maps/CountryTrafficMap");
-}, { ssr: false });
+const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false });
+const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), { ssr: false });
+
+
+// const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
+// const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
+// const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
+// const CountryTrafficMap = dynamic(() => {
+//   console.log("CountryTrafficMap imported!");
+//   return import("./Maps/CountryTrafficMap");
+// }, { ssr: false });
 
 const TrafficOverview: React.FC = () => {
 
@@ -44,22 +48,22 @@ const TrafficOverview: React.FC = () => {
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState<DateRangeType>({
-    startDate: startDate, // formatDate(startDate),
-    endDate: endDate,// formatDate(endDate),
+    startDate: startDate,
+    endDate: endDate,
   });
 
   const [comparedDate, setComparedDate] = useState<DateRangeType>({
-    startDate: comparedStartDate,// formatDate(comparedStartDate),
-    endDate: comparedEndDate, //formatDate(comparedEndDate),
+    startDate: comparedStartDate,
+    endDate: comparedEndDate,
   });
 
   const {
-    data: gaData,
+    data: gaTopData,
     isLoading,
     isFetching
-  } = useQuery<DataResponse<GAResponse>, Object, GAResponse>({
-    queryKey: ['ga', date, currentFilter],
-    queryFn: () => getGoogleAnalytics({
+  } = useQuery<DataResponse<GAResponseTop>, Object, GAResponseTop>({
+    queryKey: ['gaTop', date, currentFilter],
+    queryFn: () => getGoogleAnalyticsTop({
       startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
       endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
       sellerEmail: member.email,
@@ -76,7 +80,50 @@ const TrafficOverview: React.FC = () => {
       return data.data;
     }
   });
-
+  //
+  // const {
+  //   data: gaMiddleData,
+  // } = useQuery<DataResponse<GAResponseMiddle>, Object, GAResponseMiddle>({
+  //   queryKey: ['gaMiddle', date, currentFilter],
+  //   queryFn: () => getGoogleAnalyticsMiddle({
+  //     startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+  //     endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
+  //     sellerEmail: member.email,
+  //     filter: currentFilter,
+  //     comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
+  //     comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+  //   }),
+  //   staleTime: 60 * 1000,
+  //   gcTime: 300 * 1000,
+  //   throwOnError: true,
+  //   enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
+  //   select: (data) => {
+  //     // 데이터 가공 로직만 처리
+  //     return data.data;
+  //   }
+  // });
+  //
+  // const {
+  //   data: gaBottomData
+  // } = useQuery<DataResponse<GAResponseBottom>, Object, GAResponseBottom>({
+  //   queryKey: ['gaBottom', date, currentFilter],
+  //   queryFn: () => getGoogleAnalyticsBottom({
+  //     startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
+  //     endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
+  //     sellerEmail: member.email,
+  //     filter: currentFilter,
+  //     comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
+  //     comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+  //   }),
+  //   staleTime: 60 * 1000,
+  //   gcTime: 300 * 1000,
+  //   throwOnError: true,
+  //   enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
+  //   select: (data) => {
+  //     // 데이터 가공 로직만 처리
+  //     return data.data;
+  //   }
+  // });
 
   const dateChange = (value:any) => {
     setDate(value);
@@ -125,52 +172,76 @@ const TrafficOverview: React.FC = () => {
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
           <div className="col-span-12 xl:col-span-8">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} >
-              <CardTraffic gaData={gaData}/>
+            <LazyLoadWrapper fallback={<div>Loading...</div>}>
+              <CardTraffic gaData={gaTopData}/>
             </LazyLoadWrapper>
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <TrafficSessionChart chart={gaData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
+              <TrafficSessionChart chart={gaTopData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
             </LazyLoadWrapper>
           </div>
 
           <div className="col-span-12 xl:col-span-4">
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
               <MultiCirclesChart
-                  percentages={[Number(gaData?.sessionsCompared), Number(gaData?.uniqueVisitorsCompared), Number(gaData?.avgSessionDurationCompared)]}
+                  percentages={[Number(gaTopData?.sessionsCompared), Number(gaTopData?.uniqueVisitorsCompared), Number(gaTopData?.avgSessionDurationCompared)]}
                   title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
-                  total={gaData?.sessions || ""}/>
+                  total={gaTopData?.sessions || ""}/>
             </LazyLoadWrapper>
           </div>
 
+          {/* 추가 데이터 영역: Lazy load AdditionalDataSection */}
           <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <TrafficPageChart topPages={gaData?.topPages || []}/>
+            <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
+              <TrafficMiddleOverview
+                  date={date}
+                  comparedDate={comparedDate}
+                  currentFilter={currentFilter}
+                  sellerEmail={member.email}
+              />
             </LazyLoadWrapper>
           </div>
 
-          <div className="col-span-12 xl:col-span-4">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <PieChart data={gaData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
-            </LazyLoadWrapper>
-          </div>
-
-          <div className="col-span-12 xl:col-span-4">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <PieChart data={gaData?.devices} title={"Session by device"} label="Site sessions"/>
-            </LazyLoadWrapper>
-          </div>
-
-          <div className="col-span-12 xl:col-span-4 ">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
-              <TrafficSourceChart topSources={gaData?.topSources || []}/>
-            </LazyLoadWrapper>
-          </div>
-
+          {/* 추가 데이터 영역: Lazy load AdditionalDataSection */}
           <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <CountryTrafficMap countries={gaData?.countries}/>
+            <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
+              <TrafficBottomOverview
+                  date={date}
+                  comparedDate={comparedDate}
+                  currentFilter={currentFilter}
+                  sellerEmail={member.email}
+              />
             </LazyLoadWrapper>
           </div>
+
+          {/*<div className="col-span-12">*/}
+          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
+          {/*    <TrafficPageChart topPages={gaMiddleData?.topPages || []}/>*/}
+          {/*  </LazyLoadWrapper>*/}
+          {/*</div>*/}
+
+          {/*<div className="col-span-12 xl:col-span-4">*/}
+          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
+          {/*    <PieChart data={gaMiddleData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>*/}
+          {/*  </LazyLoadWrapper>*/}
+          {/*</div>*/}
+
+          {/*<div className="col-span-12 xl:col-span-4">*/}
+          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
+          {/*    <PieChart data={gaMiddleData?.devices} title={"Session by device"} label="Site sessions"/>*/}
+          {/*  </LazyLoadWrapper>*/}
+          {/*</div>*/}
+
+          {/*<div className="col-span-12 xl:col-span-4 ">*/}
+          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">*/}
+          {/*    <TrafficSourceChart topSources={gaMiddleData?.topSources || []}/>*/}
+          {/*  </LazyLoadWrapper>*/}
+          {/*</div>*/}
+
+          {/*<div className="col-span-12">*/}
+          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
+          {/*    <CountryTrafficMap countries={gaBottomData?.countries}/>*/}
+          {/*  </LazyLoadWrapper>*/}
+          {/*</div>*/}
         </div>
 
       </>

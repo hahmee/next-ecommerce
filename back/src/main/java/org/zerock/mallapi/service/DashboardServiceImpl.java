@@ -18,6 +18,8 @@ import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.MemberRepository;
 
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,6 +27,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -621,6 +624,7 @@ public class DashboardServiceImpl implements DashboardService{
     return dtoList;
   }
 
+  //original
   @Override
   public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
     log.info("GARequestDTO..." + gaRequestDTO);
@@ -708,6 +712,150 @@ public class DashboardServiceImpl implements DashboardService{
     return null;
 
   }
+
+
+  @Override
+  public GAResponseTopDTO getGoogleAnalyticsTop(GARequestDTO gaRequestDTO) {
+    log.info("GARequestDTO..." + gaRequestDTO);
+
+    try {
+      CompletableFuture<GAResponseDTO> sessionsFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGASessions(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+
+      CompletableFuture<SessionChartDTO> chartFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGAChart(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+
+      // 모든 작업이 완료될 때까지 기다림
+      CompletableFuture.allOf(
+              sessionsFuture, chartFuture
+      ).join();
+
+      // 최종 GAResponseDTO 구성 (각 작업 결과를 조합)
+      GAResponseTopDTO finalResult = GAResponseTopDTO.builder()
+              .sessions(sessionsFuture.get().getSessions())
+              .uniqueVisitors(sessionsFuture.get().getUniqueVisitors())
+              .avgSessionDuration(sessionsFuture.get().getAvgSessionDuration())
+              .avgSessionDurationCompared(sessionsFuture.get().getAvgSessionDurationCompared())
+              .sessionsCompared(sessionsFuture.get().getSessionsCompared())
+              .uniqueVisitorsCompared(sessionsFuture.get().getUniqueVisitorsCompared())
+              .sessionChart(chartFuture.get())
+              .build();
+
+      return finalResult;
+
+    } catch (Exception e) {
+      log.error("Error while fetching analytics data: ", e);
+    }
+    return null;
+
+  }
+
+
+  @Override
+  public GAResponseMiddleDTO getGoogleAnalyticsMiddle(GARequestDTO gaRequestDTO) {
+    log.info("GARequestDTO..." + gaRequestDTO);
+
+    try {
+
+      CompletableFuture<List<SessionDTO<String>>> topPagesFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGATopPages(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+      CompletableFuture<List<SessionDTO<String>>> topSourcesFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGATopSources(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+
+      CompletableFuture<List<SessionDTO<String>>> devicesFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGADevices(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+      CompletableFuture<List<SessionDTO<String>>> visitorsFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGAVisitors(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+
+      // 모든 작업이 완료될 때까지 기다림
+      CompletableFuture.allOf(
+              topPagesFuture, topSourcesFuture,
+              devicesFuture, visitorsFuture
+      ).join();
+
+      // 최종 GAResponseMiddleDTO 구성 (각 작업 결과를 조합)
+      GAResponseMiddleDTO finalResult = GAResponseMiddleDTO.builder()
+              .topPages(topPagesFuture.get())
+              .topSources(topSourcesFuture.get())
+              .devices(devicesFuture.get())
+              .visitors(visitorsFuture.get())
+              .build();
+
+      return finalResult;
+
+    } catch (Exception e) {
+      log.error("Error while fetching analytics data: ", e);
+    }
+    return null;
+
+  }
+
+
+  @Override
+  public GAResponseBottomDTO getGoogleAnalyticsBottom(GARequestDTO gaRequestDTO) {
+    log.info("GARequestDTO..." + gaRequestDTO);
+
+    try {
+
+      CompletableFuture<List<CountryChartDTO>> countriesFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGACountries(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+
+      // 모든 작업이 완료될 때까지 기다림
+      CompletableFuture.allOf(
+            countriesFuture
+      ).join();
+
+
+      // 최종 GAResponseDTO 구성 (각 작업 결과를 조합)
+      GAResponseBottomDTO finalResult = GAResponseBottomDTO.builder()
+              .countries(countriesFuture.get())
+              .build();
+
+      return finalResult;
+
+    } catch (Exception e) {
+      log.error("Error while fetching analytics data: ", e);
+    }
+    return null;
+
+  }
+
+
 
   @Override
   public GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO) {
@@ -1081,15 +1229,14 @@ public class DashboardServiceImpl implements DashboardService{
     String endDate = formatDate(gaRequestDTO.getEndDate());
 
     // BigQuery SQL 쿼리 작성
-    // - geo.country와 geo.city 필드를 사용해 그룹화하고, event_name이 'session_start'인 이벤트의 개수를 집계합니다.
+    // - geo.country 필드를 사용해 그룹화하고, event_name이 'session_start'인 이벤트의 개수를 집계합니다.
     String query = "SELECT " +
             "IFNULL(geo.country, 'Unknown') AS country, " +
-            "IFNULL(geo.city, 'Unknown') AS city, " +
             "COUNTIF(event_name = 'session_start') AS sessions " +
             "FROM `" + projectId + ".analytics_" + propertyId + ".events_*` " +
             "WHERE _TABLE_SUFFIX BETWEEN '" + startDate + "' " +
             "AND '" + endDate + "' " +
-            "GROUP BY country, city " +
+            "GROUP BY country " +
             "ORDER BY sessions DESC";
 
     QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
@@ -1097,13 +1244,8 @@ public class DashboardServiceImpl implements DashboardService{
 
     // 쿼리 결과 처리
     for (FieldValueList row : result.iterateAll()) {
-      String countryName = (row.get("country") == null || row.get("country").isNull())
-              ? "Unknown" : row.get("country").getStringValue();
-      String cityName = (row.get("city") == null || row.get("city").isNull())
-              ? "Unknown" : row.get("city").getStringValue();
-      String sessions = (row.get("sessions") == null || row.get("sessions").isNull())
-              ? "0" : row.get("sessions").getStringValue();
-
+      String countryName = (row.get("country") == null || row.get("country").isNull()) ? "Unknown" : row.get("country").getStringValue();
+      String sessions = (row.get("sessions") == null || row.get("sessions").isNull()) ? "0" : row.get("sessions").getStringValue();
 
       // 예시: countryCode에 따른 좌표를 가져오는 메서드 호출
       List<Double> coordinates = getCountryData(countryName).getCoordinates();
@@ -1864,17 +2006,25 @@ public class DashboardServiceImpl implements DashboardService{
 
   }
 
+
   public CountryDataDTO getCountryData(String countryName) {
-    String url = String.format("https://restcountries.com/v3.1/name/%s?fullText=true", countryName);
-
-    RestTemplate restTemplate = new RestTemplate();
-
     try {
+
+      String url = String.format("https://restcountries.com/v3.1/name/" + countryName + "?fullText=true");
+
+      RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
       CountryResponseDTO[] response = responseEntity.getBody();
 
-      if (response != null && response.length > 0 && response[0].getLatlng() != null) {
-        return new CountryDataDTO(response[0].getLatlng(), response[0].getFlags().getSvg());
+      if (response != null && response.length > 0) {
+        // flags가 존재하는 객체를 찾기
+        Optional<CountryResponseDTO> validResponse = Arrays.stream(response)
+                .filter(dto -> dto.getFlags() != null && dto.getFlags().getSvg() != null)
+                .findFirst();
+
+        if (validResponse.isPresent() && validResponse.get().getLatlng() != null) {
+          return new CountryDataDTO(validResponse.get().getLatlng(), validResponse.get().getFlags().getSvg());
+        }
       }
     } catch (Exception e) {
       System.out.println("Error fetching data for country: " + countryName + ". Returning default values.");

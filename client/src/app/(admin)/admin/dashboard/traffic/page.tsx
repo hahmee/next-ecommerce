@@ -5,7 +5,7 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
-import {getGoogleAnalytics} from "@/apis/dashbaordAPI";
+import {getGoogleAnalyticsBottom, getGoogleAnalyticsMiddle, getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
@@ -33,8 +33,8 @@ export default async function DashBoardTrafficPage() {
 
     const prefetchOptions = [
         {
-            queryKey: ['ga', date, ChartFilter.DAY],
-            queryFn: () => getGoogleAnalytics(
+            queryKey: ['gaTop', date, ChartFilter.DAY],
+            queryFn: () => getGoogleAnalyticsTop(
                 {
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate),
@@ -45,6 +45,46 @@ export default async function DashBoardTrafficPage() {
                 }
             ),
         },
+
+        {
+            queryKey: ['gaMiddle', date, ChartFilter.DAY],
+            queryFn: () => getGoogleAnalyticsMiddle(
+                {
+                    startDate: formatDate(startDate),
+                    endDate: formatDate(endDate),
+                    sellerEmail: member?.email || "",
+                    filter: ChartFilter.DAY,
+                    comparedStartDate: formatDate(comparedStartDate),
+                    comparedEndDate: formatDate(comparedEndDate),
+                }
+            ),
+        },
+        {
+            queryKey: ['gaBottom', date, ChartFilter.DAY],
+            queryFn: () => getGoogleAnalyticsBottom(
+                {
+                    startDate: formatDate(startDate),
+                    endDate: formatDate(endDate),
+                    sellerEmail: member?.email || "",
+                    filter: ChartFilter.DAY,
+                    comparedStartDate: formatDate(comparedStartDate),
+                    comparedEndDate: formatDate(comparedEndDate),
+                }
+            ),
+        },
+        // {
+        //     queryKey: ['ga', date, ChartFilter.DAY],
+        //     queryFn: () => getGoogleAnalytics(
+        //         {
+        //             startDate: formatDate(startDate),
+        //             endDate: formatDate(endDate),
+        //             sellerEmail: member?.email || "",
+        //             filter: ChartFilter.DAY,
+        //             comparedStartDate: formatDate(comparedStartDate),
+        //             comparedEndDate: formatDate(comparedEndDate),
+        //         }
+        //     ),
+        // },
     ]
 
     return <div className="mx-auto">
