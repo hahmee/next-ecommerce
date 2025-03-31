@@ -852,19 +852,10 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
 
-
   @Override
-  public GARealTimeResponseDTO getRealtime(GARequestDTO gaRequestDTO) {
+  public GARealTimeResponseTopDTO getRealtimeTop(GARequestDTO gaRequestDTO) {
 
     try {
-
-      CompletableFuture<List<SessionDTO<String>>> recentVisitorsFuture = CompletableFuture.supplyAsync(() -> {
-        try {
-          return getGARecentUser(gaRequestDTO);
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-      });
 
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
@@ -890,6 +881,43 @@ public class DashboardServiceImpl implements DashboardService{
         }
       });
 
+      // 모든 병렬 작업이 완료될 때까지 기다림
+      CompletableFuture.allOf(
+              activeVisitorsFuture,
+              activeVisitChartFuture,
+              eventsFuture
+      ).join();
+
+      GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = GARealTimeResponseTopDTO.builder()
+              .activeVisitors(activeVisitorsFuture.get())
+              .activeVisitChart(activeVisitChartFuture.get())
+              .events(eventsFuture.get())
+              .build();
+
+      return gaRealTimeResponseTopDTO;
+
+
+    } catch (Exception e) {
+      log.error("Error while fetching analytics data: ", e);
+    }
+    return null;
+  }
+
+
+
+  @Override
+  public GARealTimeResponseBottomDTO getRealtimeBottom(GARequestDTO gaRequestDTO) {
+
+    try {
+
+      CompletableFuture<List<SessionDTO<String>>> recentVisitorsFuture = CompletableFuture.supplyAsync(() -> {
+        try {
+          return getGARecentUser(gaRequestDTO);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      });
+
       CompletableFuture<List<SessionDTO<String>>> devicesFuture = CompletableFuture.supplyAsync(() -> {
         try {
           return getGARealTimeDevices(gaRequestDTO);
@@ -901,43 +929,23 @@ public class DashboardServiceImpl implements DashboardService{
       // 모든 병렬 작업이 완료될 때까지 기다림
       CompletableFuture.allOf(
               recentVisitorsFuture,
-              activeVisitorsFuture,
-              activeVisitChartFuture,
-              eventsFuture,
               devicesFuture
       ).join();
 
-      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder()
+      GARealTimeResponseBottomDTO gaRealTimeResponseBottomDTO = GARealTimeResponseBottomDTO.builder()
               .recentVisitors(recentVisitorsFuture.get())
-              .activeVisitors(activeVisitorsFuture.get())
-              .activeVisitChart(activeVisitChartFuture.get())
-              .events(eventsFuture.get())
               .devices(devicesFuture.get())
               .build();
 
-      return gaRealTimeResponseDTO;
+      return gaRealTimeResponseBottomDTO;
 
-
-//      List<SessionDTO<String>> recentVisitors = getGARecentUser(propertyId, gaRequestDTO);
-//
-//      List<SessionDTO<String>> activeVisitors = getGAActiveVisitors(propertyId, gaRequestDTO);
-//
-//      SessionChartDTO activeVisitChart = getGAActiveVisitChart(propertyId, gaRequestDTO);
-//
-//      List<SessionDTO<String>> events = getGAEvents(propertyId, gaRequestDTO);
-//
-//      List<SessionDTO<String>> devices = getGARealTimeDevices(propertyId, gaRequestDTO);
-//
-//      //보낼데이터
-//      GARealTimeResponseDTO gaRealTimeResponseDTO = GARealTimeResponseDTO.builder().recentVisitors(recentVisitors).activeVisitors(activeVisitors).activeVisitChart(activeVisitChart).events(events).devices(devices).build();
-
-//      return gaRealTimeResponseDTO;
 
     } catch (Exception e) {
       log.error("Error while fetching analytics data: ", e);
     }
     return null;
   }
+
 
   //실시간 보고서 - 최근 방문자
   private List<SessionDTO<String>> getGARecentUser(GARequestDTO gaRequestDTO) throws Exception {
@@ -967,8 +975,6 @@ public class DashboardServiceImpl implements DashboardService{
       for (Row row : response.getRowsList()) {
         String custom_user_id = row.getDimensionValues(0).getValue();
         String activeUsers = row.getMetricValues(0).getValue();
-        System.out.println(" - custom_user_id: " + custom_user_id);
-        System.out.println(" - activeUsers: " + activeUsers);
 
         recentUsers.add(new SessionDTO(custom_user_id, activeUsers));
 
@@ -979,19 +985,15 @@ public class DashboardServiceImpl implements DashboardService{
 
 //          Optional<Member> result = memberRepository.findByEncryptedId(custom_user_id);
 //
-//          System.out.println(" - result: " + result);
 //
 //          Member member = result.orElseThrow();
 
-//          System.out.println(" - member: " + member);
 //
 //          recentUsers.add(new SessionDTO(member.getEmail(), activeUsers));
 
         }
       }
     }
-    System.out.println(" - recentUsers recentUsers: " + recentUsers);
-
 
     return recentUsers;
 
@@ -1094,14 +1096,11 @@ public class DashboardServiceImpl implements DashboardService{
         String eventCount = row.getMetricValues(0).getValue();
 
 
-        System.out.println(" - eventName: " + eventName);
-        System.out.println(" - eventCount: " + eventCount);
 
         results.add(new SessionDTO(eventName, eventCount));
 
       }
     }
-    System.out.println(" - results: " + results);
 
 
     return results;
@@ -1139,14 +1138,11 @@ public class DashboardServiceImpl implements DashboardService{
         String activeUsers = row.getMetricValues(0).getValue();
 
 
-        System.out.println(" - deviceCategory: " + deviceCategory);
-        System.out.println(" - activeUsers: " + activeUsers);
 
         results.add(new SessionDTO(deviceCategory, activeUsers));
 
       }
     }
-    System.out.println(" - results: " + results);
 
 
     return results;
@@ -1188,9 +1184,6 @@ public class DashboardServiceImpl implements DashboardService{
         String activeUsers = row.getMetricValues(0).getValue();
         // 조회수
         String pageViews = row.getMetricValues(1).getValue();
-
-        System.out.println(" - real-time activeUsers: " + activeUsers);
-        System.out.println(" - real-time pageViews: " + pageViews);
 
         result.add(new SessionDTO("activeUsers", activeUsers));
         result.add(new SessionDTO("pageViews", pageViews));

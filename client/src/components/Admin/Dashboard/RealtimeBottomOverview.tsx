@@ -5,18 +5,16 @@ import {ChartFilter} from "@/types/chartFilter";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
-import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
-import {GARealTimeResponseTop} from "@/interface/GARealTimeResponse";
+import {getGARecentUsersBottom} from "@/apis/dashbaordAPI";
+import {GARealTimeResponseBottom} from "@/interface/GARealTimeResponse";
 import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
-import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import LoadingSkeleton from "@/components/Skeleton/LoadingSkeleton";
 
-const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
-const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
-const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
-const RealtimeBottomOverview = dynamic(() => import("./RealtimeBottomOverview"), { ssr: false });
+const RecentVisitors = dynamic(() => import("./Charts/RecentVisitors"), { ssr: false });
+const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 
-const RealtimeOverview: React.FC = () => {
+const RealtimeBottomOverview: React.FC = () => {
 
   const endDate = new Date(); // today
   const startDate = new Date();  // today
@@ -45,12 +43,12 @@ const RealtimeOverview: React.FC = () => {
   });
 
   const {
-    data: gaTopData,
+    data: gaBottomData,
     isLoading,
-    isFetching,
-  } = useQuery<DataResponse<GARealTimeResponseTop>, Object, GARealTimeResponseTop>({
-    queryKey: ['gaRecentUsersTop', date, currentFilter],
-    queryFn: () => getGARecentUsersTop({
+    isFetching
+  } = useQuery<DataResponse<GARealTimeResponseBottom>, Object, GARealTimeResponseBottom>({
+    queryKey: ['gaRecentUsersBottom', date, currentFilter],
+    queryFn: () => getGARecentUsersBottom({
       startDate: date.startDate,
       endDate: date.endDate,
       sellerEmail: member.email,
@@ -68,29 +66,21 @@ const RealtimeOverview: React.FC = () => {
   });
 
   if(isLoading || isFetching) {
-    return <DashboardSkeleton/>;
+    return <LoadingSkeleton/>;
   }
 
   return (
       <>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <div className="col-span-12 grid grid-cols-2 gap-4 md:gap-6 2xl:gap-7.5">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
-              <ActiveVisitors gaData={gaTopData?.activeVisitors}/>
-            </LazyLoadWrapper>
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
-              <ActiveVisitChart chart={gaTopData?.activeVisitChart}/>
-            </LazyLoadWrapper>
-          </div>
-          <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full">
-              <PageRoute gaData={gaTopData?.events}/>
+          <div className="col-span-12 xl:col-span-6 md:gap-6 2xl:gap-7.5">
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
+              <RecentVisitors gaData={gaBottomData?.recentVisitors}/>
             </LazyLoadWrapper>
           </div>
 
-          <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
-              <RealtimeBottomOverview/>
+          <div className="col-span-12 xl:col-span-6 md:gap-6 2xl:gap-7.5">
+            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
+              <PieChart data={gaBottomData?.devices} title={"Users by device"} label="Active users"/>
             </LazyLoadWrapper>
           </div>
 
@@ -100,4 +90,4 @@ const RealtimeOverview: React.FC = () => {
   );
 };
 
-export default RealtimeOverview;
+export default RealtimeBottomOverview;

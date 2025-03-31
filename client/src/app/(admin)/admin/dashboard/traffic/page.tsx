@@ -5,7 +5,7 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
-import {getGoogleAnalyticsBottom, getGoogleAnalyticsMiddle, getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
+import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
@@ -28,8 +28,6 @@ export default async function DashBoardTrafficPage() {
         startDate: formatDate(startDate),
         endDate: formatDate(endDate),
     };
-
-    console.log('date', date);
 
     const member = await getCookie("member");
 

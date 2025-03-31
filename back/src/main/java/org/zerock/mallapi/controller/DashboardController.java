@@ -31,7 +31,6 @@ public class DashboardController {
   @GetMapping("/salesOverviewChart")
   public DataResponseDTO<ChartResponseDTO> salesList(ChartRequestDTO chartRequestDTO) {
 
-
     ChartContext context = chartRequestDTO.getContext();
 
     switch (context) {
@@ -60,14 +59,12 @@ public class DashboardController {
   @GetMapping("/salesCustomers")
   public DataResponseDTO<List<TopCustomerResponseDTO>> topCustomerList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
-
     return DataResponseDTO.of(dashboardService.getTopCustomerList(topCustomerRequestDTO));
   }
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/salesProducts")
   public DataResponseDTO<List<TopProductResponseDTO>> topProductList(TopCustomerRequestDTO topCustomerRequestDTO) {
-
 
     return DataResponseDTO.of(dashboardService.getTopProductList(topCustomerRequestDTO));
   }
@@ -76,10 +73,8 @@ public class DashboardController {
   @GetMapping("/salesByCountry")
   public DataResponseDTO<List<MapSalesResponseDTO>> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
-
     return DataResponseDTO.of(dashboardService.getByCountryList(topCustomerRequestDTO));
   }
-
 
   //original
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
@@ -92,7 +87,6 @@ public class DashboardController {
 
     long endTime = System.currentTimeMillis();
     long duration = endTime - startTime;
-    log.info("traffic GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
 
     return DataResponseDTO.of(gaResponseDTO);
 
@@ -101,27 +95,16 @@ public class DashboardController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/trafficTop")
   public DataResponseDTO<GAResponseTopDTO> getAnalyticsTop(GARequestDTO gaRequestDTO) {
-    long startTime = System.currentTimeMillis();
-
 
     GAResponseTopDTO gaResponseTopDTO = dashboardService.getGoogleAnalyticsTop(gaRequestDTO);
 
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    log.info("trafficTop GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
     return DataResponseDTO.of(gaResponseTopDTO);
   }
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/trafficMiddle")
   public DataResponseDTO<GAResponseMiddleDTO> getAnalyticsMiddle(GARequestDTO gaRequestDTO) {
-    long startTime = System.currentTimeMillis();
-
     GAResponseMiddleDTO gaResponseMiddleDTO = dashboardService.getGoogleAnalyticsMiddle(gaRequestDTO);
-
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    log.info("trafficMiddle GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
     return DataResponseDTO.of(gaResponseMiddleDTO);
   }
 
@@ -130,31 +113,33 @@ public class DashboardController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/trafficBottom")
   public DataResponseDTO<GAResponseBottomDTO> getAnalyticsBottom(GARequestDTO gaRequestDTO) {
-    long startTime = System.currentTimeMillis();
 
     GAResponseBottomDTO gaResponseBottomDTO = dashboardService.getGoogleAnalyticsBottom(gaRequestDTO);
 
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    log.info("trafficBottom GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+
     return DataResponseDTO.of(gaResponseBottomDTO);
   }
 
 
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
-  @GetMapping("/real-time")
-  public DataResponseDTO<GARealTimeResponseDTO> gaRealTime(GARequestDTO gaRequestDTO) {
-    long startTime = System.currentTimeMillis();
+  @GetMapping("/real-time-top")
+  public DataResponseDTO<GARealTimeResponseTopDTO> gaRealTimeTop(GARequestDTO gaRequestDTO) {
 
-    GARealTimeResponseDTO gaRealTimeResponseDTO = dashboardService.getRealtime(gaRequestDTO);
+    GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = dashboardService.getRealtimeTop(gaRequestDTO);
 
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    log.info("GA API 요청 처리 시간: " + duration + "ms");
+    return DataResponseDTO.of(gaRealTimeResponseTopDTO);
+
+  }
+
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @GetMapping("/real-time-bottom")
+  public DataResponseDTO<GARealTimeResponseBottomDTO> gaRealTimeBottom(GARequestDTO gaRequestDTO) {
+
+    GARealTimeResponseBottomDTO gaRealTimeResponseBottomDTO = dashboardService.getRealtimeBottom(gaRequestDTO);
 
 
-    return DataResponseDTO.of(gaRealTimeResponseDTO);
+    return DataResponseDTO.of(gaRealTimeResponseBottomDTO);
 
   }
 

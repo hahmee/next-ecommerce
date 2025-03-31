@@ -5,7 +5,7 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
 import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
-import {getGARecentUsers} from "@/apis/dashbaordAPI";
+import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
@@ -32,8 +32,8 @@ export default async function DashBoardRealTimePage() {
 
     const prefetchOptions = [
         {
-            queryKey: ['gaRecentUsers', date, ChartFilter.DAY],
-            queryFn: () => getGARecentUsers(
+            queryKey: ['gaRecentUsersTop', date, ChartFilter.DAY],
+            queryFn: () => getGARecentUsersTop(
                 {
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate),
@@ -51,8 +51,7 @@ export default async function DashBoardRealTimePage() {
         <div className="flex flex-col gap-5">
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <div>test</div>
-                    {/*<RealtimeOverview/>*/}
+                    <RealtimeOverview/>
                 </PrefetchBoundary>
             </Suspense>
         </div>

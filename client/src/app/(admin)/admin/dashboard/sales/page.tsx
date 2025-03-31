@@ -6,7 +6,7 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
-import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
+import {getSalesCards, getSalesCharts} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
@@ -54,30 +54,6 @@ export default async function DashBoardSalesPage() {
                 comparedStartDate: formatDate(comparedStartDate),
                 comparedEndDate: formatDate(comparedEndDate),
                 context: ChartContext.TOPSALES,
-            }),
-        },
-        {
-            queryKey: ['customers', date],
-            queryFn: () => getTopCustomers({
-                startDate: formatDate(startDate),
-                endDate: formatDate(endDate),
-                sellerEmail: member?.email || "",
-            }),
-        },
-        {
-            queryKey: ['products', date],
-            queryFn: () => getTopProducts({
-                startDate: formatDate(startDate),
-                endDate: formatDate(endDate),
-                sellerEmail: member?.email || "",
-            }),
-        },
-        {
-            queryKey: ['countries', date],
-            queryFn: () => getSalesByCountry({
-                startDate: formatDate(startDate),
-                endDate: formatDate(endDate),
-                sellerEmail: member?.email || "",
             }),
         },
     ]

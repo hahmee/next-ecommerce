@@ -5,18 +5,31 @@ import {ChartRequest} from "@/interface/ChartRequest";
 
 
 
-export async function getGARecentUsers (param: GARequest) {
+export async function getGARecentUsersTop (param: GARequest) {
 
-    return await fetchJWT(`/api/dashboard/real-time?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
+    return await fetchJWT(`/api/dashboard/real-time-top?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
         method: "GET",
         next: {
-            tags: ['gaRecentUsers'], //다시
+            tags: ['gaRecentUsersTop'], //다시
         },
         credentials: 'include',
         cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
     });
 }
 
+export async function getGARecentUsersBottom (param: GARequest) {
+
+    return await fetchJWT(`/api/dashboard/real-time-bottom?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
+        method: "GET",
+        next: {
+            tags: ['gaRecentUsersBottom'], //다시
+        },
+        credentials: 'include',
+        cache: 'no-store', //요청마다 동적인 데이터를 얻고 싶다면
+    });
+}
+
+//original
 export async function getGoogleAnalytics (param: GARequest) {
     return await fetchJWT(`/api/dashboard/traffic?startDate=${param.startDate}&endDate=${param.endDate}&sellerEmail=${param.sellerEmail}&comparedStartDate=${param.comparedStartDate}&comparedEndDate=${param.comparedEndDate}&filter=${param.filter}`, {
         method: "GET",
