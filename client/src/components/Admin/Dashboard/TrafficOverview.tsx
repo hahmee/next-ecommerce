@@ -3,15 +3,15 @@ import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
 import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
-import {getGoogleAnalyticsBottom, getGoogleAnalyticsMiddle, getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
-import {GAResponseBottom, GAResponseMiddle, GAResponseTop} from "@/interface/GAResponse";
+import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
+import {GAResponseTop} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
-import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
+import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 
 const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false });
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
@@ -19,14 +19,10 @@ const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { 
 const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false });
 const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), { ssr: false });
 
-
-// const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
-// const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
-// const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
-// const CountryTrafficMap = dynamic(() => {
-//   console.log("CountryTrafficMap imported!");
-//   return import("./Maps/CountryTrafficMap");
-// }, { ssr: false });
+export type AdminDateType = {
+  startDate: string;
+  endDate: string;
+};
 
 const TrafficOverview: React.FC = () => {
 
@@ -47,29 +43,32 @@ const TrafficOverview: React.FC = () => {
   const memberInfo = getCookie('member');
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-  const [date, setDate] = useState<DateRangeType>({
-    startDate: startDate,
-    endDate: endDate,
+  const [date, setDate] = useState<AdminDateType>({
+    startDate: formatDate(startDate),
+    endDate: formatDate(endDate),
   });
 
-  const [comparedDate, setComparedDate] = useState<DateRangeType>({
-    startDate: comparedStartDate,
-    endDate: comparedEndDate,
+
+  const [comparedDate, setComparedDate] = useState<AdminDateType>({
+    startDate: formatDate(comparedStartDate),
+    endDate: formatDate(comparedEndDate),
   });
+
+
 
   const {
     data: gaTopData,
     isLoading,
     isFetching
   } = useQuery<DataResponse<GAResponseTop>, Object, GAResponseTop>({
-    queryKey: ['gaTop', date, currentFilter],
+      queryKey: ['gaTop', date, currentFilter],
     queryFn: () => getGoogleAnalyticsTop({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ? date.endDate : "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+      comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
+      comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -80,59 +79,21 @@ const TrafficOverview: React.FC = () => {
       return data.data;
     }
   });
-  //
-  // const {
-  //   data: gaMiddleData,
-  // } = useQuery<DataResponse<GAResponseMiddle>, Object, GAResponseMiddle>({
-  //   queryKey: ['gaMiddle', date, currentFilter],
-  //   queryFn: () => getGoogleAnalyticsMiddle({
-  //     startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-  //     endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
-  //     sellerEmail: member.email,
-  //     filter: currentFilter,
-  //     comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-  //     comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
-  //   }),
-  //   staleTime: 60 * 1000,
-  //   gcTime: 300 * 1000,
-  //   throwOnError: true,
-  //   enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-  //   select: (data) => {
-  //     // 데이터 가공 로직만 처리
-  //     return data.data;
-  //   }
-  // });
-  //
-  // const {
-  //   data: gaBottomData
-  // } = useQuery<DataResponse<GAResponseBottom>, Object, GAResponseBottom>({
-  //   queryKey: ['gaBottom', date, currentFilter],
-  //   queryFn: () => getGoogleAnalyticsBottom({
-  //     startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-  //     endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
-  //     sellerEmail: member.email,
-  //     filter: currentFilter,
-  //     comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-  //     comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
-  //   }),
-  //   staleTime: 60 * 1000,
-  //   gcTime: 300 * 1000,
-  //   throwOnError: true,
-  //   enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-  //   select: (data) => {
-  //     // 데이터 가공 로직만 처리
-  //     return data.data;
-  //   }
-  // });
 
-  const dateChange = (value:any) => {
-    setDate(value);
-    if(value.startDate === null || value.endDate === null) {
+  const dateChange = (value:DateValueType) => {
+
+    if(value === null || value?.startDate === null || value?.endDate === null) {
       return;
     }
-    // value.startDate와 value.endDate를 Date 객체로 변환
-    const startDate = new Date(value.startDate);
-    const endDate = new Date(value.endDate);
+
+    //날짜 변환
+    setDate({
+      startDate: formatDate(new Date(value.startDate)),
+      endDate: formatDate(new Date(value.endDate)),
+    });
+
+    const startDate = value.startDate
+    const endDate = value.endDate
 
     // 두 날짜 간의 차이를 밀리초 단위로 계산
     const timeDifference = endDate.getTime() - startDate.getTime();
@@ -140,15 +101,15 @@ const TrafficOverview: React.FC = () => {
     const dayDifference = timeDifference / (1000 * 60 * 60 * 24); // 일 단위 차이
 
     // 새로운 날짜 계산
-    const newEndDate = new Date(startDate); // endDate 복사
+    const newEndDate = startDate; // startDate 복사
     newEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
 
-    const newStartDate = new Date(newEndDate); // newEndDate 복사
+    const newStartDate = newEndDate; // newEndDate 복사
     newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
 
-    const comparedDate: DateRangeType = {
-      startDate: newStartDate,
-      endDate: newEndDate,
+    const comparedDate: AdminDateType = {
+      startDate: formatDate(newStartDate),
+      endDate: formatDate(newEndDate),
     };
 
     setComparedDate(comparedDate);
@@ -167,7 +128,7 @@ const TrafficOverview: React.FC = () => {
         <div>
           <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate?.startDate?.toLocaleDateString('en-CA')} ~ {comparedDate?.endDate?.toLocaleDateString('en-CA')})
+            ({comparedDate?.startDate} ~ {comparedDate?.endDate})
           </p>
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
@@ -189,14 +150,13 @@ const TrafficOverview: React.FC = () => {
             </LazyLoadWrapper>
           </div>
 
-          {/* 추가 데이터 영역: Lazy load AdditionalDataSection */}
           <div className="col-span-12">
             <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
               <TrafficMiddleOverview
                   date={date}
                   comparedDate={comparedDate}
                   currentFilter={currentFilter}
-                  sellerEmail={member.email}
+                  sellerEmail={member?.email || ""}
               />
             </LazyLoadWrapper>
           </div>
@@ -208,42 +168,11 @@ const TrafficOverview: React.FC = () => {
                   date={date}
                   comparedDate={comparedDate}
                   currentFilter={currentFilter}
-                  sellerEmail={member.email}
+                  sellerEmail={member?.email || ""}
               />
             </LazyLoadWrapper>
           </div>
-
-          {/*<div className="col-span-12">*/}
-          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
-          {/*    <TrafficPageChart topPages={gaMiddleData?.topPages || []}/>*/}
-          {/*  </LazyLoadWrapper>*/}
-          {/*</div>*/}
-
-          {/*<div className="col-span-12 xl:col-span-4">*/}
-          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
-          {/*    <PieChart data={gaMiddleData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>*/}
-          {/*  </LazyLoadWrapper>*/}
-          {/*</div>*/}
-
-          {/*<div className="col-span-12 xl:col-span-4">*/}
-          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
-          {/*    <PieChart data={gaMiddleData?.devices} title={"Session by device"} label="Site sessions"/>*/}
-          {/*  </LazyLoadWrapper>*/}
-          {/*</div>*/}
-
-          {/*<div className="col-span-12 xl:col-span-4 ">*/}
-          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">*/}
-          {/*    <TrafficSourceChart topSources={gaMiddleData?.topSources || []}/>*/}
-          {/*  </LazyLoadWrapper>*/}
-          {/*</div>*/}
-
-          {/*<div className="col-span-12">*/}
-          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
-          {/*    <CountryTrafficMap countries={gaBottomData?.countries}/>*/}
-          {/*  </LazyLoadWrapper>*/}
-          {/*</div>*/}
         </div>
-
       </>
   );
 };

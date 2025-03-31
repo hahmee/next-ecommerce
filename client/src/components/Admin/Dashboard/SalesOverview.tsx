@@ -15,33 +15,34 @@ import dynamic from "next/dynamic";
 import {MapResponse} from "@/interface/MapResponse";
 import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
 import formatDate from "@/libs/formatDate";
-import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
+import {DateRangeType, DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
-
-const data = {
-  "startDate": "2024-10-01", //해당 날짜
-  "endDate": "2024-10-15", //해당 날짜
-  "filter": "day", //day, week, ...
-  // "totalSales": 12000,   // 총매출  0
-  // "totalOrders": 74,   // 총주문수 0
-  // "avgOrderSale": 129,  // 평균 주문 금액 0
-  "xaxis": [ //가로축
-    "2024-10-01",
-    "2024-10-02",
-    "2024-10-03",
-    "2024-10-04"
-  ],
-  "series": [
-    {
-      "name": "Total Sales",
-      "data": [23, 11, 22, 27],
-    },
-    {
-      "name": "Total Revenue",
-      "data": [44, 22, 30, 45],
-    }
-  ],
-};
+import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
+//
+// const data = {
+//   "startDate": "2024-10-01", //해당 날짜
+//   "endDate": "2024-10-15", //해당 날짜
+//   "filter": "day", //day, week, ...
+//   // "totalSales": 12000,   // 총매출  0
+//   // "totalOrders": 74,   // 총주문수 0
+//   // "avgOrderSale": 129,  // 평균 주문 금액 0
+//   "xaxis": [ //가로축
+//     "2024-10-01",
+//     "2024-10-02",
+//     "2024-10-03",
+//     "2024-10-04"
+//   ],
+//   "series": [
+//     {
+//       "name": "Total Sales",
+//       "data": [23, 11, 22, 27],
+//     },
+//     {
+//       "name": "Total Revenue",
+//       "data": [44, 22, 30, 45],
+//     }
+//   ],
+// };
 
 const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
 const SalesPieChart = dynamic(() => import("./Charts/SalesPieChart"), { ssr: false });
@@ -65,14 +66,14 @@ const SalesOverview: React.FC = () => {
   const memberInfo = getCookie('member');
   const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-  const [date, setDate] = useState<DateRangeType>({
-    startDate: startDate,
-    endDate: endDate
+  const [date, setDate] = useState<AdminDateType>({
+    startDate: formatDate(startDate),
+    endDate: formatDate(endDate),
   });
 
-  const [comparedDate, setComparedDate] = useState<DateRangeType>({
-    startDate: comparedStartDate,
-    endDate: comparedEndDate,
+  const [comparedDate, setComparedDate] = useState<AdminDateType>({
+    startDate: formatDate(comparedStartDate),
+    endDate: formatDate(comparedEndDate),
   });
 
 
@@ -81,12 +82,12 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
     queryKey: ['salesCards', currentFilter, date, selectedCard],
     queryFn: () => getSalesCards({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ? date.endDate: "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+      comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
+      comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
       context: selectedCard,
     }),
     staleTime: 60 * 1000,
@@ -104,12 +105,12 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
     queryKey: ['salesCharts', currentFilter, date, selectedCard],
     queryFn: () => getSalesCharts({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ? date.endDate: "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+      comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
+      comparedEndDate: comparedDate.endDate ? comparedDate.endDate: "",
      context: selectedCard,// ChartContext.TOPSALES,
     }),
     staleTime: 60 * 1000,
@@ -127,8 +128,8 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
     queryKey: ['customers', date],
     queryFn: () => getTopCustomers({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ?date.endDate: "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
@@ -146,8 +147,8 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<TopProductResponse>>, Object, Array<TopProductResponse>>({
     queryKey: ['products', date],
     queryFn: () => getTopProducts({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ? date.endDate: "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
@@ -165,8 +166,8 @@ const SalesOverview: React.FC = () => {
   } = useQuery<DataResponse<Array<MapResponse>>, Object, Array<MapResponse>>({
     queryKey: ['countries', date],
     queryFn: () => getSalesByCountry({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)): "",
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ? date.endDate: "",
       sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
@@ -180,16 +181,20 @@ const SalesOverview: React.FC = () => {
   });
 
 
-    const dateChange = (value: any) => {
+    const dateChange = (value: DateValueType) => {
 
-      setDate(value);
-
-      if(value.startDate === null || value.endDate === null) {
+      if(value === null || value?.startDate === null || value?.endDate === null) {
         return;
       }
 
-      const startDate = new Date(value.startDate);
-      const endDate = new Date(value.endDate);
+      //날짜 변환
+      setDate({
+        startDate: formatDate(new Date(value.startDate)),
+        endDate: formatDate(new Date(value.endDate)),
+      });
+
+      const startDate = value.startDate
+      const endDate = value.endDate
 
       // 문자열을 Date 객체로 변환
       const diffInMilliseconds = endDate.getTime() - startDate.getTime();
@@ -197,15 +202,15 @@ const SalesOverview: React.FC = () => {
       const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
       // 새로운 날짜 계산
-      const comparedEndDate = new Date(startDate);
+      const comparedEndDate = startDate
       comparedEndDate.setDate(comparedEndDate.getDate() - 1); // 1일 빼기
 
-      const comparedStartDate = new Date(comparedEndDate);
+      const comparedStartDate = comparedEndDate;
       comparedStartDate.setDate(comparedEndDate.getDate() - diffInDays);
 
       setComparedDate({
-        startDate: comparedStartDate,
-        endDate: comparedEndDate,
+        startDate: formatDate(comparedStartDate),
+        endDate: formatDate(comparedEndDate),
       });
     };
 
@@ -217,13 +222,12 @@ const SalesOverview: React.FC = () => {
     setSelectedCard(id);
   };
 
-
   return (
       <>
         <div>
           <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate?.startDate?.toLocaleDateString('en-CA')} ~ {comparedDate?.endDate?.toLocaleDateString('en-CA')})
+            ({comparedDate?.startDate} ~ {comparedDate?.endDate})
           </p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">

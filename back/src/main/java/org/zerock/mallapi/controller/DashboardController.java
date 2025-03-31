@@ -24,8 +24,6 @@ public class DashboardController {
   @GetMapping("/salesOverviewCard")
   public DataResponseDTO<CardResponseDTO> salesCardList(ChartRequestDTO chartRequestDTO) {
 
-    log.info("salesOverviewCard.." + chartRequestDTO);
-
     return DataResponseDTO.of(dashboardService.getSalesCardList(chartRequestDTO));
   }
 
@@ -33,7 +31,6 @@ public class DashboardController {
   @GetMapping("/salesOverviewChart")
   public DataResponseDTO<ChartResponseDTO> salesList(ChartRequestDTO chartRequestDTO) {
 
-    log.info("ChartRequestDTO.." + chartRequestDTO);
 
     ChartContext context = chartRequestDTO.getContext();
 
@@ -63,8 +60,6 @@ public class DashboardController {
   @GetMapping("/salesCustomers")
   public DataResponseDTO<List<TopCustomerResponseDTO>> topCustomerList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
-    log.info("ChartRequestDTO.." + topCustomerRequestDTO);
-
 
     return DataResponseDTO.of(dashboardService.getTopCustomerList(topCustomerRequestDTO));
   }
@@ -73,8 +68,6 @@ public class DashboardController {
   @GetMapping("/salesProducts")
   public DataResponseDTO<List<TopProductResponseDTO>> topProductList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
-    log.info("ChartRequestDTO.." + topCustomerRequestDTO);
-
 
     return DataResponseDTO.of(dashboardService.getTopProductList(topCustomerRequestDTO));
   }
@@ -82,8 +75,6 @@ public class DashboardController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
   @GetMapping("/salesByCountry")
   public DataResponseDTO<List<MapSalesResponseDTO>> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
-
-    log.info("ChartRequestDTO.." + topCustomerRequestDTO);
 
 
     return DataResponseDTO.of(dashboardService.getByCountryList(topCustomerRequestDTO));
@@ -96,13 +87,12 @@ public class DashboardController {
   public DataResponseDTO<GAResponseDTO> getAnalytics(GARequestDTO gaRequestDTO) {
     long startTime = System.currentTimeMillis();
 
-    log.info("googleAnalyticsRequestDTO " + gaRequestDTO);
 
     GAResponseDTO gaResponseDTO = dashboardService.getGoogleAnalytics(gaRequestDTO);
 
     long endTime = System.currentTimeMillis();
     long duration = endTime - startTime;
-    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    log.info("traffic GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
 
     return DataResponseDTO.of(gaResponseDTO);
 
@@ -113,13 +103,12 @@ public class DashboardController {
   public DataResponseDTO<GAResponseTopDTO> getAnalyticsTop(GARequestDTO gaRequestDTO) {
     long startTime = System.currentTimeMillis();
 
-    log.info("googleAnalyticsRequestDTOTop" + gaRequestDTO);
 
     GAResponseTopDTO gaResponseTopDTO = dashboardService.getGoogleAnalyticsTop(gaRequestDTO);
 
     long endTime = System.currentTimeMillis();
     long duration = endTime - startTime;
-    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    log.info("trafficTop GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
     return DataResponseDTO.of(gaResponseTopDTO);
   }
 
@@ -128,13 +117,11 @@ public class DashboardController {
   public DataResponseDTO<GAResponseMiddleDTO> getAnalyticsMiddle(GARequestDTO gaRequestDTO) {
     long startTime = System.currentTimeMillis();
 
-    log.info("googleAnalyticsRequestDTOTop" + gaRequestDTO);
-
     GAResponseMiddleDTO gaResponseMiddleDTO = dashboardService.getGoogleAnalyticsMiddle(gaRequestDTO);
 
     long endTime = System.currentTimeMillis();
     long duration = endTime - startTime;
-    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    log.info("trafficMiddle GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
     return DataResponseDTO.of(gaResponseMiddleDTO);
   }
 
@@ -145,13 +132,11 @@ public class DashboardController {
   public DataResponseDTO<GAResponseBottomDTO> getAnalyticsBottom(GARequestDTO gaRequestDTO) {
     long startTime = System.currentTimeMillis();
 
-    log.info("googleAnalyticsRequestDTOTop" + gaRequestDTO);
-
     GAResponseBottomDTO gaResponseBottomDTO = dashboardService.getGoogleAnalyticsBottom(gaRequestDTO);
 
     long endTime = System.currentTimeMillis();
     long duration = endTime - startTime;
-    log.info("GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
+    log.info("trafficBottom GA API 요청 처리 시간: " + duration + "ms"); //16338ms 11084ms
     return DataResponseDTO.of(gaResponseBottomDTO);
   }
 
@@ -162,13 +147,11 @@ public class DashboardController {
   public DataResponseDTO<GARealTimeResponseDTO> gaRealTime(GARequestDTO gaRequestDTO) {
     long startTime = System.currentTimeMillis();
 
-    log.info("googleAnalyticsRequestDTO " + gaRequestDTO);
-
     GARealTimeResponseDTO gaRealTimeResponseDTO = dashboardService.getRealtime(gaRequestDTO);
 
     long endTime = System.currentTimeMillis();
     long duration = endTime - startTime;
-    log.info("GA API 요청 처리 시간: " + duration + "ms"); //
+    log.info("GA API 요청 처리 시간: " + duration + "ms");
 
 
     return DataResponseDTO.of(gaRealTimeResponseDTO);

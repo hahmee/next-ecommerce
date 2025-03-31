@@ -627,7 +627,6 @@ public class DashboardServiceImpl implements DashboardService{
   //original
   @Override
   public GAResponseDTO getGoogleAnalytics(GARequestDTO gaRequestDTO) {
-    log.info("GARequestDTO..." + gaRequestDTO);
 
     try {
       CompletableFuture<GAResponseDTO> sessionsFuture = CompletableFuture.supplyAsync(() -> {
@@ -716,7 +715,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   @Override
   public GAResponseTopDTO getGoogleAnalyticsTop(GARequestDTO gaRequestDTO) {
-    log.info("GARequestDTO..." + gaRequestDTO);
 
     try {
       CompletableFuture<GAResponseDTO> sessionsFuture = CompletableFuture.supplyAsync(() -> {
@@ -763,7 +761,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   @Override
   public GAResponseMiddleDTO getGoogleAnalyticsMiddle(GARequestDTO gaRequestDTO) {
-    log.info("GARequestDTO..." + gaRequestDTO);
 
     try {
 
@@ -823,7 +820,6 @@ public class DashboardServiceImpl implements DashboardService{
 
   @Override
   public GAResponseBottomDTO getGoogleAnalyticsBottom(GARequestDTO gaRequestDTO) {
-    log.info("GARequestDTO..." + gaRequestDTO);
 
     try {
 
@@ -1258,42 +1254,6 @@ public class DashboardServiceImpl implements DashboardService{
     return countries;
 
 
-//    // 결과 처리
-//    List<CountryChartDTO> countries = new ArrayList<>();
-//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-//            .setCredentialsProvider(() -> googleCredentials)
-//            .build();
-//
-//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
-//
-//      RunReportRequest request = RunReportRequest.newBuilder()
-//              .setProperty("properties/" + propertyId)
-//              .addDateRanges(DateRange.newBuilder()
-//                      .setStartDate(gaRequestDTO.getStartDate())
-//                      .setEndDate(gaRequestDTO.getEndDate()))
-//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-//              .addDimensions(Dimension.newBuilder().setName("countryId")) // 국가별 차원 추가
-//              .addDimensions(Dimension.newBuilder().setName("cityId")) // 도시별 차원 추가
-//              .build();
-//
-//
-//      // 상위 페이지 보고서 실행
-//      RunReportResponse response = analyticsData.runReport(request);
-//
-//      for (Row row : response.getRowsList()) {
-//        String countryCode = row.getDimensionValues(0).getValue();
-//        String cityCode = row.getDimensionValues(1).getValue();
-//        String sessions = row.getMetricValues(0).getValue();
-//
-//        List<Double> coordinates = getCoordinates(countryCode);
-//        countries.add(new CountryChartDTO(countryCode, sessions, coordinates));
-//
-//      }
-//
-//    }
-//
-//    return countries;
-
   }
 
 
@@ -1472,7 +1432,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     QueryJobConfiguration mainQueryConfig = QueryJobConfiguration.newBuilder(mainQuery).build();
     TableResult mainResult = bigQuery.query(mainQueryConfig);
-    log.info("mainResult..." + mainResult);
 
     // 기본 값 설정
     String sessions = "0";
@@ -1516,7 +1475,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     QueryJobConfiguration compareQueryConfig = QueryJobConfiguration.newBuilder(compareQuery).build();
     TableResult compareResult = bigQuery.query(compareQueryConfig);
-    log.info("compareResult..." + compareResult);
 
     String sessionsCompared = "0";
     String activeUsersCompared = "0";
@@ -1549,7 +1507,6 @@ public class DashboardServiceImpl implements DashboardService{
             .avgSessionDurationCompared(calculatePercentageDifference(avgSessionDuration, avgSessionDurationCompared))
             .build();
 
-      log.info("gaResponseDTO..." + gaResponseDTO);
 
     return gaResponseDTO;
 
@@ -1831,7 +1788,6 @@ public class DashboardServiceImpl implements DashboardService{
     QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(topSourcesQuery).build();
     TableResult result = bigQuery.query(queryConfig);
 
-    log.info("...result.." + result);
     for (FieldValueList row : result.iterateAll()) {
       String trafficSource = (row.get("trafficSource") == null || row.get("trafficSource").isNull())
               ? "Unknown" : row.get("trafficSource").getStringValue();

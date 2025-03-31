@@ -6,17 +6,20 @@ import {GAResponseMiddle} from "@/interface/GAResponse";
 import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import formatDate from "@/libs/formatDate";
-import {DateRangeType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {ChartFilter} from "@/types/chartFilter";
+import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
+import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import Skeleton from "@/components/Skeleton/Skeleton";
+import LoadingSkeleton from "@/components/Skeleton/LoadingSkeleton";
 
 const TrafficPageChart = dynamic(() => import("./Charts/TrafficPageChart"), { ssr: false });
 const TrafficSourceChart = dynamic(() => import("./Charts/TrafficSourceChart"), { ssr: false });
 const PieChart = dynamic(() => import("./Charts/PieChart"), { ssr: false });
 
 type Props = {
-  date: DateRangeType;
-  comparedDate: DateRangeType;
+  date: AdminDateType;
+  comparedDate: AdminDateType;
   currentFilter: ChartFilter;
   sellerEmail: string;
 };
@@ -26,8 +29,11 @@ const TrafficMiddleOverview: React.FC<Props> = ({
                                                   currentFilter,
                                                   sellerEmail
                                                 }) => {
+
   const {
     data: gaMiddleData,
+      isLoading,
+      isFetching
   } = useQuery<DataResponse<GAResponseMiddle>, Object, GAResponseMiddle>({
     queryKey: ['gaMiddle', date, currentFilter],
     queryFn: () => getGoogleAnalyticsMiddle({
@@ -49,38 +55,40 @@ const TrafficMiddleOverview: React.FC<Props> = ({
   });
 
 
-  // if(isLoading || isFetching) {
-  //   return <DashboardSkeleton/>;
-  // }
+  if(isLoading || isFetching) {
+      return <LoadingSkeleton/>;
+  }
 
-  return (
-      <>
-        <div className="col-span-12">
-          <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TrafficPageChart topPages={gaMiddleData?.topPages || []}/>
-          </LazyLoadWrapper>
-        </div>
+    return (
+        <>
+            <div className="col-span-12 mb-4 md:mb-6 2xl:mb-7.5">
+                <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
+                    <TrafficPageChart topPages={gaMiddleData?.topPages || []}/>
+                </LazyLoadWrapper>
+            </div>
+            <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
+                <div className="col-span-12 xl:col-span-4">
+                    <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
+                        <PieChart data={gaMiddleData?.visitors} title={"New vs returning visitors"}
+                                  label="Site sessions"/>
+                    </LazyLoadWrapper>
+                </div>
 
-        <div className="col-span-12 xl:col-span-4">
-          <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <PieChart data={gaMiddleData?.visitors} title={"New vs returning visitors"} label="Site sessions"/>
-          </LazyLoadWrapper>
-        </div>
+                <div className="col-span-12 xl:col-span-4">
+                    <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
+                        <PieChart data={gaMiddleData?.devices} title={"Session by device"} label="Site sessions"/>
+                    </LazyLoadWrapper>
+                </div>
 
-        <div className="col-span-12 xl:col-span-4">
-          <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <PieChart data={gaMiddleData?.devices} title={"Session by device"} label="Site sessions"/>
-          </LazyLoadWrapper>
-        </div>
+                <div className="col-span-12 xl:col-span-4">
+                    <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
+                        <TrafficSourceChart topSources={gaMiddleData?.topSources || []}/>
+                    </LazyLoadWrapper>
+                </div>
+            </div>
 
-        <div className="col-span-12 xl:col-span-4 ">
-          <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
-            <TrafficSourceChart topSources={gaMiddleData?.topSources || []}/>
-          </LazyLoadWrapper>
-        </div>
-
-      </>
-  );
+        </>
+    );
 };
 
 export default TrafficMiddleOverview;

@@ -29,6 +29,8 @@ export default async function DashBoardTrafficPage() {
         endDate: formatDate(endDate),
     };
 
+    console.log('date', date);
+
     const member = await getCookie("member");
 
     const prefetchOptions = [
@@ -45,46 +47,6 @@ export default async function DashBoardTrafficPage() {
                 }
             ),
         },
-
-        {
-            queryKey: ['gaMiddle', date, ChartFilter.DAY],
-            queryFn: () => getGoogleAnalyticsMiddle(
-                {
-                    startDate: formatDate(startDate),
-                    endDate: formatDate(endDate),
-                    sellerEmail: member?.email || "",
-                    filter: ChartFilter.DAY,
-                    comparedStartDate: formatDate(comparedStartDate),
-                    comparedEndDate: formatDate(comparedEndDate),
-                }
-            ),
-        },
-        {
-            queryKey: ['gaBottom', date, ChartFilter.DAY],
-            queryFn: () => getGoogleAnalyticsBottom(
-                {
-                    startDate: formatDate(startDate),
-                    endDate: formatDate(endDate),
-                    sellerEmail: member?.email || "",
-                    filter: ChartFilter.DAY,
-                    comparedStartDate: formatDate(comparedStartDate),
-                    comparedEndDate: formatDate(comparedEndDate),
-                }
-            ),
-        },
-        // {
-        //     queryKey: ['ga', date, ChartFilter.DAY],
-        //     queryFn: () => getGoogleAnalytics(
-        //         {
-        //             startDate: formatDate(startDate),
-        //             endDate: formatDate(endDate),
-        //             sellerEmail: member?.email || "",
-        //             filter: ChartFilter.DAY,
-        //             comparedStartDate: formatDate(comparedStartDate),
-        //             comparedEndDate: formatDate(comparedEndDate),
-        //         }
-        //     ),
-        // },
     ]
 
     return <div className="mx-auto">
