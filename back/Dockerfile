@@ -63,7 +63,7 @@ COPY --from=builder-app /usr/src/app/build/libs/mallapi-0.0.1-SNAPSHOT.jar /usr/
 EXPOSE 8080
 
 # JAR 파일을 실행하는 명령어
-CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/app.jar"]
-# CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/*.jar"]
+CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-Dio.netty.noNative=true", "-jar", "/usr/src/app/app.jar"]
+# CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/app.jar"]
 
 

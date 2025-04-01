@@ -857,6 +857,8 @@ public class DashboardServiceImpl implements DashboardService{
 
     log.info("....gaRequestDTO " + gaRequestDTO);
 
+
+
     try {
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
