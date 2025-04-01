@@ -51,8 +51,7 @@ export default async function DashBoardRealTimePage() {
         <div className="flex flex-col gap-5">
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <div>asdfasdf</div>
-                    {/*<RealtimeOverview/>*/}
+                    <RealtimeOverview/>
                 </PrefetchBoundary>
             </Suspense>
         </div>
