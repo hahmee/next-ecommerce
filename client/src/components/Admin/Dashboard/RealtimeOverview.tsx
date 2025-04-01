@@ -11,10 +11,10 @@ import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 
-const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
-const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
-const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
-const RealtimeBottomOverview = dynamic(() => import("./RealtimeBottomOverview"), { ssr: false });
+// const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
+// const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
+// const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
+// const RealtimeBottomOverview = dynamic(() => import("./RealtimeBottomOverview"), { ssr: false });
 
 const RealtimeOverview: React.FC = () => {
 
@@ -36,7 +36,7 @@ const RealtimeOverview: React.FC = () => {
 
   const [date, setDate] = useState({
     startDate: formatDate(startDate),
-    endDate:formatDate(endDate)
+    endDate: formatDate(endDate),
   });
 
   const [comparedDate, setComparedDate] = useState({
@@ -51,12 +51,12 @@ const RealtimeOverview: React.FC = () => {
   } = useQuery<DataResponse<GARealTimeResponseTop>, Object, GARealTimeResponseTop>({
     queryKey: ['gaRecentUsersTop', date, currentFilter],
     queryFn: () => getGARecentUsersTop({
-      startDate: date.startDate,
-      endDate: date.endDate,
+      startDate: date.startDate || "",
+      endDate: date.endDate || "",
       sellerEmail: member.email,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate,
-      comparedEndDate: comparedDate.endDate,
+      comparedStartDate: comparedDate.startDate || "",
+      comparedEndDate: comparedDate.endDate|| "",
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
