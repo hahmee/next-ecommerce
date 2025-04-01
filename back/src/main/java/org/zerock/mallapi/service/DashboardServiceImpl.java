@@ -855,16 +855,20 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public GARealTimeResponseTopDTO getRealtimeTop(GARequestDTO gaRequestDTO) {
 
+    log.info("....gaRequestDTO " + gaRequestDTO);
+
     try {
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
 
-          log.info(".....???" + getGAActiveVisitors(gaRequestDTO));
+          log.info(".....??? " + getGAActiveVisitors(gaRequestDTO));
           return getGAActiveVisitors(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
       });
+
+      log.info("....why?? " + activeVisitorsFuture.get());
 
 //      CompletableFuture<SessionChartDTO> activeVisitChartFuture = CompletableFuture.supplyAsync(() -> {
 //        try {
