@@ -124,11 +124,12 @@ public class DashboardController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @GetMapping("/real-time-top")
-  public DataResponseDTO<GARealTimeResponseTopDTO> gaRealTimeTop(GARequestDTO gaRequestDTO) {
+  public DataResponseDTO<String> gaRealTimeTop(GARequestDTO gaRequestDTO) {
 
-    GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = dashboardService.getRealtimeTop(gaRequestDTO);
+//    GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = dashboardService.getRealtimeTop(gaRequestDTO);
 
-    return DataResponseDTO.of(gaRealTimeResponseTopDTO);
+//    return DataResponseDTO.of(gaRealTimeResponseTopDTO);
+    return DataResponseDTO.of("SUCCESS");
 
   }
 
