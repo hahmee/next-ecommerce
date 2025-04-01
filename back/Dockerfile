@@ -1,11 +1,12 @@
 #=========================================================================
 ## BUILD STAGE 1 - JRE 추출
-FROM amazoncorretto:17-alpine3.18 as builder-jre
+FROM amazoncorretto:17 as builder-jre
 
-# Step 2: binutils 패키지 설치 (오브젝트 파일을 복사하거나 변환시 필요)
-RUN apk add --no-cache binutils
+# 필요한 패키지 설치 (예: binutils)
+# amazoncorretto:17은 Debian 기반이므로 apt-get 사용 (필요 시)
+RUN apt-get update && apt-get install -y binutils && apt-get clean
 
-# Step 3: jlink를 사용하여 최소한의 JRE 생성
+# jlink를 사용하여 최소한의 JRE 생성
 RUN $JAVA_HOME/bin/jlink \
          --module-path "$JAVA_HOME/jmods" \
          --verbose \
@@ -17,10 +18,9 @@ RUN $JAVA_HOME/bin/jlink \
          --output /jre && \
     rm -rf /jre/include /jre/lib/*.diz /jre/lib/*.a
 
-
 #=========================================================================
 ## BUILD STAGE 2 - 빌드 단계
-FROM amazoncorretto:17-alpine3.18 as builder-app
+FROM amazoncorretto:17 as builder-app
 
 WORKDIR /usr/src/app
 
@@ -36,10 +36,9 @@ COPY src /usr/src/app/src
 # Gradle 빌드 (테스트 제외)
 RUN chmod +x gradlew && ./gradlew clean build -x test
 
-
 #=========================================================================
 ## BUILD STAGE 3 - APP 실행
-FROM alpine:3.18.4
+FROM amazoncorretto:17
 
 # JRE 환경 설정
 ENV JAVA_HOME=/jre
@@ -57,13 +56,9 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 
 # 빌드된 JAR 파일을 app.jar로 복사
 COPY --from=builder-app /usr/src/app/build/libs/mallapi-0.0.1-SNAPSHOT.jar /usr/src/app/app.jar
-# COPY --from=builder-app /usr/src/app/build/libs/*.jar /usr/src/app/app.jar ./
 
 # 컨테이너에서 사용할 포트 설정
 EXPOSE 8080
 
-# JAR 파일을 실행하는 명령어
-CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-Dio.netty.noNative=true", "-jar", "/usr/src/app/app.jar"]
-# CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/app.jar"]
-
-
+# JAR 파일 실행
+CMD ["dockerize", "-wait", "tcp://db:3306", "-timeout", "30s", "java", "-jar", "/usr/src/app/app.jar"]
