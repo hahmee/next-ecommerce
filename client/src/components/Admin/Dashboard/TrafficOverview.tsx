@@ -54,8 +54,6 @@ const TrafficOverview: React.FC = () => {
     endDate: formatDate(comparedEndDate),
   });
 
-
-
   const {
     data: gaTopData,
     isLoading,

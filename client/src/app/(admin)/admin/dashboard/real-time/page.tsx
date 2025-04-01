@@ -4,11 +4,11 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
-import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
-import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
+import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
 
 export default async function DashBoardRealTimePage() {
     const endDate = new Date(); // today
@@ -51,7 +51,8 @@ export default async function DashBoardRealTimePage() {
         <div className="flex flex-col gap-5">
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <RealtimeOverview/>
+                    <div>asdfasdf</div>
+                    {/*<RealtimeOverview/>*/}
                 </PrefetchBoundary>
             </Suspense>
         </div>
