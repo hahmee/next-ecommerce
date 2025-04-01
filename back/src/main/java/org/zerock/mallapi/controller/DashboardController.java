@@ -126,8 +126,10 @@ public class DashboardController {
   @GetMapping("/real-time-top")
   public DataResponseDTO<String> gaRealTimeTop(GARequestDTO gaRequestDTO) {
 
-//    GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = dashboardService.getRealtimeTop(gaRequestDTO);
+    GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = dashboardService.getRealtimeTop(gaRequestDTO);
 
+    log.info("gaRealTimeResponseTopDTO....." + gaRealTimeResponseTopDTO);
+//
 //    return DataResponseDTO.of(gaRealTimeResponseTopDTO);
     return DataResponseDTO.of("SUCCESS");
 

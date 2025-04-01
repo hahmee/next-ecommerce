@@ -856,45 +856,48 @@ public class DashboardServiceImpl implements DashboardService{
   public GARealTimeResponseTopDTO getRealtimeTop(GARequestDTO gaRequestDTO) {
 
     try {
-
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
+
+          log.info(".....???" + getGAActiveVisitors(gaRequestDTO));
           return getGAActiveVisitors(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }
       });
 
-      CompletableFuture<SessionChartDTO> activeVisitChartFuture = CompletableFuture.supplyAsync(() -> {
-        try {
-          return getGAActiveVisitChart(gaRequestDTO);
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-      });
+//      CompletableFuture<SessionChartDTO> activeVisitChartFuture = CompletableFuture.supplyAsync(() -> {
+//        try {
+//          return getGAActiveVisitChart(gaRequestDTO);
+//        } catch (Exception e) {
+//          throw new RuntimeException(e);
+//        }
+//      });
+//
+//      CompletableFuture<List<SessionDTO<String>>> eventsFuture = CompletableFuture.supplyAsync(() -> {
+//        try {
+//          return getGAEvents( gaRequestDTO);
+//        } catch (Exception e) {
+//          throw new RuntimeException(e);
+//        }
+//      });
+//
+//      // 모든 병렬 작업이 완료될 때까지 기다림
+//      CompletableFuture.allOf(
+//              activeVisitorsFuture,
+//              activeVisitChartFuture,
+//              eventsFuture
+//      ).join();
 
-      CompletableFuture<List<SessionDTO<String>>> eventsFuture = CompletableFuture.supplyAsync(() -> {
-        try {
-          return getGAEvents( gaRequestDTO);
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-      });
+//      GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = GARealTimeResponseTopDTO.builder()
+//              .activeVisitors(activeVisitorsFuture.get())
+//              .activeVisitChart(activeVisitChartFuture.get())
+//              .events(eventsFuture.get())
+//              .build();
+//
+//      return gaRealTimeResponseTopDTO;
 
-      // 모든 병렬 작업이 완료될 때까지 기다림
-      CompletableFuture.allOf(
-              activeVisitorsFuture,
-              activeVisitChartFuture,
-              eventsFuture
-      ).join();
-
-      GARealTimeResponseTopDTO gaRealTimeResponseTopDTO = GARealTimeResponseTopDTO.builder()
-              .activeVisitors(activeVisitorsFuture.get())
-              .activeVisitChart(activeVisitChartFuture.get())
-              .events(eventsFuture.get())
-              .build();
-
-      return gaRealTimeResponseTopDTO;
+      return null;
 
 
     } catch (Exception e) {
@@ -1189,6 +1192,8 @@ public class DashboardServiceImpl implements DashboardService{
         result.add(new SessionDTO("pageViews", pageViews));
 
       }
+
+      log.info("...result", result);
 
 
       return result;
