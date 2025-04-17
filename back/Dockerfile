@@ -47,6 +47,9 @@ ENV PATH="$JAVA_HOME/bin:$PATH"
 # JRE 복사
 COPY --from=builder-jre /jre $JAVA_HOME
 
+# Dockerize 설치 전에 wget 설치
+RUN yum install -y wget && yum clean all
+
 # Dockerize 설치
 ENV DOCKERIZE_VERSION v0.2.0
 RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
