@@ -21,7 +21,8 @@ export async function middleware(request: NextRequest) {
   if (
       pathname.startsWith("/admin") &&
       !(member?.roleNames?.includes(MemberRole.ADMIN)) &&
-      !(member?.roleNames?.includes(MemberRole.MANAGER))
+      !(member?.roleNames?.includes(MemberRole.MANAGER)) &&
+      !(member?.roleNames?.includes(MemberRole.DEMO))
   ) {
 
     return NextResponse.redirect(new URL('/error', request.url)); // 에러 페이지로 리다이렉션

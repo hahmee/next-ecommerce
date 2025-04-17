@@ -32,6 +32,7 @@ public class ProductController {
   private final AwsFileUtil awsFileUtil;
   private final String PRODUCT_IMG_DIR = "product";
 
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @PostMapping("/")
   public DataResponseDTO<ProductDTO> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
@@ -79,13 +80,15 @@ public class ProductController {
   //   return Map.of("RESULT", "SUCCESS");
   // }
 
+
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/view/{fileName}") //수정해야함 ResponseType
   public ResponseEntity<Resource> viewFileGET(@PathVariable String fileName){
 
     return fileUtil.getFile(fileName);
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/list") // list?page=7&size=2&categoryId=1&color=green&color=green&minPrice=1&order
   public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
@@ -95,7 +98,7 @@ public class ProductController {
 
 
   //ADMIN 페이지 추가
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/searchAdminList") // searchAdminList?search=검색어&page=1&size=10
   public DataResponseDTO<PageResponseDTO<ProductDTO>> searchAdminList(SearchRequestDTO searchRequestDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
@@ -104,7 +107,7 @@ public class ProductController {
     return result;
   }
 
-
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/{pno}")
   public DataResponseDTO<ProductDTO> read(@PathVariable(name="pno") Long pno) {
 
@@ -121,7 +124,7 @@ public class ProductController {
     return DataResponseDTO.of(productDTO);
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @PutMapping("/{pno}")
 //  public DataResponseDTO<ProductDTO> modify(
 //          @PathVariable(name="pno") Long pno,
@@ -264,6 +267,7 @@ public class ProductController {
 //    return DataResponseDTO.of( "SUCCESS");
 //  }
 
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @DeleteMapping("/{pno}")
   public DataResponseDTO<String> remove(@PathVariable("pno") Long pno) {
 
@@ -283,6 +287,7 @@ public class ProductController {
   }
 
 
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/newProductList")
   public DataResponseDTO<List<ProductDTO>> getNewProducts() {
 

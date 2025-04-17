@@ -6,6 +6,7 @@ import {fetchJWT} from "@/utils/fetchJWT";
 import {OrderStatus} from "@/types/orderStatus";
 import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
+import toast from "react-hot-toast";
 
 const Checkout = () => {
     const {carts, subtotal, tax, shippingFee, total} = useCartStore();
@@ -61,7 +62,7 @@ const Checkout = () => {
             orderId: orderId,
         };
 
-        await fetchJWT(`/api/orders/`, {
+        const result = await fetchJWT(`/api/orders/`, {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -69,6 +70,11 @@ const Checkout = () => {
             },
             body: JSON.stringify(order),
         });
+
+        if (!result.success) {
+            toast.error(result.message); // 에러 메시지 사용자에게 보여주기
+            throw new Error(result.message); // 진행 중단
+        }
     };
 
     return (

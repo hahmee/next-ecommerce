@@ -322,7 +322,6 @@ public class ProductServiceImpl implements ProductService{
 
   private Product dtoToEntity(ProductDTO productDTO, UserDetails userDetails) {
 
-    log.info("asdfasdfasd userDetails " + userDetails);
     Member member = null;
     if (userDetails instanceof MemberDTO) {
       MemberDTO memberDTO = (MemberDTO) userDetails;

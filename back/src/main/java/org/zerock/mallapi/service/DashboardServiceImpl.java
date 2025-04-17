@@ -870,8 +870,6 @@ public class DashboardServiceImpl implements DashboardService{
         }
       });
 
-      log.info("....why?? " + activeVisitorsFuture.get());
-
 //      CompletableFuture<SessionChartDTO> activeVisitChartFuture = CompletableFuture.supplyAsync(() -> {
 //        try {
 //          return getGAActiveVisitChart(gaRequestDTO);

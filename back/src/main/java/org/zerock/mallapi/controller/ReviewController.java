@@ -21,7 +21,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @PostMapping("/")
     public DataResponseDTO<String> register(@RequestBody ReviewDTO reviewDTO, Principal principal) {
 
@@ -37,7 +37,7 @@ public class ReviewController {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/list/{pno}")
     public DataResponseDTO<List<ReviewDTO>> list(@PathVariable(name="pno") Long pno) {
 
@@ -45,7 +45,7 @@ public class ReviewController {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/myReviews")
     public DataResponseDTO<List<ReviewDTO>> getMylist(Principal principal) {
 

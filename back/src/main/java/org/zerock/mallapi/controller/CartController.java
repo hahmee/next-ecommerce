@@ -34,8 +34,7 @@ public class CartController {
 
     }
 
-
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/items")
     public DataResponseDTO<List<CartItemListDTO>> getCartItems(Principal principal) {
 
@@ -47,7 +46,7 @@ public class CartController {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @DeleteMapping("/{cino}")
     public DataResponseDTO<List<CartItemListDTO>> removeFromCart(@PathVariable("cino") Long cino){
 

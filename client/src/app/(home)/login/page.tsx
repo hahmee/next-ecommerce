@@ -41,9 +41,10 @@
 
         // 역할의 우선순위를 정의
         const rolePriority = {
-            [MemberRole.MANAGER]: 3,
-            [MemberRole.ADMIN]: 2,
-            [MemberRole.USER]: 1,
+            [MemberRole.MANAGER]: 4,
+            [MemberRole.ADMIN]: 3,
+            [MemberRole.USER]: 2,
+            [MemberRole.DEMO]: 1,
         };
         // roles 배열을 우선순위에 따라 내림차순으로 정렬
         const sortedRoles = roles.sort((a, b) => rolePriority[b] - rolePriority[a]);

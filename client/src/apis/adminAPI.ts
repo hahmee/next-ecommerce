@@ -1,184 +1,171 @@
 import {fetchJWT} from "@/utils/fetchJWT";
 import {PageParam} from "@/interface/PageParam";
 
-
-export async function getCategories () {
-    return await fetchJWT(`/api/category/list`, {
+export async function getCategories() {
+    const result = await fetchJWT("/api/category/list", {
         method: "GET",
-        next: {
-            tags: ['categories'], // 외부 API next.tags 옵션은 필요 X
-        },
-        credentials: 'include',
-        cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
+        next: { tags: ["categories"] },
+        credentials: "include",
+        cache: "no-store",
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-export async function getAdminCategories (pageParam: PageParam) {
-    const {page, size,search} = pageParam;
-    return await fetchJWT(`/api/category/searchAdminList?page=${page}&size=${size}&search=${search}`, {
+export async function getAdminCategories(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/category/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
-        next: {
-            tags:  ['adminCategories'],
-        },
+        next: { tags: ['adminCategories'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-
-export async function getExpertProducts () {
-    return await fetchJWT(`/api/products/expertProducts`, {
+export async function getExpertProducts() {
+    const result = await fetchJWT(`/api/products/expertProducts`, {
         method: "GET",
-        next: {
-            tags: ['expert-products'], // 외부 API next.tags 옵션은 필요 X
-        },
+        next: { tags: ['expert-products'] },
         credentials: 'include',
-        cache: 'no-store', //브라우저 캐시를 사용하지 않고, 항상 서버에서 최신 데이터를 받아옴
+        cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
 export async function getFeaturedProducts() {
-    return await fetchJWT(`/api/products/featuredProductList`, {
+    const result = await fetchJWT(`/api/products/featuredProductList`, {
         method: "GET",
-        next: {
-            tags: ['featured-products'],
-        },
+        next: { tags: ['featured-products'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-export async function getNewProducts () {
-    return await fetchJWT(`/api/products/newProductList`, {
+export async function getNewProducts() {
+    const result = await fetchJWT(`/api/products/newProductList`, {
         method: "GET",
-        next: {
-            tags:  ['new-products'],
-        },
+        next: { tags: ['new-products'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-export async function getProductsByEmail (pageParam: PageParam) {
-    return await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
+export async function getProductsByEmail(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
-        next: {
-            tags:  ['adminProducts'],
-        },
+        next: { tags: ['adminProducts'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
-export async function getAllMembers (pageParam: PageParam) {
-    return await fetchJWT(`/api/members?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
+
+export async function getAllMembers(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/members?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
-        next: {
-            tags:  ['adminMembers'],
-        },
+        next: { tags: ['adminMembers'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-
-export async function getAdminStock (pageParam: PageParam) {
-    return await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
+export async function getAdminStock(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/products/searchAdminList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}`, {
         method: "GET",
-        next: {
-            tags:  ['adminStockProducts'],
-        },
+        next: { tags: ['adminStockProducts'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
-
 
 export const getCategory = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, cno] = queryKey;
-
-    return await fetchJWT(`/api/category/${cno}`, {
+    const result = await fetchJWT(`/api/category/${cno}`, {
         method: "GET",
-        next: {
-            tags: ['category', cno],
-        },
+        next: { tags: ['category', cno] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
 export const getCategoryPaths = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, cno] = queryKey;
-
-    return await fetchJWT(`/api/category/paths/${cno}`, {
+    const result = await fetchJWT(`/api/category/paths/${cno}`, {
         method: "GET",
-        next: {
-            tags: ['categoryPaths', cno],
-        },
+        next: { tags: ['categoryPaths', cno] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-export async function getOrdersByEmail (pageParam: PageParam) {
-    return await fetchJWT(`/api/payments/searchAdminOrders?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
+export async function getOrdersByEmail(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/payments/searchAdminOrders?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
-        next: {
-            tags: ['adminOrders'], //다시
-        },
+        next: { tags: ['adminOrders'] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-export async function getPaymentsByEmail (pageParam: PageParam) {
-
-    return await fetchJWT(`/api/payments/searchAdminPaymentList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
+export async function getPaymentsByEmail(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/payments/searchAdminPaymentList?page=${pageParam.page}&size=${pageParam.size}&search=${pageParam.search}&startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
-        next: {
-            tags: ['adminPayments'], //다시
-        },
+        next: { tags: ['adminPayments'] },
         credentials: 'include',
         cache: 'no-store',
     });
-
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
-
-export async function getPaymentsOverview (pageParam: PageParam) {
-    return await fetchJWT(`/api/payments/paymentsOverview?startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
+export async function getPaymentsOverview(pageParam: PageParam) {
+    const result = await fetchJWT(`/api/payments/paymentsOverview?startDate=${pageParam.startDate}&endDate=${pageParam.endDate}`, {
         method: "GET",
-        next: {
-            tags: ['adminPaymentOverview'], //다시
-        },
+        next: { tags: ['adminPaymentOverview'] },
         credentials: 'include',
         cache: 'no-store',
     });
-
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
-
 
 export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, pno] = queryKey;
-
-    return await fetchJWT(`/api/products/${pno}`, {
-        next: {
-            tags: ['productSingle', pno],
-        },
+    const result = await fetchJWT(`/api/products/${pno}`, {
+        next: { tags: ['productSingle', pno] },
         method: "GET",
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }
 
 export const getReviews = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, id] = queryKey;
-
-    return await fetchJWT(`/api/reviews/list/${id}`, {
+    const result = await fetchJWT(`/api/reviews/list/${id}`, {
         method: "GET",
-        next: {
-            tags: ['reviews', id],
-        },
+        next: { tags: ['reviews', id] },
         credentials: 'include',
         cache: 'no-store',
     });
+    if (!result.success) throw new Error(result.message);
+    return result.data;
 }

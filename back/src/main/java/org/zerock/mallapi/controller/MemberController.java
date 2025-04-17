@@ -28,7 +28,7 @@ public class MemberController {
         return DataResponseDTO.of(registeredMemberDTO);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/api/profile")
     public DataResponseDTO<MemberDTO> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
 

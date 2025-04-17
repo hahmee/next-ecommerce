@@ -60,7 +60,7 @@ public class CategoryController {
 
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/searchAdminList")
   public DataResponseDTO<PageResponseDTO<CategoryDTO>> searchAdminList(SearchRequestDTO searchRequestDTO) {
     log.info("searchRequestDTO========== " + searchRequestDTO);
@@ -73,7 +73,7 @@ public class CategoryController {
   }
 
 
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/{cno}")
   public DataResponseDTO<CategoryDTO> read(@PathVariable(name="cno") Long cno) {
 

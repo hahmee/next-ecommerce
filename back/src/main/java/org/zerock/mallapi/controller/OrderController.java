@@ -37,7 +37,7 @@ public class OrderController {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/list/{orderId}")
     public DataResponseDTO<List<OrderDTO>> list(@PathVariable(name="orderId") String orderId) {
 
@@ -45,7 +45,7 @@ public class OrderController {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/{id}")
     public DataResponseDTO<OrderDTO> get(@PathVariable(name="id") Long id) {
 

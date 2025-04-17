@@ -25,7 +25,7 @@ public class PaymentController {
 
 
     //성공시 여기로 redirect
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/success") // payment/success?
     public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, Principal principal) {
         log.info("tossPaymentSuccess..... ");
@@ -41,7 +41,7 @@ public class PaymentController {
     }
 
     //성공시 여기로 redirect
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/{id}") // payments/123123
     public DataResponseDTO<PaymentDTO> get(@PathVariable(name ="id") String id) {
         log.info("id.....입니다.. " + id);
@@ -54,7 +54,7 @@ public class PaymentController {
 
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/list")
     public DataResponseDTO<List<PaymentDTO>> list() {
 
@@ -64,7 +64,7 @@ public class PaymentController {
 
 
     /*사용 x */
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/fail") // payment/fail?
     public DataResponseDTO<PaymentFailDTO> tossPaymentFail(PaymentRequestDTO paymentRequestDTO) {
 
