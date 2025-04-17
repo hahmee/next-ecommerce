@@ -3,8 +3,8 @@
 FROM amazoncorretto:17 as builder-jre
 
 # 필요한 패키지 설치 (예: binutils)
-# amazoncorretto:17은 Debian 기반이므로 apt-get 사용 (필요 시)
-RUN apt-get update && apt-get install -y binutils && apt-get clean
+# amazoncorretto:17은 Amazon Linux 2 기반이므로 yum 사용
+RUN yum update -y && yum install -y binutils && yum clean all
 
 # jlink를 사용하여 최소한의 JRE 생성
 RUN $JAVA_HOME/bin/jlink \
