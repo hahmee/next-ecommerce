@@ -54,13 +54,13 @@ const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
   const endDate = new Date(); // today
   const startDate = new Date();  // today
-  startDate.setDate(endDate.getDate() - 30); // 30 days ago
+  startDate.setMonth(endDate.getMonth() - 4); // 4개월 전
   // 새로운 날짜 계산
   const comparedEndDate = new Date(startDate); // endDate 복사
   comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
 
   const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
-  comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
+  comparedStartDate.setMonth(comparedEndDate.getMonth() - 4); // 4개월 전
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
   const memberInfo = getCookie('member');
