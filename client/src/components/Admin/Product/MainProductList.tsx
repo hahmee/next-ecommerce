@@ -30,9 +30,6 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: type === "new",
-        select: (data) => {
-            return data.data;
-        },
     });
 
     const {data: featuredProducts,} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
@@ -42,9 +39,6 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: type === "featured",
-        select: (data) => {
-            return data.data;
-        }
     });
 
     useEffect(() => {

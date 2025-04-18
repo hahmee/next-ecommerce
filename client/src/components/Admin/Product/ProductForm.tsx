@@ -24,6 +24,7 @@ import {Category} from "@/interface/Category";
 import Link from "next/link";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
+import {unwrap} from "@/utils/unwrap";
 
 // export const brandOptions:  Array<Option<string>> = [
 //     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -205,7 +206,8 @@ const ProductForm = ({type, id}: Props) => {
         },
         async onSuccess(response, variable) {
 
-            const newProduct: Product = response.data; // 수정 및 추가된 data 반환 ...
+            // const newProduct: Product = response.data; // 수정 및 추가된 data 반환 ...
+            const newProduct: Product = unwrap(response);
 
             toast.success('업로드 성공했습니다.');
 

@@ -11,16 +11,12 @@ import {getUserReviews} from "@/apis/mallAPI";
 const UserReviews = () => {
     const router = useRouter();
 
-    const {data: myReviews, isLoading, error} = useQuery<DataResponse<Array<Review>>, Object, Array<Review>>({
+    const {data: myReviews, isLoading, error} = useQuery<Array<Review>, Object, Array<Review>>({
         queryKey: ['myReviews'],
         queryFn: () => getUserReviews({queryKey: ['myReviews']}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
+        throwOnError: true
     });
 
 

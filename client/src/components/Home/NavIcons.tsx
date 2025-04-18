@@ -39,10 +39,6 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        },
     });
 
     // React Query 데이터와 Zustand 동기화
@@ -92,7 +88,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
                 )
             }
 
-            {memberInfo.roleNames.some(role => [MemberRole.ADMIN, MemberRole.MANAGER].includes(role)) && (
+            {memberInfo.roleNames.some(role => [MemberRole.ADMIN, MemberRole.MANAGER, MemberRole.DEMO].includes(role)) && (
                 <Link href="/admin/products">
                     <BuildingStorefrontIcon className="h-7 w-7 cursor-pointer" strokeWidth={1}/>
                 </Link>

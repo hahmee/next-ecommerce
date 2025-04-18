@@ -16,9 +16,6 @@ const ExpertList = () => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        },
     });
 
     // 현재 페이지 번호 (0부터 시작)

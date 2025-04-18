@@ -19,7 +19,7 @@ interface Props {
 
 const ProductSingle = ({id}: Props) => {
 
-    const {isLoading, data, error} = useQuery<DataResponse<Product>, Object, DataResponse<Product>, [_1: string, _2: string]>({
+    const {isLoading, data:product, error} = useQuery<Product, Object, Product, [_1: string, _2: string]>({
         queryKey: ['productCustomerSingle', id],
         queryFn: getProduct,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -28,21 +28,15 @@ const ProductSingle = ({id}: Props) => {
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
     });
 
-    const {data:reviews} = useQuery<DataResponse<Array<Review>>, Object, Array<Review>, [_1: string, _2: string]>({
+    const {data:reviews} = useQuery<Array<Review>, Object, Array<Review>, [_1: string, _2: string]>({
         queryKey: ['reviews', id],
         queryFn: () => getReviews({queryKey: ['reviews', id]}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: !!id, // id가 존재할 때만 쿼리 요청 실행
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
-    const product = data?.data;
-    
     //초기값 세팅
     const [color, setColor] = useState<ColorTag>({ id: 0, text: '', color: '' });
     const [size, setSize] = useState<string>("");

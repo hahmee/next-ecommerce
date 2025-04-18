@@ -3,9 +3,10 @@ package org.zerock.mallapi.controller.advice;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,27 +17,27 @@ import org.zerock.mallapi.dto.ErrorResponseDTO;
 import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.util.GeneralException;
 
-/*
-    GeneralException 발생 시, 프런트로 보낼 ErrorDTO 를 생성하고, ErrorDTO를 전달하는 handler.
- */
-
 @Log4j2
 @RestControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
-
+    /**
+     * 파일 업로드 용량 초과
+     */
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<Object> handleMaxSizeException(MaxUploadSizeExceededException e, WebRequest request) {
-        log.info("=====================handleMaxSizeException");
         return handleExceptionInternal(e, ErrorCode.MAX_SIZE_EXCEED, request);
     }
 
-
+    /**
+     * @Valid 유효성 실패 - DTO 필드 오류
+     */
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatusCode status,
+                                                                  WebRequest request) {
         String errorMessage = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-        log.info("===================errorMessage " + errorMessage);
-
         return super.handleExceptionInternal(
                 ex,
                 ErrorResponseDTO.of(ErrorCode.VALIDATION_ERROR, errorMessage),
@@ -46,51 +47,57 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-
-    @ExceptionHandler
+    /**
+     * Hibernate Validator 제약 조건 위반
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request) {
-        log.info("1------------occurs Exception");
-
         return handleExceptionInternal(e, ErrorCode.VALIDATION_ERROR, request);
     }
 
-    @ExceptionHandler
+    /**
+     * 커스텀 GeneralException
+     */
+    @ExceptionHandler(GeneralException.class)
     public ResponseEntity<Object> general(GeneralException e, WebRequest request) {
-        log.info("2------------occurs Exception");
-
         return handleExceptionInternal(e, e.getErrorCode(), request);
     }
 
-    @ExceptionHandler
+    /**
+     * 인증 실패: AuthenticationEntryPoint fallback
+     */
+    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+    public ResponseEntity<Object> authenticationError(AuthenticationCredentialsNotFoundException e, WebRequest request) {
+        return handleExceptionInternal(e, ErrorCode.UNAUTHORIZED, request);
+    }
+
+    /**
+     * 인가 실패: AccessDeniedHandler fallback
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> accessDenied(AccessDeniedException e, WebRequest request) {
+        log.info(" AccessDeniedException fallback triggered");
+        return handleExceptionInternal(e, ErrorCode.FORBIDDEN, request);
+    }
+
+    /**
+     * 그 외 모든 예외
+     */
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> exception(Exception e, WebRequest request) {
-        log.info("3------------");
+        log.warn("🚨 Unhandled Exception: {}", e.getMessage());
         return handleExceptionInternal(e, ErrorCode.INTERNAL_ERROR, request);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
-        log.info("4------------"+ statusCode); //400 BAD_REQUEST
-        log.info("======== 0 " + ErrorCode.valueOf(HttpStatus.valueOf(statusCode.value())));//400 BAD_REQUEST
-        log.info("===========" + ex.getMessage());
-
-        return generalHandleExceptionInternal(ex, ErrorCode.valueOf(HttpStatus.valueOf(statusCode.value())), headers, statusCode, request);
-
-    }
-
+    /**
+     * 공통 내부 처리
+     */
     private ResponseEntity<Object> handleExceptionInternal(Exception e, ErrorCode errorCode, WebRequest request) {
-        log.info("5------------" + errorCode);
-        return generalHandleExceptionInternal(e, errorCode, HttpHeaders.EMPTY, errorCode.getHttpStatus(), request);
-    }
-
-    private ResponseEntity<Object> generalHandleExceptionInternal(Exception e, ErrorCode errorCode, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        log.info("6------------" + errorCode); //MAX_SIZE_EXCEED (400)
-        log.info("6------------" + status); //400 BAD_REQUEST
-
         return super.handleExceptionInternal(
                 e,
                 ErrorResponseDTO.of(errorCode, errorCode.getMessage(e)),
-                headers,
-                status,
+                new HttpHeaders(),
+                errorCode.getHttpStatus(),
                 request
         );
     }

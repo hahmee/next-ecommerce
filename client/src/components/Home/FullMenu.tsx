@@ -21,7 +21,6 @@ const FullMenu = ({ member }: { member: Member }) => {
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: !!member,
-        select: (data) => data.data,
     });
 
     const onClickCategory = (cno: number) => {

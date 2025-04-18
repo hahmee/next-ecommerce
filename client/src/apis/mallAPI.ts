@@ -1,6 +1,7 @@
 "use server";
-import {fetchJWT} from "@/utils/fetchJWT";
-import {removeCookie} from "@/utils/cookie";
+import { fetchJWT } from "@/utils/fetchJWT";
+import { removeCookie } from "@/utils/cookie";
+import { unwrap } from "@/utils/unwrap";
 
 export const getProductList = async ({
                                          queryKey,
@@ -12,12 +13,12 @@ export const getProductList = async ({
                                          minPrice,
                                          maxPrice,
                                          order,
-                                         query
+                                         query,
                                      }: {
-    queryKey: [string, string, string[], string[], string, string, string, string],
-    page: number,
-    row: number,
-    categoryId: string,
+    queryKey: [string, string, string[], string[], string, string, string, string];
+    page: number;
+    row: number;
+    categoryId: string;
     colors: string | string[] | undefined;
     productSizes: string | string[] | undefined;
     minPrice: string;
@@ -50,116 +51,116 @@ export const getProductList = async ({
         }
     }
 
-    const result = await fetchJWT(`/api/products/list?${params.toString()}`, {
-        method: "GET",
-        next: { tags: ['products'] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
+    return unwrap(
+        await fetchJWT(`/api/products/list?${params.toString()}`, {
+            method: "GET",
+            next: { tags: ["products"] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
 };
 
-export async function getPayment({paymentKey}: { paymentKey: string; }) {
-    const result = await fetchJWT(`/api/payments/${paymentKey}`, {
-        method: "GET",
-        next: { tags: ['paymentKey', paymentKey] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
+export async function getPayment({ paymentKey }: { paymentKey: string }) {
+    return unwrap(
+        await fetchJWT(`/api/payments/${paymentKey}`, {
+            method: "GET",
+            next: { tags: ["paymentKey", paymentKey] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
 }
 
-export async function getOrder({id}: { id: string; }) {
-    const result = await fetchJWT(`/api/orders/${id}`, {
-        method: "GET",
-        next: { tags: ['order', id] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
+export async function getOrder({ id }: { id: string }) {
+    return unwrap(
+        await fetchJWT(`/api/orders/${id}`, {
+            method: "GET",
+            next: { tags: ["order", id] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
 }
 
-export async function getOrders({orderId}: { orderId: string; }) {
-    const result = await fetchJWT(`/api/orders/list/${orderId}`, {
-        method: "GET",
-        next: { tags: ['orders', orderId] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
+export async function getOrders({ orderId }: { orderId: string }) {
+    return unwrap(
+        await fetchJWT(`/api/orders/list/${orderId}`, {
+            method: "GET",
+            next: { tags: ["orders", orderId] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
 }
 
-export async function getSuccessPayment({queryKey, paymentKey, orderId, amount}: {
+export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount }: {
     queryKey: string[];
     paymentKey: string;
     orderId: string;
     amount: string;
 }) {
-    const result = await fetchJWT(`/api/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
-        method: "GET",
-        next: { tags: ['payment', orderId] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
+    return unwrap(
+        await fetchJWT(`/api/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
+            method: "GET",
+            next: { tags: ["payment", orderId] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
 }
 
-export const getUserReviews = async ({queryKey}: { queryKey: [string] }) => {
-    const result = await fetchJWT(`/api/reviews/myReviews`, {
-        method: "GET",
-        next: { tags: ['myReviews'] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
-}
+export const getUserReviews = async ({ queryKey }: { queryKey: [string] }) => {
+    return unwrap(
+        await fetchJWT(`/api/reviews/myReviews`, {
+            method: "GET",
+            next: { tags: ["myReviews"] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
+};
 
-export const getPayments = async ({queryKey}: { queryKey: [string] }) => {
-    const result = await fetchJWT(`/api/payments/list`, {
-        method: "GET",
-        next: { tags: ['payments'] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
-}
+export const getPayments = async ({ queryKey }: { queryKey: [string] }) => {
+    return unwrap(
+        await fetchJWT(`/api/payments/list`, {
+            method: "GET",
+            next: { tags: ["payments"] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
+};
 
 export const getUserInfo = async () => {
-    const result = await fetchJWT(`/api/profile`, {
-        method: "GET",
-        next: { tags: ['user'] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
-}
+    return unwrap(
+        await fetchJWT(`/api/profile`, {
+            method: "GET",
+            next: { tags: ["user"] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
+};
 
 export const getCart = async () => {
-    const result = await fetchJWT(`/api/cart/items`, {
-        method: "GET",
-        next: { tags: ['carts'] },
-        credentials: 'include',
-        cache: 'no-store',
-    });
-    if (!result.success) throw new Error(result.message);
-    return result.data;
-}
+    return unwrap(
+        await fetchJWT(`/api/cart/items`, {
+            method: "GET",
+            next: { tags: ["carts"] },
+            credentials: "include",
+            cache: "no-store",
+        })
+    );
+};
 
 export const logout = async () => {
     const response = await fetch(`${process.env.BACKEND_URL}/api/member/logout`, {
         method: "POST",
-        credentials: 'include',
+        credentials: "include",
     });
     if (!response.ok) {
-        throw new Error('로그아웃에 실패했습니다.');
+        throw new Error("로그아웃에 실패했습니다.");
     }
     await removeCookie("member");
-}
+};

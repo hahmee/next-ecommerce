@@ -9,18 +9,13 @@ import {getPayments} from "@/apis/mallAPI";
 const UserOrders = () => {
     const router = useRouter();
 
-    const {data: payments, isLoading, error} = useQuery<DataResponse<Array<Payment>>, Object, Array<Payment>>({
+    const {data: payments, isLoading, error} = useQuery<Array<Payment>, Object, Array<Payment>>({
         queryKey: ['payments'],
         queryFn: () => getPayments({queryKey: ['payments']}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
+        throwOnError: true
     });
-
 
     if (isLoading) return <div className="text-center py-4">Loading...</div>;
 

@@ -17,10 +17,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.mallapi.security.CustomUserDetailsService;
 import org.zerock.mallapi.security.filter.JWTCheckFilter;
-import org.zerock.mallapi.security.handler.APILoginFailHandler;
-import org.zerock.mallapi.security.handler.APILoginSuccessHandler;
-import org.zerock.mallapi.security.handler.APILogoutSuccessHandler;
-import org.zerock.mallapi.security.handler.CustomAccessDeniedHandler;
+import org.zerock.mallapi.security.handler.*;
 
 import java.util.Arrays;
 
@@ -37,39 +34,42 @@ public class CustomSecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
-
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     log.info("---------------------security config---------------------------");
 
-    http.cors(httpSecurityCorsConfigurer -> {
-      httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
+    http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
+
+    http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+    http.csrf(csrf -> csrf.disable());
+
+    http.formLogin(form -> {
+      form.loginPage("/api/member/login");
+      form.successHandler(new APILoginSuccessHandler());
+      form.failureHandler(new APILoginFailHandler());
     });
 
-    http.sessionManagement(sessionConfig ->  sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-    http.csrf(config -> config.disable());
-
-    http.formLogin(config -> {
-      config.loginPage("/api/member/login");
-      config.successHandler(new APILoginSuccessHandler());
-      config.failureHandler(new APILoginFailHandler());
+    http.logout(logout -> {
+      logout.logoutUrl("/api/member/logout");
+      logout.invalidateHttpSession(true);
+      logout.logoutSuccessHandler(new APILogoutSuccessHandler());
     });
 
+    // ⛔ 중요: authorizeHttpRequests 설정 추가
+    http.authorizeHttpRequests(auth -> auth
+            .requestMatchers("/api/member/**").permitAll() // 로그인 관련은 모두 허용
+            .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
+    );
 
-    // 스프링 시큐리티는 원칙적으로 POST 방식으로 로그아웃을 수행한다.
-    http.logout(config -> {
-      config.logoutUrl("/api/member/logout"); // 로그아웃 처리 url
-      config.invalidateHttpSession(true); //세션 무효화 처리
-      config.logoutSuccessHandler(new APILogoutSuccessHandler()); // 로그아웃 성공 후 핸들러
-    });
-
-    //JWTCheckFilter가 UsernamePasswordAuthenticationFilter보다 먼저 실행되어 JWT 인증 먼저 시도
+    // ✅ JWT 필터는 항상 UsernamePasswordAuthenticationFilter 앞에 위치해야 함
     http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
+    // ✅ 예외 핸들링 설정
     http.exceptionHandling(config -> {
-      config.accessDeniedHandler(new CustomAccessDeniedHandler());
+      config.accessDeniedHandler(new CustomAccessDeniedHandler()); // 권한 없음 (403)
+      config.authenticationEntryPoint(new CustomAuthenticationEntryPoint()); // 인증 실패 (401)
     });
 
     return http.build();
@@ -102,5 +102,5 @@ public class CustomSecurityConfig {
 
     return source;
   }
-  
+
 }

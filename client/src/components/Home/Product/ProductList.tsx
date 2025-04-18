@@ -117,7 +117,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         isFetchingNextPage,
         status,
     } = useInfiniteQuery({
-        queryKey: ['profducts', categoryId, colors, sizes, minPrice, maxPrice, order, query],
+        queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
         queryFn: ({pageParam, meta}) => {
             return getProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
@@ -134,10 +134,10 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         },
         getNextPageParam: (lastPage, allPages) => {
             // 만약 현재 페이지의 상품 목록이 비어있다면, 다음 페이지가 없음을 의미
-            if (lastPage.data.dtoList.length === 0) {
+            if (lastPage.dtoList.length === 0) {
                 return undefined;
             }
-            return lastPage.data.current + 1;
+            return lastPage.current + 1;
         },
         initialPageParam: 1,
         staleTime: 60 * 1000,
@@ -148,7 +148,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
     });
 
 
-    const allProducts = products?.pages.flatMap(page => page.data.dtoList) || [];
+    const allProducts = products?.pages.flatMap(page => page.dtoList) || [];
 
     const {data: categories} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
         queryKey: ['categories'],
@@ -156,10 +156,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
     const {data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
@@ -169,9 +165,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled : !!categoryId, //categoryId가 있을 때만 쿼리 요청
-        select: useCallback((data: DataResponse<Category>) => {
-            return data.data;
-        }, []),
     });
 
     const { ref, inView } = useInView({
@@ -191,6 +184,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
            <ListPageSkeleton/>
         );
     }
+    
 
     return (
         <div className="bg-white">
@@ -255,7 +249,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                     ) : (
                                         products?.pages.map((page, index) => (
                                             <Fragment key={index}>
-                                                {page?.data?.dtoList.map((product: Product) => (
+                                                {page.dtoList.map((product: Product) => (
                                                     <Suspense fallback={<ProductCardSkeleton/>} key={product.pno}>
                                                         <ProductCard product={product}/>
                                                     </Suspense>

@@ -32,7 +32,7 @@ public class ProductController {
   private final AwsFileUtil awsFileUtil;
   private final String PRODUCT_IMG_DIR = "product";
 
-  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
   @PostMapping("/")
   public DataResponseDTO<ProductDTO> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
@@ -124,7 +124,7 @@ public class ProductController {
     return DataResponseDTO.of(productDTO);
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/{pno}")
 //  public DataResponseDTO<ProductDTO> modify(
 //          @PathVariable(name="pno") Long pno,
@@ -267,7 +267,7 @@ public class ProductController {
 //    return DataResponseDTO.of( "SUCCESS");
 //  }
 
-  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
   @DeleteMapping("/{pno}")
   public DataResponseDTO<String> remove(@PathVariable("pno") Long pno) {
 

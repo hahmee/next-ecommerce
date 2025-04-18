@@ -117,10 +117,6 @@ const SalesOverview: React.FC = () => {
     gcTime: 300 * 1000,
     throwOnError: true,
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
   const {

@@ -23,10 +23,6 @@ const Categories = () => {
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         throwOnError: true, // 에러 발생 시 자동으로 에러 경계로 전달
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
     if(!categories) {

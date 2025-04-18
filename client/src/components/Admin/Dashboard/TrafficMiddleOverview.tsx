@@ -46,10 +46,6 @@ const TrafficMiddleOverview: React.FC<Props> = ({
     gcTime: 300 * 1000,
     throwOnError: true,
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
 

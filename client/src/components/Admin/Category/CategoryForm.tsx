@@ -10,6 +10,7 @@ import {DataResponse} from "@/interface/DataResponse";
 import {getCategory, getCategoryPaths} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
+import {unwrap} from "@/utils/unwrap";
 
 
 interface Props {
@@ -32,9 +33,6 @@ const CategoryForm = ({type, id}: Props) => {
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: type === Mode.EDIT && !!id,
-        select: useCallback((data: DataResponse<Category>) => {
-            return data.data;
-        }, []),
     });
 
     const [filePreview, setFilePreview] = useState<string>(originalData?.uploadFileName || "");
@@ -46,9 +44,6 @@ const CategoryForm = ({type, id}: Props) => {
         gcTime: 300 * 1000,
         throwOnError:true,
         enabled: !!id, //id 있을때만(서브 카테고리일떄만)
-        select: useCallback((data: DataResponse<Category[]>) => {
-            return data.data;
-        }, []),
 
     });
 
@@ -112,7 +107,9 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            const newCategory: Category = response.data; // 수정 및 추가된 data 반환 ...
+            // const newCategory: Category = response.data; // 수정 및 추가된 data 반환 ...
+            const newCategory: Category = unwrap(response);
+
             toast.success('업로드 성공했습니다.');
 
             if (queryClient.getQueryData(['adminCategories', {page: 1, size: 10, search: ""}])) {
@@ -167,7 +164,6 @@ const CategoryForm = ({type, id}: Props) => {
 
         },
         onError(error) {
-            console.log('error/....', error);
             toast.error(`오류 발생: ${error}`);
         }
     });

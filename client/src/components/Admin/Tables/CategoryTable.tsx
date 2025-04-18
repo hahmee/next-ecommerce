@@ -18,6 +18,7 @@
     import TableActions from "@/components/Admin/Tables/TableActions";
     import {getAdminCategories} from "@/apis/adminAPI";
     import dynamic from "next/dynamic";
+    import {unwrap} from "@/utils/unwrap";
 
     const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
@@ -39,10 +40,6 @@
             staleTime: 60 * 1000,
             gcTime: 300 * 1000,
             throwOnError: true,
-            select: (data) => {
-                // 데이터 가공 로직만 처리
-                return data.data;
-            }
         });
 
         useEffect(() => {
@@ -82,7 +79,7 @@
 
             onSuccess: (data) => {
 
-                const deletedCno: Array<number> = data.data; //삭제된 cno
+                const deletedCno: Array<number> = unwrap(data); //삭제된 cno
 
                 // 기존 데이터 가져오기
                 const previousData: DataResponse<PageResponse<Category>> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);

@@ -51,7 +51,7 @@ public class CategoryController {
     return DataResponseDTO.of(result);
   }
 
-
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/list")
   public DataResponseDTO<List<CategoryDTO>> list() {
 
@@ -73,7 +73,7 @@ public class CategoryController {
   }
 
 
-  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/{cno}")
   public DataResponseDTO<CategoryDTO> read(@PathVariable(name="cno") Long cno) {
 
@@ -134,7 +134,7 @@ public class CategoryController {
   }
 
 
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_DEMO')") //임시로 권한 설정
   @GetMapping("/paths/{cno}")
   public DataResponseDTO<List<CategoryDTO>> pathList(@PathVariable("cno") Long cno) {
     return DataResponseDTO.of(categoryService.getAllCategoryPaths(cno));

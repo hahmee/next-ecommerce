@@ -53,7 +53,7 @@ export const useCartStore = create<CartState>((set,get) => ({
   changeCart: async (cartItem) => {
     set((state) => ({ ...state, isLoading: true }));
 
-    const cart = await fetchJWT(`/api/cart/change`, {
+    const cart = await fetchJWT<CartItemList[]>(`/api/cart/change`, {
       method: "POST",
       credentials: 'include',
       headers: {
@@ -62,7 +62,13 @@ export const useCartStore = create<CartState>((set,get) => ({
       body: JSON.stringify(cartItem),
     });
 
-    get().setCarts(cart.data);
+    if (!cart.success) {
+      console.error("장바구니 변경 실패:", cart.message);
+      return;
+    }
+
+    const items = Array.isArray(cart.data) ? cart.data : [];
+    get().setCarts(items);
 
   },
 
@@ -74,8 +80,13 @@ export const useCartStore = create<CartState>((set,get) => ({
       credentials: 'include',
     })
 
-    get().setCarts(cart.data);
+    if (!cart.success) {
+      console.error("장바구니 삭제 실패:", cart.message);
+      return;
+    }
 
+    const items = Array.isArray(cart.data) ? cart.data : [];
+    get().setCarts(items);
   },
 
 }));

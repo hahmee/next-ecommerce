@@ -30,7 +30,6 @@ const Checkout = () => {
     const handlePaymentClick = async (event: React.FormEvent) => {
         event.preventDefault();
         const newOrderId = Math.random().toString(36).slice(2);
-        console.log('newOrderId', newOrderId);
         await orderSave(newOrderId);
         const tossPayments = await loadTossPayments(
             process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string

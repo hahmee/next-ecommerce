@@ -17,6 +17,7 @@ import Link from "next/link";
 import Select from "@/components/Admin/Product/Select";
 import toast from "react-hot-toast";
 import {getAdminStock} from "@/apis/adminAPI";
+import {unwrap} from "@/utils/unwrap";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -48,9 +49,6 @@ const StockTable = () => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
     const handleClick = (pno:number) => {
@@ -93,7 +91,7 @@ const StockTable = () => {
             });
         },
         onSuccess: async (response) => {
-            const newStock = response.data;
+            const newStock = unwrap(response);
 
             toast.success("수정되었습니다.");
 
