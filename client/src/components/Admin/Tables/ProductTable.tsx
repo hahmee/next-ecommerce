@@ -47,7 +47,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
     const router = useRouter();
     const queryClient = useQueryClient();
 
-    const { isFetched,isLoading , isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
+    const { isFetched,isLoading , isFetching, data, error, isError} = useQuery<PageResponse<Product>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
         queryKey: ['adminProducts', {page, size, search}],
         queryFn: () => getProductsByEmail({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -55,9 +55,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
     useEffect(() => {

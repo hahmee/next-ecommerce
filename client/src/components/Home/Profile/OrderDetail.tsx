@@ -35,16 +35,12 @@ const getOrderStatusText = (status: OrderStatus): string => {
 
 const OrderDetail = ({orderId}:{ orderId: string;}) => {
 
-    const {data: orders, isLoading} = useQuery<DataResponse<Array<Order>>, Object, Array<Order>>({
+    const {data: orders, isLoading} = useQuery<Array<Order>, Object, Array<Order>>({
         queryKey: ['orders', orderId],
         queryFn: () => getOrders({orderId}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
     if(!orders) {

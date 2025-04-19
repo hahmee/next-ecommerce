@@ -76,7 +76,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> accessDenied(AccessDeniedException e, WebRequest request) {
-        log.info(" AccessDeniedException fallback triggered");
+        log.info("AccessDeniedException fallback triggered");
         return handleExceptionInternal(e, ErrorCode.FORBIDDEN, request);
     }
 
@@ -85,7 +85,7 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> exception(Exception e, WebRequest request) {
-        log.warn("🚨 Unhandled Exception: {}", e.getMessage());
+        log.warn("Unhandled Exception: {}", e.getMessage());
         return handleExceptionInternal(e, ErrorCode.INTERNAL_ERROR, request);
     }
 

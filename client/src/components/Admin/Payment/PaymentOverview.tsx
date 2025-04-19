@@ -46,7 +46,7 @@ const PaymentOverview = () => {
         data: paymentSummary,
         error,
         isError
-    } = useQuery<DataResponse<PaymentSummaryDTO>, Object, PaymentSummaryDTO, [_1: string, _2: Object]>({
+    } = useQuery<PaymentSummaryDTO, Object, PaymentSummaryDTO, [_1: string, _2: Object]>({
         queryKey: ['adminPaymentOverview', {date}],
         queryFn: () => getPaymentsOverview({
             startDate: date.startDate,
@@ -55,9 +55,6 @@ const PaymentOverview = () => {
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
     const handleDateClick = (option: Option<string>) => {

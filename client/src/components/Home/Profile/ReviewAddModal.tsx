@@ -20,16 +20,12 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
     const [content, setContent] = useState<string>("");
     const router = useRouter();
 
-    const {data: order, isLoading} = useQuery<DataResponse<Order>, Object, Order>({
+    const {data: order, isLoading} = useQuery<Order, Object, Order>({
         queryKey: ['order', id],
         queryFn: () => getOrder({id: id}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
     // 리뷰 입력 변경 처리

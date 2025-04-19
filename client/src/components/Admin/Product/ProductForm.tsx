@@ -66,26 +66,17 @@ const ProductForm = ({type, id}: Props) => {
     const quillRef = useRef<any>(null);
 
     // edit일 때만 getProduct하기
-    const {isLoading, data: originalData, error} = useQuery<DataResponse<Product>, Object, Product, [_1: string, _2: string]>({
-        queryKey: ['productSingle', id!],
-        queryFn: getProduct,
-        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
-        gcTime: 300 * 1000,
-        throwOnError: true,
-        enabled: !!id && type === Mode.EDIT, // id가 존재할 때만 쿼리 요청 실행(modify일때만)
-        select: useCallback((data: DataResponse<Product>) => {
+    const { isLoading, data: originalData } = useQuery<Product, Object, Product, [_1: string, _2: string]>(
+        {
+            queryKey: ["productSingle", id!],
+            queryFn: getProduct,
+            staleTime: 60 * 1000,
+            gcTime: 300 * 1000,
+            throwOnError: true,
+            enabled: !!id && type === Mode.EDIT
+        }
+    );
 
-            const uploadFileNames = data.data.uploadFileNames?.map((name, idx) => {
-
-                return { dataUrl:name.file, file: undefined , uploadKey: data.data.uploadFileKeys?.[idx].file, id:name.ord} as ImageType;
-            });
-
-            productImageStore.setFiles(uploadFileNames || []);
-
-            return data.data;
-        }, []),
-
-    });
 
     const [pdesc, setPdesc] = useState(originalData?.pdesc || '');
 
@@ -98,10 +89,6 @@ const ProductForm = ({type, id}: Props) => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         throwOnError: true,
         enabled: !!id && type === Mode.EDIT,
-        select: useCallback((data: DataResponse<Category[]>) => {
-            return data.data;
-        }, []),
-
     });
 
     //카테고리 가져오기
@@ -111,18 +98,8 @@ const ProductForm = ({type, id}: Props) => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
-    useEffect(() => {
-        //최하단 카테고리를 저장한다.
-        if(categoryPaths) {
-            setSelectedCategory(categoryPaths[categoryPaths.length - 1]);
-        }
-    }, [categoryPaths]);
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
@@ -205,28 +182,22 @@ const ProductForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-
-            // const newProduct: Product = response.data; // 수정 및 추가된 data 반환 ...
             const newProduct: Product = unwrap(response);
 
             toast.success('업로드 성공했습니다.');
-
             if (queryClient.getQueryData(['adminProducts', {page: 1, size: 10, search: ""}])) {
-                queryClient.setQueryData(['adminProducts', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Product[] }
-                }) => {
+                queryClient.setQueryData(['adminProducts', {page: 1, size: 10, search: ""}], (prevData: { dtoList: Product[] }) => {
                     if (type === Mode.ADD) {
-                        prevData.data.dtoList.unshift(newProduct);
+                        prevData.dtoList.unshift(newProduct);
                     }else{
-                        prevData.data.dtoList = prevData.data.dtoList.map(product => product.pno === newProduct.pno ? newProduct : product);
+                        prevData.dtoList = prevData.dtoList.map(product => product.pno === newProduct.pno ? newProduct : product);
                     }
                     return prevData; // 수정된 데이터 반환
                 });
             }
             if (queryClient.getQueryData(['productSingle', newProduct.pno.toString()])) {
-                queryClient.setQueryData(['productSingle', newProduct.pno.toString()], (prevData: { data: Product }) => {
-                    const shallow = {...prevData};
-                    shallow.data = newProduct;
-                    return shallow;
+                queryClient.setQueryData(['productSingle', newProduct.pno.toString()], (prevData: Product) => {
+                    return newProduct;
                 });
             }
             router.push(`/admin/products`);
@@ -237,217 +208,244 @@ const ProductForm = ({type, id}: Props) => {
         }
     });
 
+    useEffect(() => {
+        if (originalData) {
+            const uploadFileNames = originalData.uploadFileNames?.map((name, idx) => {
+                return {
+                    dataUrl: name.file,
+                    file: undefined,
+                    uploadKey: originalData.uploadFileKeys?.[idx].file,
+                    id: name.ord
+                } as ImageType;
+            });
+            productImageStore.setFiles(uploadFileNames || []);
+            setPdesc(originalData.pdesc);
+        }
+    }, [originalData]);
+
+    useEffect(() => {
+        //최하단 카테고리를 저장한다.
+        if(categoryPaths) {
+            setSelectedCategory(categoryPaths[categoryPaths.length - 1]);
+        }
+    }, [categoryPaths]);
+
 
     if (isLoading) return "Loading...";
 
     return (
-            <form onSubmit={mutation.mutate}>
-                <div className="mx-auto">
-                    <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>
-                    <div className="mb-6 flex gap-3 justify-end sm:flex-row">
-                        <BackButton/>
-                        <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
-                            {
-                                type === Mode.ADD ? "저장하기" : "수정하기"
-                            }
-                        </button>
+        <form onSubmit={mutation.mutate}>
+            <div className="mx-auto">
+                <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>
+                <div className="mb-6 flex gap-3 justify-end sm:flex-row">
+                    <BackButton/>
+                    <button type="submit"
+                            className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                        {
+                            type === Mode.ADD ? "저장하기" : "수정하기"
+                        }
+                    </button>
+                </div>
+
+                <div className="grid grid-cols-1 gap-9">
+                    <div className="flex flex-col gap-9">
+                        <div
+                            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                            <div
+                                className="flex justify-between border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <h3 className="font-medium text-black dark:text-white">
+                                    카테고리
+                                </h3>
+                                <Link href="/admin/category" className="underline text-sm">카테고리 추가/변경</Link>
+                            </div>
+                            <div className="p-6.5 mb-6">
+                                <CategorySelect categories={categories || []} setSelectedCategory={setSelectedCategory}
+                                                categoryPaths={categoryPaths || []}/>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-9">
-                        <div className="flex flex-col gap-9">
-                            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div className="flex justify-between border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                                    <h3 className="font-medium text-black dark:text-white">
-                                        카테고리
-                                    </h3>
-                                    <Link href="/admin/category" className="underline text-sm">카테고리 추가/변경</Link>
-                                </div>
-                                <div className="p-6.5 mb-6">
-                                    <CategorySelect categories={categories || []} setSelectedCategory={setSelectedCategory} categoryPaths={categoryPaths || []}/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-9">
-                            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div className="flex flex-col gap-9">
+                        <div
+                            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                                    <h3 className="font-medium text-black dark:text-white">
-                                        이미지
-                                    </h3>
-                                </div>
-                                <div className="p-6.5">
-                                    <div className="mb-6">
-                                        <ImageUploadForm/>
-                                    </div>
+                                <h3 className="font-medium text-black dark:text-white">
+                                    이미지
+                                </h3>
+                            </div>
+                            <div className="p-6.5">
+                                <div className="mb-6">
+                                    <ImageUploadForm/>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="flex flex-col gap-9">
+                    <div className="flex flex-col gap-9">
+                        <div
+                            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <div
-                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div
-                                    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                                    <h3 className="font-medium text-black dark:text-white">
-                                        기본정보
-                                    </h3>
+                                className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <h3 className="font-medium text-black dark:text-white">
+                                    기본정보
+                                </h3>
+                            </div>
+                            <div className="p-6.5">
+                                <div className="mb-4.5">
+                                    <label
+                                        className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        상품명 <span className="text-meta-1">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="pname"
+                                        name="pname"
+                                        placeholder="상품명을 입력해주세요."
+                                        required
+                                        defaultValue={originalData?.pname || ""}
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    />
                                 </div>
-                                <div className="p-6.5">
-                                    <div className="mb-4.5">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            상품명 <span className="text-meta-1">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="pname"
-                                            name="pname"
-                                            placeholder="상품명을 입력해주세요."
-                                            required
-                                            defaultValue={originalData?.pname || ""}
-                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
-                                    <div className="mb-4.5">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            판매상태 <span className="text-meta-1">*</span>
-                                        </label>
-                                        <RadioButton options={salesOptions} name="salesStatus"
-                                                     originalData={originalData?.salesStatus}/>
-                                    </div>
+                                <div className="mb-4.5">
+                                    <label
+                                        className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        판매상태 <span className="text-meta-1">*</span>
+                                    </label>
+                                    <RadioButton options={salesOptions} name="salesStatus"
+                                                 originalData={originalData?.salesStatus}/>
+                                </div>
 
-                                    {/*<div className="mb-4.5">*/}
-                                    {/*    <Select label={"브랜드"} options={brandOptions}*/}
-                                    {/*            defaultOption={"브랜드를 선택해주세요."}*/}
-                                    {/*            originalData={originalData?.brand}*/}
-                                    {/*            name="brand"/>*/}
-                                    {/*</div>*/}
+                                {/*<div className="mb-4.5">*/}
+                                {/*    <Select label={"브랜드"} options={brandOptions}*/}
+                                {/*            defaultOption={"브랜드를 선택해주세요."}*/}
+                                {/*            originalData={originalData?.brand}*/}
+                                {/*            name="brand"/>*/}
+                                {/*</div>*/}
 
-                                    <div className="mb-4.5">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            판매 가격 <span className="text-meta-1">*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            id="price"
-                                            name="price"
-                                            required
-                                            defaultValue={originalData?.price || ""}
-                                            placeholder="판매가격을 입력해주세요."
-                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
+                                <div className="mb-4.5">
+                                    <label
+                                        className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        판매 가격 <span className="text-meta-1">*</span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="price"
+                                        name="price"
+                                        required
+                                        defaultValue={originalData?.price || ""}
+                                        placeholder="판매가격을 입력해주세요."
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    />
+                                </div>
 
-                                    <div className="mb-6">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            SKU <span className="text-meta-1">*</span>
-                                        </label>
-                                        <input
-                                            id="sku"
-                                            name="sku"
-                                            type="text"
-                                            required
-                                            defaultValue={originalData?.sku || ""}
-                                            placeholder="SKU를 입력해주세요."
-                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        />
-                                    </div>
+                                <div className="mb-6">
+                                    <label
+                                        className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        SKU <span className="text-meta-1">*</span>
+                                    </label>
+                                    <input
+                                        id="sku"
+                                        name="sku"
+                                        type="text"
+                                        required
+                                        defaultValue={originalData?.sku || ""}
+                                        placeholder="SKU를 입력해주세요."
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    />
+                                </div>
 
 
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className="flex flex-col gap-9">
+                        <div
+                            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <h3 className="font-medium text-black dark:text-white">
+                                    옵션정보
+                                </h3>
+                            </div>
+                            <div className="p-6.5">
+                                <div className="mb-4.5">
+                                    <MultiSelect label={"사이즈"}
+                                                 optionList={sizeOptions}
+                                                 id="multiSizeSelect"
+                                                 originalData={originalData?.sizeList}
+                                                 name="sizeList"
+                                                 defaultOption={"사이즈를 선택해주세요."}/>
+                                </div>
+                                <div className="mb-4.5">
+                                    <ColorSelector label={"컬러"}
+                                                   originalData={originalData?.colorList}
+                                                   defaultOption={"컬러를 선택해주세요."}/>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-
-                        <div className="flex flex-col gap-9">
+                    <div className="flex flex-col gap-9">
+                        <div
+                            className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <div
-                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                                    <h3 className="font-medium text-black dark:text-white">
-                                        옵션정보
-                                    </h3>
-                                </div>
-                                <div className="p-6.5">
-                                    <div className="mb-4.5">
-                                        <MultiSelect label={"사이즈"}
-                                                     optionList={sizeOptions}
-                                                     id="multiSizeSelect"
-                                                     originalData={originalData?.sizeList}
-                                                     name="sizeList"
-                                                     defaultOption={"사이즈를 선택해주세요."}/>
-                                    </div>
-                                    <div className="mb-4.5">
-                                        <ColorSelector label={"컬러"}
-                                                       originalData={originalData?.colorList}
-                                                       defaultOption={"컬러를 선택해주세요."}/>
-                                    </div>
-                                </div>
+                                className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                                <h3 className="font-medium text-black dark:text-white">
+                                    상품 상세
+                                </h3>
                             </div>
-                        </div>
+                            <div className="p-6.5">
 
-                        <div className="flex flex-col gap-9">
-                            <div
-                                className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                                <div
-                                    className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                                    <h3 className="font-medium text-black dark:text-white">
-                                        상품 상세
-                                    </h3>
-                                </div>
-                                <div className="p-6.5">
+                                <div className="mb-6">
+                                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        상품 설명 <span className="text-meta-1">*</span>
+                                    </label>
 
-                                    <div className="mb-6">
-                                        <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            상품 설명 <span className="text-meta-1">*</span>
-                                        </label>
-
-                                        {/*<QuillEditor quillRef={quillRef} originalData={originalData?.pdesc}/>*/}
-                                        <QuillEditor quillRef={quillRef} originalData={pdesc}/>
-
-                                    </div>
-
-                                    <div className="mb-6">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            환불 정책
-                                        </label>
-                                        <textarea
-                                            id="refundPolicy"
-                                            name="refundPolicy"
-                                            rows={3}
-                                            placeholder="환불 정책을 입력해주세요."
-                                            required
-                                            defaultValue={originalData?.refundPolicy || ""}
-                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        ></textarea>
-                                    </div>
-
-                                    <div className="mb-6">
-                                        <label
-                                            className="mb-3 block text-sm font-medium text-black dark:text-white">
-                                            교환 정책
-                                        </label>
-                                        <textarea
-                                            id="changePolicy"
-                                            name="changePolicy"
-                                            rows={3}
-                                            placeholder="교환 정책을 입력해주세요."
-                                            required
-                                            defaultValue={originalData?.changePolicy || ""}
-                                            className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                        ></textarea>
-                                    </div>
-
+                                    {/*<QuillEditor quillRef={quillRef} originalData={originalData?.pdesc}/>*/}
+                                    <QuillEditor quillRef={quillRef} originalData={pdesc}/>
 
                                 </div>
+
+                                <div className="mb-6">
+                                    <label
+                                        className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        환불 정책
+                                    </label>
+                                    <textarea
+                                        id="refundPolicy"
+                                        name="refundPolicy"
+                                        rows={3}
+                                        placeholder="환불 정책을 입력해주세요."
+                                        required
+                                        defaultValue={originalData?.refundPolicy || ""}
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    ></textarea>
+                                </div>
+
+                                <div className="mb-6">
+                                    <label
+                                        className="mb-3 block text-sm font-medium text-black dark:text-white">
+                                        교환 정책
+                                    </label>
+                                    <textarea
+                                        id="changePolicy"
+                                        name="changePolicy"
+                                        rows={3}
+                                        placeholder="교환 정책을 입력해주세요."
+                                        required
+                                        defaultValue={originalData?.changePolicy || ""}
+                                        className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    ></textarea>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
+        </form>
     );
 };
 
