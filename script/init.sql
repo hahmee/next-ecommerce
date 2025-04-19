@@ -54,13 +54,13 @@ create table member_member_role_list
 (
     member_email     varchar(255) not null,
     member_role_list tinyint      null
-        check (`member_role_list` between 0 and 2),
+        check (`member_role_list` between 0 and 3),
     constraint FK2cojwm6nbbasi0xkedqjjagap
         foreign key (member_email) references member (email)
 )
     collate = utf8mb4_general_ci;
 
-INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUES ('user1@aaa.com', 2);
+INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUES ('user1@aaa.com', 3);
 INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUES ('user2@aaa.com', 2);
 INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUES ('test@aaa.com', 0);
 INSERT INTO apidb.member_member_role_list (member_email, member_role_list) VALUES ('user3@aaa.com', 2);
