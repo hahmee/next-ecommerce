@@ -1,12 +1,11 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
-import { DataResponse } from "@/interface/DataResponse";
-import { Category } from "@/interface/Category";
-import React, { useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Member } from "@/interface/Member";
-import { getCategories } from "@/apis/adminAPI";
+import {useQuery} from "@tanstack/react-query";
+import {Category} from "@/interface/Category";
+import React, {useState} from "react";
+import {ChevronDownIcon} from "@heroicons/react/20/solid";
+import {useRouter, useSearchParams} from "next/navigation";
+import {Member} from "@/interface/Member";
+import {getCategories} from "@/apis/adminAPI";
 
 const FullMenu = ({ member }: { member: Member }) => {
     const router = useRouter();
@@ -14,7 +13,7 @@ const FullMenu = ({ member }: { member: Member }) => {
     const categoryId = searchParams.get("category_id") || "";
     const [hoverCategoryId, setHoverCategoryId] = useState<number | null>(null);
 
-    const { data: categories } = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+    const { data: categories } = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ["categories"],
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,

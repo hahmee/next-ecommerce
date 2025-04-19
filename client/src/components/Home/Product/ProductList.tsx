@@ -1,12 +1,11 @@
 "use client";
 
-import React, {Fragment, Suspense, useCallback, useEffect, useState} from "react";
+import React, {Fragment, Suspense, useEffect, useState} from "react";
 import {useInView} from "react-intersection-observer";
 import {useInfiniteQuery, useQuery} from "@tanstack/react-query";
 import ProductCard from "@/components/Home/Product/ProductCard";
 import {Product} from "@/interface/Product";
 import ProductFilters from "@/components/Home/Product/ProductFilters";
-import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
 import ProductCategories from "@/components/Home/Product/ProductCategories";
 import {Size} from "@/types/size";
@@ -150,7 +149,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
 
     const allProducts = products?.pages.flatMap(page => page.dtoList) || [];
 
-    const {data: categories} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+    const {data: categories} = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ['categories'],
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,
@@ -158,7 +157,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
         throwOnError: true,
     });
 
-    const {data: category} = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
+    const {data: category} = useQuery<Category, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', categoryId],
         queryFn: getCategory,
         staleTime: 60 * 1000,

@@ -1,6 +1,5 @@
 "use client";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {Category} from "@/interface/Category";
 import Image from "next/image";
 import {getCategories} from "@/apis/adminAPI";
@@ -17,7 +16,7 @@ const Categories = () => {
         isFetching,
         data: categories,
         isLoading
-    } = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+    } = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ['categories'],
         queryFn: () => getCategories(),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준

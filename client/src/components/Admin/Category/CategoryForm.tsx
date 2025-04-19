@@ -1,12 +1,11 @@
 'use client';
 import CategoryBreadcrumb from "@/components/Admin/Category/CategoryBreadcrumb";
-import React, {FormEvent, useCallback, useState} from "react";
+import React, {FormEvent, useState} from "react";
 import {Mode} from "@/types/mode";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Category} from "@/interface/Category";
 import {fetchJWT} from "@/utils/fetchJWT";
 import toast from "react-hot-toast";
-import {DataResponse} from "@/interface/DataResponse";
 import {getCategory, getCategoryPaths} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
@@ -26,7 +25,7 @@ const CategoryForm = ({type, id}: Props) => {
         isLoading,
         data: originalData,
         error
-    } = useQuery<DataResponse<Category>, Object, Category, [_1: string, _2: string]>({
+    } = useQuery<Category, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', id!],
         queryFn: getCategory,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -37,7 +36,7 @@ const CategoryForm = ({type, id}: Props) => {
 
     const [filePreview, setFilePreview] = useState<string>(originalData?.uploadFileName || "");
 
-    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
+    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<Category[], Object, Category[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', id!],
         queryFn: getCategoryPaths,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -107,21 +106,21 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            // const newCategory: Category = response.data; // 수정 및 추가된 data 반환 ...
+            // const newCategory: Category = response; // 수정 및 추가된 response 반환 ...
             const newCategory: Category = unwrap(response);
 
             toast.success('업로드 성공했습니다.');
 
             if (queryClient.getQueryData(['adminCategories', {page: 1, size: 10, search: ""}])) {
-                queryClient.setQueryData(['adminCategories', {page: 1, size: 10, search: ""}], (prevData: { data: { dtoList: Category[] } }) => {
+                queryClient.setQueryData(['adminCategories', {page: 1, size: 10, search: ""}], (prevData: { dtoList: Category[] } ) => {
                     // 카테고리 추가 로직
                     if (type === Mode.ADD) {
                         if (!newCategory.parentCategoryId) {
                             // 메인 카테고리일 경우 맨 앞에 추가
-                            prevData.data.dtoList.unshift(newCategory);
+                            prevData.dtoList.unshift(newCategory);
                         } else {
                             // 서브 카테고리일 때, 부모 카테고리 찾아서 추가
-                            const parentCategory = prevData.data.dtoList.find(category => category.cno === newCategory.parentCategoryId);
+                            const parentCategory = prevData.dtoList.find(category => category.cno === newCategory.parentCategoryId);
                             if (parentCategory) {
                                 if (!parentCategory.subCategories) {
                                     parentCategory.subCategories = [];
@@ -131,7 +130,7 @@ const CategoryForm = ({type, id}: Props) => {
                         }
                     } else {
                         // 수정 로직: 기존 카테고리 및 자식 카테고리까지 수정
-                        prevData.data.dtoList = prevData.data.dtoList.map(category => updateCategory(category, newCategory));
+                        prevData.dtoList = prevData.dtoList.map(category => updateCategory(category, newCategory));
                     }
 
                     //categories 업데이트
@@ -144,19 +143,16 @@ const CategoryForm = ({type, id}: Props) => {
             }
 
             if (queryClient.getQueryData(['category', newCategory.cno.toString()])) {
-                queryClient.setQueryData(['category', newCategory.cno.toString()], (prevData: { data: Category }) => {
-                    const shallow = {...prevData};
-                    shallow.data = newCategory;
-                    return shallow;
+                queryClient.setQueryData(['category', newCategory.cno.toString()], (prevData: Category) => {
+                    return newCategory;
                 });
             }
 
             if (queryClient.getQueryData(['categoryPaths', newCategory.cno.toString()])) {
-                queryClient.setQueryData(['categoryPaths', newCategory.cno.toString()], (prevData: { data: Category[] }) => {
-                    const updatedPaths = prevData.data.map(category =>
+                queryClient.setQueryData(['categoryPaths', newCategory.cno.toString()], (prevData:  Category[]) => {
+                    return prevData.map(category =>
                         category.cno === newCategory.cno ? newCategory : category
                     );
-                    return { data: updatedPaths };
                 });
             }
 

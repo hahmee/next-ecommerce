@@ -4,7 +4,6 @@ import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import {DataResponse} from "@/interface/DataResponse";
 import React, {Fragment, useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
 import {Payment} from "@/interface/Payment";
@@ -28,7 +27,7 @@ const OrderTable = () => {
     const [payments,setPayments] = useState<PageResponse<Payment>>();
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
-    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Payment>>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
+    const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<Payment>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
         queryKey: ['adminOrders', {page, size, search, date}],
         queryFn: () => getOrdersByEmail(
             {
@@ -42,9 +41,6 @@ const OrderTable = () => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
     useEffect(() => {

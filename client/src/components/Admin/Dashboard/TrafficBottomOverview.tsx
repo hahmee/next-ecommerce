@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsBottom} from "@/apis/dashbaordAPI";
 import {GAResponseBottom} from "@/interface/GAResponse";
-import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
@@ -34,7 +33,7 @@ const TrafficBottomOverview: React.FC<Props> = ({
         data: gaBottomData,
         isLoading,
         isFetching
-    } = useQuery<DataResponse<GAResponseBottom>, Object, GAResponseBottom>({
+    } = useQuery<GAResponseBottom, Object, GAResponseBottom>({
         queryKey: ['gaBottom', date, currentFilter],
         queryFn: () => getGoogleAnalyticsBottom({
             startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
@@ -48,10 +47,6 @@ const TrafficBottomOverview: React.FC<Props> = ({
         gcTime: 300 * 1000,
         throwOnError: true,
         enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-        select: (data) => {
-            // 데이터 가공 로직만 처리
-            return data.data;
-        }
     });
 
 

@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
 import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {getCookie} from "cookies-next";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
@@ -15,7 +14,7 @@ import dynamic from "next/dynamic";
 import {MapResponse} from "@/interface/MapResponse";
 import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
 import formatDate from "@/libs/formatDate";
-import {DateRangeType, DateValueType} from "react-tailwindcss-datepicker/dist/types";
+import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 //
@@ -79,7 +78,7 @@ const SalesOverview: React.FC = () => {
 
   const {
     data: salesCards,
-  } = useQuery<DataResponse<CardResponse>, Object, CardResponse>({
+  } = useQuery<CardResponse, Object, CardResponse>({
     queryKey: ['salesCards', currentFilter, date, selectedCard],
     queryFn: () => getSalesCards({
       startDate: date.startDate ? date.startDate : "",
@@ -94,15 +93,11 @@ const SalesOverview: React.FC = () => {
     gcTime: 300 * 1000,
     throwOnError: true,
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
   const {
     data: salesCharts,
-  } = useQuery<DataResponse<ChartResponse>, Object, ChartResponse>({
+  } = useQuery<ChartResponse, Object, ChartResponse>({
     queryKey: ['salesCharts', currentFilter, date, selectedCard],
     queryFn: () => getSalesCharts({
       startDate: date.startDate ? date.startDate : "",
@@ -121,7 +116,7 @@ const SalesOverview: React.FC = () => {
 
   const {
     data: topCustomers,
-  } = useQuery<DataResponse<Array<TopCustomerResponse>>, Object, Array<TopCustomerResponse>>({
+  } = useQuery<Array<TopCustomerResponse>, Object, Array<TopCustomerResponse>>({
     queryKey: ['customers', date],
     queryFn: () => getTopCustomers({
       startDate: date.startDate ? date.startDate : "",
@@ -132,15 +127,11 @@ const SalesOverview: React.FC = () => {
     gcTime: 300 * 1000,
     enabled: !!date.startDate && !!date.endDate,
     throwOnError: true,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
   const {
     data: topProducts,
-  } = useQuery<DataResponse<Array<TopProductResponse>>, Object, Array<TopProductResponse>>({
+  } = useQuery<Array<TopProductResponse>, Object, Array<TopProductResponse>>({
     queryKey: ['products', date],
     queryFn: () => getTopProducts({
       startDate: date.startDate ? date.startDate : "",
@@ -151,15 +142,12 @@ const SalesOverview: React.FC = () => {
     gcTime: 300 * 1000,
     enabled: !!date.startDate && !!date.endDate,
     throwOnError: true,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
+
   });
 
   const {
     data: countries,
-  } = useQuery<DataResponse<Array<MapResponse>>, Object, Array<MapResponse>>({
+  } = useQuery<Array<MapResponse>, Object, Array<MapResponse>>({
     queryKey: ['countries', date],
     queryFn: () => getSalesByCountry({
       startDate: date.startDate ? date.startDate : "",
@@ -170,10 +158,6 @@ const SalesOverview: React.FC = () => {
     enabled: !!date.startDate && !!date.endDate,
     gcTime: 300 * 1000,
     throwOnError: true,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
 

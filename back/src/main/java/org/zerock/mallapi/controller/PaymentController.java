@@ -78,7 +78,7 @@ public class PaymentController {
 
 
     //ADMIN 페이지 추가
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
     @GetMapping("/searchAdminPaymentList") // searchAdminPaymentList?search=검색어&page=1&size=10
     public DataResponseDTO<PageResponseDTO<PaymentDTO>> searchAdminPaymentList(SearchRequestDTO searchRequestDTO, Principal principal) {
 
@@ -96,7 +96,7 @@ public class PaymentController {
 
 
     //ADMIN 페이지 추가
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
     @GetMapping("/paymentsOverview")
     public DataResponseDTO<PaymentSummaryDTO> getAdminPaymentOverview(SearchRequestDTO searchRequestDTO, Principal principal) {
 
@@ -114,7 +114,7 @@ public class PaymentController {
 
 
     //ADMIN 페이지 추가
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
     @GetMapping("/searchAdminOrders")
     public DataResponseDTO<PageResponseDTO<AdminOrderDTO>> searchAdminOrders(SearchRequestDTO searchRequestDTO, Principal principal) {
 

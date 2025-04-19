@@ -1,6 +1,5 @@
 "use client";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {Payment} from "@/interface/Payment";
 import {TossPaymentStatus} from "@/types/toss";
 import {useRouter} from "next/navigation";

@@ -6,7 +6,6 @@ import {Product} from "@/interface/Product";
 import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import React, {useCallback, useEffect, useState} from "react";
@@ -41,7 +40,7 @@ const StockTable = () => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
-    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Product>>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
+    const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<Product>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
         queryKey: ['adminStockProducts', {page, size, search}],
         queryFn: () => getAdminStock({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -95,19 +94,16 @@ const StockTable = () => {
 
             toast.success("수정되었습니다.");
 
-            const previousData: DataResponse<PageResponse<Product>> | undefined   = queryClient.getQueryData(['adminStockProducts', { page, size, search }]);
+            const previousData: PageResponse<Product> | undefined   = queryClient.getQueryData(['adminStockProducts', { page, size, search }]);
 
             if (previousData) {
-                const updatedProducts = previousData.data.dtoList.map(product =>
+                const updatedProducts = previousData.dtoList.map(product =>
                     product.pno === newStock.pno ? newStock : product
                 );
 
                 queryClient.setQueryData(['adminStockProducts', { page, size, search }], {
                     ...previousData, // 이전 데이터를 그대로 유지
-                    data: {
-                        ...previousData.data, // data 객체 복사
-                        dtoList: updatedProducts, // dtoList만 업데이트
-                    },
+                    dtoList: updatedProducts, // dtoList만 업데이트
                 });
 
                 setProductData(undefined); //??

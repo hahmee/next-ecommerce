@@ -20,14 +20,14 @@ public class DashboardController {
 
   private final DashboardService dashboardService;
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
   @GetMapping("/salesOverviewCard")
   public DataResponseDTO<CardResponseDTO> salesCardList(ChartRequestDTO chartRequestDTO) {
 
     return DataResponseDTO.of(dashboardService.getSalesCardList(chartRequestDTO));
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
   @GetMapping("/salesOverviewChart")
   public DataResponseDTO<ChartResponseDTO> salesList(ChartRequestDTO chartRequestDTO) {
 
@@ -55,21 +55,21 @@ public class DashboardController {
   }
 
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
   @GetMapping("/salesCustomers")
   public DataResponseDTO<List<TopCustomerResponseDTO>> topCustomerList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
     return DataResponseDTO.of(dashboardService.getTopCustomerList(topCustomerRequestDTO));
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
   @GetMapping("/salesProducts")
   public DataResponseDTO<List<TopProductResponseDTO>> topProductList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
     return DataResponseDTO.of(dashboardService.getTopProductList(topCustomerRequestDTO));
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')") //임시로 권한 설정
   @GetMapping("/salesByCountry")
   public DataResponseDTO<List<MapSalesResponseDTO>> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
 
@@ -77,7 +77,7 @@ public class DashboardController {
   }
 
   //original
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/traffic")
   public DataResponseDTO<GAResponseDTO> getAnalytics(GARequestDTO gaRequestDTO) {
     long startTime = System.currentTimeMillis();
@@ -92,7 +92,7 @@ public class DashboardController {
 
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/trafficTop")
   public DataResponseDTO<GAResponseTopDTO> getAnalyticsTop(GARequestDTO gaRequestDTO) {
 
@@ -101,7 +101,7 @@ public class DashboardController {
     return DataResponseDTO.of(gaResponseTopDTO);
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/trafficMiddle")
   public DataResponseDTO<GAResponseMiddleDTO> getAnalyticsMiddle(GARequestDTO gaRequestDTO) {
     GAResponseMiddleDTO gaResponseMiddleDTO = dashboardService.getGoogleAnalyticsMiddle(gaRequestDTO);
@@ -110,7 +110,7 @@ public class DashboardController {
 
 
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/trafficBottom")
   public DataResponseDTO<GAResponseBottomDTO> getAnalyticsBottom(GARequestDTO gaRequestDTO) {
 
@@ -122,7 +122,7 @@ public class DashboardController {
 
 
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/real-time-top")
   public DataResponseDTO<String> gaRealTimeTop(GARequestDTO gaRequestDTO) {
 
@@ -135,7 +135,7 @@ public class DashboardController {
 
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+  @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/real-time-bottom")
   public DataResponseDTO<GARealTimeResponseBottomDTO> gaRealTimeBottom(GARequestDTO gaRequestDTO) {
 

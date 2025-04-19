@@ -22,7 +22,6 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
     const mutation = useMutation({
         mutationFn: async () => {
             // 로그인 요청 및 쿠키 설정 (로컬에서만 필요)
-
             if(!isProduction) {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                     method: "POST",

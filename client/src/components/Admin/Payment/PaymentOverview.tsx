@@ -5,7 +5,6 @@ import {Option} from "@/interface/Option";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import ClickOutside from "@/components/Common/ClickOutside";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {PaymentSummaryDTO} from "@/interface/PaymentSummaryDTO";
 import {getPaymentsOverview} from "@/apis/adminAPI";
 import formatDate from "@/libs/formatDate";

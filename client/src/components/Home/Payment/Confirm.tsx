@@ -3,7 +3,6 @@
 import React, {useEffect} from "react";
 import Link from "next/link";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {getPayment} from "@/apis/mallAPI";
 import {Payment} from "@/interface/Payment";
 
@@ -14,15 +13,12 @@ interface Props {
 const Confirm = ({paymentKey}: Props) => {
     const queryClient = useQueryClient();
 
-    const {data: payment} = useQuery<DataResponse<Payment>, Payment, any>({
+    const {data: payment} = useQuery<Payment, Payment, any>({
         queryKey: ['payment-confirm', paymentKey],
         queryFn: () => getPayment({paymentKey}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
     // invalidateQueries는 사이드 이펙트이므로 useEffect 내부에서 실행

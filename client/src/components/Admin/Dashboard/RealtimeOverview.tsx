@@ -2,7 +2,6 @@
 import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
-import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
@@ -48,7 +47,7 @@ const RealtimeOverview: React.FC = () => {
     data: gaTopData,
     isLoading,
     isFetching,
-  } = useQuery<DataResponse<GARealTimeResponseTop>, Object, GARealTimeResponseTop>({
+  } = useQuery<GARealTimeResponseTop, Object, GARealTimeResponseTop>({
     queryKey: ['gaRecentUsersTop', date, currentFilter],
     queryFn: () => getGARecentUsersTop({
       startDate: date.startDate || "",
@@ -61,10 +60,6 @@ const RealtimeOverview: React.FC = () => {
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: true,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
   if(isLoading || isFetching) {

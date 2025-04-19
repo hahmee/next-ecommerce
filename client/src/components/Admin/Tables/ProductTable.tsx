@@ -7,7 +7,6 @@ import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import TableAddButton from "@/components/Admin/Tables/TableAddButton";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
@@ -88,13 +87,13 @@ const ProductTable = () => { //{page, size, search} : PageParam
         },
         onMutate: async (pno) => {
             // 기존 데이터 가져오기
-            const previousData: DataResponse<PageResponse<Product>> | undefined = queryClient.getQueryData(['adminProducts', {page, size, search}]);
+            const previousData: PageResponse<Product> | undefined = queryClient.getQueryData(['adminProducts', {page, size, search}]);
 
             if(previousData){
 
                 const updatedData: PageResponse<Product> = {
-                    ...previousData.data,
-                    dtoList: previousData.data.dtoList.filter(product => product.pno != pno)
+                    ...previousData,
+                    dtoList: previousData.dtoList.filter(product => product.pno != pno)
                 };
 
                 // 쿼리 데이터를 업데이트

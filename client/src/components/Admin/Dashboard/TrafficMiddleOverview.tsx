@@ -3,7 +3,6 @@ import React from "react";
 import dynamic from "next/dynamic";
 import {getGoogleAnalyticsMiddle} from "@/apis/dashbaordAPI";
 import {GAResponseMiddle} from "@/interface/GAResponse";
-import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
@@ -32,7 +31,7 @@ const TrafficMiddleOverview: React.FC<Props> = ({
     data: gaMiddleData,
       isLoading,
       isFetching
-  } = useQuery<DataResponse<GAResponseMiddle>, Object, GAResponseMiddle>({
+  } = useQuery<GAResponseMiddle, Object, GAResponseMiddle>({
     queryKey: ['gaMiddle', date, currentFilter],
     queryFn: () => getGoogleAnalyticsMiddle({
       startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",

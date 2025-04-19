@@ -42,7 +42,7 @@ public class MemberController {
     }
 
 
-    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/api/members") // members?search=검색어&page=1&size=10
     public DataResponseDTO<PageResponseDTO<MemberDTO>> getUsers(SearchRequestDTO searchRequestDTO) {
 

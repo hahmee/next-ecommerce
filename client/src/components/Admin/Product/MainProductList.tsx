@@ -1,7 +1,6 @@
 "use client";
 import {StarIcon} from "@heroicons/react/20/solid";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,7 +22,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
     const [data, setData] = useState<Product[] | undefined>(undefined);
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-    const {data: newProducts, isFetched, isLoading, isError, isFetching} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
+    const {data: newProducts, isFetched, isLoading, isError, isFetching} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['new-products'],
         queryFn: () => getNewProducts(),
         staleTime: 60 * 1000,
@@ -32,7 +31,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
         enabled: type === "new",
     });
 
-    const {data: featuredProducts,} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
+    const {data: featuredProducts,} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['featured-products'],
         queryFn: () => getFeaturedProducts(),
         staleTime: 60 * 1000,

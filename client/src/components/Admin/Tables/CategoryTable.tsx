@@ -1,7 +1,6 @@
     "use client";
     import React, {Fragment, useEffect, useState} from "react";
     import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-    import {DataResponse} from "@/interface/DataResponse";
     import {Category} from "@/interface/Category";
     import Link from "next/link";
     import {fetchJWT} from "@/utils/fetchJWT";
@@ -34,7 +33,7 @@
         const [size, setSize] = useState<number>(10);
         const [search, setSearch] = useState<string>("");
 
-        const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Category>>, Object, PageResponse<Category>, [_1: string, _2: Object]>({
+        const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<Category>, Object, PageResponse<Category>, [_1: string, _2: Object]>({
             queryKey: ['adminCategories', {page, size, search}],
             queryFn: () => getAdminCategories( {page, size, search}),
             staleTime: 60 * 1000,
@@ -61,7 +60,6 @@
 
                 // Get previous value of the query data
                 // const previousData: DataResponse<PageResponse<Category>> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
-
                 //
                 // if(previousData) {
                 //     const updatedData: PageResponse<Category> = {
@@ -82,13 +80,14 @@
                 const deletedCno: Array<number> = unwrap(data); //삭제된 cno
 
                 // 기존 데이터 가져오기
-                const previousData: DataResponse<PageResponse<Category>> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
+                const previousData: PageResponse<Category> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
 
+                console.log('previousData', previousData);
                 // 새로운 데이터로 업데이트
                 if (previousData) {
                     const updatedData: PageResponse<Category> = {
-                        ...previousData.data,
-                        dtoList: previousData.data.dtoList.filter(category => !deletedCno.includes(category.cno)),
+                        ...previousData,
+                        dtoList: previousData.dtoList.filter(category => !deletedCno.includes(category.cno)),
                     };
 
                     // 쿼리 데이터를 업데이트

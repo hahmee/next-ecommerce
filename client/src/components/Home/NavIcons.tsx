@@ -9,7 +9,6 @@ import {useRouter} from "next/navigation";
 import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import {MemberRole} from "@/types/memberRole";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {CartItemList} from "@/interface/CartItemList";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
@@ -33,7 +32,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         toast.success("로그아웃 되었습니다.");
     };
 
-    const { isFetched, isFetching, data:cartData, error, isError} = useQuery<DataResponse<Array<CartItemList>>, Object, Array<CartItemList>>({
+    const { isFetched, isFetching, data:cartData, error, isError} = useQuery<Array<CartItemList>, Object, Array<CartItemList>>({
         queryKey: ['carts'],
         queryFn: () => getCart(),
         staleTime: 60 * 1000,

@@ -3,14 +3,13 @@ import {Product} from "@/interface/Product";
 import Image from "next/image";
 import React, {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {getExpertProducts} from "@/apis/adminAPI";
 import {ArrowLongLeftIcon, ArrowLongRightIcon, StarIcon} from "@heroicons/react/20/solid";
 import Link from "next/link";
 
 const ExpertList = () => {
 
-    const {data: products,} = useQuery<DataResponse<Array<Product>>, Object, Array<Product>>({
+    const {data: products,} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['expert-products'],
         queryFn: () => getExpertProducts(),
         staleTime: 60 * 1000,

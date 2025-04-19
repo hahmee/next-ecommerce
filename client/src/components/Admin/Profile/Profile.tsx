@@ -1,24 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import React, {useCallback} from "react";
+import React from "react";
 import Image from "next/image";
 import {Member} from "@/interface/Member";
-import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getUserInfo} from "@/apis/mallAPI";
 
 const Profile = () => {
 
-    const {data: member, isLoading} = useQuery<DataResponse<Member>, Object, Member>({
+    const {data: member, isLoading} = useQuery<Member, Object, Member>({
         queryKey: ['user'],
         queryFn: () => getUserInfo(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        select: useCallback((data: DataResponse<Member>) => {
-            return data.data;
-        }, []),
     });
 
     return (

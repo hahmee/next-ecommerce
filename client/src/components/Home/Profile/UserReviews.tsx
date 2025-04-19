@@ -1,6 +1,5 @@
 "use client";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {useRouter} from "next/navigation";
 import {Review} from "@/interface/Review";
 import {StarIcon} from "@heroicons/react/20/solid";

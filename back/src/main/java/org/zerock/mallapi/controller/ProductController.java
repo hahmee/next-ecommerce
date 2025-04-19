@@ -295,6 +295,7 @@ public class ProductController {
 
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/expertProducts")
   public DataResponseDTO<List<ProductDTO>> getExpertProducts() {
 
@@ -302,6 +303,7 @@ public class ProductController {
 
   }
 
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/featuredProductList")
   public DataResponseDTO<List<ProductDTO>> getFeaturedProducts() {
 

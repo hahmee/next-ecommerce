@@ -1,6 +1,6 @@
 "use client";
 
-import React, {FormEvent, useCallback, useEffect, useRef, useState} from "react";
+import React, {FormEvent, useEffect, useRef, useState} from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import ImageUploadForm, {ImageType} from "@/components/Admin/Product/ImageUploadForm";
 import MultiSelect from "@/components/Admin/Product/MultiSelect";
@@ -11,7 +11,6 @@ import {fetchJWT} from "@/utils/fetchJWT";
 import {useProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
-import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {Size} from "@/types/size";
 import {useTagStore} from "@/store/tagStore";
@@ -81,7 +80,7 @@ const ProductForm = ({type, id}: Props) => {
     const [pdesc, setPdesc] = useState(originalData?.pdesc || '');
 
     // 선택했던 카테고리들을 가져온다.
-    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<DataResponse<Category[]>, Object, Category[], [_1: string, _2: string]>({
+    const {isLoading: isPathLoading, data: categoryPaths, error: pathError} = useQuery<Category[], Object, Category[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', originalData ? originalData.categoryId.toString() : '-1'],
         queryFn: getCategoryPaths,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -92,7 +91,7 @@ const ProductForm = ({type, id}: Props) => {
     });
 
     //카테고리 가져오기
-    const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<DataResponse<Array<Category>>, Object, Array<Category>>({
+    const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ['categories'],
         queryFn: () => getCategories(),
         staleTime: 60 * 1000,

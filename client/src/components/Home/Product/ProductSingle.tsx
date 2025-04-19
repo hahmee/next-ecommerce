@@ -1,6 +1,5 @@
 "use client";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {Product} from "@/interface/Product";
 import {useEffect, useState} from "react";
 import ProductImages from "@/components/Home/Product/ProductImags";

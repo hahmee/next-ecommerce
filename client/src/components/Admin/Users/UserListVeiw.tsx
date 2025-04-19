@@ -4,7 +4,6 @@ import React from "react";
 import {Member} from "@/interface/Member";
 import {PageResponse} from "@/interface/PageResponse";
 import Image from "next/image";
-// import { ChevronLeft, ChevrChevronRightonRight } from "lucide-react";
 
 type Props = {
     users: PageResponse<Member> | undefined;

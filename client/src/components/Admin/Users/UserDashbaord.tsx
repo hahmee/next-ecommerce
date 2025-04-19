@@ -4,7 +4,6 @@ import TestChart from "@/components/Admin/Dashboard/Charts/TestChart";
 import UserListView from "@/components/Admin/Users/UserListVeiw";
 import HeatmapChart from "@/components/Admin/Dashboard/Charts/HeatmapChart";
 import {useQuery} from "@tanstack/react-query";
-import {DataResponse} from "@/interface/DataResponse";
 import {PageResponse} from "@/interface/PageResponse";
 import {getAllMembers} from "@/apis/adminAPI";
 import {Member} from "@/interface/Member";
@@ -44,7 +43,7 @@ const UserDashboard = () => {
     const [search, setSearch] = useState<string>("");
     const router = useRouter();
 
-    const { isFetched, isFetching, data:users, error, isError} = useQuery<DataResponse<PageResponse<Member>>, Object, PageResponse<Member>, [_1: string, _2: Object]>({
+    const { isFetched, isFetching, data:users, error, isError} = useQuery<PageResponse<Member>, Object, PageResponse<Member>, [_1: string, _2: Object]>({
         queryKey: ['adminMembers', {page, size, search}],
         queryFn: () => getAllMembers({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
@@ -52,12 +51,8 @@ const UserDashboard = () => {
         // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
-    console.log(users);
     return (
         <div className="p-6 bg-white shadow rounded-lg">
             {/* 통계 카드 영역 */}

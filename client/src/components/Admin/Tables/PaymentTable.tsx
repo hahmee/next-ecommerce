@@ -4,7 +4,6 @@ import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import {DataResponse} from "@/interface/DataResponse";
 import React, {useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
 import {Payment} from "@/interface/Payment";
@@ -29,7 +28,7 @@ const PaymentTable = () => {
     const [size, setSize] = useState<number>(10);
     const [search, setSearch] = useState<string>("");
     const [payments,setPayments] = useState<PageResponse<Payment>>();
-    const { isFetched, isFetching, data, error, isError} = useQuery<DataResponse<PageResponse<Payment>>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
+    const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<Payment>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
         queryKey: ['adminPayments', {page, size, search, date}],
         queryFn: () => getPaymentsByEmail({page, size, search,
             startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
@@ -41,9 +40,6 @@ const PaymentTable = () => {
         // throwOnError: (error) => error. >= 500,
         enabled: !!date, // date 가 있을 때만 쿼리 요청
         throwOnError: true,
-        select: (data) => {
-            return data.data;
-        }
     });
 
     useEffect(() => {

@@ -5,7 +5,6 @@ import {ChartFilter} from "@/types/chartFilter";
 import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {GAResponseTop} from "@/interface/GAResponse";
-import {DataResponse} from "@/interface/DataResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
@@ -58,7 +57,7 @@ const TrafficOverview: React.FC = () => {
     data: gaTopData,
     isLoading,
     isFetching
-  } = useQuery<DataResponse<GAResponseTop>, Object, GAResponseTop>({
+  } = useQuery<GAResponseTop, Object, GAResponseTop>({
       queryKey: ['gaTop', date, currentFilter],
     queryFn: () => getGoogleAnalyticsTop({
       startDate: date.startDate ? date.startDate : "",
@@ -72,10 +71,6 @@ const TrafficOverview: React.FC = () => {
     gcTime: 300 * 1000,
     throwOnError: true,
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
-    select: (data) => {
-      // 데이터 가공 로직만 처리
-      return data.data;
-    }
   });
 
   const dateChange = (value:DateValueType) => {
