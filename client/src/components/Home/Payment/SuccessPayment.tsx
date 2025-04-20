@@ -39,13 +39,12 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
             }
 
             // 결제 승인 (저장) API 호출
-            const paymentResponse = await getSuccessPayment({
+            return await getSuccessPayment({
                 queryKey: ["payment", orderId],
                 paymentKey,
                 orderId,
                 amount,
             });
-            return paymentResponse;
         },
         onSuccess: (result) => {
             console.log("결제 승인 후 결과:", result);

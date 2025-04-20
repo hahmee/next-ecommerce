@@ -35,38 +35,39 @@ const AddCart = ({
         }
     };
 
-    const handleClickAddCart = () => {
+    const handleClickAddCart = async () => {
         changeOpen(true);
 
         //같은 사이즈, 같은 컬러가 이미 담겨져있는지 확인한다.
         const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
+        try {
+            //해당하는 cino 의 개수를 바꿔야함
+            if (result && result.length > 0) { // 담겨있었음
+                const cartItemChange: CartItem = {
+                    email: member.email, //사용자 이메일
+                    pno: pno,
+                    qty: result[0].qty + quantity,
+                    color: options.color,
+                    size: options.size,
+                    sellerEmail: sellerEmail, //판매자 이메일
+                };
+                await changeCart(cartItemChange); // 수량만 추가
+            } else { //아무것도 안담겨있었음
+                const cartItem: CartItem = {
+                    email: member.email,
+                    pno: pno,
+                    qty: quantity,
+                    color: options.color,
+                    size: options.size,
+                    sellerEmail: sellerEmail,
+                };
+                await changeCart(cartItem); //새로 담기
+            }
 
-        //해당하는 cino 의 개수를 바꿔야함
-        if (result && result.length > 0) { // 담겨있었음
-            const cartItemChange: CartItem = {
-                email: member.email, //사용자 이메일
-                pno: pno,
-                qty: result[0].qty + quantity,
-                color: options.color,
-                size: options.size,
-                sellerEmail:sellerEmail, //판매자 이메일
-            };
-            changeCart(cartItemChange); // 수량만 추가
+            toast.success('장바구니에 담겼습니다.');
+        } catch (error) {
+            toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
         }
-
-        else { //아무것도 안담겨있었음
-            const cartItem: CartItem = {
-                email: member.email,
-                pno: pno,
-                qty: quantity,
-                color: options.color,
-                size: options.size,
-                sellerEmail:sellerEmail,
-            };
-            changeCart(cartItem); //새로 담기
-        }
-
-        toast.success('장바구니에 담겼습니다.');
 
     };
 

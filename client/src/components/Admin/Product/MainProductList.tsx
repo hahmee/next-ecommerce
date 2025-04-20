@@ -48,33 +48,37 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
         }
     }, [data]);
 
-    const handleClickAddCart = (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }) => {
+    const handleClickAddCart = async (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }): Promise<void> => {
         changeOpen(true);
         const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
-        //해당하는 cino 의 개수를 바꿔야함
-        if (result && result.length > 0) { // 담겨있었음
-            const cartItemChange: CartItem = {
-                email: member.email,
-                pno: pno,
-                qty: result[0].qty + 1,
-                color: options.color,
-                size: options.size,
-                sellerEmail
-            };
-            changeCart(cartItemChange); // 수량만 추가
-        } else { //아무것도 안담겨있었음
-            const cartItem: CartItem = {
-                email: member.email,
-                pno: pno,
-                qty: 1,
-                color: options.color,
-                size: options.size,
-                sellerEmail
-            };
-            changeCart(cartItem); //새로 담기
-        }
 
-        toast.success('장바구니에 담겼습니다.');
+        try {
+        //해당하는 cino 의 개수를 바꿔야함
+            if (result && result.length > 0) { // 담겨있었음
+                const cartItemChange: CartItem = {
+                    email: member.email,
+                    pno: pno,
+                    qty: result[0].qty + 1,
+                    color: options.color,
+                    size: options.size,
+                    sellerEmail
+                };
+                await changeCart(cartItemChange); // 수량만 추가
+            } else { //아무것도 안담겨있었음
+                const cartItem: CartItem = {
+                    email: member.email,
+                    pno: pno,
+                    qty: 1,
+                    color: options.color,
+                    size: options.size,
+                    sellerEmail
+                };
+                await changeCart(cartItem); //새로 담기
+            }
+                toast.success('장바구니에 담겼습니다.');
+        } catch (error) {
+            toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
+        }
 
     };
 
@@ -131,15 +135,16 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                         <div className="flex gap-1 my-3 text-xs text-gray-600">평점 없음</div>
 
                                 }
-                                <span className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
+                                <span
+                                    className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
                                 <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
                                 <button
                                     disabled={product.salesStatus != SalesStatus.ONSALE}
                                     className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-                                    onClick={(e) => {
+                                    onClick={async (e) => {
                                         e.preventDefault(); // 페이지 이동 방지
                                         e.stopPropagation();// 부모로의 이벤트 전파 방지
-                                        handleClickAddCart(product.pno, product.owner.email, {
+                                        await handleClickAddCart(product.pno, product.owner.email, {
                                             color: product.colorList[0],
                                             size: product.sizeList[0]
                                         });

@@ -51,10 +51,10 @@
 
         const mutation = useMutation({
             mutationFn: async (cno: number) => {
-                return fetchJWT(`/api/category/${cno}`, {
+                return unwrap(await fetchJWT(`/api/category/${cno}`, {
                     method: "DELETE",
                     credentials: 'include',
-                });
+                }));
             },
             onMutate: async (cno) => {
 
@@ -77,7 +77,7 @@
 
             onSuccess: (data) => {
 
-                const deletedCno: Array<number> = unwrap(data); //삭제된 cno
+                const deletedCno: Array<number> = data; //삭제된 cno
 
                 // 기존 데이터 가져오기
                 const previousData: PageResponse<Category> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);

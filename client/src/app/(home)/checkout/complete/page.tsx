@@ -15,6 +15,7 @@ export default async function CheckoutCompletePage({searchParams}: {
     }).then((res) => res.json());
 
     const {card} = payments;
+
     return (
         <div>
             <h1>결제가 완료되었습니다</h1>

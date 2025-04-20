@@ -2,13 +2,14 @@ import {create} from "zustand";
 import {CartItemList} from "@/interface/CartItemList";
 import {CartItem} from "@/interface/CartItem";
 import {fetchJWT} from "@/utils/fetchJWT";
+import {unwrap} from "@/utils/unwrap";
 
 type CartState = {
   carts: CartItemList[];
   isLoading: boolean;
   counter: number;
-  changeCart: (cartItem: CartItem) => void;
-  removeItem: (cino: number) => void;
+  changeCart: (cartItem: CartItem) => Promise<void>;
+  removeItem: (cino: number) => Promise<void>;
   open: boolean,
   subtotal: number,
   changeOpen: (isOpen: boolean) => void,
@@ -50,42 +51,34 @@ export const useCartStore = create<CartState>((set,get) => ({
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})
   },
-  changeCart: async (cartItem) => {
-    set((state) => ({ ...state, isLoading: true }));
+  changeCart: async (cartItem): Promise<void> => {
+    set((state) => ({...state, isLoading: true}));
 
-    const cart = await fetchJWT<CartItemList[]>(`/api/cart/change`, {
+    const cart = unwrap(await fetchJWT<CartItemList[]>(`/api/cart/change`, {
       method: "POST",
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(cartItem),
-    });
+    }));
 
-    if (!cart.success) {
-      console.error("장바구니 변경 실패:", cart.message);
-      return;
-    }
-
-    const items = Array.isArray(cart.data) ? cart.data : [];
+    const items = Array.isArray(cart) ? cart : [];
     get().setCarts(items);
 
   },
 
-  removeItem: async (cino) => {
-    set((state) => ({ ...state, isLoading: true }));
+  removeItem: async (cino): Promise<void> => {
 
-    const cart = await fetchJWT(`/api/cart/${cino}`, {
+    set((state) => ({...state, isLoading: true}));
+
+    const cart = unwrap(await fetchJWT(`/api/cart/${cino}`, {
       method: "DELETE",
       credentials: 'include',
-    })
+    }));
 
-    if (!cart.success) {
-      console.error("장바구니 삭제 실패:", cart.message);
-      return;
-    }
+    const items = Array.isArray(cart) ? cart : [];
 
-    const items = Array.isArray(cart.data) ? cart.data : [];
     get().setCarts(items);
   },
 

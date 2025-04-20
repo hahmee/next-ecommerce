@@ -63,7 +63,10 @@ export default function SignupPage() {
         } catch (err) {
             console.error(err);
             setMessage('알 수 없는 에러입니다.');
+        } finally {
+            setPending(false);
         }
+
     };
 
     return (

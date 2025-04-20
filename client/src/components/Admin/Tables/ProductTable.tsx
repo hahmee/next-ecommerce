@@ -19,6 +19,7 @@ import Link from "next/link";
 import {getProductsByEmail} from "@/apis/adminAPI";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
+import {unwrap} from "@/utils/unwrap";
 
 const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
@@ -80,10 +81,10 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
     const mutation = useMutation({
         mutationFn: async (pno: number) => {
-            return fetchJWT(`/api/products/${pno}`, {
+            return unwrap(await fetchJWT(`/api/products/${pno}`, {
                 method: "DELETE",
                 credentials: 'include',
-            });
+            }));
         },
         onMutate: async (pno) => {
             // 기존 데이터 가져오기
@@ -98,8 +99,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
                 // 쿼리 데이터를 업데이트
                 queryClient.setQueryData(['adminProducts', {page, size, search}], updatedData);
-
-                setProductData(updatedData)
+                setProductData(updatedData);
             }
         },
         onSuccess: (data) => {

@@ -9,6 +9,7 @@ import {useCartStore} from "@/store/cartStore";
 import {ColorTag} from "@/interface/ColorTag";
 import {CartItem} from "@/interface/CartItem";
 import {getCookie} from "cookies-next";
+import toast from "react-hot-toast";
 
 const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
@@ -18,36 +19,38 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
     const { carts, changeCart, removeItem } = useCartStore();
 
     // 수량이 변경될 때마다 장바구니 변경을 처리
-    const handleQuantity = useCallback((type: "i" | "d") => {
-        handleClickAddCart(cartItem.pno, {color: cartItem.color, size: cartItem.size}, type === "i" ? cartItem.qty +1 : cartItem.qty -1);
+    const handleQuantity = useCallback(async (type: "i" | "d") => {
+       await handleClickAddCart(cartItem.pno, {color: cartItem.color, size: cartItem.size}, type === "i" ? cartItem.qty +1 : cartItem.qty -1);
     }, [carts]);
 
-    const handleClickAddCart = useCallback((pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
+    const handleClickAddCart = useCallback(async (pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
             const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
-            if (result.length > 0) {
-                const cartItemChange: CartItem = {
-                    email: member.email,
-                    pno: pno,
-                    qty: newQuantity,
-                    color: options.color,
-                    size: options.size,
-                    sellerEmail: cartItem.sellerEmail
-                };
-                changeCart(cartItemChange);
-            } else {
-                const cartItemChange: CartItem = {
-                    email: member.email,
-                    pno: pno,
-                    qty: 1,
-                    color: options.color,
-                    size: options.size,
-                    sellerEmail: cartItem.sellerEmail,
-                };
-                changeCart(cartItemChange);
+            const cartItemChange: CartItem = {
+                email: member.email,
+                pno: pno,
+                qty: result.length > 0 ? newQuantity : 1,
+                color: options.color,
+                size: options.size,
+                sellerEmail: cartItem.sellerEmail,
+            };
+
+            try {
+                await changeCart(cartItemChange);
+            } catch (e) {
+                toast.error("장바구니 변경 실패");
             }
         },
         [carts, changeCart]
     );
+
+    const handleRemove = async () => {
+        try {
+            await removeItem(cartItem.cino);
+            toast.success("장바구니에서 제거했습니다.");
+        } catch (e) {
+            toast.error(`제거 실패: ${(e as Error).message}`);
+        }
+    };
 
     return (
         <div className="flex items-center justify-between border-b pb-4 mb-4">
@@ -94,7 +97,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                     <p className="text-lg font-semibold text-green-600">{(cartItem.price).toLocaleString()} 원</p>
                 </div>
                 <button className="text-red-500 hover:text-red-700 flex items-center"
-                        onClick={() => removeItem(cartItem.cino)} aria-label="Remove Item">
+                        onClick={handleRemove} aria-label="Remove Item">
                     <TrashIcon className="w-5 h-5 mr-1"/>
                 </button>
             </div>

@@ -55,8 +55,8 @@
 
     export default function LoginPage() {
 
-        const [email, setEmail] = useState<string>('');
-        const [password, setPassword] = useState<string>('');
+        const [email, setEmail] = useState<string>('demo@aaa.com');
+        const [password, setPassword] = useState<string>('1111');
         const router = useRouter();
         const [message, setMessage] = useState<string>("");
 
@@ -80,6 +80,7 @@
 
                 if (data.code != 0) { //에러있는 상황
                     setMessage(data.message);
+                    return;
                 } else {
                     /*해결법- apis route에서 set Cookie 한다.*/
                     // await fetch("/apis/auth", {
@@ -88,8 +89,8 @@
                     // });
 
                     //쿠키 세팅
-                    const expires = new Date();
-                    expires.setUTCDate(expires.getUTCDate() + 1);
+                    // const expires = new Date();
+                    // expires.setUTCDate(expires.getUTCDate() + 1);
                     // cookies().set("member", JSON.stringify(data), {expires: expires});
                     await setCookie("member", JSON.stringify(data.data));
 
@@ -116,7 +117,6 @@
                         });
                     }
                     router.replace('/');
-
                 }
             } catch (error) {
                 console.error(error);
@@ -137,6 +137,7 @@
                         <input
                             type="email"
                             name="email"
+                            value={email}
                             placeholder="이메일"
                             className="ring-2 ring-gray-300 rounded-md p-4"
                             onChange={(e) => setEmail(e.target.value)}
@@ -148,12 +149,13 @@
                         <input
                             type="password"
                             name="password"
+                            value={password}
+
                             placeholder="비밀번호"
                             autoComplete="true"
                             className="ring-2 ring-gray-300 rounded-md p-4"
                             onChange={(e) => setPassword(e.target.value)}
                             required={true}
-
                         />
                     </div>
                     {/*<div*/}

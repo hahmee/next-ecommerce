@@ -22,33 +22,37 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const memberInfo = getCookie('member');
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-    const handleClickAddCart = (pno: number, options: { color: ColorTag, size: string; }) => {
+    const handleClickAddCart = async(pno: number, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
         const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
-        //해당하는 cino 의 개수를 바꿔야함
-        if (result && result.length > 0) { // 담겨있었음
-            const cartItemChange: CartItem = {
-                email: member.email,
-                pno: pno,
-                qty: result[0].qty + 1,
-                color: options.color,
-                size: options.size,
-                sellerEmail:product.owner.email,
-            };
-            changeCart(cartItemChange); // 수량만 추가
-        } else { //아무것도 안담겨있었음
-            const cartItem: CartItem = {
-                email: member.email,
-                pno: pno,
-                qty: 1,
-                color: options.color,
-                size: options.size,
-                sellerEmail:product.owner.email,
-            };
-            changeCart(cartItem); //새로 담기
-        }
+        try {
+            //해당하는 cino 의 개수를 바꿔야함
+            if (result && result.length > 0) { // 담겨있었음
+                const cartItemChange: CartItem = {
+                    email: member.email,
+                    pno: pno,
+                    qty: result[0].qty + 1,
+                    color: options.color,
+                    size: options.size,
+                    sellerEmail: product.owner.email,
+                };
+                await changeCart(cartItemChange); // 수량만 추가
+            } else { //아무것도 안담겨있었음
+                const cartItem: CartItem = {
+                    email: member.email,
+                    pno: pno,
+                    qty: 1,
+                    color: options.color,
+                    size: options.size,
+                    sellerEmail: product.owner.email,
+                };
+                await changeCart(cartItem); //새로 담기
+            }
 
-        toast.success('장바구니에 담겼습니다.');
+            toast.success('장바구니에 담겼습니다.');
+        } catch (error) {
+            toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
+        }
     };
 
     return (
@@ -88,10 +92,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                             product.sizeList.map((size, index) => (
                                 <button key={index}
                                         className="content-center items-center justify-center flex w-11 h-11 font-bold text-sm bg-white rounded-xl shadow-2xl hover:bg-black2 hover:text-white"
-                                        onClick={(e) => {
+                                        onClick={async (e) => {
                                             e.preventDefault(); // 페이지 이동 방지
                                             e.stopPropagation();// 부모로의 이벤트 전파 방지
-                                            handleClickAddCart(product.pno, {color: color, size: size});
+                                            await handleClickAddCart(product.pno, {color: color, size: size});
                                         }}
                                 >
                                     {size}

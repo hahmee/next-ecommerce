@@ -10,6 +10,7 @@ import {Review} from "@/interface/Review";
 import {useRouter} from "next/navigation";
 import {getOrder} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
+import {unwrap} from "@/utils/unwrap";
 
 
 const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
@@ -54,24 +55,23 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
                 updatedAt: null
             };
 
-            const res  = await fetchJWT(`/api/reviews/`, {
+            // 실패하면 여기서 throw, 성공하면 반환값 넘어감
+            const res = unwrap(await fetchJWT(`/api/reviews/`, {
                 method: "POST",
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(reviewData),
-            });
+            }));
 
-            if(res.success) {
-                //모달 닫기
-                toast.success("리뷰를 작성했습니다.");
-                router.push(`/order/${orderId}`);  // 모달 닫기 시 이 경로로 이동
-            }
+
+            toast.success("리뷰를 작성했습니다.");
+            router.push(`/order/${orderId}`);  // 모달 닫기 시 이 경로로 이동
 
         }catch (error) {
             console.error(error);
-            toast.error(`업로드 중 에러가 발생했습니다. ${error}`);
+            toast.error(`업로드 중 에러가 발생했습니다. ${(error as Error).message}`);
         }
 
     }

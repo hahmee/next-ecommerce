@@ -80,17 +80,17 @@ const StockTable = () => {
 
     const mutation = useMutation({
         mutationFn: async ({salesStatus, pno}: { salesStatus: string; pno: number }) => {
-            return await fetchJWT(`/api/products/stock/${pno}`, {
+            return unwrap(await fetchJWT(`/api/products/stock/${pno}`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({salesStatus, pno}),
-            });
+            }));
         },
         onSuccess: async (response) => {
-            const newStock = unwrap(response);
+            const newStock = response;
 
             toast.success("수정되었습니다.");
 
@@ -111,7 +111,6 @@ const StockTable = () => {
 
         },
         onError: async (error) => {
-
             toast.error(`오류 발생: ${error}`);
         },
 
