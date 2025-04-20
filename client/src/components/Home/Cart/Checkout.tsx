@@ -7,6 +7,7 @@ import {OrderStatus} from "@/types/orderStatus";
 import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
 import toast from "react-hot-toast";
+import {unwrap} from "@/utils/unwrap";
 
 const Checkout = () => {
     const {carts, subtotal, tax, shippingFee, total} = useCartStore();
@@ -30,11 +31,14 @@ const Checkout = () => {
     const handlePaymentClick = async (event: React.FormEvent) => {
         event.preventDefault();
         const newOrderId = Math.random().toString(36).slice(2);
-        await orderSave(newOrderId);
-        const tossPayments = await loadTossPayments(
-            process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
-        );
+
         try {
+
+            await orderSave(newOrderId);
+            const tossPayments = await loadTossPayments(
+                process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
+            );
+
             await tossPayments.requestPayment("카드", {
                 amount: total,
                 orderId: newOrderId,
@@ -44,6 +48,7 @@ const Checkout = () => {
                 failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
             });
         } catch (error) {
+            toast.error((error as Error).message || "결제 요청 중 문제가 발생했습니다.");
             console.error("결제 요청 중 에러 발생:", error);
             // 추가 에러 처리 로직(예: 사용자에게 알림)을 작성할 수 있습니다.
         }
@@ -70,10 +75,9 @@ const Checkout = () => {
             body: JSON.stringify(order),
         });
 
-        if (!result.success) {
-            toast.error(result.message); // 에러 메시지 사용자에게 보여주기
-            throw new Error(result.message); // 진행 중단
-        }
+        // 실패면 여기서 throw
+        const saved = unwrap(result);
+        return saved;
     };
 
     return (

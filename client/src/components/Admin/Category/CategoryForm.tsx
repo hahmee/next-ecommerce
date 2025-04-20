@@ -66,7 +66,6 @@ const CategoryForm = ({type, id}: Props) => {
 
             const maxSize = 10 * 1024 * 1024; // 10MB
 
-            console.log("file",file)
             // 각 파일의 크기를 체크
             if (file && file.size !== undefined && file.size > maxSize) {
                 throw new Error("파일의 크기가 100MB를 초과합니다.");
@@ -79,11 +78,11 @@ const CategoryForm = ({type, id}: Props) => {
                 }
 
                 //새로운 카테고리
-                return await fetchJWT(`/api/category/`, {
+                return unwrap(await fetchJWT(`/api/category/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData as FormData,
-                }); // json 형태로 이미 반환
+                })); // json 형태로 이미 반환
 
             } else {
 
@@ -98,16 +97,18 @@ const CategoryForm = ({type, id}: Props) => {
                 }
 
                 //formData 보내주기
-                return await fetchJWT(`/api/category/${id}`, {
+                return unwrap(await fetchJWT(`/api/category/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData as FormData,
-                });
+                }));
             }
         },
         async onSuccess(response, variable) {
+            console.log('성공했습니다. 실패 시 나오면 안 됨', response);
+
             // const newCategory: Category = response; // 수정 및 추가된 response 반환 ...
-            const newCategory: Category = unwrap(response);
+            const newCategory: Category = response;
 
             toast.success('업로드 성공했습니다.');
 

@@ -116,6 +116,7 @@
                         });
                     }
                     router.replace('/');
+
                 }
             } catch (error) {
                 console.error(error);

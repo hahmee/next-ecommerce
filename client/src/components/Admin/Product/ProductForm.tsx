@@ -144,11 +144,11 @@ const ProductForm = ({type, id}: Props) => {
 
                 });
 
-                return await fetchJWT(`/api/products/`, {
+                return unwrap(await fetchJWT(`/api/products/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData as FormData,
-                }); // json 형태로 이미 반환
+                })); // json 형태로 이미 반환
 
             } else { //수정
 
@@ -172,16 +172,17 @@ const ProductForm = ({type, id}: Props) => {
                     }
                 });
 
-                return await fetchJWT(`/api/products/${id}`, {
+                return unwrap(await fetchJWT(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData as FormData,
                     // headers: { 'Content-Type': 'multipart/form-data' }
-                }); // json 형태로 이미 반환
+                })); // json 형태로 이미 반환
             }
         },
         async onSuccess(response, variable) {
-            const newProduct: Product = unwrap(response);
+            console.log('성공했습니다. 실패 시 나오면 안 됨');
+            const newProduct: Product = response;
 
             toast.success('업로드 성공했습니다.');
             if (queryClient.getQueryData(['adminProducts', {page: 1, size: 10, search: ""}])) {
