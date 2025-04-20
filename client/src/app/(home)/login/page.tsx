@@ -55,7 +55,7 @@
 
     export default function LoginPage() {
 
-        const [email, setEmail] = useState<string>('demo@aaa.com');
+        const [email, setEmail] = useState<string>('user1@aaa.com');
         const [password, setPassword] = useState<string>('1111');
         const router = useRouter();
         const [message, setMessage] = useState<string>("");

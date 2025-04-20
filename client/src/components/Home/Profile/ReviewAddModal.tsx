@@ -81,7 +81,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
     }
 
     return (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-99999" onClick={closeModal}>
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50" onClick={closeModal}>
             <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-end"><XMarkIcon className="w-7 h-7 cursor-pointer" onClick={closeModal}/>
                 </div>

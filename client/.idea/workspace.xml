@@ -6,20 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/checkout/complete/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/checkout/complete/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/signup/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/AdminModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/AdminModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dialog.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/ProductTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/StockTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/StockTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/CartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/CartItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/SingleCartItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/cartStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/cartStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -716,7 +711,7 @@
       <workItem from="1744896355871" duration="6554000" />
       <workItem from="1744939363466" duration="16516000" />
       <workItem from="1745026418595" duration="8480000" />
-      <workItem from="1745143436842" duration="5417000" />
+      <workItem from="1745143436842" duration="8155000" />
     </task>
     <servers />
   </component>

@@ -210,7 +210,8 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
                                 <td className="px-4 py-3 justify-end whitespace-nowrap">
                                     <TableActions>
-                                        <div id="table-dropdown" className="absolute w-44 right-0 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                        <div id="table-dropdown" onClick={(e) => e.stopPropagation()}
+                                             className={`absolute right-0 z-10 w-44 rounded divide-y divide-gray-100 shadow text-xs text-gray-700 bg-gray-50 dark:bg-meta-4 dark:text-gray-400 ${showDialog ? "hidden" : ""}`}>
                                             <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="table-dropdown-button">
                                                 <li>
                                                     <Link href={`/product/${product.pno}`}
