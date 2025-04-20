@@ -75,12 +75,12 @@ public class JWTCheckFilter extends OncePerRequestFilter {
       SecurityContextHolder.getContext().setAuthentication(authToken);
 
 
-      log.info("✅ 인증 성공: {}", memberDTO.getEmail());
+      log.info("인증 성공: {}", memberDTO.getEmail());
 
       filterChain.doFilter(request, response);
 
     } catch (Exception e) {
-      log.warn("⛔ JWT 인증 실패: {}", e.getMessage());
+      log.warn("JWT 인증 실패: {}", e.getMessage());
 
       // 예외를 던져 Spring Security의 AuthenticationEntryPoint가 처리하게 함
       throw new AuthenticationCredentialsNotFoundException("JWT 인증 실패: " + e.getMessage(), e);

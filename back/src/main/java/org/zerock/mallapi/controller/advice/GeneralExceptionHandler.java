@@ -77,7 +77,8 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> accessDenied(AccessDeniedException e, WebRequest request) {
         log.info("AccessDeniedException fallback triggered");
-        return handleExceptionInternal(e, ErrorCode.FORBIDDEN, request);
+//        return handleExceptionInternal(e, ErrorCode.FORBIDDEN, request);
+        throw e; // Spring Security의 AccessDeniedHandler로 위임
     }
 
     /**
