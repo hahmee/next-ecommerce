@@ -66,7 +66,7 @@ const Checkout = () => {
             orderId: orderId,
         };
 
-        const result = await fetchJWT(`/api/orders/`, {
+            const result = await fetchJWT(`/api/orders/`, {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -88,12 +88,14 @@ const Checkout = () => {
                         <h1 className="text-3xl font-semibold">Payment</h1>
                     </div>
                 </div>
-
+                <div className="mb-6 p-3 bg-yellow-100 border-l-4 border-yellow-400 text-yellow-700 rounded">
+                    ※ 본 결제는 테스트용으로 실제 금액이 청구되지 않습니다.<br />
+                    안심하고 진행해 주세요.
+                </div>
                 <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8">
                     <div className="w-full lg:w-2/3 bg-white p-6 shadow-sm rounded-lg">
                         <div className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">배송 정보</h2>
-
                             <label className="block mb-2">이름</label>
                             <input
                                 className="w-full p-2 border border-gray-300"
@@ -147,7 +149,7 @@ const Checkout = () => {
                     </div>
 
                     {/* Cart Summary */}
-                    <CartSummary type={"Payment"} />
+                    <CartSummary type={"Payment"}/>
                 </div>
             </div>
         </form>

@@ -21,7 +21,7 @@ public class OrderController {
     private final OrderService orderService;
 
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @PostMapping("/")
     public DataResponseDTO<String> register(@RequestBody OrderRequestDTO orderRequestDTO, Principal principal) {
 

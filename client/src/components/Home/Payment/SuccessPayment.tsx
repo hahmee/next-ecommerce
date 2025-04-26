@@ -30,7 +30,7 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
                         "Content-Type": "application/x-www-form-urlencoded",
                     },
                     body: new URLSearchParams({
-                        username: "user2@aaa.com",
+                        username: "user1@aaa.com",
                         password: "1111",
                     }),
                 });
