@@ -18,7 +18,7 @@ import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.util.GeneralException;
 
 @Log4j2
-@RestControllerAdvice
+@RestControllerAdvice // 예외를 한 곳에서 통합적으로 처리
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**

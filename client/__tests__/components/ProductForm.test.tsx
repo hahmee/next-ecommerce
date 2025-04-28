@@ -5,13 +5,7 @@ import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
 import {customRender} from "../utils/testUtils";
 import {screen, waitFor,} from "@testing-library/react";
-import {wait} from "@testing-library/user-event/dist/cjs/utils.js";
 import TestForm from "@/components/Admin/Product/TestForm";
-
-
-
-
-
 
 
 const pno = '49';
