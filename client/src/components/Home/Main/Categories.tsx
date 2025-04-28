@@ -24,7 +24,7 @@ const Categories = () => {
         throwOnError: true, // 에러 발생 시 자동으로 에러 경계로 전달
     });
 
-    if(!categories) {
+    if (!categories) {
         return <Skeleton/>; // 로딩 상태 표시
     }
 
@@ -43,7 +43,7 @@ const Categories = () => {
                             {/* 상단 영역: Manufacturer / 제품 개수 */}
                             <div className="flex justify-between items-center mb-9">
                                 <Image
-                                    src={category.uploadFileName||""}
+                                    src={category.uploadFileName || ""}
                                     alt="image"
                                     width={100}
                                     height={100}
@@ -68,7 +68,6 @@ const Categories = () => {
                                   See Collection &rarr;
                                 </span>
                             </Link>
-
 
                         </div>
                     ))}

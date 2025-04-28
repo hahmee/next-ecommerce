@@ -11,6 +11,15 @@ jest.mock("@/apis/adminAPI", () => ({
     getCategories: jest.fn(),
 }));
 
+jest.mock("next/navigation", () => ({
+    useRouter: jest.fn(() => ({
+        push: jest.fn(),
+        replace: jest.fn(),
+    })),
+    usePathname: jest.fn(() => "/"),
+    useSearchParams: jest.fn(() => new URLSearchParams("")),
+}));
+
 const mockCategories = [
     {
         cno: 57,
@@ -36,24 +45,17 @@ const mockCategories = [
     }
 ];
 
-describe("Categories Component", () => {
+describe("Categories 컴포넌트", () => {
     beforeEach(() => {
         jest.clearAllMocks(); // 테스트 전 Mock 초기화
     });
 
-    it("renders loading state initially", async () => {
-        (useQuery as jest.Mock).mockReturnValue({ isLoading: true });
-
+    it("초기에는 로딩 상태를 렌더링한다", async () => {
+        (useQuery as jest.Mock).mockReturnValue({ isLoading: true }); // useQuery를 썼을 때 {isLoading:true} 로 반환하도록
         render(<Categories />);
-
-        // "Loading..." 메시지가 렌더링되는지 확인
-        // expect(screen.getByText(/loading.../i)).toBeInTheDocument();
-
     });
 
-
-    it("renders categories after fetching data", async () => {
-
+    it("데이터를 받아오면 카테고리 목록을 보여준다", async () => {
         (useQuery as jest.Mock).mockReturnValue({
             data: mockCategories,
             isLoading: false,
@@ -61,19 +63,16 @@ describe("Categories Component", () => {
 
         render(<Categories />);
 
-        // 'Loading...' 텍스트가 나타날 때까지 기다림
-        // expect(await screen.findByText('Loading...')).toBeInTheDocument();
-
-        // 첫 번째 카테고리 검증
+        // 첫 번째 카테고리명 체크
         const category1 = await screen.findByText("ㄴㅇㄹ");
         expect(category1).toBeInTheDocument();
 
-        // 두 번째 카테고리 검증
+        // 두 번째 카테고리명 체크
         const category2 = await screen.findByText("ㅁㄴㅇㄹ");
         expect(category2).toBeInTheDocument();
     });
 
-    it("renders empty state when no categories are available", async () => {
+    it("카테고리 데이터가 없으면 아무것도 렌더링하지 않는다", async () => {
         (useQuery as jest.Mock).mockReturnValue({
             data: [],
             isLoading: false,
@@ -81,7 +80,7 @@ describe("Categories Component", () => {
 
         render(<Categories />);
 
-        // 데이터가 없을 때 렌더링 확인
+        // 데이터 없을 때 카테고리명들이 안 나와야 함
         expect(screen.queryByText(/ㄴㅇㄹ/i)).not.toBeInTheDocument();
         expect(screen.queryByText(/ㅁㄴㅇㄹ/i)).not.toBeInTheDocument();
     });

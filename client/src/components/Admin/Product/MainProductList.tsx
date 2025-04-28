@@ -110,7 +110,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                                 alt="product"
                                                 fill
                                                 sizes="25vw"
-                                                className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
+                                                className="absolute object-cover rounded-md hover:opacity-0 transition-opacity easy duration-500"
                                             />
                                             <Image
                                                 src={product.uploadFileNames[1]?.file || "/images/mall/product.png"}

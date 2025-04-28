@@ -8,7 +8,7 @@ const MainInfo = () => {
             {/* 왼쪽: 이미지 */}
             <div className="flex-1 h-full relative">
                 {/* absolute로 배치하고, transform으로 위로 이동 */}
-                <div className="absolute right-5 bottom-0 z-10">
+                <div className="absolute right-5 bottom-0">
                     <Image
                         src="/images/mall/main_kid.png"
                         alt="kid"
