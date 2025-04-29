@@ -1,9 +1,9 @@
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import SignupPage from "@/app/(home)/signup/page";
-import { useRouter } from "next/navigation";
-import { DataResponse } from "@/interface/DataResponse";
-import { Member } from "@/interface/Member";
-import { MemberRole } from "@/types/memberRole";
+import {useRouter} from "next/navigation";
+import {DataResponse} from "@/interface/DataResponse";
+import {Member} from "@/interface/Member";
+import {MemberRole} from "@/types/memberRole";
 
 // fetch 모킹
 global.fetch = jest.fn();

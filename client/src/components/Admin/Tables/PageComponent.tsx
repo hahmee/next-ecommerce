@@ -82,7 +82,7 @@ const PageComponent = ({pagingData, size, search, changePage}: { pagingData: Pag
                             </div>
                         }
                         {
-                            pagingData.pageNumList.map((num) =>
+                            pagingData?.pageNumList?.map((num) =>
                                 <div key={num}
                                      className={num !== pagingData.current ? "relative text-gray-500 inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0" : " relative z-10 inline-flex items-center bg-gray-900 dark:bg-gray-400 ring-1 ring-inset ring-gray-300  bg-opacity-20 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"}
                                      onClick={() => changePage(num)}

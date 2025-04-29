@@ -6,7 +6,7 @@ import { Member } from "@/interface/Member";
 import { DataResponse } from "@/interface/DataResponse";
 import { getCookie, setCookie } from "@/utils/cookie";
 
-const host = process.env.BACKEND_URL;
+const host = process.env.BACKEND_URL || "http://localhost";
 
 interface IRequestInit {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
