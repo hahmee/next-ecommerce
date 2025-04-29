@@ -60,10 +60,8 @@ const ProductForm = ({type, id}: Props) => {
     const tagStore = useTagStore();
     //최하위 카테고리
     const [selectedCategory, setSelectedCategory] = useState<Category|null>();
-
     //type 변경하기
     const quillRef = useRef<any>(null);
-
     // edit일 때만 getProduct하기
     const { isLoading, data: originalData } = useQuery<Product, Object, Product, [_1: string, _2: string]>(
         {
@@ -99,10 +97,13 @@ const ProductForm = ({type, id}: Props) => {
         throwOnError: true,
     });
 
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // 기본 제출 막고
+        mutation.mutate(e); // mutation 실행
+    }
 
     const mutation = useMutation({
         mutationFn: async (e: FormEvent) => {
-            e.preventDefault();
 
             if (quillRef.current) {
                 setPdesc(quillRef.current.value);
@@ -143,7 +144,9 @@ const ProductForm = ({type, id}: Props) => {
                     formData.append(`files[${index}].ord`, index.toString()); // 파일 순서
 
                 });
-
+                if (!formData) {
+                    throw new Error('FormData is undefined');
+                }
                 return unwrap(await fetchJWT(`/api/products/`, {
                     method: "POST",
                     credentials: 'include',
@@ -171,7 +174,9 @@ const ProductForm = ({type, id}: Props) => {
                         newFileIdx++;
                     }
                 });
-
+                if (!formData) {
+                    throw new Error('FormData is undefined');
+                }
                 return unwrap(await fetchJWT(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
@@ -181,7 +186,6 @@ const ProductForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            console.log('성공했습니다. 실패 시 나오면 안 됨');
             const newProduct: Product = response;
 
             toast.success('업로드 성공했습니다.');
@@ -234,12 +238,14 @@ const ProductForm = ({type, id}: Props) => {
     if (isLoading) return "Loading...";
 
     return (
-        <form onSubmit={mutation.mutate} data-testid={"product-form"}>
+        // <form onSubmit={mutation.mutate} data-testid={"product-form"}>
+        <form onSubmit={handleSubmit} data-testid="product-form">
             <div className="mx-auto">
                 <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>
                 <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                     <BackButton/>
-                    <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                    <button type="submit"
+                            className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                         {
                             type === Mode.ADD ? "저장하기" : "수정하기"
                         }
@@ -310,7 +316,8 @@ const ProductForm = ({type, id}: Props) => {
                                         className="mb-3 block text-sm font-medium text-black dark:text-white">
                                         판매상태 <span className="text-meta-1">*</span>
                                     </label>
-                                    <RadioButton options={salesOptions} name="salesStatus" originalData={originalData?.salesStatus}/>
+                                    <RadioButton options={salesOptions} name="salesStatus"
+                                                 originalData={originalData?.salesStatus}/>
                                 </div>
 
                                 {/*<div className="mb-4.5">*/}

@@ -121,7 +121,7 @@ const ImageUploadForm = () => {
             {/* 파일 업로드 섹션 */}
             <section>
                 <div {...getRootProps({ className: "dropzone" })}>
-                    <input {...getInputProps()} />
+                    <input {...getInputProps()} data-testid="file-input" />
                     <div className="flex flex-col items-center justify-center w-full h-64 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">

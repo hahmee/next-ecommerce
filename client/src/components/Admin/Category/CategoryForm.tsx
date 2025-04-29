@@ -105,7 +105,6 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         async onSuccess(response, variable) {
-            console.log('성공했습니다. 실패 시 나오면 안 됨', response);
 
             // const newCategory: Category = response; // 수정 및 추가된 response 반환 ...
             const newCategory: Category = response;
