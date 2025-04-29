@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const TableAddButton = ({content, location, ariaLabel}:{content:string,location:string, ariaLabel: string}) => {
+const TableAddButton = ({content, location, ariaLabel = ""}:{content:string,location:string, ariaLabel?: string }) => {
 
     return (
         <Link href={location}>

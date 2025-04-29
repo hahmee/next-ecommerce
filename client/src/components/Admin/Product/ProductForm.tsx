@@ -234,13 +234,12 @@ const ProductForm = ({type, id}: Props) => {
     if (isLoading) return "Loading...";
 
     return (
-        <form onSubmit={mutation.mutate}>
+        <form onSubmit={mutation.mutate} data-testid={"product-form"}>
             <div className="mx-auto">
                 <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>
                 <div className="mb-6 flex gap-3 justify-end sm:flex-row">
                     <BackButton/>
-                    <button type="submit"
-                            className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
+                    <button type="submit" className="inline-flex items-center rounded justify-center gap-2.5 bg-primary-700 px-8 py-3 text-center font-medium text-white hover:bg-opacity-90 lg:px-6 xl:px-8">
                         {
                             type === Mode.ADD ? "저장하기" : "수정하기"
                         }
@@ -311,8 +310,7 @@ const ProductForm = ({type, id}: Props) => {
                                         className="mb-3 block text-sm font-medium text-black dark:text-white">
                                         판매상태 <span className="text-meta-1">*</span>
                                     </label>
-                                    <RadioButton options={salesOptions} name="salesStatus"
-                                                 originalData={originalData?.salesStatus}/>
+                                    <RadioButton options={salesOptions} name="salesStatus" originalData={originalData?.salesStatus}/>
                                 </div>
 
                                 {/*<div className="mb-4.5">*/}
@@ -402,7 +400,6 @@ const ProductForm = ({type, id}: Props) => {
                                         상품 설명 <span className="text-meta-1">*</span>
                                     </label>
 
-                                    {/*<QuillEditor quillRef={quillRef} originalData={originalData?.pdesc}/>*/}
                                     <QuillEditor quillRef={quillRef} originalData={pdesc}/>
 
                                 </div>

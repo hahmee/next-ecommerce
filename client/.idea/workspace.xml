@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__tests__/components/ProductForm2.test.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/SignupPage.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/PageComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/PageComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/ProductTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/ProductTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/TableAddButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/TableAddButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetchJWT.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchJWT.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +76,7 @@
     "Jest.Login.should show error message when login fails.executor": "Run",
     "Jest.Login.should successfully login when correct credentials are provided.executor": "Run",
     "Jest.Product 플로우.executor": "Run",
+    "Jest.Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동.executor": "Run",
     "Jest.Search Header.executor": "Run",
     "Jest.Search Header.동적 url로 접속했을때 입력창에 keyword가 들어가는지 확인.executor": "Run",
     "Jest.SearchBar Component.executor": "Run",
@@ -135,7 +132,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Product 플로우">
+  <component name="RunManager" selected="Jest.Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동">
     <configuration name="Categories Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -158,6 +155,19 @@
       <test-names>
         <test-name value="Categories 컴포넌트" />
         <test-name value="초기에는 로딩 상태를 렌더링한다" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
+      <test-names>
+        <test-name value="Product 플로우" />
+        <test-name value="상품을 추가하고 저장하면 게시판 리스트로 이동" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -185,18 +195,6 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="SearchBar Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/SearchBar.test.tsx" />
-      <test-names>
-        <test-name value="SearchBar Component" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />
@@ -205,11 +203,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동" />
         <item itemvalue="Jest.Product 플로우" />
         <item itemvalue="Jest.Categories 컴포넌트.초기에는 로딩 상태를 렌더링한다" />
         <item itemvalue="Jest.Categories Component" />
         <item itemvalue="Jest.SearchBar 컴포넌트 (1)" />
-        <item itemvalue="Jest.SearchBar Component" />
       </list>
     </recent_temporary>
   </component>
@@ -720,7 +718,7 @@
       <workItem from="1745805805608" duration="169000" />
       <workItem from="1745816037556" duration="9458000" />
       <workItem from="1745834123268" duration="12588000" />
-      <workItem from="1745886410950" duration="8346000" />
+      <workItem from="1745886410950" duration="14079000" />
     </task>
     <servers />
   </component>
