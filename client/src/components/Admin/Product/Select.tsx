@@ -28,7 +28,7 @@ const Select = ({label, options, defaultOption, name, originalData, doAction}: S
                 </label>
             }
 
-            <div className="relative z-20 bg-white dark:bg-form-input">
+            <div className="relative bg-white dark:bg-form-input">
                 <select
                     value={selectedOption}
                     onChange={(e) => {
@@ -39,7 +39,7 @@ const Select = ({label, options, defaultOption, name, originalData, doAction}: S
                     }}
                     name={name}
                     required
-                    className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
+                    className={`relative w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input ${
                         isOptionSelected ? "text-black dark:text-white" : ""
                     }`}
                 >
@@ -57,7 +57,7 @@ const Select = ({label, options, defaultOption, name, originalData, doAction}: S
                     }
                 </select>
 
-                <span className="absolute right-4 top-1/2 z-10 -translate-y-1/2">
+                <span className="absolute right-4 top-1/2 -translate-y-1/2">
           <svg
               width="24"
               height="24"
