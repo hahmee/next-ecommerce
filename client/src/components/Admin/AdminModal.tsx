@@ -22,7 +22,7 @@ const AdminModal = ({ children, modalTitle }: { children: React.ReactNode; modal
             id="crud-modal"
             tabIndex={-1}
             onClick={closeModal}
-            className="bg-black2/70 fixed top-0 right-0 left-0 bottom-0 z-100 flex justify-center items-center w-full h-full"
+            className="bg-black2/70 fixed top-0 right-0 left-0 bottom-0 z-30 flex justify-center items-center w-full h-full"
         >
             <div
                 className="relative p-4 w-full max-w-md"

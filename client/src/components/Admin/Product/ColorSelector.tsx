@@ -91,7 +91,7 @@ const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, original
     };
 
     return (
-        <div className="relative z-51">
+        <div className="relative">
             <label className="mb-3 block text-sm font-medium text-black dark:text-white">
                 {label} <span className="text-meta-1">*</span>
             </label>
