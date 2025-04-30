@@ -8,5 +8,4 @@ export type Category = {
   file?: string | null;
   uploadFileName?: string | null;
   uploadFileKey?: string | null;
-
 };

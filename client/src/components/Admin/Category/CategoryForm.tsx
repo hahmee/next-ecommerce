@@ -109,6 +109,7 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         onSuccess: (newCategory: Category) => {
+            console.log('newCategory', newCategory);
             toast.success("업로드 성공했습니다.");
 
             queryClient.invalidateQueries({queryKey: ["categories"]});
@@ -134,7 +135,11 @@ const CategoryForm = ({type, id}: Props) => {
     };
 
     return (
-        <form onSubmit={handleSubmit((data) => mutation.mutate(data), onInvalid)} className="p-4 md:p-5">
+        <form onSubmit={
+            handleSubmit(async (data) => {
+                await mutation.mutateAsync(data);
+            }, onInvalid)
+        } className="p-4 md:p-5">
             <div className="grid gap-4 mb-4 grid-cols-2">
                 <div className="col-span-2">
                     <CategoryBreadcrumb categoryPaths={categoryPaths ?? []}/>
@@ -162,7 +167,7 @@ const CategoryForm = ({type, id}: Props) => {
                 </div>
 
                 <div className="col-span-2">
-                    <label className="mb-3 block text-sm font-medium text-black dark:text-white">
+                    <label  htmlFor="fileInput" className="mb-3 block text-sm font-medium text-black dark:text-white">
                         사진첨부
                     </label>
                     <div className="w-full">
@@ -174,6 +179,7 @@ const CategoryForm = ({type, id}: Props) => {
                         )}
                         <input
                             type="file"
+                            id="fileInput"
                             accept="image/*"
                             {...register("file")}
                             className="mt-2 w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:px-5 file:py-3 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary"
