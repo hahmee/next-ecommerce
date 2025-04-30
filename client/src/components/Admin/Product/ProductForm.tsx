@@ -320,13 +320,6 @@ const ProductForm = ({type, id}: Props) => {
                                                  originalData={originalData?.salesStatus}/>
                                 </div>
 
-                                {/*<div className="mb-4.5">*/}
-                                {/*    <Select label={"브랜드"} options={brandOptions}*/}
-                                {/*            defaultOption={"브랜드를 선택해주세요."}*/}
-                                {/*            originalData={originalData?.brand}*/}
-                                {/*            name="brand"/>*/}
-                                {/*</div>*/}
-
                                 <div className="mb-4.5">
                                     <label
                                         className="mb-3 block text-sm font-medium text-black dark:text-white">
