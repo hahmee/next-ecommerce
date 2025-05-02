@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/__tests__/utils/createMockRouter.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/__mocks__/categoryFormMockData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryFormOri.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interface/Category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interface/Category.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +70,8 @@
     "Jest.Categories Component.renders loading state initially.executor": "Run",
     "Jest.Categories 컴포넌트.초기에는 로딩 상태를 렌더링한다.executor": "Run",
     "Jest.Category 플로우.executor": "Run",
+    "Jest.Category 플로우.카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동.executor": "Run",
+    "Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동.executor": "Run",
     "Jest.Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동.executor": "Run",
     "Jest.E2E Login Test.executor": "Run",
     "Jest.Login (1).executor": "Run",
@@ -103,7 +105,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/__tests__/components",
+    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client/__tests__/__mocks__",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -117,11 +119,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\__tests__\__mocks__" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\__tests__\components" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Category" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Product" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\utils" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components\Admin\Dashboard" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
@@ -136,7 +138,33 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Category 플로우">
+  <component name="RunManager" selected="Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동">
+    <configuration name="Category 플로우.카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
+      <test-names>
+        <test-name value="Category 플로우" />
+        <test-name value="카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
+      <test-names>
+        <test-name value="Category 플로우" />
+        <test-name value="카테고리를 선택하면 CategoryForm(수정)으로 이동" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -175,31 +203,6 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
-      <test-names>
-        <test-name value="Product 플로우" />
-        <test-name value="상품을 추가하고 저장하면 게시판 리스트로 이동" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Product 플로우" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" />
-      <test-names>
-        <test-name value="Product 플로우" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />
@@ -208,11 +211,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동" />
+        <item itemvalue="Jest.Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동" />
+        <item itemvalue="Jest.Category 플로우.카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동" />
         <item itemvalue="Jest.Category 플로우" />
         <item itemvalue="Jest.Login.should redirect to signup page when &quot;계정이 없으신가요?&quot; is clicked" />
-        <item itemvalue="Jest.Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동" />
-        <item itemvalue="Jest.Product 플로우" />
-        <item itemvalue="Jest.Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동" />
       </list>
     </recent_temporary>
   </component>
@@ -727,6 +730,8 @@
       <workItem from="1745909360898" duration="570000" />
       <workItem from="1745911840168" duration="4697000" />
       <workItem from="1745926501314" duration="6502000" />
+      <workItem from="1746102324444" duration="2473000" />
+      <workItem from="1746145283143" duration="8375000" />
     </task>
     <servers />
   </component>

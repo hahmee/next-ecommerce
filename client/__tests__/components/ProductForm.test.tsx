@@ -3,7 +3,7 @@ import {http, HttpResponse} from "msw";
 import {mockCategories, mockCategoryPaths, mockProducts} from "../__mocks__/productFormMockData";
 import ProductTable from "@/components/Admin/Tables/ProductTable";
 import {customRender} from "../utils/testUtils";
-import {fireEvent, screen, waitFor} from "@testing-library/react";
+import {fireEvent, screen} from "@testing-library/react";
 import ProductForm from "@/components/Admin/Product/ProductForm";
 import {Mode} from "@/types/mode";
 import {useProductImageStore} from "@/store/productImageStore";

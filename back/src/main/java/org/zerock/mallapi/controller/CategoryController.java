@@ -48,7 +48,7 @@ public class CategoryController {
     //서비스 호출 
     CategoryDTO result = categoryService.addCategory(categoryDTO);
 
-    return DataResponseDTO.of(result);  
+    return DataResponseDTO.of(result);    
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")

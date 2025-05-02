@@ -5,6 +5,8 @@ import {setupServer} from "msw/node";
 import {http, HttpResponse} from "msw";
 import CategoryTable from "@/components/Admin/Tables/CategoryTable";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
+import {mockCategories} from "../__mocks__/categoryFormMockData";
+import {fetchJWT} from "@/utils/fetchJWT";
 
 const mockPush = jest.fn();
 
@@ -16,26 +18,33 @@ jest.mock('next/navigation', () => ({
 jest.mock('next/headers', () => ({
     cookies: jest.fn(() => new Map([['accessToken', 'mock-token']])),
 }));
+
 jest.mock('@/utils/fetchJWT', () => ({
-    fetchJWT: jest.fn(() =>
-        Promise.resolve({
-            success: true,
-            code: 200,
-            message: "",
-            data: {
-                cno: 16,
-                cname: "테스트카테고리",
-                cdesc: "설명입니다",
-                delFlag: false,
-                parentCategoryId: null,
-                subCategories: null,
-                file: null,
-                uploadFileName: "https://...jpeg",
-                uploadFileKey: "category/...jpeg"
-            }
-        })
-    ),
+    fetchJWT: jest.fn(),
 }));
+
+//
+// jest.mock('@/utils/fetchJWT', () => ({
+//     fetchJWT: jest.fn(() => {
+//         return Promise.resolve({
+//                 success: true,
+//                 code: 200,
+//                 message: "",
+//                 data: {
+//                     cno: 16,
+//                     cname: "테스트카테고리",
+//                     cdesc: "설명입니다",
+//                     delFlag: false,
+//                     parentCategoryId: null,
+//                     subCategories: null,
+//                     file: null,
+//                     uploadFileName: "https://...jpeg",
+//                     uploadFileKey: "category/...jpeg"
+//                 }
+//             })
+//         }
+//     ),
+// }));
 
 // 추가
 const server = setupServer(
@@ -57,6 +66,10 @@ const server = setupServer(
                 uploadFileKey: "category/....jpeg"
             },
         });
+    }),
+
+    http.get("/api/category/searchAdminList", ({ request }) => {
+        return HttpResponse.json(mockCategories);
     })
 );
 
@@ -64,6 +77,7 @@ beforeAll(() => {
     server.listen(); // ⬅️ 이 줄 추가
     global.URL.createObjectURL = jest.fn(() => '/mock-preview-url');
 });
+
 afterEach(() => {
     server.resetHandlers();
     jest.clearAllMocks();
@@ -83,10 +97,8 @@ describe('Category 플로우', () => {
     });
 
     it('카테고리를 추가하고 저장하면 카테고리 리스트로 이동', async () => {
-
         // 1. CategoryForm(추가) 진입
         customRender(<CategoryForm type={Mode.ADD}/>);
-
         //2. 입력
         const cnameInput = screen.getByPlaceholderText("카테고리명을 입력해주세요.");
         fireEvent.change(cnameInput, { target: { value: '테스트카테고리' } });
@@ -104,17 +116,58 @@ describe('Category 플로우', () => {
         const submitButton = screen.getByRole('button', { name: /카테고리 추가/i });
         fireEvent.click(submitButton);
 
+        (fetchJWT as jest.Mock).mockResolvedValueOnce({
+            success: true,
+            code: 200,
+            message: "",
+            data: {
+                cno: 16,
+                cname: "테스트카테고리",
+                cdesc: "설명입니다",
+                delFlag: false,
+                parentCategoryId: null,
+                subCategories: null,
+                file: null,
+                uploadFileName: "https://...jpeg",
+                uploadFileKey: "category/...jpeg"
+            }
+        });
+
         // 이동 확인
         await waitFor(() => {
             expect(mockPush).toHaveBeenCalledWith("/admin/category");
         });
     });
-    //
-    // it('카테고리를 선택하면 CategoryForm(수정)으로 이동', () => {
-    //     // 1. 게시판 리스트 렌더
-    //     // 2. 특정 상품(리스트 아이템) 클릭
-    //     // 3. ProductForm(수정) 진입 및 기존 데이터가 입력창에 있는지 확인
-    // });
+
+    it('카테고리를 선택하면 CategoryForm(수정)으로 이동', async () => {
+
+        (fetchJWT as jest.Mock).mockResolvedValueOnce({
+            success: true,
+            code: 200,
+            message: "",
+            data: mockCategories
+        });
+
+        // 1. 카테고리 리스트 렌더
+        customRender(<CategoryTable />);
+
+        // "수정" 메뉴가 나타나기 전엔 query에 의해 로딩이 되므로 기다려줌
+        const categoryName = await screen.findByText('test-data');
+        expect(categoryName).toBeInTheDocument();
+
+        // // 드롭다운 열기 위한 요소 클릭 (아이콘 자체 클릭 대신 TableActions 근처 아무 위치)
+        // const actionWrapper = screen.getByText('가전제품').closest('tr')?.querySelector('#table-dropdown');
+        // expect(actionWrapper).toBeTruthy();
+
+
+        // const actionButton = screen.getByRole('button', { name: //i });
+        // fireEvent.click(actionButton);
+
+        // 2. 특정 상품(리스트 아이템) 클릭
+
+
+        // 3. ProductForm(수정) 진입 및 기존 데이터가 입력창에 있는지 확인
+    });
     //
     // it('카테고리 수정 후 저장하면 카테고리 리스트로 이동', async () => {
     //     // 1. ProductForm(수정) 진입
