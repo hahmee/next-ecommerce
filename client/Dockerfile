@@ -16,6 +16,13 @@ RUN npm ci
 # 빌드 캐시 제거
 RUN rm -rf ./.next/cache
 
+###########################################################
+# 1.5단계: test
+FROM deps AS test
+WORKDIR /usr/src/app
+COPY . .
+RUN npm run test
+
 
 ###########################################################
 # 2단계: next.js 빌드 단계

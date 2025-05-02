@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/__mocks__/categoryFormMockData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/__mocks__/categoryFormMockData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/ProductForm.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/ProductForm2.test.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Category/CategoryForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/TableActions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/TableActions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +48,7 @@
   "keyToString": {
     "Cypress.all tests in login.cy.ts.executor": "Run",
     "Docker.Dockerfile builder.executor": "Run",
+    "Docker.Dockerfile test.executor": "Run",
     "Jest.<Categories/>.executor": "Run",
     "Jest.<Categories/>.render component successfully.executor": "Run",
     "Jest.<Home />.executor": "Run",
@@ -142,7 +137,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Jest.Category 플로우">
+  <component name="RunManager" selected="Docker.Dockerfile test">
     <configuration name="Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -182,19 +177,6 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
-      <test-names>
-        <test-name value="Category 플로우" />
-        <test-name value="카테고리를 추가하고 저장하면 카테고리 리스트로 이동" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration name="Category 플로우" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -207,6 +189,17 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="Dockerfile test" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="imageTag" value="deps_test" />
+          <option name="buildCliOptions" value="--target test" />
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />
@@ -215,11 +208,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.Dockerfile test" />
         <item itemvalue="Jest.Category 플로우" />
         <item itemvalue="Jest.Category 플로우.필수값 미입력 시 에러 메시지 노출" />
         <item itemvalue="Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" />
         <item itemvalue="Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동" />
-        <item itemvalue="Jest.Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동" />
       </list>
     </recent_temporary>
   </component>
@@ -735,7 +728,7 @@
       <workItem from="1745911840168" duration="4697000" />
       <workItem from="1745926501314" duration="6502000" />
       <workItem from="1746102324444" duration="2473000" />
-      <workItem from="1746145283143" duration="20092000" />
+      <workItem from="1746145283143" duration="20484000" />
     </task>
     <servers />
   </component>
