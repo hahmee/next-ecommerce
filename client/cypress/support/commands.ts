@@ -1,10 +1,9 @@
 Cypress.Commands.add('login', (email: string, password: string) => {
 
-
     cy.visit(`${Cypress.config("baseUrl")}/login`); // 로그인 페이지에 접속합니다.
 
-    cy.get('input[name="email"]').type(email);
-    cy.get('input[name="password"]').type(password);
+    cy.get('input[name="email"]').clear().type(email);
+    cy.get('input[name="password"]').clear().type(password);
     cy.get('button[type="submit"]').click();
     cy.url().should('include', '/');  // 메인 페이지로 리디렉션되었는지 확인  // cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
 

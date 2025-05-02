@@ -63,7 +63,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "babel-jest": "^29.7.0",
-    "cypress": "^13.16.0",
+    "cypress": "^14.3.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "eslint-plugin-jest-dom": "^5.4.0",
