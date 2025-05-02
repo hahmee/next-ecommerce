@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__tests__/components/Checkout.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/__tests__/stores/cartStore.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/search.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/useSingleProductQuery.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/saveUserTokens.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/setCookieUtil.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -733,7 +733,7 @@
       <workItem from="1745911840168" duration="4697000" />
       <workItem from="1745926501314" duration="6502000" />
       <workItem from="1746102324444" duration="2473000" />
-      <workItem from="1746145283143" duration="25083000" />
+      <workItem from="1746145283143" duration="25756000" />
     </task>
     <servers />
   </component>
