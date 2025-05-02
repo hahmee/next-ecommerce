@@ -73,6 +73,7 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
                 className="w-full text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                 onClick={cartButtonClick}
                 name="payment"
+                aria-label={type}
             >
                 {type}
             </button>

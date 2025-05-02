@@ -56,8 +56,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     };
 
     return (
-        <Link href={`/product/${product.pno}`}>
-            <div className="group relative transition-shadow duration-300">
+        <Link href={`/product/${product.pno}`} data-testid="product-card">
+            <div className="group relative transition-shadow duration-300" >
                 <div className="w-full overflow-hidden bg-gray-200 h-80 rounded-2xl">
                     <Image
                         src={
@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     <div className="absolute top-4 right-4">
                         {
                             product.salesStatus == SalesStatus.ONSALE &&
-                            <button className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" onClick={(e) => {
+                            <button aria-label={"add-to-cart"} className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100" onClick={(e) => {
                                 e.preventDefault(); // 페이지 이동 방지
                                 e.stopPropagation();// 부모로의 이벤트 전파 방지
                                 handleClickAddCart(product.pno, {color: color, size: product.sizeList[0]});

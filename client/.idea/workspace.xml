@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/screenshots/login.cy.ts/Login test -- Logout -- Logout from main (failed).png" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/screenshots/login.cy.ts/Login test -- Logout -- Logout from main (failed).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/support/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/commands.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/screenshots/login.cy.ts/Login test -- Logout -- Logout from main (failed).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/CartSummary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/CartSummary.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +49,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Cypress.all tests in checkout.cy.ts (1).executor": "Run",
+    "Cypress.all tests in checkout.cy.ts (2).executor": "Run",
+    "Cypress.all tests in checkout.cy.ts.executor": "Run",
     "Cypress.all tests in login.cy.ts (1).executor": "Run",
     "Cypress.all tests in login.cy.ts.executor": "Run",
+    "Cypress.all tests in payment.cy.ts.executor": "Run",
     "Docker.Dockerfile builder.executor": "Run",
     "Docker.Dockerfile test.executor": "Run",
     "Jest.<Categories/>.executor": "Run",
@@ -144,17 +147,45 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Cypress.all tests in login.cy.ts">
-    <configuration name="all tests in login.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
+  <component name="RunManager" selected="Cypress.all tests in checkout.cy.ts (2)">
+    <configuration name="all tests in checkout.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
+      <test-names>
+        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
+        <test-name value="상품을 장바구니에 담는다" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="all tests in checkout.cy.ts (2)" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
+      <test-names>
+        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
+        <test-name value="주문 정보를 입력하고 결제 진행" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="all tests in checkout.cy.ts" type="JavaScriptTestRunnerCypress" temporary="true">
       <node-interpreter value="project" />
       <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
       <working-dir value="$PROJECT_DIR$" />
       <cypress-options value="-q" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/cypress/e2e/login.cy.ts" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
       <test-names>
-        <test-name value="Login test" />
+        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -172,41 +203,16 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="all tests in payment.cy.ts" type="JavaScriptTestRunnerCypress" temporary="true">
       <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
       <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
-      <test-names>
-        <test-name value="Category 플로우" />
-        <test-name value="카테고리 수정 후 저장하면 카테고리 리스트로 이동" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
-      <test-names>
-        <test-name value="Category 플로우" />
-        <test-name value="카테고리 삭제하면 카테고리 리스트로 이동" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="useCartStore" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/__tests__/stores/cartStore.test.ts" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" />
       <test-names>
-        <test-name value="useCartStore" />
+        <test-name value="Payment System E2E Test" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -218,11 +224,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Cypress.all tests in checkout.cy.ts (2)" />
+        <item itemvalue="Cypress.all tests in checkout.cy.ts" />
+        <item itemvalue="Cypress.all tests in checkout.cy.ts (1)" />
+        <item itemvalue="Cypress.all tests in payment.cy.ts" />
         <item itemvalue="Cypress.all tests in login.cy.ts" />
-        <item itemvalue="Cypress.all tests in login.cy.ts (1)" />
-        <item itemvalue="Jest.useCartStore" />
-        <item itemvalue="Jest.Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동" />
-        <item itemvalue="Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" />
       </list>
     </recent_temporary>
   </component>
@@ -738,7 +744,7 @@
       <workItem from="1745911840168" duration="4697000" />
       <workItem from="1745926501314" duration="6502000" />
       <workItem from="1746102324444" duration="2473000" />
-      <workItem from="1746145283143" duration="28569000" />
+      <workItem from="1746145283143" duration="30996000" />
     </task>
     <servers />
   </component>
