@@ -110,11 +110,11 @@ const CategoryForm = ({type, id}: Props) => {
                 }));
             }
         },
-        onSuccess: (newCategory: Category) => {
+        onSuccess: async (newCategory: Category) => {
             console.log('newCategory', newCategory);
             toast.success("업로드 성공했습니다.");
 
-            queryClient.invalidateQueries({queryKey: ["categories"]});
+            await queryClient.invalidateQueries({queryKey: ["adminCategories"]});
             queryClient.setQueryData(['category', newCategory.cno.toString()], newCategory);
 
             queryClient.setQueryData(['categoryPaths', newCategory.cno.toString()], (prev: Category[] = []) =>

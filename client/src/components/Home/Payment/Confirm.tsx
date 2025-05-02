@@ -23,9 +23,12 @@ const Confirm = ({paymentKey}: Props) => {
 
     // invalidateQueries는 사이드 이펙트이므로 useEffect 내부에서 실행
     useEffect(() => {
-        queryClient.invalidateQueries({
-            queryKey: ["carts"],
-        });
+        const invalidate = async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ["carts"],
+            });
+        };
+        invalidate();
     }, [queryClient]);
 
 

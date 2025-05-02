@@ -15,7 +15,6 @@ const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
     // 드롭다운 열기/닫기 토글
     const handleDropdownToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('?')
         event.stopPropagation();
         setDropdownOpen((prev) => !prev);
         update(); // 위치 업데이트

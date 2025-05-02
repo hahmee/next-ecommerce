@@ -1,5 +1,4 @@
 export const mockCategories: any =
-
     {
         "dtoList": [
             {
@@ -141,3 +140,31 @@ export const mockCategories: any =
         "totalPage": 2,
         "current": 1
     };
+
+export const mockGetCategory =  {
+    "cno": 17,
+    "cname": "test-data",
+    "cdesc": "test",
+    "delFlag": false,
+    "parentCategoryId": null,
+    "subCategories": null,
+    "file": null,
+    "uploadFileName": "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png",
+    "uploadFileKey": "category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png"
+}
+
+export const mockCategoryPaths =
+    [
+        {
+            "cno": 17,
+            "cname": "test-data",
+            "cdesc": "test",
+            "delFlag": false,
+            "parentCategoryId": null,
+            "subCategories": null,
+            "file": null,
+            "uploadFileName": "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png",
+            "uploadFileKey": "category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png"
+        }
+    ]
+

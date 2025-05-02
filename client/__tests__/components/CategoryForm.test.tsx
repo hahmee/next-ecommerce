@@ -5,7 +5,7 @@ import {setupServer} from "msw/node";
 import {http, HttpResponse} from "msw";
 import CategoryTable from "@/components/Admin/Tables/CategoryTable";
 import CategoryForm from "@/components/Admin/Category/CategoryForm";
-import {mockCategories} from "../__mocks__/categoryFormMockData";
+import {mockCategories, mockCategoryPaths, mockGetCategory} from "../__mocks__/categoryFormMockData";
 import toast from "react-hot-toast";
 
 const mockPush = jest.fn();
@@ -72,17 +72,7 @@ const server = setupServer(
             success: true,
             code: 200,
             message: "",
-            data: {
-                "cno": 17,
-                "cname": "test-data",
-                "cdesc": "test",
-                "delFlag": false,
-                "parentCategoryId": null,
-                "subCategories": null,
-                "file": null,
-                "uploadFileName": "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png",
-                "uploadFileKey": "category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png"
-            }
+            data: mockGetCategory,
         });
     }),
     http.get("/api/category/paths/17", () => {
@@ -90,19 +80,7 @@ const server = setupServer(
             success: true,
             code: 200,
             message: "",
-            data: [
-                {
-                    "cno": 17,
-                    "cname": "test-data",
-                    "cdesc": "test",
-                    "delFlag": false,
-                    "parentCategoryId": null,
-                    "subCategories": null,
-                    "file": null,
-                    "uploadFileName": "https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png",
-                    "uploadFileKey": "category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png"
-                }
-            ]
+            data: mockCategoryPaths,
         });
     }),
     http.put("/api/category/17", async ({ request }) => {
@@ -125,7 +103,7 @@ const server = setupServer(
 );
 
 beforeAll(() => {
-    server.listen(); // ⬅️ 이 줄 추가
+    server.listen();
     global.URL.createObjectURL = jest.fn(() => '/mock-preview-url');
 
     const portalRoot = document.createElement('div');
