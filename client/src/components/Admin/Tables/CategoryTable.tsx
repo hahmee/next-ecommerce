@@ -42,7 +42,6 @@
         });
 
         useEffect(() => {
-            console.log('data', data);
             if (data) {
                 setCategoryData(data);
                 const {dtoList, ...otherData} = data;
@@ -83,7 +82,6 @@
                 // 기존 데이터 가져오기
                 const previousData: PageResponse<Category> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
 
-                console.log('previousData', previousData);
                 // 새로운 데이터로 업데이트
                 if (previousData) {
                     const updatedData: PageResponse<Category> = {
@@ -224,13 +222,15 @@
                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                             서브 카테고리 추가
                                         </Link>
-                                        <Link href={`/admin/category/edit-category/${category.cno}`}
+                                        <Link data-testid="edit-link"
+                                              aria-label="edit" href={`/admin/category/edit-category/${category.cno}`}
                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                             수정
                                         </Link>
                                     </ul>
                                     <div className="py-1">
-                                        <div className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                        <div
+                                            className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                             onClick={() => {
                                                 setShowDialog(true);
                                                 setDeleteId(category.cno);

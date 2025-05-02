@@ -43,6 +43,7 @@ const CategoryForm = ({type, id}: Props) => {
         throwOnError: true,
     });
 
+
     const {data: categoryPaths} = useQuery<Category[], Object, Category[], [_1: string, _2: string]>({
         queryKey: ['categoryPaths', id!],
         queryFn: getCategoryPaths,
@@ -51,6 +52,7 @@ const CategoryForm = ({type, id}: Props) => {
         gcTime: 300 * 1000,
         throwOnError: true,
     });
+
 
     useEffect(() => {
         if (originalData && type === Mode.EDIT) {
