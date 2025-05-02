@@ -223,13 +223,15 @@
                                             서브 카테고리 추가
                                         </Link>
                                         <Link data-testid="edit-link"
-                                              aria-label="edit" href={`/admin/category/edit-category/${category.cno}`}
+                                              aria-label="edit-link" href={`/admin/category/edit-category/${category.cno}`}
                                               className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                             수정
                                         </Link>
                                     </ul>
                                     <div className="py-1">
                                         <div
+                                            data-testid="delete"
+                                            aria-label="delete"
                                             className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                             onClick={() => {
                                                 setShowDialog(true);

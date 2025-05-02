@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/__tests__/components/Checkout.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__tests__/stores/cartStore.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../script/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../script/deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +71,7 @@
     "Jest.Categories Component.renders loading state initially.executor": "Run",
     "Jest.Categories 컴포넌트.초기에는 로딩 상태를 렌더링한다.executor": "Run",
     "Jest.Category 플로우.executor": "Run",
+    "Jest.Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동.executor": "Run",
     "Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동.executor": "Run",
     "Jest.Category 플로우.카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동.executor": "Run",
     "Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동.executor": "Run",
@@ -100,6 +105,7 @@
     "Jest.SingleCartItem Component.should render the SingleCartItem component.executor": "Run",
     "Jest.Sum function.adds 1 + 2 to equal 3.executor": "Run",
     "Jest.Sum function.executor": "Run",
+    "Jest.useCartStore.executor": "Run",
     "Jest.수정일 때 .executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -125,11 +131,11 @@
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\__tests__\stores" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\public\seo" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)\order\confirmation\[paymentKey]" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(admin)\admin\profile" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -137,7 +143,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Docker.Dockerfile test">
+  <component name="RunManager" selected="Jest.useCartStore">
     <configuration name="Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
@@ -151,7 +157,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Category 플로우.필수값 미입력 시 에러 메시지 노출" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$" />
@@ -160,20 +166,7 @@
       <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
       <test-names>
         <test-name value="Category 플로우" />
-        <test-name value="필수값 미입력 시 에러 메시지 노출" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
-      <test-names>
-        <test-name value="Category 플로우" />
-        <test-name value="카테고리를 선택하면 CategoryForm(수정)으로 이동" />
+        <test-name value="카테고리 삭제하면 카테고리 리스트로 이동" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -186,6 +179,18 @@
       <test-file value="$PROJECT_DIR$/__tests__/components/CategoryForm.test.tsx" />
       <test-names>
         <test-name value="Category 플로우" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="useCartStore" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/__tests__/stores/cartStore.test.ts" />
+      <test-names>
+        <test-name value="useCartStore" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -208,11 +213,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.useCartStore" />
+        <item itemvalue="Jest.Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동" />
+        <item itemvalue="Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" />
         <item itemvalue="Docker.Dockerfile test" />
         <item itemvalue="Jest.Category 플로우" />
-        <item itemvalue="Jest.Category 플로우.필수값 미입력 시 에러 메시지 노출" />
-        <item itemvalue="Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동" />
-        <item itemvalue="Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동" />
       </list>
     </recent_temporary>
   </component>
@@ -728,7 +733,7 @@
       <workItem from="1745911840168" duration="4697000" />
       <workItem from="1745926501314" duration="6502000" />
       <workItem from="1746102324444" duration="2473000" />
-      <workItem from="1746145283143" duration="21087000" />
+      <workItem from="1746145283143" duration="25083000" />
     </task>
     <servers />
   </component>

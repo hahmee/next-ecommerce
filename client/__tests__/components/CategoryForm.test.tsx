@@ -156,7 +156,6 @@ describe('Category 플로우', () => {
     });
 
     it('카테고리를 선택하면 CategoryForm(수정)으로 이동', async () => {
-
         // 1. 카테고리 리스트 렌더
         customRender(<CategoryTable />);
 
@@ -203,6 +202,12 @@ describe('Category 플로우', () => {
         await waitFor(() => {
             expect(mockPush).toHaveBeenCalledWith("/admin/category");
         });
+
+        //수정됐는지 확인
+        await waitFor(() => {
+            const updated = screen.getByText("수정된 카테고리");
+            expect(updated).toBeInTheDocument();
+        });
     });
 
     it('필수값 미입력 시 에러 메시지 노출', async () => {
@@ -215,5 +220,26 @@ describe('Category 플로우', () => {
         await waitFor(() => {
             expect(toast.error).toHaveBeenCalledWith("카테고리명은 필수입니다.");
         });
+    });
+
+    //삭제
+    it('카테고리 삭제하면 카테고리 리스트로 이동', async () => {
+        customRender(<CategoryTable />);
+
+        // "삭제" 메뉴가 나타나기 전엔 query에 의해 로딩이 되므로 기다려줌
+        const categoryName = await screen.findByText('test-data');
+        expect(categoryName).toBeInTheDocument();
+
+        // 2. 드롭다운 버튼 클릭
+        const actionButtons = screen.getAllByTestId('action-button');
+        fireEvent.click(actionButtons[0]);
+
+        // 3. "삭제" 버튼을 클릭한다.
+        const deleteButton = await screen.findByTestId('delete');
+        // fireEvent.click(deleteButton);
+
+
+
+
     });
 });

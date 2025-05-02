@@ -40,7 +40,7 @@ const config: Config = {
     // Add more setup options before each test is run
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     preset: 'ts-jest',
-    testMatch: ['**/*.test.tsx'],
+    testMatch: ['**/*.test.{ts,tsx,js,jsx}'],
     globals: {
         'ts-jest': {
             tsconfig: 'tsconfig.jest.json',
