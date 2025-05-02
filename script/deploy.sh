@@ -3,6 +3,7 @@
 ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com <<'EOF'
 cd ~/next-ecommerce
 git pull
+docker system prune -a --volumes --force -f
 docker-compose down
 docker-compose up --build -d
 EOF
