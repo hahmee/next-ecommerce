@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/cypress/e2e/registerProduct.cy.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/screenshots/checkout.cy.ts/장바구니 → 주문 → 결제 E2E 테스트 -- 주문 정보를 입력하고 결제 진행 (failed).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/success/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/registerProduct.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +54,10 @@
     "Cypress.all tests in checkout.cy.ts.executor": "Run",
     "Cypress.all tests in login.cy.ts (1).executor": "Run",
     "Cypress.all tests in login.cy.ts.executor": "Run",
+    "Cypress.all tests in payment.cy.ts (1).executor": "Run",
     "Cypress.all tests in payment.cy.ts.executor": "Run",
+    "Cypress.all tests in registerProduct.cy.ts.executor": "Run",
+    "Cypress.all tests in registerProduct.ts.executor": "Run",
     "Docker.Dockerfile builder.executor": "Run",
     "Docker.Dockerfile test.executor": "Run",
     "Jest.<Categories/>.executor": "Run",
@@ -148,21 +150,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Cypress.all tests in checkout.cy.ts (2)">
-    <configuration name="all tests in checkout.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
-      <node-interpreter value="project" />
-      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
-      <working-dir value="$PROJECT_DIR$" />
-      <cypress-options value="-q" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
-      <test-names>
-        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
-        <test-name value="상품을 장바구니에 담는다" />
-      </test-names>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Cypress.all tests in registerProduct.cy.ts">
     <configuration name="all tests in checkout.cy.ts (2)" type="JavaScriptTestRunnerCypress" temporary="true">
       <node-interpreter value="project" />
       <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
@@ -177,30 +165,17 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="all tests in checkout.cy.ts (3)" type="JavaScriptTestRunnerCypress" temporary="true">
+    <configuration name="all tests in payment.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
       <node-interpreter value="project" />
       <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
       <working-dir value="$PROJECT_DIR$" />
       <cypress-options value="-q" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" />
       <test-names>
-        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
-        <test-name value="장바구니에서 주문 페이지로 이동" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="all tests in checkout.cy.ts" type="JavaScriptTestRunnerCypress" temporary="true">
-      <node-interpreter value="project" />
-      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
-      <working-dir value="$PROJECT_DIR$" />
-      <cypress-options value="-q" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
-      <test-names>
-        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
+        <test-name value="Payment System E2E Test" />
+        <test-name value="should fill out shipping info and submit payment form" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -217,6 +192,32 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="all tests in registerProduct.cy.ts" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/registerProduct.cy.ts" />
+      <test-names>
+        <test-name value="상품등록 E2E 테스트" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="all tests in registerProduct.ts" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/registerProduct.ts" />
+      <test-names>
+        <test-name value="상품등록 E2E 테스트" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />
@@ -225,11 +226,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cypress.all tests in checkout.cy.ts (2)" />
-        <item itemvalue="Cypress.all tests in checkout.cy.ts" />
-        <item itemvalue="Cypress.all tests in checkout.cy.ts (3)" />
-        <item itemvalue="Cypress.all tests in checkout.cy.ts (1)" />
+        <item itemvalue="Cypress.all tests in registerProduct.cy.ts" />
+        <item itemvalue="Cypress.all tests in registerProduct.ts" />
+        <item itemvalue="Cypress.all tests in payment.cy.ts (1)" />
         <item itemvalue="Cypress.all tests in payment.cy.ts" />
+        <item itemvalue="Cypress.all tests in checkout.cy.ts (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -746,7 +747,7 @@
       <workItem from="1745926501314" duration="6502000" />
       <workItem from="1746102324444" duration="2473000" />
       <workItem from="1746145283143" duration="31062000" />
-      <workItem from="1746191674820" duration="3551000" />
+      <workItem from="1746191674820" duration="9037000" />
     </task>
     <servers />
   </component>

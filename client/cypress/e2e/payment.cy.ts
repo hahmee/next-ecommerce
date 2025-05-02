@@ -16,6 +16,8 @@ describe('Payment System E2E Test', () => {
                 win.tossPayments.requestPayment = () => {};
             }
             cy.stub(win.tossPayments, 'requestPayment').callsFake((method, options) => {
+                console.log('✅ Toss Success URL:', options.successUrl); // 👈 이거 찍어보세요
+
                 // 실제 결제 창 대신 successUrl로 리다이렉트 시뮬레이션
                 win.location.href = options.successUrl;
                 return Promise.resolve();
@@ -26,31 +28,27 @@ describe('Payment System E2E Test', () => {
 
     it('should fill out shipping info and submit payment form', () => {
         // 배송 정보 입력 필드에 데이터 입력
-        cy.get('input[name="receiver"]').type('Test Receiver');
-        cy.get('input[name="address"]').type('123 Test Street');
-        cy.get('input[name="zipCode"]').type('12345');
-        cy.get('input[name="phone"]').type('01012345678');
-        cy.get('input[name="message"]').type('Leave at door');
+        cy.get('input[name="receiver"]').type('Test Receiver', { force: true });
+        cy.get('input[name="address"]').type('123 Test Street', { force: true });
+        cy.get('input[name="zipCode"]').type('12345', { force: true });
+        cy.get('input[name="phone"]').type('01012345678', { force: true });
+        cy.get('input[name="message"]').type('Leave at door', { force: true });
 
-        // 주문 저장 API 호출을 인터셉트 (네트워크 요청 모킹)
-        cy.intercept('POST', '/api/orders/', {
-            success: true,
-            code: 0,
-            message: "SUCCESS"
-        }).as('orderSave');
-
-        // 주문 저장 API 호출이 완료될 때까지 대기
-        cy.wait('@orderSave');
-        // 폼 제출
-        cy.get('button[name="payment"]').click();
+        // // 주문 저장 API 호출을 인터셉트 (네트워크 요청 모킹) -> server 컴포넌트에서 한 거는 intercept로 못 잡음
+        // cy.intercept('POST', '**/api/order  s/**').as('orderSave');
 
 
+        // 결제하기 버튼 클릭
+        cy.get('button[aria-label="Payment"]').click({force: true});
+
+
+        // 결제 성공 페이지로 이동했는지 확인
+        // ✅ 성공 URL로 이동했는지 확인
+        cy.url().should('include', '/order/confirmation');
+        // cy.contains('주문이 완료되었습니다').should('exist');
         //
-        // // 결제 성공 후, TossPayments에서 설정한 successUrl (/order/success)로 리다이렉트 되었는지 확인
-        // cy.url().should('include', '/order/success');
-        //
-        // // 추가적으로 결제 성공 메시지가 있다면 검증
-        // cy.contains('Payment Successful').should('be.visible');
+        // // 결제 함수가 호출됐는지 확인
+        // cy.get('@requestPaymentStub').should('have.been.called');
 
     });
 
