@@ -4,7 +4,6 @@ import Loading from "@/app/loading";
 import SuccessPayment from "@/components/Home/Payment/SuccessPayment";
 
 interface Props {
-    // searchParams: { [key: string]: string | string[] | undefined }
     searchParams: { [key: string]: string; }
 
 }

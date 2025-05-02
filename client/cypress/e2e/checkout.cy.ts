@@ -25,12 +25,18 @@ describe('장바구니 → 주문 → 결제 E2E 테스트', () => {
         cy.get('input[name="address"]').type('서울시 종로구 123', { force: true });
         cy.get('input[name="zipCode"]').type('12345', { force: true });
         cy.get('input[name="phone"]').type('01012345678', { force: true });
+        cy.get('input[name="message"]').type('문 앞에 부탁드려요', { force: true });
 
         // 결제하기 버튼 클릭
-        cy.get('button[aria-label="Payment"]').click();
-        //
-        // // 결제 완료 페이지 확인
-        // cy.url().should('include', '/order-complete');
-        // cy.contains('주문이 완료되었습니다');
+        cy.get('button[aria-label="Payment"]').click({force: true});
+
+        // 실제 결제 대신 강제로 확인 페이지로 이동
+        cy.visit('/order/confirmation/test-mock-payment');
+        cy.contains('주문이 완료되었습니다');
+
+        //장바구니 비어있기 확인
+        cy.visit('/cart');
+        cy.contains('Cart is Empty').should('exist');
+
     });
 });
