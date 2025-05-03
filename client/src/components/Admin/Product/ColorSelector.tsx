@@ -97,6 +97,7 @@ const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, original
             </label>
             <div>
                 <input
+                    data-testid="color-input"
                     type="text"
                     placeholder={defaultOption}
                     value={inputValue}
@@ -114,7 +115,7 @@ const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, original
                 </div>
 
                 {/* 태그와 색상 표시 */}
-                <div className="flex flex-wrap mt-4 gap-2 relative ">
+                <div className="flex flex-wrap mt-4 gap-2 relative" data-testid="color-add">
                     {tags.map((tag, index) => (
                         <div key={index} ref={(el) => {
                             tagRefs.current[index] = el;
@@ -150,10 +151,10 @@ const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, original
                                 <div className="py-3 px-3 flex w-full items-center justify-between gap-1">
                                     <div className="text-sm text-blue-500 dark:text-white">{selectedColor}</div>
                                     <div className="flex items-center">
-                                        <button onClick={closeColorPicker}>
+                                        <button onClick={closeColorPicker} data-testid="color-close">
                                             <XCircleIcon className="h-8 w-8 text-blue-500 dark:text-white"/>
                                         </button>
-                                        <button onClick={clickColorPicker}>
+                                        <button onClick={clickColorPicker} data-testid="color-submit">
                                             <CheckCircleIcon className="h-8 w-8 text-blue-500 dark:text-white"/>
                                         </button>
                                     </div>

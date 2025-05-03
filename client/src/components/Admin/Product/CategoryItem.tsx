@@ -18,6 +18,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelect
                     ? "bg-blue-400 text-white"
                     : "text-black hover:bg-blue-100"
             }`}
+            data-testid={"category"}
 
         >
             {category.cname}

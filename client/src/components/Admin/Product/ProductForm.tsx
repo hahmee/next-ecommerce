@@ -238,7 +238,6 @@ const ProductForm = ({type, id}: Props) => {
     if (isLoading) return "Loading...";
 
     return (
-        // <form onSubmit={mutation.mutate} data-testid={"product-form"}>
         <form onSubmit={handleSubmit} data-testid="product-form">
             <div className="mx-auto">
                 <Breadcrumb pageName={type === Mode.ADD ? "제품 등록" : "제품 수정"}/>

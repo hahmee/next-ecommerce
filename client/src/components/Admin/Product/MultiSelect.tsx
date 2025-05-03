@@ -121,17 +121,17 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                 {label} <span className="text-meta-1">*</span>
             </label>
             <div>
-                <select className="hidden" id={id}>
+                <select className="hidden" id={id} >
                     {
                         optionList.map((option) => <option value={option.id as string} key={option.id as string}>{option.content}</option>)
                     }
                 </select>
 
                 <div className="flex flex-col items-center">
-                    <input name={name} type="hidden" defaultValue={selectedValues()}/>
+                    <input name={name} type="hidden" defaultValue={selectedValues()} />
                     <div className="relative inline-block w-full">
                         <div className="relative flex flex-col items-center">
-                            <div ref={trigger} onClick={open} className="w-full">
+                            <div ref={trigger} onClick={open} className="w-full" data-testid={"multiSizeSelect"} >
                                 <div className="mb-2  flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                                     <div className="flex flex-auto flex-wrap gap-3">
                                         {selected.map((selectedIndex, idx) => (
