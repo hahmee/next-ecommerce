@@ -13,6 +13,25 @@ interface Props {
 const Confirm = ({paymentKey}: Props) => {
     const queryClient = useQueryClient();
 
+    const {data: payment} = useQuery<Payment, Payment, any>({
+        queryKey: ['payment-confirm', paymentKey],
+        queryFn: () => getPayment({paymentKey}),
+        staleTime: 60 * 1000,
+        gcTime: 300 * 1000,
+        throwOnError: true,
+    });
+
+    // invalidateQueries는 사이드 이펙트이므로 useEffect 내부에서 실행
+    useEffect(() => {
+        const invalidate = async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ["carts"],
+            });
+        };
+        invalidate();
+    }, [queryClient]);
+
+
     // Cypress 테스트용 mock 분기
     if (paymentKey === "test-mock-payment") {
         return (
@@ -39,27 +58,6 @@ const Confirm = ({paymentKey}: Props) => {
             </div>
         );
     }
-
-
-    const {data: payment} = useQuery<Payment, Payment, any>({
-        queryKey: ['payment-confirm', paymentKey],
-        queryFn: () => getPayment({paymentKey}),
-        staleTime: 60 * 1000,
-        gcTime: 300 * 1000,
-        throwOnError: true,
-    });
-
-    // invalidateQueries는 사이드 이펙트이므로 useEffect 내부에서 실행
-    useEffect(() => {
-        const invalidate = async () => {
-            await queryClient.invalidateQueries({
-                queryKey: ["carts"],
-            });
-        };
-        invalidate();
-    }, [queryClient]);
-
-
     if(payment) {
         return <div className="min-h-screen bg-gray-100 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
