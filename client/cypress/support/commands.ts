@@ -24,5 +24,28 @@ Cypress.Commands.add('login', (email: string, password: string) => {
 
     });
 
+});
 
+
+//최하위 카테고리 선택하기
+Cypress.Commands.add('clickUntilLeaf', (level = 0) => {
+    function clickNext(lvl: number) {
+        cy.get(`[data-testid="category"][data-level="${lvl}"]`).first().then(($el) => {
+            console.log('asdfasdf', $el);
+            if ($el.length > 0) {
+                cy.wrap($el).click();
+                cy.wait(300); // 필요에 따라 조정
+                cy.document().then((doc) => {
+                    const hasNext = doc.querySelector(`[data-testid="category"][data-level="${lvl + 1}"]`);
+                    if (hasNext) {
+                        clickNext(lvl + 1);
+                    } else {
+                        cy.log(`최하위 카테고리 도달: level ${lvl}`);
+                    }
+                });
+            }
+        });
+    }
+
+    clickNext(level);
 });

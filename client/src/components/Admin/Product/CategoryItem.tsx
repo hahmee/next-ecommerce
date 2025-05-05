@@ -7,9 +7,10 @@ interface CategoryItemProps {
     category: Category;
     onClick: () => void;
     isSelected: boolean; // 선택된 카테고리 여부
+    level: number;
 }
 
-const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelected }) => {
+const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelected, level }) => {
     return (
         <li
             onClick={onClick}
@@ -19,7 +20,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelect
                     : "text-black hover:bg-blue-100"
             }`}
             data-testid={"category"}
-
+            data-level={level}
         >
             {category.cname}
         </li>

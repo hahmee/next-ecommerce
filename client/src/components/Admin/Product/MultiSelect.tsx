@@ -57,12 +57,13 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
 
     }, [id]);
 
+
     const open = () => {
         setShow(true);
     };
 
     const isOpen = () => {
-        return show === true;
+        return show;
     };
 
     const select = (index: number, event: React.MouseEvent) => {
@@ -100,20 +101,34 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
         return data;
     };
 
+    //ESC 누르거나 바깥영역 누를때 드롭다운 닫힌다.
     useEffect(() => {
-        const clickHandler = ({ target }: MouseEvent) => {
+        const clickHandler = (e: MouseEvent) => {
             if (!dropdownRef.current) return;
             if (
                 !show ||
-                dropdownRef.current.contains(target) ||
-                trigger.current.contains(target)
+                dropdownRef.current.contains(e.target as Node) ||
+                trigger.current.contains(e.target as Node)
             )
                 return;
             setShow(false);
         };
+
+        const escHandler = (e: KeyboardEvent) => {
+            if (show && (e.key === 'Escape' || e.code === 'Escape')) {
+                setShow(false);
+            }
+        };
+
         document.addEventListener("click", clickHandler);
-        return () => document.removeEventListener("click", clickHandler);
-    });
+        document.addEventListener("keydown", escHandler);
+
+        return () => {
+            document.removeEventListener("click", clickHandler);
+            document.removeEventListener("keydown", escHandler);
+        };
+    }, [show]);
+
 
     return (
         <div className="relative z-1">
@@ -121,18 +136,20 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                 {label} <span className="text-meta-1">*</span>
             </label>
             <div>
-                <select className="hidden" id={id} >
+                <select className="hidden" id={id}>
                     {
-                        optionList.map((option) => <option value={option.id as string} key={option.id as string}>{option.content}</option>)
+                        optionList.map((option) => <option value={option.id as string}
+                                                           key={option.id as string}>{option.content}</option>)
                     }
                 </select>
 
                 <div className="flex flex-col items-center">
-                    <input name={name} type="hidden" defaultValue={selectedValues()} />
+                    <input name={name} type="hidden" defaultValue={selectedValues()}/>
                     <div className="relative inline-block w-full">
                         <div className="relative flex flex-col items-center">
-                            <div ref={trigger} onClick={open} className="w-full" data-testid={"multiSizeSelect"} >
-                                <div className="mb-2  flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
+                            <div ref={trigger} onClick={open} className="w-full" data-testid={"multiSizeSelect"}>
+                                <div
+                                    className="mb-2  flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
                                     <div className="flex flex-auto flex-wrap gap-3">
                                         {selected.map((selectedIndex, idx) => (
                                             <div
@@ -216,6 +233,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id, label,name, optionList, defa
                                         {options.map((option, index) => (
                                             <div key={index}>
                                                 <div
+                                                    data-testid={"multiSelectValue"}
                                                     className="w-full cursor-pointer rounded-t border-b border-stroke hover:bg-primary/5 dark:border-form-strokedark"
                                                     onClick={(event) => select(index, event)}
                                                 >

@@ -59,7 +59,7 @@ const ProductForm = ({type, id}: Props) => {
     const productImageStore = useProductImageStore();
     const tagStore = useTagStore();
     //최하위 카테고리
-    const [selectedCategory, setSelectedCategory] = useState<Category|null>();
+    const [leafCategory, setLeafCategory] = useState<Category|null>();
     //type 변경하기
     const quillRef = useRef<any>(null);
     // edit일 때만 getProduct하기
@@ -109,9 +109,8 @@ const ProductForm = ({type, id}: Props) => {
                 setPdesc(quillRef.current.value);
             }
 
-            if (!selectedCategory) {
-                throw new Error("카테고리를 선택해야합니다.");
-                // return Promise.reject(new Error("카테고리를 선택해야합니다.....")); // 에러 처리
+            if (!leafCategory) {
+                throw new Error("최하단 카테고리를 선택해야합니다.");
             }
 
             if (productImageStore.files.length < 1) {
@@ -129,8 +128,8 @@ const ProductForm = ({type, id}: Props) => {
             }
 
             formData.append("pdesc", quillRef.current ? quillRef.current.value : "");
-            formData.append("categoryId", selectedCategory.cno.toString());
-            formData.append("categoryJson", JSON.stringify(selectedCategory));
+            formData.append("categoryId", leafCategory.cno.toString());
+            formData.append("categoryJson", JSON.stringify(leafCategory));
             tagStore.tags.forEach((t, index) => {
                 formData.append(`colorList[${index}].text`, t.text);
                 formData.append(`colorList[${index}].color`, t.color);
@@ -177,6 +176,7 @@ const ProductForm = ({type, id}: Props) => {
                 if (!formData) {
                     throw new Error('FormData is undefined');
                 }
+
                 return unwrap(await fetchJWT(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
@@ -230,7 +230,7 @@ const ProductForm = ({type, id}: Props) => {
     useEffect(() => {
         //최하단 카테고리를 저장한다.
         if(categoryPaths) {
-            setSelectedCategory(categoryPaths[categoryPaths.length - 1]);
+            setLeafCategory(categoryPaths[categoryPaths.length - 1]);
         }
     }, [categoryPaths]);
 
@@ -263,8 +263,7 @@ const ProductForm = ({type, id}: Props) => {
                                 <Link href="/admin/category" className="underline text-sm">카테고리 추가/변경</Link>
                             </div>
                             <div className="p-6.5 mb-6">
-                                <CategorySelect categories={categories || []} setSelectedCategory={setSelectedCategory}
-                                                categoryPaths={categoryPaths || []}/>
+                                <CategorySelect categories={categories || []} setSelectedCategory={setLeafCategory} categoryPaths={categoryPaths || []}/>
                             </div>
                         </div>
                     </div>

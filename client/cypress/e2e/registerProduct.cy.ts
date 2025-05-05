@@ -10,6 +10,9 @@ describe('상품등록 E2E 테스트', () => {
 
     });
     it('정상적으로 상품을 등록할 수 있어야 한다', () => {
+        //카테고리 선택
+        cy.clickUntilLeaf(); // 0부터 시작해서 끝까지 자동 클릭
+
         cy.get('[data-testid="color-input"]').as('colorInput');
         cy.get('@colorInput').type('레드', { force: true });
         cy.get('[data-testid="color-input"]').trigger('keydown', { key: 'Enter', force: true });
@@ -20,19 +23,16 @@ describe('상품등록 E2E 테스트', () => {
         // 환불/교환 정책
         cy.get('textarea[name="refundPolicy"]', { timeout: 5000 }).should('exist').type('환불 정책 테스트', { force: true });
         cy.get('textarea[name="changePolicy"]', { timeout: 5000 }).should('exist').type('교환 정책 테스트', { force: true });
-        //카테고리 선택
-        cy.get('[data-testid="category"]').first().click(); // 첫 번째 카테고리 클릭
-
         cy.get('input[name="pname"]').type('테스트 상품', { force: true });
         cy.get('input[name="price"]').type('15000', { force: true });
         cy.get('input[name="sku"]').type('SKU123', { force: true });
 
         cy.get('input[name="receiver"]').should('not.exist'); // 등록폼에 불필요한 필드 방지 체크
         // 멀티 셀렉트 사이즈
-        cy.get('[data-testid="multiSizeSelect"]').click();
-        cy.contains('S').click({ force: true });
-        cy.contains('M').click({ force: true });
-        cy.get('body').click(0, 0, {force: true}); // 닫기용
+        cy.get('[data-testid="multiSizeSelect"]').click({ force: true });
+
+        cy.get('[data-testid="multiSelectValue"]').first().click({ force: true });
+        cy.get('body').type('{esc}', {force: true}); // 드롭다운 닫기
 
         // 이미지 업로드
         cy.get('input[type="file"]').selectFile('cypress/fixtures/test.jpg', { force: true });
@@ -42,18 +42,13 @@ describe('상품등록 E2E 테스트', () => {
 
         cy.get('form[data-testid="product-form"]', { timeout: 10000 }).should('exist');
 
-        // 에디터
-        // cy.get('.ql-editor').type('테스트 상세 설명입니다.', { force: true });
-        cy.get('.ql-editor', { timeout: 10000 }) // 최대 10초 기다림
+        cy.get('.ql-editor', { timeout: 10000 })
             .should('exist')
-            .click({ force: true }) // focus 주기
+            .click({ force: true })
             .type('테스트 상세 설명입니다.', { force: true });
 
-        // 제출
-        // cy.get('form[data-testid="product-form"] button[type="submit"]').should('exist').click({ force: true });
-        //
-        // 업로드 성공 토스트
-        // cy.contains('업로드 성공했습니다.').should('exist');
-        // cy.url().should('include', '/admin/products');
+        cy.get('button[type="submit"]').should('exist').click({ force: true });
+
+
     });
 });

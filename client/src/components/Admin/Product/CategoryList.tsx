@@ -22,6 +22,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories, level, onSelect
                         key={category.cno}
                         category={category}
                         onClick={() => onSelect(category)}
+                        level = {level}
                         isSelected={selectedCategories.some(selected => selected.cno === category.cno)} // 선택된 카테고리와 비교하여 상태 전달
                     />
                 ))}

@@ -33,7 +33,6 @@ const CategorySelect = ({categories, setSelectedCategory, categoryPaths}: { cate
                     onSelect={(category) => handleCategorySelect(category, 0)}
                     selectedCategories={selectedCategories} // 모든 선택된 카테고리 전달
                 />
-
                 {selectedCategories.map((cat, index) => (
                     <CategoryList
                         key={index}

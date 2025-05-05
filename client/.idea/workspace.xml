@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cypress/fixtures/test.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cypress/e2e/registerProduct.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/registerProduct.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/screenshots/registerProduct.cy.ts/상품등록 E2E 테스트 -- 정상적으로 상품을 등록할 수 있어야 한다 (failed).png" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/screenshots/registerProduct.cy.ts/상품등록 E2E 테스트 -- 정상적으로 상품을 등록할 수 있어야 한다 (failed).png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/screenshots/registerProduct.cy.ts/상품등록 E2E 테스트 -- 정상적으로 상품을 등록할 수 있어야 한다 (failed).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/support/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/commands.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/CategoryItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/CategoryItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ColorSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ColorSelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/CategoryList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/CategoryList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/CategorySelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/CategorySelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MultiSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MultiSelect.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ProductForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/QuillEditor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/QuillEditor.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +62,7 @@
     &quot;Cypress.all tests in login.cy.ts.executor&quot;: &quot;Run&quot;,
     &quot;Cypress.all tests in payment.cy.ts (1).executor&quot;: &quot;Run&quot;,
     &quot;Cypress.all tests in payment.cy.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in registerProduct.cy.ts (1).executor&quot;: &quot;Run&quot;,
     &quot;Cypress.all tests in registerProduct.cy.ts.executor&quot;: &quot;Run&quot;,
     &quot;Cypress.all tests in registerProduct.ts.executor&quot;: &quot;Run&quot;,
     &quot;Docker.Dockerfile builder.executor&quot;: &quot;Run&quot;,
@@ -155,20 +158,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Cypress.all tests in registerProduct.cy.ts">
-    <configuration name="all tests in checkout.cy.ts (2)" type="JavaScriptTestRunnerCypress" temporary="true">
-      <node-interpreter value="project" />
-      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
-      <working-dir value="$PROJECT_DIR$" />
-      <cypress-options value="-q" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" />
-      <test-names>
-        <test-name value="장바구니 → 주문 → 결제 E2E 테스트" />
-        <test-name value="주문 정보를 입력하고 결제 진행" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration name="all tests in payment.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
       <node-interpreter value="project" />
       <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
@@ -193,6 +182,20 @@
       <test-file value="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" />
       <test-names>
         <test-name value="Payment System E2E Test" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="all tests in registerProduct.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
+      <node-interpreter value="project" />
+      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
+      <working-dir value="$PROJECT_DIR$" />
+      <cypress-options value="-q" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/cypress/e2e/registerProduct.cy.ts" />
+      <test-names>
+        <test-name value="상품등록 E2E 테스트" />
+        <test-name value="정상적으로 상품을 등록할 수 있어야 한다" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -231,10 +234,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Cypress.all tests in registerProduct.cy.ts" />
+        <item itemvalue="Cypress.all tests in registerProduct.cy.ts (1)" />
         <item itemvalue="Cypress.all tests in registerProduct.ts" />
         <item itemvalue="Cypress.all tests in payment.cy.ts (1)" />
         <item itemvalue="Cypress.all tests in payment.cy.ts" />
-        <item itemvalue="Cypress.all tests in checkout.cy.ts (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -752,7 +755,10 @@
       <workItem from="1746102324444" duration="2473000" />
       <workItem from="1746145283143" duration="31062000" />
       <workItem from="1746191674820" duration="9037000" />
-      <workItem from="1746236523807" duration="8255000" />
+      <workItem from="1746236523807" duration="8394000" />
+      <workItem from="1746248044647" duration="1306000" />
+      <workItem from="1746276238485" duration="6074000" />
+      <workItem from="1746415726538" duration="4935000" />
     </task>
     <servers />
   </component>

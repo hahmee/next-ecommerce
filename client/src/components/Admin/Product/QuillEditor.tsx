@@ -42,7 +42,7 @@ const QuillEditor = React.memo(({ quillRef, originalData }: EditorProps) => {
             const { default: RQ } = await import('react-quill');
 
             const Component = ({ forwardedRef, ...props }: ReactQuillComponentProps) => (
-                <RQ ref={forwardedRef} {...props} />
+                <RQ ref={forwardedRef} {...props}  data-testid="quill-editor"/>
             );
 
             Component.displayName = 'ReactQuillComponent';
