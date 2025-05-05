@@ -21,14 +21,16 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["msw", "cypress"]
+//    "types": ["msw", "cypress"]
+    "types": ["msw", "cypress", "jest", "@testing-library/jest-dom"]
+
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "cypress" // ✅ Cypress 디렉토리 포함
-  ],  //TypeScript 컴파일 시 아래 파일들을 무시
+    "cypress"
+  ],
   "exclude": ["node_modules"]
 }

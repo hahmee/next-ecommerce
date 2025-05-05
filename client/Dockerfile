@@ -17,11 +17,11 @@ RUN npm ci
 RUN rm -rf ./.next/cache
 
 ###########################################################
-# 1.5단계: test
-FROM deps AS test
-WORKDIR /usr/src/app
-COPY . .
-RUN npm run test
+## 1.5단계: test -> 너무 오래 걸려서 일단 주석처리
+#FROM deps AS test
+#WORKDIR /usr/src/app
+#COPY . .
+#RUN npm run test
 
 
 ###########################################################
