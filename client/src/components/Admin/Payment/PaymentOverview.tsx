@@ -47,13 +47,13 @@ const PaymentOverview = () => {
         isError
     } = useQuery<PaymentSummaryDTO, Object, PaymentSummaryDTO, [_1: string, _2: Object]>({
         queryKey: ['adminPaymentOverview', {date}],
-        // queryFn: () => getPaymentsOverview({
-        //     startDate: date.startDate,
-        //     endDate: date.endDate,
-        // }),
-        queryFn: async () => {
-            throw new Error("강제로 에러 발생!");
-        },
+        queryFn: () => getPaymentsOverview({
+            startDate: date.startDate,
+            endDate: date.endDate,
+        }),
+        // queryFn: async () => {
+        //     throw new Error("강제로 에러 발생!");
+        // },
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         throwOnError: true,
