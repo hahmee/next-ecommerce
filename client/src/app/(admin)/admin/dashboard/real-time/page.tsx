@@ -9,6 +9,7 @@ import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
 import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 export default async function DashBoardRealTimePage() {
     const endDate = new Date(); // today
@@ -51,9 +52,11 @@ export default async function DashBoardRealTimePage() {
         <div className="flex flex-col gap-5">
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <RealtimeOverview/>
+                    <ErrorHandlingWrapper>
+                        <RealtimeOverview/>
+                    </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>
         </div>
-    </div>
+    </div>;
 }

@@ -4,6 +4,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import ProductTable from "@/components/Admin/Tables/ProductTable";
 import {getProductsByEmail} from "@/apis/adminAPI";
 import {TableSkeleton} from "@/components/Skeleton/TableSkeleton";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 
 export default async function ProductsPage() {
@@ -20,7 +21,9 @@ export default async function ProductsPage() {
             <div className="flex flex-col gap-10">
                 <Suspense fallback={<TableSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <ProductTable/>
+                        <ErrorHandlingWrapper>
+                            <ProductTable/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>

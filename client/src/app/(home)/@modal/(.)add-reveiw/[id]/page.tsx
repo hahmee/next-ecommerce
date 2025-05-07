@@ -3,6 +3,7 @@ import ReviewAddModal from "@/components/Home/Profile/ReviewAddModal";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getOrder} from "@/apis/mallAPI";
 import Loading from "@/app/loading";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 
 interface Props {
@@ -20,9 +21,10 @@ export default function ReviewModalPage({params}: Props) {
     return (
         <Suspense fallback={<Loading/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                <ReviewAddModal id={id} orderId={orderId}/>
+                <ErrorHandlingWrapper>
+                    <ReviewAddModal id={id} orderId={orderId}/>
+                </ErrorHandlingWrapper>
             </PrefetchBoundary>
         </Suspense>
-
     );
 };

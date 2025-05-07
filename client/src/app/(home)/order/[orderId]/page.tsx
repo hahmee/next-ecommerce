@@ -4,6 +4,7 @@ import OrderDetail from "@/components/Home/Profile/OrderDetail";
 import {getOrders} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
 import OrderDetailSkeleton from "@/components/Skeleton/OrderDetailSkeleton";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 interface Props {
     params: {orderId: string }
@@ -32,7 +33,9 @@ export default async function OrderPage({params}: Props)  {
     return (
         <Suspense fallback={<OrderDetailSkeleton/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                <OrderDetail orderId={orderId}/>
+                <ErrorHandlingWrapper>
+                    <OrderDetail orderId={orderId}/>
+                </ErrorHandlingWrapper>
             </PrefetchBoundary>
         </Suspense>
     );

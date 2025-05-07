@@ -6,6 +6,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Portal from "@/components/Common/Portal";
 import AdminModal from "@/components/Admin/AdminModal";
 import Loading from "@/app/loading";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 interface Props {
     params: {id:string};
@@ -33,7 +34,9 @@ export default async function CategoryEditModal({params}: Props) {
         <AdminModal modalTitle={"상품 카테고리 수정"}>
             <Suspense fallback={<Loading/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <CategoryForm type={Mode.EDIT} id={id}/>
+                    <ErrorHandlingWrapper>
+                        <CategoryForm type={Mode.EDIT} id={id}/>
+                    </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>
         </AdminModal>

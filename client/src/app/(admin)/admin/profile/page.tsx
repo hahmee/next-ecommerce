@@ -5,6 +5,7 @@ import Profile from "@/components/Admin/Profile/Profile";
 import {getUserInfo} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
 import Loading from "@/app/loading";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 export async function generateMetadata() {
 
@@ -29,7 +30,9 @@ export default async function ProfilePage() {
             <div className="flex flex-col gap-10">
                 <Suspense fallback={<Loading/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <Profile/>
+                        <ErrorHandlingWrapper>
+                            <Profile/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>

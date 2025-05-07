@@ -10,7 +10,7 @@ interface LazyLoadWrapperProps {
     fallback?: ReactNode;
 }
 
-const LazyLoadWrapper = ({
+const   LazyLoadWrapper = ({
                              children,
                              once = true,
                              className,

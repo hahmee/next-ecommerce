@@ -183,7 +183,6 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
            <ListPageSkeleton/>
         );
     }
-    
 
     return (
         <div className="bg-white">

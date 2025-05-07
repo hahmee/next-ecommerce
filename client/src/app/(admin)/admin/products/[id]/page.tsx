@@ -6,6 +6,7 @@ import {Mode} from "@/types/mode";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 interface Props {
     params: {id: string }
@@ -32,7 +33,9 @@ export default async function ModifyProductPage({params}: Props) {
     return (
         <Suspense fallback={<ProductFormSkeleton/>}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                <ProductForm type={Mode.EDIT} id={id}/>
+                <ErrorHandlingWrapper>
+                    <ProductForm type={Mode.EDIT} id={id}/>
+                </ErrorHandlingWrapper>
             </PrefetchBoundary>
         </Suspense>
 

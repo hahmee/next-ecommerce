@@ -9,6 +9,7 @@ import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 export default async function DashBoardTrafficPage() {
     const endDate = new Date(); // today
@@ -52,9 +53,11 @@ export default async function DashBoardTrafficPage() {
         <div className="flex flex-col gap-5">
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <TrafficOverview/>
+                    <ErrorHandlingWrapper>
+                        <TrafficOverview/>
+                    </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>
         </div>
-    </div>
+    </div>;
 }

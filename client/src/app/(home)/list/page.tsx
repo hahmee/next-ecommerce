@@ -5,6 +5,7 @@ import {FetchInfiniteQueryOptions} from "@tanstack/react-query";
 import {getCategories, getCategory} from "@/apis/adminAPI";
 import {getProductList} from "@/apis/mallAPI";
 import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";
+import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
@@ -59,7 +60,10 @@ export default async function ListPage({searchParams}: Props) {
     return (
         <Suspense fallback={<ListPageSkeleton/>}>
             <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions} prefetchOptions={prefetchOptions}>
-                <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice} maxPrice={maxPrice} order={order} query={query}/>
+                <ErrorHandlingWrapper>
+                    <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice}
+                                 maxPrice={maxPrice} order={order} query={query}/>
+                </ErrorHandlingWrapper>
             </PrefetchBoundary>
         </Suspense>
     );

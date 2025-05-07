@@ -10,6 +10,7 @@ import {getSalesCards, getSalesCharts} from "@/apis/dashbaordAPI";
 import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 export default async function DashBoardSalesPage() {
     const endDate = new Date(); // today
@@ -63,9 +64,11 @@ export default async function DashBoardSalesPage() {
         <div className="flex flex-col gap-5">
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                    <SalesOverview/>
+                    <ErrorHandlingWrapper>
+                        <SalesOverview/>
+                    </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>
         </div>
-    </div>
+    </div>;
 }

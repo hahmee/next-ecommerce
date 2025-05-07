@@ -8,6 +8,7 @@ import MainProductList from "@/components/Admin/Product/MainProductList";
 import MainInfo from "@/components/Admin/Product/MainInfo";
 import ExpertList from "@/components/Admin/Product/ExpertList";
 import ExpertListSkeleton from "@/components/Skeleton/ExpertListSkeleton";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 // 예시 데이터
 const products = [
     {
@@ -86,7 +87,9 @@ const HomePage = () => {
                 </h1>
                 <Suspense fallback={<Skeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <Categories/>
+                        <ErrorHandlingWrapper>
+                            <Categories/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>
@@ -94,7 +97,9 @@ const HomePage = () => {
             <div className="mt-40 px-4">
                 <Suspense fallback={<ExpertListSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <ExpertList/>
+                        <ErrorHandlingWrapper>
+                            <ExpertList/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>
@@ -104,7 +109,9 @@ const HomePage = () => {
                 <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
                 <Suspense fallback={<Skeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <MainProductList type="new"/>
+                        <ErrorHandlingWrapper>
+                            <MainProductList type="new"/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>
@@ -114,7 +121,9 @@ const HomePage = () => {
                 <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
                 <Suspense fallback={<Skeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <MainProductList type="featured"/>
+                        <ErrorHandlingWrapper>
+                            <MainProductList type="featured"/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>

@@ -6,6 +6,7 @@ import PaymentTable from "@/components/Admin/Tables/PaymentTable";
 import {getPaymentsByEmail, getPaymentsOverview} from "@/apis/adminAPI";
 import PaymentSkeleton from "@/components/Skeleton/PaymentSkeleton";
 import formatDate from "@/libs/formatDate";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 export default async function AdminPaymentPage() {
     const endDate = new Date(); // today
@@ -42,22 +43,23 @@ export default async function AdminPaymentPage() {
         }
     ];
 
-
     return (
         <div className="mx-auto">
             <Breadcrumb pageName="Payments"/>
-            <div className="flex flex-col gap-10" >
+            <div className="flex flex-col gap-10">
                 <Suspense fallback={<PaymentSkeleton/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-                            <div className="col-span-12">
-                                <PaymentOverview/>
-                                <PaymentTable/>
+                        <ErrorHandlingWrapper>
+                            <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
+                                <div className="col-span-12">
+                                    <PaymentOverview/>
+                                    <PaymentTable/>
+                                </div>
                             </div>
-                        </div>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>
         </div>
-);
+    );
 };

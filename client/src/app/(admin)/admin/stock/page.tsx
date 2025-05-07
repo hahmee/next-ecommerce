@@ -4,6 +4,7 @@ import StockTable from "@/components/Admin/Tables/StockTable";
 import {getAdminStock} from "@/apis/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Loading from "@/app/loading";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
 export default function StockPage() {
 
@@ -19,7 +20,9 @@ export default function StockPage() {
             <div className="flex flex-col gap-10">
                 <Suspense fallback={<Loading/>}>
                     <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                        <StockTable/>
+                        <ErrorHandlingWrapper>
+                            <StockTable/>
+                        </ErrorHandlingWrapper>
                     </PrefetchBoundary>
                 </Suspense>
             </div>

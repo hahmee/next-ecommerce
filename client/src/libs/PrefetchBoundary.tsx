@@ -44,7 +44,7 @@ export async function PrefetchBoundary({
             : await queryClient.prefetchInfiniteQuery(prefetchInfiniteOptions);
     }
 
-    return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
-
-
+    return <HydrationBoundary state={dehydrate(queryClient)}>
+            {children}
+    </HydrationBoundary>;
 }
