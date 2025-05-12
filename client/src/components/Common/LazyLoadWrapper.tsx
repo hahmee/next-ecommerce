@@ -10,13 +10,14 @@ interface LazyLoadWrapperProps {
     fallback?: ReactNode;
 }
 
-const   LazyLoadWrapper = ({
+const LazyLoadWrapper = ({
                              children,
                              once = true,
                              className,
                              fallback = null,
                          }: LazyLoadWrapperProps) => {
-    const { ref, inView } = useInView({
+
+    const {ref, inView} = useInView({
         triggerOnce: once,
         threshold: 0.1,
     });

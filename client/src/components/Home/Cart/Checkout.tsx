@@ -50,7 +50,6 @@ const Checkout = () => {
         } catch (error) {
             toast.error((error as Error).message || "결제 요청 중 문제가 발생했습니다.");
             console.error("결제 요청 중 에러 발생:", error);
-            // 추가 에러 처리 로직(예: 사용자에게 알림)을 작성할 수 있습니다.
         }
     };
 
