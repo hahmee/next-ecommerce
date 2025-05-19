@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/MemberRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/adminAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/adminAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/checkout/complete/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/checkout/complete/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Common/LazyLoadWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/LazyLoadWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/Checkout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -785,7 +781,9 @@
       <workItem from="1747015141726" duration="7000" />
       <workItem from="1747016304797" duration="23000" />
       <workItem from="1747018496243" duration="605000" />
-      <workItem from="1747029364242" duration="2868000" />
+      <workItem from="1747029364242" duration="3351000" />
+      <workItem from="1747034580372" duration="395000" />
+      <workItem from="1747645854220" duration="2025000" />
     </task>
     <servers />
   </component>
