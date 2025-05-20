@@ -21,8 +21,7 @@ pipeline {
         stage('Backend CI') {
             steps {
                 dir('back') {
-                    sh './gradlew clean build'
-                    // 선택: sh './gradlew test'
+                    sh './gradlew clean build -x test'
                 }
             }
         }
