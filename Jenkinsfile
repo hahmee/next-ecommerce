@@ -33,8 +33,8 @@ pipeline {
             returnStdout: true
           ).trim()
 
-          sh "ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com mkdir -p ~/next-ecommerce/back"
-          sh "scp -i /var/lib/jenkins/.ssh/my-jenkins-key ${jarPath} ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com:~/next-ecommerce/back/app.jar"
+          sh "ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com mkdir -p /home/ubuntu/next-ecommerce/back"
+          sh "scp -i /var/lib/jenkins/.ssh/my-jenkins-key ${jarPath} ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com:/home/ubuntu/next-ecommerce/back/app.jar"
         }
       }
     }
@@ -43,12 +43,14 @@ pipeline {
       steps {
         sh """
         ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com << EOF
-          cd ~/next-ecommerce/back
-          echo "FROM amazoncorretto:17
-          WORKDIR /usr/src/app
-          COPY app.jar ./app.jar
-          EXPOSE 8080
-          CMD [\\"java\\", \\"-jar\\", \\"app.jar\\"]" > Dockerfile
+          cd /home/ubuntu/next-ecommerce/back
+          cat << DOCKER > Dockerfile
+            FROM amazoncorretto:17
+            WORKDIR /usr/src/app
+            COPY app.jar ./app.jar
+            EXPOSE 8080
+            CMD ["java", "-jar", "app.jar"]
+            DOCKER
 
           docker stop backend-container || true
           docker rm backend-container || true
