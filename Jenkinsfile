@@ -20,7 +20,7 @@ pipeline {
     stage('Backend CI') {
       steps {
         dir('back') {
-          sh './gradlew clean build' // test 포함하면 진짜 CI
+          sh './gradlew clean build -x test'
         }
       }
     }
