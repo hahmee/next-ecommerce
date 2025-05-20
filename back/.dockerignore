@@ -3,6 +3,9 @@ build/
 .gradle/
 out/
 
+build
+
+
 # 환경 설정 파일 (로컬/민감한 설정 제외)
 application.properties
 application.properties
