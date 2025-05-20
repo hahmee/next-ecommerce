@@ -71,7 +71,8 @@ pipeline {
           ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com mkdir -p /home/ubuntu/next-ecommerce/client
 
           scp -i /var/lib/jenkins/.ssh/my-jenkins-key -r \
-            client/.next \
+            client/.next/standalone \
+            client/.next/static \
             client/public \
             client/package.json \
             client/package-lock.json \
@@ -80,6 +81,7 @@ pipeline {
         """
       }
     }
+
 
     stage('Deploy Frontend on EC2') {
       steps {
