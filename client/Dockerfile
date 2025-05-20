@@ -25,7 +25,7 @@ COPY .next/static ./.next/static
 # 의존성 모듈 복사 (standalone 디렉토리에 포함되지 않은 경우를 위해)
 COPY node_modules ./node_modules
 
-# nextjs 사용자로 실행 (root 아님 → 보안 강화)  
+# nextjs 사용자로 실행 (root 아님 → 보안 강화)
 USER nextjs
 
 # 앱이 열 포트 설정 (보통 3000번)
