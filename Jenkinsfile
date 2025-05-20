@@ -45,20 +45,21 @@ pipeline {
       steps {
         sh """
         ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com << 'EOF'
-          cd /home/ubuntu/next-ecommerce/back
-          cat > Dockerfile << 'DOCKER'
-FROM amazoncorretto:17
-WORKDIR /usr/src/app
-COPY app.jar ./app.jar
-EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
-DOCKER
+    cd /home/ubuntu/next-ecommerce/back
 
-          docker stop backend-container || true
-          docker rm backend-container || true
-          docker build -t next-ecommerce-back .
-          docker run -d --name backend-container -p 8080:8080 next-ecommerce-back
-        EOF
+    cat > Dockerfile << 'DOCKER'
+    FROM amazoncorretto:17
+    WORKDIR /usr/src/app
+    COPY app.jar ./app.jar
+    EXPOSE 8080
+    CMD ["java", "-jar", "app.jar"]
+    DOCKER
+
+    docker stop backend-container || true
+    docker rm backend-container || true
+    docker build -t next-ecommerce-back .
+    docker run -d --name backend-container -p 8080:8080 next-ecommerce-back
+    EOF
         """
       }
     }
