@@ -32,4 +32,4 @@ USER nextjs
 EXPOSE 3000
 
 # 컨테이너 시작 시 실행할 명령 (Next.js 서버 실행)
-CMD ["node", "server.js"]
+CMD ["node", "standalone/server.js"]
