@@ -32,12 +32,17 @@ pipeline {
         }
 
        stage('Send .jar to EC2') {
-           steps {
-               sh '''
-               JAR_FILE=$(find back/build/libs -name "*.jar" | grep -v plain | head -n 1)
-               scp -i $SSH_KEY "$JAR_FILE" $EC2_HOST:~/next-ecommerce/back/build/libs/app.jar
-               '''
-           }
+            steps {
+                sh '''
+                JAR_FILE=$(find back/build/libs -name "*.jar" | grep -v plain | head -n 1)
+
+                # 1️⃣ 복사 전에 디렉토리 만들기 (중요!)
+                ssh -i $SSH_KEY $EC2_HOST "mkdir -p ~/next-ecommerce/back/build/libs"
+
+                # 2️⃣ .jar 파일 복사
+                scp -i $SSH_KEY "$JAR_FILE" $EC2_HOST:~/next-ecommerce/back/build/libs/app.jar
+                '''
+            }
         }
 
         stage('Deploy on EC2') {
