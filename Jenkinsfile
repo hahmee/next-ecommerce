@@ -86,16 +86,16 @@ pipeline {
     stage('Deploy Frontend on EC2') {
       steps {
         sh """
-        ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com << 'EOF'
-          cd /home/ubuntu/next-ecommerce/client
-
-          docker stop frontend-container || true
-          docker rm frontend-container || true
-          docker build -t next-ecommerce-front .
-          docker run -d --name frontend-container -p 3000:3000 next-ecommerce-front
-        EOF
+          ssh -i /var/lib/jenkins/.ssh/my-jenkins-key ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com \\
+            "cd /home/ubuntu/next-ecommerce/client && \\
+            docker stop frontend-container || true && \\
+            docker rm frontend-container || true && \\
+            docker build -t next-ecommerce-front . && \\
+            docker run -d --name frontend-container -p 3000:3000 next-ecommerce-front"
         """
       }
     }
+
+
   }
 }
