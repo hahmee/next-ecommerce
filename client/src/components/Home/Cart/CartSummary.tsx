@@ -17,7 +17,6 @@ const CartSummary = ({type, cartButtonClick}: { type: "Checkout" | "Payment", ca
                         <h2 className="text-base font-medium mb-4 underline">Edit Cart</h2>
                     </Link>
                 }
-
             </div>
 
             {

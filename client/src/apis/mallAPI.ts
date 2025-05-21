@@ -95,20 +95,35 @@ export async function getOrders({ orderId }: { orderId: string }) {
 }
 
 export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount }: {
-    queryKey: string[];
-    paymentKey: string;
-    orderId: string;
-    amount: string;
+  queryKey: string[];
+  paymentKey: string;
+  orderId: string;
+  amount: string;
 }) {
-    return unwrap(
-        await fetchJWT(`/api/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
-            method: "GET",
-            next: { tags: ["payment", orderId] },
-            credentials: "include",
-            cache: "no-store",
-        })
-    );
+  return unwrap(
+    await fetchJWT(`/api/toss/confirm`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({ paymentKey, orderId, amount: Number(amount) }),
+    })
+  );
 }
+
+// export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount }: {
+//     queryKey: string[];
+//     paymentKey: string;
+//     orderId: string;
+//     amount: string;
+// }) {
+//     return unwrap(
+//         await fetchJWT(`/api/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
+//             method: "GET",
+//             next: { tags: ["payment", orderId] },
+//             credentials: "include",
+//             cache: "no-store",
+//         })
+//     );
+// }
 
 export const getUserReviews = async ({ queryKey }: { queryKey: [string] }) => {
     return unwrap(
