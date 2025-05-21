@@ -1,21 +1,15 @@
-services: # 컨테이너 설정
-#  jenkins:
-#    image: jenkins/jenkins:lts
-#    container_name: jenkins
-#    volumes:
-#      - /var/jenkins_home:/var/jenkins_home
-#      - /var/run/docker.sock:/var/run/docker.sock
-#    ports:
-#      - 9091:8080
+version: '3.8'
+
+services:
   db:
-    image: mariadb #docker Hub에서 MariaDB 이미지를 다운로드하여 컨테이너를 실행
+    image: mariadb
     container_name: mariadb-container
     restart: always
     networks:
       - app-network
     volumes:
-      - db-data:/var/lib/mariadb  # MariaDB 데이터 디렉토리
-      - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql  # init.sql을 지정된 디렉토리로 마운트
+      - db-data:/var/lib/mariadb
+      - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${DB_NAME}
@@ -28,14 +22,11 @@ services: # 컨테이너 설정
 
   back:
     container_name: backend-container
-    image: next-ecommerce-back
     restart: always
     networks:
       - app-network
-    build:
-      context: ./back  # 백엔드 디렉토리에서 Dockerfile을 빌드
     ports:
-      - "8080:8080"  # 백엔드 포트
+      - "8080:8080"
     depends_on:
       - db
     environment:
@@ -43,28 +34,23 @@ services: # 컨테이너 설정
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
 
   client:
     container_name: client-container
-    image: next-ecommerce-client
-    build:
-      context: ./client  # 프론트엔드 디렉토리에서 Dockerfile을 빌드
     ports:
-      - "3000:3000"  # 프론트엔드 포트
+      - "3000:3000"
     networks:
-      - app-network  # 같은 네트워크에 속하도록 설정
+      - app-network
     depends_on:
       - back
     env_file:
-      - ./client/.env.docker  # client 폴더의 .env.docker 파일을 적용
+      - ./client/.env.docker
 
 networks:
   app-network:
     driver: bridge
 
-
 volumes:
-  db-data:  # MariaDB 데이터를 저장할 볼륨
+  db-data:
