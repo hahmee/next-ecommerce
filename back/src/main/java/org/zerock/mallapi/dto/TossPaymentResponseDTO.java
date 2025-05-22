@@ -1,7 +1,9 @@
 package org.zerock.mallapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class TossPaymentResponseDTO {
     private String orderId;
@@ -9,5 +11,5 @@ public class TossPaymentResponseDTO {
     private String paymentKey;
     private String status;
     private String approvedAt;
-    private int totalAmount;
+    private long totalAmount;
 }

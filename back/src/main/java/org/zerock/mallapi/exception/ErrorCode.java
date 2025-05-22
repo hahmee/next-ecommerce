@@ -34,7 +34,9 @@ public enum ErrorCode {
 
     MAX_SIZE_EXCEED(400, HttpStatus.BAD_REQUEST ,"MAX_SIZE_EXCEED"),
 
+    TOSS_PAYMENT_FAIL(301, HttpStatus.BAD_REQUEST, "TOSS FAILED"),
     TEST_MAX(400, HttpStatus.NO_CONTENT ,"NONONO");
+
 
 
     private final Integer code;

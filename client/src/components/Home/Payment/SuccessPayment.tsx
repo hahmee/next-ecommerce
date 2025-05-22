@@ -17,51 +17,55 @@ interface Props {
 
 const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
     const router = useRouter();
-    const isProduction = process.env.NEXT_PUBLIC_MODE === 'production';
+    // const isProduction = process.env.NEXT_PUBLIC_MODE === 'production';
 
     const mutation = useMutation({
         mutationFn: async () => {
-            // 로그인 요청 및 쿠키 설정 (로컬에서만 필요)
-            // if(!isProduction) {
-            //     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
-            //         method: "POST",
-            //         credentials: "include",
-            //         headers: {
-            //             "Content-Type": "application/x-www-form-urlencoded",
-            //         },
-            //         body: new URLSearchParams({
-            //             username: "user1@aaa.com",
-            //             password: "1111",
-            //         }),
-            //     });
-            //     const data: DataResponse<Member> = await response.json();
-            //     await setCookie("member", JSON.stringify(data.data));
-            // }
-
-
-
-            // 결제 승인 (저장) API 호출
-            // 백엔드에서 로그인 하면 됨.
-            return await getSuccessPayment({
-                queryKey: ["payment", orderId],
-                paymentKey,
-                orderId,
-                amount,
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/toss/confirm`, {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ paymentKey, orderId, amount: Number(amount) }),
             });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || "결제 확인 실패");
+            }
+
+            const result = await response.json();
+            console.log("결제 승인 결과:", result);
+
+            const { accessToken, refreshToken, ...member } = result.data;
+
+            await setCookie(
+              "member",
+              JSON.stringify({ ...member, accessToken, refreshToken })
+            );
+
+            return result;
         },
         onSuccess: (result) => {
-            console.log("결제 승인 후 결과:", result);
+            console.log("✅ 결제 승인 성공:", result);
             router.push(`/order/confirmation/${paymentKey}`);
         },
         onError: (error) => {
-            console.error("결제 승인 에러:", error);
+            console.error("❌ 결제 승인 에러:", error);
         },
     });
 
     useEffect(() => {
         if (!orderId || !paymentKey || !amount) return;
+        if (mutation.isPending || mutation.isSuccess) return; // 중복 방지
         mutation.mutate();
     }, [orderId, paymentKey, amount]);
+
+    // useEffect(() => {
+    //     if (!orderId || !paymentKey || !amount) return;
+    //     mutation.mutate();
+    // }, [orderId, paymentKey, amount]);
 
     return <Loading />;
 };
