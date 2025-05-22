@@ -18,8 +18,6 @@ import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.MemberRepository;
 
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;

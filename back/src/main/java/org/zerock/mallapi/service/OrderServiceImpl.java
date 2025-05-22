@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -314,6 +315,17 @@ public class OrderServiceImpl implements OrderService{
 
     return orderDTO;
 
+  }
+
+  @Override
+  public Member getByOrderId(String orderId) {
+    List<Order> orders = orderRepository.findByOrderId(orderId);
+
+    if (orders.isEmpty()) {
+      throw new NoSuchElementException("해당 orderId에 해당하는 주문이 없습니다.");
+    }
+
+    return orders.get(0).getOwner(); // 같은 사용자이므로 아무 주문에서 꺼내면 됨
   }
 
 

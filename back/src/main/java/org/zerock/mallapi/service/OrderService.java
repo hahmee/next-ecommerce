@@ -1,6 +1,7 @@
 package org.zerock.mallapi.service;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.domain.Order;
 import org.zerock.mallapi.dto.*;
 
@@ -29,4 +30,7 @@ public interface OrderService {
   List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO);
 
   OrderDTO convertToDTO(Order order);
+
+  Member getByOrderId(String orderId); // 주문 ID는 중복 가능
+
 }

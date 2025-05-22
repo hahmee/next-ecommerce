@@ -22,23 +22,26 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
     const mutation = useMutation({
         mutationFn: async () => {
             // 로그인 요청 및 쿠키 설정 (로컬에서만 필요)
-            if(!isProduction) {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
-                    method: "POST",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                    body: new URLSearchParams({
-                        username: "user1@aaa.com",
-                        password: "1111",
-                    }),
-                });
-                const data: DataResponse<Member> = await response.json();
-                await setCookie("member", JSON.stringify(data.data));
-            }
+            // if(!isProduction) {
+            //     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+            //         method: "POST",
+            //         credentials: "include",
+            //         headers: {
+            //             "Content-Type": "application/x-www-form-urlencoded",
+            //         },
+            //         body: new URLSearchParams({
+            //             username: "user1@aaa.com",
+            //             password: "1111",
+            //         }),
+            //     });
+            //     const data: DataResponse<Member> = await response.json();
+            //     await setCookie("member", JSON.stringify(data.data));
+            // }
+
+
 
             // 결제 승인 (저장) API 호출
+            // 백엔드에서 로그인 하면 됨.
             return await getSuccessPayment({
                 queryKey: ["payment", orderId],
                 paymentKey,

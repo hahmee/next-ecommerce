@@ -104,6 +104,9 @@ export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount 
     await fetchJWT(`/api/toss/confirm`, {
       method: "POST",
       credentials: "include",
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ paymentKey, orderId, amount: Number(amount) }),
     })
   );

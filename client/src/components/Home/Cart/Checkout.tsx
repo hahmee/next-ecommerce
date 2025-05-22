@@ -35,6 +35,7 @@ const Checkout = () => {
         try {
 
             await orderSave(newOrderId);
+
             const tossPayments = await loadTossPayments(
                 process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
             );

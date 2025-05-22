@@ -8,6 +8,7 @@ import org.zerock.mallapi.domain.Order;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Long>{
 
@@ -249,29 +250,6 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    // 각 날짜별로 총 매출, 총 매출, 총 주문 수, 평균 주문 금액을 반환
-//    @Query("SELECT DATE(o.createdAt), SUM(o.productInfo.qty * o.productInfo.price), SUM(o.productInfo.qty * o.productInfo.price + o.shippingFee + o.tax), AVG(o.totalAmount), AVG(o.totalAmount) " +
-//            "FROM Order o " +
-//            "WHERE o.seller.email = :email " +
-//            "AND o.status = org.zerock.mallapi.domain.OrderStatus.PAYMENT_CONFIRMED " +
-//            "AND o.createdAt BETWEEN :startDate AND :endDate " +
-//            "GROUP BY DATE(o.createdAt)")
-//    List<Object[]> findSalesSummary(@Param("email") String email, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("filter") String filter);
+    List<Order> findByOrderId(String orderId);
 
 }

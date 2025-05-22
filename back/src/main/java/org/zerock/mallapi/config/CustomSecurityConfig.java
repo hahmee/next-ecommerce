@@ -60,6 +60,7 @@ public class CustomSecurityConfig {
     // ⛔ 중요: authorizeHttpRequests 설정 추가
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/member/**").permitAll() // 로그인 관련은 모두 허용
+            .requestMatchers("/api/toss/confirm").permitAll() //
             .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
     );
 
