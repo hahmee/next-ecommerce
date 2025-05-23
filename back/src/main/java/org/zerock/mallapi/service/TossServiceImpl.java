@@ -17,6 +17,7 @@ import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.JWTUtil;
+import org.zerock.mallapi.util.TokenResponseUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,72 +36,53 @@ public class TossServiceImpl implements TossService {
   private final MemberService memberService;
   private final PaymentService paymentService;
 
-
   @Override
   public DataResponseDTO<Map<String, Object>> confirmPayment(ConfirmRequestDTO confirmRequestDTO) {
     String paymentKey = confirmRequestDTO.getPaymentKey();
-    String orderId = confirmRequestDTO.getOrderId();
-    long amount = confirmRequestDTO.getAmount();
 
+    // ✅ 이미 처리된 결제라면 JWT만 발급하고 반환
+    if (paymentService.existsByPaymentKey(paymentKey)) {
+      log.info("✅ 이미 처리된 결제입니다: {}", paymentKey);
 
+      PaymentDTO paymentDTO = paymentService.getByPaymentKey(paymentKey);
+      MemberDTO memberDTO = paymentDTO.getOwner();
+      return TokenResponseUtil.create(memberDTO, paymentDTO);
+
+    }
+
+    // Toss 결제 승인 요청
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.APPLICATION_JSON);
     headers.setBasicAuth(tossSecretKey, "");
 
-    Map<String, Object> body = new HashMap<>();
-    body.put("orderId", orderId);
-    body.put("amount", amount);
+    Map<String, Object> body = Map.of(
+            "orderId", confirmRequestDTO.getOrderId(),
+            "amount", confirmRequestDTO.getAmount()
+    );
 
     HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
 
     try {
-      // 1️⃣ Toss 결제 승인 요청
       ResponseEntity<String> response = restTemplate.postForEntity(
               "https://api.tosspayments.com/v1/payments/" + paymentKey,
               entity,
               String.class
       );
 
-      String responseBody = response.getBody();
-      log.info("✅ Toss 응답: {}", responseBody);
 
-      // 2️⃣ 응답 파싱
-      ObjectMapper objectMapper = new ObjectMapper();
-      TossPaymentResponseDTO tossPaymentResponseDTO = objectMapper.readValue(responseBody, TossPaymentResponseDTO.class);
-      String parsedOrderId = tossPaymentResponseDTO.getOrderId();
+//      TossPaymentResponseDTO dto = new ObjectMapper().readValue(response.getBody(), TossPaymentResponseDTO.class);
+      ObjectMapper mapper = new ObjectMapper();
+      PaymentSuccessDTO dto = mapper.readValue(response.getBody(), PaymentSuccessDTO.class);
 
-      // 3️⃣ 사용자 조회
-      Member member = orderService.getByOrderId(parsedOrderId);
+      Member member = orderService.getByOrderId(dto.getOrderId());
       MemberDTO memberDTO = memberService.entityToDTO(member);
-      Map<String, Object> claims = memberDTO.getClaims();
 
-      // ✅ 4️⃣ 결제/주문/연결 테이블 처리
-      PaymentRequestDTO paymentRequestDTO = PaymentRequestDTO.builder()
-              .orderId(parsedOrderId)
-//              .amount(tossPaymentResponseDTO.getTotalAmount())
-              .paymentKey(tossPaymentResponseDTO.getPaymentKey())
-              .amount(String.valueOf(tossPaymentResponseDTO.getTotalAmount()))
-//              .amount(tossPaymentResponseDTO)
-//              .orderName(tossPaymentResponseDTO.getOrderName())
-//              .status(TossPaymentStatus.valueOf(tossPaymentResponseDTO.getStatus()))
-//              .approvedAt(tossPaymentResponseDTO.getApprovedAt())
-//              .method(tossPaymentResponseDTO.getMethod())
-              .build();
+      PaymentDTO savedPayment = paymentService.savePaymentAfterSuccess(dto, member.getEmail());
 
-      PaymentSuccessDTO savedPaymentInfo = paymentService.tossPaymentSuccess(paymentRequestDTO, member.getEmail());
+      log.info("savedPayment////" + savedPayment);
 
-      // 5️⃣ JWT 발급
-      String accessToken = JWTUtil.generateToken(claims, 60);         // 1시간
-      String refreshToken = JWTUtil.generateToken(claims, 60 * 24);   // 1일
+      return TokenResponseUtil.create(memberDTO, savedPayment);
 
-      // 6️⃣ 응답 구성
-      Map<String, Object> responseMap = new HashMap<>();
-      responseMap.put("accessToken", accessToken);
-      responseMap.put("refreshToken", refreshToken);
-      responseMap.put("member", memberDTO);
-      responseMap.put("payment", savedPaymentInfo); // optional
-
-      return DataResponseDTO.of(responseMap);
 
     } catch (HttpClientErrorException e) {
       log.error("❌ Toss 결제 API 오류: {}", e.getResponseBodyAsString());
@@ -111,5 +93,6 @@ public class TossServiceImpl implements TossService {
       throw new GeneralException(ErrorCode.INTERNAL_ERROR, "결제 승인 중 오류 발생");
     }
   }
+
 
 }

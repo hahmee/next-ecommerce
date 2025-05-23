@@ -59,6 +59,55 @@ public class PaymentServiceImpl implements PaymentService{
 
   private final OrderService orderService;
 
+  @Override
+  public PaymentDTO savePaymentAfterSuccess(PaymentSuccessDTO paymentSuccessDTO, String email) {
+
+    // ✅ 이미 저장된 결제인지 확인
+    if (paymentRepository.existsByPaymentKey(paymentSuccessDTO.getPaymentKey())) {
+      throw new GeneralException(ErrorCode.ALREADY_PROCESSED, "이미 처리된 결제입니다.");
+    }
+
+    // ✅ Toss 결제 상태가 DONE인지 확인
+    if (!TossPaymentStatus.DONE.name().equals(paymentSuccessDTO.getStatus())) {
+      throw new GeneralException(ErrorCode.TOSS_PAYMENT_FAIL, "결제가 완료되지 않았습니다.");
+    }
+
+    //결제 객체의 정보 중 필요한 정보들을 서버에 저장한다.
+    Payment payment = dtoToEntity(paymentSuccessDTO, email);
+
+    log.info("최종..payment" + payment);
+
+    //시간
+    payment.setCreatedAt(LocalDateTime.now());
+    payment.setUpdatedAt(LocalDateTime.now());
+
+
+    // ✅ 주문 정보 조회 및 연결
+    List<Order> orders = orderRepository.selectListByOrderId(paymentSuccessDTO.getOrderId());
+    if (orders.isEmpty()) {
+      throw new GeneralException(ErrorCode.NOT_FOUND, "주문 내역이 없습니다.");
+    }
+
+    payment.getOrders().addAll(orders);
+    paymentRepository.save(payment);
+
+    for (Order order : orders) {
+      order.changeStatus(OrderStatus.PAYMENT_CONFIRMED);
+      order.setUpdatedAt(LocalDateTime.now());
+      orderRepository.save(order);
+
+      OrderPayment orderPayment = OrderPayment.builder()
+              .orderId(order.getId())
+              .paymentId(payment.getId())
+              .build();
+      orderPaymentRepository.save(orderPayment);
+
+      deleteCartItems(email, order.getProductInfo().getPno());
+    }
+
+    return convertToDTO(payment);
+  }
+
 
   @Override
   public PaymentSuccessDTO tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, String email) {
@@ -510,6 +559,11 @@ private PaymentDTO convertToDTO(Payment payment){
             .totalCount(totalCount)
             .pageRequestDTO(pageRequestDTO)
             .build();
+  }
+
+  @Override
+  public boolean existsByPaymentKey(String paymentKey) {
+    return paymentRepository.existsByPaymentKey(paymentKey);
   }
 
 

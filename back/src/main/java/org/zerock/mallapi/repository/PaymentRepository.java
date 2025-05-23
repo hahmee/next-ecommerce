@@ -69,4 +69,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long>{
     )
     Page<Object[]> searchAdminOrders(Pageable pageable, @Param("search") String search, @Param("email") String email, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 
+
+    boolean existsByPaymentKey(String paymentKey);
 }

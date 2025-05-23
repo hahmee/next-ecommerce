@@ -27,5 +27,8 @@ public interface PaymentService {
 
   PageResponseDTO<AdminOrderDTO> getSearchAdminOrders(SearchRequestDTO searchRequestDTO, String email);
 
+  PaymentDTO savePaymentAfterSuccess(PaymentSuccessDTO dto, String email);
+
+  boolean existsByPaymentKey(String paymentKey);
 
 }
