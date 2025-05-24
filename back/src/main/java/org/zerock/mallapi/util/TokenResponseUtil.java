@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class TokenResponseUtil {
 
-    public static DataResponseDTO<Map<String, Object>> create(MemberDTO memberDTO, Object paymentData) {
+    public static DataResponseDTO<Map<String, Object>> create(MemberDTO memberDTO) {
         Map<String, Object> claims = memberDTO.getClaims();
         String accessToken = JWTUtil.generateToken(claims, 60);
         String refreshToken = JWTUtil.generateToken(claims, 60 * 24);
@@ -17,7 +17,7 @@ public class TokenResponseUtil {
         responseMap.put("accessToken", accessToken);
         responseMap.put("refreshToken", refreshToken);
         responseMap.put("member", memberDTO);
-        responseMap.put("payment", paymentData);
+//        responseMap.put("payment", paymentData);
 
         return DataResponseDTO.of(responseMap);
     }

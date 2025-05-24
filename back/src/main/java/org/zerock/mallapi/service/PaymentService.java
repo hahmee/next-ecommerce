@@ -1,6 +1,7 @@
 package org.zerock.mallapi.service;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.zerock.mallapi.domain.Member;
 import org.zerock.mallapi.dto.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface PaymentService {
 
   PageResponseDTO<AdminOrderDTO> getSearchAdminOrders(SearchRequestDTO searchRequestDTO, String email);
 
-  PaymentDTO savePaymentAfterSuccess(PaymentSuccessDTO dto, String email);
+  void savePaymentAfterSuccess(PaymentSuccessDTO paymentSuccessDTO, Member member);
 
   boolean existsByPaymentKey(String paymentKey);
 

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
@@ -19,8 +20,10 @@ import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.JWTUtil;
 import org.zerock.mallapi.util.TokenResponseUtil;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -30,8 +33,7 @@ public class TossServiceImpl implements TossService {
 
   @Value("${payment.toss.secret.key}")
   private String tossSecretKey;
-
-  private final RestTemplate restTemplate = new RestTemplate();
+  private final RestTemplate restTemplate;
   private final OrderService orderService;
   private final MemberService memberService;
   private final PaymentService paymentService;
@@ -40,13 +42,15 @@ public class TossServiceImpl implements TossService {
   public DataResponseDTO<Map<String, Object>> confirmPayment(ConfirmRequestDTO confirmRequestDTO) {
     String paymentKey = confirmRequestDTO.getPaymentKey();
 
+    log.info("....paymentKey " + paymentKey);
+
     // ✅ 이미 처리된 결제라면 JWT만 발급하고 반환
     if (paymentService.existsByPaymentKey(paymentKey)) {
       log.info("✅ 이미 처리된 결제입니다: {}", paymentKey);
 
       PaymentDTO paymentDTO = paymentService.getByPaymentKey(paymentKey);
       MemberDTO memberDTO = paymentDTO.getOwner();
-      return TokenResponseUtil.create(memberDTO, paymentDTO);
+      return TokenResponseUtil.create(memberDTO);
 
     }
 
@@ -62,6 +66,8 @@ public class TossServiceImpl implements TossService {
 
     HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
 
+    log.info("....entity " + entity); // 여기까진 괜찮음
+
     try {
       ResponseEntity<String> response = restTemplate.postForEntity(
               "https://api.tosspayments.com/v1/payments/" + paymentKey,
@@ -69,19 +75,34 @@ public class TossServiceImpl implements TossService {
               String.class
       );
 
-
-//      TossPaymentResponseDTO dto = new ObjectMapper().readValue(response.getBody(), TossPaymentResponseDTO.class);
       ObjectMapper mapper = new ObjectMapper();
-      PaymentSuccessDTO dto = mapper.readValue(response.getBody(), PaymentSuccessDTO.class);
 
-      Member member = orderService.getByOrderId(dto.getOrderId());
-      MemberDTO memberDTO = memberService.entityToDTO(member);
+      PaymentSuccessDTO paymentSuccessDTO = mapper.readValue(response.getBody(), PaymentSuccessDTO.class);
 
-      PaymentDTO savedPayment = paymentService.savePaymentAfterSuccess(dto, member.getEmail());
+      log.info("....dto " + paymentSuccessDTO);
 
-      log.info("savedPayment////" + savedPayment);
+      Member member = orderService.getByOrderId(paymentSuccessDTO.getOrderId());
 
-      return TokenResponseUtil.create(memberDTO, savedPayment);
+      log.info("member/// " + member); // 다 가져옴
+
+
+      // 저장
+      paymentService.savePaymentAfterSuccess(paymentSuccessDTO, member);
+
+//      log.info("savedPayment////" + savedPayment);
+
+      MemberDTO memberDTO = new MemberDTO(
+              member.getEmail(),
+              member.getPassword(),
+              member.getNickname(),
+              member.isSocial(),
+              member.getMemberRoleList().stream().map(memberRole -> memberRole).collect(Collectors.toList()),
+              member.getEncryptedId(),
+              member.getCreatedAt(),
+              member.getUpdatedAt()
+      );
+
+      return TokenResponseUtil.create(memberDTO);
 
 
     } catch (HttpClientErrorException e) {

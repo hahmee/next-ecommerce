@@ -49,7 +49,8 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
         },
         onSuccess: (result) => {
             console.log("✅ 결제 승인 성공:", result);
-            router.push(`/order/confirmation/${paymentKey}`);
+            router.replace(`/order/confirmation/${paymentKey}`);
+
         },
         onError: (error) => {
             console.error("❌ 결제 승인 에러:", error);

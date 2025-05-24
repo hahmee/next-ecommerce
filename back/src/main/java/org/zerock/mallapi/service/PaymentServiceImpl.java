@@ -60,17 +60,20 @@ public class PaymentServiceImpl implements PaymentService{
   private final OrderService orderService;
 
   @Override
-  public PaymentDTO savePaymentAfterSuccess(PaymentSuccessDTO paymentSuccessDTO, String email) {
+  public void savePaymentAfterSuccess(PaymentSuccessDTO paymentSuccessDTO, Member member) {
 
     // ✅ 이미 저장된 결제인지 확인
     if (paymentRepository.existsByPaymentKey(paymentSuccessDTO.getPaymentKey())) {
       throw new GeneralException(ErrorCode.ALREADY_PROCESSED, "이미 처리된 결제입니다.");
     }
 
+    log.info(";....?? " + paymentSuccessDTO);
     // ✅ Toss 결제 상태가 DONE인지 확인
-    if (!TossPaymentStatus.DONE.name().equals(paymentSuccessDTO.getStatus())) {
+    if (paymentSuccessDTO.getStatus() != TossPaymentStatus.DONE) {
       throw new GeneralException(ErrorCode.TOSS_PAYMENT_FAIL, "결제가 완료되지 않았습니다.");
     }
+
+    String email = member.getEmail();
 
     //결제 객체의 정보 중 필요한 정보들을 서버에 저장한다.
     Payment payment = dtoToEntity(paymentSuccessDTO, email);
@@ -81,7 +84,6 @@ public class PaymentServiceImpl implements PaymentService{
     payment.setCreatedAt(LocalDateTime.now());
     payment.setUpdatedAt(LocalDateTime.now());
 
-
     // ✅ 주문 정보 조회 및 연결
     List<Order> orders = orderRepository.selectListByOrderId(paymentSuccessDTO.getOrderId());
     if (orders.isEmpty()) {
@@ -90,6 +92,7 @@ public class PaymentServiceImpl implements PaymentService{
 
     payment.getOrders().addAll(orders);
     paymentRepository.save(payment);
+
 
     for (Order order : orders) {
       order.changeStatus(OrderStatus.PAYMENT_CONFIRMED);
@@ -102,10 +105,17 @@ public class PaymentServiceImpl implements PaymentService{
               .build();
       orderPaymentRepository.save(orderPayment);
 
+      log.info("zzzz");
+
       deleteCartItems(email, order.getProductInfo().getPno());
+
     }
 
-    return convertToDTO(payment);
+    log.info("payment.." + payment.getOwner());
+
+//    return convertToDTO(payment);
+
+//    return
   }
 
 
@@ -385,8 +395,11 @@ public class PaymentServiceImpl implements PaymentService{
 
 private PaymentDTO convertToDTO(Payment payment){
 
+  log.info("...payment.. " + payment.getOwner());
 
   MemberDTO memberDTO = memberService.entityToDTO(payment.getOwner());
+//
+  log.info("...memberDTO.. " + memberDTO);
 
   PaymentDTO paymentDTO = PaymentDTO.builder()
           .id(payment.getId())
@@ -402,6 +415,8 @@ private PaymentDTO convertToDTO(Payment payment){
 
   paymentDTO.setCreatedAt(payment.getCreatedAt());
   payment.setUpdatedAt(payment.getUpdatedAt());
+
+  log.info("zzzzzz " + paymentDTO);
 
     return paymentDTO;
   }

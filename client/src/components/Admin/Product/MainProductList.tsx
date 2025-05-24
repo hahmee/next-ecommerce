@@ -49,6 +49,8 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
     }, [data]);
 
     const handleClickAddCart = async (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }): Promise<void> => {
+        console.log('sdfsdfs', member)
+
         changeOpen(true);
         const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
 

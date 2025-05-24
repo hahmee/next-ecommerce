@@ -33,17 +33,35 @@ public class MemberDTO extends User {
 
   private LocalDateTime updatedAt;
 
+//  public MemberDTO(String email, String password, String nickname, boolean social, List<MemberRole> roleNames, String encryptedId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+//    super(email, password, roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
+//    this.email = email;
+//    this.password = password;
+//    this.nickname = nickname;
+//    this.social = social;
+//    this.roleNames = roleNames;
+//    this.encryptedId = encryptedId;
+//    this.createdAt = createdAt;
+//    this.updatedAt = updatedAt;
+//  }
+
+
   public MemberDTO(String email, String password, String nickname, boolean social, List<MemberRole> roleNames, String encryptedId, LocalDateTime createdAt, LocalDateTime updatedAt) {
-    super(email, password, roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList()));
+    super(email, password,
+            roleNames != null
+                    ? roleNames.stream().map(str -> new SimpleGrantedAuthority("ROLE_" + str)).collect(Collectors.toList())
+                    : new ArrayList<>()
+    );
     this.email = email;
     this.password = password;
     this.nickname = nickname;
     this.social = social;
-    this.roleNames = roleNames;
+    this.roleNames = roleNames != null ? roleNames : new ArrayList<>();
     this.encryptedId = encryptedId;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
+
 
   public Map<String, Object> getClaims() {
 

@@ -87,7 +87,8 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
                 )
             }
 
-            {memberInfo.roleNames.some(role => [MemberRole.ADMIN, MemberRole.MANAGER, MemberRole.DEMO].includes(role)) && (
+
+            {memberInfo.roleNames?.some(role => [MemberRole.ADMIN, MemberRole.MANAGER, MemberRole.DEMO].includes(role)) && (
                 <Link href="/admin/products">
                     <BuildingStorefrontIcon className="h-7 w-7 cursor-pointer" strokeWidth={1}/>
                 </Link>
