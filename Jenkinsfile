@@ -54,7 +54,10 @@ pipeline {
         sshagent(credentials: ['ec2-ssh-key']) {
           sh """
             ssh -o StrictHostKeyChecking=no ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com \\
-            'echo "[💥 Stop existing containers]" && \\
+            'echo "[📄 Write .env file]" && \\
+             echo "FRONT_IMAGE=${FRONT_IMAGE}" > ~/next-ecommerce/.env && \\
+             echo "BACK_IMAGE=${BACK_IMAGE}" >> ~/next-ecommerce/.env && \\
+             echo "[💥 Stop existing containers]" && \\
              docker-compose -f ~/next-ecommerce/docker-compose.yml down && \\
              echo "[🧹 Prune unused Docker data]" && \\
              docker system prune -f && \\
@@ -68,5 +71,7 @@ pipeline {
         }
       }
     }
+
+
   }
 }
