@@ -4,8 +4,8 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import crypto from "crypto";
 import {getCookie} from "cookies-next";
 
-const GA_TRACKING_ID = process.env.GOOGLE_GA_TRACKING_ID;
-const GTM_TRACKING_ID = process.env.GOOGLE_GTM_TRACKING_ID;
+const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
+const GTM_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GTM_TRACKING_ID;
 
 // User-ID 암호화 함수
 function hashUserId(userId:string):string {

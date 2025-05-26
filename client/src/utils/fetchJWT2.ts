@@ -3,7 +3,7 @@
 import {Member} from "@/interface/Member";
 import {getCookie, setCookie} from "@/utils/cookie";
 
-const host = process.env.BACKEND_URL;
+const host = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 interface IRequestInit {
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';

@@ -5,15 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../back/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/PaymentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/TossServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/TossServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenResponseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenResponseUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Jenkinsfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/checkout/complete/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/checkout/complete/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/apis/mallAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/mallAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/UserGA.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/UserGA.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetchJWT.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchJWT.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetchJWT2.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetchJWT2.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../script/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../script/deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../unified.Dockerfile" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -809,7 +813,7 @@
       <workItem from="1748048647667" duration="8007000" />
       <workItem from="1748065562324" duration="11460000" />
       <workItem from="1748102350865" duration="5000" />
-      <workItem from="1748227113442" duration="4348000" />
+      <workItem from="1748227113442" duration="14348000" />
     </task>
     <servers />
   </component>

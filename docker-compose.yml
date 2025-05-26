@@ -21,6 +21,7 @@ services:
       - .env
 
   back:
+    image: your-dockerhub-username/next-ecommerce-backend  # ✅ Jenkins가 푸시한 백엔드 이미지
     container_name: backend-container
     restart: always
     networks:
@@ -34,10 +35,12 @@ services:
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
 
   client:
+    image: your-dockerhub-username/next-ecommerce-frontend  # ✅ Jenkins가 푸시한 프론트 이미지
     container_name: client-container
     ports:
       - "3000:3000"

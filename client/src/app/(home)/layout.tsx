@@ -4,8 +4,8 @@ import {getCookie} from "@/utils/cookie";
 import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google";
 import Navbar from "@/components/Home/Navbar";
 
-const GA_TRACKING_ID = process.env.GOOGLE_GA_TRACKING_ID;
-const GTM_TRACKING_ID = process.env.GOOGLE_GTM_TRACKING_ID;
+const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
+const GTM_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GTM_TRACKING_ID;
 
 export default async function DefaultLayout({children}: Readonly<{ children: React.ReactNode }>) {
 
