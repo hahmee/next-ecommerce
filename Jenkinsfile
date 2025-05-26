@@ -63,13 +63,13 @@ pipeline {
                    export BACK_IMAGE=$BACK_IMAGE && \\
                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin && \\
                    echo "[💥 Stop existing containers]" && \\
-                   docker compose -f ~/next-ecommerce/docker-compose.yml down && \\
+                   docker-compose -f ~/next-ecommerce/docker-compose.yml down && \\
                    echo "[📦 Pull latest images]" && \\
                    docker pull $FRONT_IMAGE && \\
                    docker pull $BACK_IMAGE && \\
                    echo "[🚀 Start with docker-compose]" && \\
                    cd ~/next-ecommerce && \\
-                   docker compose -f docker-compose.yml up -d'
+                   docker-compose -f docker-compose.yml up -d'
                 """
               }
             }
