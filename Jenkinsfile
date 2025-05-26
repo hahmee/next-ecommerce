@@ -18,7 +18,7 @@ pipeline {
         dir('client') {
           sh 'npm ci'
           sh 'npm run build'
-          sh 'docker build -t $FRONT_IMAGE -f Dockerfile .' // client/Dockerfile
+          sh 'docker build -t $FRONT_IMAGE -f Dockerfile .'
         }
       }
     }
@@ -27,7 +27,7 @@ pipeline {
       steps {
         dir('back') {
           sh './gradlew clean build -x test'
-          sh 'docker build -t $BACK_IMAGE -f Dockerfile .' // back/Dockerfile
+          sh 'docker build -t $BACK_IMAGE -f Dockerfile .'
         }
       }
     }
