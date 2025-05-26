@@ -27,6 +27,7 @@ pipeline {
       steps {
         dir('back') {
           sh './gradlew clean build -x test'
+          sh 'cp build/libs/app.jar app.jar'
           sh 'docker build -t $BACK_IMAGE -f Dockerfile .'
         }
       }
