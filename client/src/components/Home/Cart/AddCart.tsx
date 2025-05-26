@@ -36,6 +36,7 @@ const AddCart = ({
     };
 
     const handleClickAddCart = async () => {
+
         changeOpen(true);
 
         //같은 사이즈, 같은 컬러가 이미 담겨져있는지 확인한다.
@@ -51,6 +52,8 @@ const AddCart = ({
                     size: options.size,
                     sellerEmail: sellerEmail, //판매자 이메일
                 };
+
+                console.log('cartItemChange', cartItemChange)
                 await changeCart(cartItemChange); // 수량만 추가
             } else { //아무것도 안담겨있었음
                 const cartItem: CartItem = {
@@ -61,6 +64,8 @@ const AddCart = ({
                     size: options.size,
                     sellerEmail: sellerEmail,
                 };
+                console.log('cartItem', cartItem)
+
                 await changeCart(cartItem); //새로 담기
             }
 

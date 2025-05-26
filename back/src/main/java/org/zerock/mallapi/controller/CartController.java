@@ -28,17 +28,19 @@ public class CartController {
     @PostMapping("/change")
     public DataResponseDTO<List<CartItemListDTO>> changeCart(@RequestBody CartItemDTO itemDTO, Authentication authentication) {
 
+        log.info("itemDTO............................." + itemDTO);
+        log.info("authentication............................." + authentication);
+
+        log.info("itemDTO.email = " + itemDTO.getEmail());
+        log.info("auth.name = " + authentication.getName());
+
         if (!authentication.getName().equals(itemDTO.getEmail())) {
             throw new GeneralException(ErrorCode.INVALID_TOKEN, "이메일 불일치: 인증된 사용자 아님");
-//            throw new AccessDeniedException("이메일 불일치: 인증된 사용자 아님");
         }
 
         itemDTO.setEmail(authentication.getName());
 
-        log.info("itemDTO............................." + itemDTO);
 
-        log.info("itemDTO.email = " + itemDTO.getEmail());
-        log.info("auth.name = " + authentication.getName());
 
         if (itemDTO.getQty() <= 0) {
             return DataResponseDTO.of(cartService.remove(itemDTO.getCino()));

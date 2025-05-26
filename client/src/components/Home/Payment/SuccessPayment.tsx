@@ -38,7 +38,7 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
             const result = await response.json();
             console.log("결제 승인 결과:", result);
 
-            const { accessToken, refreshToken, ...member } = result.data;
+            const { accessToken, refreshToken, member } = result.data;
 
             await setCookie(
               "member",

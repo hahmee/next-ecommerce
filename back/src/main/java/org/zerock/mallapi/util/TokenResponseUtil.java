@@ -17,7 +17,6 @@ public class TokenResponseUtil {
         responseMap.put("accessToken", accessToken);
         responseMap.put("refreshToken", refreshToken);
         responseMap.put("member", memberDTO);
-//        responseMap.put("payment", paymentData);
 
         return DataResponseDTO.of(responseMap);
     }

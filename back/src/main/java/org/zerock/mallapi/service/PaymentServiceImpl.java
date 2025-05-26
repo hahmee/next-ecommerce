@@ -62,13 +62,12 @@ public class PaymentServiceImpl implements PaymentService{
   @Override
   public void savePaymentAfterSuccess(PaymentSuccessDTO paymentSuccessDTO, Member member) {
 
-    // ✅ 이미 저장된 결제인지 확인
+    // 이미 저장된 결제인지 확인
     if (paymentRepository.existsByPaymentKey(paymentSuccessDTO.getPaymentKey())) {
       throw new GeneralException(ErrorCode.ALREADY_PROCESSED, "이미 처리된 결제입니다.");
     }
 
-    log.info(";....?? " + paymentSuccessDTO);
-    // ✅ Toss 결제 상태가 DONE인지 확인
+    // Toss 결제 상태가 DONE인지 확인
     if (paymentSuccessDTO.getStatus() != TossPaymentStatus.DONE) {
       throw new GeneralException(ErrorCode.TOSS_PAYMENT_FAIL, "결제가 완료되지 않았습니다.");
     }
@@ -77,8 +76,6 @@ public class PaymentServiceImpl implements PaymentService{
 
     //결제 객체의 정보 중 필요한 정보들을 서버에 저장한다.
     Payment payment = dtoToEntity(paymentSuccessDTO, email);
-
-    log.info("최종..payment" + payment);
 
     //시간
     payment.setCreatedAt(LocalDateTime.now());
@@ -105,17 +102,8 @@ public class PaymentServiceImpl implements PaymentService{
               .build();
       orderPaymentRepository.save(orderPayment);
 
-      log.info("zzzz");
-
       deleteCartItems(email, order.getProductInfo().getPno());
-
     }
-
-    log.info("payment.." + payment.getOwner());
-
-//    return convertToDTO(payment);
-
-//    return
   }
 
 
@@ -125,7 +113,6 @@ public class PaymentServiceImpl implements PaymentService{
     //결제 승인 로직
     PaymentSuccessDTO paymentSuccessDTO = requestPaymentAccept(paymentRequestDTO);
 
-    log.info("paymentSuccessDTO...." + paymentSuccessDTO);
 
     //DONE이라면
     if(paymentSuccessDTO.getStatus() == TossPaymentStatus.DONE) {
@@ -133,7 +120,6 @@ public class PaymentServiceImpl implements PaymentService{
       //결제 객체의 정보 중 필요한 정보들을 서버에 저장한다.
       Payment payment = dtoToEntity(paymentSuccessDTO, email);
 
-      log.info("최종..payment" + payment);
 
       //시간
       payment.setCreatedAt(LocalDateTime.now());
@@ -153,7 +139,6 @@ public class PaymentServiceImpl implements PaymentService{
       // 리스트가 비어 있으면 예외를 발생시킨다.
       if (orders.isEmpty()) {
         throw new GeneralException(ErrorCode.NOT_FOUND, "해당 주문번호에 해당하는 주문내역이 없습니다...,");
-//        throw new NoSuchElementException("해당 주문번호에 해당하는 주문내역이 없습니다..., " + paymentSuccessDTO.getOrderId());
       }
 
       //step2 상태 변경 - for문
@@ -251,15 +236,12 @@ public class PaymentServiceImpl implements PaymentService{
   @Override
   public PaymentDTO getByPaymentKey(String paymentKey) {
 
-    log.info("조회용 paymentKey: [" + paymentKey + "]");
 
     Optional<Payment> result = paymentRepository.findByPaymentKey(paymentKey);
 
-    log.info("result.........???" + result);
 
     Payment payment = result.orElseThrow();// 없으면 에러
 
-    log.info("payment.........???" + payment);
 
     PaymentDTO paymentDTO = convertToDTO(payment);
 
@@ -360,7 +342,6 @@ public class PaymentServiceImpl implements PaymentService{
 
     log.info("결제 승인 로직 한 번만 실행되어야함....");
 
-    log.info("PaymentRequestDTO....." + paymentRequestDTO);
 
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
@@ -368,7 +349,6 @@ public class PaymentServiceImpl implements PaymentService{
     //헤더 구성
     HttpHeaders headers = getHeaders();
 
-    log.info("headers....." + headers);
 
     // 요청 객체 생성
     HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
@@ -376,7 +356,6 @@ public class PaymentServiceImpl implements PaymentService{
     // ✅ JSON 응답을 `String`으로 먼저 받아서 로그 출력
     String responseBody = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, String.class);
 
-    log.info("💡 Toss API Response (Raw JSON): " + responseBody);
 
     // ✅ ObjectMapper로 JSON을 직접 변환 (매핑 오류 확인)
     ObjectMapper objectMapper = new ObjectMapper();
@@ -395,11 +374,7 @@ public class PaymentServiceImpl implements PaymentService{
 
 private PaymentDTO convertToDTO(Payment payment){
 
-  log.info("...payment.. " + payment.getOwner());
-
   MemberDTO memberDTO = memberService.entityToDTO(payment.getOwner());
-//
-  log.info("...memberDTO.. " + memberDTO);
 
   PaymentDTO paymentDTO = PaymentDTO.builder()
           .id(payment.getId())
@@ -416,7 +391,6 @@ private PaymentDTO convertToDTO(Payment payment){
   paymentDTO.setCreatedAt(payment.getCreatedAt());
   payment.setUpdatedAt(payment.getUpdatedAt());
 
-  log.info("zzzzzz " + paymentDTO);
 
     return paymentDTO;
   }
@@ -562,8 +536,6 @@ private PaymentDTO convertToDTO(Payment payment){
 
     }).collect(Collectors.toList());
 
-
-    log.info("dtoList.... " + dtoList);
 
     long totalCount = payments.getTotalElements();
 
