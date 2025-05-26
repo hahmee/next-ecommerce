@@ -53,25 +53,20 @@ pipeline {
       steps {
         sshagent(credentials: ['ec2-ssh-key']) {
           sh """
-            ssh -o StrictHostKeyChecking=no ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com \\
-            'echo "[📄 Write .env file]" && \\
-             echo "FRONT_IMAGE=${FRONT_IMAGE}" > ~/next-ecommerce/.env && \\
-             echo "BACK_IMAGE=${BACK_IMAGE}" >> ~/next-ecommerce/.env && \\
-             echo "[💥 Stop existing containers]" && \\
-             docker-compose -f ~/next-ecommerce/docker-compose.yml down && \\
-             echo "[🧹 Prune unused Docker data]" && \\
-             docker system prune -f && \\
-             echo "[📦 Pull latest images]" && \\
-             docker pull ${FRONT_IMAGE} && \\
-             docker pull ${BACK_IMAGE} && \\
-             echo "[🚀 Start with docker-compose]" && \\
-             cd ~/next-ecommerce && \\
-             docker-compose -f docker-compose.yml up -d'
+            ssh -o StrictHostKeyChecking=no ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com '
+              echo "[💥 Stop existing containers]" && \
+              docker-compose -f ~/next-ecommerce/docker-compose.yml down && \
+              echo "[🧹 Prune unused Docker data]" && \
+              docker system prune -f && \
+              echo "[📦 Pull latest images]" && \
+              docker pull $FRONT_IMAGE && \
+              docker pull $BACK_IMAGE && \
+              echo "[🚀 Start with docker-compose]" && \
+              FRONT_IMAGE=$FRONT_IMAGE BACK_IMAGE=$BACK_IMAGE docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
+            '
           """
         }
       }
     }
-
-
   }
 }
