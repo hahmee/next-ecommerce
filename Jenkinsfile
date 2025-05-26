@@ -52,28 +52,22 @@ pipeline {
     stage('Deploy to EC2') {
       steps {
         sshagent(credentials: ['ec2-ssh-key']) {
-            sh '''
-                 ssh -o StrictHostKeyChecking=no ubuntu@ec2-43-200-23-21.ap-northeast-2.compute.amazonaws.com <<'ENDSSH'
+          sh """
+            ssh -o StrictHostKeyChecking=no ubuntu@your-ec2-ip <<'ENDSSH'
 
-                 echo "[🔧 Clean up Docker]"
-                 docker system prune -a --force
+            echo "[💥 Stop existing containers]"
+            docker compose -f ~/next-ecommerce/docker-compose.yml down
 
-                 echo "[📦 Pull latest images]"
-                 docker pull hamye4143/next-ecommerce-frontend
-                 docker pull hamye4143/next-ecommerce-backend
+            echo "[📦 Pull latest images]"
+            docker pull $FRONT_IMAGE
+            docker pull $BACK_IMAGE
 
-                 echo "[🔁 Restart frontend container]"
-                 docker stop frontend || true
-                 docker rm frontend || true
-                 docker run -d --name frontend -p 80:3000 hamye4143/next-ecommerce-frontend
+            echo "[🚀 Start with docker-compose]"
+            cd ~/next-ecommerce
+            docker compose -f docker-compose.yml up -d
 
-                 echo "[🔁 Restart backend container]"
-                 docker stop backend || true
-                 docker rm backend || true
-                 docker run -d --name backend -p 8080:8080 hamye4143/next-ecommerce-backend
-
-                 ENDSSH
-               '''
+            ENDSSH
+          """
         }
       }
     }

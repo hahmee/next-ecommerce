@@ -31,6 +31,7 @@ services:
     depends_on:
       - db
     environment:
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/${DB_NAME}
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
@@ -38,6 +39,7 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
+
 
   client:
     image: ${FRONT_IMAGE}
