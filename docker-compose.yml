@@ -39,10 +39,10 @@ services:
       GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
       PAYMENT_TOSS_CLIENT_KEY: ${PAYMENT_TOSS_CLIENT_KEY}
       PAYMENT_TOSS_SECRET_KEY: ${PAYMENT_TOSS_SECRET_KEY}
-
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
-
+    env_file:
+      - .env
 
   client:
     image: ${FRONT_IMAGE}
