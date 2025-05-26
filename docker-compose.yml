@@ -21,7 +21,7 @@ services:
       - .env
 
   back:
-    image: your-dockerhub-username/next-ecommerce-backend  # ✅ Jenkins가 푸시한 백엔드 이미지
+    image: ${BACK_IMAGE}
     container_name: backend-container
     restart: always
     networks:
@@ -40,7 +40,7 @@ services:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
 
   client:
-    image: your-dockerhub-username/next-ecommerce-frontend  # ✅ Jenkins가 푸시한 프론트 이미지
+    image: ${FRONT_IMAGE}
     container_name: client-container
     ports:
       - "3000:3000"
