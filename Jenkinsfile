@@ -16,7 +16,9 @@ pipeline {
     stage('Build Frontend') {
       steps {
         dir('client') {
-             sh 'docker build -t $FRONT_IMAGE -f Dockerfile .'
+          sh 'npm ci'
+          sh 'npm run build'
+          sh 'docker build -t $FRONT_IMAGE -f Dockerfile .'
         }
       }
     }
@@ -55,7 +57,7 @@ pipeline {
               echo "[💥 Stop existing containers]" && \
               docker-compose -f ~/next-ecommerce/docker-compose.yml down && \
               echo "[🧹 Prune unused Docker data]" && \
-              docker system prune -a && \
+              docker system prune -f && \
               echo "[📦 Pull latest images]" && \
               docker pull $FRONT_IMAGE && \
               docker pull $BACK_IMAGE && \
