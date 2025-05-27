@@ -24,6 +24,7 @@ bin/
 application.properties
 application-local.properties
 application-docker.properties
+application-prod.properties
 
 
 .idea
