@@ -55,7 +55,7 @@ pipeline {
               echo "[💥 Stop existing containers]" && \
               docker-compose -f ~/next-ecommerce/docker-compose.yml down && \
               echo "[🧹 Prune unused Docker data]" && \
-              docker system prune -f && \
+              docker system prune -a && \
               echo "[📦 Pull latest images]" && \
               docker pull $FRONT_IMAGE && \
               docker pull $BACK_IMAGE && \

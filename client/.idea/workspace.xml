@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/../Jenkinsfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../back/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +60,7 @@
     &quot;Cypress.all tests in registerProduct.cy.ts.executor&quot;: &quot;Run&quot;,
     &quot;Cypress.all tests in registerProduct.ts.executor&quot;: &quot;Run&quot;,
     &quot;Docker.Dockerfile builder.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile runner.executor&quot;: &quot;Run&quot;,
     &quot;Docker.Dockerfile test.executor&quot;: &quot;Run&quot;,
     &quot;Jest.&lt;Categories/&gt;.executor&quot;: &quot;Run&quot;,
     &quot;Jest.&lt;Categories/&gt;.render component successfully.executor&quot;: &quot;Run&quot;,
@@ -800,7 +804,8 @@
       <workItem from="1748065562324" duration="11460000" />
       <workItem from="1748102350865" duration="5000" />
       <workItem from="1748227113442" duration="33048000" />
-      <workItem from="1748304616842" duration="4741000" />
+      <workItem from="1748304616842" duration="7313000" />
+      <workItem from="1748321843917" duration="86000" />
     </task>
     <servers />
   </component>
