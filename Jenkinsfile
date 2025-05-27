@@ -16,9 +16,7 @@ pipeline {
     stage('Build Frontend') {
       steps {
         dir('client') {
-          sh 'npm ci'
-          sh 'npm run build'
-          sh 'docker build -t $FRONT_IMAGE -f Dockerfile .'
+             sh 'docker build -t $FRONT_IMAGE -f Dockerfile .'
         }
       }
     }

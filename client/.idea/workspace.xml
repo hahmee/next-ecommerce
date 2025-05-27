@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../back/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/resources/application-prod.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -151,7 +148,7 @@
       <command value=" &lt;div className=&quot;ml-4&quot;&gt;                             &lt;p className=&quot;text-xl font-bold&quot;&gt;John Doe&lt;/p&gt;                             &lt;p className=&quot;text-gray-500&quot;&gt;johndoe@example.com&lt;/p&gt;                         &lt;/div&gt;" />
     </option>
   </component>
-  <component name="RunManager" selected="Cypress.all tests in registerProduct.cy.ts">
+  <component name="RunManager" selected="Docker.Dockerfile runner">
     <configuration name="all tests in payment.cy.ts (1)" type="JavaScriptTestRunnerCypress" temporary="true">
       <node-interpreter value="project" />
       <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
@@ -163,19 +160,6 @@
       <test-names>
         <test-name value="Payment System E2E Test" />
         <test-name value="should fill out shipping info and submit payment form" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="all tests in payment.cy.ts" type="JavaScriptTestRunnerCypress" temporary="true">
-      <node-interpreter value="project" />
-      <cypress-package value="$PROJECT_DIR$/node_modules/cypress" />
-      <working-dir value="$PROJECT_DIR$" />
-      <cypress-options value="-q" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" />
-      <test-names>
-        <test-name value="Payment System E2E Test" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -219,6 +203,17 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="Dockerfile runner" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="imageTag" value="node18-alpine_runner" />
+          <option name="buildCliOptions" value="--target runner" />
+          <option name="buildOnly" value="true" />
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />
@@ -227,11 +222,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.Dockerfile runner" />
         <item itemvalue="Cypress.all tests in registerProduct.cy.ts" />
         <item itemvalue="Cypress.all tests in registerProduct.cy.ts (1)" />
         <item itemvalue="Cypress.all tests in registerProduct.ts" />
         <item itemvalue="Cypress.all tests in payment.cy.ts (1)" />
-        <item itemvalue="Cypress.all tests in payment.cy.ts" />
       </list>
     </recent_temporary>
   </component>
@@ -805,7 +800,7 @@
       <workItem from="1748065562324" duration="11460000" />
       <workItem from="1748102350865" duration="5000" />
       <workItem from="1748227113442" duration="33048000" />
-      <workItem from="1748304616842" duration="1452000" />
+      <workItem from="1748304616842" duration="4741000" />
     </task>
     <servers />
   </component>
