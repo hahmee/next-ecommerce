@@ -33,7 +33,7 @@ services:
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
     env_file:
-      - ./back/env.prod
+      - ./back/.env.prod
 
   client:
     image: ${FRONT_IMAGE}
