@@ -30,19 +30,10 @@ services:
       - "8080:8080"
     depends_on:
       - db
-    environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb-container:3306/${DB_NAME}
-      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
-      SPRING_DATASOURCE_USERNAME: ${DB_USER}
-      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
-      PAYMENT_TOSS_CLIENT_KEY: ${PAYMENT_TOSS_CLIENT_KEY}
-      PAYMENT_TOSS_SECRET_KEY: ${PAYMENT_TOSS_SECRET_KEY}
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
     env_file:
-      - .env
+      - ./back/env.prod
 
   client:
     image: ${FRONT_IMAGE}

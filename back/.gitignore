@@ -44,3 +44,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+# .env 파일 (환경변수 - 민감정보 포함)
+.env
+.env.local
+.env.prod
+.env.*
