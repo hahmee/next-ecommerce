@@ -37,9 +37,8 @@ jobs:
       - name: Build backend
         working-directory: back
         run: |
-          ./gradlew clean build -x test
-          cp $(find build/libs -name "*.jar" | head -n 1) app.jar
-
+          ./gradlew clean bootJar -x test
+          cp build/libs/app.jar app.jar
           docker build -t $BACK_IMAGE -f Dockerfile .
 
       - name: Docker Hub 로그인
