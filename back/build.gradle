@@ -75,4 +75,5 @@ configurations.all {
 
 bootJar {
 	archiveFileName = 'app.jar'
+	exclude('credentials/**') // JAR에 포함되지 않도록 함
 }

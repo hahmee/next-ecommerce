@@ -9,6 +9,8 @@ application-local.properties
 application-docker.properties
 application-*.properties
 .env
+.env.prod
+.env.local
 .env.*
 
 # ✅ Git 및 메타 정보
