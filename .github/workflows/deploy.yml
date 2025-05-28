@@ -60,8 +60,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           envs: FRONT_IMAGE,BACK_IMAGE
           script: |
+            # 최신 코드 받아오기 (docker-compose.yml 반영)
+            cd ~/next-ecommerce
+            git pull origin master  # master 브랜치 기준 최신 코드 반영
+
+            # 기존 컨테이너 종료 및 Docker 자원 정리
             docker-compose -f ~/next-ecommerce/docker-compose.yml down
             docker system prune -f
+            
+            #  최신 이미지 받기
             docker pull $FRONT_IMAGE
             docker pull $BACK_IMAGE
+            
+            # 새 컨테이너 실행
             FRONT_IMAGE=$FRONT_IMAGE BACK_IMAGE=$BACK_IMAGE docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
