@@ -26,3 +26,5 @@ application-*.properties
 # ✅ 문서 파일
 README.md
 *.md
+
+/src/main/resources/credentials/*.json
