@@ -59,6 +59,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: FRONT_IMAGE,BACK_IMAGE
           script: |
             docker-compose -f ~/next-ecommerce/docker-compose.yml down
             docker system prune -f
