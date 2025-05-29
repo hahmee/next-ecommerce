@@ -18,8 +18,8 @@ cypress/
 
 # ✅ 환경 변수 파일 (절대 포함 금지)
 .env
-.env.*
-.env.production
+# .env.* ← 모든 환경 파일을 제외하지 말고
+!.env.production  # 빌드에 필요한 것만 포함
 .env.docker
 .env.local
 !.env.example
