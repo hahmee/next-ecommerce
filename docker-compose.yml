@@ -50,7 +50,7 @@ services:
     depends_on:
       - back
     env_file:
-      - ./client/.env.docker
+      - ./client/.env.production
 
 networks:
   app-network:
