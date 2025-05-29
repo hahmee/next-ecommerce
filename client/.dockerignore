@@ -22,6 +22,7 @@ cypress/
 !.env.production  # 빌드에 필요한 것만 포함
 .env.docker
 .env.local
+.env.prod
 !.env.example
 
 # ✅ Git 및 문서
