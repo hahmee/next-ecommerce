@@ -63,19 +63,22 @@ jobs:
             # 최신 코드 받아오기 (docker-compose.yml 반영)
             cd ~/next-ecommerce
             git pull origin master  # master 브랜치 기준 최신 코드 반영
-            
-            echo "🧹 기존 컨테이너 종료 (볼륨은 유지)"
+
+            echo "01-init-user.sh 실행 권한 부여"
+            chmod +x ./script/01-init-user.sh
+
+            echo "기존 컨테이너 종료 (볼륨은 유지)"
             docker-compose -f docker-compose.yml down
-            
-            echo "🧪 현재 볼륨 상태 확인"
+
+            echo "현재 볼륨 상태 확인"
             docker volume ls | grep db-data || echo "⚠️ db-data 볼륨이 존재하지 않습니다!"
-            
-            # 이미지, 네트워크, dangling 컨테이너 정리 (볼륨은 건들지 않음)
+
+            echo "이미지/네트워크 정리"
             docker system prune -f
-            
-            #  최신 이미지 받기
+
+            echo "최신 이미지 풀링"
             docker pull $FRONT_IMAGE
             docker pull $BACK_IMAGE
-            
-            # 새 컨테이너 실행
+
+            echo "새 컨테이너 실행"
             FRONT_IMAGE=$FRONT_IMAGE BACK_IMAGE=$BACK_IMAGE docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
