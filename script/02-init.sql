@@ -2,8 +2,8 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- 기존 DB 삭제 및 생성
-DROP DATABASE IF EXISTS apidb;
-CREATE DATABASE apidb;
+-- DROP DATABASE IF EXISTS apidb;
+-- CREATE DATABASE apidb;
 USE apidb;
 
 
