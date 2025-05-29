@@ -63,9 +63,10 @@ jobs:
             # 최신 코드 받아오기 (docker-compose.yml 반영)
             cd ~/next-ecommerce
             git pull origin master  # master 브랜치 기준 최신 코드 반영
-
-            # 기존 컨테이너 종료 및 Docker 자원 정리
-            docker-compose -f ~/next-ecommerce/docker-compose.yml down
+  
+            # ✅ DB까지 완전 초기화
+            docker-compose -f docker-compose.yml down -v
+            
             docker system prune -f
             
             #  최신 이미지 받기
