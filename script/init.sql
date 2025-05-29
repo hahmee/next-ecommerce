@@ -1,5 +1,7 @@
+-- 외래키 제약 조건 해제
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- 기존 DB 삭제 및 생성
 DROP DATABASE IF EXISTS apidb;
 CREATE DATABASE apidb;
 USE apidb;
@@ -28,8 +30,6 @@ INSERT INTO apidb.member (email, nickname, password, social, encrypted_id) VALUE
 INSERT INTO apidb.member (email, nickname, password, social, encrypted_id) VALUES ('user7@aaa.com', 'USER7', '$2a$10$lb6Lw7uhJZQuGk7tyONpHOrnMGDfEHZOVhtCI3W4iyIPzGYUvtoCC', false, null);
 INSERT INTO apidb.member (email, nickname, password, social, encrypted_id) VALUES ('user8@aaa.com', 'USER8', '$2a$10$JzV7MwHQL1oi0H.91c8FSuRI8yDgB92s/8jnFHoMad8vOTmv/cMWO', false, null);
 INSERT INTO apidb.member (email, nickname, password, social, encrypted_id) VALUES ('user9@aaa.com', 'USER9', '$2a$10$mvxa85LaAKv6n72WHmaq5.eagqUZbr6TxK/FNR4/TbtoXQyykJI5q', false, null);
-
-
 
 create table tbl_cart
 (
