@@ -10,8 +10,7 @@ services:
     volumes:
       - db-data:/var/lib/mysql
       - ./script/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./script/init-user.sh:/docker-entrypoint-initdb.d/init-user.sh
-
+#      - ./script/init-user.sh:/docker-entrypoint-initdb.d/init-user.sh
     environment:
       MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MARIADB_DATABASE: ${DB_NAME}
