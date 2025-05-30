@@ -65,7 +65,6 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
                 body: JSON.stringify(reviewData),
             }));
 
-
             toast.success("리뷰를 작성했습니다.");
             router.push(`/order/${orderId}`);  // 모달 닫기 시 이 경로로 이동
 
