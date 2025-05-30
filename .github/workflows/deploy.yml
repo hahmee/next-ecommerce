@@ -34,12 +34,13 @@ jobs:
           echo "NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID }}" >> .env.production
           echo "NEXT_PUBLIC_GOOGLE_GTM_TRACKING_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_GTM_TRACKING_ID }}" >> .env.production
 
+      - name: Check .env.production
+        working-directory: client
+        run: cat .env.production
 
       - name: Build frontend
         working-directory: client
         run: |
-          npm ci
-          npm run build
           docker build -t $FRONT_IMAGE -f Dockerfile .
 
       - name: Set up Java
