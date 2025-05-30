@@ -16,7 +16,9 @@ create table member
     nickname     varchar(255) null,
     password     varchar(255) null,
     social       bit          not null,
-    encrypted_id varchar(255) null
+    encrypted_id varchar(255) null,
+    created_at datetime(6) null,
+    updated_at datetime(6) null
 )
     collate = utf8mb4_general_ci;
 
