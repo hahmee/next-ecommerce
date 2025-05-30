@@ -7,7 +7,7 @@ RUN npm ci
 COPY . .
 COPY .env.production .env.production
 
-RUN npm run build
+RUN npm run build  # 여기서 빌드됨
 
 # runner 단계 (실행만 담당)
 FROM node:18-alpine AS runner

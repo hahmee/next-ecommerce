@@ -56,5 +56,5 @@ networks:
   app-network:
     driver: bridge
 
-volumes:
+volumes: # DB 데이터 따로 보관 → 컨테이너 꺼도 데이터 안 사라짐
   db-data:
