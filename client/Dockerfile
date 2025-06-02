@@ -1,3 +1,4 @@
+# 멀티 스테이지 빌드
 # builder 단계
 FROM node:18-alpine AS builder
 WORKDIR /app
@@ -9,7 +10,10 @@ COPY .env.production .env.production
 
 RUN npm run build  # 여기서 빌드됨
 
+#################################################
 # runner 단계 (실행만 담당)
+
+# 경량 이미지 사용
 FROM node:18-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
