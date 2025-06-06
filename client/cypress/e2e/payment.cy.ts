@@ -16,7 +16,7 @@ describe('Payment System E2E Test', () => {
                 win.tossPayments.requestPayment = () => {};
             }
             cy.stub(win.tossPayments, 'requestPayment').callsFake((method, options) => {
-                console.log('✅ Toss Success URL:', options.successUrl); // 👈 이거 찍어보세요
+                console.log('Toss Success URL:', options.successUrl);
 
                 // 실제 결제 창 대신 successUrl로 리다이렉트 시뮬레이션
                 win.location.href = options.successUrl;

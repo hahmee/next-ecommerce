@@ -21,7 +21,7 @@ const Categories = () => {
         queryFn: () => getCategories(),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        throwOnError: true, // 에러 발생 시 자동으로 에러 경계로 전달
+        throwOnError: true, // 에러 발생시 ErrorBoundary 로 전달
     });
 
     if (!categories) {

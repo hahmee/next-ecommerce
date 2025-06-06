@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/order/confirmation/[paymentKey]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/order/confirmation/[paymentKey]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Common/LazyLoadWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/LazyLoadWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../script/02-init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../script/02-init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../script/deploy.sh" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +128,7 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
     &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/dev/private/threads-clone&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -833,7 +841,25 @@
       <workItem from="1748569952815" duration="20093000" />
       <workItem from="1748828977497" duration="17000" />
       <workItem from="1748841758232" duration="526000" />
-      <workItem from="1748842326987" duration="491000" />
+      <workItem from="1748842326987" duration="4372000" />
+      <workItem from="1748852948345" duration="9545000" />
+      <workItem from="1748910962788" duration="3237000" />
+      <workItem from="1748914640522" duration="1791000" />
+      <workItem from="1748916757234" duration="37000" />
+      <workItem from="1748923578613" duration="388000" />
+      <workItem from="1748925503866" duration="1000" />
+      <workItem from="1749000850140" duration="2597000" />
+      <workItem from="1749006929609" duration="4610000" />
+      <workItem from="1749021512874" duration="6063000" />
+      <workItem from="1749043027272" duration="1000" />
+      <workItem from="1749044055592" duration="2616000" />
+      <workItem from="1749086041872" duration="3175000" />
+      <workItem from="1749107550992" duration="42000" />
+      <workItem from="1749127401593" duration="2130000" />
+      <workItem from="1749130245289" duration="911000" />
+      <workItem from="1749136863221" duration="3325000" />
+      <workItem from="1749179558942" duration="1042000" />
+      <workItem from="1749190834313" duration="611000" />
     </task>
     <servers />
   </component>

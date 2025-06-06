@@ -66,7 +66,7 @@
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                     method: "POST",
-                    credentials: 'include',
+                    credentials: 'include', // 자동 쿠키 포함
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },

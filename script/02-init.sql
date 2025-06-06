@@ -763,45 +763,57 @@ DELIMITER //
 
 CREATE PROCEDURE insert_additional_reviews()
 BEGIN
+  DECLARE done INT DEFAULT 0;
   DECLARE i INT DEFAULT 1;
   DECLARE order_id_val BIGINT;
   DECLARE prod_val BIGINT;
   DECLARE mem VARCHAR(255);
 
-  WHILE i <= 50 DO
-    -- 기존 리뷰에 없는 주문을 선택 (한 주문에 한 리뷰 제약을 만족)
-    SELECT id
-      INTO order_id_val
-      FROM tbl_order
-      WHERE id NOT IN (SELECT oid FROM tbl_review)
-      ORDER BY RAND()
-      LIMIT 1;
+  -- ① 커서 선언
+  DECLARE cur CURSOR FOR
+SELECT id FROM tbl_order
+WHERE id NOT IN (SELECT oid FROM tbl_review)
+ORDER BY RAND()
+    LIMIT 50;
 
-    -- 임의의 제품 선택
-    SELECT pno
-      INTO prod_val
-      FROM tbl_product
-      ORDER BY RAND()
-      LIMIT 1;
+-- ② 커서가 끝났을 때 반복 종료
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
-    SET mem = CASE MOD(i,3)
+OPEN cur;
+
+read_loop: LOOP
+    FETCH cur INTO order_id_val;
+    IF done = 1 THEN
+      LEAVE read_loop;
+END IF;
+
+    -- 랜덤 제품 선택
+SELECT pno INTO prod_val FROM tbl_product ORDER BY RAND() LIMIT 1;
+
+-- 작성자 선택
+SET mem = CASE MOD(i,3)
                 WHEN 0 THEN 'user1@aaa.com'
                 WHEN 1 THEN 'user2@aaa.com'
                 ELSE 'user3@aaa.com'
-              END;
+END CASE;
 
-    INSERT INTO tbl_review
-      (created_at, updated_at, content, order_id, rating, oid, member_owner, product_id)
-    VALUES
-      (NOW(), NOW(), CONCAT('Review content ', i),
-       CONCAT('order_review_', i), FLOOR(1 + RAND()*5),
-       order_id_val, mem, prod_val);
+    -- 리뷰 삽입
+INSERT INTO tbl_review
+(created_at, updated_at, content, order_id, rating, oid, member_owner, product_id)
+VALUES
+    (NOW(), NOW(), CONCAT('Review content ', i),
+     CONCAT('order_review_', i), FLOOR(1 + RAND()*5),
+     order_id_val, mem, prod_val);
 
-    SET i = i + 1;
-  END WHILE;
+SET i = i + 1;
+END LOOP;
+
+CLOSE cur;
 END //
 
 DELIMITER ;
+
+
 
 CALL insert_additional_reviews();
 DROP PROCEDURE insert_additional_reviews;

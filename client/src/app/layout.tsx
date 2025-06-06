@@ -30,16 +30,4 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         </body>
         </html>
     );
-
-    // return (
-    //     <html lang="en">
-    //     <body className={inter.className}>
-    //     <AuthSession>
-    //         <Navbar/>
-    //             {children}
-    //         <Footer/>
-    //     </AuthSession>
-    //     </body>
-    //     </html>
-    // );
 }

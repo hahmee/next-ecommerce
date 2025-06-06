@@ -17,7 +17,7 @@ const LazyLoadWrapper = ({
                              fallback = null,
                          }: LazyLoadWrapperProps) => {
 
-    const {ref, inView} = useInView({
+    const {ref, inView} = useInView({ // ref: 감시하고 싶은 DOM 요소, inView: 화면에 10% 이상보이면 true
         triggerOnce: once,
         threshold: 0.1,
     });

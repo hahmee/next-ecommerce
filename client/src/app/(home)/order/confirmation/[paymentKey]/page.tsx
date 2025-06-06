@@ -1,6 +1,6 @@
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import React, {Suspense} from "react";
-import {getCart, getPayment} from "@/apis/mallAPI";
+import {getPayment} from "@/apis/mallAPI";
 import Loading from "@/app/loading";
 import Confirm from "@/components/Home/Payment/Confirm";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
