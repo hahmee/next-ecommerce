@@ -19,7 +19,7 @@ services:
       MARIADB_PASSWORD: ${DB_PASSWORD}
     command: --bind-address=0.0.0.0
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     env_file:
       - .env
 
