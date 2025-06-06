@@ -1,9 +1,7 @@
 -- 외래키 제약 조건 해제
 SET FOREIGN_KEY_CHECKS = 0;
 
--- 기존 DB 삭제 및 생성
--- DROP DATABASE IF EXISTS apidb;
--- CREATE DATABASE apidb;
+
 USE apidb;
 
 
@@ -795,7 +793,7 @@ SET mem = CASE MOD(i,3)
                 WHEN 0 THEN 'user1@aaa.com'
                 WHEN 1 THEN 'user2@aaa.com'
                 ELSE 'user3@aaa.com'
-END CASE;
+END;
 
     -- 리뷰 삽입
 INSERT INTO tbl_review
