@@ -51,7 +51,7 @@ const ImageUploadForm = () => {
         });
     }, []);
 
-    // ✅ 처음 한 번만 store에서 데이터를 받아와서 세팅
+    // 처음 한 번만 store에서 데이터를 받아와서 세팅
     useEffect(() => {
         if (!initialized && productImageStore.files.length > 0) {
             setImages(productImageStore.files.map((file, idx) => ({
