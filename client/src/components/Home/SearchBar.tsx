@@ -3,7 +3,6 @@
 import Image from "next/image";
 import {FormEvent, useEffect, useState} from "react";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {sendGTMEvent} from "@next/third-parties/google";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState(""); // 입력값을 저장할 상태
@@ -14,13 +13,6 @@ const SearchBar = () => {
   const pathname = usePathname(); // 현재 경로 가져오기
 
   useEffect(() => {
-    if (pathname) {
-      // GTM 이벤트 전송
-      sendGTMEvent({
-        event: 'page_view',
-        page_path: pathname,
-      });
-    }
     setSearchQuery(queryValue || ""); // query 값이 변경될 때 searchQuery를 업데이트
   }, [queryValue, pathname]);
 

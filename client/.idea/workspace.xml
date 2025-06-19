@@ -5,8 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/constants/ga.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/constants/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/ga-call-to-action/GACta.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/CartModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/ga-page-view/GAPageView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ga-page-view/GAPageView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +30,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/node_modules/@heroicons/react/24/outline/ShoppingBagIcon.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/@heroicons/react/package.json" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/@next/third-parties/dist/google/gtm.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/node_modules/apexcharts/types/apexcharts.d.ts" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/components/Admin/Product/ImageUploadForm.tsx" root0="FORCE_HIGHLIGHTING" />
@@ -251,7 +263,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
       </set>
     </attachedChunks>
   </component>
@@ -858,6 +870,18 @@
       <workItem from="1749441826227" duration="6784000" />
       <workItem from="1749481994859" duration="1001000" />
       <workItem from="1749518722737" duration="922000" />
+      <workItem from="1750208764199" duration="6721000" />
+      <workItem from="1750217110793" duration="3035000" />
+      <workItem from="1750222042968" duration="3697000" />
+      <workItem from="1750226220345" duration="1011000" />
+      <workItem from="1750231298794" duration="5908000" />
+      <workItem from="1750237342951" duration="197000" />
+      <workItem from="1750250665716" duration="3037000" />
+      <workItem from="1750293875969" duration="3655000" />
+      <workItem from="1750298600899" duration="286000" />
+      <workItem from="1750298907937" duration="694000" />
+      <workItem from="1750299633267" duration="6000" />
+      <workItem from="1750299661625" duration="1416000" />
     </task>
     <servers />
   </component>

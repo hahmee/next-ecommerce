@@ -4,6 +4,12 @@ import "./globals.css";
 import React from "react";
 import RQProvider from "@/components/Common/RQProvider";
 import {Toaster} from "react-hot-toast";
+import {GoogleAnalytics} from "@next/third-parties/google";
+import {GAPageView} from "@/libs/ga-page-view/GAPageView";
+
+const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
+const GTM_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GTM_TRACKING_ID;
+console.log('GA_TRACKING_ID', GA_TRACKING_ID)
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +33,13 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
             {children}
             <Toaster/>
         </RQProvider>
+        {
+          (GA_TRACKING_ID && GTM_TRACKING_ID) && <>
+              {/*<GoogleTagManager gtmId={GTM_TRACKING_ID}/>*/}
+              <GoogleAnalytics gaId={GA_TRACKING_ID}/>
+          </>
+        }
+        <GAPageView />
         </body>
         </html>
     );

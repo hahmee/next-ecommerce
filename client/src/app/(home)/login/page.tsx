@@ -3,7 +3,6 @@
     import {useRouter} from "next/navigation";
     import {DataResponse} from "@/interface/DataResponse";
     import {Member} from "@/interface/Member";
-    import {sendGTMEvent} from "@next/third-parties/google";
     import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import toast from "react-hot-toast";
@@ -108,13 +107,6 @@
                         const encryptedId = member.encryptedId;
                         // const encryptedId = hashUserId(email);
 
-                        // 로그인 성공 시 GTM 이벤트 전송
-                        sendGTMEvent({
-                            event: 'login',
-                            uid: encryptedId, // 백엔드에서 받은 사용자 ID를 전송
-                            user_role: role, // 임의
-                            custom_user_id: encryptedId,
-                        });
                     }
                     router.replace('/');
                 }
