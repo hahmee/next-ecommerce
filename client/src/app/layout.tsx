@@ -34,7 +34,8 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
             <Toaster/>
         </RQProvider>
         {
-          (GA_TRACKING_ID && GTM_TRACKING_ID) && <>
+          (GA_TRACKING_ID) && <>
+              {/*두 개 동시에 쓰지 말것 */}
               {/*<GoogleTagManager gtmId={GTM_TRACKING_ID}/>*/}
               <GoogleAnalytics gaId={GA_TRACKING_ID}/>
           </>

@@ -1,22 +1,20 @@
 "use client";
 
-import { sendGAEvent, sendGTMEvent } from "@next/third-parties/google";
-import {GA_CTA_EVENT} from "@/constants";
+import {sendGAEvent} from "@next/third-parties/google";
 import React from "react";
 
 type GACtaProps = {
-  eventLabel: GA_CTA_EVENT;
+  eventName?: string; // 기본값은 "click_cta"
+  eventParams?: Record<string, any>; // item_id, value 등 추가 파라미터
+  // eventLabel: GA_CTA_EVENT;
   children: React.ReactElement;
 };
 
 //커스텀 이벤트를 GA4와 GTM으로 전송
-export default function GACta({ eventLabel, children }: GACtaProps) {
+export default function GACta({eventName = "click_cta",  eventParams = {}, children }: GACtaProps) {
   function handleClick(e: React.MouseEvent) {
-
-    console.log("GA 이벤트 전송됨:", eventLabel);
-
-    sendGAEvent("event", eventLabel); // GA4에 이벤트 전송
-    sendGTMEvent("event", eventLabel);// GTM에도 동일 이벤트 전송
+    console.log("GA 이벤트 전송됨:", eventName, eventParams);
+    sendGAEvent("event", eventName, eventParams); // GA4에 이벤트 전송
     children.props.onClick?.(e);// 원래 자식 요소가 갖고 있던 onClick도 실행해줌
   }
 

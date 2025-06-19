@@ -54,14 +54,14 @@ const CartModal = () => {
                 Shipping and taxes calculated at checkout.
               </p>
               <div className="flex justify-between text-sm">
-                <GACta eventLabel={GA_CTA_EVENTS.onClickCartCTA}>
+                <GACta eventName={GA_CTA_EVENTS.onClickCartCTA}>
                   <button
                     className="rounded-md py-3 px-4 ring-1 ring-gray-300"
                     onClick={() => handleMove("/cart")}>
                     View Cart
                   </button>
                 </GACta>
-                <GACta eventLabel={GA_CTA_EVENTS.onClickCheckout}>
+                <GACta eventName={GA_CTA_EVENTS.onClickCheckout}>
                 <button
                   className="rounded-md py-3 px-4 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
                   disabled={isLoading}

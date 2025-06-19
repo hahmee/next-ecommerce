@@ -8,6 +8,8 @@ import {CartItem} from "@/interface/CartItem";
 import {ColorTag} from "@/interface/ColorTag";
 import {getCookie} from "cookies-next";
 import toast from "react-hot-toast";
+import GACta from "@/libs/ga-call-to-action/GACta";
+import {GA_CTA_EVENTS} from "@/constants";
 
 const AddCart = ({
                      pno,
@@ -100,11 +102,24 @@ const AddCart = ({
                             +
                         </button>
                     </div>
-
                     <div className="text-xs">{SalesStatusKor[salesStatus]}</div>
-
-
                 </div>
+                <GACta
+                  eventName="add_to_cart"
+                  eventParams={{
+                      //todo: 실제 데이터 넣기
+                      currency: "KRW",
+                      value: 39000,
+                      items: [
+                          {
+                              item_id: "sku_123",
+                              item_name: "블루투스 스피커",
+                              price: 39000,
+                              quantity: 1,
+                          },
+                      ],
+                  }}
+                >
                 <button
                     onClick={handleClickAddCart}
                     disabled={isLoading || salesStatus != SalesStatus.ONSALE}
@@ -112,6 +127,7 @@ const AddCart = ({
                 >
                     Add to Cart
                 </button>
+                </GACta>
             </div>
         </div>
     );

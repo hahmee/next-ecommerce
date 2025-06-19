@@ -2,12 +2,10 @@
 
 import {useMutation} from "@tanstack/react-query";
 import {useRouter} from "next/navigation";
-import {getSuccessPayment} from "@/apis/mallAPI";
 import {setCookie} from "@/utils/cookie";
 import Loading from "@/app/loading";
 import React, {useEffect} from "react";
-import {DataResponse} from "@/interface/DataResponse";
-import {Member} from "@/interface/Member";
+import {sendGAEvent} from "@next/third-parties/google";
 
 interface Props {
     paymentKey: string;
@@ -48,9 +46,25 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
             return result;
         },
         onSuccess: (result) => {
-            console.log("✅ 결제 승인 성공:", result);
-            router.replace(`/order/confirmation/${paymentKey}`);
+            console.log("결제 승인 성공:", result);
+            // 결제완료 이벤트 ga4에 보낸다
+            sendGAEvent("purchase", {
+                transaction_id: orderId,
+                value: Number(amount),
+                currency: "KRW",
+                items: [ //todo: 실제 데이터로 변경하기
+                    {
+                        item_id: "SKU_12345",
+                        item_name: "T‑Shirt",
+                        item_brand: "Brand",
+                        item_category: "Apparel",
+                        price: 9.99,
+                        quantity: 3
+                    }
+                ]
+            });
 
+            router.replace(`/order/confirmation/${paymentKey}`);
         },
         onError: (error) => {
             console.error("❌ 결제 승인 에러:", error);

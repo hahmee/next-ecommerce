@@ -5,19 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/constants/ga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/constants/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/ga-call-to-action/GACta.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/CartModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Main/Categories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/SearchBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/ga-page-view/GAPageView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ga-page-view/GAPageView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/ga-call-to-action/GACta.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ga-call-to-action/GACta.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -881,7 +874,8 @@
       <workItem from="1750298600899" duration="286000" />
       <workItem from="1750298907937" duration="694000" />
       <workItem from="1750299633267" duration="6000" />
-      <workItem from="1750299661625" duration="1416000" />
+      <workItem from="1750299661625" duration="3662000" />
+      <workItem from="1750304155272" duration="4280000" />
     </task>
     <servers />
   </component>
