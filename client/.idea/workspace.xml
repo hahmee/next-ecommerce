@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/apis/adminAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/adminAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/apis/mallAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/mallAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/list/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/CartModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/CartModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/ga-call-to-action/GACta.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ga-call-to-action/GACta.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -875,7 +875,9 @@
       <workItem from="1750298907937" duration="694000" />
       <workItem from="1750299633267" duration="6000" />
       <workItem from="1750299661625" duration="3662000" />
-      <workItem from="1750304155272" duration="4280000" />
+      <workItem from="1750304155272" duration="5767000" />
+      <workItem from="1750320358314" duration="596000" />
+      <workItem from="1750383603785" duration="4582000" />
     </task>
     <servers />
   </component>

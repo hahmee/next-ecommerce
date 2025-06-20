@@ -6,6 +6,7 @@ import {getCookie} from "@/utils/cookie";
 import ShoppingSkeleton from "@/components/Skeleton/ShoppingSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 
+// <head> 메타태그 정보(title, description 등) 를 설정하는 함수
 export async function generateMetadata() {
 
     const member = await getCookie("member");

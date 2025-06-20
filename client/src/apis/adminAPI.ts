@@ -7,7 +7,7 @@ export async function getCategories() {
         method: "GET",
         next: { tags: ["categories"] },
         credentials: "include",
-        cache: "no-store", //  절대로 캐싱하지 말고, 매번 서버에서 새로 받아와라
+        cache: "no-store", //  //SSR (최신 값 요청) 절대로 캐싱하지 말고, 매번 서버에서 새로 받아와라
     }));
 }
 

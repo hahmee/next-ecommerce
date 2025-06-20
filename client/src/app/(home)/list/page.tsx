@@ -61,8 +61,7 @@ export default async function ListPage({searchParams}: Props) {
         <Suspense fallback={<ListPageSkeleton/>}>
             <PrefetchBoundary prefetchInfiniteOptions={prefetchInfiniteOptions} prefetchOptions={prefetchOptions}>
                 <ErrorHandlingWrapper>
-                    <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice}
-                                 maxPrice={maxPrice} order={order} query={query}/>
+                    <ProductList categoryId={categoryId} colors={colors} sizes={sizes} minPrice={minPrice} maxPrice={maxPrice} order={order} query={query}/>
                 </ErrorHandlingWrapper>
             </PrefetchBoundary>
         </Suspense>

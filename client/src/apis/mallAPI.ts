@@ -54,9 +54,9 @@ export const getProductList = async ({
     return unwrap(
         await fetchJWT(`/api/products/list?${params.toString()}`, {
             method: "GET",
-            next: { tags: ["products"] },
+            next: { revalidate: 60, tags: ['products'] }, //ISR을 위해 revalidate 해서 60초마다 재생성
             credentials: "include",
-            cache: "no-store",
+            // cache: "no-store", SSR 지우기
         })
     );
 };
