@@ -54,6 +54,9 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      * - login and signup pages
      */
-    '/((?!apis|_next/static|_next/image|favicon.ico|robots\\.txt|sitemap\\.xml|sitemap-\\d+\\.xml|login|signup|order/success).*)',
+    '/((?!apis|_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap.*\\.xml|login|signup|order/success).*)',
+
+
+
   ],
 };
