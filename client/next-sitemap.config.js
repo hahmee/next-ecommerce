@@ -6,6 +6,7 @@ module.exports = {
   changefreq: 'daily',                    // 페이지 변경 빈도
   priority: 0.7,                          // 우선순위
   trailingSlash: false,                  // URL에 / 붙일지 여부
+  sourceDir: "app",
   exclude: [                             // 제외
     "/admin",
     "/admin/**",     // 하위 경로까지 포함
