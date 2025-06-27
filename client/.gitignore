@@ -42,4 +42,5 @@ next-env.d.ts
 
 .idea/
 *.idea
+public/sitemap*.xml
 
