@@ -10,7 +10,18 @@ function getCookie(request: NextRequest, cookieName: string) {
 // 권한에 따라 접근 막기
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // XML 및 robots.txt 요청은 middleware 로직 제외
+  if (
+    pathname.endsWith(".xml") ||
+    pathname === "/robots.txt"
+  ) {
+    return NextResponse.next(); // 그대로 통과
+  }
+
+
   const member = getCookie(request, "member");
+
   // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
   if (!member) {
     console.log('User not authenticated, redirecting to login');
