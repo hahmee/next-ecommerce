@@ -9,55 +9,35 @@ import MainInfo from "@/components/Admin/Product/MainInfo";
 import ExpertList from "@/components/Admin/Product/ExpertList";
 import ExpertListSkeleton from "@/components/Skeleton/ExpertListSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
-// 예시 데이터
-const products = [
-    {
-        id: 1,
-        name: "Suede Bomber Jacket",
-        images: [
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
 
-        ],
-        colorInfo: "Orange",
-        rating: 4.8,
-        reviewCount: 265,
-        price: 80,
-    },
-    {
-        id: 2,
-        name: "Downtown Pet Tote",
+//동적 데이터 없음 -> generateMetadata대신 meatadata 사용
+export const metadata = {
+    title: "Next E-commerce - 최신 트렌드 쇼핑몰",
+    description: "가장 인기 있는 상품을 전문가 추천으로 한눈에! 지금 최신 상품과 할인 혜택을 확인해보세요.",
+    openGraph: {
+        title: "Next E-commerce - 트렌디한 온라인 쇼핑",
+        description: "지금 가장 주목받는 카테고리와 상품을 확인해보세요.",
+        url: process.env.NEXT_PUBLIC_BASE_URL,
+        type: "website",
         images: [
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-
+            {
+                url: `https://images.pexels.com/photos/1833306/pexels-photo-1833306.jpeg`,  // 썸네일
+                width: 1200,
+                height: 630,
+                alt: "Next E-commerce 대표 이미지",
+            },
         ],
-        colorInfo: "Black and Orange",
-        rating: 4.4,
-        reviewCount: 298,
-        price: 58,
     },
-    {
-        id: 3,
-        name: "Coder Leather Sneakers",
-        images: [
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
-            "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800",
+    twitter: {
+        card: "summary_large_image",
+        title: "Next E-commerce",
+        description: "인기 상품과 전문가 추천 제품을 한눈에!",
+        images: [`https://images.pexels.com/photos/1833306/pexels-photo-1833306.jpeg`],
+    },
+};
 
-        ],
-        colorInfo: "3 Sizes Available",
-        rating: 4.6,
-        reviewCount: 312,
-        price: 60,
-    },
-];
 const HomePage = () => {
+
 
     const prefetchOptions = [
         {

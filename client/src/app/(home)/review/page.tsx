@@ -2,19 +2,45 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserReviews from "@/components/Home/Profile/UserReviews";
 import {getUserReviews} from "@/apis/mallAPI";
-import {getCookie} from "@/utils/cookie";
 import Loading from "@/app/loading";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import {cookies} from "next/headers";
 
 export async function generateMetadata() {
+    const cookieStore = cookies();
+    const memberCookie = cookieStore.get("member");
 
-    const member = await getCookie("member");
+    let nickname = "사용자";
+    let email = "";
+
+    try {
+        const parsed = memberCookie?.value
+          ? JSON.parse(decodeURIComponent(memberCookie.value))
+          : null;
+        if (parsed) {
+            nickname = parsed.nickname || "사용자";
+            email = parsed.email || "";
+        }
+    } catch (e) {
+        // 쿠키 파싱 실패 시 fallback
+    }
 
     return {
-        title: `${member?.nickname} (${member?.email})`,
-        description: `${member?.nickname} (${member?.email}) 리뷰`,
-    }
+        title: `${nickname}님의 리뷰 기록`,
+        description: `${nickname} (${email})님의 상품 리뷰 목록입니다.`,
+        openGraph: {
+            title: `${nickname}님의 리뷰 내역`,
+            description: `${email}님의 작성한 모든 상품 리뷰`,
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/review`,
+        },
+        twitter: {
+            card: "summary",
+            title: `${nickname}님의 리뷰 내역`,
+            description: `${email}님의 작성 리뷰`,
+        },
+    };
 }
+
 export default async function ReviewHistoryPage()  {
 
     const prefetchOptions = [

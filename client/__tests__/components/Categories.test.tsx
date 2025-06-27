@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {useQuery} from "@tanstack/react-query";
 import Categories from "@/components/Home/Main/Categories";
-
+// Jest: 테스트 환경 제공 + mocking
 // Mock 처리
 jest.mock("@tanstack/react-query", () => ({
     useQuery: jest.fn(),
@@ -50,19 +50,23 @@ describe("Categories 컴포넌트", () => {
         jest.clearAllMocks(); // 테스트 전 Mock 초기화
     });
 
+    // [2] React Testing Library: 실제 테스트 동작 부분
     it("초기에는 로딩 상태를 렌더링한다", async () => {
         (useQuery as jest.Mock).mockReturnValue({ isLoading: true }); // useQuery를 썼을 때 {isLoading:true} 로 반환하도록
         render(<Categories />);
     });
 
     it("데이터를 받아오면 카테고리 목록을 보여준다", async () => {
+        // Given
         (useQuery as jest.Mock).mockReturnValue({
             data: mockCategories,
             isLoading: false,
         });
 
+        //When
         render(<Categories />);
 
+        //Then
         // 첫 번째 카테고리명 체크
         const category1 = await screen.findByText("ㄴㅇㄹ");
         expect(category1).toBeInTheDocument();

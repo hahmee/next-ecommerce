@@ -11,6 +11,46 @@ interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
+export async function generateMetadata({ searchParams }: Props) {
+    const categoryId = Array.isArray(searchParams.category_id)
+      ? searchParams.category_id[0]
+      : searchParams.category_id || "";
+
+    const query = Array.isArray(searchParams.query)
+      ? searchParams.query[0]
+      : searchParams.query || "";
+
+    let categoryName = "";
+
+    try {
+        if (categoryId) {
+            const categoryRes = await getCategory({
+                queryKey: ["category", categoryId],
+            });
+            categoryName = categoryRes?.cname || categoryName;
+        }
+    } catch (e) {
+        // fallback 유지
+    }
+
+    return {
+        title: categoryName ? `${categoryName} 상품 목록`: '전체상품 목록',
+        description: query
+          ? `"${query}" 검색 결과를 포함한 ${categoryName} 상품들을 확인해보세요.`
+          : `${categoryName} 카테고리의 다양한 상품을 탐색해보세요.`,
+        openGraph: {
+            title: `${categoryName} 상품`,
+            description: "카테고리별 인기 상품을 한눈에 확인해보세요.",
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/list?query=${query}&category_id=${categoryId}`,
+        },
+        twitter: {
+            card: "summary",
+            title: `${categoryName} 상품 목록`,
+            description: "Next E-commerce 인기 상품을 확인하세요.",
+        },
+    };
+}
+
 export default async function ListPage({searchParams}: Props) {
 
     // categoryId가 배열이면 첫 번째 값을, 아니면 그대로 사용

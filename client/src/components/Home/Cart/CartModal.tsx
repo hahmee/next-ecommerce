@@ -61,13 +61,13 @@ const CartModal = () => {
                     View Cart
                   </button>
                 </GACta>
-                <GACta eventName={GA_CTA_EVENTS.onClickCheckout}>
-                <button
-                  className="rounded-md py-3 px-4 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
-                  disabled={isLoading}
-                  onClick={() => handleMove("/checkout")}>
-                  Checkout
-                </button>
+                <GACta eventName="begin_checkout">
+                  <button
+                    className="rounded-md py-3 px-4 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
+                    disabled={isLoading}
+                    onClick={() => handleMove("/checkout")}>
+                    Checkout
+                  </button>
                 </GACta>
               </div>
             </div>

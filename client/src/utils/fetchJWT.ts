@@ -8,7 +8,6 @@ import { getCookie, setCookie } from "@/utils/cookie";
 
 const host = process.env.BACKEND_URL || "http://localhost";
 
-console.log("✅ 백엔드 주소:", host);
 
 interface IRequestInit {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";

@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import React, {useState} from "react";
 import {SalesStatus, SalesStatusKor} from "@/types/salesStatus";
 import {CartItemList} from "@/interface/CartItemList";
 import {useCartStore} from "@/store/cartStore";

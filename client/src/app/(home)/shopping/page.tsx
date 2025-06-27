@@ -5,16 +5,42 @@ import {getPayments} from "@/apis/mallAPI";
 import {getCookie} from "@/utils/cookie";
 import ShoppingSkeleton from "@/components/Skeleton/ShoppingSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import {cookies} from "next/headers";
 
 // <head> 메타태그 정보(title, description 등) 를 설정하는 함수
 export async function generateMetadata() {
+    const cookieStore = cookies();
+    const memberCookie = cookieStore.get("member");
 
-    const member = await getCookie("member");
+    let nickname = "사용자";
+    let email = "";
+
+    try {
+        const parsed = memberCookie?.value
+          ? JSON.parse(decodeURIComponent(memberCookie.value))
+          : null;
+        if (parsed) {
+            nickname = parsed.nickname || "사용자";
+            email = parsed.email || "";
+        }
+    } catch (e) {
+        // fallback 유지
+    }
 
     return {
-        title: `${member?.nickname} (${member?.email})`,
-        description: `${member?.nickname} (${member?.email}) 프로필`,
-    }
+        title: `${nickname}님의 주문 내역`,
+        description: `${nickname} (${email})님의 과거 주문 및 결제 내역을 확인할 수 있는 페이지입니다.`,
+        openGraph: {
+            title: `${nickname}님의 주문 내역`,
+            description: `${email}님의 주문 기록`,
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/shopping`,
+        },
+        twitter: {
+            card: "summary",
+            title: `${nickname}님의 주문 기록`,
+            description: `주문 및 결제 이력을 확인해보세요.`,
+        },
+    };
 }
 
 export default async function OrderHistoryPage()  {

@@ -311,13 +311,11 @@
                 {/* 카테고리 테이블 */}
                 <div className="w-auto overflow-x-auto overflow-y-hidden relative">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 relative">
-                        <thead
-                            className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="p-4 py-3">
                                 <div className="flex items-center">
-                                    <input id="checkbox-all" type="checkbox"
-                                           className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-meta-4 dark:border-gray-600"/>
+                                    <input id="checkbox-all" type="checkbox" className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-meta-4 dark:border-gray-600"/>
                                     <label htmlFor="checkbox-all" className="sr-only">checkbox</label>
                                 </div>
                             </th>

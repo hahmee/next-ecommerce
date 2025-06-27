@@ -65,8 +65,6 @@ public class CategoryController {
   public DataResponseDTO<PageResponseDTO<CategoryDTO>> searchAdminList(SearchRequestDTO searchRequestDTO) {
     log.info("searchRequestDTO========== " + searchRequestDTO);
 
-    log.info("categoryDTO========== " + categoryService.getSearchAdminList(searchRequestDTO));
-
 
     return DataResponseDTO.of(categoryService.getSearchAdminList(searchRequestDTO));
 
