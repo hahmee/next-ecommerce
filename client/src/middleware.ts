@@ -27,10 +27,6 @@ export async function middleware(request: NextRequest) {
 
     return NextResponse.redirect(new URL('/error', request.url)); // 에러 페이지로 리다이렉션
 
-    // return NextResponse.json(
-    //     { success: false, message: "authentication failed" },
-    //     { status: 401 }
-    // );
   }
 
   return NextResponse.next();
