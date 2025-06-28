@@ -29,7 +29,6 @@ public class PublicApiController {
 
     @GetMapping("/products/newProductList")
     public DataResponseDTO<List<ProductDTO>> getNewProducts() {
-
         return DataResponseDTO.of(productService.getNewProducts());
     }
 

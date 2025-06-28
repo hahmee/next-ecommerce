@@ -17,7 +17,6 @@ import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.util.AwsFileUtil;
 import org.zerock.mallapi.util.CustomFileUtil;
 
-import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -107,15 +106,7 @@ public class ProductController {
   @GetMapping("/{pno}")
   public DataResponseDTO<ProductDTO> read(@PathVariable(name="pno") Long pno) {
 
-    try {
-      Thread.sleep(0);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
     ProductDTO productDTO = productService.get(pno);
-
 
     return DataResponseDTO.of(productDTO);
   }

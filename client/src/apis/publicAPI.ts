@@ -53,6 +53,7 @@ export const getPublicNewProducts = async (): Promise<Product[]> => {
   }
 
   const data: DataResponse<Product[]> = await res.json();
+
   return data.data;
 };
 
@@ -87,7 +88,7 @@ export const getPublicExpertProducts = async (): Promise<Product[]> => {
   return data.data;
 };
 
-export const getPublicCategories = async (): Promise<Category[]> => {
+export const getPublicCategories = async (): Promise <Category[]> => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/category/list`, {
     method: "GET",
     cache: "no-store", //SSR (최신)
