@@ -17,6 +17,7 @@ import {getProductList} from "@/apis/mallAPI";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCartSkeleton";
 import ProductCardListSkeleton from "@/components/Skeleton/ProductCartListSkeleton";
 import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";
+import {getPublicCategories, getPublicCategory, getPublicProductList} from "@/apis/publicAPI";
 
 export type SortOption = {
     name: string;
@@ -118,7 +119,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
     } = useInfiniteQuery({
         queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
         queryFn: ({pageParam, meta}) => {
-            return getProductList({
+            return getPublicProductList({
                 queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
                 page: pageParam,
                 row: 2,
@@ -151,7 +152,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
 
     const {data: categories} = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ['categories'],
-        queryFn: () => getCategories(),
+        queryFn: () => getPublicCategories(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
@@ -159,7 +160,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
 
     const {data: category} = useQuery<Category, Object, Category, [_1: string, _2: string]>({
         queryKey: ['category', categoryId],
-        queryFn: getCategory,
+        queryFn: getPublicCategory,
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,

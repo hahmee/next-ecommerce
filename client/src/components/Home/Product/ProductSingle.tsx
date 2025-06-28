@@ -52,7 +52,7 @@ const ProductSingle = ({id}: Props) => {
             {/* IMG */}
             <div className="w-full lg:w-1/2 lg:sticky top-20 h-max">
                 {
-                    product?.uploadFileNames &&
+                   ( product?.uploadFileNames &&  product?.uploadFileNames.length > 0) &&
                     <ProductImages items={product.uploadFileNames}/>
                 }
             </div>

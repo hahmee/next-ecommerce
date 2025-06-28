@@ -24,23 +24,13 @@ public class CartController {
 
     private final CartService cartService;
 
-//    @PreAuthorize("#itemDTO.email == authentication.name")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @PostMapping("/change")
     public DataResponseDTO<List<CartItemListDTO>> changeCart(@RequestBody CartItemDTO itemDTO, Authentication authentication) {
 
-        log.info("itemDTO............................." + itemDTO);
-        log.info("authentication............................." + authentication);
+        String email = authentication.getName();
 
-        log.info("itemDTO.email = " + itemDTO.getEmail());
-        log.info("auth.name = " + authentication.getName());
-
-        if (!authentication.getName().equals(itemDTO.getEmail())) {
-            throw new GeneralException(ErrorCode.INVALID_TOKEN, "이메일 불일치: 인증된 사용자 아님");
-        }
-
-        itemDTO.setEmail(authentication.getName());
-
-
+        itemDTO.setEmail(email);
 
         if (itemDTO.getQty() <= 0) {
             return DataResponseDTO.of(cartService.remove(itemDTO.getCino()));

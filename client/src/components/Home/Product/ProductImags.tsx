@@ -7,9 +7,7 @@ import {FileDTO} from "@/interface/FileDTO";
 
 const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
     const [index, setIndex] = useState(0);
-
     return (
-
         <div className="">
             <div className="h-[500px] relative">
                 <Image

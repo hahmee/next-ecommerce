@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.mallapi.dto.CategoryDTO;
-import org.zerock.mallapi.dto.DataResponseDTO;
-import org.zerock.mallapi.dto.ProductDTO;
-import org.zerock.mallapi.dto.ReviewDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.service.CategoryService;
 import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.service.ReviewService;
@@ -49,6 +46,12 @@ public class PublicApiController {
         return DataResponseDTO.of(productDTO);
     }
 
+    @GetMapping("/products/list") // list?page=7&size=2&categoryId=1&color=green&color=green&minPrice=1&order
+    public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
+        return DataResponseDTO.of(productService.getList(pageCategoryRequestDTO));
+    }
+
+
     @GetMapping("/reviews/list/{pno}")
     public DataResponseDTO<List<ReviewDTO>> list(@PathVariable(name="pno") Long pno) {
 
@@ -58,7 +61,19 @@ public class PublicApiController {
 
     @GetMapping("/category/list")
     public DataResponseDTO<List<CategoryDTO>> list() {
+        log.info("l;osafsdaf");
+
         return DataResponseDTO.of(categoryService.getAllCategories());
+    }
+
+
+    @GetMapping("/category/{cno}")
+    public DataResponseDTO<CategoryDTO> readCategory(@PathVariable(name="cno") Long cno) {
+
+        log.info("??????????????????????????????" + cno);
+        CategoryDTO categoryDTO = categoryService.get(cno);
+
+        return DataResponseDTO.of(categoryDTO);
     }
 
 

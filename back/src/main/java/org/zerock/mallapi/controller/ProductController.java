@@ -83,7 +83,7 @@ public class ProductController {
     return fileUtil.getFile(fileName);
   }
 
-//  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
+  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/list") // list?page=7&size=2&categoryId=1&color=green&color=green&minPrice=1&order
   public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
 

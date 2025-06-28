@@ -17,12 +17,12 @@ import {getPublicFeaturedProducts, getPublicNewProducts} from "@/apis/publicAPI"
 
 const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
-    const {carts, changeCart, changeOpen} = useCartStore();
+    const {carts, changeCart, changeOpen, isLoading} = useCartStore();
     const memberInfo = getCookie('member');
     const [data, setData] = useState<Product[] | undefined>(undefined);
     const member = memberInfo ? JSON.parse(memberInfo) : null;
 
-    const {data: newProducts, isFetched, isLoading, isError, isFetching} = useQuery<Array<Product>, Object, Array<Product>>({
+    const {data: newProducts} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['new-products'],
         queryFn: () => getPublicNewProducts(),
         staleTime: 60 * 1000,
@@ -140,7 +140,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                     className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
                                 <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
                                 <button
-                                    disabled={product.salesStatus != SalesStatus.ONSALE}
+                                    disabled={product.salesStatus != SalesStatus.ONSALE || isLoading}
                                     className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                                     onClick={async (e) => {
                                         e.preventDefault(); // 페이지 이동 방지

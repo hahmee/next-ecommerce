@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 1. 정적 페이지들(주소 고정)
   const staticPaths: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: new Date() },
-    // { url: `${baseUrl}/list`, lastModified: new Date() },
+    { url: `${baseUrl}/list`, lastModified: new Date() },
   ]
 
   // 2. 동적 페이지들(주소가 동적으로 변경) — 상품 목록 (API 요청 or DB 등에서 가져오기)

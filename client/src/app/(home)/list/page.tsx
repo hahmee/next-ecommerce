@@ -2,67 +2,66 @@ import React, {Suspense} from 'react'
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import ProductList from "@/components/Home/Product/ProductList";
 import {FetchInfiniteQueryOptions} from "@tanstack/react-query";
-import {getCategories, getCategory} from "@/apis/adminAPI";
-import {getProductList} from "@/apis/mallAPI";
 import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import {Metadata} from "next";
+import {getPublicCategories, getPublicCategory, getPublicProductList} from "@/apis/publicAPI";
 
 interface Props {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-    const filters = Object.entries(searchParams).map(([key, value]) => {
-        const values = Array.isArray(value) ? value : value ? [value] : [];
-        return { key, values };
-    });
-
-    // 필요한 필드만 추출
-    const query = filters.find(f => f.key === "query")?.values[0] || "";
-    const categoryId = filters.find(f => f.key === "category_id")?.values[0] || "";
-
-    let categoryName = "";
-    try {
-        if (categoryId) {
-            const categoryRes = await getCategory({ queryKey: ["category", categoryId] });
-            categoryName = categoryRes?.cname || "전체";
-        }
-    } catch (e) {
-        console.error("category fetch error:", e);
-    }
-
-    // 제목용 필터 가공
-    const filterSummary = filters
-      .filter(({ key, values }) => key !== "query" && key !== "category_id" && values.length > 0)
-      .map(({ key, values }) => `${key}: ${values.join(", ")}`)
-      .join(" | ");
-
-    const titleParts = [
-        query && `검색어: ${decodeURIComponent(query)}`,
-        categoryName && `카테고리: ${categoryName}`,
-        filterSummary,
-    ].filter(Boolean);
-
-    const fullTitle = titleParts.length > 0
-      ? `${titleParts.join(" | ")} - Next E-commerce`
-      : "상품 목록 - Next E-commerce";
-
-    return {
-        title: fullTitle,
-        description: `Next E-commerce 상품 검색 결과입니다. ${titleParts.join(", ") || "전체 상품을 확인해보세요."}`,
-        openGraph: {
-            title: fullTitle,
-            description: "검색 필터에 맞는 다양한 상품들을 만나보세요.",
-            url: `${process.env.NEXT_PUBLIC_BASE_URL}/list`,
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: fullTitle,
-            description: "검색 조건에 맞는 상품을 빠르게 확인하세요.",
-        },
-    };
-}
+// export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+//     const filters = Object.entries(searchParams).map(([key, value]) => {
+//         const values = Array.isArray(value) ? value : value ? [value] : [];
+//         return { key, values };
+//     });
+//
+//     // 필요한 필드만 추출
+//     const query = filters.find(f => f.key === "query")?.values[0] || "";
+//     const categoryId = filters.find(f => f.key === "category_id")?.values[0] || "";
+//
+//     let categoryName = "";
+//     try {
+//         if (categoryId) {
+//             const categoryRes = await getPublicCategory({ queryKey: ["category", categoryId] });
+//             categoryName = categoryRes?.cname || "전체";
+//         }
+//     } catch (e) {
+//         console.error("category fetch error:", e);
+//     }
+//
+//     // 제목용 필터 가공
+//     const filterSummary = filters
+//       .filter(({ key, values }) => key !== "query" && key !== "category_id" && values.length > 0)
+//       .map(({ key, values }) => `${key}: ${values.join(", ")}`)
+//       .join(" | ");
+//
+//     const titleParts = [
+//         query && `검색어: ${decodeURIComponent(query)}`,
+//         categoryName && `카테고리: ${categoryName}`,
+//         filterSummary,
+//     ].filter(Boolean);
+//
+//     const fullTitle = titleParts.length > 0
+//       ? `${titleParts.join(" | ")} - Next E-commerce`
+//       : "상품 목록 - Next E-commerce";
+//
+//     return {
+//         title: fullTitle,
+//         description: `Next E-commerce 상품 검색 결과입니다. ${titleParts.join(", ") || "전체 상품을 확인해보세요."}`,
+//         openGraph: {
+//             title: fullTitle,
+//             description: "검색 필터에 맞는 다양한 상품들을 만나보세요.",
+//             url: `${process.env.NEXT_PUBLIC_BASE_URL}/list`,
+//         },
+//         twitter: {
+//             card: "summary_large_image",
+//             title: fullTitle,
+//             description: "검색 조건에 맞는 상품을 빠르게 확인하세요.",
+//         },
+//     };
+// }
 
 export default async function ListPage({searchParams}: Props) {
 
@@ -93,7 +92,7 @@ export default async function ListPage({searchParams}: Props) {
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
             queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order,query],
-            queryFn: ({pageParam}) => getProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 1 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
+            queryFn: ({pageParam}) => getPublicProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 1 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
             initialPageParam: 1,
             staleTime: Infinity,// 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },
@@ -102,11 +101,11 @@ export default async function ListPage({searchParams}: Props) {
     const prefetchOptions = [
         {
             queryKey: ['categories'],
-            queryFn: () => getCategories()
+            queryFn: () => getPublicCategories()
         },
         {
             queryKey: ['category', categoryId],
-            queryFn: () => getCategory({queryKey: ['category', categoryId]}),
+            queryFn: () => getPublicCategory({queryKey: ['category', categoryId]}),
         }
     ];
 

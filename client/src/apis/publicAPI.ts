@@ -2,6 +2,8 @@ import {Product} from "@/interface/Product";
 import {DataResponse} from "@/interface/DataResponse";
 import {Review} from "@/interface/Review";
 import {Category} from "@/interface/Category";
+import {unwrap} from "@/utils/unwrap";
+import {fetchJWT} from "@/utils/fetchJWT";
 
 export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]}): Promise<Product> => {
   const [, pno] = queryKey;
@@ -100,5 +102,89 @@ export const getPublicCategories = async (): Promise <Category[]> => {
   }
 
   const data: DataResponse<Category[]> = await res.json();
+  return data.data;
+};
+
+
+export const getPublicCategory = async ({queryKey}: { queryKey: [string, string]}): Promise <Category> => {
+  const [_, cno] = queryKey;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/category/${cno}`, {
+    method: "GET",
+    cache: "no-store", //SSR (최신)
+    next: { tags: ['category', cno] },
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch category");
+  }
+
+  const data: DataResponse<Category> = await res.json();
+
+  return data.data;
+};
+
+
+export const getPublicProductList = async ({
+                                             queryKey,
+                                             page,
+                                             row,
+                                             categoryId,
+                                             colors,
+                                             productSizes,
+                                             minPrice,
+                                             maxPrice,
+                                             order,
+                                             query,
+                                           }: {
+      queryKey: [string, string, string[], string[], string, string, string, string];
+      page: number;
+      row: number;
+      categoryId: string;
+      colors: string | string[] | undefined;
+      productSizes: string | string[] | undefined;
+      minPrice: string;
+      maxPrice: string;
+      order: string;
+      query: string;
+}): Promise<any> => {
+
+  const params = new URLSearchParams();
+  params.append("page", page.toString());
+  params.append("size", row.toString());
+  params.append("categoryId", categoryId);
+  params.append("minPrice", minPrice.toString());
+  params.append("maxPrice", maxPrice.toString());
+  params.append("order", order);
+  params.append("query", query);
+
+  if (colors) {
+    if (Array.isArray(colors)) {
+      colors.forEach((color) => params.append("color", color));
+    } else {
+      params.append("color", colors);
+    }
+  }
+
+  if (productSizes) {
+    if (Array.isArray(productSizes)) {
+      productSizes.forEach((productSize) => params.append("productSize", productSize));
+    } else {
+      params.append("productSize", productSizes);
+    }
+  }
+
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/list?${params.toString()}`, {
+    method: "GET",
+    next: { revalidate: 60, tags: ['products'] }, //ISR을 위해 revalidate 해서 60초마다 페이지 재생성
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch category list");
+  }
+
+  const data: DataResponse<any> = await res.json();
+
   return data.data;
 };
