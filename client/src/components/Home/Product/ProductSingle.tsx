@@ -9,8 +9,7 @@ import OptionSelect from "@/components/Home/Product/OptionSelect";
 import {ColorTag} from "@/interface/ColorTag";
 import AddCart from "@/components/Home/Cart/AddCart";
 import {Review} from "@/interface/Review";
-import {GAPageView} from "@/libs/ga-page-view/GAPageView";
-import {getProduct, getPublicProduct, getPublicReviews, getReviews} from "@/apis/adminAPI";
+import {getPublicProduct, getPublicReviews} from "@/apis/publicAPI";
 
 interface Props {
     id: string;

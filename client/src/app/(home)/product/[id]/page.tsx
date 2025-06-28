@@ -1,10 +1,10 @@
 import React, {Suspense} from "react";
 import ProductSingle from "@/components/Home/Product/ProductSingle";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import {getPublicProduct, getPublicReviews} from "@/apis/adminAPI";
 import ProductSingleSkeleton from "@/components/Skeleton/ProductSingleSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {Metadata} from "next";
+import {getPublicProduct, getPublicReviews} from "@/apis/publicAPI";
 
 interface Props {
     params: {id: string }

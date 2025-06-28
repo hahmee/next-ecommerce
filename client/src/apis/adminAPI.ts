@@ -47,7 +47,7 @@ export async function getNewProducts() {
         method: "GET",
         next: { tags: ['new-products'] },
         credentials: 'include',
-        cache: 'no-store',
+        cache: 'no-store', //SSR
     }));
 }
 
@@ -126,26 +126,6 @@ export async function getPaymentsOverview(pageParam: PageParam) {
 }
 
 
-export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]}): Promise<Product> => {
-    const [, pno] = queryKey;
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/${pno}`, {
-        method: 'GET',
-        next: { revalidate: 60, tags: ['productSingle', pno] }, // ISR 캐싱
-    });
-
-    if (!res.ok) {
-        throw new Error(`Failed to fetch product ${pno}`);
-    }
-
-    const data: DataResponse<Product> = await res.json();
-
-    return await data.data;
-
-
-};
-
-
 export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => {
     const [_, pno] = queryKey;
     return unwrap(await fetchJWT(`/api/products/${pno}`, {
@@ -155,25 +135,6 @@ export const getProduct = async ({queryKey}: { queryKey: [string, string] }) => 
         // cache: 'no-store', //SSR 취소
     }));
 }
-
-
-
-export const getPublicReviews = async ({queryKey,}: { queryKey: [string, string]}): Promise<Array<Review>> => {
-    const [, id] = queryKey;
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/reviews/list/${id}`, {
-        method: 'GET',
-        next: {revalidate: 60, tags: ['reviews', id]}, // isr 캐싱
-    });
-
-    if (!res.ok) {
-        throw new Error(`Failed to fetch review ${id}`);
-    }
-
-    const data: DataResponse<Array<Review>> = await res.json();
-
-    return await data.data;
-};
 
 
 export const getReviews = async ({queryKey}: { queryKey: [string, string] }) => {

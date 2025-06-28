@@ -54,10 +54,8 @@ public class CategoryController {
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/list")
   public DataResponseDTO<List<CategoryDTO>> list() {
-
     log.info("categoryService.getAllCategories() " + categoryService.getAllCategories());
     return DataResponseDTO.of(categoryService.getAllCategories());
-
   }
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")

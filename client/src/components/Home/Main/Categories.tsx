@@ -2,11 +2,11 @@
 import {useQuery} from "@tanstack/react-query";
 import {Category} from "@/interface/Category";
 import Image from "next/image";
-import {getCategories} from "@/apis/adminAPI";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import React from "react";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import {getPublicCategories} from "@/apis/publicAPI";
 
 const Categories = () => {
     const router = useRouter();
@@ -18,7 +18,7 @@ const Categories = () => {
         isLoading
     } = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ['categories'],
-        queryFn: () => getCategories(),
+        queryFn: () => getPublicCategories(),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         throwOnError: true, // 에러 발생시 ErrorBoundary 로 전달

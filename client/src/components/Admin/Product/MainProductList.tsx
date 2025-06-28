@@ -11,9 +11,9 @@ import {useCartStore} from "@/store/cartStore";
 import {getCookie} from "cookies-next";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
-import {getFeaturedProducts, getNewProducts} from "@/apis/adminAPI";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import React, {useEffect, useState} from "react";
+import {getPublicFeaturedProducts, getPublicNewProducts} from "@/apis/publicAPI";
 
 const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
@@ -24,7 +24,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
     const {data: newProducts, isFetched, isLoading, isError, isFetching} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['new-products'],
-        queryFn: () => getNewProducts(),
+        queryFn: () => getPublicNewProducts(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
@@ -33,7 +33,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
     const {data: featuredProducts,} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['featured-products'],
-        queryFn: () => getFeaturedProducts(),
+        queryFn: () => getPublicFeaturedProducts(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,

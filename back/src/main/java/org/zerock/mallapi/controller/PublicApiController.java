@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.mallapi.dto.CategoryDTO;
 import org.zerock.mallapi.dto.DataResponseDTO;
 import org.zerock.mallapi.dto.ProductDTO;
 import org.zerock.mallapi.dto.ReviewDTO;
+import org.zerock.mallapi.service.CategoryService;
 import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.service.ReviewService;
 
@@ -23,26 +25,28 @@ public class PublicApiController {
 
     private final ProductService productService;
     private final ReviewService reviewService;
+    private final CategoryService categoryService;
 
-    @GetMapping("/newProductList")
-    public List<ProductDTO> getNewProducts() {
-        return productService.getNewProducts();
+    @GetMapping("/products/newProductList")
+    public DataResponseDTO<List<ProductDTO>> getNewProducts() {
+
+        return DataResponseDTO.of(productService.getNewProducts());
+    }
+
+    @GetMapping("/products/featuredProductList")
+    public DataResponseDTO<List<ProductDTO>> getFeaturedProducts() {
+        return DataResponseDTO.of(productService.getFeaturedProducts());
+    }
+
+    @GetMapping("/products/expertProducts")
+    public DataResponseDTO<List<ProductDTO>> getExpertProducts() {
+        return DataResponseDTO.of(productService.getExpertProducts());
     }
 
     @GetMapping("/products/{pno}")
     public DataResponseDTO<ProductDTO> read(@PathVariable(name="pno") Long pno) {
-        log.info("????");
-
-        try {
-            Thread.sleep(0);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
         ProductDTO productDTO = productService.get(pno);
-
-        log.info("d...." + productDTO);
         return DataResponseDTO.of(productDTO);
     }
 
@@ -52,6 +56,12 @@ public class PublicApiController {
         return DataResponseDTO.of(reviewService.getList(pno));
 
     }
+
+    @GetMapping("/category/list")
+    public DataResponseDTO<List<CategoryDTO>> list() {
+        return DataResponseDTO.of(categoryService.getAllCategories());
+    }
+
 
 
 }
