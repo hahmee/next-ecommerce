@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
 import {Member} from "@/interface/Member";
-import {getCategories} from "@/apis/adminAPI";
+import {getPublicCategories} from "@/apis/publicAPI";
 
 const FullMenu = ({ member }: { member: Member }) => {
     const router = useRouter();
@@ -15,7 +15,7 @@ const FullMenu = ({ member }: { member: Member }) => {
 
     const { data: categories } = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ["categories"],
-        queryFn: () => getCategories(),
+        queryFn: () => getPublicCategories(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
