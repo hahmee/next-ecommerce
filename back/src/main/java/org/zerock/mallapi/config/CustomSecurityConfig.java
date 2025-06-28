@@ -57,17 +57,20 @@ public class CustomSecurityConfig {
       logout.logoutSuccessHandler(new APILogoutSuccessHandler());
     });
 
-    // ⛔ 중요: authorizeHttpRequests 설정 추가
+    // 중요: authorizeHttpRequests 설정 추가
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/member/**").permitAll() // 로그인 관련은 모두 허용
+            .requestMatchers("/api/public/**").permitAll()
+            .requestMatchers("/api/products/**").permitAll()
+            .requestMatchers("/api/reviews/**").permitAll()
             .requestMatchers("/api/toss/confirm").permitAll() //
             .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
     );
 
-    // ✅ JWT 필터는 항상 UsernamePasswordAuthenticationFilter 앞에 위치해야 함
+    // JWT 필터는 항상 UsernamePasswordAuthenticationFilter 앞에 위치해야 함
     http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 
-    // ✅ 예외 핸들링 설정
+    // 예외 핸들링 설정
     http.exceptionHandling(config -> {
       config.accessDeniedHandler(new CustomAccessDeniedHandler()); // 권한 없음 (403)
       config.authenticationEntryPoint(new CustomAuthenticationEntryPoint()); // 인증 실패 (401)

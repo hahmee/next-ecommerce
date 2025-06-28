@@ -10,7 +10,7 @@ import {ColorTag} from "@/interface/ColorTag";
 import AddCart from "@/components/Home/Cart/AddCart";
 import {Review} from "@/interface/Review";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
-import {getProduct, getReviews} from "@/apis/adminAPI";
+import {getProduct, getPublicProduct, getPublicReviews, getReviews} from "@/apis/adminAPI";
 
 interface Props {
     id: string;
@@ -20,7 +20,7 @@ const ProductSingle = ({id}: Props) => {
 
     const {isLoading, data:product, error} = useQuery<Product, Object, Product, [_1: string, _2: string]>({
         queryKey: ['productCustomerSingle', id],
-        queryFn: getProduct,
+        queryFn: getPublicProduct,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
         throwOnError: true,
@@ -29,7 +29,7 @@ const ProductSingle = ({id}: Props) => {
 
     const {data:reviews} = useQuery<Array<Review>, Object, Array<Review>, [_1: string, _2: string]>({
         queryKey: ['reviews', id],
-        queryFn: () => getReviews({queryKey: ['reviews', id]}),
+        queryFn: () => getPublicReviews({queryKey: ['reviews', id]}),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,

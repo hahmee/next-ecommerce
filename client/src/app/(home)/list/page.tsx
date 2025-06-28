@@ -54,7 +54,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
         openGraph: {
             title: fullTitle,
             description: "검색 필터에 맞는 다양한 상품들을 만나보세요.",
-            url: "https://www.next-ecommerce.shop/list",
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/list`,
         },
         twitter: {
             card: "summary_large_image",

@@ -7,6 +7,14 @@ function getCookie(request: NextRequest, cookieName: string) {
   return cookie ? JSON.parse(cookie.value) : null;
 }
 
+//비회원도 접근 가능
+const publicPaths = [
+  /^\/$/,                // 홈
+  /^\/product\/\d+$/,    // 상품 상세
+  /^\/list$/,            // 전체 목록
+  /^\/category\/[\w-]+$/,// 카테고리
+];
+
 // 권한에 따라 접근 막기
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -24,6 +32,13 @@ export async function middleware(request: NextRequest) {
 
   // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
   if (!member) {
+
+    const isPublic = publicPaths.some((regex) => regex.test(pathname));
+
+    if (isPublic) {
+      return NextResponse.next(); // 비회원 허용
+    }
+
     console.log('User not authenticated, redirecting to login');
     return NextResponse.redirect(new URL('/login', request.url)); // 로그인 페이지로 리다이렉션
   }
@@ -54,7 +69,7 @@ export const config = {
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      * - login and signup pages
      */
-    '/((?!apis|_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap.*\\.xml|login|signup|order/success).*)',
+    '/((?!apis|_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap\\.xml|sitemap-\\d+\\.xml|login|signup|order/success).*)',
 
 
 

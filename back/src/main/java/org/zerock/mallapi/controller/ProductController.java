@@ -17,6 +17,7 @@ import org.zerock.mallapi.service.ProductService;
 import org.zerock.mallapi.util.AwsFileUtil;
 import org.zerock.mallapi.util.CustomFileUtil;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,17 +37,12 @@ public class ProductController {
   @PostMapping("/")
   public DataResponseDTO<ProductDTO> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
-    log.info("productDTO..." + productDTO);
-
-    log.info("userDetails..." + userDetails);
 
     List<FileDTO<MultipartFile>> files = productDTO.getFiles();//파일 객체들
 
     if (files != null && files.size() > 0) {
 
       Map<String, List<FileDTO<String>>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
-
-      log.info("awsResults.............." + awsResults);
 
       List<FileDTO<String>> uploadFileNames = awsResults.get("uploadNames");
       List<FileDTO<String>> uploadFileKeys = awsResults.get("uploadKeys");
@@ -88,7 +84,7 @@ public class ProductController {
     return fileUtil.getFile(fileName);
   }
 
-  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
+//  @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/list") // list?page=7&size=2&categoryId=1&color=green&color=green&minPrice=1&order
   public DataResponseDTO<PageResponseDTO<ProductDTO>> list(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
@@ -126,12 +122,6 @@ public class ProductController {
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/{pno}")
-//  public DataResponseDTO<ProductDTO> modify(
-//          @PathVariable(name="pno") Long pno,
-//          @Valid @ModelAttribute ProductDTO productDTO, // FormData로 DTO 받기
-//          @RequestParam(name = "uploadFileNames", required = false) List<MultipartFile> uploadFileNames, // 파일 목록 받기
-//          @AuthenticationPrincipal UserDetails userDetails
-//  ) {
     public DataResponseDTO<ProductDTO> modify(@PathVariable(name="pno")Long pno, @Valid @ModelAttribute ProductDTO productDTO, @RequestParam(value = "categoryJson", required = false) String categoryJson, @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
     log.info("==============pno " + pno);
@@ -221,51 +211,6 @@ public class ProductController {
   }
 
 
-//  @PutMapping("/{pno}")
-//  public DataResponseDTO<String> modify(@PathVariable(name="pno")Long pno, ProductDTO productDTO) {
-//
-//    productDTO.setPno(pno);
-//
-//    //이미 저장되었던 파일들 가져온다.
-//    ProductDTO oldProductDTO = productService.get(pno);
-//
-//    //기존의 파일들 (데이터베이스에 존재하는 파일들 - 수정 과정에서 삭제되었을 수 있음)
-//    List<String> oldFileNames = oldProductDTO.getUploadFileNames();//
-//
-//    //새로 업로드 해야 하는 파일들
-//    List<MultipartFile> files = productDTO.getFiles();//새로 업로드한 파일들 파일객체들..
-//
-//    //새로 업로드되어서 만들어진 파일 이름들
-//    List<String> currentUploadFileNames = fileUtil.saveFiles(files); //새로 업로드한 파일 객체들 내부에 저장하고 이름들을 가져온다.
-//
-//    //화면에서 변화 없이 계속 유지된 파일들
-//    List<String> uploadedFileNames = productDTO.getUploadFileNames();// 원래 있던 파일의이름들을 가져온다.
-//
-//    //유지되는 파일들  + 새로 업로드된 파일 이름들이 저장해야 하는 파일 목록이 됨
-//    if(currentUploadFileNames != null && currentUploadFileNames.size() > 0) { //새로 업로드한 파일들이 하나라도 있으면
-//
-//      uploadedFileNames.addAll(currentUploadFileNames); // 새로 업로드한 파일들을 원래 있던 파일들의 이름들 배열에 추가한다. 새로업로드한 파일들 + 원래 업로드한 파일들 다 모아놓음
-//
-//    }
-//    //새로업로드한 파일들 + 원래 업로드한 파일들 다 모아놓음
-//
-//
-//    //수정 작업
-//    productService.modify(productDTO);
-//
-//    // 예전에 저장했던 파일들이 한개라도 있다면
-//    if(oldFileNames != null && oldFileNames.size() > 0){ //예전에 저장했던 파일들이 한개라도 있다면
-//
-//      //지워야 하는 파일 목록 찾기
-//      //예전 파일들 중에서 지워져야 하는 파일이름들
-//      List<String> removeFiles =  oldFileNames.stream().filter(fileName -> uploadedFileNames.indexOf(fileName) == -1).collect(Collectors.toList());
-//      //예전 파일들 배열을 돌면서 합쳐진 리스트에 있는 이름들 중에 없다면 삭제한다..
-//
-//      //실제 파일 삭제
-//      fileUtil.deleteFiles(removeFiles);
-//    }
-//    return DataResponseDTO.of( "SUCCESS");
-//  }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
   @DeleteMapping("/{pno}")
@@ -295,6 +240,7 @@ public class ProductController {
 
   }
 
+
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/expertProducts")
   public DataResponseDTO<List<ProductDTO>> getExpertProducts() {
@@ -315,8 +261,6 @@ public class ProductController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN')")
   @PutMapping("/stock/{pno}")
   public DataResponseDTO<ProductDTO> modifySalesStatus(@PathVariable(name="pno") Long pno, @RequestBody StockRequestDTO stockRequestDTO,  @AuthenticationPrincipal UserDetails userDetails) {
-    log.info("==============pno " + pno);
-    log.info("==============stockRequestDTO " + stockRequestDTO);
 
     //수정 작업
     ProductDTO result =  productService.modifySalesStatus(stockRequestDTO);
