@@ -2,15 +2,17 @@ package org.zerock.mallapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseCookie;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.service.MemberService;
 import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.JWTUtil;
+import org.springframework.http.ResponseEntity;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 
@@ -21,105 +23,106 @@ public class APIRefreshController {
 
   private final MemberService memberService;
 
-  @RequestMapping("/api/member/refresh")
-  public Map<String, Object> refresh(@RequestHeader("Authorization") String authHeader, String refreshToken, @RequestBody Map<String, String> emailObject){
+  private static final int ACCESS_EXPIRE_MINUTES = 10;  // 10분
+  private static final int REFRESH_EXPIRE_MINUTES = 60 * 24; // 하루
+  private static final int REFRESH_REISSUE_THRESHOLD_MINUTES = 60; // 60분
+
+  @PostMapping("/api/member/refresh")
+  public ResponseEntity<?> refresh(
+          @CookieValue(value = "access_token", required = false) String accessToken,
+          @CookieValue(value = "refresh_token", required = false) String refreshToken,
+          @RequestBody Map<String, String> emailObject,
+          HttpServletResponse response  // 응답 객체 추가
+
+  ) {
 
     String email = emailObject.get("email");
 
-    if(refreshToken == null) {
-      throw new GeneralException(ErrorCode.NULL_TOKEN, "Refresh Token is null");
-    }
-    
-    if(authHeader == null || authHeader.length() < 7) {
-      throw new GeneralException(ErrorCode.INVALID_TOKEN, "Invalid string");
+    if (email == null || email.trim().isEmpty()) {
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "유효하지 않은 이메일입니다.");
     }
 
-
-    String accessToken = authHeader.substring(7);
-
-
-    //Access 토큰 만료 X
-    if(checkExpiredToken(accessToken) == false) { //ACCESS토큰 괜찮으면 여기 실행
-      return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
+    if (refreshToken == null) {
+      throw new GeneralException(ErrorCode.NULL_TOKEN, "Refresh Token이 존재하지 않습니다.");
     }
 
-    /*Access토큰이 만료*/
+    if (accessToken == null || accessToken.length() < 10) {
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "Access Token이 유효하지 않습니다.");
+    }
 
-    //Refresh토큰 검증
-    Map<String, Object> claims = checkRefreshToken(refreshToken); //null(refreshToken 만료됨)
+    // Access Token이 아직 유효하다면 그대로 반환
+    if (!isExpired(accessToken)) {
+      //      return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
+      return ResponseEntity.ok().body(Map.of("message", "access token still valid"));
+    }
 
-    /* Access, Refresh 둘 다 만료 */
+    // Access는 만료 → Refresh 유효성 확인
+    Map<String, Object> claims = extractClaimsIfValid(refreshToken);
+
+    // refresh 토큰이 유효하지 않다면
     if (claims == null) {
-
-      //이메일 받아서 정보 받기
-      //서비스 호출
-      MemberDTO memberDTO = memberService.get(email);
-
-
-      claims = memberDTO.getClaims();
-
-      log.info("claims...?" + claims);
-
-      String newAccessToken = JWTUtil.generateToken(claims, 10);
-      String newRefreshToken = JWTUtil.generateToken(claims, 60 * 24);
-
-
-      return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken);
-
-
-    }else {  /* ACESS만료, Refresh 만료 X*/
-
-      String newAccessToken = JWTUtil.generateToken(claims, 10);
-      //근데 이제 refresh가 1시간 밖에 안남았다면 새로 발급해주기
-      String newRefreshToken =  checkTime((Integer)claims.get("exp")) == true? JWTUtil.generateToken(claims, 60*24) : refreshToken;
-
-      return Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken); //accessToken만 새로 발급, refresh 토큰은 기존값
-
+      throw new GeneralException(ErrorCode.EXPIRED_TOKEN, "Refresh Token도 만료되었습니다. 다시 로그인해주세요.");
     }
 
+    // Access 재발급
+    String newAccessToken = JWTUtil.generateToken(claims, ACCESS_EXPIRE_MINUTES);
+
+    String newRefreshToken = shouldReissueRefresh((Integer) claims.get("exp"))
+            ? JWTUtil.generateToken(claims, REFRESH_EXPIRE_MINUTES)
+            : refreshToken;
+
+    // Set-Cookie로 내려주기
+    ResponseCookie accessCookie = ResponseCookie.from("access_token", newAccessToken)
+            .httpOnly(true)
+            .secure(false)
+            .sameSite("Lax")
+            .path("/")
+            .maxAge(ACCESS_EXPIRE_MINUTES * 60)
+            .build();
+
+    ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", newRefreshToken)
+            .httpOnly(true)
+            .secure(false)
+            .sameSite("Lax")
+            .path("/")
+            .maxAge(REFRESH_EXPIRE_MINUTES * 60)
+            .build();
+
+    response.addHeader("Set-Cookie", accessCookie.toString());
+    response.addHeader("Set-Cookie", refreshCookie.toString());
+
+
+    return ResponseEntity.ok().body(Map.of("message", "token refreshed"));
+
   }
 
-  //시간이 1시간 미만으로 남았다면
-  private boolean checkTime(Integer exp) {
-
-    //JWT exp를 날짜로 변환
-    java.util.Date expDate = new java.util.Date( (long)exp * (1000 ));
-
-    //현재 시간과의 차이 계산 - 밀리세컨즈
-    long gap   = expDate.getTime() - System.currentTimeMillis();
-
-    //분단위 계산 
-    long leftMin = gap / (1000 * 60);
-
-    //1시간도 안남았는지.. 
-    return leftMin < 60;
-  }
-
-  private boolean checkExpiredToken(String token) {
-
-    try{
-      JWTUtil.validateToken(token);  //여기서 에러남
-    }catch(GeneralException ex) {//CustomJWTException
-      if(ex.getMessage().equals("EXPIRED")){//Expired
-          return true;
-      }
-    }
-    return false;
-  }
-
-
-  private Map<String, Object> checkRefreshToken(String token) {
-    Map<String, Object> claims = null;
-
+  /** access_token 이 만료되었는지 확인 */
+  private boolean isExpired(String token) {
     try {
-      claims = JWTUtil.validateToken(token);
+      JWTUtil.validateToken(token);
+      return false;
     } catch (GeneralException ex) {
-      if (ex.getMessage().equals("EXPIRED")) {//Expired
+      return ErrorCode.EXPIRED_TOKEN.name().equals(ex.getErrorCode().name());
+    }
+  }
+
+  /** refresh_token이 유효하면 claim 리턴, 아니면 null */
+  private Map<String, Object> extractClaimsIfValid(String token) {
+    try {
+      return JWTUtil.validateToken(token);
+    } catch (GeneralException ex) {
+      if (ErrorCode.EXPIRED_TOKEN.name().equals(ex.getErrorCode().name())) {
         return null;
       }
+      throw ex; // 기타 예외는 그대로 던짐
     }
-    return claims;
   }
 
-  
+  /** Refresh 토큰 만료까지 1시간도 안 남았는지 체크 */
+  private boolean shouldReissueRefresh(Integer exp) {
+    long now = System.currentTimeMillis();
+    long expTime = ((long) exp) * 1000L;
+    long remainingMin = (expTime - now) / (1000 * 60);
+    return remainingMin < REFRESH_REISSUE_THRESHOLD_MINUTES;
+  }
 }

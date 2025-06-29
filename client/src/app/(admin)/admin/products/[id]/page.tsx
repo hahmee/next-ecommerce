@@ -7,6 +7,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import {fetcher} from "@/utils/fetcher";
 
 interface Props {
     params: {id: string }
@@ -22,7 +23,8 @@ export default async function ModifyProductPage({params}: Props) {
         },
         {
             queryKey: ['categories'],
-            queryFn: () => getCategories()
+            // queryFn: () => getCategories()
+            queryFn: () =>  fetcher("/api/category/list"),
         },
         {
             queryKey: ['categoryPaths', id],

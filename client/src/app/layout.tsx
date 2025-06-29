@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'; // SSR로 강제 전환 (request-aware)
+
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./globals.css";
@@ -6,6 +8,7 @@ import RQProvider from "@/components/Common/RQProvider";
 import {Toaster} from "react-hot-toast";
 import {GoogleAnalytics} from "@next/third-parties/google";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
+import {cookies} from "next/headers";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 
@@ -23,6 +26,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+
+    const access = cookies().get("access_token");
+    console.log('???, access', access)
+
     return (
         <html lang="en">
         <body className={inter.className} suppressHydrationWarning={true}>

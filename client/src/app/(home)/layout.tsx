@@ -1,15 +1,25 @@
 import React from "react";
 import Footer from "@/components/Home/Footer";
-import {getCookie} from "@/utils/cookie";
+import {cookies} from "next/headers";
 import Navbar from "@/components/Home/Navbar";
 
 export default async function DefaultLayout({children}: Readonly<{ children: React.ReactNode }>) {
 
-    // 쿠키에서 'member'라는 이름의 쿠키 값을 가져옴
-    const member = await getCookie("member");
+
+  const memberCookie = cookies().get("member")?.value;
+  console.log("memberCookie", memberCookie);
+
+  let member = null;
+  if (memberCookie) {
+    try {
+      member = JSON.parse(decodeURIComponent(memberCookie));
+    } catch (e) {
+      console.error("member 쿠키 파싱 실패", e);
+    }
+  }
 
 
-    return (
+  return (
         <>
           <Navbar member={member}/>
             {children}

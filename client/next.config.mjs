@@ -10,6 +10,14 @@ const nextConfig = {
     //         },
     //     ];
     // },
+    async rewrites() {
+        return [
+            {
+                source: "/api/:path*",
+                destination: "http://localhost:8080/api/:path*", // 백엔드
+            },
+        ];
+    },
     images: {
         // domains: ['127.0.0.1'],
         remotePatterns: [

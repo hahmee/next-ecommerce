@@ -9,7 +9,6 @@ import {ColorTag} from "@/interface/ColorTag";
 import {getCookie} from "cookies-next";
 import toast from "react-hot-toast";
 import GACta from "@/libs/ga-call-to-action/GACta";
-import {GA_CTA_EVENTS} from "@/constants";
 
 const AddCart = ({
                      pno,

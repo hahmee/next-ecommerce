@@ -6,34 +6,8 @@
     import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import toast from "react-hot-toast";
-    // import {getCookie} from "cookies-next";
-    //
-    // export function showMessage (message: string | null) {
-    //     if (message === 'no_email') {
-    //         return '이메일을 입력하세요.';
-    //     }
-    //     if (message === 'no_password') {
-    //         return '비밀번호를 입력하세요.';
-    //     }
-    //     if (message === 'no_name') {
-    //         return '닉네임을 입력하세요.';
-    //     }
-    //     if(message === 'email_exists') {
-    //         return '이미 사용 중인 이메일입니다.';
-    //     }
-    //     if(message === 'nickname_exists') {
-    //         return '이미 사용 중인 닉네임입니다.';
-    //     }
-    //     if(message === 'unknown_error') {
-    //         return '알 수 없는 에러입니다.';
-    //     }
-    //     return message;
-    // }
-
-    // // User-ID 암호화 함수
-    // const hashUserId = (userId: string) => {
-    //     return crypto.createHash("sha256").update(userId).digest("hex");
-    // };
+    import { useUserStore } from "@/store/userStore";
+    import {useCartStore} from "@/store/cartStore";
 
     //최고 role 선택하는 함수
     const getHighRole = (roles: MemberRole[]) => {
@@ -58,6 +32,7 @@
         const [password, setPassword] = useState<string>('1111');
         const router = useRouter();
         const [message, setMessage] = useState<string>("");
+        const {user, setUser} = useUserStore();
 
         const onSubmit: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
             try {
@@ -74,6 +49,7 @@
                         password: password as string,
                     }),
                 });
+                console.log('response', response);
 
                 const data: DataResponse<Member> = await response.json();
 
@@ -81,22 +57,11 @@
                     setMessage(data.message);
                     return;
                 } else {
-                    /*해결법- apis route에서 set Cookie 한다.*/
-                    // await fetch("/apis/auth", {
-                    //     method: "POST",
-                    //     body: JSON.stringify(data.data),
-                    // });
 
-                    //쿠키 세팅
-                    // const expires = new Date();
-                    // expires.setUTCDate(expires.getUTCDate() + 1);
-                    // cookies().set("member", JSON.stringify(data), {expires: expires});
+                    console.log('data.data)', data.data)
+                    setUser(data.data); // 전역 상태 저장
+
                     await setCookie("member", JSON.stringify(data.data));
-
-                    // const memberInfo = getCookie('member');
-                    // const member = memberInfo ? JSON.parse(memberInfo) : null;
-
-                    // const member = cookies().get('member') as Member | undefined;
 
                     const member = await getCookie("member") as Member | undefined;
 

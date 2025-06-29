@@ -1,5 +1,6 @@
 'use client';
 
+//클라이언트 전용, React query & CSR 처리
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import React, { ReactNode, Suspense } from 'react';

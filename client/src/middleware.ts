@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
-import { MemberRole } from "@/types/memberRole";
+import {NextRequest, NextResponse} from "next/server";
+import {cookies} from "next/headers";
 
-// 쿠키에서 "member"를 읽기
-function getCookie(request: NextRequest, cookieName: string) {
-  const cookie = request.cookies.get(cookieName);
-  return cookie ? JSON.parse(cookie.value) : null;
-}
+// // 쿠키에서 "member"를 읽기
+// function getCookie(request: NextRequest, cookieName: string) {
+//   const cookie = request.cookies.get(cookieName);
+//   return cookie ? JSON.parse(cookie.value) : null;
+// }
 
 //비회원도 접근 가능
 const publicPaths = [
@@ -27,33 +27,32 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next(); // 그대로 통과
   }
 
-
-  const member = getCookie(request, "member");
+  // const member = getCookie(request, "member");
 
   // 로그인되지 않은 경우 로그인 페이지로 리다이렉션
-  if (!member) {
-
-    const isPublic = publicPaths.some((regex) => regex.test(pathname));
-
-    if (isPublic) {
-      return NextResponse.next(); // 비회원 허용
-    }
-
-    console.log('User not authenticated, redirecting to login');
-    return NextResponse.redirect(new URL('/login', request.url)); // 로그인 페이지로 리다이렉션
-  }
-
-  // 관리자와 매니저만 접근 가능
-  if (
-      pathname.startsWith("/admin") &&
-      !(member?.roleNames?.includes(MemberRole.ADMIN)) &&
-      !(member?.roleNames?.includes(MemberRole.MANAGER)) &&
-      !(member?.roleNames?.includes(MemberRole.DEMO))
-  ) {
-
-    return NextResponse.redirect(new URL('/error', request.url)); // 에러 페이지로 리다이렉션
-
-  }
+  // if (!member) {
+  //
+  //   const isPublic = publicPaths.some((regex) => regex.test(pathname));
+  //
+  //   if (isPublic) {
+  //     return NextResponse.next(); // 비회원 허용
+  //   }
+  //
+  //   console.log('User not authenticated, redirecting to login');
+  //   return NextResponse.redirect(new URL('/login', request.url)); // 로그인 페이지로 리다이렉션
+  // }
+  //
+  // // 관리자와 매니저만 접근 가능
+  // if (
+  //     pathname.startsWith("/admin") &&
+  //     !(member?.roleNames?.includes(MemberRole.ADMIN)) &&
+  //     !(member?.roleNames?.includes(MemberRole.MANAGER)) &&
+  //     !(member?.roleNames?.includes(MemberRole.DEMO))
+  // ) {
+  //
+  //   return NextResponse.redirect(new URL('/error', request.url)); // 에러 페이지로 리다이렉션
+  //
+  // }
 
   return NextResponse.next();
 }
@@ -70,8 +69,6 @@ export const config = {
      * - login and signup pages
      */
     '/((?!apis|_next/static|_next/image|favicon\\.ico|robots\\.txt|sitemap\\.xml|sitemap-\\d+\\.xml|login|signup|order/success).*)',
-
-
 
   ],
 };

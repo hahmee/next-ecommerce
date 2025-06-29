@@ -1,10 +1,6 @@
-import {fetchJWT} from "@/utils/fetchJWT";
 import {PageParam} from "@/interface/PageParam";
 import {unwrap} from "@/utils/unwrap";
-import {Product} from "@/interface/Product";
-import {Review} from "@/interface/Review";
-import {DataResponse} from "@/interface/DataResponse";
-import {Member} from "@/interface/Member";
+import {fetchJWT} from "@/utils/fetchJWT";
 
 export async function getCategories() {
     return unwrap(await fetchJWT("/api/category/list", {

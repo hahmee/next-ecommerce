@@ -2,8 +2,6 @@ import {Product} from "@/interface/Product";
 import {DataResponse} from "@/interface/DataResponse";
 import {Review} from "@/interface/Review";
 import {Category} from "@/interface/Category";
-import {unwrap} from "@/utils/unwrap";
-import {fetchJWT} from "@/utils/fetchJWT";
 
 export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]}): Promise<Product> => {
   const [, pno] = queryKey;
@@ -177,7 +175,6 @@ export const getPublicProductList = async ({
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/list?${params.toString()}`, {
     method: "GET",
     next: { revalidate: 60, tags: ['products'] }, //ISR을 위해 revalidate 해서 60초마다 페이지 재생성
-    credentials: "include",
   });
 
   if (!res.ok) {
