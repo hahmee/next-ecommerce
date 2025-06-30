@@ -4,12 +4,17 @@ export const fetcher = async <T = any>(
   url: string,
   options: RequestInit = {},
 ): Promise<T> => {
-  const isServer = typeof window === 'undefined';
+  console.log('[WHERE]', typeof window, typeof document, globalThis?.window);
 
-  if (isServer) {
-    return serverFetcher<T>(url, options);
+  const isServer = typeof window === 'undefined';
+  if (isServer) { // 서버 컴포넌트에서 요청한 fetch (SSR)
+    console.log('serverFetcher')
+    return serverFetcher<T>(url, options); // 브라우저x, node.js서버에서 실행
+  }else {
+    console.log('[CLIENT]', 'clientFetcher');
   }
 
+  //CSR
   const res = await fetch(url, {
     ...options,
     credentials: 'include',
@@ -20,7 +25,7 @@ export const fetcher = async <T = any>(
   if (res.status === 401) {
     const refreshRes = await fetch('/api/member/refresh', {
       method: 'POST',
-      credentials: 'include',
+      credentials: 'include', //브라우저가 알아서 쿠키 보냄
     });
 
     if (refreshRes.ok) {

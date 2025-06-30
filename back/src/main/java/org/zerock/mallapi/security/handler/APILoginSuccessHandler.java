@@ -16,6 +16,8 @@ import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.Map;
 
+import static org.zerock.mallapi.util.TokenConstants.*;
+
 @Log4j2
 public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -29,9 +31,9 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
     MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
     Map<String, Object> claims = memberDTO.getClaims();
 
-    // 2. JWT 토큰 발급 (access 60분, refresh 1일)
-    String accessToken = JWTUtil.generateToken(claims, 60);       // 60분
-    String refreshToken = JWTUtil.generateToken(claims, 60 * 24); // 1일
+    // 2. JWT 토큰 발급
+    String accessToken = JWTUtil.generateToken(claims, ACCESS_EXPIRE_MINUTES);
+    String refreshToken = JWTUtil.generateToken(claims, REFRESH_EXPIRE_MINUTES);
 
     // 3. HttpOnly + Secure + SameSite=None 설정 쿠키 생성
     ResponseCookie accessCookie = ResponseCookie.from("access_token", accessToken)
@@ -39,7 +41,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
             .secure(false) // HTTPS일 때만 동작, 개발 환경에서는 false 가능
             .sameSite("Lax") // 개발 환경에서는 Lax
             .path("/")
-            .maxAge(Duration.ofMinutes(60))
+            .maxAge(ACCESS_EXPIRE_MINUTES * 60) // 초
             .build();
 
     ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", refreshToken)
@@ -47,7 +49,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
             .secure(false)
             .sameSite("Lax")
             .path("/")
-            .maxAge(Duration.ofDays(1))
+            .maxAge(REFRESH_EXPIRE_MINUTES * 60) // 초
             .build();
 
     // 4. 응답 헤더에 쿠키 추가

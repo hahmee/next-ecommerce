@@ -11,7 +11,6 @@ import {UserHydration} from "@/components/UserHydration";
 import {clientFetcher} from "@/utils/clientFetcher";
 import {fetcher} from "@/utils/fetcher";
 
-export const dynamic = 'force-dynamic'; // SSR로 강제 전환 (request-aware)
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 
@@ -32,14 +31,13 @@ export const metadata: Metadata = {
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
 
   const accessToken = cookies().get("access_token")?.value;
-  console.log('accessTokenzzz', accessToken)
 
   let user = null
   if(accessToken) {
     user = await fetcher("/api/profile"); //본인 정보 가져오기
   }
 
-  console.log('user',user)
+  // console.log('user',user)
 
 
   return (

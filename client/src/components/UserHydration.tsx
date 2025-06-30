@@ -7,7 +7,7 @@ export function UserHydration({ user }: { user: Member }) {
   const setUser = useUserStore((s) => s.setUser);
 
   useEffect(() => {
-    console.log('userser', user)
+    console.log('user', user)
     if (user) setUser(user);
   }, [user]);
 

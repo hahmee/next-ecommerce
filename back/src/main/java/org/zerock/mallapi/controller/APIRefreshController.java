@@ -16,16 +16,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 
+import static org.zerock.mallapi.util.TokenConstants.*;
+
 @RestController
 @RequiredArgsConstructor
 @Log4j2
 public class APIRefreshController {
 
   private final MemberService memberService;
-
-  private static final int ACCESS_EXPIRE_MINUTES = 10;  // 10분
-  private static final int REFRESH_EXPIRE_MINUTES = 60 * 24; // 하루
-  private static final int REFRESH_REISSUE_THRESHOLD_MINUTES = 60; // 60분
 
   @PostMapping("/api/member/refresh")
   public ResponseEntity<?> refresh(
@@ -77,7 +75,7 @@ public class APIRefreshController {
             .secure(false)
             .sameSite("Lax")
             .path("/")
-            .maxAge(ACCESS_EXPIRE_MINUTES * 60)
+            .maxAge(ACCESS_EXPIRE_MINUTES * 60) // 초
             .build();
 
     ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", newRefreshToken)
@@ -85,7 +83,7 @@ public class APIRefreshController {
             .secure(false)
             .sameSite("Lax")
             .path("/")
-            .maxAge(REFRESH_EXPIRE_MINUTES * 60)
+            .maxAge(REFRESH_EXPIRE_MINUTES * 60) // 초
             .build();
 
     response.addHeader("Set-Cookie", accessCookie.toString());

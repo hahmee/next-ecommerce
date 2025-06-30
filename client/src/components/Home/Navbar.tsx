@@ -3,7 +3,6 @@ import Menu from "@/components/Home/Menu";
 import SearchBar from "@/components/Home/SearchBar";
 import React, {Suspense} from "react";
 import {Member} from "@/interface/Member";
-import {getCategories} from "@/apis/adminAPI";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import FullMenu from "@/components/Home/FullMenu";
 import FullMenuSkeleton from "../Skeleton/FullMenuSkeleton";
