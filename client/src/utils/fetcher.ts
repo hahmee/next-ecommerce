@@ -1,42 +1,49 @@
-// utils/fetcher.ts
+import { serverFetcher } from "./serverFetcher";
 
 export const fetcher = async <T = any>(
   url: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> => {
+  const isServer = typeof window === 'undefined';
+
+  if (isServer) {
+    return serverFetcher<T>(url, options);
+  }
+
   const res = await fetch(url, {
     ...options,
-    credentials: "include", // 자동 쿠키 전송 (HTTPOnly 인증을 위해 필수)
+    credentials: 'include',
   });
 
-  // accessToken 만료 시 → /refresh 요청
+  const json = await res.json().catch(() => ({}));
+
   if (res.status === 401) {
-    const refreshRes = await fetch("/api/member/refresh", {
-      method: "POST",
-      credentials: "include",
+    const refreshRes = await fetch('/api/member/refresh', {
+      method: 'POST',
+      credentials: 'include',
     });
 
     if (refreshRes.ok) {
       const retry = await fetch(url, {
         ...options,
-        credentials: "include",
+        credentials: 'include',
       });
 
-      if (!retry.ok) {
-        const retryErr = await retry.json().catch(() => ({}));
-        throw new Error(retryErr.message || "요청 실패");
+      const retryJson = await retry.json().catch(() => ({}));
+
+      if (!retry.ok || !retryJson.success) {
+        throw new Error(retryJson.message || '요청 실패');
       }
 
-      return retry.json();
+      return retryJson.data;
     }
 
-    throw new Error("로그인이 만료되었습니다.");
+    throw new Error(json.message || '로그인이 만료되었습니다.');
   }
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || "서버 오류");
+  if (!res.ok || !json.success) {
+    throw new Error(json.message || '서버 오류');
   }
 
-  return res.json();
+  return json.data;
 };

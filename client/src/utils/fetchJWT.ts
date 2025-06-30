@@ -4,7 +4,7 @@
 
 import { Member } from "@/interface/Member";
 import { DataResponse } from "@/interface/DataResponse";
-import { getCookie, setCookie } from "@/utils/cookie";
+// import { getCookie, setCookie } from "@/utils/cookie";
 
 const host = process.env.BACKEND_URL || "http://localhost";
 
@@ -27,7 +27,7 @@ export const fetchJWT = async <T = any>(
     url: string,
     requestInit: IRequestInit
 ): Promise<FetchJWTResult<T>> => {
-    const member = (await getCookie("member")) as Member | undefined;
+    const member = {} as Member | undefined;
 
     if (!member || !member.accessToken || !member.refreshToken) {
         return { success: false, message: "로그인이 필요합니다.", code: 401 };
@@ -100,6 +100,6 @@ const refreshJWT = async (
         refreshToken: newJWT.refreshToken,
     } as Member;
 
-    await setCookie("member", JSON.stringify(newCookie));
+    // await setCookie("member", JSON.stringify(newCookie));
     return newJWT;
 };

@@ -2,7 +2,6 @@
 
 import {useMutation} from "@tanstack/react-query";
 import {useRouter} from "next/navigation";
-import {setCookie} from "@/utils/cookie";
 import Loading from "@/app/loading";
 import React, {useEffect} from "react";
 import {sendGAEvent} from "@next/third-parties/google";
@@ -38,10 +37,10 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
 
             const { accessToken, refreshToken, member } = result.data;
 
-            await setCookie(
-              "member",
-              JSON.stringify({ ...member, accessToken, refreshToken })
-            );
+            // await setCookie(
+            //   "member",
+            //   JSON.stringify({ ...member, accessToken, refreshToken })
+            // );
 
             return result;
         },

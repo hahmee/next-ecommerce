@@ -3,7 +3,7 @@
     import {useRouter} from "next/navigation";
     import {DataResponse} from "@/interface/DataResponse";
     import {Member} from "@/interface/Member";
-    import {getCookie, setCookie} from "@/utils/cookie";
+    // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import toast from "react-hot-toast";
     import { useUserStore } from "@/store/userStore";
@@ -58,22 +58,24 @@
                     return;
                 } else {
 
-                    console.log('data.data)', data.data)
-                    setUser(data.data); // 전역 상태 저장
+                    console.log('data.data', data.data)
 
-                    await setCookie("member", JSON.stringify(data.data));
+                    // await setCookie("member", JSON.stringify(data.data));
 
-                    const member = await getCookie("member") as Member | undefined;
+                    // const member = await getCookie("member") as Member | undefined;
 
-                    if (member) {
-                        toast.success("로그인 되었습니다.");
-                        const roleNames = member.roleNames;
-                        const role = getHighRole(roleNames);
-                        const encryptedId = member.encryptedId;
-                        // const encryptedId = hashUserId(email);
-
-                    }
+                    // if (member) {
+                    //     toast.success("로그인 되었습니다.");
+                    //     const roleNames = member.roleNames;
+                    //     const role = getHighRole(roleNames);
+                    //     const encryptedId = member.encryptedId;
+                    //     // const encryptedId = hashUserId(email);
+                    //
+                    // }
                     router.replace('/');
+                    setTimeout(() => {
+                        router.refresh(); // SSR 트리거 → layout.tsx에서 cookies() 반영
+                    }, 50);
                 }
             } catch (error) {
                 console.error(error);

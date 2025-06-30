@@ -1,6 +1,6 @@
 "use server";
 import { fetchJWT } from "@/utils/fetchJWT";
-import { removeCookie } from "@/utils/cookie";
+// import { removeCookie } from "@/utils/cookie";
 import { unwrap } from "@/utils/unwrap";
 
 export const getProductList = async ({
@@ -180,5 +180,5 @@ export const logout = async () => {
     if (!response.ok) {
         throw new Error("로그아웃에 실패했습니다.");
     }
-    await removeCookie("member");
+    // await removeCookie("member");
 };

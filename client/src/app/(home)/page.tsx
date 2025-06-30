@@ -17,10 +17,6 @@ import Categories from "@/components/Home/Main/Categories";
 import { cookies } from "next/headers";
 
 
-const access = cookies().get("access_token");
-
-console.log("SSR access_token from layout.tsx:", access);
-
 //동적 데이터 없음 -> generateMetadata대신 meatadata 사용
 export const metadata = {
     title: "Next E-commerce - 최신 트렌드 쇼핑몰",
@@ -74,7 +70,6 @@ const HomePage = () => {
     return (
       <div>
           <Slider/>
-          <div>token... {token}</div>
           <div className="mt-24 bg-[#F9F9F9] m-auto py-10">
               <h1 className="text-4xl font-bold text-gray-600 text-center py-10 px-4.5">
                   Categories

@@ -24,7 +24,7 @@ import Link from "next/link";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 import {unwrap} from "@/utils/unwrap";
-import {fetcher} from "@/utils/fetcher";
+import {clientFetcher} from "@/utils/clientFetcher";
 
 // export const brandOptions:  Array<Option<string>> = [
 //     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -93,7 +93,7 @@ const ProductForm = ({type, id}: Props) => {
     const { isFetched:ctIsFetched, isFetching:ctIsFetching, data:categories, error:ctError, isError:ctIsError} = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ['categories'],
         // queryFn: () => getCategories(),
-        queryFn: () => fetcher("/api/category/list"),
+        queryFn: () => clientFetcher("/api/category/list"),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true, // 에러 바운더리 컴포넌트로 throw

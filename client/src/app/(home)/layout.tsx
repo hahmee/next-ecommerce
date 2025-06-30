@@ -3,13 +3,8 @@ import Footer from "@/components/Home/Footer";
 import {cookies} from "next/headers";
 import Navbar from "@/components/Home/Navbar";
 
-const access = cookies().get("access_token");
-
-console.log("SSR access_token from layout.tsx:", access);
-
 
 export default async function DefaultLayout({children}: Readonly<{ children: React.ReactNode }>) {
-
 
   const memberCookie = cookies().get("member")?.value;
   console.log("memberCookie", memberCookie);
