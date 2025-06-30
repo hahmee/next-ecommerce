@@ -18,8 +18,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.mallapi.security.CustomUserDetailsService;
 import org.zerock.mallapi.security.filter.JWTCheckFilter;
 import org.zerock.mallapi.security.handler.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @Log4j2
@@ -28,6 +30,10 @@ import java.util.Arrays;
 public class CustomSecurityConfig {
 
   private final CustomUserDetailsService customUserDetailsService;
+
+  @Value("${app.cors.allowed-origin}")
+  private String allowedOrigin;
+
 
   @Bean
   public PasswordEncoder passwordEncoder(){
@@ -90,15 +96,16 @@ public class CustomSecurityConfig {
   }
 
 
-    @Bean
+  @Bean
   public CorsConfigurationSource corsConfigurationSource() {
 
     CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.setAllowedOriginPatterns(Arrays.asList("*")); // 모든 Origin 허용
+    configuration.setAllowedOrigins(List.of("http://localhost:3000", allowedOrigin));
+    configuration.setAllowCredentials(true);
     configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
     configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
-    configuration.setAllowCredentials(true);
+
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);

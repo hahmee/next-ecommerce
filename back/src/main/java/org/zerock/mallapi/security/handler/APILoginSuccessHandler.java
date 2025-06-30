@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.zerock.mallapi.dto.MemberDTO;
@@ -12,6 +13,7 @@ import org.zerock.mallapi.util.JWTUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.Duration;
 import java.util.Map;
 
 @Log4j2
@@ -21,23 +23,38 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
           throws IOException, ServletException {
 
-    log.info("=== Authentication 성공 ===");
-    MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
+    log.info("=== 로그인 성공 ===");
 
+    // 1. 사용자 정보
+    MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();
     Map<String, Object> claims = memberDTO.getClaims();
 
-    String accessToken = JWTUtil.generateToken(claims, 60);      // 60분
+    // 2. JWT 토큰 발급 (access 60분, refresh 1일)
+    String accessToken = JWTUtil.generateToken(claims, 60);       // 60분
     String refreshToken = JWTUtil.generateToken(claims, 60 * 24); // 1일
 
+    // 3. HttpOnly + Secure + SameSite=None 설정 쿠키 생성
+    ResponseCookie accessCookie = ResponseCookie.from("access_token", accessToken)
+            .httpOnly(true)
+            .secure(false) // HTTPS일 때만 동작, 개발 환경에서는 false 가능
+            .sameSite("Lax") // 개발 환경에서는 Lax
+            .path("/")
+            .maxAge(Duration.ofMinutes(60))
+            .build();
 
-    // Set-Cookie 헤더 직접 작성 (SameSite=None 필요)
-    String cookieAccess = "access_token=" + accessToken + "; Path=/; Max-Age=3600; HttpOnly; Secure; SameSite=None";
-    String cookieRefresh = "refresh_token=" + refreshToken + "; Path=/; Max-Age=86400; HttpOnly; Secure; SameSite=None";
+    ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", refreshToken)
+            .httpOnly(true)
+            .secure(false)
+            .sameSite("Lax")
+            .path("/")
+            .maxAge(Duration.ofDays(1))
+            .build();
 
-    response.addHeader("Set-Cookie", cookieAccess);
-    response.addHeader("Set-Cookie", cookieRefresh);
+    // 4. 응답 헤더에 쿠키 추가
+    response.addHeader("Set-Cookie", accessCookie.toString());
+    response.addHeader("Set-Cookie", refreshCookie.toString());
 
-    // 로그인 사용자 정보 일부 응답
+    // 5. 클라이언트에 응답 JSON 보내기
     Map<String, Object> result = Map.of(
             "success", true,
             "code", 0,
@@ -53,7 +70,5 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
     PrintWriter writer = response.getWriter();
     writer.println(new Gson().toJson(result));
     writer.close();
-
-
   }
 }

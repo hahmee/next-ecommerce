@@ -40,7 +40,7 @@
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
                     method: "POST",
-                    credentials: 'include', // 자동 쿠키 포함
+                    credentials: 'include', // 쿠키 받기 위해 
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
@@ -130,8 +130,7 @@
                         계정이 없으신가요?
                     </div>
                     {message && <div className="text-green-600 text-sm">{message}</div>}
-                    {/*{message && <div className="text-green-600 text-sm">{showMessage(message)}</div>}*/}
-                </form>
+                    </form>
             </div>
         );
     };
