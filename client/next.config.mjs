@@ -2,22 +2,6 @@
 const nextConfig = {
     reactStrictMode: false,
     output: 'standalone', // standalone 설정 추가
-    // async rewrites() {
-    //     return [
-    //         {
-    //             source: '/apis/:path*',
-    //             destination : `${process.env.NEXT_PUBLIC_BASE_URL}/api/:path*`, // 실제 백엔드 서버 주소
-    //         },
-    //     ];
-    // },
-    async rewrites() {
-        return [
-            {
-                source: "/api/:path*",
-                destination: "http://localhost:8080/api/:path*", // 백엔드
-            },
-        ];
-    },
     images: {
         remotePatterns: [
             {

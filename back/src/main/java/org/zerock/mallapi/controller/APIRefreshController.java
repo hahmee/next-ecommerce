@@ -34,6 +34,8 @@ public class APIRefreshController {
 
   ) {
 
+    log.info("refresh 되는 중?");
+    
     String email = emailObject.get("email");
 
     if (email == null || email.trim().isEmpty()) {

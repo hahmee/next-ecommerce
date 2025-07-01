@@ -5,9 +5,7 @@
     import {Member} from "@/interface/Member";
     // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
-    import toast from "react-hot-toast";
-    import { useUserStore } from "@/store/userStore";
-    import {useCartStore} from "@/store/cartStore";
+    import {useUserStore} from "@/store/userStore";
 
     //최고 role 선택하는 함수
     const getHighRole = (roles: MemberRole[]) => {
@@ -38,7 +36,7 @@
             try {
                 event.preventDefault();
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/login`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/login`, {
                     method: "POST",
                     credentials: 'include', // 쿠키 받기 위해 
                     headers: {

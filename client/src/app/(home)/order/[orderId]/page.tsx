@@ -2,10 +2,9 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import OrderDetail from "@/components/Home/Profile/OrderDetail";
 import {getOrders} from "@/apis/mallAPI";
-import {getCookie} from "@/utils/cookie";
 import OrderDetailSkeleton from "@/components/Skeleton/OrderDetailSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
 
 interface Props {
     params: {orderId: string }

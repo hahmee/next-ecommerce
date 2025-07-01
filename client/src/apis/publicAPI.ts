@@ -6,10 +6,9 @@ import {Category} from "@/interface/Category";
 export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]}): Promise<Product> => {
   const [, pno] = queryKey;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/${pno}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/products/${pno}`, {
     method: 'GET',
     next: { revalidate: 60, tags: ['productSingle', pno] }, // ISR 캐싱
-
   });
 
   if (!res.ok) {
@@ -26,7 +25,7 @@ export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]
 export const getPublicReviews = async ({queryKey,}: { queryKey: [string, string]}): Promise<Array<Review>> => {
   const [, id] = queryKey;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/reviews/list/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/reviews/list/${id}`, {
     method: 'GET',
     next: {revalidate: 60, tags: ['reviews', id]}, // isr 캐싱
   });
@@ -42,10 +41,9 @@ export const getPublicReviews = async ({queryKey,}: { queryKey: [string, string]
 
 
 export const getPublicNewProducts = async (): Promise<Product[]> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/newProductList`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/products/newProductList`, {
     method: "GET",
     cache: "no-store", //SSR (최신)
-    next: { tags: ["new-products"] },
   });
 
   if (!res.ok) {
@@ -58,10 +56,9 @@ export const getPublicNewProducts = async (): Promise<Product[]> => {
 };
 
 export const getPublicFeaturedProducts = async (): Promise<Product[]> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/featuredProductList`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/products/featuredProductList`, {
     method: "GET",
     cache: "no-store", //SSR (최신)
-    next: { tags: ["featured-products"] },
   });
 
   if (!res.ok) {
@@ -74,10 +71,9 @@ export const getPublicFeaturedProducts = async (): Promise<Product[]> => {
 
 
 export const getPublicExpertProducts = async (): Promise<Product[]> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/expertProducts`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/products/expertProducts`, {
     method: "GET",
     cache: "no-store", //SSR (최신)
-    next: { tags: ["expert-products"] },
   });
 
   if (!res.ok) {
@@ -89,10 +85,9 @@ export const getPublicExpertProducts = async (): Promise<Product[]> => {
 };
 
 export const getPublicCategories = async (): Promise <Category[]> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/category/list`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/category/list`, {
     method: "GET",
     cache: "no-store", //SSR (최신)
-    next: { tags: ["categories"] },
   });
 
   if (!res.ok) {
@@ -106,10 +101,9 @@ export const getPublicCategories = async (): Promise <Category[]> => {
 
 export const getPublicCategory = async ({queryKey}: { queryKey: [string, string]}): Promise <Category> => {
   const [_, cno] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/category/${cno}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/category/${cno}`, {
     method: "GET",
     cache: "no-store", //SSR (최신)
-    next: { tags: ['category', cno] },
   });
 
   if (!res.ok) {
@@ -172,7 +166,7 @@ export const getPublicProductList = async ({
   }
 
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/public/products/list?${params.toString()}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public/products/list?${params.toString()}`, {
     method: "GET",
     next: { revalidate: 60, tags: ['products'] }, //ISR을 위해 revalidate 해서 60초마다 페이지 재생성
   });

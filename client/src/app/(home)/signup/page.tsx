@@ -50,7 +50,7 @@ export default function SignupPage() {
         formData.set("roleNames", MemberRole.USER);
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/member/register`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/register`, {
                 method: "POST",
                 credentials: 'include',
                 body: formData,

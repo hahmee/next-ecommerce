@@ -18,7 +18,7 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
 
     const mutation = useMutation({
         mutationFn: async () => {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/toss/confirm`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/toss/confirm`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

@@ -61,17 +61,14 @@ export const getProductList = async ({
 export async function getPayment({paymentKey}: { paymentKey: string }) {
   return await fetcher(`/api/payments/${paymentKey}`, {
     method: "GET",
-    next: {tags: ["paymentKey", paymentKey]},
     credentials: "include",
-    cache: "no-store",
+    cache: "no-store", //SSR
   });
 }
-
 
 export async function getOrder({id}: { id: string }) {
   return await fetcher(`/api/orders/${id}`, {
     method: "GET",
-    next: {tags: ["order", id]},
     credentials: "include",
     cache: "no-store",
   });
@@ -81,9 +78,8 @@ export async function getOrders({ orderId }: { orderId: string }) {
   console.log('getOrders 실행')
   return await fetcher(`/api/orders/list/${orderId}`, {
     method: "GET",
-    // next: {tags: ["orders", orderId]},
     credentials: "include",
-    // cache: "no-store",
+    cache: "no-store",
   });
 }
 
@@ -122,7 +118,6 @@ export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount 
 export const getUserReviews = async ({queryKey}: { queryKey: [string] }) => {
   return await fetcher(`/api/reviews/myReviews`, {
     method: "GET",
-    next: {tags: ["myReviews"]},
     credentials: "include",
     cache: "no-store",
   });
@@ -131,7 +126,6 @@ export const getUserReviews = async ({queryKey}: { queryKey: [string] }) => {
 export const getPayments = async ({ queryKey }: { queryKey: [string] }) => {
   return await fetcher(`/api/payments/list`, {
     method: "GET",
-    next: {tags: ["payments"]},
     credentials: "include",
     cache: "no-store",
   });
@@ -140,7 +134,6 @@ export const getPayments = async ({ queryKey }: { queryKey: [string] }) => {
 export const getUserInfo = async () => {
   return await fetcher(`/api/profile`, {
     method: "GET",
-    next: {tags: ["user"]},
     credentials: "include",
     cache: "no-store",
   });
@@ -149,7 +142,6 @@ export const getUserInfo = async () => {
 export const getCart = async () => {
   return await fetcher(`/api/cart/items`, {
     method: 'GET',
-    next: {tags: ["carts"]},
     credentials: "include",
     cache: "no-store",
   });
