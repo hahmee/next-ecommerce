@@ -35,7 +35,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
 
   if (accessToken) {
     try {
-      user = await fetcher("/api/profile");
+      user = await fetcher("/api/me");
     } catch (e) { // layout.tsx에서 에러나도 error.tsx로 가지 X
       console.error("유저 정보 불러오기 실패:", e);
     }

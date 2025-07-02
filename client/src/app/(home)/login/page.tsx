@@ -55,7 +55,6 @@
                     setMessage(data.message);
                     return;
                 } else {
-
                     console.log('data.data', data.data)
 
                     // await setCookie("member", JSON.stringify(data.data));

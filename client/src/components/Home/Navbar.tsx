@@ -25,13 +25,14 @@ const Navbar = async () => {
 
   // if(accessToken) { // 이걸로 하면 ErrorHandlingWrapper로 에러 전파
   //   console.log('유저 정보 불러오기 실패')
-  //   user = await fetcher("/api/profile");
+  //   user = await fetcher("/api/me");
   //   console.log('user', user);
   // }
 
   try {
     if (accessToken) {
-      user = await fetcher("/api/profile");
+      user = await fetcher("/api/me");
+      console.log('user...', user);
     }
   } catch (e) {
     error = e as Error;
@@ -39,73 +40,74 @@ const Navbar = async () => {
     console.error('❌ 유저 정보 불러오기 실패:', e);
   }
 
-
   const prefetchOptions = [
     {
       queryKey: ['categories'],
       queryFn: () => getPublicCategories(),
     },
-    {
+    ...((user && accessToken) ? [{
       queryKey: ['carts'],
       queryFn: () => getCart(),
-    },
+    }] : []),
   ];
 
 
   return (
-      <div className="pt-20 md:pt-32 relative">
-        <NavbarToastHandler message={errorMessage} />
-        <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-10">
-          {/* MOBILE */}
-          <div className="h-full flex items-center justify-between md:hidden">
-            <Link href="/">
-              <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
-            </Link>
-            {
-              user && <Menu memberInfo={user}/>
-            }
-          </div>
-          {/* BIGGER SCREENS */}
-          <div className="hidden md:flex items-center justify-between gap-8 h-full ">
-            {/* LEFT */}
-            <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
-              <Link href="/" className="flex gap-1">
-                <ShoppingBagIcon className="h-7 w-7 text-ecom"/>
-                <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
-              </Link>
-            </div>
-            {/* RIGHT */}
-
-            <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
-              <SearchBar/>
-              {
-                user ? (
-                      <>
-                        <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                          <ErrorHandlingWrapper>
-                            <NavIcons memberInfo={user}/>
-                          </ErrorHandlingWrapper>
-                        </PrefetchBoundary>
-                      </>
-                  ) :  <GuestAuthButtons member={user}/>
-              }
-            </div>
-
-
-          </div>
+    <div className="pt-20 md:pt-32 relative">
+      <NavbarToastHandler message={errorMessage}/>
+      <div
+        className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-10">
+        {/* MOBILE */}
+        <div className="h-full flex items-center justify-between md:hidden">
+          <Link href="/">
+            <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
+          </Link>
           {
-             <div className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20 ">
-              <Suspense fallback={<FullMenuSkeleton/>}>
-                <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                  <ErrorHandlingWrapper>
-                    <FullMenu member={user}/>
-                  </ErrorHandlingWrapper>
-                </PrefetchBoundary>
-              </Suspense>
-              </div>
+            (user && accessToken) && <Menu memberInfo={user}/>
           }
         </div>
+        {/* BIGGER SCREENS */}
+        <div className="hidden md:flex items-center justify-between gap-8 h-full ">
+          {/* LEFT */}
+          <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
+            <Link href="/" className="flex gap-1">
+              <ShoppingBagIcon className="h-7 w-7 text-ecom"/>
+              <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
+            </Link>
+          </div>
+          {/* RIGHT */}
+
+          <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
+            <SearchBar/>
+            {
+              (user && accessToken) ? (
+                <>
+                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                    <ErrorHandlingWrapper>
+                      <NavIcons memberInfo={user}/>
+                    </ErrorHandlingWrapper>
+                  </PrefetchBoundary>
+                </>
+              ) : <GuestAuthButtons member={user}/>
+            }
+          </div>
+
+
+        </div>
+        {
+          <div
+            className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20 ">
+            <Suspense fallback={<FullMenuSkeleton/>}>
+              <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                <ErrorHandlingWrapper>
+                  <FullMenu member={user}/>
+                </ErrorHandlingWrapper>
+              </PrefetchBoundary>
+            </Suspense>
+          </div>
+        }
       </div>
+    </div>
   );
 };
 

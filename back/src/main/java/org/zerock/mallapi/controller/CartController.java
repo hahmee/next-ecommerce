@@ -45,7 +45,6 @@ public class CartController {
     public DataResponseDTO<List<CartItemListDTO>> getCartItems(Principal principal) {
 
         String email = principal.getName();
-        log.info("--------------------------------------------");
         log.info("items email: " + email );
 
         return DataResponseDTO.of(cartService.getCartItems(email));

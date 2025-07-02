@@ -20,7 +20,8 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const {counter, changeOpen, open , setCarts} = useCartStore();
     const [accountOpen, setAccountOpen] = useState(false);
 
-    const onLogout = async () => {
+
+  const onLogout = async () => {
 
         // queryClient.invalidateQueries({
         //     queryKey: ["users"],
@@ -38,6 +39,8 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
+        enabled: !!memberInfo,
+
     });
 
     // React Query 데이터와 Zustand 동기화

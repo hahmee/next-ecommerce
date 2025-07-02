@@ -15,14 +15,17 @@ export async function GET(req: NextRequest) {
   }
 
   // 1. 원 요청
-  let res = await fetch(`${process.env.BACKEND_URL}/api/profile/`, {
+  let res = await fetch(`${process.env.BACKEND_URL}/api/me`, {
     headers: {
       cookie: `access_token=${accessToken}`,
     },
   });
 
   if (res.status !== 401) {
-    return NextResponse.json(await res.json());
+    const data = await res.json();
+    console.log('data',data);
+    console.log('??여기로 들어오는데? 제대로 됏는데?')
+    return NextResponse.json(data); // { email: 'xxx@xxx.com', nickname: 'xxx', roles: [ 'ADMIN' ] }
   }
 
 
@@ -48,7 +51,7 @@ export async function GET(req: NextRequest) {
   console.log('newAccessToken',newAccessToken)
 
   // 3. 재요청
-  const retryRes = await fetch(`${process.env.BACKEND_URL}/api/profile/`, {
+  const retryRes = await fetch(`${process.env.BACKEND_URL}/api/me`, {
     headers: {
       cookie: `access_token=${newAccessToken}`,
     },

@@ -82,7 +82,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
               email, password, nickname, social, roleNames, encryptedId, createdAt, updatedAt
       );
 
-      // Spring Security 인증 컨텍스트 설정
+      // member를 principal로 사용해서 인증 객체 생성
       UsernamePasswordAuthenticationToken authToken =
               new UsernamePasswordAuthenticationToken(memberDTO, password, memberDTO.getAuthorities());
 
