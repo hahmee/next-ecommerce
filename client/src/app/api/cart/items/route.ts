@@ -2,13 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import {cookies} from "next/headers";
 
 export async function GET(req: NextRequest) {
-  console.log('?????? item API hit');
   const cookieStore = cookies();
   const accessToken = cookieStore.get("access_token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
-
-  console.log('accessToken', accessToken);
-  console.log('refreshToken', refreshToken);
 
   if(!accessToken || !refreshToken) {
     return NextResponse.json({ success: false, message: '인증 정보 없음' }, { status: 401 });
@@ -23,8 +19,6 @@ export async function GET(req: NextRequest) {
 
   if (res.status !== 401) {
     const data = await res.json();
-    console.log('data',data);
-    console.log('??여기로 들어오는데? 제대로 됏는데?')
     return NextResponse.json(data); // { email: 'xxx@xxx.com', nickname: 'xxx', roles: [ 'ADMIN' ] }
   }
 
@@ -47,8 +41,6 @@ export async function GET(req: NextRequest) {
   //새로운 accessToken?
   const newAccessToken = setCookie?.match(/access_token=([^;]+)/)?.[1];
 
-  console.log('setCookie', setCookie);
-  console.log('newAccessToken', newAccessToken);
 
   // 3. 재요청
   const retryRes = await fetch(`${process.env.BACKEND_URL}/api/cart/items`, {

@@ -131,7 +131,7 @@ export const getPayments = async ({ queryKey }: { queryKey: [string] }) => {
   });
 };
 
-export const getUserInfo = async () => {
+export const getUserProfile = async () => {
   return await fetcher(`/api/profile`, {
     method: "GET",
     credentials: "include",
@@ -140,6 +140,8 @@ export const getUserInfo = async () => {
 };
 
 export const getCart = async () => {
+  console.log('[getCart] SSR?', typeof window === 'undefined');
+
   return await fetcher(`/api/cart/items`, {
     method: 'GET',
     credentials: "include",

@@ -33,7 +33,7 @@ public class MemberController {
     /** 로그인한 사용자 정보 조회 */
     @GetMapping("/api/me")
     public DataResponseDTO<MemberPublicDTO> getMyInfo(@AuthenticationPrincipal MemberDTO member) {
-
+        log.info("🔥 [API] /api/member/me 호출됨");
         log.info("member...." + member);
 
         if (member == null) {

@@ -137,7 +137,7 @@ export const getReviews = async ({queryKey}: { queryKey: [string, string] }) => 
     const [_, id] = queryKey;
     return unwrap(await fetchJWT(`/api/reviews/list/${id}`, {
         method: "GET",
-        next: { revalidate: 60, tags: ['reviews', id] }, //ISR을 위해 revalidate 해서 60초마다 페이지 재생성
+        next: {revalidate: 60, tags: ['reviews', id]}, // ISR을 위해 revalidate 해서 60초마다 페이지 재생성
         credentials: 'include',
         // cache: 'no-store', SSR 취소
     }));

@@ -6,6 +6,7 @@
     // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import {useUserStore} from "@/store/userStore";
+    import {fetcher} from "@/utils/fetcher";
 
     //최고 role 선택하는 함수
     const getHighRole = (roles: MemberRole[]) => {
@@ -56,6 +57,10 @@
                     return;
                 } else {
                     console.log('data.data', data.data)
+                    //api/me 통신해서 여기서 setUser로 zustand 안에 넣기
+                    // const user = await fetcher("/api/me"); // 유저 정보 불러오기
+                    // console.log('user',user);
+                    // setUser(user)
 
                     // await setCookie("member", JSON.stringify(data.data));
 

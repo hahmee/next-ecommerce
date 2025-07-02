@@ -15,9 +15,6 @@ export const fetcher = async <T = any>(
     ? `${process.env.NEXT_PUBLIC_BASE_URL}${path}` // ex: http://localhost:3000/api/me
     : path;
 
-  console.log('isServer', isServer);
-
-  console.log('finalUrl', finalUrl);
 
   const res = await fetch(finalUrl, {
     ...options,
@@ -31,10 +28,7 @@ export const fetcher = async <T = any>(
         credentials: 'include', // 브라우저가 쿠키를 route.ts로 보냄
       }),
   });
-  console.log('res.ok', res.ok); // true
   const json = await res.json().catch(() => ({}));
-  console.log('json', json);
-  console.log('json?.success', json?.success);
 
   //json {
   //   success: true,
@@ -44,7 +38,6 @@ export const fetcher = async <T = any>(
   // }
 
   if (!res.ok || json?.success === false) {
-    console.log('??왜지 ')
     throw new Error(json?.message || '요청 실패');
   }
 

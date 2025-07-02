@@ -36,8 +36,8 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
     const { isFetched, isFetching, data:cartData, error, isError} = useQuery<Array<CartItemList>, Object, Array<CartItemList>>({
         queryKey: ['carts'],
         queryFn: () => getCart(),
-        staleTime: 60 * 1000,
-        gcTime: 300 * 1000,
+        staleTime: 60 * 1000, // 1분동안 fresh
+        gcTime: 300 * 1000, // 가비지 컬렉션 시간
         throwOnError: true,
         enabled: !!memberInfo,
 

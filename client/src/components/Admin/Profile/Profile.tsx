@@ -5,13 +5,13 @@ import React from "react";
 import Image from "next/image";
 import {Member} from "@/interface/Member";
 import {useQuery} from "@tanstack/react-query";
-import {getUserInfo} from "@/apis/mallAPI";
+import {getUserProfile} from "@/apis/mallAPI";
 
 const Profile = () => {
 
     const {data: member, isLoading} = useQuery<Member, Object, Member>({
         queryKey: ['user'],
-        queryFn: () => getUserInfo(),
+        queryFn: () => getUserProfile(),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,

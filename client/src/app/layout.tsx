@@ -9,6 +9,7 @@ import {GoogleAnalytics} from "@next/third-parties/google";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
 import {UserHydration} from "@/components/UserHydration";
 import {fetcher} from "@/utils/fetcher";
+import {getUserInfo} from "@/libs/auth";
 
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
@@ -27,18 +28,21 @@ export const metadata: Metadata = {
     },
 };
 
+
+// 서버 컴포넌트는 계층적으로 다시 실행됨
+// 모든 상위 컴포넌트가 다시 실행됨
+// 해당 layout은 SSR 요청마다 항상 실행됨
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
 
+  console.log('?????????????????????????????????????????????????????????????????????')
   const accessToken = cookies().get("access_token")?.value;
 
   let user = null
 
-  if (accessToken) {
-    try {
-      user = await fetcher("/api/me");
-    } catch (e) { // layout.tsx에서 에러나도 error.tsx로 가지 X
-      console.error("유저 정보 불러오기 실패:", e);
-    }
+
+  if(accessToken) {
+    user = await getUserInfo();
+    console.log('user', user)
   }
 
 
@@ -48,7 +52,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
       <RQProvider>
         <div id="portal-root"></div>
         {
-          accessToken && <UserHydration user={user}/>
+          (accessToken && user) && <UserHydration user={user}/>
         }
         {children}
         <Toaster/>

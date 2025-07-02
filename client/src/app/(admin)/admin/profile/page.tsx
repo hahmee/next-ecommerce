@@ -2,7 +2,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Profile from "@/components/Admin/Profile/Profile";
-import {getUserInfo} from "@/apis/mallAPI";
+import {getUserProfile} from "@/apis/mallAPI";
 import Loading from "@/app/loading";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {cookies} from "next/headers";
@@ -43,7 +43,7 @@ export default async function ProfilePage() {
 
     const prefetchOptions = {
         queryKey: ['user'],
-        queryFn: () => getUserInfo(),
+        queryFn: () => getUserProfile(),
     }
     
     return (
