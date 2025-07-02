@@ -53,7 +53,7 @@ public class APIRefreshController {
     // Access Token이 아직 유효하다면 그대로 반환
     if (!isExpired(accessToken)) {
       //      return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
-      return ResponseEntity.ok().body(Map.of("message", "access token still valid"));
+      return ResponseEntity.ok().body(Map.of("message", "Access Token이 유효합니다."));
     }
 
     // Access는 만료 → Refresh 유효성 확인

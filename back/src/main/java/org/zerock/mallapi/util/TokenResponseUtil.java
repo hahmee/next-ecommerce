@@ -6,6 +6,7 @@ import org.zerock.mallapi.dto.MemberDTO;
 import java.util.HashMap;
 import java.util.Map;
 
+//변경 요망
 public class TokenResponseUtil {
 
     public static DataResponseDTO<Map<String, Object>> create(MemberDTO memberDTO) {

@@ -8,7 +8,6 @@ import {Toaster} from "react-hot-toast";
 import {GoogleAnalytics} from "@next/third-parties/google";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
 import {UserHydration} from "@/components/UserHydration";
-import {clientFetcher} from "@/utils/clientFetcher";
 import {fetcher} from "@/utils/fetcher";
 
 
@@ -33,24 +32,27 @@ export default async function RootLayout({children}: Readonly<{ children: React.
   const accessToken = cookies().get("access_token")?.value;
 
   let user = null
-  if(accessToken) {
-    user = await fetcher("/api/profile"); //본인 정보 가져오기
-  }
 
-  // console.log('user',user)
+  if (accessToken) {
+    try {
+      user = await fetcher("/api/profile");
+    } catch (e) { // layout.tsx에서 에러나도 error.tsx로 가지 X
+      console.error("유저 정보 불러오기 실패:", e);
+    }
+  }
 
 
   return (
     <html lang="en">
-    <body className={inter.className} suppressHydrationWarning={true}>
-    <RQProvider>
-      <div id="portal-root"></div>
-      {
-        accessToken && <UserHydration user={user}/>
-      }
-      {children}
-      <Toaster/>
-    </RQProvider>
+      <body className={inter.className} suppressHydrationWarning={true}>
+      <RQProvider>
+        <div id="portal-root"></div>
+        {
+          accessToken && <UserHydration user={user}/>
+        }
+        {children}
+        <Toaster/>
+      </RQProvider>
     {
       (GA_TRACKING_ID) && <>
         {/*두 개 동시에 쓰지 말것 */}

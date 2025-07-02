@@ -7,7 +7,6 @@ export const fetcher = async <T = any>(
   } = {}
 ): Promise<T> => {
 
-  console.log('??????????fetcher');
   const isServer = typeof window === 'undefined';
 
   const finalUrl = isServer
@@ -15,6 +14,7 @@ export const fetcher = async <T = any>(
     : path;
 
 
+  console.log('finalUrl',finalUrl)
 
   const res = await fetch(finalUrl, {
     ...options,

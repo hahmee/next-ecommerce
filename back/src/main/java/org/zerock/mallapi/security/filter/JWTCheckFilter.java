@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.zerock.mallapi.domain.MemberRole;
 import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.util.JWTUtil;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,7 +46,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     try {
       String accessToken = null;
 
-      // ✅ HTTPOnly 쿠키에서 access_token 추출
+      // HTTPOnly 쿠키에서 access_token 추출
       if (request.getCookies() != null) {
         for (Cookie cookie : request.getCookies()) {
           if ("access_token".equals(cookie.getName())) {
@@ -57,11 +56,14 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         }
       }
 
-      if (accessToken == null) {
+      log.info("accessToken......? " + accessToken); //undefined
+
+      if (accessToken == null || "undefined".equals(accessToken) || accessToken.isBlank()) {
         throw new AuthenticationCredentialsNotFoundException("access_token 쿠키가 없습니다.");
       }
 
-      // ✅ JWT 검증 및 클레임 파싱
+
+      // JWT 검증 및 클레임 파싱
       Map<String, Object> claims = JWTUtil.validateToken(accessToken);
 
       String email = (String) claims.get("email");
@@ -80,18 +82,18 @@ public class JWTCheckFilter extends OncePerRequestFilter {
               email, password, nickname, social, roleNames, encryptedId, createdAt, updatedAt
       );
 
-      // ✅ Spring Security 인증 컨텍스트 설정
+      // Spring Security 인증 컨텍스트 설정
       UsernamePasswordAuthenticationToken authToken =
               new UsernamePasswordAuthenticationToken(memberDTO, password, memberDTO.getAuthorities());
 
       SecurityContextHolder.getContext().setAuthentication(authToken);
 
-      log.info("✅ 인증 성공: {}", memberDTO.getEmail());
+      log.info("인증 성공: {}", memberDTO.getEmail());
 
       filterChain.doFilter(request, response);
 
     } catch (Exception e) {
-      log.warn("❌ JWT 인증 실패: {}", e.getMessage());
+      log.warn("JWT 인증 실패: {}", e.getMessage());
       throw new AuthenticationCredentialsNotFoundException("JWT 인증 실패: " + e.getMessage(), e);
     }
   }

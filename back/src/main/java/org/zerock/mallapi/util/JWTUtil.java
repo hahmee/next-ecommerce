@@ -56,7 +56,7 @@ public class JWTUtil {
 
   public static Map<String, Object> validateToken(String token) {
 
-    log.info("token....." + token);
+    log.info("token..... " + token);
     Map<String, Object> claim = null;
     
     try{

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {cookies} from "next/headers";
 
-//src/app/api/profile/route.ts
 export async function GET(req: NextRequest) {
   console.log('?????? profile API hit');
   const cookieStore = cookies();
@@ -11,11 +10,15 @@ export async function GET(req: NextRequest) {
   console.log('accessToken',accessToken)
   console.log('refreshToken',refreshToken)
 
+  if(!accessToken || !refreshToken) {
+    return NextResponse.json({ success: false, message: '인증 정보 없음' }, { status: 401 });
+
+  }
 
   // 1. 원 요청
   let res = await fetch(`${process.env.BACKEND_URL}/api/profile/`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      cookie: `access_token=${accessToken}`,
     },
   });
 
@@ -33,17 +36,18 @@ export async function GET(req: NextRequest) {
   });
 
   if (!refreshRes.ok) {
-    return NextResponse.json({ success: false }, { status: 401 });
+    return NextResponse.json({ success: false, message: 'refresh 실패' }, { status: 401 });
   }
 
   const setCookie = refreshRes.headers.get("set-cookie");
   const newAccessToken = setCookie?.match(/access_token=([^;]+)/)?.[1];
 
   console.log('setCookie',setCookie)
+
   // 3. 재요청
-  const retryRes = await fetch(`${process.env.BACKEND_URL}/api/member/refresh`, {
+  const retryRes = await fetch(`${process.env.BACKEND_URL}/api/profile/`, {
     headers: {
-      Authorization: `Bearer ${newAccessToken}`,
+      cookie: `access_token=${newAccessToken}`,
     },
   });
 

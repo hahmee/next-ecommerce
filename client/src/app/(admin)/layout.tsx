@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 
-
 export default function AdminLayout({children, modal}: { children: React.ReactNode, modal: React.ReactNode }) {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
