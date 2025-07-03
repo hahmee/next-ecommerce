@@ -140,7 +140,6 @@ export const getUserProfile = async () => {
 };
 
 export const getCart = async () => {
-
   return await fetcher(`/api/cart/items`, {
     method: 'GET',
     credentials: "include",

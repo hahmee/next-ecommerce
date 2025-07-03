@@ -22,7 +22,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(data); // { email: 'xxx@xxx.com', nickname: 'xxx', roles: [ 'ADMIN' ] }
   }
 
-
   // 2. refresh 요청 (accessToken 재발급 요청)
   const refreshRes = await fetch(`${process.env.BACKEND_URL}/api/member/refresh`, {
     method: "POST",

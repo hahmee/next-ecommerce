@@ -11,6 +11,7 @@ import {UserHydration} from "@/components/UserHydration";
 import {getUserInfo} from "@/libs/auth";
 import { fetcher } from "@/utils/fetcher";
 import {InitUserFromCookie} from "@/components/InitUserFromCookie";
+import UserSyncHandler from "@/components/UserSyncHandler";
 
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
@@ -36,14 +37,15 @@ export const metadata: Metadata = {
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
   const accessToken = cookies().get("access_token")?.value;
 
-  // let user = null
-  //
-  // try {
-  //   user = await getUserInfo();
-  // } catch (e) {
-  //   console.error("getUserInfo 실패..:", e);
-  // }
+  let user = null
 
+  try {
+    user = await getUserInfo();
+  } catch (e) {
+    console.error("getUserInfo 실패..:", e);
+  }
+
+  console.log('user.....', user);
   return (
     <html lang="en">
     <body className={inter.className} suppressHydrationWarning={true}>
@@ -52,6 +54,8 @@ export default async function RootLayout({children}: Readonly<{ children: React.
       {/*{*/}
       {/*  (accessToken && user) && <UserHydration user={user}/>*/}
       {/*}*/}
+      <UserHydration user={user}/>
+      <UserSyncHandler />
       {accessToken && <InitUserFromCookie/>}
       {children}
       <Toaster/>

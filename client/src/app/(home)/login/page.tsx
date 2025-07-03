@@ -50,35 +50,32 @@
                 });
                 console.log('response', response);
 
-                const data: DataResponse<Member> = await response.json();
 
-                if (data.code != 0) { //에러있는 상황
-                    setMessage(data.message);
-                    return;
-                } else {
-                    console.log('data.data', data.data)
-                    //api/me 통신해서 여기서 setUser로 zustand 안에 넣기
-                    const user = await fetcher("/api/me"); // 유저 정보 불러오기
-                    console.log('user',user);
+                if (!response.ok) {
+                    throw new Error("로그인 실패");
 
-
-                    // await setCookie("member", JSON.stringify(data.data));
-
-                    // const member = await getCookie("member") as Member | undefined;
-
-                    // if (member) {
-                    //     toast.success("로그인 되었습니다.");
-                    //     const roleNames = member.roleNames;
-                    //     const role = getHighRole(roleNames);
-                    //     const encryptedId = member.encryptedId;
-                    //     // const encryptedId = hashUserId(email);
-                    //
-                    // }
-                    router.replace('/');
-                    // setTimeout(() => {
-                    //     router.refresh(); // SSR 트리거 → layout.tsx에서 cookies() 반영
-                    // }, 50);
                 }
+
+                const meRes = await fetch("/api/me", {
+                    credentials: "include",
+                });
+
+                if (!meRes.ok) {
+                    throw new Error("유저 정보 조회 실패");
+                }
+
+                const json = await meRes.json();
+                const user = json.data;
+
+                console.log('user',user);
+
+                // Zustand에 저장
+                setUser(user);
+
+                // 홈으로 이동
+                router.push("/"); // CSR (SSR 서버로 새 요청 하지 X)
+                router.refresh()
+
             } catch (error) {
                 console.error(error);
                 setMessage("알 수 없는 에러입니다.")

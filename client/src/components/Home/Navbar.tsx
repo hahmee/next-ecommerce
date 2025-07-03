@@ -12,25 +12,28 @@ import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import GuestAuthButtons from "@/components/Home/GuestAuthButtons";
 import {getPublicCategories} from "@/apis/publicAPI";
 import {cookies} from "next/headers";
+import {getUserInfo} from "@/libs/auth";
 
 
 const Navbar = async () => {
 
   const accessToken = cookies().get("access_token")?.value;
-  // let user = null;
-  //
-  // try {
-  //   user = await getUserInfo();
-  // } catch (e) {
-  //   console.error("getUserInfo 실패..:", e);
-  // }
+  let user = null;
+
+  try {
+    user = await getUserInfo();
+  } catch (e) {
+    console.error("getUserInfo 실패..:", e);
+  }
+
+  console.log('user',user)
 
   const prefetchOptions = [
     {
       queryKey: ["categories"],
       queryFn: () => getPublicCategories(),
     },
-    ...(accessToken
+    ...(accessToken && user
       ? [
         {
           queryKey: ["carts"],
@@ -43,14 +46,15 @@ const Navbar = async () => {
   return (
     <div className="pt-20 md:pt-32 relative">
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-10">
+        <div
+          className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-10">
           {/* MOBILE */}
           <div className="h-full flex items-center justify-between md:hidden">
             <Link href="/">
               <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
             </Link>
             {/*{user && accessToken && <Menu memberInfo={user} />}*/}
-            {accessToken && <Menu />}
+            { user && accessToken && <Menu/> }
 
           </div>
 
@@ -59,15 +63,15 @@ const Navbar = async () => {
             {/* LEFT */}
             <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
               <Link href="/" className="flex gap-1">
-                <ShoppingBagIcon className="h-7 w-7 text-ecom" />
+                <ShoppingBagIcon className="h-7 w-7 text-ecom"/>
                 <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
               </Link>
             </div>
 
             {/* RIGHT */}
             <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
-              <SearchBar />
-              {accessToken ? (
+              <SearchBar/>
+              {(accessToken && user) ? (
                 <ErrorHandlingWrapper>
                   <NavIcons/>
                 </ErrorHandlingWrapper>
@@ -78,10 +82,11 @@ const Navbar = async () => {
           </div>
 
           {/* FULL MENU */}
-          <div className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20">
-            <Suspense fallback={<FullMenuSkeleton />}>
+          <div
+            className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20">
+            <Suspense fallback={<FullMenuSkeleton/>}>
               <ErrorHandlingWrapper>
-                <FullMenu />
+                <FullMenu/>
               </ErrorHandlingWrapper>
             </Suspense>
           </div>
