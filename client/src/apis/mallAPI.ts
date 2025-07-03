@@ -140,7 +140,6 @@ export const getUserProfile = async () => {
 };
 
 export const getCart = async () => {
-  console.log('[getCart] SSR?', typeof window === 'undefined');
 
   return await fetcher(`/api/cart/items`, {
     method: 'GET',

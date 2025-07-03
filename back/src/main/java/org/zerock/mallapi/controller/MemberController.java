@@ -19,6 +19,21 @@ import org.zerock.mallapi.util.GeneralException;
 public class MemberController {
     private final MemberService memberService;
 
+    /** 로그인한 사용자 정보 조회 */
+    @GetMapping("/api/me")
+    public DataResponseDTO<MemberPublicDTO> getMyInfo(@AuthenticationPrincipal MemberDTO member) {
+        log.info("[API] /api/me 호출됨");
+        log.info("member...." + member);
+
+        if (member == null) {
+            throw new GeneralException(ErrorCode.UNAUTHORIZED, "로그인이 필요합니다.");
+        }
+
+        return DataResponseDTO.of(member.toPublicDTO());
+
+    }
+
+
     @PostMapping("/api/member/register")
     public DataResponseDTO<MemberDTO> register(MemberDTO memberDTO){
 
@@ -30,19 +45,6 @@ public class MemberController {
         return DataResponseDTO.of(registeredMemberDTO);
     }
 
-    /** 로그인한 사용자 정보 조회 */
-    @GetMapping("/api/me")
-    public DataResponseDTO<MemberPublicDTO> getMyInfo(@AuthenticationPrincipal MemberDTO member) {
-        log.info("🔥 [API] /api/member/me 호출됨");
-        log.info("member...." + member);
-
-        if (member == null) {
-            throw new GeneralException(ErrorCode.UNAUTHORIZED, "로그인이 필요합니다.");
-        }
-
-        return DataResponseDTO.of(member.toPublicDTO());
-
-    }
 
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")

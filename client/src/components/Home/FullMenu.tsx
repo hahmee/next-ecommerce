@@ -4,14 +4,15 @@ import {Category} from "@/interface/Category";
 import React, {useState} from "react";
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 import {useRouter, useSearchParams} from "next/navigation";
-import {Member} from "@/interface/Member";
 import {getPublicCategories} from "@/apis/publicAPI";
+import {useUserStore} from "@/store/userStore";
 
-const FullMenu = ({ member }: { member: Member }) => {
+const FullMenu = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const categoryId = searchParams.get("category_id") || "";
     const [hoverCategoryId, setHoverCategoryId] = useState<number | null>(null);
+    const {user} = useUserStore();
 
     const { data: categories } = useQuery<Array<Category>, Object, Array<Category>>({
         queryKey: ["categories"],
@@ -19,7 +20,7 @@ const FullMenu = ({ member }: { member: Member }) => {
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
         throwOnError: true,
-        enabled: !!member,
+        enabled: !!user,
     });
 
     const onClickCategory = (cno: number) => {

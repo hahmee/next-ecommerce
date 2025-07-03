@@ -1,51 +1,36 @@
 import Link from "next/link";
 import Menu from "@/components/Home/Menu";
 import SearchBar from "@/components/Home/SearchBar";
-import React, { Suspense } from "react";
-import { PrefetchBoundary } from "@/libs/PrefetchBoundary";
+import React, {Suspense} from "react";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import FullMenu from "@/components/Home/FullMenu";
 import FullMenuSkeleton from "../Skeleton/FullMenuSkeleton";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { getCart } from "@/apis/mallAPI";
+import {ShoppingBagIcon} from "@heroicons/react/24/outline";
+import {getCart} from "@/apis/mallAPI";
 import NavIcons from "@/components/Home/NavIcons";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import GuestAuthButtons from "@/components/Home/GuestAuthButtons";
-import { getPublicCategories } from "@/apis/publicAPI";
-import { cookies } from "next/headers";
-import { fetcher } from "@/utils/fetcher";
-import NavbarToastHandler from "./NavbarToastHandler";
-import {getUserInfo} from "@/libs/auth";
+import {getPublicCategories} from "@/apis/publicAPI";
+import {cookies} from "next/headers";
 
 
 const Navbar = async () => {
 
   const accessToken = cookies().get("access_token")?.value;
-  let user = null;
-  let error: Error | undefined = undefined;
-  let errorMessage: string | undefined;
-
+  // let user = null;
+  //
   // try {
-  //   if (accessToken) {
-  //     user = await fetcher("/api/me");
-  //     console.log("user...", user);
-  //   }
+  //   user = await getUserInfo();
   // } catch (e) {
-  //   error = e as Error;
-  //   errorMessage = error.message;
-  //   console.error("❌ 유저 정보 불러오기 실패:", e);
-  // }]
-
-  if(accessToken) {
-    user = await getUserInfo(); // 중복 X, 위 layout의 캐시 재사용
-    console.log('user', user)
-  }
+  //   console.error("getUserInfo 실패..:", e);
+  // }
 
   const prefetchOptions = [
     {
       queryKey: ["categories"],
       queryFn: () => getPublicCategories(),
     },
-    ...(user && accessToken
+    ...(accessToken
       ? [
         {
           queryKey: ["carts"],
@@ -57,7 +42,6 @@ const Navbar = async () => {
 
   return (
     <div className="pt-20 md:pt-32 relative">
-      <NavbarToastHandler message={errorMessage} />
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
         <div className="h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 bg-white fixed top-0 w-full z-10">
           {/* MOBILE */}
@@ -65,7 +49,9 @@ const Navbar = async () => {
             <Link href="/">
               <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
             </Link>
-            {user && accessToken && <Menu memberInfo={user} />}
+            {/*{user && accessToken && <Menu memberInfo={user} />}*/}
+            {accessToken && <Menu />}
+
           </div>
 
           {/* BIGGER SCREENS */}
@@ -81,12 +67,12 @@ const Navbar = async () => {
             {/* RIGHT */}
             <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
               <SearchBar />
-              {user && accessToken ? (
+              {accessToken ? (
                 <ErrorHandlingWrapper>
-                  <NavIcons memberInfo={user} />
+                  <NavIcons/>
                 </ErrorHandlingWrapper>
               ) : (
-                <GuestAuthButtons member={user} />
+                <GuestAuthButtons/>
               )}
             </div>
           </div>
@@ -95,7 +81,7 @@ const Navbar = async () => {
           <div className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20">
             <Suspense fallback={<FullMenuSkeleton />}>
               <ErrorHandlingWrapper>
-                <FullMenu member={user} />
+                <FullMenu />
               </ErrorHandlingWrapper>
             </Suspense>
           </div>

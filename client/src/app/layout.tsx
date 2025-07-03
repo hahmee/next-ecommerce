@@ -8,8 +8,9 @@ import {Toaster} from "react-hot-toast";
 import {GoogleAnalytics} from "@next/third-parties/google";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
 import {UserHydration} from "@/components/UserHydration";
-import {fetcher} from "@/utils/fetcher";
 import {getUserInfo} from "@/libs/auth";
+import { fetcher } from "@/utils/fetcher";
+import {InitUserFromCookie} from "@/components/InitUserFromCookie";
 
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
@@ -33,30 +34,28 @@ export const metadata: Metadata = {
 // 모든 상위 컴포넌트가 다시 실행됨
 // 해당 layout은 SSR 요청마다 항상 실행됨
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
-
-  console.log('?????????????????????????????????????????????????????????????????????')
   const accessToken = cookies().get("access_token")?.value;
 
-  let user = null
-
-
-  if(accessToken) {
-    user = await getUserInfo();
-    console.log('user', user)
-  }
-
+  // let user = null
+  //
+  // try {
+  //   user = await getUserInfo();
+  // } catch (e) {
+  //   console.error("getUserInfo 실패..:", e);
+  // }
 
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
-      <RQProvider>
-        <div id="portal-root"></div>
-        {
-          (accessToken && user) && <UserHydration user={user}/>
-        }
-        {children}
-        <Toaster/>
-      </RQProvider>
+    <body className={inter.className} suppressHydrationWarning={true}>
+    <RQProvider>
+      <div id="portal-root"></div>
+      {/*{*/}
+      {/*  (accessToken && user) && <UserHydration user={user}/>*/}
+      {/*}*/}
+      {accessToken && <InitUserFromCookie/>}
+      {children}
+      <Toaster/>
+    </RQProvider>
     {
       (GA_TRACKING_ID) && <>
         {/*두 개 동시에 쓰지 말것 */}

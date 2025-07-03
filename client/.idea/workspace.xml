@@ -5,21 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/AppShell.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/InitUserFromCookie.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/interface/MemberPublic.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/APIRefreshController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/APIRefreshController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/filter/JWTCheckFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/security/filter/JWTCheckFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenResponseUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenResponseUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/adminAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/adminAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/apis/mallAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/mallAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/traffic/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/dashboard/traffic/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/cart/items/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/cart/items/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/shopping/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/me/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/me/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Profile/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Profile/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/FullMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/FullMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/GuestAuthButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/GuestAuthButtons.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Menu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserHydration.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserHydration.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/fetcher.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetcher.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/NavbarToastHandler.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/libs/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/userStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/userStore.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +144,7 @@
     &quot;git-widget-placeholder&quot;: &quot;feature/auth-flow-refactor&quot;,
     &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
     &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/src/app/api/cart/item&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/src/components&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -149,11 +158,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\components" />
+      <recent name="C:\dev\youtube\next-ecommerce2\client\src\interface" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api\cart\item" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api" />
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api\me" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\(home)" />
-      <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client\src\app\api\cart" />
@@ -921,7 +930,10 @@
       <workItem from="1751416760946" duration="8327000" />
       <workItem from="1751428906383" duration="589000" />
       <workItem from="1751429521250" duration="13995000" />
-      <workItem from="1751451853079" duration="5698000" />
+      <workItem from="1751451853079" duration="11715000" />
+      <workItem from="1751502036836" duration="14230000" />
+      <workItem from="1751519158834" duration="7042000" />
+      <workItem from="1751529280271" duration="1649000" />
     </task>
     <servers />
   </component>

@@ -9,12 +9,16 @@ import {logout} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
 import {MemberRole} from "@/types/memberRole";
 import {Member} from "@/interface/Member";
+import {useUserStore} from "@/store/userStore";
 
-const Menu = ({memberInfo}: {memberInfo: Member}) => {
+const Menu = () => {
+
     const [open, setOpen] = useState(false);
     const pathname = usePathname(); // 현재 경로 가져오기
     const router = useRouter();
+    const {user} = useUserStore();
 
+    // const memberInfo = null; // store에서 가져오기
     const onLogout = async () => {
 
         // queryClient.invalidateQueries({
@@ -53,7 +57,7 @@ const Menu = ({memberInfo}: {memberInfo: Member}) => {
                         <Link href="/shopping">나의 쇼핑</Link>
                         <Link href="/review">나의 리뷰</Link>
                         <Link href="/cart">장바구니</Link>
-                        {memberInfo.roleNames.some(role => [MemberRole.ADMIN, MemberRole.MANAGER].includes(role)) && (
+                        {user?.roleNames.some(role => [MemberRole.ADMIN, MemberRole.MANAGER].includes(role)) && (
                             <Link href="/admin/products">
                                 어드민
                             </Link>

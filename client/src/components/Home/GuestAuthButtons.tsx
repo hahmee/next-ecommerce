@@ -3,11 +3,14 @@ import Link from "next/link";
 import React from "react";
 import {usePathname} from "next/navigation";
 import {Member} from "@/interface/Member";
+import {useUserStore} from "@/store/userStore";
 
-const GuestAuthButtons = ({member}: {member: Member}) => {
+const GuestAuthButtons = () => {
   const pathname = usePathname();
   const isAuthPage = pathname === "/login" || pathname === "/signup";
-  const showLoginButtons = !member && !isAuthPage;
+  const {user} = useUserStore();
+
+  const showLoginButtons = !user && !isAuthPage;
 
   return <div>
     {showLoginButtons && (

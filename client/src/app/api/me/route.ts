@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   const accessToken = cookieStore.get("access_token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
 
-
+  console.log('route??', refreshToken)
 
   if(!accessToken || !refreshToken) {
     return NextResponse.json({ success: false, message: '인증 정보 없음' }, { status: 401 });
@@ -21,14 +21,16 @@ export async function GET(req: NextRequest) {
 
   if (res.status !== 401) {
     const data = await res.json();
+    console.log('data',data)
     return NextResponse.json(data); // { email: 'xxx@xxx.com', nickname: 'xxx', roles: [ 'ADMIN' ] }
   }
 
+  console.log('이게뜨면 잘된거')
 
   // 2. refresh 요청 (accessToken 재발급 요청)
   const refreshRes = await fetch(`${process.env.BACKEND_URL}/api/member/refresh`, {
     method: "POST",
-    headers: { // 여기 refresh token도 넣어야하지않아?
+    headers: {
       cookie: `access_token=${accessToken}; refresh_token=${refreshToken}`,
     },
   });

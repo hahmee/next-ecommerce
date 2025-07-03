@@ -42,6 +42,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
           throws ServletException, IOException {
 
     log.info("🌐 JWTCheckFilter 시작 (쿠키 기반)");
+    log.info("✅ JWTCheckFilter 진입됨: {}", request.getRequestURI());
 
     try {
       String accessToken = null;

@@ -30,7 +30,7 @@ export default async function DashBoardTrafficPage() {
         endDate: formatDate(endDate),
     };
 
-    const member = await getCookie("member");
+    // const member = await getCookie("member");
 
     const prefetchOptions = [
         {
@@ -39,7 +39,7 @@ export default async function DashBoardTrafficPage() {
                 {
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate),
-                    sellerEmail: member?.email || "",
+                    sellerEmail: member?.email || "", // 넣을 필요없음
                     filter: ChartFilter.DAY,
                     comparedStartDate: formatDate(comparedStartDate),
                     comparedEndDate: formatDate(comparedEndDate),

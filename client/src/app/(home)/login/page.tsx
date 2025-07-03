@@ -31,7 +31,7 @@
         const [password, setPassword] = useState<string>('1111');
         const router = useRouter();
         const [message, setMessage] = useState<string>("");
-        const {user, setUser} = useUserStore();
+        const {setUser} = useUserStore();
 
         const onSubmit: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
             try {
@@ -58,9 +58,9 @@
                 } else {
                     console.log('data.data', data.data)
                     //api/me 통신해서 여기서 setUser로 zustand 안에 넣기
-                    // const user = await fetcher("/api/me"); // 유저 정보 불러오기
-                    // console.log('user',user);
-                    // setUser(user)
+                    const user = await fetcher("/api/me"); // 유저 정보 불러오기
+                    console.log('user',user);
+
 
                     // await setCookie("member", JSON.stringify(data.data));
 
@@ -75,9 +75,9 @@
                     //
                     // }
                     router.replace('/');
-                    setTimeout(() => {
-                        router.refresh(); // SSR 트리거 → layout.tsx에서 cookies() 반영
-                    }, 50);
+                    // setTimeout(() => {
+                    //     router.refresh(); // SSR 트리거 → layout.tsx에서 cookies() 반영
+                    // }, 50);
                 }
             } catch (error) {
                 console.error(error);

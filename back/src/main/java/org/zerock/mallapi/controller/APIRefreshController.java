@@ -27,37 +27,19 @@ public class APIRefreshController {
 
   @PostMapping("/api/member/refresh")
   public ResponseEntity<?> refresh(
-          @CookieValue(value = "access_token", required = false) String accessToken,
           @CookieValue(value = "refresh_token", required = false) String refreshToken,
-          @RequestBody Map<String, String> emailObject,
           HttpServletResponse response  // 응답 객체 추가
 
   ) {
 
-    log.info("refresh 되는 중?", accessToken);
-    log.info("refresh_token 되는 중?", refreshToken);
-
-    String email = emailObject.get("email");
-
-    if (email == null || email.trim().isEmpty()) {
-      throw new GeneralException(ErrorCode.INVALID_TOKEN, "유효하지 않은 이메일입니다.");
+    log.info("[APIRefresh] refresh_token = {}", refreshToken);
+    // refresh_token이 없으면 재발급 자체가 불가능 → 예외 처리
+    if (refreshToken == null || refreshToken.length() < 10) {
+      throw new GeneralException(ErrorCode.INVALID_TOKEN, "Refresh Token이 유효하지 않습니다.");
     }
 
-    if (refreshToken == null) {
-      throw new GeneralException(ErrorCode.NULL_TOKEN, "Refresh Token이 존재하지 않습니다.");
-    }
 
-    if (accessToken == null || accessToken.length() < 10) {
-      throw new GeneralException(ErrorCode.INVALID_TOKEN, "Access Token이 유효하지 않습니다.");
-    }
-
-    // Access Token이 아직 유효하다면 그대로 반환
-    if (!isExpired(accessToken)) {
-      //      return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
-      return ResponseEntity.ok().body(Map.of("message", "Access Token이 유효합니다."));
-    }
-
-    // Access는 만료 → Refresh 유효성 확인
+    // access_token은 만료됨 → refresh_token을 검증하여 재발급
     Map<String, Object> claims = extractClaimsIfValid(refreshToken);
 
     // refresh 토큰이 유효하지 않다면
@@ -97,15 +79,6 @@ public class APIRefreshController {
 
   }
 
-  /** access_token 이 만료되었는지 확인 */
-  private boolean isExpired(String token) {
-    try {
-      JWTUtil.validateToken(token);
-      return false;
-    } catch (GeneralException ex) {
-      return ErrorCode.EXPIRED_TOKEN.name().equals(ex.getErrorCode().name());
-    }
-  }
 
   /** refresh_token이 유효하면 claim 리턴, 아니면 null */
   private Map<String, Object> extractClaimsIfValid(String token) {

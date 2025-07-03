@@ -12,13 +12,17 @@ import {useQuery} from "@tanstack/react-query";
 import {CartItemList} from "@/interface/CartItemList";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
+import {useUserStore} from "@/store/userStore";
 
 const CartModal = dynamic(() => import('../Home/Cart/CartModal'))
 
-const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
-    const router = useRouter();
-    const {counter, changeOpen, open , setCarts} = useCartStore();
-    const [accountOpen, setAccountOpen] = useState(false);
+// const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
+const NavIcons = () => {
+
+  const router = useRouter();
+  const {user} = useUserStore();
+  const {counter, changeOpen, open , setCarts} = useCartStore();
+  const [accountOpen, setAccountOpen] = useState(false);
 
 
   const onLogout = async () => {
@@ -39,7 +43,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
         staleTime: 60 * 1000, // 1분동안 fresh
         gcTime: 300 * 1000, // 가비지 컬렉션 시간
         throwOnError: true,
-        enabled: !!memberInfo,
+        enabled: !!user,
 
     });
 
@@ -89,7 +93,7 @@ const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
                 )
             }
 
-            {memberInfo.roleNames?.some(role => [MemberRole.ADMIN, MemberRole.MANAGER, MemberRole.DEMO].includes(role)) && (
+            {user?.roleNames?.some(role => [MemberRole.ADMIN, MemberRole.MANAGER, MemberRole.DEMO].includes(role)) && (
                 <Link href="/admin/products">
                     <BuildingStorefrontIcon className="h-7 w-7 cursor-pointer" strokeWidth={1}/>
                 </Link>

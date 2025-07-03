@@ -1,27 +1,68 @@
 import { cookies } from 'next/headers';
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
+
+// 요청 함수
+const requestMe = async (token: string) => {
+  return await fetch(`${BACKEND_URL}/api/me`, {
+    headers: {
+      cookie: `access_token=${token}`,
+    },
+    // cache: 'force-cache',
+    cache: 'no-store'
+  });
+};
+
+//한번만 layout에서 요청하고 나머지 요청은 caching
 export async function getUserInfo() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('access_token')?.value;
+  const refreshToken = cookieStore.get('refresh_token')?.value;
 
-  console.log("[getUserInfo] 호출됨!", accessToken);
-
-  if (!accessToken) return null;
-
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/me`, {
-      headers: {
-        cookie: `access_token=${accessToken}`,
-      },
-      cache: "force-cache", //  캐시에 저장 -> 동일 요청 캐시 값 사용
-    });
-
-    if (!response.ok) return null;
-
-    return await response.json()
-
-  } catch (error) {
-    console.error('❌ [getUserInfo] 유저 정보 불러오기 실패:', error);
+  // 1. 둘 다 없으면 로그인 상태 아님
+  if (!accessToken && !refreshToken) {
     return null;
   }
+
+  // 2. accessToken 있으면 우선 /api/me 요청 시도
+  if (accessToken) {
+    const response = await requestMe(accessToken);
+
+    if (response.ok) return await response.json();
+
+    if (response.status !== 401) {
+      const text = await response.text();
+      throw new Error(`[getUserInfo] ${response.status}: ${text}`);
+    }
+
+    // 401이면 refresh 시도
+  }
+
+  // 3. (accessToken 만료) refreshToken이 있으면 /refresh 요청 시도
+  if (refreshToken) {
+    console.log('accessToken 만료')
+
+    const refreshRes = await fetch(`${BACKEND_URL}/api/member/refresh`, {
+      method: "POST",
+      headers: {
+        cookie: `refresh_token=${refreshToken}`,
+      },
+    });
+
+    if (!refreshRes.ok) {
+      console.log('[getUserInfo] 토큰 재발급 실패');
+      return null;
+    }
+
+    // 서버가 set-cookie로 access_token 갱신해줌
+    // (HttpOnly 쿠키는 JS 접근 불가, 서버에서 자동 반영됨)
+
+    // 재시도 없이 끝냄 → 다음 SSR 요청부터 access_token 포함됨
+    console.log('[getUserInfo] access_token 재발급 완료');
+    return null;
+  }
+
+
+  // 4. 모든 경우 실패 시
+  return null;
 }

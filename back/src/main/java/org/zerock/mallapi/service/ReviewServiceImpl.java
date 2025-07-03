@@ -2,19 +2,14 @@ package org.zerock.mallapi.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.mallapi.domain.*;
-import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.dto.MemberDTO;
+import org.zerock.mallapi.dto.OrderDTO;
+import org.zerock.mallapi.dto.PaymentDTO;
+import org.zerock.mallapi.dto.ReviewDTO;
 import org.zerock.mallapi.exception.ErrorCode;
-import org.zerock.mallapi.repository.CategoryClosureRepository;
-import org.zerock.mallapi.repository.PaymentRepository;
-import org.zerock.mallapi.repository.ProductRepository;
 import org.zerock.mallapi.repository.ReviewRepository;
 import org.zerock.mallapi.util.GeneralException;
 

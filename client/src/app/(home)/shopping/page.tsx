@@ -2,7 +2,6 @@ import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import UserOrders from "@/components/Home/Profile/UserOrders";
 import {getPayments} from "@/apis/mallAPI";
-import {getCookie} from "@/utils/cookie";
 import ShoppingSkeleton from "@/components/Skeleton/ShoppingSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {cookies} from "next/headers";

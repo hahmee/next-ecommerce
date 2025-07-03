@@ -15,6 +15,7 @@ import ExpertList from "@/components/Admin/Product/ExpertList";
 import ExpertListSkeleton from "@/components/Skeleton/ExpertListSkeleton";
 import Categories from "@/components/Home/Main/Categories";
 import { cookies } from "next/headers";
+import {getUserInfo} from "@/libs/auth";
 
 
 //동적 데이터 없음 -> generateMetadata대신 meatadata 사용
@@ -43,10 +44,10 @@ export const metadata = {
     },
 };
 
-const HomePage = () => {
+const HomePage = async () => {
 
     const cookieStore = cookies();
-    const token = cookieStore.get("access_token")?.value;
+    const accessToken = cookieStore.get("access_token")?.value;
 
     const prefetchOptions = [
         {
