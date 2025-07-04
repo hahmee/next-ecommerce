@@ -1,12 +1,9 @@
     "use client";
     import {FormEvent, FormEventHandler, useState} from "react";
     import {useRouter} from "next/navigation";
-    import {DataResponse} from "@/interface/DataResponse";
-    import {Member} from "@/interface/Member";
     // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import {useUserStore} from "@/store/userStore";
-    import {fetcher} from "@/utils/fetcher";
 
     //최고 role 선택하는 함수
     const getHighRole = (roles: MemberRole[]) => {
@@ -53,7 +50,6 @@
 
                 if (!response.ok) {
                     throw new Error("로그인 실패");
-
                 }
 
                 const meRes = await fetch("/api/me", {
@@ -74,7 +70,7 @@
 
                 // 홈으로 이동
                 router.push("/"); // CSR (SSR 서버로 새 요청 하지 X)
-                router.refresh()
+                // router.refresh()
 
             } catch (error) {
                 console.error(error);

@@ -11,6 +11,9 @@ export function InitUserFromCookie() {
 
   useEffect(() => {
     // fetcher()
+    fetch("/api/me") // → 실패하면 /refresh 후 재시도
+      .then(...)
+      .then(user => setUser(user))
   }, []);
 
   return null;

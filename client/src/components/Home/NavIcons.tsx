@@ -13,6 +13,7 @@ import {CartItemList} from "@/interface/CartItemList";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
 import {useUserStore} from "@/store/userStore";
+import GuestAuthButtons from "@/components/Home/GuestAuthButtons";
 
 const CartModal = dynamic(() => import('../Home/Cart/CartModal'))
 
@@ -53,6 +54,10 @@ const NavIcons = () => {
             setCarts(cartData); // Zustand의 상태 업데이트
         }
     }, [cartData, setCarts]);
+
+    if(!user) {
+      return <GuestAuthButtons />
+    }
 
     return (
         <div className="flex items-center gap-4 xl:gap-6 relative">

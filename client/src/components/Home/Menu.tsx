@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import {MemberRole} from "@/types/memberRole";
 import {Member} from "@/interface/Member";
 import {useUserStore} from "@/store/userStore";
+import GuestAuthButtons from "@/components/Home/GuestAuthButtons";
 
 const Menu = () => {
 
@@ -37,6 +38,9 @@ const Menu = () => {
 
     }, [pathname]);
 
+    if(!user) {
+        return <GuestAuthButtons />
+    }
     return (
         <div className="">
             <Image

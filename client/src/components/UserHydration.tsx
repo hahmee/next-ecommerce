@@ -12,7 +12,6 @@ export function UserHydration({ user }: { user: Member }) {
     if (user) setUser(user);
   }, [user]);
 
-
   return null;
 }
 

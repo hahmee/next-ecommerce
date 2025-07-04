@@ -9,38 +9,42 @@ import {ShoppingBagIcon} from "@heroicons/react/24/outline";
 import {getCart} from "@/apis/mallAPI";
 import NavIcons from "@/components/Home/NavIcons";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
-import GuestAuthButtons from "@/components/Home/GuestAuthButtons";
 import {getPublicCategories} from "@/apis/publicAPI";
 import {cookies} from "next/headers";
-import {getUserInfo} from "@/libs/auth";
 
 
 const Navbar = async () => {
 
+  //사용불가 // ssr 쿠키에 반영 X
   const accessToken = cookies().get("access_token")?.value;
-  let user = null;
-
-  try {
-    user = await getUserInfo();
-  } catch (e) {
-    console.error("getUserInfo 실패..:", e);
-  }
-
-  console.log('user',user)
+  console.log('accessToken', accessToken);
+  // let user = null;
+  //
+  // try {
+  //   user = await getUserInfo();
+  // } catch (e) {
+  //   console.error("getUserInfo 실패..:", e);
+  // }
+  //
+  // console.log('user',user)
 
   const prefetchOptions = [
     {
       queryKey: ["categories"],
       queryFn: () => getPublicCategories(),
     },
-    ...(accessToken && user
-      ? [
-        {
-          queryKey: ["carts"],
-          queryFn: () => getCart(),
-        },
-      ]
-      : []),
+    {
+      queryKey: ["carts"],
+      queryFn: () => getCart(),
+    },
+    // ...(accessToken
+    //   ? [
+    //     {
+    //       queryKey: ["carts"],
+    //       queryFn: () => getCart(),
+    //     },
+    //   ]
+    //   : []),
   ];
 
   return (
@@ -54,7 +58,7 @@ const Navbar = async () => {
               <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
             </Link>
             {/*{user && accessToken && <Menu memberInfo={user} />}*/}
-            { user && accessToken && <Menu/> }
+              <Menu/>
 
           </div>
 
@@ -71,13 +75,14 @@ const Navbar = async () => {
             {/* RIGHT */}
             <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
               <SearchBar/>
-              {(accessToken && user) ? (
-                <ErrorHandlingWrapper>
-                  <NavIcons/>
-                </ErrorHandlingWrapper>
-              ) : (
-                <GuestAuthButtons/>
-              )}
+              <NavIcons/>
+              {/*{(accessToken) ? (*/}
+              {/*  <ErrorHandlingWrapper>*/}
+              {/*    <NavIcons/>*/}
+              {/*  </ErrorHandlingWrapper>*/}
+              {/*) : (*/}
+              {/*  <GuestAuthButtons/>*/}
+              {/*)}*/}
             </div>
           </div>
 

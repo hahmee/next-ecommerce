@@ -8,7 +8,6 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
 //  없으면 null
 
 export async function getUserInfo() {
-  console.log('getUserInfo')
   const cookieStore = cookies();
   const accessToken = cookieStore.get("access_token")?.value;
 

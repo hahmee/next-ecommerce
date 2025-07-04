@@ -40,12 +40,13 @@ export default async function RootLayout({children}: Readonly<{ children: React.
   let user = null
 
   try {
+    console.log('??????')
     user = await getUserInfo();
   } catch (e) {
     console.error("getUserInfo 실패..:", e);
   }
 
-  console.log('user.....', user);
+  // console.log('user.....', user);
   return (
     <html lang="en">
     <body className={inter.className} suppressHydrationWarning={true}>
@@ -56,7 +57,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
       {/*}*/}
       <UserHydration user={user}/>
       <UserSyncHandler />
-      {accessToken && <InitUserFromCookie/>}
+      {/*<InitUserFromCookie/>*/}
       {children}
       <Toaster/>
     </RQProvider>
