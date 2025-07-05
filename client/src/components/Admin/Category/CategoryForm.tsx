@@ -50,7 +50,7 @@ const CategoryForm = ({type, id}: Props) => {
         enabled: !!id,
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        throwOnError: true,
+        throwOnError: true, //ErrorBoundary로 전파
     });
 
 

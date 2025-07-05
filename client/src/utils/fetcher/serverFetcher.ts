@@ -16,7 +16,7 @@ export const serverFetcher = async <T = any>(
       ...(options.headers || {}),
       cookie: cookieString,
     },
-    cache: 'no-store',
+    cache: 'no-store', //기본 SSR
   });
 
   const json = await res.json().catch(() => ({}));

@@ -24,7 +24,7 @@ import Link from "next/link";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 import {unwrap} from "@/utils/unwrap";
-import {clientFetcher} from "@/utils/clientFetcher";
+import {clientFetcher} from "@/utils/fetcher/clientFetcher";
 
 // export const brandOptions:  Array<Option<string>> = [
 //     {id: 'brand-option1', content:'브랜드 옵션1'},

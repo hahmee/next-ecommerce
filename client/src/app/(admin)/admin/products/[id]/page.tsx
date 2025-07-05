@@ -7,7 +7,7 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import ProductFormSkeleton from "@/components/Skeleton/ProductFormSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
-import {clientFetcher} from "@/utils/clientFetcher";
+import {clientFetcher} from "@/utils/fetcher/clientFetcher";
 
 interface Props {
     params: {id: string }

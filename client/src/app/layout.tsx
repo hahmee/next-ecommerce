@@ -9,7 +9,7 @@ import {GoogleAnalytics} from "@next/third-parties/google";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
 import {UserHydration} from "@/components/UserHydration";
 import {getUserInfo} from "@/libs/auth";
-import { fetcher } from "@/utils/fetcher";
+import { fetcher } from "@/utils/fetcher/fetcher";
 import {InitUserFromCookie} from "@/components/InitUserFromCookie";
 import UserSyncHandler from "@/components/UserSyncHandler";
 

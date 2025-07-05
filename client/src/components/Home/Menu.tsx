@@ -17,7 +17,7 @@ const Menu = () => {
     const [open, setOpen] = useState(false);
     const pathname = usePathname(); // 현재 경로 가져오기
     const router = useRouter();
-    const {user} = useUserStore();
+    const {user, resetUser} = useUserStore();
 
     // const memberInfo = null; // store에서 가져오기
     const onLogout = async () => {
@@ -27,6 +27,7 @@ const Menu = () => {
         // });
 
         await logout();
+        resetUser();
 
         router.push('/login');
         toast.success("로그아웃 되었습니다.");

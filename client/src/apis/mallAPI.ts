@@ -1,5 +1,4 @@
-"use server";
-import { fetcher } from "@/utils/fetcher";
+import { fetcher } from "@/utils/fetcher/fetcher";
 
 export const getProductList = async ({
                                        queryKey,
@@ -148,7 +147,7 @@ export const getCart = async () => {
 };
 
 export const logout = async () => {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/member/logout`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/logout`, {
     method: "POST",
     credentials: "include",
   });

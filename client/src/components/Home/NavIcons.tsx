@@ -21,7 +21,7 @@ const CartModal = dynamic(() => import('../Home/Cart/CartModal'))
 const NavIcons = () => {
 
   const router = useRouter();
-  const {user} = useUserStore();
+  const {user,resetUser} = useUserStore();
   const {counter, changeOpen, open , setCarts} = useCartStore();
   const [accountOpen, setAccountOpen] = useState(false);
 
@@ -33,6 +33,7 @@ const NavIcons = () => {
         // });
 
         await logout();
+        resetUser();
 
         router.push('/login');
         toast.success("로그아웃 되었습니다.");

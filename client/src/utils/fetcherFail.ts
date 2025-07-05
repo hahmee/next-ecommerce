@@ -1,4 +1,4 @@
-import { serverFetcher } from "./serverFetcher";
+import { serverFetcher } from "src/utils/fetcher/serverFetcher";
 
 export const fetcher = async <T = any>(
   url: string,

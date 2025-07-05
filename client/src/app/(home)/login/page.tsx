@@ -4,7 +4,7 @@
     // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import {useUserStore} from "@/store/userStore";
-    import {fetcher} from "@/utils/fetcher";
+    import {fetcher} from "@/utils/fetcher/fetcher";
 
     //최고 role 선택하는 함수
     const getHighRole = (roles: MemberRole[]) => {

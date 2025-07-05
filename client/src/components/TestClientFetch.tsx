@@ -1,7 +1,7 @@
 // components/TestClientFetch.tsx
 "use client";
 import { useEffect } from "react";
-import { fetcher } from "@/utils/fetcher";
+import { fetcher } from "@/utils/fetcher/fetcher";
 
 export default function TestClientFetch() {
   useEffect(() => {
