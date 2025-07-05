@@ -6,9 +6,9 @@ import {CartItemList} from "@/interface/CartItemList";
 import {useCartStore} from "@/store/cartStore";
 import {CartItem} from "@/interface/CartItem";
 import {ColorTag} from "@/interface/ColorTag";
-import {getCookie} from "cookies-next";
 import toast from "react-hot-toast";
 import GACta from "@/libs/ga-call-to-action/GACta";
+import {useUserStore} from "@/store/userStore";
 
 const AddCart = ({
                      pno,
@@ -24,8 +24,7 @@ const AddCart = ({
 
     const [quantity, setQuantity] = useState(1);
     const {carts, changeCart, isLoading, changeOpen} = useCartStore();
-    const memberInfo = getCookie('member');
-    const member = memberInfo ? JSON.parse(memberInfo) : null;
+    const {user} = useUserStore();
 
     const handleQuantity = (type: "i" | "d") => {
         if (type === "d") {
@@ -46,7 +45,7 @@ const AddCart = ({
             //해당하는 cino 의 개수를 바꿔야함
             if (result && result.length > 0) { // 담겨있었음
                 const cartItemChange: CartItem = {
-                    email: member.email, //사용자 이메일
+                    email: user?.email || "", //사용자 이메일
                     pno: pno,
                     qty: result[0].qty + quantity,
                     color: options.color,
@@ -57,7 +56,7 @@ const AddCart = ({
                 await changeCart(cartItemChange); // 수량만 추가
             } else { //아무것도 안담겨있었음
                 const cartItem: CartItem = {
-                    email: member.email,
+                    email: user?.email || "",
                     pno: pno,
                     qty: quantity,
                     color: options.color,

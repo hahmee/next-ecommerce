@@ -2,7 +2,7 @@ import {create} from "zustand";
 import {CartItemList} from "@/interface/CartItemList";
 import {CartItem} from "@/interface/CartItem";
 import {fetchJWT} from "@/utils/fetchJWT";
-import {unwrap} from "@/utils/unwrap";
+import {fetcher} from "@/utils/fetcher";
 
 type CartState = {
   carts: CartItemList[];
@@ -51,36 +51,30 @@ export const useCartStore = create<CartState>((set,get) => ({
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})
   },
-  changeCart: async (cartItem): Promise<void> => {
-    set((state) => ({...state, isLoading: true}));
+  changeCart: async (cartItem) => {
+    set({ isLoading: true });
 
-    const cart = unwrap(await fetchJWT<CartItemList[]>(`/api/cart/change`, {
+    const items = await fetcher<CartItemList[]>(`/api/cart/change`, {
       method: "POST",
-      credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(cartItem),
-    }));
+    });
 
-    const items = Array.isArray(cart) ? cart : [];
     get().setCarts(items);
-
   },
 
-  removeItem: async (cino): Promise<void> => {
+  removeItem: async (cino) => {
+    set({ isLoading: true });
 
-    set((state) => ({...state, isLoading: true}));
-
-    const cart = unwrap(await fetchJWT(`/api/cart/${cino}`, {
+    const items = await fetcher<CartItemList[]>(`/api/cart/${cino}`, {
       method: "DELETE",
-      credentials: 'include',
-    }));
-
-    const items = Array.isArray(cart) ? cart : [];
+    });
 
     get().setCarts(items);
   },
+
 
 }));
 

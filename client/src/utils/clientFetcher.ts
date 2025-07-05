@@ -1,42 +1,38 @@
-// utils/fetcher.ts
+// 클라이언트 전용 fetcher (쿠키는 자동 포함)
 
 export const clientFetcher = async <T = any>(
-  url: string,
+  path: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  const res = await fetch(url, {
+  // const finalUrl = path; // 브라우저 기준 요청 (e.g. /api/me)
+  const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
+
+  console.log('clientFetcher')
+  let res = await fetch(finalUrl, {
     ...options,
-    credentials: "include", // 자동 쿠키 전송 (HTTPOnly 인증을 위해 필수)
+    credentials: 'include',
   });
 
-  // accessToken 만료 시 → /refresh 요청
+  let json: any = await res.json().catch(() => ({}));
+
   if (res.status === 401) {
-    const refreshRes = await fetch("/api/member/refresh", {
-      method: "POST",
-      credentials: "include",
+    const refresh = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/refresh`, {
+      method: 'POST',
+      credentials: 'include',
     });
 
-    if (refreshRes.ok) {
-      const retry = await fetch(url, {
+    if (refresh.ok) {
+      res = await fetch(finalUrl, {
         ...options,
-        credentials: "include",
+        credentials: 'include',
       });
-
-      if (!retry.ok) {
-        const retryErr = await retry.json().catch(() => ({}));
-        throw new Error(retryErr.message || "요청 실패");
-      }
-
-      return retry.json();
+      json = await res.json().catch(() => ({}));
     }
-
-    throw new Error("로그인이 만료되었습니다.");
   }
 
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || "서버 오류");
+  if (!res.ok || json?.success === false) {
+    throw new Error(json?.message || '요청 실패');
   }
 
-  return res.json();
+  return json.data;
 };

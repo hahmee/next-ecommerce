@@ -18,33 +18,17 @@ const Navbar = async () => {
   //사용불가 // ssr 쿠키에 반영 X
   const accessToken = cookies().get("access_token")?.value;
   console.log('accessToken', accessToken);
-  // let user = null;
-  //
-  // try {
-  //   user = await getUserInfo();
-  // } catch (e) {
-  //   console.error("getUserInfo 실패..:", e);
-  // }
-  //
-  // console.log('user',user)
+
 
   const prefetchOptions = [
     {
       queryKey: ["categories"],
       queryFn: () => getPublicCategories(),
     },
-    {
-      queryKey: ["carts"],
-      queryFn: () => getCart(),
-    },
-    // ...(accessToken
-    //   ? [
-    //     {
-    //       queryKey: ["carts"],
-    //       queryFn: () => getCart(),
-    //     },
-    //   ]
-    //   : []),
+    // {
+    //   queryKey: ["carts"],
+    //   queryFn: () => getCart(),
+    // },
   ];
 
   return (
@@ -57,9 +41,7 @@ const Navbar = async () => {
             <Link href="/">
               <div className="text-xl font-extrabold tracking-wide text-ecom">E-COM</div>
             </Link>
-            {/*{user && accessToken && <Menu memberInfo={user} />}*/}
-              <Menu/>
-
+            <Menu/>
           </div>
 
           {/* BIGGER SCREENS */}

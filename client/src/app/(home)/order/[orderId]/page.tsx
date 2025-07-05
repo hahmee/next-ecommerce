@@ -53,7 +53,7 @@ export default async function OrderPage({params}: Props)  {
     const prefetchOptions = [
         {
             queryKey: ['orders', orderId],
-            queryFn: () => getOrders({orderId}),
+            queryFn: () => getOrders({orderId}), // getOrders() → accessToken 만료 → prefetch 실패
         }
     ]
 

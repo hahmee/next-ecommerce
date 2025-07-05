@@ -8,20 +8,18 @@ import {ColorTag} from "@/interface/ColorTag";
 import {CartItemList} from "@/interface/CartItemList";
 import {CartItem} from "@/interface/CartItem";
 import {useCartStore} from "@/store/cartStore";
-import {getCookie} from "cookies-next";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import React, {useEffect, useState} from "react";
 import {getPublicFeaturedProducts, getPublicNewProducts} from "@/apis/publicAPI";
+import {useUserStore} from "@/store/userStore";
 
 const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
     const {carts, changeCart, changeOpen, isLoading} = useCartStore();
-    const memberInfo = getCookie('member');
     const [data, setData] = useState<Product[] | undefined>(undefined);
-    const member = memberInfo ? JSON.parse(memberInfo) : null;
-
+    const {user} = useUserStore();
     const {data: newProducts} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['new-products'],
         queryFn: () => getPublicNewProducts(),
@@ -57,7 +55,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
         //해당하는 cino 의 개수를 바꿔야함
             if (result && result.length > 0) { // 담겨있었음
                 const cartItemChange: CartItem = {
-                    email: member.email,
+                    email: user?.email || "",
                     pno: pno,
                     qty: result[0].qty + 1,
                     color: options.color,
@@ -67,7 +65,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                 await changeCart(cartItemChange); // 수량만 추가
             } else { //아무것도 안담겨있었음
                 const cartItem: CartItem = {
-                    email: member.email,
+                    email: user?.email || "",
                     pno: pno,
                     qty: 1,
                     color: options.color,
@@ -76,7 +74,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                 };
                 await changeCart(cartItem); //새로 담기
             }
-                toast.success('장바구니에 담겼습니다.');
+            toast.success('장바구니에 담겼습니다.');
         } catch (error) {
             toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
         }

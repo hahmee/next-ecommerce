@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("access_token")?.value;
 
+  console.log('/api/me/route.ts', accessToken);
 
   if(!accessToken) {
     return NextResponse.json({ success: false, message: '인증 정보 없음' }, { status: 401 });
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest) {
     cache: "no-store",
   });
 
-  if (!res.ok) return NextResponse.json({ success: false, message: 'accessToken 재발급 실패' }, { status: 401 });
+  if (!res.ok) return NextResponse.json({ success: false, message: '사용자 정보 요청 실패' }, { status: 401 });
 
   const data = await res.json();
 

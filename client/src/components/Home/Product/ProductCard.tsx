@@ -6,11 +6,11 @@ import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
 import {CartItemList} from "@/interface/CartItemList";
 import {CartItem} from "@/interface/CartItem";
-import {getCookie} from "cookies-next";
 import {ColorTag} from "@/interface/ColorTag";
 import {ShoppingCartIcon} from "@heroicons/react/24/outline";
 import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
+import {useUserStore} from "@/store/userStore";
 
 type ProductCardProps = {
     product: Product;
@@ -19,8 +19,7 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const {carts, changeCart, isLoading, changeOpen} = useCartStore();
     const [color, setColor] = useState<ColorTag>(product.colorList[0]);
-    const memberInfo = getCookie('member');
-    const member = memberInfo ? JSON.parse(memberInfo) : null;
+    const {user} = useUserStore();
 
     const handleClickAddCart = async(pno: number, options: { color: ColorTag, size: string; }) => {
         changeOpen(true);
@@ -29,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             //해당하는 cino 의 개수를 바꿔야함
             if (result && result.length > 0) { // 담겨있었음
                 const cartItemChange: CartItem = {
-                    email: member.email,
+                    email: user?.email || "",
                     pno: pno,
                     qty: result[0].qty + 1,
                     color: options.color,
@@ -39,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 await changeCart(cartItemChange); // 수량만 추가
             } else { //아무것도 안담겨있었음
                 const cartItem: CartItem = {
-                    email: member.email,
+                    email: user?.email || "",
                     pno: pno,
                     qty: 1,
                     color: options.color,
@@ -51,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
             toast.success('장바구니에 담겼습니다.');
         } catch (error) {
-            toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
+            toast.error(`장바구니 담기ㅋㅋ 실패: ${(error as Error).message}`);
         }
     };
 

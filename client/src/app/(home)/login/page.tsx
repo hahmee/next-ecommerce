@@ -4,6 +4,7 @@
     // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import {useUserStore} from "@/store/userStore";
+    import {fetcher} from "@/utils/fetcher";
 
     //최고 role 선택하는 함수
     const getHighRole = (roles: MemberRole[]) => {
@@ -45,25 +46,14 @@
                         password: password as string,
                     }),
                 });
-                console.log('response', response);
-
 
                 if (!response.ok) {
                     throw new Error("로그인 실패");
                 }
 
-                const meRes = await fetch("/api/me", {
+                const user = await fetcher("/api/me", {
                     credentials: "include",
                 });
-
-                if (!meRes.ok) {
-                    throw new Error("유저 정보 조회 실패");
-                }
-
-                const json = await meRes.json();
-                const user = json.data;
-
-                console.log('user',user);
 
                 // Zustand에 저장
                 setUser(user);
@@ -73,7 +63,7 @@
                 // router.refresh()
 
             } catch (error) {
-                console.error(error);
+                console.error("로그인 이후 사용자 정보 가져오기 실패", error);
                 setMessage("알 수 없는 에러입니다.")
             }
         };
