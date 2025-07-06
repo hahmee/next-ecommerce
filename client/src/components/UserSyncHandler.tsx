@@ -15,11 +15,11 @@ import {SessionExpiredError} from "@/libs/error/errors";
 export default function UserSyncHandler() {
   const setUser = useUserStore((s) => s.setUser);
   const resetUser = useUserStore((s) => s.resetUser);
-
   const router = useRouter();
 
   useEffect(() => {
     console.log('[UserSyncHandler] 마운트됨');
+    
     const sync = async () => {
       try {
         const user = await fetcher("/api/me", {
@@ -28,14 +28,13 @@ export default function UserSyncHandler() {
         setUser(user);
         console.log('[UserSync] user 복구 완료');
       } catch (error: any) {
-        console.log('여기가 나오나?', error);
         if (error instanceof SessionExpiredError) {
-          console.warn('[UserSyncHandler] 세션 만료 → /login 리다이렉트');
+          console.log('[UserSyncHandler] 세션 만료 → /login 리다이렉트');
 
           try {
             await logout(); // 실패해도 그 다음 로직 실행
           } catch (logoutErr) {
-            console.error('❗ 백엔드 로그아웃 실패:', logoutErr);
+            console.error('백엔드 로그아웃 실패:', logoutErr);
           }
 
           resetUser();

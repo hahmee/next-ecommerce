@@ -69,6 +69,7 @@ public class CustomSecurityConfig {
             .requestMatchers("/api/public/**").permitAll()
             .requestMatchers("/api/reviews/**").permitAll()
             .requestMatchers("/api/toss/confirm").permitAll() //
+            .requestMatchers("/api/me").permitAll()
             .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
     );
 
