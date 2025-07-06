@@ -27,8 +27,6 @@ public class ReviewController {
 
         //리뷰 쓴 사람은 -> 구매를 했는지 확인 하고 ..
 
-        log.info("principal....?" + principal);
-
         String email = principal.getName();
 
         reviewService.register(reviewDTO, email);

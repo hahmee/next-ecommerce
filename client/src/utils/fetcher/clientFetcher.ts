@@ -35,7 +35,6 @@ export const clientFetcher = async <T = any>(
       json = await res.json().catch(() => ({}));
     } else {   // refreshToken도 만료 → 로그아웃 처리
       console.log('❌ refreshToken 만료 → 로그아웃 처리');
-      // toast.error('세션이 만료되었습니다.zz');
       throw new SessionExpiredError(); // SessionExpiredError 에러 발생
     }
   }

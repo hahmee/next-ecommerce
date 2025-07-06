@@ -58,7 +58,7 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
                             <span>{orders?.[0].orderId}</span>
                         </li>
                         <li className="flex justify-between py-1.5">
-                            <span className="text-gray-500">주문날짜</span>
+                            <span className="tfext-gray-500">주문날짜</span>
                             <span>{new Date(orders?.[0].createdAt).toLocaleDateString()}</span>
                         </li>
                         <li className="flex justify-between py-1.5">

@@ -22,6 +22,7 @@ export const serverFetcher = async <T = any>(
   const json = await res.json().catch(() => ({}));
 
   if (!res.ok || json?.success === false) {
+    console.log('요청실패..')
     throw new Error(json?.message || '요청 실패');
   }
 

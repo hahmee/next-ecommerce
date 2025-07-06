@@ -5,21 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hooks/useChangeCartMutation.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useDeleteCartMutation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useCreateReviewMutation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Common/RQProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/RQProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/AddCart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/SingleCartItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/SingleCartItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/NavIcons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserSyncHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserSyncHandler.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/PrefetchBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/PrefetchBoundary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/cartStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/cartStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/OrderDetail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/ReviewAddModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Profile/UserOrders.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useChangeCartMutation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useChangeCartMutation.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/fetcher/clientFetcher.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetcher/clientFetcher.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/fetcher/serverFetcher.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/fetcher/serverFetcher.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -933,7 +930,8 @@
       <workItem from="1751711950257" duration="12627000" />
       <workItem from="1751735668220" duration="2218000" />
       <workItem from="1751765627345" duration="16107000" />
-      <workItem from="1751791559617" duration="4070000" />
+      <workItem from="1751791559617" duration="9195000" />
+      <workItem from="1751816893629" duration="2581000" />
     </task>
     <servers />
   </component>

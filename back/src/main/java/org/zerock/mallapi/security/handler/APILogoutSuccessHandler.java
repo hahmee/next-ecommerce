@@ -28,16 +28,16 @@ public class APILogoutSuccessHandler implements LogoutSuccessHandler {
             .path("/")
             .maxAge(0)
             .httpOnly(true)
-            .secure(true)
-            .sameSite("None") // 프론트엔드와 cross-origin일 경우 필요
+            .secure(false)
+            .sameSite("Lax") // 프론트엔드와 cross-origin일 경우 필요
             .build();
 
     ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", "")
             .path("/")
             .maxAge(0)
             .httpOnly(true)
-            .secure(true)
-            .sameSite("None")
+            .secure(false)
+            .sameSite("Lax")
             .build();
 
     response.addHeader("Set-Cookie", accessCookie.toString());

@@ -5,12 +5,10 @@ import Image from "next/image";
 import {Order} from "@/interface/Order";
 import {StarIcon, XMarkIcon} from "@heroicons/react/20/solid";
 import React, {useState} from "react";
-import {fetchJWT} from "@/utils/fetchJWT";
-import {Review} from "@/interface/Review";
 import {useRouter} from "next/navigation";
 import {getOrder} from "@/apis/mallAPI";
-import toast from "react-hot-toast";
-import {unwrap} from "@/utils/unwrap";
+import {useCreateReviewMutation} from "@/hooks/useCreateReviewMutation";
+import {Review} from "@/interface/Review";
 
 
 const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
@@ -18,6 +16,7 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
     const [hover, setHover] = useState<number>(0);    // 호버 중인 별점
     const [content, setContent] = useState<string>("");
     const router = useRouter();
+    const { mutate: createReview } = useCreateReviewMutation(orderId);
 
     const {data: order, isLoading} = useQuery<Order, Object, Order>({
         queryKey: ['order', id],
@@ -41,37 +40,22 @@ const ReviewAddModal = ({id, orderId}:{ id: string; orderId: string;}) => {
 
     const reviewSave = async (event: React.FormEvent) => {
         event.preventDefault();
+        if (!order) return;
 
-        try {
-            const reviewData: Review = {
-                content: content,
-                rating: rating + 1,
-                orderId: orderId,
-                pno: order?.productInfo.pno || 0,
-                oid: Number(id),
-                owner: null,
-                order: null,
-                createdAt: null,
-                updatedAt: null
-            };
+        const reviewData: Review = {
+            content,
+            rating: rating + 1,
+            orderId,
+            pno: order.productInfo.pno,
+            oid: Number(id),
+            owner: null,
+            order: null,
+            createdAt: null,
+            updatedAt: null,
+        };
 
-            // 실패하면 여기서 throw, 성공하면 반환값 넘어감
-            const res = unwrap(await fetchJWT(`/api/reviews/`, {
-                method: "POST",
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(reviewData),
-            }));
+        createReview(reviewData); // 뮤테이션 실행
 
-            toast.success("리뷰를 작성했습니다.");
-            router.push(`/order/${orderId}`);  // 모달 닫기 시 이 경로로 이동
-
-        }catch (error) {
-            console.error(error);
-            toast.error(`업로드 중 에러가 발생했습니다. ${(error as Error).message}`);
-        }
 
     }
 

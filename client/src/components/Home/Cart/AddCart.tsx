@@ -49,7 +49,7 @@ const AddCart = ({
         const cartItem: CartItem = {
             email: user?.email || "",
             pno,
-            qty: existing ? existing.qty + 1 : 1,
+            qty: existing ? existing.qty + quantity : quantity,
             color: options.color,
             size: options.size,
             sellerEmail,

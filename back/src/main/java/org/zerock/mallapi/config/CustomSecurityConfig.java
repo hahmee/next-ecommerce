@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -67,7 +68,7 @@ public class CustomSecurityConfig {
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/member/**").permitAll() // 로그인 관련은 모두 허용
             .requestMatchers("/api/public/**").permitAll()
-            .requestMatchers("/api/reviews/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll() // GET만 허용
             .requestMatchers("/api/toss/confirm").permitAll() //
             .requestMatchers("/api/me").permitAll()
             .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요

@@ -14,8 +14,6 @@ import {
 import ExpertList from "@/components/Admin/Product/ExpertList";
 import ExpertListSkeleton from "@/components/Skeleton/ExpertListSkeleton";
 import Categories from "@/components/Home/Main/Categories";
-import { cookies } from "next/headers";
-import {getUserInfo} from "@/libs/auth";
 
 
 //동적 데이터 없음 -> generateMetadata대신 meatadata 사용
@@ -45,10 +43,7 @@ export const metadata = {
 };
 
 const HomePage = async () => {
-
-    const cookieStore = cookies();
-    const accessToken = cookieStore.get("access_token")?.value;
-
+    
     const prefetchOptions = [
         {
             queryKey: ['categories'],
@@ -69,56 +64,49 @@ const HomePage = async () => {
     ];
 
     return (
-      <div>
-          <Slider/>
-          <div className="mt-24 bg-[#F9F9F9] m-auto py-10">
-              <h1 className="text-4xl font-bold text-gray-600 text-center py-10 px-4.5">
-                  Categories
-              </h1>
-              <Suspense fallback={<Skeleton/>}>
-                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+      <PrefetchBoundary prefetchOptions={prefetchOptions}>
+          <div>
+              <Slider />
+              <div className="mt-24 bg-[#F9F9F9] m-auto py-10">
+                  <h1 className="text-4xl font-bold text-gray-600 text-center py-10 px-4.5">Categories</h1>
+                  <Suspense fallback={<Skeleton />}>
                       <ErrorHandlingWrapper>
-                          <Categories/>
+                          <Categories />
                       </ErrorHandlingWrapper>
-                  </PrefetchBoundary>
-              </Suspense>
-          </div>
+                  </Suspense>
+              </div>
 
-          <div className="mt-40 px-4">
-              <Suspense fallback={<ExpertListSkeleton/>}>
-                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+              <div className="mt-40 px-4">
+                  <Suspense fallback={<ExpertListSkeleton />}>
                       <ErrorHandlingWrapper>
-                          <ExpertList/>
+                          <ExpertList />
                       </ErrorHandlingWrapper>
-                  </PrefetchBoundary>
-              </Suspense>
-          </div>
+                  </Suspense>
+              </div>
 
-          <div className="mt-40 px-4">
-              <h1 className="text-2xl font-bold text-gray-600 text-center">New Products</h1>
-              <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
-              <Suspense fallback={<Skeleton/>}>
-                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+              <div className="mt-40 px-4">
+                  <h1 className="text-2xl font-bold text-gray-600 text-center">New Products</h1>
+                  <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
+                  <Suspense fallback={<Skeleton />}>
                       <ErrorHandlingWrapper>
-                          <MainProductList type="new"/>
+                          <MainProductList type="new" />
                       </ErrorHandlingWrapper>
-                  </PrefetchBoundary>
-              </Suspense>
-          </div>
+                  </Suspense>
+              </div>
 
-          <div className="mt-24 px-4">
-              <h1 className="text-2xl font-bold text-gray-600 text-center">Featured Products</h1>
-              <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
-              <Suspense fallback={<Skeleton/>}>
-                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+              <div className="mt-24 px-4">
+                  <h1 className="text-2xl font-bold text-gray-600 text-center">Featured Products</h1>
+                  <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
+                  <Suspense fallback={<Skeleton />}>
                       <ErrorHandlingWrapper>
-                          <MainProductList type="featured"/>
+                          <MainProductList type="featured" />
                       </ErrorHandlingWrapper>
-                  </PrefetchBoundary>
-              </Suspense>
+                  </Suspense>
+              </div>
+
+              <MainInfo />
           </div>
-          <MainInfo/>
-      </div>
+      </PrefetchBoundary>
     );
 };
 

@@ -61,8 +61,7 @@ const Navbar = async () => {
           </div>
 
           {/* FULL MENU */}
-          <div
-            className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20">
+          <div className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20">
             <Suspense fallback={<FullMenuSkeleton/>}>
               <ErrorHandlingWrapper>
                 <FullMenu/>
