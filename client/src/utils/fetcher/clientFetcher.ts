@@ -2,7 +2,6 @@
 
 import toast from "react-hot-toast";
 import {SessionExpiredError} from "@/libs/error/errors";
-import { isAuthProtected } from "@/libs/isAuthProtected";
 
 export const clientFetcher = async <T = any>(
   path: string,
@@ -11,8 +10,6 @@ export const clientFetcher = async <T = any>(
   // const finalUrl = path; // 브라우저 기준 요청 (e.g. /api/me)
   const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
 
-  console.log('clientFetcher')
-
   let res = await fetch(finalUrl, {
     ...options,
     credentials: 'include',
@@ -20,18 +17,8 @@ export const clientFetcher = async <T = any>(
 
   let json: any = await res.json().catch(() => ({}));
 
-  console.log('path',path)
   if (res.status === 401) { // client에서 accessToken 복구한다.
-    console.log('뭐야')
-    const isProtected = isAuthProtected(path); // api/me
-    console.log('isProtected',isProtected)
-    if (!isProtected) {
-      console.log('issssPRoetecd')
-      // 👻 게스트도 접근 가능한 API인데 401이라면 → 그대로 리턴 or throw
-      return Promise.reject(new Error(json?.message || '인증되지 않았습니다.'));
-    }
-    console.log('⚠️ accessToken 만료됨 → refresh 시도');
-
+    console.log('accessToken 만료됨 → refresh 시도');
     const refresh = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/refresh`, {
       method: 'POST',
       credentials: 'include', // 쿠키 포함

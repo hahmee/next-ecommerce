@@ -37,12 +37,10 @@ export default async function RootLayout({children}: Readonly<{ children: React.
   const accessToken = cookieStore.get("access_token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
   const isLogin = !!accessToken || !!refreshToken;
-  console.log('isLogin',isLogin)
   let user = null;
 
   if(isLogin) {
     try {
-      console.log('??????');
       user = await getUserInfo(); // 로그인한 사람만 /api/me 불러오기
     } catch (e) {
       console.error("getUserInfo 실패..:", e);

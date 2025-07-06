@@ -76,56 +76,56 @@ const AddCart = ({
 
 
     return (
-        <div className="flex flex-col gap-4">
-            <h4 className="font-medium">Choose a Quantity</h4>
-            <div className="flex justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
-                        <button
-                            className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
-                            onClick={() => handleQuantity("d")}
-                            disabled={quantity === 1}
-                        >
-                            -
-                        </button>
-                        {quantity}
-                        <button
-                            className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
-                            onClick={() => handleQuantity("i")}
-                            // disabled={quantity===stockNumber}
-                            disabled={salesStatus != SalesStatus.ONSALE}
-                        >
-                            +
-                        </button>
-                    </div>
-                    <div className="text-xs">{SalesStatusKor[salesStatus]}</div>
-                </div>
-                <GACta
-                  eventName="add_to_cart"
-                  eventParams={{
-                      //todo: 실제 데이터 넣기
-                      currency: "KRW",
-                      value: 39000,
-                      items: [
-                          {
-                              item_id: "sku_123",
-                              item_name: "블루투스 스피커",
-                              price: 39000,
-                              quantity: 1,
-                          },
-                      ],
-                  }}
-                >
-                <button
+      <div className="flex flex-col gap-4">
+          <h4 className="font-medium">Choose a Quantity</h4>
+          <div className="flex justify-between">
+              <div className="flex items-center gap-4">
+                  <div className="bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32">
+                      <button
+                        className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
+                        onClick={() => handleQuantity("d")}
+                        disabled={quantity === 1}
+                      >
+                          -
+                      </button>
+                      {quantity}
+                      <button
+                        className="cursor-pointer text-xl disabled:cursor-not-allowed disabled:opacity-20"
+                        onClick={() => handleQuantity("i")}
+                        // disabled={quantity===stockNumber}
+                        disabled={salesStatus != SalesStatus.ONSALE}
+                      >
+                          +
+                      </button>
+                  </div>
+                  <div className="text-xs">{SalesStatusKor[salesStatus]}</div>
+              </div>
+              <GACta
+                eventName="add_to_cart"
+                eventParams={{
+                    //todo: 실제 데이터 넣기
+                    currency: "KRW",
+                    value: 39000,
+                    items: [
+                        {
+                            item_id: "sku_123",
+                            item_name: "블루투스 스피커",
+                            price: 39000,
+                            quantity: 1,
+                        },
+                    ],
+                }}
+              >
+                  <button
                     onClick={handleClickAddCart}
-                    disabled={isLoading || salesStatus != SalesStatus.ONSALE}
+                    disabled={!user || isLoading || salesStatus != SalesStatus.ONSALE}
                     className="w-36 text-sm rounded-3xl ring-1 ring-ecom text-ecom py-2 px-4 hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-                >
-                    Add to Cart
-                </button>
-                </GACta>
-            </div>
-        </div>
+                  >
+                      Add to Cart
+                  </button>
+              </GACta>
+          </div>
+      </div>
     );
 };
 

@@ -138,7 +138,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                     className="font-medium overflow-hidden text-ellipsis whitespace-nowrap text-gray-600 text-sm">{product.pname}</span>
                                 <span className="font-semibold text-gray-600">{product.price?.toLocaleString()} 원</span>
                                 <button
-                                    disabled={product.salesStatus != SalesStatus.ONSALE || isLoading}
+                                    disabled={ !user || product.salesStatus != SalesStatus.ONSALE || isLoading}
                                     className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
                                     onClick={async (e) => {
                                         e.preventDefault(); // 페이지 이동 방지

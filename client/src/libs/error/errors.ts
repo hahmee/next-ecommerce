@@ -5,3 +5,10 @@ export class SessionExpiredError extends Error {
     this.name = "SessionExpiredError";
   }
 }
+
+export class NotLoggedInError extends Error {
+  constructor(message = "로그인되지 않은 상태입니다.") {
+    super(message);
+    this.name = "NotLoggedInError";
+  }
+}
