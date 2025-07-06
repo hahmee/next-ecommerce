@@ -8,8 +8,6 @@ type CartState = {
   carts: CartItemList[];
   isLoading: boolean;
   counter: number;
-  changeCart: (cartItem: CartItem) => Promise<void>;
-  removeItem: (cino: number) => Promise<void>;
   open: boolean,
   subtotal: number,
   changeOpen: (isOpen: boolean) => void,
@@ -29,13 +27,9 @@ export const useCartStore = create<CartState>((set,get) => ({
   tax:0,
   total:0,
   setCarts: (cartItems) => {
-
     const subtotal = cartItems.length > 0 ? cartItems.reduce((total: number, item: CartItemList) => total + item.price * item.qty, 0) : 0;
-
     const shippingFee = subtotal > 100000 ? 0 : 3500;
-
     const tax = Math.round((subtotal + shippingFee) * 0.05);
-
     const total = subtotal + shippingFee + tax;
 
     set({
@@ -50,29 +44,6 @@ export const useCartStore = create<CartState>((set,get) => ({
   },
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})
-  },
-  changeCart: async (cartItem) => {
-    set({ isLoading: true });
-
-    const items = await fetcher<CartItemList[]>(`/api/cart/change`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cartItem),
-    });
-
-    get().setCarts(items);
-  },
-
-  removeItem: async (cino) => {
-    set({ isLoading: true });
-
-    const items = await fetcher<CartItemList[]>(`/api/cart/${cino}`, {
-      method: "DELETE",
-    });
-
-    get().setCarts(items);
   },
 
 

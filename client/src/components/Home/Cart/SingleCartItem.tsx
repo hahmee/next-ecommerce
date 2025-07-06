@@ -8,15 +8,16 @@ import Link from "next/link";
 import {useCartStore} from "@/store/cartStore";
 import {ColorTag} from "@/interface/ColorTag";
 import {CartItem} from "@/interface/CartItem";
-import {getCookie} from "cookies-next";
-import toast from "react-hot-toast";
+import {useChangeCartMutation} from "@/hooks/useChangeCartMutation";
+import {useUserStore} from "@/store/userStore";
+import {useDeleteCartMutation} from "@/hooks/useDeleteCartMutation";
 
 const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
-    const memberInfo = getCookie('member');
-    const member = memberInfo ? JSON.parse(memberInfo) : null;
-
-    const { carts, changeCart, removeItem } = useCartStore();
+    const {user} = useUserStore();
+    const {carts, changeOpen, isLoading} = useCartStore();
+    const { mutate: changeCart } = useChangeCartMutation();
+    const { mutate: deleteCartItem } = useDeleteCartMutation();
 
     // 수량이 변경될 때마다 장바구니 변경을 처리
     const handleQuantity = useCallback(async (type: "i" | "d") => {
@@ -24,32 +25,29 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
     }, [carts]);
 
     const handleClickAddCart = useCallback(async (pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
-            const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
-            const cartItemChange: CartItem = {
-                email: member.email,
-                pno: pno,
-                qty: result.length > 0 ? newQuantity : 1,
-                color: options.color,
-                size: options.size,
-                sellerEmail: cartItem.sellerEmail,
-            };
 
-            try {
-                await changeCart(cartItemChange);
-            } catch (e) {
-                toast.error("장바구니 변경 실패");
-            }
+          const existing = carts.find((item) =>
+            item.size === options.size && item.color.id === options.color.id
+          );
+
+          const item: CartItem = {
+              email: user?.email || "",
+              pno,
+              qty: existing ? existing.qty + 1 : 1,
+              color: options.color,
+              size: options.size,
+              sellerEmail : cartItem.sellerEmail,
+          };
+
+          changeCart(item); // React Query 내부에서 fetcher 실행 + 상태 갱신
+
+
         },
         [carts, changeCart]
     );
 
     const handleRemove = async () => {
-        try {
-            await removeItem(cartItem.cino);
-            toast.success("장바구니에서 제거했습니다.");
-        } catch (e) {
-            toast.error(`제거 실패: ${(e as Error).message}`);
-        }
+        deleteCartItem(cartItem.cino);
     };
 
     return (

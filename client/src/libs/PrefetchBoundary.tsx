@@ -20,20 +20,8 @@ export async function PrefetchBoundary({
                                            children
                                        }: Props) {
 
-    // const queryClient = new QueryClient();
-
-    const queryClient = new QueryClient({
-        defaultOptions: {
-            queries: {
-                onError: (error) => handleApiError(error),
-                retry: false, // 선택: 자동 재시도 막기
-            },
-            mutations: {
-                onError: (error) => handleApiError(error), // mutation도 자동 처리
-            },
-        },
-    });
-
+    //서버용 QueryClient (new QueryClient())
+    const queryClient = new QueryClient();
 
     if (prefetchOptions) {
         Array.isArray(prefetchOptions)

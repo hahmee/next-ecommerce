@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect } from 'react';
@@ -19,7 +18,7 @@ export default function UserSyncHandler() {
 
   useEffect(() => {
     console.log('[UserSyncHandler] 마운트됨');
-    
+
     const sync = async () => {
       try {
         const user = await fetcher("/api/me", {
@@ -37,7 +36,7 @@ export default function UserSyncHandler() {
             console.error('백엔드 로그아웃 실패:', logoutErr);
           }
 
-          resetUser();
+          // resetUser();
           router.replace('/login');
 
         } else {

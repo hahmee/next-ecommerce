@@ -9,7 +9,7 @@ export const clientFetcher = async <T = any>(
 ): Promise<T> => {
   // const finalUrl = path; // 브라우저 기준 요청 (e.g. /api/me)
   const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
-
+  console.log('path', path)
   let res = await fetch(finalUrl, {
     ...options,
     credentials: 'include',
@@ -33,9 +33,9 @@ export const clientFetcher = async <T = any>(
         credentials: 'include',
       });
       json = await res.json().catch(() => ({}));
-    }else {   // refreshToken도 만료 → 로그아웃 처리
+    } else {   // refreshToken도 만료 → 로그아웃 처리
       console.log('❌ refreshToken 만료 → 로그아웃 처리');
-      toast.error('세션이 만료되었습니다.zz');
+      // toast.error('세션이 만료되었습니다.zz');
       throw new SessionExpiredError(); // SessionExpiredError 에러 발생
     }
   }

@@ -9,6 +9,7 @@ import {ColorTag} from "@/interface/ColorTag";
 import toast from "react-hot-toast";
 import GACta from "@/libs/ga-call-to-action/GACta";
 import {useUserStore} from "@/store/userStore";
+import {useChangeCartMutation} from "@/hooks/useChangeCartMutation";
 
 const AddCart = ({
                      pno,
@@ -23,8 +24,9 @@ const AddCart = ({
 }) => {
 
     const [quantity, setQuantity] = useState(1);
-    const {carts, changeCart, isLoading, changeOpen} = useCartStore();
+    const {carts,  isLoading, changeOpen} = useCartStore();
     const {user} = useUserStore();
+    const { mutate: changeCart } = useChangeCartMutation();
 
     const handleQuantity = (type: "i" | "d") => {
         if (type === "d") {
@@ -40,37 +42,21 @@ const AddCart = ({
         changeOpen(true);
 
         //같은 사이즈, 같은 컬러가 이미 담겨져있는지 확인한다.
-        const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
-        try {
-            //해당하는 cino 의 개수를 바꿔야함
-            if (result && result.length > 0) { // 담겨있었음
-                const cartItemChange: CartItem = {
-                    email: user?.email || "", //사용자 이메일
-                    pno: pno,
-                    qty: result[0].qty + quantity,
-                    color: options.color,
-                    size: options.size,
-                    sellerEmail: sellerEmail, //판매자 이메일
-                };
+        const existing = carts.find((item) =>
+          item.size === options.size && item.color.id === options.color.id
+        );
 
-                await changeCart(cartItemChange); // 수량만 추가
-            } else { //아무것도 안담겨있었음
-                const cartItem: CartItem = {
-                    email: user?.email || "",
-                    pno: pno,
-                    qty: quantity,
-                    color: options.color,
-                    size: options.size,
-                    sellerEmail: sellerEmail,
-                };
+        const cartItem: CartItem = {
+            email: user?.email || "",
+            pno,
+            qty: existing ? existing.qty + 1 : 1,
+            color: options.color,
+            size: options.size,
+            sellerEmail,
+        };
 
-                await changeCart(cartItem); //새로 담기
-            }
+        changeCart(cartItem); // React Query 내부에서 fetcher 실행 + 상태 갱신
 
-            toast.success('장바구니에 담겼습니다.');
-        } catch (error) {
-            toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
-        }
 
     };
 

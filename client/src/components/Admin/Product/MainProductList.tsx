@@ -5,21 +5,22 @@ import {Product} from "@/interface/Product";
 import Link from "next/link";
 import Image from "next/image";
 import {ColorTag} from "@/interface/ColorTag";
-import {CartItemList} from "@/interface/CartItemList";
 import {CartItem} from "@/interface/CartItem";
 import {useCartStore} from "@/store/cartStore";
 import {SalesStatus} from "@/types/salesStatus";
-import toast from "react-hot-toast";
 import Skeleton from "@/components/Skeleton/Skeleton";
 import React, {useEffect, useState} from "react";
 import {getPublicFeaturedProducts, getPublicNewProducts} from "@/apis/publicAPI";
 import {useUserStore} from "@/store/userStore";
+import {useChangeCartMutation} from "@/hooks/useChangeCartMutation";
 
 const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
-    const {carts, changeCart, changeOpen, isLoading} = useCartStore();
+    const {carts, changeOpen, isLoading} = useCartStore();
     const [data, setData] = useState<Product[] | undefined>(undefined);
     const {user} = useUserStore();
+    const { mutate: changeCart } = useChangeCartMutation();
+
     const {data: newProducts} = useQuery<Array<Product>, Object, Array<Product>>({
         queryKey: ['new-products'],
         queryFn: () => getPublicNewProducts(),
@@ -46,45 +47,24 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
         }
     }, [data]);
 
-    const handleClickAddCart = async (pno: number, sellerEmail: string, options: { color: ColorTag, size: string; }): Promise<void> => {
-
+    const handleClickAddCart = (pno: number, sellerEmail: string, options: { color: ColorTag, size: string }) => {
         changeOpen(true);
-        const result = carts.filter((item: CartItemList) => item.size === options.size && item.color.id === options.color.id);
 
-        try {
-        //해당하는 cino 의 개수를 바꿔야함
-            if (result && result.length > 0) { // 담겨있었음
-                const cartItemChange: CartItem = {
-                    email: user?.email || "",
-                    pno: pno,
-                    qty: result[0].qty + 1,
-                    color: options.color,
-                    size: options.size,
-                    sellerEmail
-                };
-                await changeCart(cartItemChange); // 수량만 추가
-            } else { //아무것도 안담겨있었음
-                const cartItem: CartItem = {
-                    email: user?.email || "",
-                    pno: pno,
-                    qty: 1,
-                    color: options.color,
-                    size: options.size,
-                    sellerEmail
-                };
-                await changeCart(cartItem); //새로 담기
-            }
-            toast.success('장바구니에 담겼습니다.');
-        } catch (error) {
-            toast.error(`장바구니 담기 실패: ${(error as Error).message}`);
-        }
+        const existing = carts.find((item) =>
+          item.size === options.size && item.color.id === options.color.id
+        );
 
+        const cartItem: CartItem = {
+            email: user?.email || "",
+            pno,
+            qty: existing ? existing.qty + 1 : 1,
+            color: options.color,
+            size: options.size,
+            sellerEmail,
+        };
+
+        changeCart(cartItem); // React Query 내부에서 fetcher 실행 + 상태 갱신
     };
-
-    // if (isLoading || isFetching) {
-    //     // return <div>Loading...</div>; // 로딩 상태 표시
-    //     return <Skeleton/>
-    // }
 
     if(!newProducts || !featuredProducts) {
         return <Skeleton/>;

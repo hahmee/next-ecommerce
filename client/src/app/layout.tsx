@@ -52,10 +52,8 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     <body className={inter.className} suppressHydrationWarning={true}>
     <RQProvider>
       <div id="portal-root"></div>
-
       <UserHydration user={user}/>
       {isLogin && <UserSyncHandler />}
-
       {children}
       <Toaster/>
     </RQProvider>

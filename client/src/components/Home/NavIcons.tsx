@@ -25,7 +25,6 @@ const NavIcons = () => {
   const {counter, changeOpen, open , setCarts} = useCartStore();
   const [accountOpen, setAccountOpen] = useState(false);
 
-
   const onLogout = async () => {
 
         // queryClient.invalidateQueries({

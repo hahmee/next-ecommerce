@@ -6,7 +6,6 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import FullMenu from "@/components/Home/FullMenu";
 import FullMenuSkeleton from "../Skeleton/FullMenuSkeleton";
 import {ShoppingBagIcon} from "@heroicons/react/24/outline";
-import {getCart} from "@/apis/mallAPI";
 import NavIcons from "@/components/Home/NavIcons";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {getPublicCategories} from "@/apis/publicAPI";
@@ -58,13 +57,6 @@ const Navbar = async () => {
             <div className="w-2/3 xl:w-1/2 flex items-center justify-between gap-8">
               <SearchBar/>
               <NavIcons/>
-              {/*{(accessToken) ? (*/}
-              {/*  <ErrorHandlingWrapper>*/}
-              {/*    <NavIcons/>*/}
-              {/*  </ErrorHandlingWrapper>*/}
-              {/*) : (*/}
-              {/*  <GuestAuthButtons/>*/}
-              {/*)}*/}
             </div>
           </div>
 
