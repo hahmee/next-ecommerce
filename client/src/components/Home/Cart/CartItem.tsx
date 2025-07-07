@@ -2,7 +2,7 @@ import {FC} from "react";
 import Image from "next/image";
 import {useCartStore} from "@/store/cartStore";
 import {CartItemList} from "@/interface/CartItemList";
-import toast from "react-hot-toast";
+import {useDeleteCartMutation} from "@/hooks/useDeleteCartMutation";
 
 interface Props {
 
@@ -11,16 +11,12 @@ interface Props {
 }
 
 const CartItem: FC<Props> = ({item}) => {
-    const { carts, isLoading, removeItem } = useCartStore();
+    const {  isLoading } = useCartStore();
+    const { mutate: deleteCartItem } = useDeleteCartMutation();
 
     const handleRemove = async () => {
         if (isLoading) return;
-        try {
-            await removeItem(item.cino);
-            toast.success("삭제되었습니다.");
-        } catch (e) {
-            toast.error(`삭제 실패: ${(e as Error).message}`);
-        }
+        deleteCartItem(item.cino);
     };
 
     return (
