@@ -97,21 +97,6 @@ export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount 
     });
 }
 
-// export async function getSuccessPayment({ queryKey, paymentKey, orderId, amount }: {
-//     queryKey: string[];
-//     paymentKey: string;
-//     orderId: string;
-//     amount: string;
-// }) {
-//     return unwrap(
-//         await fetchJWT(`/api/payments/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`, {
-//             method: "GET",
-//             next: { tags: ["payment", orderId] },
-//             credentials: "include",
-//             cache: "no-store",
-//         })
-//     );
-// }
 
 export const getUserReviews = async ({queryKey}: { queryKey: [string] }) => {
   return await fetcher(`/api/reviews/myReviews`, {
