@@ -39,14 +39,11 @@ const TrafficOverview: React.FC = () => {
   comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
-  const memberInfo = getCookie('member');
-  const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState<AdminDateType>({
     startDate: formatDate(startDate),
     endDate: formatDate(endDate),
   });
-
 
   const [comparedDate, setComparedDate] = useState<AdminDateType>({
     startDate: formatDate(comparedStartDate),
@@ -62,7 +59,6 @@ const TrafficOverview: React.FC = () => {
     queryFn: () => getGoogleAnalyticsTop({
       startDate: date.startDate ? date.startDate : "",
       endDate: date.endDate ? date.endDate : "",
-      sellerEmail: member.email,
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
       comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
@@ -149,7 +145,7 @@ const TrafficOverview: React.FC = () => {
                   date={date}
                   comparedDate={comparedDate}
                   currentFilter={currentFilter}
-                  sellerEmail={member?.email || ""}
+                  // sellerEmail={member?.email || ""}
               />
             </LazyLoadWrapper>
           </div>
@@ -161,7 +157,6 @@ const TrafficOverview: React.FC = () => {
                   date={date}
                   comparedDate={comparedDate}
                   currentFilter={currentFilter}
-                  sellerEmail={member?.email || ""}
               />
             </LazyLoadWrapper>
           </div>

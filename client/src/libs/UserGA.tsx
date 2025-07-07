@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import React, {useEffect, useState} from "react";
+import {GoogleAnalytics, GoogleTagManager} from "@next/third-parties/google";
 import crypto from "crypto";
-import {getCookie} from "cookies-next";
+import {useUserStore} from "@/store/userStore";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 const GTM_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GTM_TRACKING_ID;
@@ -13,18 +13,19 @@ function hashUserId(userId:string):string {
 }
 
 const UserGA = () => {
-    const memberInfo = getCookie('member');
-    const member = memberInfo ? JSON.parse(memberInfo) : null;
+
+    const {user} = useUserStore();
+
     const [hashedUserId, setHashedUserId] = useState("");
 
     useEffect(() => {
-        if(member) {
-            const email = member.email;
+        if(user) {
+            const email = user.email;
 
             const encryptedId = hashUserId(email);
             setHashedUserId(encryptedId);
         }
-    }, [member]);
+    }, [user]);
 
     if (!hashedUserId || !GTM_TRACKING_ID || !GA_TRACKING_ID) return null;
 

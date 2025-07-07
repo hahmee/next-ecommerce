@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
 import {useQuery} from "@tanstack/react-query";
-import {getCookie} from "cookies-next";
 import {getGARecentUsersBottom} from "@/apis/dashbaordAPI";
 import {GARealTimeResponseBottom} from "@/interface/GARealTimeResponse";
 import formatDate from "@/libs/formatDate";
@@ -28,8 +27,6 @@ const RealtimeBottomOverview: React.FC = () => {
 
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
-  const memberInfo = getCookie('member');
-  const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState({
     startDate: formatDate(startDate),
@@ -50,7 +47,6 @@ const RealtimeBottomOverview: React.FC = () => {
     queryFn: () => getGARecentUsersBottom({
       startDate: date.startDate,
       endDate: date.endDate,
-      sellerEmail: member.email,
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate,
       comparedEndDate: comparedDate.endDate,

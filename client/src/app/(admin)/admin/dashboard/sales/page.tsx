@@ -7,7 +7,6 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {getSalesCards, getSalesCharts} from "@/apis/dashbaordAPI";
-import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
@@ -30,7 +29,6 @@ export default async function DashBoardSalesPage() {
         endDate: formatDate(endDate), // format as YYYY-MM-DD
     };
 
-    const member = await getCookie("member");
 
     const prefetchOptions = [
         {
@@ -38,7 +36,6 @@ export default async function DashBoardSalesPage() {
             queryFn: () => getSalesCards({
                 startDate: formatDate(startDate),
                 endDate: formatDate(endDate),
-                sellerEmail: member?.email || "",
                 filter: ChartFilter.DAY,
                 comparedStartDate: formatDate(comparedStartDate),
                 comparedEndDate: formatDate(comparedEndDate),
@@ -50,7 +47,6 @@ export default async function DashBoardSalesPage() {
             queryFn: () => getSalesCharts({
                 startDate: formatDate(startDate),
                 endDate: formatDate(endDate),
-                sellerEmail: member?.email || "",
                 filter: ChartFilter.DAY,
                 comparedStartDate: formatDate(comparedStartDate),
                 comparedEndDate: formatDate(comparedEndDate),

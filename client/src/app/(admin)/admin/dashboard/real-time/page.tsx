@@ -8,6 +8,7 @@ import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import RealtimeOverview from "@/components/Admin/Dashboard/RealtimeOverview";
 
 //서버 컴포넌트는 인증된 사용자 정보를 신뢰할 수 없음 (CSR처럼 동기화 불가능)
 // SSR에서는 access_token이 만료되었을 수도 있고,
@@ -62,8 +63,7 @@ export default async function DashBoardRealTimePage() {
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <ErrorHandlingWrapper>
-                        <div>asdf</div>
-                        {/*<RealtimeOverview/>*/}
+                        <RealtimeOverview/>
                     </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>

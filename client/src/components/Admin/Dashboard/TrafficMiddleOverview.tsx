@@ -18,13 +18,12 @@ type Props = {
   date: AdminDateType;
   comparedDate: AdminDateType;
   currentFilter: ChartFilter;
-  sellerEmail: string;
+  // sellerEmail: string;
 };
 const TrafficMiddleOverview: React.FC<Props> = ({
                                                   date,
                                                   comparedDate,
                                                   currentFilter,
-                                                  sellerEmail
                                                 }) => {
 
   const {
@@ -36,7 +35,6 @@ const TrafficMiddleOverview: React.FC<Props> = ({
     queryFn: () => getGoogleAnalyticsMiddle({
       startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
       endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
-      sellerEmail: sellerEmail,
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
       comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",

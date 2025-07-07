@@ -17,17 +17,17 @@ public interface OrderService {
   OrderDTO get(Long id);
 
   //Dashboard사용
-  SalesCardDTO getOverviewCards(ChartRequestDTO chartRequestDTO);
+  SalesCardDTO getOverviewCards(ChartRequestDTO chartRequestDTO, String sellerEmail);
 
-  List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO);
+  List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO, String sellerEmail);
 
-  List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO);
+  List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO, String sellerEmail);
 
-  List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO);
+  List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO, String sellerEmail);
 
-  List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO);
+  List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail);
 
-  List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO);
+  List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail);
 
   OrderDTO convertToDTO(Order order);
 

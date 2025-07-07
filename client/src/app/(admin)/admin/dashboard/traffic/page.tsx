@@ -6,7 +6,6 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
-import {getCookie} from "@/utils/cookie";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
@@ -39,7 +38,6 @@ export default async function DashBoardTrafficPage() {
                 {
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate),
-                    sellerEmail: member?.email || "", // 넣을 필요없음
                     filter: ChartFilter.DAY,
                     comparedStartDate: formatDate(comparedStartDate),
                     comparedEndDate: formatDate(comparedEndDate),

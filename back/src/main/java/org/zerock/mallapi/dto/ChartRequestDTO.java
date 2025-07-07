@@ -15,8 +15,6 @@ public class ChartRequestDTO {
 
   private String endDate;
 
-  private String sellerEmail;
-
   private ChartFilter filter;
 
   private String comparedStartDate;

@@ -53,9 +53,9 @@ public class DashboardServiceImpl implements DashboardService{
   private String projectId;
 
   @Override
-  public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO) {
+  public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
-    SalesCardDTO cardDTO = orderService.getOverviewCards(chartRequestDTO);
+    SalesCardDTO cardDTO = orderService.getOverviewCards(chartRequestDTO, sellerEmail);
 
 
     List<Object[]> currentSales = cardDTO.getCurrentSales();
@@ -83,7 +83,7 @@ public class DashboardServiceImpl implements DashboardService{
 
       // 차이 계산
       Long salesDifferencePercentage = -100L; // 현재 매출이 없으므로 -100% 차이
-      Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty)/comparedTotalQty) * 100;
+      Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty) / comparedTotalQty) * 100;
       Double avgQtyDifferencePercentage = ((currentAvgQty - comparedAvgQty) / comparedAvgQty) * 100;
 
       // 결과를 CardResponseDTO에 설정
@@ -116,7 +116,6 @@ public class DashboardServiceImpl implements DashboardService{
       Double avgQtyDifferencePercentage = 100.0; // 평균 수량도 100% 차이
 
 
-
       // 결과를 CardResponseDTO에 설정
       CardResponseDTO cardResponseDTO = CardResponseDTO.builder()
               .startDate(chartRequestDTO.getStartDate())
@@ -145,7 +144,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     // 차이 계산
     Long salesDifferencePercentage = ((currentTotalSales - comparedTotalSales) / comparedTotalSales) * 100;
-    Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty ) /comparedTotalQty) * 100;
+    Long qtyDifferencePercentage = ((currentTotalQty - comparedTotalQty) / comparedTotalQty) * 100;
     Double avgQtyDifferencePercentage = ((currentAvgQty - comparedAvgQty) / comparedAvgQty) * 100;
 
 
@@ -165,11 +164,11 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public ChartResponseDTO getSalesList(ChartRequestDTO chartRequestDTO) {
+  public ChartResponseDTO getSalesList(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
-    List<Object[]> results = orderService.getSalesOverview(chartRequestDTO);
+    List<Object[]> results = orderService.getSalesOverview(chartRequestDTO, sellerEmail);
 
     List<String> xaxisList = new ArrayList<>();
 
@@ -297,12 +296,12 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public ChartResponseDTO getOrderList(ChartRequestDTO chartRequestDTO) {
+  public ChartResponseDTO getOrderList(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
-    List<Object[]> results = orderService.getOrderOverview(chartRequestDTO);
+    List<Object[]> results = orderService.getOrderOverview(chartRequestDTO, sellerEmail );
 
     List<String> xaxisList = new ArrayList<>();
 
@@ -410,12 +409,12 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public ChartResponseDTO getOrderAvgList(ChartRequestDTO chartRequestDTO) {
+  public ChartResponseDTO getOrderAvgList(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
-    List<Object[]> results = orderService.getOrderAvgOverview(chartRequestDTO);
+    List<Object[]> results = orderService.getOrderAvgOverview(chartRequestDTO, sellerEmail);
 
     List<String> xaxisList = new ArrayList<>();
 
@@ -524,10 +523,10 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public List<TopCustomerResponseDTO> getTopCustomerList(TopCustomerRequestDTO topCustomerRequestDTO) {
+  public List<TopCustomerResponseDTO> getTopCustomerList(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail) {
 
     //TOP 5
-    List<Object[]> results = orderService.getTopCustomers(topCustomerRequestDTO);
+    List<Object[]> results = orderService.getTopCustomers(topCustomerRequestDTO, sellerEmail);
     List<TopCustomerResponseDTO> topCustomerResponseDTOS = new ArrayList<>();
 
     for (Object[] result : results) {
@@ -551,11 +550,12 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public List<TopProductResponseDTO> getTopProductList(TopCustomerRequestDTO topCustomerRequestDTO) {
+  public List<TopProductResponseDTO> getTopProductList(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail) {
 
     //TOP 5
-    List<Object[]> results = orderService.getTopProducts(topCustomerRequestDTO);
+    List<Object[]> results = orderService.getTopProducts(topCustomerRequestDTO, sellerEmail);
 
+    log.info("results.." + results);
 
     List<TopProductResponseDTO> dtoList = results.stream().map(arr -> {
 
@@ -597,11 +597,11 @@ public class DashboardServiceImpl implements DashboardService{
   }
 
   @Override
-  public List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO) {
+  public List<MapSalesResponseDTO> getByCountryList(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail) {
 
 
     //TOP 5
-    List<Object[]> results = paymentService.getSalesByCountry(topCustomerRequestDTO);
+    List<Object[]> results = paymentService.getSalesByCountry(topCustomerRequestDTO, sellerEmail);
 
     List<MapSalesResponseDTO> dtoList = results.stream().map(arr -> {
 
@@ -855,11 +855,9 @@ public class DashboardServiceImpl implements DashboardService{
 
     log.info("....gaRequestDTO " + gaRequestDTO);
 
-
     try {
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
-
           log.info(".....??? " + getGAActiveVisitors(gaRequestDTO));
           return getGAActiveVisitors(gaRequestDTO);
         } catch (Exception e) {

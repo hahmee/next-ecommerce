@@ -15,6 +15,5 @@ public class TopCustomerRequestDTO {
 
   private String endDate;
 
-  private String sellerEmail;
 
 }

@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
 import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {useQuery} from "@tanstack/react-query";
-import {getCookie} from "cookies-next";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
@@ -62,8 +61,6 @@ const SalesOverview: React.FC = () => {
   comparedStartDate.setMonth(comparedEndDate.getMonth() - 4); // 4개월 전
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
-  const memberInfo = getCookie('member');
-  const member = memberInfo ? JSON.parse(memberInfo) : null;
 
   const [date, setDate] = useState<AdminDateType>({
     startDate: formatDate(startDate),
@@ -83,7 +80,6 @@ const SalesOverview: React.FC = () => {
     queryFn: () => getSalesCards({
       startDate: date.startDate ? date.startDate : "",
       endDate: date.endDate ? date.endDate: "",
-      sellerEmail: member.email,
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
       comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
@@ -101,12 +97,11 @@ const SalesOverview: React.FC = () => {
     queryKey: ['salesCharts', currentFilter, date, selectedCard],
     queryFn: () => getSalesCharts({
       startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ? date.endDate: "",
-      sellerEmail: member.email,
+      endDate: date.endDate ? date.endDate : "",
       filter: currentFilter,
       comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
-      comparedEndDate: comparedDate.endDate ? comparedDate.endDate: "",
-     context: selectedCard,// ChartContext.TOPSALES,
+      comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
+      context: selectedCard,// ChartContext.TOPSALES,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -121,7 +116,6 @@ const SalesOverview: React.FC = () => {
     queryFn: () => getTopCustomers({
       startDate: date.startDate ? date.startDate : "",
       endDate: date.endDate ?date.endDate: "",
-      sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -136,7 +130,6 @@ const SalesOverview: React.FC = () => {
     queryFn: () => getTopProducts({
       startDate: date.startDate ? date.startDate : "",
       endDate: date.endDate ? date.endDate: "",
-      sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -152,7 +145,6 @@ const SalesOverview: React.FC = () => {
     queryFn: () => getSalesByCountry({
       startDate: date.startDate ? date.startDate : "",
       endDate: date.endDate ? date.endDate: "",
-      sellerEmail: member.email,
     }),
     staleTime: 60 * 1000,
     enabled: !!date.startDate && !!date.endDate,

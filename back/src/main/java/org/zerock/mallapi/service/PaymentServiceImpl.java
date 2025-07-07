@@ -415,7 +415,7 @@ private PaymentDTO convertToDTO(Payment payment){
 
   //Sales-Overview
   @Override
-  public List<Object[]> getSalesByCountry(TopCustomerRequestDTO topCustomerRequestDTO) {
+  public List<Object[]> getSalesByCountry(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail) {
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(topCustomerRequestDTO.getStartDate(), dateformatter);
@@ -423,8 +423,6 @@ private PaymentDTO convertToDTO(Payment payment){
 
     LocalDate endDate = LocalDate.parse(topCustomerRequestDTO.getEndDate(), dateformatter);
     LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
-
-    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
 
 
     return paymentRepository.findSalesByCountry(sellerEmail, startDateTime, endDateTime);

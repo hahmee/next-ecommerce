@@ -4,17 +4,19 @@ import Image from "next/image";
 import ClickOutside from "@/components/Common/ClickOutside";
 import { getCookie } from "cookies-next";
 import {Member} from "@/interface/Member";
+import {useUserStore} from "@/store/userStore";
 
 const DropdownUser = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [member, setMember] = useState<Member | null>(null); // 타입 정의
+    // const [member, setMember] = useState<Member | null>(null); // 타입 정의
+  const {user} = useUserStore();
 
-    useEffect(() => {
-        const memberInfo = getCookie('member');
-        if (memberInfo) {
-            setMember(JSON.parse(memberInfo));
-        }
-    }, []);
+    // useEffect(() => {
+    //     const memberInfo = getCookie('member');
+    //     if (memberInfo) {
+    //         setMember(JSON.parse(memberInfo));
+    //     }
+    // }, []);
 
     return (
         <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -25,9 +27,9 @@ const DropdownUser = () => {
             >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {member ? member.nickname : "Loading..."}
+            {user ? user.nickname : "Loading..."}
           </span>
-            <span className="block text-xs">{member && member.roleNames}</span>
+            <span className="block text-xs">{user && user.roleNames}</span>
         </span>
                 <span className="h-12 w-12 rounded-full flex items-center justify-center">
           <Image

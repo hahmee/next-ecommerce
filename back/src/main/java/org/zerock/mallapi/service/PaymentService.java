@@ -22,7 +22,7 @@ public interface PaymentService {
   PageResponseDTO<PaymentDTO> getSearchAdminPaymentList(SearchRequestDTO searchRequestDTO, String email);
 
   //Dashboard사용
-  List<Object[]> getSalesByCountry(TopCustomerRequestDTO topCustomerRequestDTO);
+  List<Object[]> getSalesByCountry(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail);
 
   PaymentSummaryDTO getAdminPaymentOverview(SearchRequestDTO searchRequestDTO, String email);
 

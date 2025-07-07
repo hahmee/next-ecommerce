@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
   @Override
-  public SalesCardDTO getOverviewCards(ChartRequestDTO chartRequestDTO) {
+  public SalesCardDTO getOverviewCards(ChartRequestDTO chartRequestDTO, String sellerEmail) {
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
@@ -99,8 +99,6 @@ public class OrderServiceImpl implements OrderService{
     LocalDateTime comparedStartDateTime = comparedStartDate.atStartOfDay();//startDate의 끝시간 xx:00:00
     LocalDate comparedEndDate = LocalDate.parse(chartRequestDTO.getComparedEndDate(), dateformatter);
     LocalDateTime comparedEndDateTime = comparedEndDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
-
-    String sellerEmail = chartRequestDTO.getSellerEmail();
 
     List<Object[]> currentSales  = orderRepository.findSalesOrdersAvg(sellerEmail, startDateTime, endDateTime);
 
@@ -135,7 +133,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
   @Override
-  public List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO) {
+  public List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
     log.info("chartRequestDTO................." + chartRequestDTO);
 
@@ -145,8 +143,6 @@ public class OrderServiceImpl implements OrderService{
 
     LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
     LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
-
-    String sellerEmail = chartRequestDTO.getSellerEmail();
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
@@ -176,7 +172,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
   @Override
-  public List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO) {
+  public List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
     log.info("chartRequestDTO................." + chartRequestDTO);
 
@@ -187,7 +183,6 @@ public class OrderServiceImpl implements OrderService{
     LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
     LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
 
-    String sellerEmail = chartRequestDTO.getSellerEmail();
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
@@ -217,7 +212,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
   @Override
-  public List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO) {
+  public List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
     log.info("chartRequestDTO................." + chartRequestDTO);
 
@@ -228,7 +223,6 @@ public class OrderServiceImpl implements OrderService{
     LocalDate endDate = LocalDate.parse(chartRequestDTO.getEndDate(), dateformatter);
     LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
 
-    String sellerEmail = chartRequestDTO.getSellerEmail();
 
     ChartFilter filter = chartRequestDTO.getFilter();
 
@@ -257,7 +251,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
   @Override
-  public List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO) {
+  public List<Object[]> getTopCustomers(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail) {
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(topCustomerRequestDTO.getStartDate(), dateformatter);
@@ -265,8 +259,6 @@ public class OrderServiceImpl implements OrderService{
 
     LocalDate endDate = LocalDate.parse(topCustomerRequestDTO.getEndDate(), dateformatter);
     LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
-
-    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
 
 
     Pageable pageable = PageRequest.of(0, 5); // 0번째 페이지, 5개의 결과만
@@ -276,7 +268,7 @@ public class OrderServiceImpl implements OrderService{
   }
 
   @Override
-  public List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO) {
+  public List<Object[]> getTopProducts(TopCustomerRequestDTO topCustomerRequestDTO, String sellerEmail) {
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(topCustomerRequestDTO.getStartDate(), dateformatter);
@@ -285,7 +277,7 @@ public class OrderServiceImpl implements OrderService{
     LocalDate endDate = LocalDate.parse(topCustomerRequestDTO.getEndDate(), dateformatter);
     LocalDateTime endDateTime = endDate.atTime(23, 59, 59);    // endDate의 끝 시간을 xx:59:59으로 설정
 
-    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
+//    String sellerEmail = topCustomerRequestDTO.getSellerEmail();
 
     Pageable pageable = PageRequest.of(0, 5); // 0번째 페이지, 5개의 결과만
 
