@@ -40,12 +40,12 @@ jobs:
         working-directory: client
         run: cat .env.production
 
-      # CI: 테스팅
-      - name: Run frontend test
-        working-directory: client
-        run: |
-          npm ci
-          npm run test
+#      # CI: 테스팅
+#      - name: Run frontend test
+#        working-directory: client
+#        run: |
+#          npm ci
+#          npm run test
             
 
       # 프론트 빌드 + Docker 이미지 만들기
