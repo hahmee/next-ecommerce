@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, {useEffect, useState} from "react";
-import {Member} from "@/interface/Member";
 import {useCartStore} from "@/store/cartStore";
 import {getCart, logout} from "@/apis/mallAPI";
 import {useRouter} from "next/navigation";
@@ -17,14 +16,13 @@ import GuestAuthButtons from "@/components/Home/GuestAuthButtons";
 
 const CartModal = dynamic(() => import('../Home/Cart/CartModal'))
 
-// const NavIcons = ({memberInfo}: {memberInfo: Member}) => {
 const NavIcons = () => {
 
   const router = useRouter();
   const {user, resetUser} = useUserStore();
+
   const {counter, changeOpen, open , setCarts} = useCartStore();
   const [accountOpen, setAccountOpen] = useState(false);
-  console.log('user', user);
   const onLogout = async () => {
 
         // queryClient.invalidateQueries({
@@ -46,6 +44,7 @@ const NavIcons = () => {
         throwOnError: true,
         enabled: !!user,
     });
+
 
     // React Query 데이터와 Zustand 동기화
     useEffect(() => {

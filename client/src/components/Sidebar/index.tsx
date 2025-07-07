@@ -10,6 +10,7 @@ import {BuildingStorefrontIcon} from "@heroicons/react/24/outline";
 import {logout} from "@/apis/mallAPI";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
+import {useUserStore} from "@/store/userStore";
 
 
 const Dialog = dynamic(() => import('../Admin/Dialog'))
@@ -230,6 +231,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [pageName, setPageName] = useLocalStorage("selectedMenu", "admin");
   const [showDialog, setShowDialog] = useState(false);
   const router = useRouter();
+  const {resetUser} = useUserStore();
 
   // 버튼 클릭시 모달 버튼 클릭 유무를 설정하는 state 함수
   const changeShowDialog = () => {
@@ -242,6 +244,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     // });
 
     await logout();
+    resetUser();
 
     router.push('/login');
     toast.success("로그아웃 되었습니다.");

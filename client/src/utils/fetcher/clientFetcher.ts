@@ -2,11 +2,12 @@
 
 import {SessionExpiredError} from "@/libs/error/errors";
 
+// accessToken refresh 해줌
 export const clientFetcher = async <T = any>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  // const finalUrl = path; // 브라우저 기준 요청 (e.g. /api/me)
+
   const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
   console.log('path', path)
   let res = await fetch(finalUrl, {

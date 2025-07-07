@@ -3,6 +3,9 @@ import {DataResponse} from "@/interface/DataResponse";
 import {Review} from "@/interface/Review";
 import {Category} from "@/interface/Category";
 
+// accessToken이 필요가 없어서 (만료되는지 확인안해도됨)
+// server, client fetch 안 나눔
+
 export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]}): Promise<Product> => {
   const [, pno] = queryKey;
 

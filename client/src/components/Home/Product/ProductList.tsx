@@ -12,8 +12,6 @@ import {Size} from "@/types/size";
 import ProductOrders from "@/components/Home/Product/ProductOrders";
 import {useSearchParams} from "next/navigation";
 import FiltersBadge from "@/components/Home/Product/FiltersBadge";
-import {getCategories, getCategory} from "@/apis/adminAPI";
-import {getProductList} from "@/apis/mallAPI";
 import ProductCardSkeleton from "@/components/Skeleton/ProductCartSkeleton";
 import ProductCardListSkeleton from "@/components/Skeleton/ProductCartListSkeleton";
 import ListPageSkeleton from "@/components/Skeleton/ListPageSkeleton";

@@ -21,5 +21,7 @@ export async function getUserInfo() {
   });
 
   if (!res.ok) return null;
-  return await res.json();
+
+  const data = await res.json();
+  return await data.data;
 }

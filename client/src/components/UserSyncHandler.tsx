@@ -13,10 +13,11 @@ import {SessionExpiredError} from "@/libs/error/errors";
 //CSR 마운트 시 refresh → /me 재요청 흐름
 export default function UserSyncHandler() {
   const setUser = useUserStore((s) => s.setUser);
-  const resetUser = useUserStore((s) => s.resetUser);
   const router = useRouter();
+  const {resetUser} = useUserStore();
 
   useEffect(() => {
+
     console.log('[UserSyncHandler] 마운트됨');
 
     const sync = async () => {
@@ -36,7 +37,7 @@ export default function UserSyncHandler() {
             console.error('백엔드 로그아웃 실패:', logoutErr);
           }
 
-          // resetUser();
+          resetUser();
           router.replace('/login');
 
         } else {
