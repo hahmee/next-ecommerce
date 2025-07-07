@@ -84,8 +84,9 @@ public class APIRefreshController {
     try {
       return JWTUtil.validateToken(token);
     } catch (GeneralException ex) {
+      log.info("이게 나오냐??");
       if (ErrorCode.EXPIRED_TOKEN.name().equals(ex.getErrorCode().name())) {
-        return null;
+        return null; // 만료된 토큰인 경우..
       }
       throw ex; // 기타 예외는 그대로 던짐
     }

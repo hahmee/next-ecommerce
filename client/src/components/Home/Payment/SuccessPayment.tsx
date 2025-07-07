@@ -76,10 +76,6 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
         mutation.mutate();
     }, [orderId, paymentKey, amount]);
 
-    // useEffect(() => {
-    //     if (!orderId || !paymentKey || !amount) return;
-    //     mutation.mutate();
-    // }, [orderId, paymentKey, amount]);
 
     return <Loading />;
 };

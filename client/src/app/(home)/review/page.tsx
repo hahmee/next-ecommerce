@@ -5,24 +5,24 @@ import {getUserReviews} from "@/apis/mallAPI";
 import Loading from "@/app/loading";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {cookies} from "next/headers";
+import {getUserInfo} from "@/libs/auth";
 
 export async function generateMetadata() {
     const cookieStore = cookies();
-    const memberCookie = cookieStore.get("member");
+    const accessToken = cookieStore.get("access_token")?.value;
+    const refresToken = cookieStore.get("refresh_token")?.value;
 
     let nickname = "사용자";
     let email = "";
 
-    try {
-        const parsed = memberCookie?.value
-          ? JSON.parse(decodeURIComponent(memberCookie.value))
-          : null;
-        if (parsed) {
-            nickname = parsed.nickname || "사용자";
-            email = parsed.email || "";
+    if (accessToken && refresToken) {
+        try {
+            const user = await getUserInfo();
+            nickname = user.nickname || nickname;
+            email = user.email || email;
+        } catch (e) {
+            console.warn("사용자 정보를 불러오지 못했습니다.", e);
         }
-    } catch (e) {
-        // 쿠키 파싱 실패 시 fallback
     }
 
     return {

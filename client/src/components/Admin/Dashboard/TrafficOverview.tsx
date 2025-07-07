@@ -6,7 +6,6 @@ import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {GAResponseTop} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
-import {getCookie} from "cookies-next";
 import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";

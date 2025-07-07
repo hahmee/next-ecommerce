@@ -5,31 +5,32 @@ import {getOrders} from "@/apis/mallAPI";
 import OrderDetailSkeleton from "@/components/Skeleton/OrderDetailSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {cookies} from "next/headers";
+import {getUserInfo} from "@/libs/auth";
 
 interface Props {
     params: {orderId: string }
 }
 
 export async function generateMetadata({ params }: Props) {
+
     const cookieStore = cookies();
-    const memberCookie = cookieStore.get("member");
-
-    let nickname = "사용자";
-    let email = "";
-
-    try {
-        const parsed = memberCookie?.value
-          ? JSON.parse(decodeURIComponent(memberCookie.value))
-          : null;
-        if (parsed) {
-            nickname = parsed.nickname || "사용자";
-            email = parsed.email || "";
-        }
-    } catch (e) {
-        // fallback 유지
-    }
+    const accessToken = cookieStore.get("access_token")?.value;
+    const refresToken = cookieStore.get("refresh_token")?.value;
 
     const { orderId } = params;
+
+    let nickname = "회원";
+    let email = "unknown@example.com";
+
+    if (accessToken && refresToken) {
+        try {
+            const user = await getUserInfo();
+            nickname = user.nickname || nickname;
+            email = user.email || email;
+        } catch (e) {
+            console.warn("사용자 정보를 불러오지 못했습니다.", e);
+        }
+    }
 
     return {
         title: `${nickname}님의 주문 내역 #${orderId}`,
