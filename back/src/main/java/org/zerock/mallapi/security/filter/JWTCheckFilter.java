@@ -42,8 +42,8 @@ public class JWTCheckFilter extends OncePerRequestFilter {
                                   FilterChain filterChain)
           throws ServletException, IOException {
 
-    log.info("🌐 JWTCheckFilter 시작 (쿠키 기반)");
-    log.info("✅ JWTCheckFilter 진입됨: {}", request.getRequestURI());
+    log.info("JWTCheckFilter 시작 (쿠키 기반)");
+    log.info("JWTCheckFilter 진입됨: {}", request.getRequestURI());
 
     try {
       String accessToken = null;
@@ -58,7 +58,6 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         }
       }
 
-      log.info("accessToken......? " + accessToken); //undefined
 
       if (accessToken == null || "undefined".equals(accessToken) || accessToken.isBlank()) {
         throw new AuthenticationCredentialsNotFoundException("access_token 쿠키가 없습니다.");

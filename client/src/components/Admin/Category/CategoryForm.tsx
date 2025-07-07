@@ -110,7 +110,6 @@ const CategoryForm = ({type, id}: Props) => {
             }
         },
         onSuccess: async (newCategory: Category) => {
-            console.log('newCategory', newCategory);
             toast.success("업로드 성공했습니다.");
 
             await queryClient.invalidateQueries({queryKey: ["adminCategories"]});

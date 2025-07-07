@@ -41,8 +41,6 @@ public class CustomFileUtil {
 
     uploadPath = tempFolder.getAbsolutePath();
 
-    log.info("-------------------------------------");
-    log.info(uploadPath);
   }
 
   public List<String> saveFiles(List<MultipartFile> files) throws RuntimeException{

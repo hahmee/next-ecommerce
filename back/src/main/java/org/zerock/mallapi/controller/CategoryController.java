@@ -35,7 +35,6 @@ public class CategoryController {
 
       Map<String,String> awsResult = awsFileUtil.uploadSingleFile(file, CATEGORY_IMG_DIR);//AWS에 저장
 
-      log.info("awsResult.............." + awsResult);
 
       String uploadFileName = awsResult.get("uploadName");
       String uploadFileKey = awsResult.get("uploadKey");
@@ -54,14 +53,12 @@ public class CategoryController {
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/list")
   public DataResponseDTO<List<CategoryDTO>> list() {
-    log.info("categoryService.getAllCategories() " + categoryService.getAllCategories());
     return DataResponseDTO.of(categoryService.getAllCategories());
   }
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/searchAdminList")
   public DataResponseDTO<PageResponseDTO<CategoryDTO>> searchAdminList(SearchRequestDTO searchRequestDTO) {
-    log.info("searchRequestDTO========== " + searchRequestDTO);
 
 
     return DataResponseDTO.of(categoryService.getSearchAdminList(searchRequestDTO));
@@ -75,7 +72,6 @@ public class CategoryController {
 
     CategoryDTO categoryDTO = categoryService.get(cno);
 
-    log.info("categoryDTO========== " + categoryDTO);
     return DataResponseDTO.of(categoryDTO);
   }
 
@@ -112,7 +108,6 @@ public class CategoryController {
 
     CategoryDTO modifiedCategoryDTO = categoryService.get(cno);
 
-    log.info("modifiedCategoryDTO..." + modifiedCategoryDTO);
 
     return DataResponseDTO.of(modifiedCategoryDTO);
 
@@ -124,7 +119,6 @@ public class CategoryController {
 
     List<Long> removedCno = categoryService.remove(cno);
 
-//    return DataResponseDTO.of("SUCCESS");
     return DataResponseDTO.of(removedCno);
 
   }

@@ -48,8 +48,6 @@ public class ReviewController {
     public DataResponseDTO<List<ReviewDTO>> getMylist(Principal principal) {
 
         String email = principal.getName();
-        log.info("--------------------------------------------");
-        log.info("email: " + email );
 
         return DataResponseDTO.of(reviewService.getMyList(email));
 

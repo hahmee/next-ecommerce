@@ -9,25 +9,15 @@ import {ShoppingBagIcon} from "@heroicons/react/24/outline";
 import NavIcons from "@/components/Home/NavIcons";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {getPublicCategories} from "@/apis/publicAPI";
-import {cookies} from "next/headers";
 
 
 const Navbar = async () => {
-
-  //사용불가 // ssr 쿠키에 반영 X
-  const accessToken = cookies().get("access_token")?.value;
-  console.log('accessToken', accessToken);
-
 
   const prefetchOptions = [
     {
       queryKey: ["categories"],
       queryFn: () => getPublicCategories(),
     },
-    // {
-    //   queryKey: ["carts"],
-    //   queryFn: () => getCart(),
-    // },
   ];
 
   return (

@@ -72,7 +72,6 @@ public class CategoryServiceImpl implements CategoryService {
     //자신이 검색어에 매칭되지 않더라도, 자식 카테고리(subCategory)가 매칭되면 함께 검색됨
     Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
 
-    log.info("categories..... 입니다..." + categories);
 
     //여기에서 subCategory있으면 넣어주기
     //여기서 각 AdminCategory가 subCategory를 포함하는 형태로 DTO 변환
@@ -80,7 +79,6 @@ public class CategoryServiceImpl implements CategoryService {
             .map(this::convertToDTO) // AdminCategory → CategoryDTO (재귀 포함 가능)
             .collect(Collectors.toList());
 
-    log.info("responseDTO..... 입니다..." + responseDTO);
 
     long totalCount = categories.getTotalElements();
 
@@ -99,12 +97,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     List<AdminCategory> categories = categoryRepository.findRootCategories();
 
-    log.info("===============categories "  + categories);
 
     //여기에서 subCategory있으면 넣어주기
     List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
-
-    log.info("===============responseDTO "  + responseDTO);
 
 
 
@@ -122,7 +117,6 @@ public class CategoryServiceImpl implements CategoryService {
     //부모 카테고리 id 찾기
     Optional<CategoryClosure> parentClosure = categoryClosureRepository.findParentByDescendantId(cno);
 
-    log.info("parentClosure... " + parentClosure);
 
     if (parentClosure.isPresent()) { // 값이 있을 때만
 
@@ -159,7 +153,6 @@ public class CategoryServiceImpl implements CategoryService {
             .collect(Collectors.toList());
 
 
-    log.info("categoryPathszcategoryPathsz.... " + categoryPaths);
 
     return categoryPaths;
 
@@ -181,7 +174,6 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public void modify(CategoryDTO categoryDTO) {
 
-    log.info("=================categoryDTO " + categoryDTO);
 
     //step1 read
     Optional<AdminCategory> result = categoryRepository.findById(categoryDTO.getCno());
@@ -206,7 +198,6 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public CategoryDTO addCategory(CategoryDTO categoryDTO) {
 
-    log.info("=================categoryDTO " + categoryDTO);
 
     // 새로운 카테고리 생성
     AdminCategory newCategory = dtoToEntity(categoryDTO);
@@ -214,14 +205,10 @@ public class CategoryServiceImpl implements CategoryService {
     newCategory.setCreatedAt(LocalDateTime.now());
     newCategory.setUpdatedAt(LocalDateTime.now());
 
-    log.info("=================newCategory " + newCategory.getUpdatedAt());
-    log.info("=================newCategory " + newCategory.getCreatedAt());
-
 
     // DB에 카테고리 저장
     AdminCategory adminCategory = categoryRepository.save(newCategory);
 
-    log.info("=================adminCategoryasdfkjasdl;fkja;sdlfk " + adminCategory);
 
     //부모 카테고리
     AdminCategory parentCategory = null;
@@ -232,17 +219,14 @@ public class CategoryServiceImpl implements CategoryService {
       //부모 카테고리 데이터 조회
       java.util.Optional<AdminCategory> result = categoryRepository.selectOne(parentId);
       parentCategory = result.orElseThrow();
-//      parentCategory = dtoToEntity(categoryDTO.getParentCategory());
 
     }
 
-    log.info("parentCategory====== " + parentCategory);
     // 새로운 카테고리의 트리 관계 설정
     if(parentCategory != null) {
       // 부모 카테고리와의 관계를 설정
       List<CategoryClosure> parentClosures = categoryClosureRepository.findAncestors(parentCategory);
 
-      log.info("==parentClosures" + parentClosures);
 
       for (CategoryClosure parentClosure : parentClosures) {
         // 부모-조상 관계 복사 (부모의 모든 조상과 연결)
@@ -277,13 +261,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     // 자기 자신과의 관계 설정 (깊이 0)
     CategoryClosureId selfClosureId = CategoryClosureId.builder().ancestor(newCategory).descendant(newCategory).build();
-    log.info("selfClosureId========== " + selfClosureId);
     CategoryClosure selfClosure = CategoryClosure.builder()
             .id(selfClosureId)
             .depth(0) // 자기 자신이므로 깊이 0
             .build();
 
-    log.info("selfClosure========== " + selfClosure);
 
     categoryClosureRepository.save(selfClosure);
 
@@ -312,7 +294,6 @@ public class CategoryServiceImpl implements CategoryService {
     //만약, 자식이 있다면 해당하는 모든 자식들까지 true로 만들기
     List<CategoryClosure> descendants =  findDescendants(adminCategory);
 
-    log.info("=========descendants " + descendants);
 
     //자신 삭제
     categoryRepository.updateToDelete(cno, true);

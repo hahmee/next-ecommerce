@@ -34,7 +34,6 @@ public class TodoServiceImpl implements TodoService {
   @Override
   public Long register(TodoDTO todoDTO) {
     
-    log.info(".........");
 
     Todo todo = modelMapper.map(todoDTO, Todo.class);
 

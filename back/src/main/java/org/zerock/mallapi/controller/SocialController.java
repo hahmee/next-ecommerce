@@ -25,8 +25,6 @@ public class SocialController {
   @GetMapping("/api/member/kakao")
   public Map<String,Object> getMemberFromKakao(String accessToken) {
 
-    log.info("access Token ");
-    log.info(accessToken);
 
     MemberDTO memberDTO = memberService.getKakaoMember(accessToken);
 
@@ -44,7 +42,6 @@ public class SocialController {
   @PutMapping("/api/member/modify")
   public Map<String,String> modify(@RequestBody MemberModifyDTO memberModifyDTO) {
 
-    log.info("member modify: " + memberModifyDTO);
 
     memberService.modifyMember(memberModifyDTO);
 

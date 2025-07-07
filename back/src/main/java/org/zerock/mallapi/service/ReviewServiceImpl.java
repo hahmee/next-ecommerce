@@ -77,7 +77,6 @@ public class ReviewServiceImpl implements ReviewService{
 
     List<ReviewDTO> responseDTO = reviews.stream().map(this::convertToDTO).collect(Collectors.toList());
 
-    log.info("responseDTO..." + responseDTO);
     return responseDTO;
   }
 

@@ -36,7 +36,6 @@ public class OrderServiceImpl implements OrderService{
 
     //orderDTO의 carts만큼 저장되어야한다.
 
-    log.info(".... " + orderRequestDTO);
 
     if (orderRequestDTO.getCarts() != null && !orderRequestDTO.getCarts().isEmpty()) {
       for (CartItemListDTO cartItem : orderRequestDTO.getCarts()) {
@@ -104,7 +103,6 @@ public class OrderServiceImpl implements OrderService{
 
     List<Object[]> comparedSales  = orderRepository.findComparedSalesOrdersAvg(sellerEmail, comparedStartDateTime, comparedEndDateTime);
 
-    log.info("comparedSales.?!??!" + comparedSales.get(0)[0]); //null
 
     List<Object[]> emptyList = new ArrayList<>();
 
@@ -135,7 +133,6 @@ public class OrderServiceImpl implements OrderService{
   @Override
   public List<Object[]> getSalesOverview(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
-    log.info("chartRequestDTO................." + chartRequestDTO);
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
@@ -174,7 +171,6 @@ public class OrderServiceImpl implements OrderService{
   @Override
   public List<Object[]> getOrderOverview(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
-    log.info("chartRequestDTO................." + chartRequestDTO);
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);
@@ -214,7 +210,6 @@ public class OrderServiceImpl implements OrderService{
   @Override
   public List<Object[]> getOrderAvgOverview(ChartRequestDTO chartRequestDTO, String sellerEmail) {
 
-    log.info("chartRequestDTO................." + chartRequestDTO);
 
     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     LocalDate startDate = LocalDate.parse(chartRequestDTO.getStartDate(), dateformatter);

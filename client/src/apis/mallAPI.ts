@@ -74,7 +74,6 @@ export async function getOrder({id}: { id: string }) {
 }
 
 export async function getOrders({ orderId }: { orderId: string }) {
-  console.log('getOrders 실행')
   return await fetcher(`/api/orders/list/${orderId}`, {
     method: "GET",
     credentials: "include",

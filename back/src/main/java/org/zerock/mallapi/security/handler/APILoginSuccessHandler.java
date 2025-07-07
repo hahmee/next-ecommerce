@@ -25,7 +25,6 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
           throws IOException, ServletException {
 
-    log.info("=== 로그인 성공 ===");
 
     // 1. 사용자 정보
     MemberDTO memberDTO = (MemberDTO) authentication.getPrincipal();

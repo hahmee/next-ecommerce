@@ -29,12 +29,6 @@ const ActiveVisitChart = ({chart} : {chart: SessionChart | undefined | null}) =>
             toolbar: {
                 show: false,
             },
-
-            // events: {
-            //   click: function(chart, w, e) {
-            //     // console.log(chart, w, e)
-            //   }
-            // }
         },
         responsive: [
             {

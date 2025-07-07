@@ -19,7 +19,6 @@ export const serverFetcher = async <T = any>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  console.log('serverFetcher')
   const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
   const cookieString = cookies().toString();
 

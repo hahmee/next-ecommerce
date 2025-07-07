@@ -25,7 +25,6 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
           { paymentKey, orderId, amount },
           {
               onSuccess: async (result) => {
-                  console.log('result', result);
                   sendGAEvent("purchase", {
                       transaction_id: orderId,
                       value: Number(amount),

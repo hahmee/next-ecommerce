@@ -27,7 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService{
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-    log.info("----------------loadUserByUsername-----------------------------" + email);
 
     Member member = memberRepository.getWithRoles(email);
 
@@ -40,16 +39,12 @@ public class CustomUserDetailsService implements UserDetailsService{
             member.getPassword(),
             member.getNickname(),
             member.isSocial(),
-//            member.getMemberRoleList().stream().map(memberRole -> MemberRole.valueOf(String.valueOf(memberRole))).collect(Collectors.toList()),
-//            member.getMemberRoleList(),
             member.getMemberRoleList().stream().map(memberRole -> memberRole).collect(Collectors.toList()),
-//            member.getMemberRoleList().stream().map(memberRole -> memberRole.name()).collect(Collectors.toList()),
             member.getEncryptedId(),
             member.getCreatedAt(),
             member.getUpdatedAt()
     );
 
-    log.info(memberDTO);
 
     return memberDTO;
 

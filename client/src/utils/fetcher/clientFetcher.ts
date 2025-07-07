@@ -9,7 +9,6 @@ export const clientFetcher = async <T = any>(
 ): Promise<T> => {
 
   const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
-  console.log('path', path)
   let res = await fetch(finalUrl, {
     ...options,
     credentials: 'include',
@@ -24,8 +23,6 @@ export const clientFetcher = async <T = any>(
       credentials: 'include', // 쿠키 포함
     });
 
-    console.log('🔁 refresh 응답 상태:', refresh.status);
-
     if (refresh.ok) {
       // accessToken 재발급 성공 → 재요청
       res = await fetch(finalUrl, {
@@ -34,7 +31,7 @@ export const clientFetcher = async <T = any>(
       });
       json = await res.json().catch(() => ({}));
     } else {   // refreshToken도 만료 → 로그아웃 처리
-      console.log('❌ refreshToken 만료 → 로그아웃 처리');
+      console.log('refreshToken 만료 → 로그아웃 처리');
       throw new SessionExpiredError(); // SessionExpiredError 에러 발생
     }
   }

@@ -24,8 +24,6 @@ public class CartServiceImpl implements CartService {
     public List<CartItemListDTO> addOrModify(CartItemDTO cartItemDTO) {
 
 
-        log.info("이게 뭐가 나오려나??" + cartItemDTO);
-
         String email = cartItemDTO.getEmail();
 
         Long pno = cartItemDTO.getPno();
@@ -42,8 +40,6 @@ public class CartServiceImpl implements CartService {
 
         String sellerEmail = cartItemDTO.getSellerEmail();
 
-        log.info("======================================================");
-        log.info(cartItemDTO.getCino() == null);
 
         // 색 또는 사이즈가 다르면 다른 카트 아이템으로 취급
 
@@ -70,18 +66,12 @@ public class CartServiceImpl implements CartService {
         //이미 동일한 상품이 담긴적이 있을 수 있으므로
         cartItem = cartItemRepository.getItemOfPno(email, pno, size, colorId);
 
-        log.info("=================^^^ " + cartItem);
-        log.info("=================qty" + qty);
 
         if(cartItem == null){
             Product product = Product.builder().pno(pno).build();
             ColorTag colorTag = ColorTag.builder().id(colorId).build();
-            log.info("=================colorTag... " + colorTag);
             Member seller = Member.builder().email(sellerEmail).build();
-            log.info("=================seller... " + seller);
-
             cartItem = CartItem.builder().product(product).cart(cart).qty(qty).color(colorTag).size(size).seller(seller).build();
-            log.info("=================cartItem... " + cartItem);
 
         }else {
             cartItem.changeQty(qty);
@@ -130,8 +120,6 @@ public class CartServiceImpl implements CartService {
 
         Long cno  = cartItemRepository.getCartFromItem(cino);
 
-        log.info("cart no: " + cno);
-
         cartItemRepository.deleteById(cino);
 
         return cartItemRepository.getItemsOfCartDTOByCart(cno);
@@ -147,7 +135,6 @@ public class CartServiceImpl implements CartService {
                 .map(cartItem -> cartItem.getCino())
                 .collect(Collectors.toList());
 
-        log.info("ddd/?? " + cinos);
 
         return cinos;
 

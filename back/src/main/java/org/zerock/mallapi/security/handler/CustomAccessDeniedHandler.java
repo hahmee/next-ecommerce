@@ -21,9 +21,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
   @Override
   public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
-    System.out.println("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥");
-    log.info("AccessDeniedHandler 실행됨");
-
     Gson gson = new Gson();
 
     // 유저의 권한을 가져오기

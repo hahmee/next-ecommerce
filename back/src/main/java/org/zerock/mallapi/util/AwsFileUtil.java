@@ -43,7 +43,6 @@ public class AwsFileUtil {
         //키 값
         String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
-        log.info("savedName......" + savedName);
 
         // 메타데이터 생성
         ObjectMetadata objMeta = new ObjectMetadata();
@@ -87,7 +86,6 @@ public class AwsFileUtil {
         //키 값
         String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getFile().getOriginalFilename();
 
-        log.info("savedName......" + savedName);
 
         // 메타데이터 생성
         ObjectMetadata objMeta = new ObjectMetadata();

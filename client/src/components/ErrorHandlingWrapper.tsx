@@ -19,7 +19,6 @@ export default function ErrorHandlingWrapper({ children, fallback }: Props) {
                 <ErrorBoundary
                     onReset={reset}
                     fallbackRender={({ error, resetErrorBoundary }) => {
-                        console.log('error',error)
                         if (error instanceof SessionExpiredError) {
                             return <SessionExpiredRedirect />;
                         }

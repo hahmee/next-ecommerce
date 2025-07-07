@@ -54,8 +54,8 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     <RQProvider>
       <div id="portal-root"></div>
       <UserHydration user={user}/>
-      <SessionExpiredRedirect />
-      {isLogin && <UserSyncHandler />}
+      <SessionExpiredRedirect/>
+      {isLogin && <UserSyncHandler/>}
       {children}
       <Toaster/>
     </RQProvider>

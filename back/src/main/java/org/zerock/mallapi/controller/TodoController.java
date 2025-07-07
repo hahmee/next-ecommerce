@@ -36,7 +36,6 @@ public class TodoController {
   @GetMapping("/test")
   public String test(PageRequestDTO pageRequestDTO ) {
 
-    log.info(pageRequestDTO);
 
     return "asdfasdf";
   }
@@ -44,15 +43,12 @@ public class TodoController {
   @GetMapping("/list")
   public PageResponseDTO<TodoDTO> list(PageRequestDTO pageRequestDTO ) {
 
-    log.info(pageRequestDTO);
-
     return service.list(pageRequestDTO);
   }
 
   @PostMapping("/")
   public Map<String, Long> register(@RequestBody TodoDTO todoDTO){
    
-    log.info("TodoDTO: " + todoDTO);
 
     Long tno = service.register(todoDTO);
     
@@ -64,7 +60,6 @@ public class TodoController {
 
     todoDTO.setTno(tno);
 
-    log.info("Modify: " + todoDTO);
 
     service.modify(todoDTO);
 
@@ -74,7 +69,6 @@ public class TodoController {
   @DeleteMapping("/{tno}")
   public Map<String, String> remove( @PathVariable(name="tno") Long tno ){
 
-    log.info("Remove:  " + tno);
 
     service.remove(tno);
 

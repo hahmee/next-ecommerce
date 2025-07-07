@@ -76,22 +76,17 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDTO getProfile(UserDetails userDetails) {
 
-        log.info("--------------userDetails   " + userDetails);
        //현재 접속자 이메일 넣기
         String email = userDetails.getUsername();
 
-        log.info("--------------email      " + email);
 
         Optional<Member> result = Optional.ofNullable(memberRepository.getWithRoles(email));
 
-        log.info("--------------result      " + result);
 
         Member member = result.orElseThrow();
-        log.info("--------------member      " + member);
 
         MemberDTO memberDTO = entityToDTO(member);
 
-        log.info("--------------memberDTO =      " + memberDTO);
 
 
         return memberDTO;
@@ -115,7 +110,6 @@ public class MemberServiceImpl implements MemberService {
 
     String email = getEmailFromKakaoAccessToken(accessToken);
 
-    log.info("email: " + email );
 
     Optional<Member> result = memberRepository.findById(email);
 
@@ -164,16 +158,12 @@ public class MemberServiceImpl implements MemberService {
       entity, 
       LinkedHashMap.class);
 
-    log.info(response);
 
     LinkedHashMap<String, LinkedHashMap> bodyMap = response.getBody();
 
-    log.info("------------------------------------");
-    log.info(bodyMap);
 
     LinkedHashMap<String, String> kakaoAccount = bodyMap.get("kakao_account");
 
-    log.info("kakaoAccount: " + kakaoAccount);
 
     return kakaoAccount.get("email");
 
@@ -183,7 +173,6 @@ public class MemberServiceImpl implements MemberService {
 
    String tempPassword = makeTempPassword();
 
-   log.info("tempPassword: " + tempPassword);
 
    String nickname = "소셜회원";
 
@@ -236,12 +225,10 @@ public class MemberServiceImpl implements MemberService {
 
         Page<Member> members = memberRepository.getMembers(pageable, search);
 
-        log.info("members..." + members);
 
-//        //여기에서 subCategory있으면 넣어주기
+        //여기에서 subCategory있으면 넣어주기
         List<MemberDTO> responseDTO = members.stream().map(this::entityToDTO).collect(Collectors.toList());
 
-        log.info("responseDTO..... 입니다..." + responseDTO);
 
         long totalCount = members.getTotalElements();
 

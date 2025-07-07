@@ -9,7 +9,6 @@ import {logout} from "@/apis/mallAPI"; // Zustand store
 const SessionExpiredRedirect = () => {
   const router = useRouter();
   const { isSessionExpired, clearSessionExpired, resetUser } = useUserStore();
-  console.log('SessionExpiredRedirect')
   useEffect(() => {
     if (!isSessionExpired) return;
 

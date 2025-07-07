@@ -296,8 +296,6 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
 
-    log.info("--------------pageable      " + pageable);
-
     Page<Payment> payments = paymentRepository.searchAdminPaymentList(pageable, search, email, startDateTime, endDateTime);
 
     List<PaymentDTO> dtoList = payments.stream().map(payment -> {
@@ -340,8 +338,6 @@ public class PaymentServiceImpl implements PaymentService{
   //결제 승인
   private PaymentSuccessDTO requestPaymentAccept(PaymentRequestDTO paymentRequestDTO) {
 
-    log.info("결제 승인 로직 한 번만 실행되어야함....");
-
 
     RestTemplate restTemplate = new RestTemplate();
     restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
@@ -353,19 +349,18 @@ public class PaymentServiceImpl implements PaymentService{
     // 요청 객체 생성
     HttpEntity<PaymentRequestDTO> requestHttpEntity = new HttpEntity<>(paymentRequestDTO, headers);
 
-    // ✅ JSON 응답을 `String`으로 먼저 받아서 로그 출력
+    // JSON 응답을 `String`으로 먼저 받아서 로그 출력
     String responseBody = restTemplate.postForObject(tossConfirmUrl, requestHttpEntity, String.class);
 
 
-    // ✅ ObjectMapper로 JSON을 직접 변환 (매핑 오류 확인)
+    // ObjectMapper로 JSON을 직접 변환 (매핑 오류 확인)
     ObjectMapper objectMapper = new ObjectMapper();
     PaymentSuccessDTO result = null;
 
     try {
       result = objectMapper.readValue(responseBody, PaymentSuccessDTO.class);
-      log.info("✅ JSON 매핑 성공: " + result);
     } catch (Exception e) {
-      log.error("❌ JSON 매핑 오류 발생!", e);
+      log.error("JSON 매핑 오류 발생!", e);
     }
 
     return result;
@@ -401,8 +396,6 @@ private PaymentDTO convertToDTO(Payment payment){
 
     //인증키 base64 인코딩
     String authorization = new String(Base64.getEncoder().encode((tossSecretKey + ":").getBytes(StandardCharsets.UTF_8)));
-
-    log.info("------ API 전송 요청 -------" + authorization);
 
     //헤더 구성
     headers.add("Authorization", "Basic " + authorization);

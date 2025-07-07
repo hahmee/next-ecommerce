@@ -83,7 +83,6 @@ public class TossServiceImpl implements TossService {
               .block();
 
       PaymentSuccessDTO paymentSuccessDTO = objectMapper.readValue(responseBody, PaymentSuccessDTO.class);
-      log.info("paymentSuccessDTO " + paymentSuccessDTO);
       Member member = orderService.getByOrderId(paymentSuccessDTO.getOrderId());
       paymentService.savePaymentAfterSuccess(paymentSuccessDTO, member);
 

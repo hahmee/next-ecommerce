@@ -115,9 +115,6 @@ public class ProductController {
   @PutMapping("/{pno}")
     public DataResponseDTO<ProductDTO> modify(@PathVariable(name="pno")Long pno, @Valid @ModelAttribute ProductDTO productDTO, @RequestParam(value = "categoryJson", required = false) String categoryJson, @AuthenticationPrincipal UserDetails userDetails) {
     log.info("==============productDTO " + productDTO); //예전에 올렸던 파일들은 productDTO.uploadFileNames에 들어있다.
-    log.info("==============pno " + pno);
-    log.info("==============category " + categoryJson);
-
 
     // categoryJson이 null이 아니면 JSON 문자열을 CategoryDTO로 변환
     if (categoryJson != null && !categoryJson.isEmpty()) {
@@ -137,8 +134,6 @@ public class ProductController {
     //이미 저장되었던 파일들 가져온다.
     ProductDTO oldProductDTO = productService.get(pno);
 
-    log.info("--------------oldProductDTO" + oldProductDTO);
-
     //기존의 파일들 (데이터베이스에 존재하는 파일들 - 수정 과정에서 삭제되었을 수 있음)
     List<FileDTO<String>> oldFileNames = oldProductDTO.getUploadFileNames();//원래 있던 파일들 // []
 
@@ -157,7 +152,6 @@ public class ProductController {
 
       Map<String, List<FileDTO<String>>> awsResults = awsFileUtil.uploadFiles(files, PRODUCT_IMG_DIR);//AWS에 저장
 
-      log.info("awsResults.............." + awsResults);
 
       //새로 업로드되어서 만들어진 파일 이름들
       List<FileDTO<String>> currentUploadFileNames = awsResults.get("uploadNames");
@@ -190,7 +184,6 @@ public class ProductController {
       //예전 파일들 배열을 돌면서 합쳐진 리스트에 있는 이름들 중에 없다면 삭제한다..
       List<FileDTO<String>> removeFiles = oldFileKeys.stream().filter(oldKey -> uploadedFileKeys.stream().noneMatch(uploadedKey -> uploadedKey.getFile().equals(oldKey.getFile()))).collect(Collectors.toList());
 
-      log.info("removeFiles................" + removeFiles);
 
       //실제 파일 삭제
       awsFileUtil.deleteFiles(removeFiles);
@@ -210,9 +203,6 @@ public class ProductController {
     //삭제해야할 파일들 알아내기 
     List<FileDTO<String>> oldFileNames =  productService.get(pno).getUploadFileNames();
     List<FileDTO<String>> oldFileKeys = productService.get(pno).getUploadFileKeys();
-
-    log.info("oldFileNames======" + oldFileNames);
-    log.info("oldFileKeys======" + oldFileKeys);
 
     productService.remove(pno);
 

@@ -23,7 +23,6 @@ public class TossController {
     @PostMapping
     public DataResponseDTO confirm(@RequestBody ConfirmRequestDTO confirmRequestDTO) {
 
-        log.info("confirmRequestDTO " + confirmRequestDTO);
         return tossService.confirmPayment(confirmRequestDTO);
     }
 }

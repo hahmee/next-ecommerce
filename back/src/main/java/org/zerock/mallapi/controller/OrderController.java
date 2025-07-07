@@ -25,9 +25,6 @@ public class OrderController {
     @PostMapping("/")
     public DataResponseDTO<String> register(@RequestBody OrderRequestDTO orderRequestDTO, Principal principal) {
 
-        log.info("===== orderDTO + " + orderRequestDTO);
-
-        log.info("principal....?" + principal);
 
         String email = principal.getName();
 

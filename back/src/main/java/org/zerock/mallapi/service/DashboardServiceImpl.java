@@ -555,7 +555,6 @@ public class DashboardServiceImpl implements DashboardService{
     //TOP 5
     List<Object[]> results = orderService.getTopProducts(topCustomerRequestDTO, sellerEmail);
 
-    log.info("results.." + results);
 
     List<TopProductResponseDTO> dtoList = results.stream().map(arr -> {
 
@@ -853,12 +852,10 @@ public class DashboardServiceImpl implements DashboardService{
   @Override
   public GARealTimeResponseTopDTO getRealtimeTop(GARequestDTO gaRequestDTO) {
 
-    log.info("....gaRequestDTO " + gaRequestDTO);
 
     try {
       CompletableFuture<List<SessionDTO<String>>> activeVisitorsFuture = CompletableFuture.supplyAsync(() -> {
         try {
-          log.info(".....??? " + getGAActiveVisitors(gaRequestDTO));
           return getGAActiveVisitors(gaRequestDTO);
         } catch (Exception e) {
           throw new RuntimeException(e);
@@ -1191,8 +1188,6 @@ public class DashboardServiceImpl implements DashboardService{
         result.add(new SessionDTO("pageViews", pageViews));
 
       }
-
-      log.info("...result", result);
 
 
       return result;

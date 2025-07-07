@@ -45,7 +45,6 @@ public class CartController {
     public DataResponseDTO<List<CartItemListDTO>> getCartItems(Principal principal) {
 
         String email = principal.getName();
-        log.info("items email: " + email );
 
         return DataResponseDTO.of(cartService.getCartItems(email));
 
@@ -55,7 +54,6 @@ public class CartController {
     @DeleteMapping("/{cino}")
     public DataResponseDTO<List<CartItemListDTO>> removeFromCart(@PathVariable("cino") Long cino){
 
-        log.info("cart item no: " + cino);
 
         return DataResponseDTO.of(cartService.remove(cino));
 

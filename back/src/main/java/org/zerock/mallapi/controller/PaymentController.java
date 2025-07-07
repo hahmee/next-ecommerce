@@ -25,13 +25,11 @@ public class PaymentController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/success")
     public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, Principal principal) {
-        log.info("tossPaymentSuccess..... ");
 
         String email = principal.getName();
 
         PaymentSuccessDTO paymentSuccessDTO = paymentService.tossPaymentSuccess(paymentRequestDTO, email);
 
-        log.info("결과..... " + paymentSuccessDTO);
 
         return DataResponseDTO.of(paymentSuccessDTO);
 
@@ -41,11 +39,9 @@ public class PaymentController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
     @GetMapping("/{id}") // payments/123123
     public DataResponseDTO<PaymentDTO> get(@PathVariable(name ="id") String id) {
-        log.info("id.....입니다.. " + id);
 
         PaymentDTO paymentDTO = paymentService.getByPaymentKey(id);
 
-        log.info("결과.....입니다.. " + paymentDTO);
 
         return DataResponseDTO.of(paymentDTO);
 
@@ -81,11 +77,7 @@ public class PaymentController {
 
         String email = principal.getName();
 
-        log.info("search............" + searchRequestDTO);
-
         DataResponseDTO<PageResponseDTO<PaymentDTO>> result =  DataResponseDTO.of(paymentService.getSearchAdminPaymentList(searchRequestDTO, email));
-
-        log.info("최종 result", result);
 
         return result;
 
@@ -99,11 +91,7 @@ public class PaymentController {
 
         String email = principal.getName();
 
-        log.info("search............" + searchRequestDTO);
-
         DataResponseDTO<PaymentSummaryDTO> result = DataResponseDTO.of(paymentService.getAdminPaymentOverview(searchRequestDTO, email));
-
-        log.info("최종 result", result);
 
         return result;
 
@@ -115,20 +103,11 @@ public class PaymentController {
     @GetMapping("/searchAdminOrders")
     public DataResponseDTO<PageResponseDTO<AdminOrderDTO>> searchAdminOrders(SearchRequestDTO searchRequestDTO, Principal principal) {
 
-        log.info("SearchRequestDTO" + searchRequestDTO);
-
-//        return null;
-
         String email = principal.getName();
-
-        log.info("search............" + searchRequestDTO);
 
         DataResponseDTO<PageResponseDTO<AdminOrderDTO>> result =  DataResponseDTO.of(paymentService.getSearchAdminOrders(searchRequestDTO, email));
 
-        log.info("최종 result", result);
-
         return result;
-//        return null;
     }
 
 

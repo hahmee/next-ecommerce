@@ -38,8 +38,6 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public PageResponseDTO<ProductDTO> getList(PageCategoryRequestDTO pageCategoryRequestDTO) {
 
-    log.info("getList.............." + pageCategoryRequestDTO);
-
 
     // 정렬 순서를 동적으로 결정
     Sort sort = Sort.by("pno").descending();  // 기본 정렬은 pno로 내림차순
@@ -85,10 +83,8 @@ public class ProductServiceImpl implements ProductService{
     if(pageCategoryRequestDTO.getCategoryId() != null) {
 
       AdminCategory adminCategory = AdminCategory.builder().cno(pageCategoryRequestDTO.getCategoryId()).build();
-      log.info("adminCategory..///....." + adminCategory);
       List<CategoryClosure> categoryClosures = categoryClosureRepository.findDescendantsAndMe(adminCategory);
 
-      log.info("categoryClosures..." + categoryClosures);
 
 
       categoryClosureAncestorIds = categoryClosures.stream()
@@ -97,7 +93,6 @@ public class ProductServiceImpl implements ProductService{
 
     }
 
-    log.info("categoryClosureIds: " + categoryClosureAncestorIds);
 
     // color와 productSize 필터링 처리
     List<String> colors = pageCategoryRequestDTO.getColor();
@@ -106,8 +101,7 @@ public class ProductServiceImpl implements ProductService{
     Long maxPrice = pageCategoryRequestDTO.getMaxPrice();
     String query = pageCategoryRequestDTO.getQuery();
 
-    log.info("query... " + query);
-    log.info("productSizes... " + productSizes);
+
 
     Page<Object[]> result = productRepository.selectList(pageable, categoryClosureAncestorIds, colors, productSizes,minPrice,maxPrice,query);
 
@@ -174,8 +168,7 @@ public class ProductServiceImpl implements ProductService{
 
     }).collect(Collectors.toList());
 
-    log.info("-------dtoList " + dtoList);
-    
+
     long totalCount = result.getTotalElements();
 
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(pageCategoryRequestDTO.getPage()).size(pageCategoryRequestDTO.getSize()).build();
@@ -192,14 +185,11 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails) {
 
-    log.info("getAdminList.............." + searchRequestDTO);
 
-    log.info("--------------userDetails   " + userDetails);
 
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();
 
-    log.info("--------------email      " + email);
 
     Pageable pageable = PageRequest.of(
             searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
@@ -209,11 +199,9 @@ public class ProductServiceImpl implements ProductService{
     String search = searchRequestDTO.getSearch();
 
 
-    log.info("--------------pageable      " + pageable);
 
     Page<Object[]> result = productRepository.searchAdminList(pageable, search, email); // 내 이메일 주소
 
-    log.info("........result " + result);
 
     List<ProductDTO> dtoList = result.get().map(arr -> {
 
@@ -221,7 +209,6 @@ public class ProductServiceImpl implements ProductService{
       ProductImage productImage = (ProductImage) arr[1];
       Double averageRating = (Double) arr[2];  // 평균 별점
 
-      log.info("productImageproductImage " + productImage); //null
 
       MemberDTO memberDTO = memberService.entityToDTO(product.getOwner());
 
@@ -271,7 +258,6 @@ public class ProductServiceImpl implements ProductService{
     }).collect(Collectors.toList());
 
 
-    log.info("........dtoList.. " + dtoList);
 
 
     long totalCount = result.getTotalElements();
@@ -288,21 +274,14 @@ public class ProductServiceImpl implements ProductService{
 
   @Override
   public ProductDTO register(ProductDTO productDTO, UserDetails userDetails) {
-    log.info("asdfasdfasd ProductDTO " + productDTO);
 
 
     //현재 접속자 이메일 넣기
     String email = userDetails.getUsername();
-//    String email = userDetails.getUsername();
-//    String email = userDetails.getUsername();
-//    String email = userDetails.getUsername();
 
-
-    log.info("asdfasdfasd email " + email);
 
     Product product = dtoToEntity(productDTO, userDetails);
 
-    log.info("asdfasdfasd product " + product);
 
     //시간
     product.setCreatedAt(LocalDateTime.now());
@@ -310,11 +289,9 @@ public class ProductServiceImpl implements ProductService{
 
     Product result = productRepository.save(product);
 
-    log.info("asdfasdfasd result " + result);
 
     ProductDTO resultDTO = entityToDTO(result);
 
-    log.info("asdfasdfasd resultDTO " + resultDTO);
 
 
     return resultDTO;
@@ -570,7 +547,6 @@ public class ProductServiceImpl implements ProductService{
 
     ProductDTO resultDTO = entityToDTO(savedProduct);
 
-    log.info("resultDTO...." + resultDTO);
 
     return resultDTO;
 
@@ -581,8 +557,7 @@ public class ProductServiceImpl implements ProductService{
   @Override
   public ProductDTO modify(ProductDTO productDTO) {
 
-    log.info("--------modify+ " + productDTO);
-    
+
     //step1 read
     Optional<Product> result = productRepository.findById(productDTO.getPno());
     Product product = result.orElseThrow();

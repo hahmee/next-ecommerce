@@ -24,8 +24,8 @@ public class JWTUtil {
 
   @PostConstruct
   public void init() {
-    key = this.secretKey;  // ✅ Spring이 초기화된 후 값 설정
-    log.info("JWT Secret Key Initialized: " + key);  // ✅ 초기화 로그 추가
+    key = this.secretKey;  // Spring이 초기화된 후 값 설정
+    log.info("JWT Secret Key Initialized: " + key);  // 초기화 로그 추가
   }
 
 

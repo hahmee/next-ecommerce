@@ -22,8 +22,6 @@ public class MemberController {
     /** 로그인한 사용자 정보 조회 */
     @GetMapping("/api/me")
     public DataResponseDTO<MemberPublicDTO> getMyInfo(@AuthenticationPrincipal MemberDTO member) {
-        log.info("[API] /api/me 호출됨");
-        log.info("member...." + member);
 
         if (member == null) {
             throw new GeneralException(ErrorCode.UNAUTHORIZED, "로그인이 필요합니다.");
@@ -37,7 +35,6 @@ public class MemberController {
     @PostMapping("/api/member/register")
     public DataResponseDTO<MemberDTO> register(MemberDTO memberDTO){
 
-        log.info("register: " + memberDTO);
 
         //서비스 호출
         MemberDTO registeredMemberDTO = memberService.register(memberDTO);
@@ -51,12 +48,10 @@ public class MemberController {
     @GetMapping("/api/profile")
     public DataResponseDTO<MemberDTO> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
 
-        log.info("..... userDetails " + userDetails);
 
         //서비스 호출
         MemberDTO profileDTO = memberService.getProfile(userDetails);
 
-        log.info("..... profileDTO " + profileDTO);
         return DataResponseDTO.of(profileDTO);
     }
 
@@ -65,9 +60,7 @@ public class MemberController {
     @GetMapping("/api/members") // members?search=검색어&page=1&size=10
     public DataResponseDTO<PageResponseDTO<MemberDTO>> getUsers(SearchRequestDTO searchRequestDTO) {
 
-
         DataResponseDTO<PageResponseDTO<MemberDTO>> result =  DataResponseDTO.of(memberService.getUsers(searchRequestDTO));
-
 
         return result;
 
