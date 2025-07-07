@@ -81,7 +81,7 @@ public class PaymentServiceImpl implements PaymentService{
     payment.setCreatedAt(LocalDateTime.now());
     payment.setUpdatedAt(LocalDateTime.now());
 
-    // ✅ 주문 정보 조회 및 연결
+    // 주문 정보 조회 및 연결
     List<Order> orders = orderRepository.selectListByOrderId(paymentSuccessDTO.getOrderId());
     if (orders.isEmpty()) {
       throw new GeneralException(ErrorCode.NOT_FOUND, "주문 내역이 없습니다.");

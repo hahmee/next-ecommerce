@@ -23,7 +23,7 @@ public class PaymentController {
 
     //성공시 여기로 redirect
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
-    @GetMapping("/success") // payment/success?
+    @GetMapping("/success")
     public DataResponseDTO<PaymentSuccessDTO> tossPaymentSuccess(PaymentRequestDTO paymentRequestDTO, Principal principal) {
         log.info("tossPaymentSuccess..... ");
 

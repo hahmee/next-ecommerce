@@ -10,6 +10,7 @@ import {UserHydration} from "@/components/UserHydration";
 import {getUserInfo} from "@/libs/auth";
 import UserSyncHandler from "@/components/UserSyncHandler";
 import {cookies} from "next/headers";
+import SessionExpiredRedirect from "@/components/Error/SessionExpiredRedirect";
 
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
@@ -53,6 +54,7 @@ export default async function RootLayout({children}: Readonly<{ children: React.
     <RQProvider>
       <div id="portal-root"></div>
       <UserHydration user={user}/>
+      <SessionExpiredRedirect />
       {isLogin && <UserSyncHandler />}
       {children}
       <Toaster/>

@@ -8,7 +8,8 @@ import {Category} from "@/interface/Category";
 export const dynamic = 'force-dynamic'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "http://localhost:3000"
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   // 1. 정적 페이지들(주소 고정)
   const staticPaths: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: new Date() },

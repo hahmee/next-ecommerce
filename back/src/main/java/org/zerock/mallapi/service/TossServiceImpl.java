@@ -39,7 +39,6 @@ public class TossServiceImpl implements TossService {
 
   @PostConstruct
   public void init() {
-    log.info("✅ tossUrl = {}", tossUrl);
     this.webClient = WebClient.builder()
             .baseUrl(tossUrl)
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
@@ -47,14 +46,15 @@ public class TossServiceImpl implements TossService {
   }
 
   @Override
-  public DataResponseDTO<Map<String, Object>> confirmPayment(ConfirmRequestDTO confirmRequestDTO) {
+  public DataResponseDTO<PaymentSuccessDTO> confirmPayment(ConfirmRequestDTO confirmRequestDTO) {
     String paymentKey = confirmRequestDTO.getPaymentKey();
 
     // 이미 처리된 결제
     if (paymentService.existsByPaymentKey(paymentKey)) {
       log.info("이미 처리된 결제입니다: {}", paymentKey);
       PaymentDTO paymentDTO = paymentService.getByPaymentKey(paymentKey);
-      return TokenResponseUtil.create(paymentDTO.getOwner());
+      return DataResponseDTO.of(null);
+
     }
 
     try {
@@ -83,22 +83,11 @@ public class TossServiceImpl implements TossService {
               .block();
 
       PaymentSuccessDTO paymentSuccessDTO = objectMapper.readValue(responseBody, PaymentSuccessDTO.class);
-
+      log.info("paymentSuccessDTO " + paymentSuccessDTO);
       Member member = orderService.getByOrderId(paymentSuccessDTO.getOrderId());
       paymentService.savePaymentAfterSuccess(paymentSuccessDTO, member);
 
-      MemberDTO memberDTO = new MemberDTO(
-              member.getEmail(),
-              member.getPassword(),
-              member.getNickname(),
-              member.isSocial(),
-              member.getMemberRoleList().stream().toList(),
-              member.getEncryptedId(),
-              member.getCreatedAt(),
-              member.getUpdatedAt()
-      );
-
-      return TokenResponseUtil.create(memberDTO);
+      return DataResponseDTO.of(paymentSuccessDTO);
 
     } catch (GeneralException e) {
       throw e; // 위에서 이미 로깅됨

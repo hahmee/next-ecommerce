@@ -6,7 +6,6 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {SessionExpiredError} from "@/libs/error/errors";
 import {useUserStore} from "@/store/userStore";
 import toast from "react-hot-toast";
-import {useRouter} from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -21,8 +20,8 @@ function RQProvider({children}: Props) {
           console.log('error', error)
           if (error instanceof SessionExpiredError) {
             useUserStore.getState().resetUser(); // Zustand 상태 초기화
+            useUserStore.getState().setSessionExpired();
             toast.error("세션이 만료되었습니다.");
-            // setShouldRedirect(true); // 여기서 redirect 플래그만 set
           }
         },
       }),
@@ -31,8 +30,8 @@ function RQProvider({children}: Props) {
           console.log('error', error)
           if (error instanceof SessionExpiredError) {
             useUserStore.getState().resetUser();
-            toast.error("세션이 만료되었습니다.");
-            // setShouldRedirect(true);
+            useUserStore.getState().setSessionExpired();
+            toast.error("세션이 만료되었습니다");
           }
         },
       }),

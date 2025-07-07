@@ -8,6 +8,9 @@ interface UserState {
   resetUser: () => void;
   token: string | null;
   setToken: (token: string) => void;
+  isSessionExpired: boolean;
+  setSessionExpired: () => void;
+  clearSessionExpired: () => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -16,4 +19,7 @@ export const useUserStore = create<UserState>((set) => ({
   resetUser: () => set({ user: null }),
   token: null,
   setToken: (token) => set({ token }),
+  isSessionExpired: false,
+  setSessionExpired: () => set({ isSessionExpired: true }),
+  clearSessionExpired: () => set({isSessionExpired: false}),
 }));

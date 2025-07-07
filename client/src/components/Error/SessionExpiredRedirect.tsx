@@ -8,9 +8,11 @@ import {logout} from "@/apis/mallAPI"; // Zustand store
 
 const SessionExpiredRedirect = () => {
   const router = useRouter();
-  const { resetUser} = useUserStore();
-
+  const { isSessionExpired, clearSessionExpired, resetUser } = useUserStore();
+  console.log('SessionExpiredRedirect')
   useEffect(() => {
+    if (!isSessionExpired) return;
+
     const cleanUpSession = async () => {
       console.warn("🔒 세션 만료 → 자동 로그아웃 처리 시작");
 
@@ -22,14 +24,14 @@ const SessionExpiredRedirect = () => {
 
       // 상태 초기화
       resetUser();
-
+      clearSessionExpired();
 
       // 로그인 페이지로 이동
       router.replace("/login");
     };
 
     cleanUpSession();
-  }, [router]);
+  }, [isSessionExpired, router]);
 
   return null;
 };

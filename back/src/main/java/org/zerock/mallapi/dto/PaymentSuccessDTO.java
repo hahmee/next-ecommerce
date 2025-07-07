@@ -10,13 +10,13 @@ import org.zerock.mallapi.domain.TossPaymentType;
 @Data
 @Getter
 public class PaymentSuccessDTO {
-  @JsonProperty("mId") // ✅ JSON에서 "mId"로 오는 필드를 명확하게 매핑
+  @JsonProperty("mId") // JSON에서 "mId"로 오는 필드를 명확하게 매핑
   String mId;
   String lastTransactionKey;
   String paymentKey;
   String orderId;
   String orderName;
-  Integer taxFreeAmount; // ✅ int → Integer 변경 (null 허용)
+  Integer taxFreeAmount; // int → Integer 변경 (null 허용)
   Integer taxExemptionAmount; // 새로 추가된 필드
   TossPaymentStatus status;
   String requestedAt;
@@ -37,11 +37,11 @@ public class PaymentSuccessDTO {
   EasyPayInfo easyPay;
   String country;
   Object failure;
-  Boolean isPartialCancelable; // ✅ boolean → Boolean 변경 (null 허용)
+  Boolean isPartialCancelable; // boolean → Boolean 변경 (null 허용)
   ReceiptInfo receipt;
   CheckoutInfo checkout;
   String currency;
-  Integer totalAmount; // ✅ int → Integer 변경 (null 허용)
+  Integer totalAmount; // int → Integer 변경 (null 허용)
   Integer balanceAmount;
   Integer suppliedAmount;
   Integer vat;
@@ -49,7 +49,7 @@ public class PaymentSuccessDTO {
   String version;
   Object metadata;
 
-  // ✅ 카드 결제 정보 DTO
+  // 카드 결제 정보 DTO
   @Data
   public static class CardInfo {
     String issuerCode;
@@ -66,7 +66,7 @@ public class PaymentSuccessDTO {
     Integer amount;
   }
 
-  // ✅ 간편결제 정보 DTO
+  // 간편결제 정보 DTO
   @Data
   public static class EasyPayInfo {
     String provider;
@@ -74,19 +74,19 @@ public class PaymentSuccessDTO {
     Integer discountAmount;
   }
 
-  // ✅ 영수증 정보 DTO
+  // 영수증 정보 DTO
   @Data
   public static class ReceiptInfo {
     String url;
   }
 
-  // ✅ 체크아웃 정보 DTO
+  // 체크아웃 정보 DTO
   @Data
   public static class CheckoutInfo {
     String url;
   }
 
-  // ✅ 가상 계좌 결제 정보 DTO
+  // 가상 계좌 결제 정보 DTO
   @Data
   public static class VirtualAccountInfo {
     String accountType;
@@ -99,28 +99,28 @@ public class PaymentSuccessDTO {
     String settlementStatus;
   }
 
-  // ✅ 계좌이체 정보 DTO
+  // 계좌이체 정보 DTO
   @Data
   public static class TransferInfo {
     String bankCode;
     String settlementStatus;
   }
 
-  // ✅ 휴대폰 결제 정보 DTO
+  // 휴대폰 결제 정보 DTO
   @Data
   public static class MobilePhoneInfo {
     String customerMobilePhone;
     String settlementStatus;
   }
 
-  // ✅ 상품권 결제 정보 DTO
+  // 상품권 결제 정보 DTO
   @Data
   public static class GiftCertificateInfo {
     String approveNo;
     String settlementStatus;
   }
 
-  // ✅ 현금영수증 정보 DTO
+  // 현금영수증 정보 DTO
   @Data
   public static class CashReceiptInfo {
     String type;
@@ -129,13 +129,13 @@ public class PaymentSuccessDTO {
     String issueNumber;
   }
 
-  // ✅ 할인 정보 DTO
+  // 할인 정보 DTO
   @Data
   public static class DiscountInfo {
     String amount;
   }
 
-  // ✅ 취소 정보 DTO
+  // 취소 정보 DTO
   @Data
   public static class CancelInfo {
     String cancelAmount;

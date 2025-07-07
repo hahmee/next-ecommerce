@@ -26,14 +26,10 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
     const handleClickAddCart = useCallback(async (pno: number, options: { color: ColorTag; size: string }, newQuantity: number) => {
 
-          const existing = carts.find((item) =>
-            item.size === options.size && item.color.id === options.color.id
-          );
-
           const item: CartItem = {
               email: user?.email || "",
               pno,
-              qty: existing ? existing.qty + 1 : 1,
+              qty: newQuantity,
               color: options.color,
               size: options.size,
               sellerEmail : cartItem.sellerEmail,
@@ -43,7 +39,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
 
 
         },
-        [carts, changeCart]
+        [changeCart]
     );
 
     const handleRemove = async () => {
@@ -94,8 +90,7 @@ const SingleCartItem = ({cartItem}:{ cartItem: CartItemList }) => {
                 <div>
                     <p className="text-lg font-semibold text-green-600">{(cartItem.price).toLocaleString()} 원</p>
                 </div>
-                <button className="text-red-500 hover:text-red-700 flex items-center"
-                        onClick={handleRemove} aria-label="Remove Item">
+                <button className="text-red-500 hover:text-red-700 flex items-center" onClick={handleRemove} aria-label="Remove Item">
                     <TrashIcon className="w-5 h-5 mr-1"/>
                 </button>
             </div>
