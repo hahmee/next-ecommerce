@@ -7,7 +7,6 @@ import MultiSelect from "@/components/Admin/Product/MultiSelect";
 import {Option} from "@/interface/Option";
 import BackButton from "@/components/Admin/Product/BackButton";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {fetchJWT} from "@/utils/fetchJWT";
 import {useProductImageStore} from "@/store/productImageStore";
 import toast from "react-hot-toast";
 import {SalesStatus} from "@/types/salesStatus";
@@ -21,10 +20,10 @@ import {Mode} from "@/types/mode";
 import CategorySelect from "@/components/Admin/Product/CategorySelect";
 import {Category} from "@/interface/Category";
 import Link from "next/link";
-import {getCategories, getCategoryPaths, getProduct} from "@/apis/adminAPI";
+import {getCategoryPaths, getProduct} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
-import {unwrap} from "@/utils/unwrap";
 import {clientFetcher} from "@/utils/fetcher/clientFetcher";
+import {fetcher} from "@/utils/fetcher/fetcher";
 
 // export const brandOptions:  Array<Option<string>> = [
 //     {id: 'brand-option1', content:'브랜드 옵션1'},
@@ -148,11 +147,11 @@ const ProductForm = ({type, id}: Props) => {
                 if (!formData) {
                     throw new Error('FormData is undefined');
                 }
-                return unwrap(await fetchJWT(`/api/products/`, {
+                return await fetcher(`/api/products/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData as FormData,
-                })); // json 형태로 이미 반환
+                }); // json 형태로 이미 반환
 
             } else { //수정
 
@@ -179,12 +178,12 @@ const ProductForm = ({type, id}: Props) => {
                     throw new Error('FormData is undefined');
                 }
 
-                return unwrap(await fetchJWT(`/api/products/${id}`, {
+                return await fetcher(`/api/products/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData as FormData,
                     // headers: { 'Content-Type': 'multipart/form-data' }
-                })); // json 형태로 이미 반환
+                }); // json 형태로 이미 반환
             }
         },
         async onSuccess(response, variable) {

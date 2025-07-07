@@ -3,7 +3,6 @@
     import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
     import {Category} from "@/interface/Category";
     import Link from "next/link";
-    import {fetchJWT} from "@/utils/fetchJWT";
     import toast from "react-hot-toast";
     import Image from "next/image";
     import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
@@ -17,7 +16,7 @@
     import TableActions from "@/components/Admin/Tables/TableActions";
     import {getAdminCategories} from "@/apis/adminAPI";
     import dynamic from "next/dynamic";
-    import {unwrap} from "@/utils/unwrap";
+    import {fetcher} from "@/utils/fetcher/fetcher";
 
     const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
@@ -51,10 +50,10 @@
 
         const mutation = useMutation({
             mutationFn: async (cno: number) => {
-                return unwrap(await fetchJWT(`/api/category/${cno}`, {
+                return await fetcher(`/api/category/${cno}`, {
                     method: "DELETE",
                     credentials: 'include',
-                }));
+                });
             },
             onMutate: async (cno) => {
 

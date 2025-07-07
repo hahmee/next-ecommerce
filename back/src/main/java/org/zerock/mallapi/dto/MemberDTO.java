@@ -79,10 +79,10 @@ public class MemberDTO extends User {
 
   // 민감 정보 제외
   public MemberPublicDTO toPublicDTO() {
-    return MemberPublicDTO.builder()
+    return  MemberPublicDTO.builder()
             .email(this.email)
             .nickname(this.nickname)
-            .roles(this.roleNames)
+            .roleNames(this.roleNames)
             .build();
   }
 }

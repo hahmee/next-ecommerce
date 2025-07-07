@@ -1,6 +1,5 @@
 // 클라이언트 전용 fetcher (쿠키는 자동 포함)
 
-import toast from "react-hot-toast";
 import {SessionExpiredError} from "@/libs/error/errors";
 
 export const clientFetcher = async <T = any>(

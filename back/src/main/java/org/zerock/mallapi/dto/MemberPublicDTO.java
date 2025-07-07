@@ -18,5 +18,5 @@ import java.util.stream.Collectors;
 public class MemberPublicDTO {
   private String email;
   private String nickname;
-  private List<MemberRole> roles;
+  private List<MemberRole> roleNames;
 }

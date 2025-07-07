@@ -16,7 +16,7 @@ public class GARequestDTO {
 
   private String endDate;
 
-  private String sellerEmail;
+//  private String sellerEmail;
 
   private String comparedStartDate;
 

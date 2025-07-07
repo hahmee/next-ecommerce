@@ -2,12 +2,11 @@
 import CartSummary from "@/components/Home/Cart/CartSummary";
 import React, {useState} from "react";
 import {useCartStore} from "@/store/cartStore";
-import {fetchJWT} from "@/utils/fetchJWT";
 import {OrderStatus} from "@/types/orderStatus";
 import {OrderRequest, OrderShippingAddressInfo} from "@/interface/Order";
 import {loadTossPayments} from "@tosspayments/payment-sdk";
 import toast from "react-hot-toast";
-import {unwrap} from "@/utils/unwrap";
+import {fetcher} from "@/utils/fetcher/fetcher";
 
 const Checkout = () => {
     const {carts, subtotal, tax, shippingFee, total} = useCartStore();
@@ -66,7 +65,7 @@ const Checkout = () => {
             orderId: orderId,
         };
 
-            const result = await fetchJWT(`/api/orders/`, {
+            const result = await fetcher(`/api/orders/`, {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -75,9 +74,7 @@ const Checkout = () => {
             body: JSON.stringify(order),
         });
 
-        // 실패면 여기서 throw
-        const saved = unwrap(result);
-        return saved;
+        return result;
     };
 
     return (

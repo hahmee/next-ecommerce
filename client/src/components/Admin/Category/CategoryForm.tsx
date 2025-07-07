@@ -5,13 +5,12 @@ import React, {useEffect, useState} from "react";
 import {Mode} from "@/types/mode";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Category} from "@/interface/Category";
-import {fetchJWT} from "@/utils/fetchJWT";
 import toast from "react-hot-toast";
 import {getCategory, getCategoryPaths} from "@/apis/adminAPI";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import {unwrap} from "@/utils/unwrap";
 import {FieldErrors, useForm} from "react-hook-form";
+import {fetcher} from "@/utils/fetcher/fetcher";
 
 interface Props {
     type: Mode;
@@ -88,11 +87,11 @@ const CategoryForm = ({type, id}: Props) => {
                 }
                 formData.append("file", image);
 
-                return unwrap(await fetchJWT(`/api/category/`, {
+                return await fetcher(`/api/category/`, {
                     method: "POST",
                     credentials: 'include',
                     body: formData
-                }));
+                })
             } else {
                 if (form.file?.[0]) {
                     formData.append("file", form.file[0]);
@@ -103,11 +102,11 @@ const CategoryForm = ({type, id}: Props) => {
                     }
                 }
 
-                return unwrap(await fetchJWT(`/api/category/${id}`, {
+                return await fetcher(`/api/category/${id}`, {
                     method: "PUT",
                     credentials: 'include',
                     body: formData
-                }));
+                });
             }
         },
         onSuccess: async (newCategory: Category) => {

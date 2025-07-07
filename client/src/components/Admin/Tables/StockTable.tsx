@@ -10,13 +10,12 @@ import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import React, {useCallback, useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
-import {fetchJWT} from "@/utils/fetchJWT";
 import TableActions from "@/components/Admin/Tables/TableActions";
 import Link from "next/link";
 import Select from "@/components/Admin/Product/Select";
 import toast from "react-hot-toast";
 import {getAdminStock} from "@/apis/adminAPI";
-import {unwrap} from "@/utils/unwrap";
+import {fetcher} from "@/utils/fetcher/fetcher";
 
 export const initalPagingData: Paging = {
     totalCount: 0,
@@ -80,14 +79,14 @@ const StockTable = () => {
 
     const mutation = useMutation({
         mutationFn: async ({salesStatus, pno}: { salesStatus: string; pno: number }) => {
-            return unwrap(await fetchJWT(`/api/products/stock/${pno}`, {
+            return await fetcher(`/api/products/stock/${pno}`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({salesStatus, pno}),
-            }));
+            });
         },
         onSuccess: async (response) => {
             const newStock = response;

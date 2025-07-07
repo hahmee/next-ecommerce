@@ -7,19 +7,17 @@ import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import TableAddButton from "@/components/Admin/Tables/TableAddButton";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import {useRouter} from "next/navigation";
 import {salesOptions} from "@/components/Admin/Product/ProductForm";
 import {SalesStatus} from "@/types/salesStatus";
 import React, {useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
-import {fetchJWT} from "@/utils/fetchJWT";
 import {StarIcon} from "@heroicons/react/20/solid";
 import TableActions from "@/components/Admin/Tables/TableActions";
 import Link from "next/link";
 import {getProductsByEmail} from "@/apis/adminAPI";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
-import {unwrap} from "@/utils/unwrap";
+import {fetcher} from "@/utils/fetcher/fetcher";
 
 const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
@@ -44,7 +42,6 @@ const ProductTable = () => { //{page, size, search} : PageParam
     const [productData, setProductData] = useState<PageResponse<Product>>();
     const [deleteId, setDeleteId] = useState<number>(-1);
     const [showDialog, setShowDialog] = useState<boolean>(false);
-    const router = useRouter();
     const queryClient = useQueryClient();
 
     const { isFetched,isLoading , isFetching, data, error, isError} = useQuery<PageResponse<Product>, Object, PageResponse<Product>, [_1: string, _2: Object]>({
@@ -52,7 +49,7 @@ const ProductTable = () => { //{page, size, search} : PageParam
         queryFn: () => getProductsByEmail({page, size, search}),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
+        // 오직 서버 에러만 에러 바운더리로 전달된다.
         // throwOnError: (error) => error. >= 500,
         throwOnError: true,
     });
@@ -81,10 +78,10 @@ const ProductTable = () => { //{page, size, search} : PageParam
 
     const mutation = useMutation({
         mutationFn: async (pno: number) => {
-            return unwrap(await fetchJWT(`/api/products/${pno}`, {
+            return await fetcher(`/api/products/${pno}`, {
                 method: "DELETE",
                 credentials: 'include',
-            }));
+            });
         },
         onMutate: async (pno) => {
             // 기존 데이터 가져오기

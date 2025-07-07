@@ -1,8 +1,5 @@
 import {create} from "zustand";
 import {CartItemList} from "@/interface/CartItemList";
-import {CartItem} from "@/interface/CartItem";
-import {fetchJWT} from "@/utils/fetchJWT";
-import {fetcher} from "@/utils/fetcher/fetcher";
 
 type CartState = {
   carts: CartItemList[];
