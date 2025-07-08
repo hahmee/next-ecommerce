@@ -61,6 +61,13 @@ jobs:
           distribution: 'corretto'
           java-version: 17
 
+      # 백엔드 application-prod.properties 생성
+      - name: Create application-prod.properties
+        working-directory: back/src/main/resources
+        run: |
+          echo "${{ secrets.APP_PROD_PROPERTIES }}" > application-prod.properties
+          
+
       # 백엔드 테스트 todo
 #      - name: Run backend test
 #        working-directory: back
