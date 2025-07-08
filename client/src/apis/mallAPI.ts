@@ -1,5 +1,7 @@
 import { fetcher } from "@/utils/fetcher/fetcher";
 
+const BACKEND_URL = typeof window === 'undefined' ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL;
+
 export const getProductList = async ({
                                        queryKey,
                                        page,
@@ -131,7 +133,7 @@ export const getCart = async () => {
 };
 
 export const logout = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/logout`, {
+  const response = await fetch(`${BACKEND_URL}/api/member/logout`, {
     method: "POST",
     credentials: "include",
   });

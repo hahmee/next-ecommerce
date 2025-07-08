@@ -1,7 +1,6 @@
     "use client";
     import {FormEvent, FormEventHandler, useState} from "react";
     import {useRouter} from "next/navigation";
-    // import {getCookie, setCookie} from "@/utils/cookie";
     import {MemberRole} from "@/types/memberRole";
     import {useUserStore} from "@/store/userStore";
     import {fetcher} from "@/utils/fetcher/fetcher";

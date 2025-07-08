@@ -13,13 +13,13 @@ import { cookies } from 'next/headers';
  * - SSR에서 accessToken이 만료된 경우엔 그냥 실패로 처리하고 CSR에서 복구
  *
  * 즉, SSR 시점에 accessToken이 유효하면 fetch 성공,
- * 아니라면 throw Error로 에러를 던지고 CSR에서 /refresh → 원요청으로 복구 처리합니다.
+ * 아니라면 throw Error로 에러를 던지고 CSR에서 /refresh → 원요청으로 복구 처리
  */
 export const serverFetcher = async <T = any>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> => {
-  const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
+  const finalUrl = `${process.env.BACKEND_URL}${path}`;
   const cookieString = cookies().toString();
 
   const res = await fetch(finalUrl, {

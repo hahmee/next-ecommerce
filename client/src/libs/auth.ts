@@ -1,7 +1,7 @@
 // utils/getUserInfo.ts
 import { cookies } from 'next/headers';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL!;
+const BACKEND_URL = process.env.BACKEND_URL!;
 
 //SSR 용 getUserInfo
 //  access_token 있으면 API 요청
