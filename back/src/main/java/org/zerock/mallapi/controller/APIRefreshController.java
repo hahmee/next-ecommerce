@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zerock.mallapi.config.CookieProperties;
 import org.zerock.mallapi.exception.ErrorCode;
-import org.zerock.mallapi.service.MemberService;
 import org.zerock.mallapi.util.GeneralException;
 import org.zerock.mallapi.util.JWTUtil;
 
@@ -22,7 +22,7 @@ import static org.zerock.mallapi.util.TokenConstants.*;
 @Log4j2
 public class APIRefreshController {
 
-  private final MemberService memberService;
+  private final CookieProperties cookieProperties;
 
   @PostMapping("/api/member/refresh")
   public ResponseEntity<?> refresh(
@@ -53,10 +53,12 @@ public class APIRefreshController {
             ? JWTUtil.generateToken(claims, REFRESH_EXPIRE_MINUTES)
             : refreshToken;
 
+    boolean isSecure = cookieProperties.isSecure();
+
     // Set-Cookie로 내려주기
     ResponseCookie accessCookie = ResponseCookie.from("access_token", newAccessToken)
             .httpOnly(true)
-            .secure(false)
+            .secure(isSecure)
             .sameSite("Lax")
             .path("/")
             .maxAge(ACCESS_EXPIRE_MINUTES * 60) // 초
@@ -64,7 +66,7 @@ public class APIRefreshController {
 
     ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", newRefreshToken)
             .httpOnly(true)
-            .secure(false)
+            .secure(isSecure)
             .sameSite("Lax")
             .path("/")
             .maxAge(REFRESH_EXPIRE_MINUTES * 60) // 초

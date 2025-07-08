@@ -2,6 +2,7 @@ package org.zerock.mallapi.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.zerock.mallapi.security.CustomUserDetailsService;
 import org.zerock.mallapi.security.filter.JWTCheckFilter;
 import org.zerock.mallapi.security.handler.*;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,9 +32,11 @@ public class CustomSecurityConfig {
 
   private final CustomUserDetailsService customUserDetailsService;
 
-//  @Value("${app.cors.allowed-origin}")
-//  private String allowedOrigin;
-  private String allowedOrigin ="tetetet";
+  private final CookieProperties cookieProperties;
+
+
+  @Value("${app.cors.allowed-origin}")
+  private String allowedOrigin;
 
   @Bean
   public PasswordEncoder passwordEncoder(){
@@ -48,20 +50,22 @@ public class CustomSecurityConfig {
 
     http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
+    log.info("allowedOrigin value: {}", allowedOrigin);
+
     http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
     http.csrf(csrf -> csrf.disable());
 
     http.formLogin(form -> {
       form.loginPage("/api/member/login");
-      form.successHandler(new APILoginSuccessHandler());
+      form.successHandler(new APILoginSuccessHandler(cookieProperties));
       form.failureHandler(new APILoginFailHandler());
     });
 
     http.logout(logout -> {
       logout.logoutUrl("/api/member/logout");
       logout.invalidateHttpSession(true);
-      logout.logoutSuccessHandler(new APILogoutSuccessHandler());
+      logout.logoutSuccessHandler(new APILogoutSuccessHandler(cookieProperties));
     });
 
     // 중요: authorizeHttpRequests 설정 추가

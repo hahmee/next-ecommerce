@@ -4,22 +4,28 @@ import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.zerock.mallapi.config.CookieProperties;
 import org.zerock.mallapi.dto.MemberDTO;
 import org.zerock.mallapi.util.JWTUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.Duration;
 import java.util.Map;
 
-import static org.zerock.mallapi.util.TokenConstants.*;
+import static org.zerock.mallapi.util.TokenConstants.ACCESS_EXPIRE_MINUTES;
+import static org.zerock.mallapi.util.TokenConstants.REFRESH_EXPIRE_MINUTES;
 
+@RequiredArgsConstructor
 @Log4j2
 public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
+
+  private final CookieProperties cookieProperties;
+
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -34,10 +40,12 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
     String accessToken = JWTUtil.generateToken(claims, ACCESS_EXPIRE_MINUTES);
     String refreshToken = JWTUtil.generateToken(claims, REFRESH_EXPIRE_MINUTES);
 
+    boolean isSecure = cookieProperties.isSecure();
+
     // 3. HttpOnly + Secure + SameSite=None 설정 쿠키 생성
     ResponseCookie accessCookie = ResponseCookie.from("access_token", accessToken)
             .httpOnly(true)
-            .secure(false) // HTTPS일 때만 동작, 개발 환경에서는 false 가능
+            .secure(isSecure) // HTTPS일 때만 동작, 개발 환경에서는 false 가능
             .sameSite("Lax") // 개발 환경에서는 Lax
             .path("/")
             .maxAge(ACCESS_EXPIRE_MINUTES * 60) // 초
@@ -45,7 +53,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 
     ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", refreshToken)
             .httpOnly(true)
-            .secure(false)
+            .secure(isSecure)
             .sameSite("Lax")
             .path("/")
             .maxAge(REFRESH_EXPIRE_MINUTES * 60) // 초
