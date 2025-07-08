@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }}" >> .env.production
           echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" >> .env.production
-          echo "BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" >> .env.production
+          echo "BACKEND_URL=${{ secrets.BACKEND_URL }}" >> .env.production
           echo "NEXT_PUBLIC_MODE=${{ secrets.NEXT_PUBLIC_MODE }}" >> .env.production
           echo "NEXT_PUBLIC_AWS_S3_BUCKET=${{ secrets.NEXT_PUBLIC_AWS_S3_BUCKET }}" >> .env.production
           echo "NEXT_PUBLIC_TOSS_CLIENT_KEY=${{ secrets.NEXT_PUBLIC_TOSS_CLIENT_KEY }}" >> .env.production
@@ -66,7 +66,6 @@ jobs:
         working-directory: back/src/main/resources
         run: |
           echo "${{ secrets.APP_PROD_PROPERTIES }}" > application-prod.properties
-          
 
       # 백엔드 테스트 todo
 #      - name: Run backend test
