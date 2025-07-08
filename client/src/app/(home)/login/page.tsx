@@ -60,7 +60,6 @@
 
                 // 홈으로 이동
                 router.push("/"); // CSR (SSR 서버로 새 요청 하지 X)
-                // router.refresh()
 
             } catch (error) {
                 console.error("로그인 이후 사용자 정보 가져오기 실패", error);
