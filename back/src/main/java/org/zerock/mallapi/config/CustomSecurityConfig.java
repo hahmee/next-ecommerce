@@ -32,9 +32,9 @@ public class CustomSecurityConfig {
 
   private final CustomUserDetailsService customUserDetailsService;
 
-  @Value("${app.cors.allowed-origin}")
-  private String allowedOrigin;
-
+//  @Value("${app.cors.allowed-origin}")
+//  private String allowedOrigin;
+  private String allowedOrigin ="tetetet";
 
   @Bean
   public PasswordEncoder passwordEncoder(){
