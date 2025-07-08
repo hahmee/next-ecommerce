@@ -34,8 +34,8 @@ services:
     depends_on:
       - db
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/usr/src/app/credentials.json
-      - PUBLIC_BASE_URL=${PUBLIC_BASE_URL}
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials.json
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL}
     volumes:
       - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
     env_file:
