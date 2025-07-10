@@ -1,5 +1,5 @@
 import {PageParam} from "@/interface/PageParam";
-import { fetcher } from "@/utils/fetcher/fetcher";
+import {fetcher} from "@/utils/fetcher/fetcher";
 
 export async function getCategories() {
     return await fetcher("/api/category/list", {
