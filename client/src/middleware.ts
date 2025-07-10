@@ -1,4 +1,3 @@
-// middleware.ts
 
 import {NextRequest, NextResponse} from 'next/server';
 import {MemberRole} from '@/types/memberRole';
@@ -32,7 +31,7 @@ export async function middleware(request: NextRequest) {
   // 보호된 경로에 접근하는데 토큰이 없는 경우 -> 로그인 페이지로
   if (!accessToken) {
     const loginUrl = new URL('/login', request.url);
-    loginUrl.searchParams.set('redirect', pathname);
+    loginUrl.searchParams.set('redirect', pathname); // 다시 돌아갈 구조
     return NextResponse.redirect(loginUrl);
   }
 
@@ -55,7 +54,7 @@ export async function middleware(request: NextRequest) {
     if (pathname.startsWith('/admin')) {
       const isAuthorized = roleNames?.some(role => ADMIN_ROLES.includes(role));
       if (!isAuthorized) {
-        return NextResponse.redirect(new URL('/error/forbidden', request.url));
+        return NextResponse.redirect(new URL('/error', request.url));
       }
     }
 

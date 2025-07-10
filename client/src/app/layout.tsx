@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         icon: "/images/main/logo.svg", // 절대 경로로 수정
     },
     other: {
-        "google-site-verification": "Al9v_xjka2c-c1TtoimoHoEXJYG2A565b2iwaXqzhAw",
+      "google-site-verification": process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION ?? "",
     },
 };
 
