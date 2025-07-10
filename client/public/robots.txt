@@ -3,3 +3,4 @@ Disallow:
 
 Sitemap: https://www.next-ecommerce.shop/sitemap.xml
 Sitemap: https://www.next-ecommerce.shop/sitemap-v2.xml
+Sitemap: https://www.next-ecommerce.shop/sitemap-v3.xml
