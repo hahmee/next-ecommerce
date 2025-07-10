@@ -28,7 +28,7 @@ export default function HomeError({
           onClick={() => reset()}
           className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
         >
-          다시 시도zz
+          다시 시도
         </button>
       </div>
     </div>

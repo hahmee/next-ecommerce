@@ -47,7 +47,12 @@ public class ReviewController {
     @GetMapping("/myReviews")
     public DataResponseDTO<List<ReviewDTO>> getMylist(Principal principal) {
 
+        log.info("principal.." + principal);
+
         String email = principal.getName();
+
+        log.info("email.." + email);
+
 
         return DataResponseDTO.of(reviewService.getMyList(email));
 

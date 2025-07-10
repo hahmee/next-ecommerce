@@ -72,7 +72,6 @@ public class CustomSecurityConfig {
     http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/member/**").permitAll() // 로그인 관련은 모두 허용
             .requestMatchers("/api/public/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/reviews/**").permitAll() // GET만 허용
             .requestMatchers("/api/toss/confirm").permitAll() //
             .requestMatchers("/api/me").permitAll()
             .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요

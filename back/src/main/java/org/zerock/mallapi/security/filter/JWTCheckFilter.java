@@ -30,7 +30,6 @@ public class JWTCheckFilter extends OncePerRequestFilter {
     // 인증이 필요 없는 public API들은 필터 제외
     return request.getMethod().equals("OPTIONS") ||
             path.startsWith("/api/member/") ||
-            (path.startsWith("/api/reviews/") && method.equals("GET")) || // GET만 제외
             path.startsWith("/api/healthcheck") ||
             path.startsWith("/api/toss/confirm") ||
             path.startsWith("/api/public/");
