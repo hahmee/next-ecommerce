@@ -2,3 +2,4 @@ User-agent: *
 Disallow:
 
 Sitemap: https://www.next-ecommerce.shop/sitemap.xml
+Sitemap: https://www.next-ecommerce.shop/sitemap-v2.xml
