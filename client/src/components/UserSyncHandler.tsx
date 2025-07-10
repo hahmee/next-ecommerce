@@ -30,16 +30,13 @@ export default function UserSyncHandler() {
       } catch (error: any) {
         if (error instanceof SessionExpiredError) {
           console.log('[UserSyncHandler] 세션 만료 → /login 리다이렉트');
-
           try {
             await logout(); // 실패해도 그 다음 로직 실행
           } catch (logoutErr) {
             console.error('백엔드 로그아웃 실패:', logoutErr);
           }
-
           resetUser();
           router.replace('/login');
-
         } else {
           toast.error(error.message || '사용자 정보 복구 실패');
         }
