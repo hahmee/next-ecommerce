@@ -14,14 +14,21 @@ const GuestAuthButtons = () => {
 
   return <div>
     {showLoginButtons && (
-      <div className="bg-blue-500 flex ">
+      <div className="flex gap-2">
         <Link href="/login">
-          <button className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed" type="button">
+          <button
+            type="button"
+            className="w-25 bg-ecom text-white p-2 rounded-md text-center disabled:bg-pink-200 disabled:cursor-not-allowed"
+          >
             로그인
           </button>
         </Link>
+
         <Link href="/signup">
-          <button className="bg-ecom text-white p-2 rounded-md disabled:bg-pink-200 disabled:cursor-not-allowed" type="button">
+          <button
+            type="button"
+            className="w-25 bg-ecom text-white p-2 rounded-md text-center disabled:bg-pink-200 disabled:cursor-not-allowed"
+          >
             회원가입
           </button>
         </Link>
