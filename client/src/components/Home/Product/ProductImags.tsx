@@ -13,9 +13,10 @@ const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
     <div className="">
       <div className="h-[500px] relative">
         <FallbackImage
+          key={items[index]?.file}
           src={items[index]?.file}
           fallbackSrc={fallbackSrc}
-          alt=""
+          alt="Main image"
           fill
           sizes="50vw"
           className="object-cover rounded-md"

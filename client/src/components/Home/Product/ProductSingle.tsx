@@ -17,7 +17,7 @@ interface Props {
 
 const ProductSingle = ({id}: Props) => {
 
-    const {isLoading, data:product, error} = useQuery<Product, Object, Product, [_1: string, _2: string]>({
+    const {data:product} = useQuery<Product, Object, Product, [_1: string, _2: string]>({
         queryKey: ['productCustomerSingle', id],
         queryFn: getPublicProduct,
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
