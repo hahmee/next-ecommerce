@@ -3,7 +3,6 @@ import {StarIcon} from "@heroicons/react/20/solid";
 import {useQuery} from "@tanstack/react-query";
 import {Product} from "@/interface/Product";
 import Link from "next/link";
-import Image from "next/image";
 import {ColorTag} from "@/interface/ColorTag";
 import {CartItem} from "@/interface/CartItem";
 import {useCartStore} from "@/store/cartStore";
@@ -13,6 +12,7 @@ import React, {useEffect, useState} from "react";
 import {getPublicFeaturedProducts, getPublicNewProducts} from "@/apis/publicAPI";
 import {useUserStore} from "@/store/userStore";
 import {useChangeCartMutation} from "@/hooks/useChangeCartMutation";
+import FallbackImage from "@/components/Common/FallbackImage";
 
 const MainProductList = ({type}: {type:"new" | "featured"}) => {
 
@@ -84,19 +84,21 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                 {(product.uploadFileNames && product.uploadFileNames.length > 0) &&
                                     (
                                         <>
-                                            <Image
-                                                src={product.uploadFileNames[0]?.file || "/images/mall/product.png"}
-                                                alt="product"
-                                                fill
-                                                sizes="25vw"
-                                                className="absolute object-cover rounded-md hover:opacity-0 transition-opacity easy duration-500"
+                                            <FallbackImage
+                                              src={product.uploadFileNames[0]?.file}
+                                              fallbackSrc="/images/mall/product.png"
+                                              alt="product"
+                                              fill
+                                              sizes="25vw"
+                                              className="absolute object-cover rounded-md hover:opacity-0 transition-opacity ease-in-out duration-500"
                                             />
-                                            <Image
-                                                src={product.uploadFileNames[1]?.file || "/images/mall/product.png"}
-                                                alt=""
-                                                fill
-                                                sizes="25vw"
-                                                className="absolute object-cover rounded-md"
+                                            <FallbackImage
+                                              src={product.uploadFileNames[1]?.file}
+                                              fallbackSrc="/images/mall/product.png"
+                                              alt=""
+                                              fill
+                                              sizes="25vw"
+                                              className="absolute object-cover rounded-md"
                                             />
                                         </>
                                     )
@@ -120,10 +122,10 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                 <button
                                     disabled={ !user || product.salesStatus != SalesStatus.ONSALE || isLoading}
                                     className="mt-3 rounded-2xl ring-1 ring-ecom text-ecom w-max py-2 px-4 text-xs hover:bg-ecom hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:ring-0 disabled:text-white disabled:ring-none"
-                                    onClick={async (e) => {
+                                    onClick={(e) => {
                                         e.preventDefault(); // 페이지 이동 방지
                                         e.stopPropagation();// 부모로의 이벤트 전파 방지
-                                        await handleClickAddCart(product.pno, product.owner.email, {
+                                        handleClickAddCart(product.pno, product.owner.email, {
                                             color: product.colorList[0],
                                             size: product.sizeList[0]
                                         });

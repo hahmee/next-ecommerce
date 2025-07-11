@@ -11,6 +11,7 @@ import {SalesStatus} from "@/types/salesStatus";
 import toast from "react-hot-toast";
 import {useUserStore} from "@/store/userStore";
 import {useChangeCartMutation} from "@/hooks/useChangeCartMutation";
+import FallbackImage from "@/components/Common/FallbackImage";
 
 type ProductCardProps = {
     product: Product;
@@ -49,12 +50,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Link href={`/product/${product.pno}`} data-testid="product-card">
           <div className="group relative transition-shadow duration-300">
               <div className="w-full overflow-hidden bg-gray-200 h-80 rounded-2xl">
-                  <Image
+                  <FallbackImage
                     src={
                         product.uploadFileNames && product.uploadFileNames.length > 0
                           ? product.uploadFileNames[0]?.file
-                          : "https://images.pexels.com/photos/1021693/pexels-photo-1021693.jpeg?auto=compress&cs=tinysrgb&w=800"
+                          : undefined
                     }
+                    fallbackSrc="/images/mall/product.png"
                     width={500}
                     height={500}
                     className="object-cover w-full h-full bg-neutral-100 transition-transform duration-300 transform group-hover:scale-125"
