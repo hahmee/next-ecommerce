@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   //sitemap entry 형태로 가공
   const categoryPaths = categories.map((c) => ({
-    url: `${baseUrl}/category/${c.cno}`,
+    url: `${baseUrl}/list?category_id=${c.cno}`,
     lastModified: new Date(new Date()),
   }));
 
