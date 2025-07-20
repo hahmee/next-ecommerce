@@ -34,11 +34,11 @@ const getOrderStatusText = (status: OrderStatus): string => {
 
 const OrderDetail = ({orderId}:{ orderId: string;}) => {
 
-    const {data: orders, isLoading} = useQuery<Array<Order>, Object, Array<Order>>({
+    const {data: orders} = useQuery<Array<Order>, Object, Array<Order>>({
         queryKey: ['orders', orderId],
         queryFn: () => getOrders({orderId}),
-        staleTime: 60 * 1000,
-        gcTime: 300 * 1000,
+        staleTime: 60 * 1000, // 데이터를 최신으로 간주하는 시간 -> 그 시간동안 refetch 안 함
+        gcTime: 300 * 1000, // 데이터를 캐싱해서 보관하는 d;g시간, 이후에 삭제 -> unmount 될때부터 측정
         throwOnError: true,
     });
 

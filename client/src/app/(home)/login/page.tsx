@@ -33,7 +33,6 @@
         const onSubmit: FormEventHandler<HTMLFormElement> = async (event: FormEvent) => {
             try {
                 event.preventDefault();
-                console.log('process.env.NEXT_PUBLIC_BACKEND_URL', process.env.NEXT_PUBLIC_BACKEND_URL);
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/login`, {
                     method: "POST",

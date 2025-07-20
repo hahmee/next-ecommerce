@@ -1,133 +1,127 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import LoginPage from "@/app/(home)/login/page";
 import {MemberRole} from "@/types/memberRole";
-import {setCookie} from "@/utils/cookie";
-import {DataResponse} from "@/interface/DataResponse";
-import {Member} from "@/interface/Member";
 import {useRouter} from "next/navigation";
 
-// fetch 모킹
+// mock fetch
 global.fetch = jest.fn();
 
-jest.mock("@next/third-parties/google", () => ({
-    sendGTMEvent: jest.fn(),
+// mock fetcher
+// 실제 fetcher를 호출하지 않고, 테스트에서 원하는 유저 객체를 응답하게 함
+jest.mock('@/utils/fetcher/fetcher', () => ({
+  fetcher: jest.fn(),
 }));
+
+// mock zustand
+jest.mock('@/store/userStore', () => ({
+  useUserStore: jest.fn(),
+}));
+
+// mock GTM
+// sendGTMEvent는 실제 GTM에 전송되면 안 되기 때문에 가짜 함수로 대체
+const sendGTMEvent = jest.fn();
+jest.mock("@next/third-parties/google", () => ({
+  sendGTMEvent,
+}));
+
+// mock router
+// 페이지 이동 (router.push/replace)을 추적할 수 있도록 가짜 router 객체 설정
+const mockRouter = {
+  replace: jest.fn(), // jest.fn()으로 가짜 함수 생성
+  push: jest.fn(),
+};
 
 jest.mock('next/navigation', () => ({
-    useRouter: jest.fn(), // useRouter를 jest.fn()으로 모킹
+  useRouter: jest.fn(),
 }));
 
-jest.mock("@/utils/cookie", () => ({
-    setCookie: jest.fn(),
-    getCookie: jest.fn(),
-}));
-
-const userInfo = {
-    email: "user1@aaa.com",
-    password: "1111",
+// mock user
+const mockUser = {
+  email: "user1@aaa.com",
+  roleNames: [MemberRole.USER],
+  encryptedId: "encryptedId123",
+  password: "1111",
 };
 
-const mockRouter = {
-    replace: jest.fn(), // replace 메서드를 포함하는 객체 생성
-    push: jest.fn(), // push 메서드를 포함하는 객체 생성
-};
+const mockSetUser = jest.fn();
 
-    describe("Login", () => {
-        beforeEach(() => {
-            jest.clearAllMocks(); // 테스트 전 Mock 초기화
-            // setCookie.mockClear();
-            // getCookie.mockClear();
-            // sendGTMEvent.mockClear();
+describe("Login", () => {
+    beforeEach(() => {
+      jest.clearAllMocks(); // 테스트 전 Mock 초기화
 
-            (useRouter as jest.Mock).mockReturnValue(mockRouter); // useRouter가 mockRouter를 반환하도록 설정
+      // useRouter()는 mockRouter 객체를 반환하게 설정
+      (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
-        });
-
-        it('renders the login form correctly', () => {
-            render(<LoginPage/>);
-            const labelNode = screen.getByText("사용자 이메일");
-            expect(labelNode).toBeInTheDocument();
-            expect(screen.getByPlaceholderText('이메일')).toBeInTheDocument();
-            expect(screen.getByPlaceholderText('비밀번호')).toBeInTheDocument();
-            expect(screen.getByText('계정이 없으신가요?')).toBeInTheDocument();
-            expect(screen.getByRole("button", { name: "login" })).toBeInTheDocument();
-        });
-
-        it('should successfully login when correct credentials are provided', async () => {
-            render(<LoginPage/>);
-
-            const emailInput = screen.getByPlaceholderText('이메일');
-            const passwordInput = screen.getByPlaceholderText('비밀번호');
-            const submitButton = screen.getByRole("button", {name: "login"})
-
-            //이벤트 실행
-            fireEvent.change(emailInput, {target: {value: userInfo.email}});
-            fireEvent.change(passwordInput, {target: {value: userInfo.password}});
-
-            // mock fetch로 성공 응답 처리
-            const mockMemberData = {
-                email: userInfo.email,
-                roleNames: [MemberRole.USER],
-                encryptedId: 'encryptedId123',
-            };
-
-            (fetch as jest.Mock).mockResolvedValueOnce({
-                json: async () => ({code: 0, data: mockMemberData, success: true, message: ""}) as DataResponse<Member>,
-            });
-
-            // 로그인 버튼 클릭한다.
-            fireEvent.click(submitButton);
-
-            await waitFor(() => {
-                // 쿠키가 세팅되었는지 확인
-                expect(setCookie).toHaveBeenCalledWith('member', JSON.stringify(mockMemberData));
-            });
-
-            console.log("sendGTMEvent 호출 전");
-
-            // await waitFor(() => {
-            //     expect(sendGTMEvent).toHaveBeenCalledWith({
-            //         event: 'login',
-            //         uid: 'encryptedId123',
-            //         user_role: MemberRole.USER,
-            //         custom_user_id: 'encryptedId123',
-            //     });
-            // });
-
-            // 사용자가 홈 페이지로 리다이렉트 됐는지 확인
-            expect(mockRouter.replace).toHaveBeenCalledWith('/');
-
-        });
-
-        it('should show error message when login fails', async () => {
-            render(<LoginPage />);
-
-            const emailInput = screen.getByPlaceholderText('이메일');
-            const passwordInput = screen.getByPlaceholderText('비밀번호');
-            const submitButton = screen.getByRole("button", {name: "login"})
-
-            fireEvent.change(emailInput, { target: { value: 'wrong@example.com' } });
-            fireEvent.change(passwordInput, { target: { value: 'wrongpassword' } });
-
-            // mock fetch로 실패 응답 처리
-            (fetch as jest.Mock).mockResolvedValueOnce({
-                json: async () => ({code: 401, success: false, message: "존재하지 않는 계정입니다."}),
-            });
-
-            fireEvent.click(submitButton);
-
-            await waitFor(() => {
-                expect(screen.getByText('존재하지 않는 계정입니다.')).toBeInTheDocument();
-            });
-        });
-        it('should redirect to signup page when "계정이 없으신가요?" is clicked', () => {
-            render(<LoginPage />);
-
-            const signupLink = screen.getByText('계정이 없으신가요?');
-            fireEvent.click(signupLink);
-
-            // signup 페이지로 리다이렉트 됐는지 확인
-            expect(mockRouter.push).toHaveBeenCalledWith('/signup');
-        });
+      // useUserStore()는 내부에 setUser(mock 함수)를 가진 객체를 반환하도록 설정
+      const { useUserStore } = require("@/store/userStore");
+      useUserStore.mockReturnValue({ setUser: mockSetUser });
     });
+
+    it('renders the login form correctly', () => {
+      render(<LoginPage/>);
+      expect(screen.getByText("사용자 이메일")).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('이메일')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('비밀번호')).toBeInTheDocument();
+      expect(screen.getByText('계정이 없으신가요?')).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "login" })).toBeInTheDocument();
+    });
+
+  it("should successfully login with correct credentials", async () => {
+    render(<LoginPage />);
+
+    fireEvent.change(screen.getByPlaceholderText("이메일"), {
+      target: { value: mockUser.email },
+    });
+    fireEvent.change(screen.getByPlaceholderText("비밀번호"), {
+      target: { value: mockUser.password },
+    });
+
+    // fetch login 응답 mocking
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ code: 0, data: {}, success: true }),
+    });
+
+    // /api/me 요청 결과 mocking
+    const { fetcher } = await import('@/utils/fetcher/fetcher');
+    (fetcher as jest.Mock).mockResolvedValueOnce(mockUser);
+
+    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+
+    //로그인 성공 후 상태 저장, 페이지 이동 확인
+    await waitFor(() => {
+      expect(mockSetUser).toHaveBeenCalledWith(mockUser);
+      expect(mockRouter.push).toHaveBeenCalledWith("/");
+    });
+  });
+
+
+  it("should show error message when login fails", async () => {
+    render(<LoginPage />);
+    fireEvent.change(screen.getByPlaceholderText("이메일"), {
+      target: { value: "wrong@example.com" },
+    });
+    fireEvent.change(screen.getByPlaceholderText("비밀번호"), {
+      target: { value: "wrongpass" },
+    });
+
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({ code: 401, success: false, message: "로그인 실패" }),
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText("알 수 없는 에러입니다.")).toBeInTheDocument();
+    });
+  });
+
+  it('should navigate to signup page when "계정이 없으신가요?" is clicked', () => {
+    render(<LoginPage />);
+    fireEvent.click(screen.getByText("계정이 없으신가요?"));
+    expect(mockRouter.push).toHaveBeenCalledWith("/signup");
+  });
+
+});
 

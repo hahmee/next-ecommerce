@@ -1,7 +1,6 @@
 import {create} from "zustand";
 import {ImageType} from "@/components/Admin/Product/ImageUploadForm";
 
-
 type State = {
     files: Array<ImageType>;
 }
@@ -20,5 +19,4 @@ export const useProductImageStore = create<State & Action>((set) => ({
     clear: () => {
         set({files: []});
     }
-
 }));

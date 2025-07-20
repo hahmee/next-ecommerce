@@ -275,8 +275,6 @@ public class CategoryServiceImpl implements CategoryService {
     result.setSubCategories(categoryDTO.getSubCategories());
 
     return result;
-//    return entityToDTO(adminCategory);
-//    return categoryDTO;
 
   }
 

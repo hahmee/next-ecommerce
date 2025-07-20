@@ -28,7 +28,6 @@ export const useCartStore = create<CartState>((set,get) => ({
     const shippingFee = subtotal > 100000 ? 0 : 3500;
     const tax = Math.round((subtotal + shippingFee) * 0.05);
     const total = subtotal + shippingFee + tax;
-
     set({
       carts: cartItems,
       isLoading: false,
@@ -42,7 +41,5 @@ export const useCartStore = create<CartState>((set,get) => ({
   changeOpen: (isOpen:boolean) => {
     set({open: isOpen})
   },
-
-
 }));
 

@@ -89,12 +89,13 @@ export default async function ListPage({searchParams}: Props) {
         ? searchParams.query[0]  // 배열인 경우 첫 번째 값을 사용
         : searchParams.query || ''; // undefined면 빈 문자열 처리
 
+    //초기 페이지만 미리 가져와서 hydartion
     const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
         {
             queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order,query],
             queryFn: ({pageParam}) => getPublicProductList({queryKey: ['products',  categoryId, colors, sizes, minPrice, maxPrice,order,query], page: pageParam as number, row: 1 , categoryId: categoryId, colors, productSizes:sizes, minPrice, maxPrice,order,query}),
             initialPageParam: 1,
-            staleTime: Infinity,// 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
+            staleTime: Infinity, // 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
         },
     ];
 
