@@ -8,13 +8,12 @@ import {useRouter} from "next/navigation";
 import {logout} from "@/apis/mallAPI";
 import {SessionExpiredError} from "@/libs/error/errors";
 
+
+//새로고침하거나 CSR로 진입했을 때 로그인 상태를 복원해주는 역할
 //새로고침 등 최초 마운트 1회만 실행
-//그래서 CSR 중간에 accessToken이 만료되면 fetcher가 대신 복구해줘야 한다.
-//CSR 마운트 시 refresh → /me 재요청 흐름
 export default function UserSyncHandler() {
-  const setUser = useUserStore((s) => s.setUser);
+  const { setUser, resetUser } = useUserStore();
   const router = useRouter();
-  const {resetUser} = useUserStore();
 
   useEffect(() => {
 

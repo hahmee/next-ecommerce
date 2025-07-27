@@ -42,7 +42,6 @@ public class CategoryServiceImpl implements CategoryService {
             .map(closure -> closure.getId().getDescendant())
             .collect(Collectors.toList());
 
-
     // 카테고리 DTO 변환
     return CategoryDTO.builder()
             .cno(category.getCno())
@@ -71,12 +70,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     //자신이 검색어에 매칭되지 않더라도, 자식 카테고리(subCategory)가 매칭되면 함께 검색됨
     Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
-
-
+    
     //여기에서 subCategory있으면 넣어주기
     //여기서 각 AdminCategory가 subCategory를 포함하는 형태로 DTO 변환
     List<CategoryDTO> responseDTO = categories.stream()
-            .map(this::convertToDTO) // AdminCategory → CategoryDTO (재귀 포함 가능)
+            .map(this::convertToDTO) // AdminCategory → CategoryDTO로 변환 (재귀 포함 가능)
             .collect(Collectors.toList());
 
 

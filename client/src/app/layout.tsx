@@ -6,11 +6,9 @@ import RQProvider from "@/components/Common/RQProvider";
 import {Toaster} from "react-hot-toast";
 import {GoogleAnalytics} from "@next/third-parties/google";
 import {GAPageView} from "@/libs/ga-page-view/GAPageView";
-import {UserHydration} from "@/components/UserHydration";
-import {getUserInfo} from "@/libs/auth";
 import UserSyncHandler from "@/components/UserSyncHandler";
-import {cookies} from "next/headers";
 import SessionExpiredRedirect from "@/components/Error/SessionExpiredRedirect";
+import {cookies} from "next/headers";
 
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
@@ -34,31 +32,24 @@ export const metadata: Metadata = {
 // 모든 상위 컴포넌트가 다시 실행됨
 // 해당 layout은 SSR 요청마다 항상 실행됨
 export default async function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
+  // refresh_token이 없는 비로그인자는 /api/me 요청 자체를 아예 하지 않음
+  // 반면, refresh_token이 있는데 /api/me 요청이 실패한다면 → 세션 만료로 판단하고 로그아웃 처리
   const cookieStore = cookies();
-  const accessToken = cookieStore.get("access_token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
-  const isLogin = !!accessToken || !!refreshToken;
-  let user = null;
-
-  if(isLogin) {
-    try {
-      user = await getUserInfo(); // 로그인한 사람만 /api/me 불러오기
-    } catch (e) {
-      console.error("getUserInfo 실패..:", e);
-    }
-  }
 
   return (
     <html lang="en">
     <body className={inter.className} suppressHydrationWarning={true}>
     <RQProvider>
       <div id="portal-root"></div>
-      <UserHydration user={user}/>
       <SessionExpiredRedirect/>
-      {isLogin && <UserSyncHandler/>}
+      {
+        refreshToken && <UserSyncHandler/>
+      }
       {children}
       <Toaster/>
     </RQProvider>
+
     {
       (GA_TRACKING_ID) && <>
         {/*두 개 동시에 쓰지 말것 */}

@@ -10,7 +10,7 @@ const SessionExpiredRedirect = () => {
   const router = useRouter();
   const { isSessionExpired, clearSessionExpired, resetUser } = useUserStore();
   useEffect(() => {
-    if (!isSessionExpired) return;
+    if (!isSessionExpired) return; // refreshToken까지 만료
 
     const cleanUpSession = async () => {
       console.warn("🔒 세션 만료 → 자동 로그아웃 처리 시작");

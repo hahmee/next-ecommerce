@@ -5,7 +5,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,6 +47,7 @@ public class CustomSecurityConfig {
 
     log.info("---------------------security config---------------------------");
 
+    // corsConfigurationSource이 여기서 Spring Security에 연결됨
     http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
     log.info("allowedOrigin value: {}", allowedOrigin);
@@ -104,16 +104,18 @@ public class CustomSecurityConfig {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
 
+    //CORS 설정
+
     CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.setAllowedOrigins(List.of("http://localhost:3000", allowedOrigin));
+    configuration.setAllowedOrigins(List.of("http://localhost:3000", allowedOrigin)); // 허용 origin
     configuration.setAllowCredentials(true);
-    configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+    configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE")); // 허용 메서드
+    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // 허용 헤더
 
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
+    source.registerCorsConfiguration("/**", configuration); // 모든 경로에 적용
 
     return source;
   }

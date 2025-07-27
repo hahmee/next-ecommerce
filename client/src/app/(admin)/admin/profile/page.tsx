@@ -26,7 +26,6 @@ export async function generateMetadata() {
         }
     }
 
-
     return {
         title: `${nickname} (${email})`,
         description: `${nickname}님의 프로필 페이지입니다.`,
@@ -63,5 +62,4 @@ export default async function ProfilePage() {
             </div>
         </div>
     );
-
 };

@@ -50,6 +50,7 @@
                     throw new Error("로그인 실패");
                 }
 
+                //사용자 정보 조회
                 const user = await fetcher("/api/me", {
                     credentials: "include",
                 });

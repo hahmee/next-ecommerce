@@ -27,9 +27,10 @@ export async function middleware(request: NextRequest) {
   // --- 이하 로직은 로그인이 "필수"인 경로에만 적용 ---
 
   const accessToken = request.cookies.get('access_token')?.value;
+  const refreshToken = request.cookies.get('refresh_token')?.value;
 
   // 보호된 경로에 접근하는데 토큰이 없는 경우 -> 로그인 페이지로
-  if (!accessToken) {
+  if (!refreshToken) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('redirect', pathname); // 다시 돌아갈 구조
     return NextResponse.redirect(loginUrl);
@@ -41,6 +42,7 @@ export async function middleware(request: NextRequest) {
       headers: { Cookie: `access_token=${accessToken}` },
       cache: "no-store",
     });
+
 
     if (!response.ok) {
       return NextResponse.redirect(new URL('/login', request.url));

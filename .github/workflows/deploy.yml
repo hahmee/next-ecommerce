@@ -47,7 +47,6 @@ jobs:
 #        run: |
 #          npm ci
 #          npm run test
-            
 
       # 프론트 빌드 + Docker 이미지 만들기
       - name: Build frontend
