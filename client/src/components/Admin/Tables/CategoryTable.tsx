@@ -17,6 +17,7 @@
     import {getAdminCategories} from "@/apis/adminAPI";
     import dynamic from "next/dynamic";
     import {fetcher} from "@/utils/fetcher/fetcher";
+    import {CategoryTree} from "@/interface/CategoryTree";
 
     const Dialog = dynamic(() => import('../../Admin/Dialog'));
 
@@ -27,12 +28,12 @@
         const queryClient = useQueryClient();
         const [deleteId, setDeleteId] = useState<number>(-1);
         const [showDialog, setShowDialog] = useState<boolean>(false);
-        const [categoryData, setCategoryData] = useState<PageResponse<Category>>();
+        const [categoryData, setCategoryData] = useState<PageResponse<CategoryTree>>();
         const [page, setPage] = useState<number>(1);
         const [size, setSize] = useState<number>(10);
         const [search, setSearch] = useState<string>("");
 
-        const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<Category>, Object, PageResponse<Category>, [_1: string, _2: Object]>({
+        const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<CategoryTree>, Object, PageResponse<CategoryTree>, [_1: string, _2: Object]>({
             queryKey: ['adminCategories', {page, size, search}],
             queryFn: () => getAdminCategories( {page, size, search}),
             staleTime: 60 * 1000,
@@ -79,11 +80,11 @@
                 const deletedCno: Array<number> = data; //삭제된 cno
 
                 // 기존 데이터 가져오기
-                const previousData: PageResponse<Category> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
+                const previousData: PageResponse<CategoryTree> | undefined = queryClient.getQueryData(['adminCategories', {page, size, search}]);
 
                 // 새로운 데이터로 업데이트
                 if (previousData) {
-                    const updatedData: PageResponse<Category> = {
+                    const updatedData: PageResponse<CategoryTree> = {
                         ...previousData,
                         dtoList: previousData.dtoList.filter(category => !deletedCno.includes(category.cno)),
                     };
@@ -166,7 +167,7 @@
         // };
 
         // 재귀적으로 하위 카테고리를 렌더링하는 함수
-        const renderCategoryRows = (categories: Category[], depth: number = 0) => {
+        const renderCategoryRows = (categories: CategoryTree[], depth: number = 0) => {
             return categories.map((category) => (
                 <Fragment key={category.cno}>
                     <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"

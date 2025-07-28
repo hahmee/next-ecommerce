@@ -5,21 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../.github/workflows/deploy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomServletConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/config/CustomServletConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/dto/CategoryTreeDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/interface/CategoryTree.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryClosureRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryClosureRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/util/TokenConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/products/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Common/RQProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/RQProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Error/SessionExpiredRedirect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Error/SessionExpiredRedirect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserSyncHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserSyncHandler.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -979,7 +973,14 @@
       <workItem from="1753526759028" duration="1568000" />
       <workItem from="1753532330302" duration="174000" />
       <workItem from="1753579734492" duration="25000" />
-      <workItem from="1753579984514" duration="13053000" />
+      <workItem from="1753579984514" duration="13354000" />
+      <workItem from="1753596904286" duration="1192000" />
+      <workItem from="1753618450699" duration="3688000" />
+      <workItem from="1753661961417" duration="723000" />
+      <workItem from="1753667249669" duration="42000" />
+      <workItem from="1753667510161" duration="31000" />
+      <workItem from="1753675361661" duration="3000" />
+      <workItem from="1753678492893" duration="2223000" />
     </task>
     <servers />
   </component>

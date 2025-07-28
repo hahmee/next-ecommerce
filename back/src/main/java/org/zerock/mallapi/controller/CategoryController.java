@@ -58,8 +58,8 @@ public class CategoryController {
 
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/searchAdminList")
-  public DataResponseDTO<PageResponseDTO<CategoryDTO>> searchAdminList(SearchRequestDTO searchRequestDTO) {
-
+  public DataResponseDTO<PageResponseDTO<CategoryTreeDTO>> searchAdminList(SearchRequestDTO searchRequestDTO) {
+    log.info("searchAdminList...");
 
     return DataResponseDTO.of(categoryService.getSearchAdminList(searchRequestDTO));
 

@@ -11,17 +11,12 @@ import org.zerock.mallapi.domain.AdminCategory;
 import org.zerock.mallapi.domain.CategoryClosure;
 import org.zerock.mallapi.domain.CategoryClosureId;
 import org.zerock.mallapi.domain.CategoryImage;
-import org.zerock.mallapi.dto.CategoryDTO;
-import org.zerock.mallapi.dto.PageRequestDTO;
-import org.zerock.mallapi.dto.PageResponseDTO;
-import org.zerock.mallapi.dto.SearchRequestDTO;
+import org.zerock.mallapi.dto.*;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,10 +27,21 @@ public class CategoryServiceImpl implements CategoryService {
   private final CategoryRepository categoryRepository;
   private final CategoryClosureRepository categoryClosureRepository;
 
+  // 루트 노드인지 판별한다.
+  private boolean noOtherNodeIsParentOf(CategoryTreeDTO targetNode, Map<Long, CategoryTreeDTO> map) {
+    for (CategoryTreeDTO node : map.values()) {
+      if (node.getSubCategories().contains(targetNode)) {
+        return false; // 누군가의 자식이면 루트가 아님
+      }
+    }
+    return true; // 아무 부모도 없음 → 루트 노드
+  }
+
+
   // 카테고리 및 자식 카테고리들 조회 및 변환 로직
   public CategoryDTO convertToDTO(AdminCategory category) {
 
-    // 해당 카테고리의 자식 카테고리들 찾기
+    // 해당 카테고리의 바로 밑 자식 카테고리들 찾기
     List<AdminCategory> subCategories = categoryClosureRepository
             .findDescendantsByAncestor(category)
             .stream()
@@ -50,16 +56,13 @@ public class CategoryServiceImpl implements CategoryService {
             .delFlag(category.isDelFlag())
             .uploadFileName(category.getImage() != null ? category.getImage().getFileName() : null)
             .uploadFileKey(category.getImage() != null ? category.getImage().getFileKey() : null)
-            .subCategories(subCategories.isEmpty() ? null : subCategories.stream().map(this::convertToDTO).collect(Collectors.toList()))
+            .subCategories(subCategories.isEmpty() ? null : subCategories.stream().map(this::convertToDTO).collect(Collectors.toList())) // 자식 있으면 재귀 호출
             .build();
   }
 
-
-
-  //모든 카테고리 다 가져오기
+  // 모든 카테고리 다 가져오기
   @Override
-  public PageResponseDTO<CategoryDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO) {
-
+  public PageResponseDTO<CategoryTreeDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO) {
 
     Pageable pageable = PageRequest.of(
             searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
@@ -68,7 +71,79 @@ public class CategoryServiceImpl implements CategoryService {
 
     String search = searchRequestDTO.getSearch();
 
+    //검색에 해당되는 노드들의 루트 노드들만 페이징한다.
+    Page<AdminCategory> page = categoryRepository.searchIncludingDescendants(pageable, search);
+    log.info("categories..." + page);
+
+    //결과 ID로 트리 관계 조회
+    List<Long> ancestorIds = page.getContent().stream()
+            .map(AdminCategory::getCno)
+            .toList();
+
+    log.info("ancestorIds..." + ancestorIds);
+
+    // Closure Table에서 특정 조상들을 기준으로, 해당 조상의 전체 후손(descendant)들을 찾는다.
+    List<CategoryClosure> relations = categoryClosureRepository.findByIdAncestorCnoIn(ancestorIds);
+
+    log.info("relations..." + relations);
+
+    // 관련된 모든 카테고리 조회 + Map 트리 조립
+    Set<Long> allIds = relations.stream()
+            .map(cc -> cc.getId().getDescendant().getCno())
+            .collect(Collectors.toSet());
+    allIds.addAll(ancestorIds);
+
+    //AdminCategory의 cno가 allIds인 카테고리들을 모두 조회
+    List<AdminCategory> nodes = categoryRepository.findByCnoIn(allIds);
+
+    log.info("nodes..." + nodes);
+
+    Map<Long, CategoryTreeDTO> map = new HashMap<>();
+    for (AdminCategory c : nodes) {
+      map.put(c.getCno(), new CategoryTreeDTO(c.getCno(), c.getCname(), c.getCdesc(), c.isDelFlag(), c.getImage().getFileKey(), c.getImage().getFileName()));
+    }
+
+    for (CategoryClosure cc : relations) {
+      if (cc.getDepth() == 1) {
+        CategoryTreeDTO parent = map.get(cc.getId().getAncestor().getCno());
+        CategoryTreeDTO child = map.get(cc.getId().getDescendant().getCno());
+        parent.getSubCategories().add(child);
+      }
+    }
+
+
+    //루트만 반환
+    List<CategoryTreeDTO> roots = map.values().stream()
+            .filter(node -> noOtherNodeIsParentOf(node, map)) // 루트노드인지
+            .filter(node -> ancestorIds.contains(node.getCno())) // 페이징 대상 루트만
+            .toList();
+
+    log.info("roots..." + roots);
+
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
+
+    return PageResponseDTO.<CategoryTreeDTO>withAll()
+            .dtoList(roots)
+            .totalCount(page.getTotalElements())
+            .pageRequestDTO(pageRequestDTO)
+            .build();
+
+  }
+
+
+  //모든 카테고리 다 가져오기
+  public PageResponseDTO<CategoryDTO> getSearchAdminList_(SearchRequestDTO searchRequestDTO) {
+
+    Pageable pageable = PageRequest.of(
+            searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            searchRequestDTO.getSize(),
+            Sort.by("cno").descending());
+
+    String search = searchRequestDTO.getSearch();
+
+
     //자신이 검색어에 매칭되지 않더라도, 자식 카테고리(subCategory)가 매칭되면 함께 검색됨
+    // 최상위 카테고리만 DTO로 보내고, 그 안에 자식들을 재귀적으로 채워 넣는 구조
     Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
     
     //여기에서 subCategory있으면 넣어주기
@@ -95,10 +170,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     List<AdminCategory> categories = categoryRepository.findRootCategories();
 
-
     //여기에서 subCategory있으면 넣어주기
     List<CategoryDTO> responseDTO = categories.stream().map(this::convertToDTO).collect(Collectors.toList());
-
 
 
     return responseDTO;
