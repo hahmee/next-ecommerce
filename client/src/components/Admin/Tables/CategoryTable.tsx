@@ -184,7 +184,7 @@
                             style={{paddingLeft: `${depth * 20}px`}}>
                             <div className="w-7">
                                 {
-                                    category.subCategories && (
+                                    category.subCategories.length > 0 && (
                                         expandedRows.includes(category.cno) ?
                                             <ChevronUpIcon className="h-7 w-7 text-gray-500"/>
                                             :
@@ -289,8 +289,7 @@
 
         return (
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm">
-                <div
-                    className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <div className="w-full md:w-1/2">
                         <TableSearch onSearch={handleSearch} placeholder="Search category name"/> {/* 검색어 전달 */}
                     </div>

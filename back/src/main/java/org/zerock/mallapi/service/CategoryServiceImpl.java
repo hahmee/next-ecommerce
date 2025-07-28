@@ -72,31 +72,27 @@ public class CategoryServiceImpl implements CategoryService {
     String search = searchRequestDTO.getSearch();
 
     //검색에 해당되는 노드들의 루트 노드들만 페이징한다.
-    Page<AdminCategory> page = categoryRepository.searchIncludingDescendants(pageable, search);
-    log.info("categories..." + page);
+    Page<AdminCategory> page = categoryRepository.searchAdminList(pageable, search);
 
     //결과 ID로 트리 관계 조회
     List<Long> ancestorIds = page.getContent().stream()
             .map(AdminCategory::getCno)
-            .toList();
+            .toList(); // 검색된 루트 노드들의 ID
 
-    log.info("ancestorIds..." + ancestorIds);
 
     // Closure Table에서 특정 조상들을 기준으로, 해당 조상의 전체 후손(descendant)들을 찾는다.
     List<CategoryClosure> relations = categoryClosureRepository.findByIdAncestorCnoIn(ancestorIds);
 
-    log.info("relations..." + relations);
 
     // 관련된 모든 카테고리 조회 + Map 트리 조립
     Set<Long> allIds = relations.stream()
             .map(cc -> cc.getId().getDescendant().getCno())
             .collect(Collectors.toSet());
-    allIds.addAll(ancestorIds);
+
+    allIds.addAll(ancestorIds); //검색된 루트 노드들의 ID 도 넣는다.
 
     //AdminCategory의 cno가 allIds인 카테고리들을 모두 조회
     List<AdminCategory> nodes = categoryRepository.findByCnoIn(allIds);
-
-    log.info("nodes..." + nodes);
 
     Map<Long, CategoryTreeDTO> map = new HashMap<>();
     for (AdminCategory c : nodes) {
@@ -117,8 +113,6 @@ public class CategoryServiceImpl implements CategoryService {
             .filter(node -> noOtherNodeIsParentOf(node, map)) // 루트노드인지
             .filter(node -> ancestorIds.contains(node.getCno())) // 페이징 대상 루트만
             .toList();
-
-    log.info("roots..." + roots);
 
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
 

@@ -48,41 +48,6 @@ public interface CategoryRepository extends JpaRepository<AdminCategory, Long> {
     Page<AdminCategory> searchAdminList(Pageable pageable, @Param("search") String search); // 검색 시 최상위 카테고리만 가져오기 - 루트 노드만 가져오기
 
 
-    @Query("""
-                SELECT DISTINCT c
-                FROM AdminCategory c
-                WHERE (
-                    c.cname LIKE concat('%', :search, '%')
-                    OR EXISTS (
-                        SELECT 1
-                        FROM CategoryClosure cc
-                        WHERE cc.id.ancestor.cno = c.cno
-                            AND cc.id.descendant.cname LIKE concat('%', :search, '%')
-                    )
-                )
-                AND c.cno NOT IN (
-                    SELECT cc.id.descendant.cno
-                    FROM CategoryClosure cc
-                    WHERE cc.depth = 1
-                )
-                AND c.delFlag = false
-           """)
-    Page<AdminCategory> searchIncludingDescendants(Pageable pageable, @Param("search") String search); // 검색 시 최상위 카테고리만 가져오기
-
-
-//    @Query("""
-//            SELECT DISTINCT c
-//            FROM AdminCategory c
-//            WHERE c IN (
-//                SELECT cc.id.ancestor
-//                FROM CategoryClosure cc
-//                WHERE cc.id.descendant.cname LIKE CONCAT('%', :search, '%')
-//            )
-//            OR c.cname LIKE CONCAT('%', :search, '%')
-//    """)
-//    Page<AdminCategory> searchIncludingDescendants(Pageable pageable, @Param("search") String search); // 검색 시 모든 카테고리 가져오기 (최상위 조상까지 같이 반환한다.)
-
-
     @Query("SELECT c FROM AdminCategory c WHERE c.cno NOT IN (SELECT cc.id.descendant.cno FROM CategoryClosure cc WHERE cc.depth = 1) AND c.delFlag = false")
     List<AdminCategory> findRootCategories();
 
