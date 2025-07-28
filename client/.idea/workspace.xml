@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/repository/CategoryRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/CategoryTable.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -976,7 +973,8 @@
       <workItem from="1753667510161" duration="31000" />
       <workItem from="1753675361661" duration="3000" />
       <workItem from="1753678492893" duration="2851000" />
-      <workItem from="1753681820528" duration="1977000" />
+      <workItem from="1753681820528" duration="2203000" />
+      <workItem from="1753684414281" duration="1711000" />
     </task>
     <servers />
   </component>

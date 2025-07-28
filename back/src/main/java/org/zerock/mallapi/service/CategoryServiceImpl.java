@@ -79,10 +79,8 @@ public class CategoryServiceImpl implements CategoryService {
             .map(AdminCategory::getCno)
             .toList(); // 검색된 루트 노드들의 ID
 
-
     // Closure Table에서 특정 조상들을 기준으로, 해당 조상의 전체 후손(descendant)들을 찾는다.
     List<CategoryClosure> relations = categoryClosureRepository.findByIdAncestorCnoIn(ancestorIds);
-
 
     // 관련된 모든 카테고리 조회 + Map 트리 조립
     Set<Long> allIds = relations.stream()
@@ -94,7 +92,8 @@ public class CategoryServiceImpl implements CategoryService {
     //AdminCategory의 cno가 allIds인 카테고리들을 모두 조회
     List<AdminCategory> nodes = categoryRepository.findByCnoIn(allIds);
 
-    Map<Long, CategoryTreeDTO> map = new HashMap<>();
+    Map<Long, CategoryTreeDTO> map = new HashMap<>(); // 해시맵
+
     for (AdminCategory c : nodes) {
       map.put(c.getCno(), new CategoryTreeDTO(c.getCno(), c.getCname(), c.getCdesc(), c.isDelFlag(), c.getImage().getFileKey(), c.getImage().getFileName()));
     }
@@ -107,12 +106,13 @@ public class CategoryServiceImpl implements CategoryService {
       }
     }
 
-
     //루트만 반환
-    List<CategoryTreeDTO> roots = map.values().stream()
-            .filter(node -> noOtherNodeIsParentOf(node, map)) // 루트노드인지
-            .filter(node -> ancestorIds.contains(node.getCno())) // 페이징 대상 루트만
-            .toList();
+    List<CategoryTreeDTO> roots = ancestorIds.stream()
+            .map(map::get)
+            .filter(Objects::nonNull)
+            .filter(node -> noOtherNodeIsParentOf(node, map)) // 이건 여전히 필요
+            .collect(Collectors.toList());
+
 
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
 
@@ -121,7 +121,6 @@ public class CategoryServiceImpl implements CategoryService {
             .totalCount(page.getTotalElements())
             .pageRequestDTO(pageRequestDTO)
             .build();
-
   }
 
 
@@ -145,7 +144,6 @@ public class CategoryServiceImpl implements CategoryService {
     List<CategoryDTO> responseDTO = categories.stream()
             .map(this::convertToDTO) // AdminCategory → CategoryDTO로 변환 (재귀 포함 가능)
             .collect(Collectors.toList());
-
 
     long totalCount = categories.getTotalElements();
 
