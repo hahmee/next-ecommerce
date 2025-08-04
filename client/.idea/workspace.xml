@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/main/pexels-photo-1.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/main/pexels-photo-2.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/main/pexels-photo-3.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/Charts/CountryChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Main/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apis/publicAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/apis/publicAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TopCustomers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TopCustomers.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/TopOrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/TopOrderTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Common/LazyLoadWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/LazyLoadWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Slider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Slider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/PrefetchBoundary.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/PrefetchBoundary.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -997,7 +985,7 @@
       <workItem from="1753942999715" duration="989000" />
       <workItem from="1754204222624" duration="2386000" />
       <workItem from="1754222313855" duration="1706000" />
-      <workItem from="1754274100681" duration="9088000" />
+      <workItem from="1754274100681" duration="11479000" />
     </task>
     <servers />
   </component>

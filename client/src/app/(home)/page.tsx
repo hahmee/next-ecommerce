@@ -2,18 +2,13 @@ import Slider from "@/components/Home/Slider";
 import React, {Suspense} from "react";
 import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import Skeleton from "@/components/Skeleton/Skeleton";
-import MainProductList from "@/components/Admin/Product/MainProductList";
-import MainInfo from "@/components/Admin/Product/MainInfo";
-import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import {
     getPublicCategories,
     getPublicExpertProducts,
     getPublicFeaturedProducts,
     getPublicNewProducts
 } from "@/apis/publicAPI";
-import ExpertList from "@/components/Admin/Product/ExpertList";
-import ExpertListSkeleton from "@/components/Skeleton/ExpertListSkeleton";
-import Categories from "@/components/Home/Main/Categories";
+import Home from "@/components/Home/Main/Home";
 
 
 //동적 데이터 없음 -> generateMetadata대신 meatadata 사용
@@ -42,6 +37,7 @@ export const metadata = {
     },
 };
 
+
 const HomePage = async () => {
     
     const prefetchOptions = [
@@ -67,44 +63,11 @@ const HomePage = async () => {
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
           <div>
               <Slider />
-              <div className="mt-24 bg-[#F9F9F9] m-auto py-10">
-                  <h1 className="text-4xl font-bold text-gray-600 text-center py-10 px-4.5">Categories</h1>
-                  <Suspense fallback={<Skeleton />}>
-                      <ErrorHandlingWrapper>
-                          <Categories />
-                      </ErrorHandlingWrapper>
-                  </Suspense>
-              </div>
-
-              <div className="mt-40 px-4">
-                  <Suspense fallback={<ExpertListSkeleton />}>
-                      <ErrorHandlingWrapper>
-                          <ExpertList />
-                      </ErrorHandlingWrapper>
-                  </Suspense>
-              </div>
-
-              <div className="mt-40 px-4">
-                  <h1 className="text-2xl font-bold text-gray-600 text-center">New Products</h1>
-                  <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
-                  <Suspense fallback={<Skeleton />}>
-                      <ErrorHandlingWrapper>
-                          <MainProductList type="new" />
-                      </ErrorHandlingWrapper>
-                  </Suspense>
-              </div>
-
-              <div className="mt-24 px-4">
-                  <h1 className="text-2xl font-bold text-gray-600 text-center">Featured Products</h1>
-                  <div className="w-30 h-1.5 bg-ecomLow text-center rounded m-auto mt-4"></div>
-                  <Suspense fallback={<Skeleton />}>
-                      <ErrorHandlingWrapper>
-                          <MainProductList type="featured" />
-                      </ErrorHandlingWrapper>
-                  </Suspense>
-              </div>
-
-              <MainInfo />
+              <Suspense fallback={<Skeleton/>}>
+                  <PrefetchBoundary prefetchOptions={prefetchOptions}>
+                    <Home/>
+                  </PrefetchBoundary>
+              </Suspense>
           </div>
       </PrefetchBoundary>
     );
