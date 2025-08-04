@@ -4,6 +4,7 @@ import {Payment} from "@/interface/Payment";
 import {TossPaymentStatus} from "@/types/toss";
 import {useRouter} from "next/navigation";
 import {getPayments} from "@/apis/mallAPI";
+import dayjs from "dayjs";
 
 const UserOrders = () => {
     const router = useRouter();
@@ -54,7 +55,7 @@ const UserOrders = () => {
                                             </span>
                       </td>
                       <td className="py-2 px-4">
-                          {new Date(payment.createdAt).toLocaleDateString()}
+                          {dayjs(payment.createdAt).format("YYYY.MM.DD")}
                       </td>
                       <td className="py-2 px-4 flex justify-end">
                           <button type="button"

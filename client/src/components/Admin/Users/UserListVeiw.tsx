@@ -4,6 +4,7 @@ import React from "react";
 import {Member} from "@/interface/Member";
 import {PageResponse} from "@/interface/PageResponse";
 import Image from "next/image";
+import dayjs from "dayjs";
 
 type Props = {
     users: PageResponse<Member> | undefined;
@@ -53,7 +54,7 @@ const UserListView = ({ users, onPageChange }: Props) => {
 
                     {/* Signup Date */}
                     <div className="text-gray-500 text-sm">
-                        {new Date(user.createdAt).toLocaleDateString()}
+                      {dayjs(user.createdAt).format("YYYY.MM.DD")}
                     </div>
                 </div>
             ))}

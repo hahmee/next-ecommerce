@@ -5,40 +5,43 @@ import PaymentOverview from "@/components/Admin/Payment/PaymentOverview";
 import PaymentTable from "@/components/Admin/Tables/PaymentTable";
 import {getPaymentsByEmail, getPaymentsOverview} from "@/apis/adminAPI";
 import PaymentSkeleton from "@/components/Skeleton/PaymentSkeleton";
-import formatDate from "@/libs/formatDate";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import dayjs from "dayjs";
 
 export default async function AdminPaymentPage() {
-    const endDate = new Date(); // today
-    const startDate = new Date(); // today
-    startDate.setDate(startDate.getDate() - 30); // 오늘 기준으로 30일 전
+    const today = dayjs();
+    const start = today.subtract(30, "day"); // 30일 전
+    const end = today; // 오늘
 
     //테이블 기간
     const date = {
-        startDate: formatDate(startDate), // format as YYYY-MM-DD
-        endDate: formatDate(endDate), // format as YYYY-MM-DD
+        startDate: start.format("YYYY-MM-DD"),
+        endDate: end.format("YYYY-MM-DD"),
     };
 
-    //오버뷰 기간
+    //오버뷰 기간 (현재와 동일하게 설정)
     const overViewDate = {
-        startDate: formatDate(startDate), // format as YYYY-MM-DD
-        endDate: formatDate(endDate), // format as YYYY-MM-DD
-    }
+        startDate: start.format("YYYY-MM-DD"),
+        endDate: end.format("YYYY-MM-DD"),
+    };
+
 
     const prefetchOptions = [
         {
             queryKey: ['adminPaymentOverview', {date: overViewDate}],
             queryFn: () => getPaymentsOverview({
-                startDate: formatDate(startDate), // format as YYYY-MM-DD
-                endDate: formatDate(endDate), // format as YYYY-MM-DD
+                startDate: date.startDate,
+                endDate: date.endDate,
             }),
         },
         {
             queryKey: ['adminPayments', {page: 1, size: 10, search: "", date}],
             queryFn: () => getPaymentsByEmail({
-                page: 1, size: 10, search: "",
-                startDate: formatDate(startDate), // format as YYYY-MM-DD
-                endDate: formatDate(endDate), // format as YYYY-MM-DD
+                page: 1,
+                size: 10,
+                search: "",
+                startDate: date.startDate,
+                endDate: date.endDate,
             }),
         }
     ];

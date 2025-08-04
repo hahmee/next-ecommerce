@@ -6,6 +6,7 @@ import {OrderStatus} from "@/types/orderStatus";
 import Image from "next/image";
 import Link from "next/link";
 import {getOrders} from "@/apis/mallAPI";
+import dayjs from "dayjs";
 
 const getOrderStatusText = (status: OrderStatus): string => {
     switch (status) {
@@ -59,10 +60,10 @@ const OrderDetail = ({orderId}:{ orderId: string;}) => {
                         </li>
                         <li className="flex justify-between py-1.5">
                             <span className="tfext-gray-500">주문날짜</span>
-                            <span>{new Date(orders?.[0].createdAt).toLocaleDateString()}</span>
+                            <span>{orders?.[0]?.createdAt ? dayjs(orders[0].createdAt).format("YYYY.MM.DD") : "-"}</span>
                         </li>
                         <li className="flex justify-between py-1.5">
-                            <span className="text-gray-500">주문상태</span>
+                        <span className="text-gray-500">주문상태</span>
                             <span> {getOrderStatusText(orders?.[0].status)}</span>
                         </li>
                         <li className="flex justify-between py-1.5">

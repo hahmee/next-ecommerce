@@ -11,8 +11,8 @@ import dynamic from "next/dynamic";
 import {getSalesCards, getSalesCharts} from "@/apis/dashbaordAPI";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
-import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 import dayjs from "dayjs";
+import {DatepickType} from "@/types/DatepickType";
 
 const SalesChart = dynamic(() => import("./Charts/SalesChart"), { ssr: false });
 const TopOrderTable = dynamic(() => import("../Tables/TopOrderTable"), { ssr: false });
@@ -30,12 +30,12 @@ const SalesOverview: React.FC = () => {
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
 
-  const [date, setDate] = useState<AdminDateType>({
+  const [date, setDate] = useState<DatepickType>({
     startDate: start.format("YYYY-MM-DD"),
     endDate: today.format("YYYY-MM-DD"),
   });
 
-  const [comparedDate, setComparedDate] = useState<AdminDateType>({
+  const [comparedDate, setComparedDate] = useState<DatepickType>({
     startDate: comparedStart.format("YYYY-MM-DD"),
     endDate: comparedEnd.format("YYYY-MM-DD"),
   });

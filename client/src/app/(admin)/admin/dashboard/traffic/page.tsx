@@ -6,27 +6,22 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
-import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import dayjs from "dayjs";
 
 export default async function DashBoardTrafficPage() {
-    const endDate = new Date(); // today
-    const startDate = new Date(); // today
+    const today = dayjs(); // 오늘 기준
 
-    startDate.setDate(endDate.getDate() - 31); // 31 days ago
-    endDate.setDate(endDate.getDate() - 1); // 1 days ago
+    const endDate = today.subtract(1, "day"); // 어제
+    const startDate = endDate.subtract(30, "day"); // 어제 기준 30일 전 → 총 31일치
 
-    // 새로운 날짜 계산
-    const comparedEndDate = new Date(startDate); // endDate 복사
-    comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
-
-    const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
-    comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
+    const comparedEndDate = startDate.subtract(1, "day"); // 비교기간 끝
+    const comparedStartDate = comparedEndDate.subtract(30, "day"); // 비교기간 시작
 
     const date = {
-        startDate: formatDate(startDate),
-        endDate: formatDate(endDate),
+        startDate: startDate.format("YYYY-MM-DD"),
+        endDate: endDate.format("YYYY-MM-DD"),
     };
 
     const prefetchOptions = [
@@ -34,11 +29,11 @@ export default async function DashBoardTrafficPage() {
             queryKey: ['gaTop', date, ChartFilter.DAY],
             queryFn: () => getGoogleAnalyticsTop(
                 {
-                    startDate: formatDate(startDate),
-                    endDate: formatDate(endDate),
+                    startDate: startDate.format("YYYY-MM-DD"),
+                    endDate: endDate.format("YYYY-MM-DD"),
                     filter: ChartFilter.DAY,
-                    comparedStartDate: formatDate(comparedStartDate),
-                    comparedEndDate: formatDate(comparedEndDate),
+                    comparedStartDate: comparedStartDate.format("YYYY-MM-DD"),
+                    comparedEndDate: comparedEndDate.format("YYYY-MM-DD"),
                 }
             ),
         },
@@ -50,7 +45,7 @@ export default async function DashBoardTrafficPage() {
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <ErrorHandlingWrapper>
-                        <TrafficOverview comparedStartDate={comparedStartDate} comparedEndDate={comparedEndDate}/>
+                        <TrafficOverview/>
                     </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>

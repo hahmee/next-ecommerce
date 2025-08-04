@@ -2,8 +2,8 @@ import Image from "next/image";
 import {TopProductResponse} from "@/interface/TopProductResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getTopProducts} from "@/apis/dashbaordAPI";
-import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 import React from "react";
+import {DatepickType} from "@/types/DatepickType";
 
 const brandData: any[] = [
   {
@@ -49,7 +49,7 @@ const brandData: any[] = [
 ];
 
 type Props = {
-  date: AdminDateType;
+  date: DatepickType;
 };
 
 

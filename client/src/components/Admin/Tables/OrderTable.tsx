@@ -12,13 +12,15 @@ import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
 import Image from "next/image";
 import TableDatePicker from "@/components/Admin/Tables/TableDatePicker";
 import {getOrdersByEmail} from "@/apis/adminAPI";
+import dayjs from "dayjs";
+import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
+import {DatepickType} from "@/types/DatepickType";
 
 
 const OrderTable = () => {
-
-    const [date, setDate] = useState({
-        startDate: null, //기본값: 빈 값으로 -> 전체 기간 검색
-        endDate: null,
+    const [date, setDate] = useState<DatepickType>({
+        startDate: "", //기본값: 빈 값으로 -> 전체 기간 검색
+        endDate: "",
     });
     const [paging, setPaging] = useState<Paging>(initalPagingData);
     const [page, setPage] = useState<number>(1);
@@ -32,14 +34,12 @@ const OrderTable = () => {
         queryFn: () => getOrdersByEmail(
             {
                 page, size, search,
-                startDate: date.startDate ? new Date(date.startDate).toLocaleDateString('en-CA') : "",
-                endDate: date.endDate ? new Date(date.endDate).toLocaleDateString('en-CA') : "",
+                startDate: date.startDate ?? "",
+                endDate: date.endDate ?? "",
             }
         ),
-        staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
+        staleTime: 60 * 1000,
         gcTime: 300 * 1000,
-        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-        // throwOnError: (error) => error. >= 500,
         throwOnError: true,
     });
 
@@ -74,9 +74,20 @@ const OrderTable = () => {
         );
     };
 
-    const dateChange = (value:any) => {
+    const dateChange = (value: DateValueType) => {
         setPage(1);
-        setDate(value);
+
+        if(value === null || value?.startDate === null || value?.endDate === null) {
+            return;
+        }
+
+        const start = dayjs(value.startDate);
+        const end = dayjs(value.endDate);
+
+        setDate({
+            startDate: start.format("YYYY-MM-DD"),
+            endDate: end.format("YYYY-MM-DD"),
+        });
     };
 
     return (
@@ -133,8 +144,7 @@ const OrderTable = () => {
                                             </p>
                                         </td>
                                         <td className="px-4 py-3 whitespace-nowrap">
-                                            <span
-                                                className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{new Date(payment.createdAt).toLocaleDateString()}</span>
+                                            <span className="bg-primary-100 text-primary-800 text-xs px-1.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{dayjs(payment.createdAt).format("YYYY.MM.DD")}</span>
                                         </td>
                                         <td className="px-4 py-3 whitespace-nowrap">{payment.owner.email}</td>
                                         <td className="px-4 py-3 whitespace-nowrap">
@@ -143,7 +153,6 @@ const OrderTable = () => {
                                         </td>
                                         <td className="px-4 py-3 whitespace-nowrap">{(payment.totalAmount).toLocaleString()}원</td>
                                         <td className="px-4 py-3 whitespace-nowrap text-primary-600 flex items-center">
-                                            {/*{(payment.orders?.length || 0).toLocaleString()}*/}
                                             {(payment?.itemLength || 0).toLocaleString()}
                                         </td>
                                     </tr>

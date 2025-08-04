@@ -5,9 +5,9 @@ import {ChartFilter} from "@/types/chartFilter";
 import {useQuery} from "@tanstack/react-query";
 import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
 import {GARealTimeResponseTop} from "@/interface/GARealTimeResponse";
-import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import dayjs from "dayjs";
 
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
 const ActiveVisitChart = dynamic(() => import("./Charts/ActiveVisitChart"), { ssr: false });
@@ -15,29 +15,23 @@ const PageRoute = dynamic(() => import("./Charts/PageRoute"), { ssr: false });
 const RealtimeBottomOverview = dynamic(() => import("./RealtimeBottomOverview"), { ssr: false });
 
 const RealtimeOverview: React.FC = () => {
+  const today = dayjs();
+  const end = today;
+  const start = end.subtract(30, "day");
 
-  const endDate = new Date(); // today
-  const startDate = new Date();  // today
-
-  startDate.setDate(endDate.getDate() - 30); // 30 days ago
-  // 새로운 날짜 계산
-  const comparedEndDate = new Date(startDate); // endDate 복사
-  comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
-
-  const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
-  comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
-
+  const comparedEnd = start.subtract(1, "day");
+  const comparedStart = comparedEnd.subtract(30, "day");
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
 
   const [date, setDate] = useState({
-    startDate: formatDate(startDate),
-    endDate: formatDate(endDate),
+    startDate: start.format("YYYY-MM-DD"),
+    endDate: end.format("YYYY-MM-DD"),
   });
 
   const [comparedDate, setComparedDate] = useState({
-    startDate: formatDate(comparedStartDate),
-    endDate: formatDate(comparedEndDate),
+    startDate: comparedStart.format("YYYY-MM-DD"),
+    endDate: comparedEnd.format("YYYY-MM-DD"),
   });
 
   const {
@@ -47,11 +41,11 @@ const RealtimeOverview: React.FC = () => {
   } = useQuery<GARealTimeResponseTop, Object, GARealTimeResponseTop>({
     queryKey: ['gaRecentUsersTop', date, currentFilter],
     queryFn: () => getGARecentUsersTop({
-      startDate: date.startDate || "",
-      endDate: date.endDate || "",
+      startDate: date.startDate,
+      endDate: date.endDate,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate || "",
-      comparedEndDate: comparedDate.endDate|| "",
+      comparedStartDate: comparedDate.startDate,
+      comparedEndDate: comparedDate.endDate,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,

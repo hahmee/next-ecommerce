@@ -11,17 +11,20 @@ import {initalPagingData} from "@/components/Admin/Tables/ProductTable";
 import {TossPaymentStatusKR, TossPaymentTypeKR} from "@/types/toss";
 import TableDatePicker from "@/components/Admin/Tables/TableDatePicker";
 import {getPaymentsByEmail} from "@/apis/adminAPI";
-import formatDate from "@/libs/formatDate";
+import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 
 const PaymentTable = () => {
-    const todayEndDate = new Date(); // today
-    const todayStartDate = new Date();  // today
-    todayStartDate.setDate(todayStartDate.getDate() - 30); // 오늘 기준으로 30일 전
+
+    const today = dayjs();
+    const start = today.subtract(30, "day");
 
     const defaultDate = {
-        startDate: formatDate(todayStartDate),
-        endDate: formatDate(todayEndDate),
+        startDate: start.format("YYYY-MM-DD"),
+        endDate: today.format("YYYY-MM-DD"),
     };
+
     const [date, setDate] = useState(defaultDate);
     const [paging, setPaging] = useState<Paging>(initalPagingData);
     const [page, setPage] = useState<number>(1);
@@ -31,13 +34,11 @@ const PaymentTable = () => {
     const { isFetched, isFetching, data, error, isError} = useQuery<PageResponse<Payment>, Object, PageResponse<Payment>, [_1: string, _2: Object]>({
         queryKey: ['adminPayments', {page, size, search, date}],
         queryFn: () => getPaymentsByEmail({page, size, search,
-            startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-            endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
+            startDate: date.startDate,
+            endDate: date.endDate,
         }),
         staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
         gcTime: 300 * 1000,
-        // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-        // throwOnError: (error) => error. >= 500,
         enabled: !!date, // date 가 있을 때만 쿼리 요청
         throwOnError: true,
     });
@@ -63,8 +64,21 @@ const PaymentTable = () => {
         setPage(page);
     }
 
-    const dateChange = (value:any) => {
-        setDate(value);
+    const dateChange = (value:DateValueType) => {
+
+        if(value === null || value?.startDate === null || value?.endDate === null) {
+            return;
+        }
+
+        const start = dayjs(value.startDate);
+        const end = dayjs(value.endDate);
+
+        setDate({
+            startDate: start.format("YYYY-MM-DD"),
+            endDate: end.format("YYYY-MM-DD"),
+        });
+
+
     };
 
     return (
@@ -104,14 +118,11 @@ const PaymentTable = () => {
                             <th scope="row"
                                 className="pl-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <p className="truncate overflow-hidden text-ellipsis whitespace-nowrap max-w-80">
-                                    {new Date(payment.createdAt).toLocaleString("ko-KR", {
-                                        year: "numeric",
-                                        month: "long",
-                                        day: "numeric",
-                                        hour: "numeric",
-                                        minute: "numeric",
-                                        hour12: true
-                                    })}
+                                    {
+                                        dayjs(payment.createdAt)
+                                          .locale("ko")
+                                          .format("YYYY년 M월 D일 A h:mm")
+                                    }
                                 </p>
                             </th>
                             <td className="px-4 py-3 whitespace-nowrap">

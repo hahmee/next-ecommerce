@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import {getGoogleAnalyticsMiddle} from "@/apis/dashbaordAPI";
 import {GAResponseMiddle} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
-import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {ChartFilter} from "@/types/chartFilter";
 import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
@@ -18,7 +17,6 @@ type Props = {
   date: AdminDateType;
   comparedDate: AdminDateType;
   currentFilter: ChartFilter;
-  // sellerEmail: string;
 };
 const TrafficMiddleOverview: React.FC<Props> = ({
                                                   date,
@@ -33,11 +31,11 @@ const TrafficMiddleOverview: React.FC<Props> = ({
   } = useQuery<GAResponseMiddle, Object, GAResponseMiddle>({
     queryKey: ['gaMiddle', date, currentFilter],
     queryFn: () => getGoogleAnalyticsMiddle({
-      startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-      endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
+      startDate: date.startDate,
+      endDate: date.endDate,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-      comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+      comparedStartDate: comparedDate.startDate,
+      comparedEndDate: comparedDate.endDate,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,

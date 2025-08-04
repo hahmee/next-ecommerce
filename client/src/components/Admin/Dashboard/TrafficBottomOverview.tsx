@@ -5,7 +5,6 @@ import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsBottom} from "@/apis/dashbaordAPI";
 import {GAResponseBottom} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
-import formatDate from "@/libs/formatDate";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 import LoadingSkeleton from "@/components/Skeleton/LoadingSkeleton";
@@ -34,11 +33,11 @@ const TrafficBottomOverview: React.FC<Props> = ({
     } = useQuery<GAResponseBottom, Object, GAResponseBottom>({
         queryKey: ['gaBottom', date, currentFilter],
         queryFn: () => getGoogleAnalyticsBottom({
-            startDate: date.startDate ? formatDate(new Date(date.startDate)) : "",
-            endDate: date.endDate ? formatDate(new Date(date.endDate)) : "",
+            startDate: date.startDate,
+            endDate: date.endDate,
             filter: currentFilter,
-            comparedStartDate: comparedDate.startDate ? formatDate(new Date(comparedDate.startDate)) : "",
-            comparedEndDate: comparedDate.endDate ? formatDate(new Date(comparedDate.endDate)) : "",
+            comparedStartDate: comparedDate.startDate,
+            comparedEndDate: comparedDate.endDate,
         }),
         staleTime: 60 * 1000,
         gcTime: 300 * 1000,

@@ -6,6 +6,7 @@ import {StarIcon} from "@heroicons/react/20/solid";
 import React from "react";
 import Image from "next/image";
 import {getUserReviews} from "@/apis/mallAPI";
+import dayjs from "dayjs";
 
 const UserReviews = () => {
     const router = useRouter();
@@ -44,8 +45,9 @@ const UserReviews = () => {
                                       />
                                   ))}
                                 </span>
-                                <span
-                                    className="text-gray-400 text-xs">{new Date(review.order?.createdAt || "").toLocaleDateString()} 구매</span>
+                                <span className="text-gray-400 text-xs">
+                                    {dayjs(review.order?.createdAt).format("YYYY.MM.DD")} 구매
+                                </span>
                             </li>
                             <li className="flex py-1.5">
                                 <span className="text-gray-800 text-xs">{review.content}</span>

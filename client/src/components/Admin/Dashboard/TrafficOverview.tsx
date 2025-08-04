@@ -6,10 +6,11 @@ import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {GAResponseTop} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
-import formatDate from "@/libs/formatDate";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
+import dayjs from "dayjs";
+import {DatepickType} from "@/types/DatepickType";
 
 const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false });
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
@@ -17,37 +18,28 @@ const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { 
 const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false });
 const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), { ssr: false });
 
-export type AdminDateType = {
-  startDate: string;
-  endDate: string;
-};
 
+const TrafficOverview = () => {
 
-const TrafficOverview = ({comparedStartDate,comparedEndDate }: {comparedStartDate: Date,comparedEndDate:Date }) => {
-
-  const endDate = new Date() ; // today
-  const startDate = new Date();  // today
-
-  startDate.setDate(endDate.getDate() - 31); // 31 days ago
-  endDate.setDate(endDate.getDate() - 1); // 1 days ago
-
-  // 새로운 날짜 계산
-  // const comparedEndDate = new Date(startDate); // endDate 복사
-  // comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
-
-  // const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
-  // comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
+  const today = dayjs(); // 오늘
+  const end = today.subtract(1, "day"); // 어제
+  const start = end.subtract(30, "day"); // 31일 전 (총 31일 구간)
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
 
-  const [date, setDate] = useState<AdminDateType>({
-    startDate: formatDate(startDate),
-    endDate: formatDate(endDate),
+  const [date, setDate] = useState<DatepickType>({
+    startDate: start.format("YYYY-MM-DD"),
+    endDate: end.format("YYYY-MM-DD"),
   });
 
-  const [comparedDate, setComparedDate] = useState<AdminDateType>({
-    startDate: formatDate(comparedStartDate),
-    endDate: formatDate(comparedEndDate),
+  const [comparedDate, setComparedDate] = useState<DatepickType>(() => {
+    const comparedEnd = start.subtract(1, "day");
+    const comparedStart = comparedEnd.subtract(30, "day");
+
+    return {
+      startDate: comparedStart.format("YYYY-MM-DD"),
+      endDate: comparedEnd.format("YYYY-MM-DD"),
+    };
   });
 
   const {
@@ -55,13 +47,13 @@ const TrafficOverview = ({comparedStartDate,comparedEndDate }: {comparedStartDat
     isLoading,
     isFetching
   } = useQuery<GAResponseTop, Object, GAResponseTop>({
-      queryKey: ['gaTop', date, currentFilter],
+    queryKey: ['gaTop', date, currentFilter],
     queryFn: () => getGoogleAnalyticsTop({
-      startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ? date.endDate : "",
+      startDate: date.startDate,
+      endDate: date.endDate,
       filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
-      comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
+      comparedStartDate: comparedDate.startDate,
+      comparedEndDate: comparedDate.endDate,
     }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
@@ -70,38 +62,28 @@ const TrafficOverview = ({comparedStartDate,comparedEndDate }: {comparedStartDat
   });
 
   const dateChange = (value:DateValueType) => {
-
     if(value === null || value?.startDate === null || value?.endDate === null) {
       return;
     }
 
-    //날짜 변환
+    const start = dayjs(value.startDate);
+    const end = dayjs(value.endDate);
+
     setDate({
-      startDate: formatDate(new Date(value.startDate)),
-      endDate: formatDate(new Date(value.endDate)),
+      startDate: start.format("YYYY-MM-DD"),
+      endDate: end.format("YYYY-MM-DD"),
     });
 
-    const startDate = value.startDate
-    const endDate = value.endDate
+    const diff = end.diff(start, "day");
 
-    // 두 날짜 간의 차이를 밀리초 단위로 계산
-    const timeDifference = endDate.getTime() - startDate.getTime();
-    // 밀리초를 일 단위로 변환 (1일 = 24시간 * 60분 * 60초 * 1000밀리초)
-    const dayDifference = timeDifference / (1000 * 60 * 60 * 24); // 일 단위 차이
+    const newEnd = start.subtract(1, "day");
+    const newStart = newEnd.subtract(diff, "day");
 
-    // 새로운 날짜 계산
-    const newEndDate = startDate; // startDate 복사
-    newEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
+    setComparedDate({
+      startDate: newStart.format("YYYY-MM-DD"),
+      endDate: newEnd.format("YYYY-MM-DD"),
+    });
 
-    const newStartDate = newEndDate; // newEndDate 복사
-    newStartDate.setDate(newEndDate.getDate() - dayDifference); // 차이만큼 날짜 빼기
-
-    const comparedDate: AdminDateType = {
-      startDate: formatDate(newStartDate),
-      endDate: formatDate(newEndDate),
-    };
-
-    setComparedDate(comparedDate);
   };
 
   const filterChange = (filter: ChartFilter) => {
@@ -115,7 +97,7 @@ const TrafficOverview = ({comparedStartDate,comparedEndDate }: {comparedStartDat
   return (
       <>
         <div>
-          <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
+          <AdminDatePicker date={date} dateChange={dateChange} maxDate={dayjs().toDate()} />
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
             ({comparedDate?.startDate} ~ {comparedDate?.endDate})
           </p>
@@ -145,7 +127,6 @@ const TrafficOverview = ({comparedStartDate,comparedEndDate }: {comparedStartDat
                   date={date}
                   comparedDate={comparedDate}
                   currentFilter={currentFilter}
-                  // sellerEmail={member?.email || ""}
               />
             </LazyLoadWrapper>
           </div>
