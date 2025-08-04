@@ -29,8 +29,6 @@ export default async function DashBoardTrafficPage() {
         endDate: formatDate(endDate),
     };
 
-    // const member = await getCookie("member");
-
     const prefetchOptions = [
         {
             queryKey: ['gaTop', date, ChartFilter.DAY],
@@ -52,7 +50,7 @@ export default async function DashBoardTrafficPage() {
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <ErrorHandlingWrapper>
-                        <TrafficOverview/>
+                        <TrafficOverview comparedStartDate={comparedStartDate} comparedEndDate={comparedEndDate}/>
                     </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>

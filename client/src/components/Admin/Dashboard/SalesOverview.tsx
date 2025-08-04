@@ -7,15 +7,12 @@ import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import {ChartContext} from "@/types/chartContext";
 import {CardResponse} from "@/interface/CardResponse";
-import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
-import {TopProductResponse} from "@/interface/TopProductResponse";
 import dynamic from "next/dynamic";
-import {MapResponse} from "@/interface/MapResponse";
-import {getSalesByCountry, getSalesCards, getSalesCharts, getTopCustomers, getTopProducts} from "@/apis/dashbaordAPI";
-import formatDate from "@/libs/formatDate";
+import {getSalesCards, getSalesCharts} from "@/apis/dashbaordAPI";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
+import dayjs from "dayjs";
 
 const SalesChart = dynamic(() => import("./Charts/SalesChart"), { ssr: false });
 const TopOrderTable = dynamic(() => import("../Tables/TopOrderTable"), { ssr: false });
@@ -24,26 +21,23 @@ const CountryChart = dynamic(() => import("./Charts/CountryChart"), { ssr: false
 
 const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
-  const endDate = new Date(); // today
-  const startDate = new Date();  // today
-  startDate.setMonth(endDate.getMonth() - 4); // 4개월 전
-  // 새로운 날짜 계산
-  const comparedEndDate = new Date(startDate); // endDate 복사
-  comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
 
-  const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
-  comparedStartDate.setMonth(comparedEndDate.getMonth() - 4); // 4개월 전
+  const today = dayjs(); // 오늘
+  const start = today.subtract(4, "month"); // 4개월 전
+
+  const comparedEnd = start.subtract(1, "day");
+  const comparedStart = comparedEnd.subtract(4, "month");
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
 
   const [date, setDate] = useState<AdminDateType>({
-    startDate: formatDate(startDate),
-    endDate: formatDate(endDate),
+    startDate: start.format("YYYY-MM-DD"),
+    endDate: today.format("YYYY-MM-DD"),
   });
 
   const [comparedDate, setComparedDate] = useState<AdminDateType>({
-    startDate: formatDate(comparedStartDate),
-    endDate: formatDate(comparedEndDate),
+    startDate: comparedStart.format("YYYY-MM-DD"),
+    endDate: comparedEnd.format("YYYY-MM-DD"),
   });
 
   const {
@@ -82,36 +76,27 @@ const SalesOverview: React.FC = () => {
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });
 
-
     const dateChange = (value: DateValueType) => {
       if(value === null || value?.startDate === null || value?.endDate === null) {
         return;
       }
 
-      //날짜 변환
+      const start = dayjs(value.startDate);
+      const end = dayjs(value.endDate);
+
       setDate({
-        startDate: formatDate(new Date(value.startDate)),
-        endDate: formatDate(new Date(value.endDate)),
+        startDate: start.format("YYYY-MM-DD"),
+        endDate: end.format("YYYY-MM-DD"),
       });
 
-      const startDate = value.startDate
-      const endDate = value.endDate
+      const diff = end.diff(start, "day"); // 일수 차이 계산
 
-      // 문자열을 Date 객체로 변환
-      const diffInMilliseconds = endDate.getTime() - startDate.getTime();
-      // 밀리초를 일수로 변환
-      const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
-
-      // 새로운 날짜 계산
-      const comparedEndDate = startDate
-      comparedEndDate.setDate(comparedEndDate.getDate() - 1); // 1일 빼기
-
-      const comparedStartDate = comparedEndDate;
-      comparedStartDate.setDate(comparedEndDate.getDate() - diffInDays);
+      const comparedEnd = start.subtract(1, "day");
+      const comparedStart = comparedEnd.subtract(diff, "day");
 
       setComparedDate({
-        startDate: formatDate(comparedStartDate),
-        endDate: formatDate(comparedEndDate),
+        startDate: comparedStart.format("YYYY-MM-DD"),
+        endDate: comparedEnd.format("YYYY-MM-DD"),
       });
     };
 
@@ -126,7 +111,7 @@ const SalesOverview: React.FC = () => {
   return (
       <>
         <div>
-          <AdminDatePicker date={date} dateChange={dateChange} maxDate={endDate}/>
+          <AdminDatePicker date={date} dateChange={dateChange} maxDate={today.toDate()} />
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
             ({comparedDate?.startDate} ~ {comparedDate?.endDate})
           </p>
@@ -230,18 +215,6 @@ const SalesOverview: React.FC = () => {
           </div>
 
           <CountryChart date={date}/>
-          {/*{*/}
-          {/*    countries &&*/}
-          {/*    <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">*/}
-          {/*      <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
-          {/*        <CountryMap countries={countries}/></LazyLoadWrapper>*/}
-          {/*    </div>*/}
-          {/*}*/}
-          {/*<div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">*/}
-          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
-          {/*    <SalesPieChart date={date}/>*/}
-          {/*  </LazyLoadWrapper>*/}
-          {/*</div>*/}
 
           <div className="col-span-12 xl:col-span-8">
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">

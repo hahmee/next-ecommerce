@@ -22,7 +22,8 @@ export type AdminDateType = {
   endDate: string;
 };
 
-const TrafficOverview: React.FC = () => {
+
+const TrafficOverview = ({comparedStartDate,comparedEndDate }: {comparedStartDate: Date,comparedEndDate:Date }) => {
 
   const endDate = new Date() ; // today
   const startDate = new Date();  // today
@@ -31,11 +32,11 @@ const TrafficOverview: React.FC = () => {
   endDate.setDate(endDate.getDate() - 1); // 1 days ago
 
   // 새로운 날짜 계산
-  const comparedEndDate = new Date(startDate); // endDate 복사
-  comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
+  // const comparedEndDate = new Date(startDate); // endDate 복사
+  // comparedEndDate.setDate(startDate.getDate() - 1); // 1일 빼기
 
-  const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
-  comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
+  // const comparedStartDate = new Date(comparedEndDate); // newEndDate 복사
+  // comparedStartDate.setDate(comparedEndDate.getDate() - 30); // 차이만큼 날짜 빼기
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
 

@@ -39,7 +39,6 @@ const Home = () => {
             <MainProductList type="featured" />
           </LazyLoadWrapper>
         </div>
-
         <MainInfo />
   </>
 }
