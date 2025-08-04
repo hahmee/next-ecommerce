@@ -6,9 +6,9 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
-import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import dayjs from "dayjs";
+import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 
 export default async function DashBoardTrafficPage() {
     const today = dayjs(); // 오늘 기준

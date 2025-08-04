@@ -3,10 +3,10 @@ import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
 import {useQuery} from "@tanstack/react-query";
 import {getTopCustomers} from "@/apis/dashbaordAPI";
 import React from "react";
-import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
+import {DatepickType} from "@/types/DatepickType";
 
 type Props = {
-  date: AdminDateType;
+  date: DatepickType;
 };
 
 const TopCustomers: React.FC<Props>= ({date}) => {

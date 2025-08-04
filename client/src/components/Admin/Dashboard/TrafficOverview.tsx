@@ -6,7 +6,6 @@ import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {GAResponseTop} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
-import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import dayjs from "dayjs";
@@ -90,9 +89,6 @@ const TrafficOverview = () => {
     setCurrentFilter(filter);
   }
 
-  if(isLoading || isFetching) {
-    return <DashboardSkeleton/>;
-  }
 
   return (
       <>
@@ -126,7 +122,6 @@ const TrafficOverview = () => {
               <TrafficMiddleOverview
                   date={date}
                   comparedDate={comparedDate}
-                  currentFilter={currentFilter}
               />
             </LazyLoadWrapper>
           </div>
@@ -137,7 +132,6 @@ const TrafficOverview = () => {
               <TrafficBottomOverview
                   date={date}
                   comparedDate={comparedDate}
-                  currentFilter={currentFilter}
               />
             </LazyLoadWrapper>
           </div>

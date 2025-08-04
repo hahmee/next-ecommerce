@@ -97,4 +97,4 @@ const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialCha
   );
 };
 
-export default MultiCirclesChart;
+export default React.memo(MultiCirclesChart);

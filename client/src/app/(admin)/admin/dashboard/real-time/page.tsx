@@ -23,7 +23,6 @@ export default async function DashBoardRealTimePage() {
         endDate: endDate.format("YYYY-MM-DD"),
     };
 
-
     const prefetchOptions = [
         {
             queryKey: ['gaRecentUsersTop', date, ChartFilter.DAY],

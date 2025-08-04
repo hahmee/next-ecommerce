@@ -57,9 +57,7 @@ const UserReviews = () => {
                     </div>))
             }
         </section>
-
-    )
-        ;
+    );
 };
 
 export default UserReviews;

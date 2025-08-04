@@ -3,11 +3,11 @@ import {useQuery} from "@tanstack/react-query";
 import {MapResponse} from "@/interface/MapResponse";
 import {getSalesByCountry} from "@/apis/dashbaordAPI";
 import dynamic from "next/dynamic";
-import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 import React from "react";
+import {DatepickType} from "@/types/DatepickType";
 
 type Props = {
-  date: AdminDateType;
+  date: DatepickType;
 };
 
 const SalesPieChart = dynamic(() => import("./SalesPieChart"), { ssr: false });

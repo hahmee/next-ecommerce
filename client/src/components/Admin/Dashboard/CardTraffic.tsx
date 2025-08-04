@@ -1,5 +1,5 @@
 import React from "react";
-import {GAResponse, GAResponseTop} from "@/interface/GAResponse";
+import {GAResponseTop} from "@/interface/GAResponse";
 
 
 const CardTraffic = ({gaData}:{gaData: GAResponseTop | undefined}) => {
@@ -20,7 +20,7 @@ const CardTraffic = ({gaData}:{gaData: GAResponseTop | undefined}) => {
     );
 };
 
-export default CardTraffic;
+export default React.memo(CardTraffic);
 
 
 export const CardItemTraffic = ({title, value, comparedValue}: { title: string, value: string | undefined, comparedValue:string | undefined }) => {

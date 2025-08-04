@@ -6,7 +6,6 @@ import {useQuery} from "@tanstack/react-query";
 import {getGARecentUsersTop} from "@/apis/dashbaordAPI";
 import {GARealTimeResponseTop} from "@/interface/GARealTimeResponse";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
-import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
 import dayjs from "dayjs";
 
 const ActiveVisitors = dynamic(() => import("./Charts/ActiveVisitors"), { ssr: false });
@@ -51,10 +50,6 @@ const RealtimeOverview: React.FC = () => {
     gcTime: 300 * 1000,
     throwOnError: true,
   });
-
-  if(isLoading || isFetching) {
-    return <DashboardSkeleton/>;
-  }
 
   return (
       <>

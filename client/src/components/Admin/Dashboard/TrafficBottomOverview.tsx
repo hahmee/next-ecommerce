@@ -6,24 +6,21 @@ import {getGoogleAnalyticsBottom} from "@/apis/dashbaordAPI";
 import {GAResponseBottom} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
-import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 import LoadingSkeleton from "@/components/Skeleton/LoadingSkeleton";
+import {DatepickType} from "@/types/DatepickType";
 
 type Props = {
-  date: AdminDateType;
-  comparedDate: AdminDateType;
-  currentFilter: ChartFilter;
+  date: DatepickType;
+  comparedDate: DatepickType;
 };
 
 const CountryTrafficMap = dynamic(() => {
-  console.log("CountryTrafficMap imported!");
   return import("./Maps/CountryTrafficMap");
 }, { ssr: false });
 
 const TrafficBottomOverview: React.FC<Props> = ({
                                                   date,
                                                   comparedDate,
-                                                  currentFilter,
                                                 }) => {
 
     const {
@@ -31,11 +28,11 @@ const TrafficBottomOverview: React.FC<Props> = ({
         isLoading,
         isFetching
     } = useQuery<GAResponseBottom, Object, GAResponseBottom>({
-        queryKey: ['gaBottom', date, currentFilter],
+        queryKey: ['gaBottom', date],
         queryFn: () => getGoogleAnalyticsBottom({
             startDate: date.startDate,
             endDate: date.endDate,
-            filter: currentFilter,
+            filter: ChartFilter.DAY ,//어차피 필요없으니 기본 값으로 둔다
             comparedStartDate: comparedDate.startDate,
             comparedEndDate: comparedDate.endDate,
         }),
@@ -61,4 +58,4 @@ const TrafficBottomOverview: React.FC<Props> = ({
   );
 };
 
-export default TrafficBottomOverview;
+export default React.memo(TrafficBottomOverview);
