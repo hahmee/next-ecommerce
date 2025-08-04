@@ -40,7 +40,7 @@ export async function middleware(request: NextRequest) {
   try {
     const response = await fetch(`${BACKEND_URL}/api/me`, {
       headers: { Cookie: `access_token=${accessToken}` },
-      cache: "no-store",
+      cache: "no-store", // 캐시에 저장하지 않는다. -> 바로 최신 상태를 보여준다.
     });
 
 

@@ -20,9 +20,10 @@ export async function PrefetchBoundary({
                                            children
                                        }: Props) {
 
-    //서버용 QueryClient (new QueryClient())
+    //QueryClient: 데이터 캐시 저장소
     const queryClient = new QueryClient();
 
+    //prefetchQuery() / prefetchInfiniteQuery() -> 서버에서 데이터를 미리 요청 하고 캐시에 저장
     if (prefetchOptions) {
         Array.isArray(prefetchOptions)
             ? await Promise.all(prefetchOptions.map((prefetchOption) => queryClient.prefetchQuery(prefetchOption)))
@@ -36,6 +37,8 @@ export async function PrefetchBoundary({
             : await queryClient.prefetchInfiniteQuery(prefetchInfiniteOptions);
     }
 
+    //dehydrate : 캐시된 데이터 직렬화 시킨다
+    //HydrationBoundary: 직렬화된 캐시를 클라이언트에 전달하여 hydrate(복원)처리
     return <HydrationBoundary state={dehydrate(queryClient)}>
             {children}
     </HydrationBoundary>;

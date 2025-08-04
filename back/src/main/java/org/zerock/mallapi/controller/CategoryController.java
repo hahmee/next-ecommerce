@@ -24,9 +24,8 @@ public class CategoryController {
   private final String CATEGORY_IMG_DIR = "category";
 
 
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN')") //임시로 권한 설정
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   @PostMapping("/")
-//  public DataResponseDTO<Long> register(@Valid @RequestBody CategoryDTO categoryDTO) {
   public DataResponseDTO<CategoryDTO> register(@Valid CategoryDTO categoryDTO) {
 
     MultipartFile file = categoryDTO.getFile();//파일 객체들

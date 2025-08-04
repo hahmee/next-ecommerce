@@ -1,5 +1,9 @@
 import Image from "next/image";
 import {TopProductResponse} from "@/interface/TopProductResponse";
+import {useQuery} from "@tanstack/react-query";
+import {getTopProducts} from "@/apis/dashbaordAPI";
+import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
+import React from "react";
 
 const brandData: any[] = [
   {
@@ -44,7 +48,26 @@ const brandData: any[] = [
   },
 ];
 
-const TopOrderTable = ({topProducts}: {topProducts: Array<TopProductResponse> | undefined}) => {
+type Props = {
+  date: AdminDateType;
+};
+
+
+const TopOrderTable: React.FC<Props> = ({date}) => {
+  const {
+    data: topProducts,
+  } = useQuery<Array<TopProductResponse>, Object, Array<TopProductResponse>>({
+    queryKey: ['products', date],
+    queryFn: () => getTopProducts({
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ? date.endDate: "",
+    }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    enabled: !!date.startDate && !!date.endDate,
+    throwOnError: true,
+
+  });
 
   return (
       <div className="rounded-sm border border-stroke bg-white  pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark">

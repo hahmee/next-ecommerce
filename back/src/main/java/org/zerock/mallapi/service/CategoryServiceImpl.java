@@ -71,27 +71,28 @@ public class CategoryServiceImpl implements CategoryService {
 
     String search = searchRequestDTO.getSearch();
 
-    //검색에 해당되는 노드들의 루트 노드들만 페이징한다.
+    // 검색에 해당되는 노드들의 루트 노드들만 페이징한다.
     Page<AdminCategory> page = categoryRepository.searchAdminList(pageable, search);
 
-    //결과 ID로 트리 관계 조회
+    // ancestorIds — 이 루트 노드들의 ID 추출
     List<Long> ancestorIds = page.getContent().stream()
             .map(AdminCategory::getCno)
             .toList(); // 검색된 루트 노드들의 ID
 
-    // Closure Table에서 특정 조상들을 기준으로, 해당 조상의 전체 후손(descendant)들을 찾는다.
+    // relations — 루트 노드들의 모든 후손 관계 조회
     List<CategoryClosure> relations = categoryClosureRepository.findByIdAncestorCnoIn(ancestorIds);
 
-    // 관련된 모든 카테고리 조회 + Map 트리 조립
+    // allIds — 후손들 포함한 전체 관련 카테고리 ID 추출
     Set<Long> allIds = relations.stream()
             .map(cc -> cc.getId().getDescendant().getCno())
             .collect(Collectors.toSet());
 
     allIds.addAll(ancestorIds); //검색된 루트 노드들의 ID 도 넣는다.
 
-    //AdminCategory의 cno가 allIds인 카테고리들을 모두 조회
+    // nodes — 해당 ID들에 해당하는 실제 카테고리 정보 조회
     List<AdminCategory> nodes = categoryRepository.findByCnoIn(allIds);
 
+    // 트리 조립 — 모든 노드를 CategoryTreeDTO로 만들어 map에 저장
     Map<Long, CategoryTreeDTO> map = new HashMap<>(); // 해시맵
 
     for (AdminCategory c : nodes) {
@@ -112,7 +113,6 @@ public class CategoryServiceImpl implements CategoryService {
             .filter(Objects::nonNull)
             .filter(node -> noOtherNodeIsParentOf(node, map)) // 이건 여전히 필요
             .collect(Collectors.toList());
-
 
     PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
 
@@ -135,8 +135,8 @@ public class CategoryServiceImpl implements CategoryService {
     String search = searchRequestDTO.getSearch();
 
 
-    //자신이 검색어에 매칭되지 않더라도, 자식 카테고리(subCategory)가 매칭되면 함께 검색됨
-    // 최상위 카테고리만 DTO로 보내고, 그 안에 자식들을 재귀적으로 채워 넣는 구조
+    // 자신이 검색어에 매칭되지 않더라도, 자식 카테고리(subCategory)가 매칭되면 함께 검색됨
+    // 최상위 카테고리만 DTO로 보내고, 그 안에 자식들을 재귀적으로 채워 넣기
     Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
     
     //여기에서 subCategory있으면 넣어주기
@@ -272,7 +272,6 @@ public class CategoryServiceImpl implements CategoryService {
     // DB에 카테고리 저장
     AdminCategory adminCategory = categoryRepository.save(newCategory);
 
-
     //부모 카테고리
     AdminCategory parentCategory = null;
 
@@ -289,7 +288,6 @@ public class CategoryServiceImpl implements CategoryService {
     if(parentCategory != null) {
       // 부모 카테고리와의 관계를 설정
       List<CategoryClosure> parentClosures = categoryClosureRepository.findAncestors(parentCategory);
-
 
       for (CategoryClosure parentClosure : parentClosures) {
         // 부모-조상 관계 복사 (부모의 모든 조상과 연결)

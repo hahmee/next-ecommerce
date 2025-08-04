@@ -16,37 +16,11 @@ import formatDate from "@/libs/formatDate";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
-//
-// const data = {
-//   "startDate": "2024-10-01", //해당 날짜
-//   "endDate": "2024-10-15", //해당 날짜
-//   "filter": "day", //day, week, ...
-//   // "totalSales": 12000,   // 총매출  0
-//   // "totalOrders": 74,   // 총주문수 0
-//   // "avgOrderSale": 129,  // 평균 주문 금액 0
-//   "xaxis": [ //가로축
-//     "2024-10-01",
-//     "2024-10-02",
-//     "2024-10-03",
-//     "2024-10-04"
-//   ],
-//   "series": [
-//     {
-//       "name": "Total Sales",
-//       "data": [23, 11, 22, 27],
-//     },
-//     {
-//       "name": "Total Revenue",
-//       "data": [44, 22, 30, 45],
-//     }
-//   ],
-// };
 
-const CountryMap = dynamic(() => import("./Maps/CountryMap"), { ssr: false });
-const SalesPieChart = dynamic(() => import("./Charts/SalesPieChart"), { ssr: false });
 const SalesChart = dynamic(() => import("./Charts/SalesChart"), { ssr: false });
 const TopOrderTable = dynamic(() => import("../Tables/TopOrderTable"), { ssr: false });
 const TopCustomers = dynamic(() => import("./TopCustomers"), { ssr: false });
+const CountryChart = dynamic(() => import("./Charts/CountryChart"), { ssr: false });
 
 const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
@@ -71,7 +45,6 @@ const SalesOverview: React.FC = () => {
     startDate: formatDate(comparedStartDate),
     endDate: formatDate(comparedEndDate),
   });
-
 
   const {
     data: salesCards,
@@ -109,52 +82,8 @@ const SalesOverview: React.FC = () => {
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });
 
-  const {
-    data: topCustomers,
-  } = useQuery<Array<TopCustomerResponse>, Object, Array<TopCustomerResponse>>({
-    queryKey: ['customers', date],
-    queryFn: () => getTopCustomers({
-      startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ?date.endDate: "",
-    }),
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-    enabled: !!date.startDate && !!date.endDate,
-    throwOnError: true,
-  });
-
-  const {
-    data: topProducts,
-  } = useQuery<Array<TopProductResponse>, Object, Array<TopProductResponse>>({
-    queryKey: ['products', date],
-    queryFn: () => getTopProducts({
-      startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ? date.endDate: "",
-    }),
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
-    enabled: !!date.startDate && !!date.endDate,
-    throwOnError: true,
-
-  });
-
-  const {
-    data: countries,
-  } = useQuery<Array<MapResponse>, Object, Array<MapResponse>>({
-    queryKey: ['countries', date],
-    queryFn: () => getSalesByCountry({
-      startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ? date.endDate: "",
-    }),
-    staleTime: 60 * 1000,
-    enabled: !!date.startDate && !!date.endDate,
-    gcTime: 300 * 1000,
-    throwOnError: true,
-  });
-
 
     const dateChange = (value: DateValueType) => {
-
       if(value === null || value?.startDate === null || value?.endDate === null) {
         return;
       }
@@ -294,35 +223,35 @@ const SalesOverview: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <div
-              className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+          <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
               <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
             </LazyLoadWrapper>
           </div>
-          {
-              countries &&
-              <div
-                  className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">
-                <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]"><CountryMap
-                    countries={countries}/></LazyLoadWrapper>
-              </div>
-          }
-          <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <SalesPieChart countries={countries}/>
-            </LazyLoadWrapper>
-          </div>
+
+          <CountryChart date={date}/>
+          {/*{*/}
+          {/*    countries &&*/}
+          {/*    <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-8">*/}
+          {/*      <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
+          {/*        <CountryMap countries={countries}/></LazyLoadWrapper>*/}
+          {/*    </div>*/}
+          {/*}*/}
+          {/*<div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">*/}
+          {/*  <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">*/}
+          {/*    <SalesPieChart date={date}/>*/}
+          {/*  </LazyLoadWrapper>*/}
+          {/*</div>*/}
+
           <div className="col-span-12 xl:col-span-8">
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <TopOrderTable topProducts={topProducts}/>
+              <TopOrderTable date={date}/>
             </LazyLoadWrapper>
 
           </div>
-          <div
-              className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+          <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
             <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <TopCustomers topCustomers={topCustomers}/>
+              <TopCustomers date={date}/>
             </LazyLoadWrapper>
           </div>
         </div>

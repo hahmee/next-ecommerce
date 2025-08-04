@@ -6,7 +6,7 @@ import {Category} from "@/interface/Category";
 const BACKEND_URL = typeof window === 'undefined' ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL;
 
 // accessToken이 필요가 없어서 (만료되는지 확인안해도됨)
-// server, client fetcher 사용 안
+// server, client fetcher 사용 안함
 export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]}): Promise<Product> => {
   const [, pno] = queryKey;
 
@@ -21,7 +21,7 @@ export const getPublicProduct = async ({queryKey,}: { queryKey: [string, string]
 
   const data: DataResponse<Product> = await res.json();
 
-  return await data.data;
+  return data.data;
 
 
 };
@@ -40,7 +40,7 @@ export const getPublicReviews = async ({queryKey,}: { queryKey: [string, string]
 
   const data: DataResponse<Array<Review>> = await res.json();
 
-  return await data.data;
+  return data.data;
 };
 
 
@@ -168,7 +168,6 @@ export const getPublicProductList = async ({
       params.append("productSize", productSizes);
     }
   }
-
 
   const res = await fetch(`${BACKEND_URL}/api/public/products/list?${params.toString()}`, {
     method: "GET",

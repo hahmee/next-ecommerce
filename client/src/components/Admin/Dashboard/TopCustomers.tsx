@@ -1,8 +1,28 @@
 import Image from "next/image";
 import {TopCustomerResponse} from "@/interface/TopCustomerResponse";
+import {useQuery} from "@tanstack/react-query";
+import {getTopCustomers} from "@/apis/dashbaordAPI";
+import React from "react";
+import {AdminDateType} from "@/components/Admin/Dashboard/TrafficOverview";
 
+type Props = {
+  date: AdminDateType;
+};
 
-const TopCustomers = ({topCustomers}:{ topCustomers: Array<TopCustomerResponse> | undefined;}) => {
+const TopCustomers: React.FC<Props>= ({date}) => {
+  const {
+    data,
+  } = useQuery<Array<TopCustomerResponse>, Object, Array<TopCustomerResponse>>({
+    queryKey: ['customers', date],
+    queryFn: () => getTopCustomers({
+      startDate: date.startDate ? date.startDate : "",
+      endDate: date.endDate ?date.endDate: "",
+    }),
+    staleTime: 60 * 1000,
+    gcTime: 300 * 1000,
+    enabled: !!date.startDate && !!date.endDate,
+    throwOnError: true,
+  });
 
     return (
         <>
@@ -11,7 +31,7 @@ const TopCustomers = ({topCustomers}:{ topCustomers: Array<TopCustomerResponse> 
             </h4>
 
             <div className="border-t border-stroke">
-                {topCustomers?.map((customer, key) => (
+                {data?.map((customer, key) => (
                     <div
                         className="flex items-center gap-5 px-7.5 py-3 hover:bg-gray-3 dark:hover:bg-meta-4"
                         key={key}
