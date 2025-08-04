@@ -1,7 +1,7 @@
 import {ApexOptions} from "apexcharts";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
 import {SessionDTO} from "@/interface/GAResponse";
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
 
 const colors = ["#c3d6f3", "#0FADCF", "#3C50E0", "#6577F3"];

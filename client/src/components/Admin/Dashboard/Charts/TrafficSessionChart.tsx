@@ -2,14 +2,10 @@
 
 import {ApexOptions} from "apexcharts";
 import React from "react";
-import dynamic from "next/dynamic";
 import {SessionChart} from "@/interface/GAResponse";
 import {ChartFilter} from "@/types/chartFilter";
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
-
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-  ssr: false,
-});
 
 const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChart | undefined | null, filter: ChartFilter, filterChange: (filter:ChartFilter) => void }) => {
 

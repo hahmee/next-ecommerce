@@ -1,8 +1,7 @@
 import {ApexOptions} from "apexcharts";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
 import {MapResponse} from "@/interface/MapResponse";
-
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
 const colors = ["#3C50E0", "#6577F3", "#8FD0EF", "#0FADCF"];
 

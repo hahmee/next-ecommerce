@@ -1,3 +1,5 @@
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: false,
@@ -20,10 +22,10 @@ const nextConfig = {
                 port: '8080',
             },
         ],
-
     },
-
-
 };
 
-export default nextConfig;
+
+export default withBundleAnalyzer({
+    enabled: process.env.ANALYZE === 'true',
+})(nextConfig);

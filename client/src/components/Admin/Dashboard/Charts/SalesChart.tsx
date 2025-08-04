@@ -2,9 +2,9 @@
 
 import {ApexOptions} from "apexcharts";
 import React from "react";
-import dynamic from "next/dynamic";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
 const data = {
   "startDate": "2024-10-01", //해당 날짜
@@ -37,9 +37,6 @@ const data = {
 
 };
 
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-  ssr: false,
-});
 
 const SalesChart = ({chart, filter, filterChange}: { chart: ChartResponse | undefined | null, filter:ChartFilter, filterChange: (filter:ChartFilter) => void }) => {
 

@@ -1,8 +1,8 @@
 import React from "react";
-import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import {ArrowUpIcon} from "@heroicons/react/20/solid";
 import {ArrowDownIcon} from "@heroicons/react/20/solid";
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
 interface MultiRadialChartProps {
   percentages: number[];

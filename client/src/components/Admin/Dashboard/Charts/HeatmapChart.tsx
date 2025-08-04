@@ -1,11 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import { ApexOptions } from "apexcharts";
-
-// ApexCharts를 ssr: false로 동적 로드
-const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+import React, {useEffect, useState} from "react";
+import {ApexOptions} from "apexcharts";
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
 // 임의로 1년치 주차별 가입자 수를 생성하는 함수 (예시)
 function generateHeatmapData(): Array<{

@@ -1,6 +1,7 @@
 import React from "react";
-import Chart from "react-apexcharts";
 import {ApexOptions} from "apexcharts";
+import ReactApexChart from "@/components/Common/ReactApexChart";
+
 
 const HorizontalBarChart = ({ percentage, count }: { percentage: number,count:number }) => {
     const options:ApexOptions = {
@@ -63,10 +64,10 @@ const HorizontalBarChart = ({ percentage, count }: { percentage: number,count:nu
     }];
 
     return (
-        <div>
-            <Chart options={options} series={series} type="bar" height={20} />
-            <div className="my-2 text-xs text-black font-bold text-right">{percentage.toFixed(0)}%</div>
-        </div>
+      <div>
+          <ReactApexChart options={options} series={series} type="bar" height={20} />
+          <div className="my-2 text-xs text-black font-bold text-right">{percentage.toFixed(0)}%</div>
+      </div>
     );
 };
 

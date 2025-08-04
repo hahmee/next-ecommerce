@@ -60,7 +60,6 @@ const HomePage = async () => {
     ];
 
     return (
-      <PrefetchBoundary prefetchOptions={prefetchOptions}>
           <div>
               <Slider />
               <Suspense fallback={<Skeleton/>}>
@@ -69,7 +68,6 @@ const HomePage = async () => {
                   </PrefetchBoundary>
               </Suspense>
           </div>
-      </PrefetchBoundary>
     );
 };
 

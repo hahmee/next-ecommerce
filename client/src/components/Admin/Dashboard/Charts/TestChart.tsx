@@ -1,11 +1,9 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import dynamic from "next/dynamic";
 import {ApexOptions} from "apexcharts";
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
-// 클라이언트에서만 로드되도록 dynamic import
-const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const TestChart = () => {
   const [mounted, setMounted] = useState(false);

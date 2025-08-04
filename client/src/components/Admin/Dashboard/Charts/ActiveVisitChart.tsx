@@ -1,17 +1,12 @@
 import React from "react";
 import {SessionChart} from "@/interface/GAResponse";
 import {ApexOptions} from "apexcharts";
-import dynamic from "next/dynamic";
-
-const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-    ssr: false,
-});
+import ReactApexChart from "@/components/Common/ReactApexChart";
 
 const ActiveVisitChart = ({chart} : {chart: SessionChart | undefined | null}) => {
 
     const options: ApexOptions = {
         series: [{
-            // data:  [21, 22, 10, 28, 16, 21, 13, 30]
             data: chart?.data || [],
         }],
         chart: {
