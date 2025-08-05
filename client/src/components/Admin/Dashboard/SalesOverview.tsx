@@ -1,7 +1,6 @@
 "use client";
 import React, {useState} from "react";
 import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
-import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {useQuery} from "@tanstack/react-query";
 import {ChartResponse} from "@/interface/ChartResponse";
 import {ChartFilter} from "@/types/chartFilter";
@@ -18,6 +17,10 @@ const SalesChart = dynamic(() => import("./Charts/SalesChart"), { ssr: false });
 const TopOrderTable = dynamic(() => import("../Tables/TopOrderTable"), { ssr: false });
 const TopCustomers = dynamic(() => import("./TopCustomers"), { ssr: false });
 const CountryChart = dynamic(() => import("./Charts/CountryChart"), { ssr: false });
+
+const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
+  ssr: false,
+});
 
 const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);

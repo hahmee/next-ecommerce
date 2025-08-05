@@ -2,7 +2,6 @@
 import React, {useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
-import AdminDatePicker from "@/components/Admin/Dashboard/AdminDatePicker";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
 import {GAResponseTop} from "@/interface/GAResponse";
 import {useQuery} from "@tanstack/react-query";
@@ -11,15 +10,17 @@ import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import dayjs from "dayjs";
 import {DatepickType} from "@/types/DatepickType";
 
-const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false });
-const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false });
-const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { ssr: false });
-const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false });
-const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), { ssr: false });
+const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false,  loading: () => <div style={{ height: 20 }}> 로딩중...</div> });
+const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false, loading: () => <div style={{ height: 20 }}> 로딩중...</div> });
+const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { ssr: false,  loading: () => <div style={{ height: 20 }}> 로딩중...</div> });
+const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false,  loading: () => <div style={{ height: 20 }}> 로딩중...</div> });
+const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), { ssr: false,  loading: () => <div style={{ height: 20 }}> 로딩중...</div>});
 
+const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
+  ssr: false,
+});
 
 const TrafficOverview = () => {
-
   const today = dayjs(); // 오늘
   const end = today.subtract(1, "day"); // 어제
   const start = end.subtract(30, "day"); // 31일 전 (총 31일 구간)
@@ -89,13 +90,12 @@ const TrafficOverview = () => {
     setCurrentFilter(filter);
   }
 
-
   return (
       <>
         <div>
           <AdminDatePicker date={date} dateChange={dateChange} maxDate={dayjs().toDate()} />
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate?.startDate} ~ {comparedDate?.endDate})
+            ({comparedDate?.startDate || 'YYYY-MM-DD'} ~ {comparedDate?.endDate || 'YYYY-MM-DD'})
           </p>
         </div>
         <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">

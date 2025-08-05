@@ -8,8 +8,11 @@ export default function useGAPageView() {
     const pathname = usePathname();  // 현재 페이지 경로를 가져온다.
 
     useEffect(() => {
-        sendGAEvent("page_view", { page_path: pathname });  // 페이지 경로가 변경될 때마다 페이지뷰 이벤트를 전송한다.
-    }, [pathname]);
+        const timeout = setTimeout(() => {
+            sendGAEvent("page_view", { page_path: pathname }); // 페이지 경로가 변경될 때마다 페이지뷰 이벤트를 전송한다.
+        }, 500); // 500ms 뒤에 실행 (tbt 개선)
+        return () => clearTimeout(timeout);
+        }, [pathname]);
 
     return null;
 }
