@@ -104,7 +104,6 @@ public class DashboardController {
   @PreAuthorize("hasAnyRole('ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
   @GetMapping("/trafficTop")
   public DataResponseDTO<GAResponseTopDTO> getAnalyticsTop(GARequestDTO gaRequestDTO) {
-
     GAResponseTopDTO gaResponseTopDTO = dashboardService.getGoogleAnalyticsTop(gaRequestDTO);
 
     return DataResponseDTO.of(gaResponseTopDTO);

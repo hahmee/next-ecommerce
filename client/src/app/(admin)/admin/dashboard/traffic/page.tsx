@@ -2,13 +2,13 @@
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import React, {Suspense} from "react";
-import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
-import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
-import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
-import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
+import {ChartFilter} from "@/types/chartFilter";
 import dayjs from "dayjs";
+import ErrorHandlingWrapper from "@/components/ErrorHandlingWrapper";
 import DashboardSkeleton from "@/components/Skeleton/DashboardSkeleton";
+import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
+import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 
 export default async function DashBoardTrafficPage() {
     const today = dayjs(); // 오늘 기준

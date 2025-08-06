@@ -14,9 +14,7 @@ type Props = {
   comparedDate: DatepickType;
 };
 
-const CountryTrafficMap = dynamic(() => {
-  return import("./Maps/CountryTrafficMap");
-}, { ssr: false });
+const CountryTrafficMap = dynamic(() => { return import("./Maps/CountryTrafficMap");}, { ssr: false });
 
 const TrafficBottomOverview: React.FC<Props> = ({
                                                   date,

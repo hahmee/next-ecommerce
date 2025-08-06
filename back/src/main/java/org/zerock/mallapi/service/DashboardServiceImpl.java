@@ -730,29 +730,26 @@ public class DashboardServiceImpl implements DashboardService{
         }
       });
 
-      // 모든 작업이 완료될 때까지 기다림
-      CompletableFuture.allOf(
-              sessionsFuture, chartFuture
-      ).join();
+      // 결과 수집 (join말고 get 사용 — 예외처리에 명시적)
+      GAResponseDTO sessionData = sessionsFuture.get(); // 단 한 번만 호출
+      SessionChartDTO chartData = chartFuture.get();
 
-      // 최종 GAResponseDTO 구성 (각 작업 결과를 조합)
-      GAResponseTopDTO finalResult = GAResponseTopDTO.builder()
-              .sessions(sessionsFuture.get().getSessions())
-              .uniqueVisitors(sessionsFuture.get().getUniqueVisitors())
-              .avgSessionDuration(sessionsFuture.get().getAvgSessionDuration())
-              .avgSessionDurationCompared(sessionsFuture.get().getAvgSessionDurationCompared())
-              .sessionsCompared(sessionsFuture.get().getSessionsCompared())
-              .uniqueVisitorsCompared(sessionsFuture.get().getUniqueVisitorsCompared())
-              .sessionChart(chartFuture.get())
+      // DTO 조립
+      return GAResponseTopDTO.builder()
+              .sessions(sessionData.getSessions())
+              .uniqueVisitors(sessionData.getUniqueVisitors())
+              .avgSessionDuration(sessionData.getAvgSessionDuration())
+              .avgSessionDurationCompared(sessionData.getAvgSessionDurationCompared())
+              .sessionsCompared(sessionData.getSessionsCompared())
+              .uniqueVisitorsCompared(sessionData.getUniqueVisitorsCompared())
+              .sessionChart(chartData)
               .build();
 
-      return finalResult;
 
     } catch (Exception e) {
       log.error("Error while fetching analytics data: ", e);
+      return null;
     }
-    return null;
-
   }
 
 
@@ -1790,40 +1787,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     return topSources;
 
-
-//    // 결과 처리
-//    List<SessionDTO<String>> topPages = new ArrayList<>();
-//
-//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-//            .setCredentialsProvider(() -> googleCredentials)
-//            .build();
-//
-//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
-//
-//
-//      // 상위 페이지 요청
-//      RunReportRequest topSourcesRequest = RunReportRequest.newBuilder()
-//              .setProperty("properties/" + propertyId)
-//              .addDimensions(Dimension.newBuilder().setName("manualSource"))  // 트래픽 소스
-//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-//              .setLimit(5)
-//              .build();
-//
-//      // 상위 페이지 보고서 실행
-//      RunReportResponse topSourcesResponse = analyticsData.runReport(topSourcesRequest);
-//
-//      for (Row row : topSourcesResponse.getRowsList()) {
-//        String trafficSource = row.getDimensionValues(0).getValue();
-//        String sessions = row.getMetricValues(0).getValue();
-//
-//
-//        topPages.add(new SessionDTO(trafficSource, sessions)); // TopPageDTO 객체 생성
-//      }
-//
-//    }
-//    return topPages;
-
   }
 
 
@@ -1861,38 +1824,6 @@ public class DashboardServiceImpl implements DashboardService{
 
     return topPages;
 
-
-
-    //    // 결과 처리
-//    List<SessionDTO<String>> topPages = new ArrayList<>();
-//
-//    BetaAnalyticsDataSettings settings = BetaAnalyticsDataSettings.newBuilder()
-//            .setCredentialsProvider(() -> googleCredentials)
-//            .build();
-//
-//    try (BetaAnalyticsDataClient analyticsData = BetaAnalyticsDataClient.create(settings)) {
-//
-//      // 상위 페이지 요청
-//      RunReportRequest topPagesRequest = RunReportRequest.newBuilder()
-//              .setProperty("properties/" + propertyId)
-//              .addDimensions(Dimension.newBuilder().setName("pagePath")) // 페이지 경로 기준
-//              .addDateRanges(DateRange.newBuilder().setStartDate(gaRequestDTO.getStartDate()).setEndDate(gaRequestDTO.getEndDate()))
-//              .addMetrics(Metric.newBuilder().setName("sessions")) // 세션 수 기준
-//              .setLimit(5)
-//              .build();
-//
-//      // 상위 페이지 보고서 실행
-//      RunReportResponse topPagesResponse = analyticsData.runReport(topPagesRequest);
-//
-//
-//      for (Row row : topPagesResponse.getRowsList()) {
-//        String pagePath = row.getDimensionValues(0).getValue();
-//        String pageSessions = row.getMetricValues(0).getValue();
-//        topPages.add(new SessionDTO(pagePath, pageSessions)); // TopPageDTO 객체 생성
-//      }
-//
-//    }
-//    return topPages;
 
   }
 

@@ -16,10 +16,10 @@ const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { 
 const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false,  loading: () => <div style={{ height: 20 }}> 로딩중...</div> });
 const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), { ssr: false,  loading: () => <div style={{ height: 20 }}> 로딩중...</div>});
 
-const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
-  ssr: false,
-  loading: () => <div style={{ height: 20 }}> 로딩중...</div>
-});
+// const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
+//   ssr: false,
+//   loading: () => <div style={{ height: 20 }}> 로딩중...</div>
+// });
 
 const TrafficOverview = () => {
   const today = dayjs(); // 오늘
@@ -92,7 +92,7 @@ const TrafficOverview = () => {
   return (
     <>
       <div>
-        <AdminDatePicker date={date} dateChange={dateChange} maxDate={dayjs().toDate()}/>
+        {/*<AdminDatePicker date={date} dateChange={dateChange} maxDate={dayjs().toDate()}/>*/}
           <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">
             compared to previous period ({comparedDate.startDate} ~ {comparedDate.endDate})
           </p>

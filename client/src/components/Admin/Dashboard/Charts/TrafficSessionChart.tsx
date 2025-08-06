@@ -1,13 +1,15 @@
 "use client";
 
 import {ApexOptions} from "apexcharts";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {SessionChart} from "@/interface/GAResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import ReactApexChart from "@/components/Common/ReactApexChart";
 
 
 const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChart | undefined | null, filter: ChartFilter, filterChange: (filter:ChartFilter) => void }) => {
+  const [mounted, setMounted] = useState(false);
+
 
   const options: ApexOptions = {
     series: [{
@@ -118,6 +120,9 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
     },
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
       <div className=" col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
@@ -161,7 +166,7 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
         <div>
           <div id="chartOne" className="-ml-5">
             {
-              chart &&  <ReactApexChart
+             mounted && chart &&  <ReactApexChart
                     options={options}
                     series={options.series}
                     type={options.chart?.type}

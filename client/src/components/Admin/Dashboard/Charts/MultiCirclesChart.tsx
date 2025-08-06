@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { ApexOptions } from "apexcharts";
 import {ArrowUpIcon} from "@heroicons/react/20/solid";
 import {ArrowDownIcon} from "@heroicons/react/20/solid";
@@ -13,6 +13,11 @@ interface MultiRadialChartProps {
 
 const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
   const series = percentages;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const options: ApexOptions = {
     series: series,
     chart: {
@@ -74,14 +79,18 @@ const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialCha
 
         {/* 차트 영역 - flex-grow로 공간을 채움 */}
         <div id="chartMultiple" className="mx-auto flex justify-center flex-grow">
-          <ReactApexChart options={options} series={series} type="radialBar" height={350}/>
+          {mounted ? (
+            <ReactApexChart options={options} series={series} type="radialBar" height={350}/>
+          ) : (
+            <div style={{height: 350}}>차트 로딩중...</div>
+          )}
         </div>
 
         {/* 하단 영역 - mt-auto로 하단에 고정 */}
         <div className="mt-auto flex bg-gray-50 p-4 rounded-lg shadow-sm divide-x divide-gray-200">
           {labels.map((label, index) => (
-              <div key={index} className="flex flex-col items-center justify-center flex-1 py-2">
-                <span className="text-sm text-gray-600 text-center">{label}</span>
+            <div key={index} className="flex flex-col items-center justify-center flex-1 py-2">
+            <span className="text-sm text-gray-600 text-center">{label}</span>
                 <div className="flex items-center space-x-1 font-semibold text-lg">
                   <span>{percentages[index]}%</span>
                   {percentages[index] >= 0 ? (
