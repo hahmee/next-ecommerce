@@ -4,16 +4,18 @@ import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
 import {Payment} from "@/interface/Payment";
 import {initalPagingData} from "@/components/Admin/Tables/ProductTable";
 import {TossPaymentStatusKR, TossPaymentTypeKR} from "@/types/toss";
-import TableDatePicker from "@/components/Admin/Tables/TableDatePicker";
 import {getPaymentsByEmail} from "@/apis/adminAPI";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
+import dynamic from "next/dynamic";
+
+const TableDatePicker = dynamic(() => import('../Tables/TableDatePicker'), { ssr: false });
 
 const PaymentTable = () => {
 
@@ -64,7 +66,7 @@ const PaymentTable = () => {
         setPage(page);
     }
 
-    const dateChange = (value:DateValueType) => {
+    const dateChange = useCallback((value:DateValueType) => {
 
         if(value === null || value?.startDate === null || value?.endDate === null) {
             return;
@@ -77,9 +79,7 @@ const PaymentTable = () => {
             startDate: start.format("YYYY-MM-DD"),
             endDate: end.format("YYYY-MM-DD"),
         });
-
-
-    };
+    },[]);
 
     return (
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm mt-8">

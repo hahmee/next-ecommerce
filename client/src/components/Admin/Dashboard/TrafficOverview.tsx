@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import dynamic from "next/dynamic";
 import {ChartFilter} from "@/types/chartFilter";
 import {getGoogleAnalyticsTop} from "@/apis/dashbaordAPI";
@@ -18,6 +18,7 @@ const TrafficBottomOverview = dynamic(() => import("./TrafficBottomOverview"), {
 
 const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
   ssr: false,
+  loading: () => <div style={{ height: 20 }}> 로딩중...</div>
 });
 
 const TrafficOverview = () => {
@@ -43,9 +44,7 @@ const TrafficOverview = () => {
   });
 
   const {
-    data: gaTopData,
-    isLoading,
-    isFetching
+    data: gaTopData
   } = useQuery<GAResponseTop, Object, GAResponseTop>({
     queryKey: ['gaTop', date, currentFilter],
     queryFn: () => getGoogleAnalyticsTop({
@@ -61,7 +60,7 @@ const TrafficOverview = () => {
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });
 
-  const dateChange = (value:DateValueType) => {
+  const dateChange = useCallback((value:DateValueType) => {
     if(value === null || value?.startDate === null || value?.endDate === null) {
       return;
     }
@@ -84,59 +83,59 @@ const TrafficOverview = () => {
       endDate: newEnd.format("YYYY-MM-DD"),
     });
 
-  };
+  },[]);
 
   const filterChange = (filter: ChartFilter) => {
     setCurrentFilter(filter);
   }
 
   return (
-      <>
-        <div>
-          <AdminDatePicker date={date} dateChange={dateChange} maxDate={dayjs().toDate()} />
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-            ({comparedDate?.startDate || 'YYYY-MM-DD'} ~ {comparedDate?.endDate || 'YYYY-MM-DD'})
+    <>
+      <div>
+        <AdminDatePicker date={date} dateChange={dateChange} maxDate={dayjs().toDate()}/>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">
+            compared to previous period ({comparedDate.startDate} ~ {comparedDate.endDate})
           </p>
+      </div>
+      <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
+        <div className="col-span-12 xl:col-span-8">
+          <LazyLoadWrapper fallback={<div>Loading...</div>}>
+            <CardTraffic gaData={gaTopData}/>
+          </LazyLoadWrapper>
+          <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
+            <TrafficSessionChart chart={gaTopData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
+          </LazyLoadWrapper>
         </div>
-        <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-          <div className="col-span-12 xl:col-span-8">
-            <LazyLoadWrapper fallback={<div>Loading...</div>}>
-              <CardTraffic gaData={gaTopData}/>
-            </LazyLoadWrapper>
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-              <TrafficSessionChart chart={gaTopData?.sessionChart} filterChange={filterChange} filter={currentFilter}/>
-            </LazyLoadWrapper>
-          </div>
 
-          <div className="col-span-12 xl:col-span-4">
-            <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
-              <MultiCirclesChart
-                  percentages={[Number(gaTopData?.sessionsCompared), Number(gaTopData?.uniqueVisitorsCompared), Number(gaTopData?.avgSessionDurationCompared)]}
-                  title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
-                  total={gaTopData?.sessions || ""}/>
-            </LazyLoadWrapper>
-          </div>
-
-          <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
-              <TrafficMiddleOverview
-                  date={date}
-                  comparedDate={comparedDate}
-              />
-            </LazyLoadWrapper>
-          </div>
-
-          {/* 추가 데이터 영역: Lazy load AdditionalDataSection */}
-          <div className="col-span-12">
-            <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
-              <TrafficBottomOverview
-                  date={date}
-                  comparedDate={comparedDate}
-              />
-            </LazyLoadWrapper>
-          </div>
+        <div className="col-span-12 xl:col-span-4">
+          <LazyLoadWrapper fallback={<div>Loading...</div>} className="h-full min-h-[400px]">
+            <MultiCirclesChart
+              percentages={[Number(gaTopData?.sessionsCompared), Number(gaTopData?.uniqueVisitorsCompared), Number(gaTopData?.avgSessionDurationCompared)]}
+              title={"Traffic Target"} labels={['Site sessions', 'Unique visitors', 'ASD']}
+              total={gaTopData?.sessions || ""}/>
+          </LazyLoadWrapper>
         </div>
-      </>
+
+        <div className="col-span-12">
+          <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
+            <TrafficMiddleOverview
+              date={date}
+              comparedDate={comparedDate}
+            />
+          </LazyLoadWrapper>
+        </div>
+
+        {/* 추가 데이터 영역: Lazy load AdditionalDataSection */}
+        <div className="col-span-12">
+          <LazyLoadWrapper fallback={<div>Loading additional data...</div>}>
+            <TrafficBottomOverview
+              date={date}
+              comparedDate={comparedDate}
+            />
+          </LazyLoadWrapper>
+        </div>
+      </div>
+    </>
   );
 };
 

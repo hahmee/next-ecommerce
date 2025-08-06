@@ -18,6 +18,7 @@ const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
           fallbackSrc={fallbackSrc}
           alt="Main image"
           fill
+          index={1}
           sizes="50vw"
           className="object-cover rounded-md"
         />
@@ -33,6 +34,7 @@ const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
               src={item.file}
               fallbackSrc={fallbackSrc}
               alt=""
+              index={2}
               fill
               sizes="30vw"
               className="object-cover rounded-md"

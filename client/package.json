@@ -48,6 +48,7 @@
     "react-range": "^1.10.0",
     "react-tailwindcss-datepicker": "^1.7.2",
     "sharp": "^0.33.5",
+    "string-strip-html": "^13.4.13",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

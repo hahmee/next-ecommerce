@@ -73,7 +73,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
     return (
         <div className="mt-20 w-full m-auto flex justify-center">
             <div className="flex justify-center gap-x-4 gap-y-5 flex-wrap w-270">
-                {data?.map((product: Product) => (
+                {data?.map((product: Product, index) => (
                     <Link
                         href={"/product/" + product.pno}
                         className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-60"
@@ -89,6 +89,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                               fallbackSrc="/images/mall/product.png"
                                               alt="product"
                                               fill
+                                              index={index}
                                               sizes="25vw"
                                               className="absolute object-cover rounded-md hover:opacity-0 transition-opacity ease-in-out duration-500"
                                             />
@@ -97,6 +98,7 @@ const MainProductList = ({type}: {type:"new" | "featured"}) => {
                                               fallbackSrc="/images/mall/product.png"
                                               alt=""
                                               fill
+                                              index={index}
                                               sizes="25vw"
                                               className="absolute object-cover rounded-md"
                                             />

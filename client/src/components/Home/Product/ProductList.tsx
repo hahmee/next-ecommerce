@@ -248,7 +248,7 @@ const ProductList = ({categoryId = "", colors, sizes, minPrice, maxPrice, order,
                                             <Fragment key={index}>
                                                 {page.dtoList.map((product: Product) => (
                                                     <Suspense fallback={<ProductCardSkeleton/>} key={product.pno}>
-                                                        <ProductCard product={product}/>
+                                                        <ProductCard product={product} index={index}/>
                                                     </Suspense>
                                                 ))}
                                             </Fragment>

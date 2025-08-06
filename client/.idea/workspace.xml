@@ -8,8 +8,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/SalesOverview.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Dashboard/TrafficOverview.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/libs/ga-page-view/GAPageView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/libs/ga-page-view/GAPageView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Product/MainProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/OrderTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/OrderTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/PaymentTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/PaymentTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin/Tables/TableDatePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Admin/Tables/TableDatePicker.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Common/FallbackImage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Common/FallbackImage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductImags.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductImags.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Product/ProductSingle.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -990,7 +999,10 @@
       <workItem from="1754274100681" duration="15936000" />
       <workItem from="1754297551903" duration="583000" />
       <workItem from="1754312361006" duration="12180000" />
-      <workItem from="1754353721658" duration="6894000" />
+      <workItem from="1754353721658" duration="12878000" />
+      <workItem from="1754369693244" duration="196000" />
+      <workItem from="1754369919937" duration="1085000" />
+      <workItem from="1754450202688" duration="3348000" />
     </task>
     <servers />
   </component>

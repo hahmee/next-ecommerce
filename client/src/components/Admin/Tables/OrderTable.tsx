@@ -4,18 +4,19 @@ import {PageResponse} from "@/interface/PageResponse";
 import PageComponent from "@/components/Admin/Tables/PageComponent";
 import {Paging} from "@/interface/Paging";
 import ViewButton from "@/components/Admin/Tables/ViewButton";
-import React, {Fragment, useEffect, useState} from "react";
+import React, {Fragment, useCallback, useEffect, useState} from "react";
 import TableSearch from "@/components/Admin/Tables/TableSearch";
 import {Payment} from "@/interface/Payment";
 import {initalPagingData} from "@/components/Admin/Tables/ProductTable";
 import {ChevronDownIcon, ChevronUpIcon} from "@heroicons/react/20/solid";
 import Image from "next/image";
-import TableDatePicker from "@/components/Admin/Tables/TableDatePicker";
 import {getOrdersByEmail} from "@/apis/adminAPI";
 import dayjs from "dayjs";
 import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 import {DatepickType} from "@/types/DatepickType";
+import dynamic from "next/dynamic";
 
+const TableDatePicker = dynamic(() => import('../Tables/TableDatePicker'), { ssr: false });
 
 const OrderTable = () => {
     const [date, setDate] = useState<DatepickType>({
@@ -74,7 +75,7 @@ const OrderTable = () => {
         );
     };
 
-    const dateChange = (value: DateValueType) => {
+    const dateChange = useCallback((value: DateValueType) => {
         setPage(1);
 
         if(value === null || value?.startDate === null || value?.endDate === null) {
@@ -88,7 +89,7 @@ const OrderTable = () => {
             startDate: start.format("YYYY-MM-DD"),
             endDate: end.format("YYYY-MM-DD"),
         });
-    };
+    },[]);
 
     return (
         <>

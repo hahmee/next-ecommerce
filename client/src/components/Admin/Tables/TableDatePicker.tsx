@@ -8,7 +8,6 @@ const TableDatePicker = ({date, dateChange}: { date: DatepickType, dateChange: (
   const value = {
     startDate: dayjs(date.startDate).toDate(),
     endDate: dayjs(date.endDate).toDate(),
-
   };
 
   return (
