@@ -12,10 +12,9 @@ import {PrefetchBoundary} from "@/libs/PrefetchBoundary";
 
 export default async function DashBoardTrafficPage() {
     const today = dayjs(); // 오늘 기준
-
+    const todayStr = today.format("YYYY-MM-DD");
     const endDate = today.subtract(1, "day"); // 어제
     const startDate = endDate.subtract(30, "day"); // 어제 기준 30일 전 → 총 31일치
-
     const comparedEndDate = startDate.subtract(1, "day"); // 비교기간 끝
     const comparedStartDate = comparedEndDate.subtract(30, "day"); // 비교기간 시작
 
@@ -45,7 +44,7 @@ export default async function DashBoardTrafficPage() {
             <Suspense fallback={<DashboardSkeleton/>}>
                 <PrefetchBoundary prefetchOptions={prefetchOptions}>
                     <ErrorHandlingWrapper>
-                        <TrafficOverview/>
+                        <TrafficOverview initialToday={todayStr} />
                     </ErrorHandlingWrapper>
                 </PrefetchBoundary>
             </Suspense>

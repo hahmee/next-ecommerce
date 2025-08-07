@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { ApexOptions } from "apexcharts";
 import {ArrowUpIcon} from "@heroicons/react/20/solid";
 import {ArrowDownIcon} from "@heroicons/react/20/solid";
@@ -13,12 +13,7 @@ interface MultiRadialChartProps {
 
 const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
   const series = percentages;
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const options: ApexOptions = {
+  const options: ApexOptions = useMemo(() => ({
     series: series,
     chart: {
       type: 'radialBar',
@@ -32,7 +27,7 @@ const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialCha
         endAngle: 360,
         hollow: {
           margin: 10,
-          size: '50%', // hollow 영역의 크기를 줄이면, 진행바 두께가 늘어남
+          size: '50%',
           background: 'transparent',
         },
         dataLabels: {
@@ -43,16 +38,12 @@ const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialCha
           value: {
             fontSize: '22px',
             fontWeight: 800,
-            // formatter: function(val: number) {
-            //   return `${val.toFixed(0)}%`;
-            // },
           },
-          // total 옵션은 전체 합계를 표시할 때 사용
           total: {
             show: true,
             label: 'Sessions',
-            fontWeight:800,
-            formatter: function (w) {
+            fontWeight: 800,
+            formatter: function () {
               return total;
             }
           }
@@ -66,7 +57,7 @@ const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialCha
       },
     },
     labels: labels,
-  };
+  }), [series, labels, total]);
 
   return (
       <div className="h-full col-span-2 rounded-sm px-5 pt-7.5 pb-5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1 flex flex-col">
@@ -79,11 +70,7 @@ const MultiCirclesChart = ({ percentages, title, labels, total }: MultiRadialCha
 
         {/* 차트 영역 - flex-grow로 공간을 채움 */}
         <div id="chartMultiple" className="mx-auto flex justify-center flex-grow">
-          {mounted ? (
-            <ReactApexChart options={options} series={series} type="radialBar" height={350}/>
-          ) : (
-            <div style={{height: 350}}>차트 로딩중...</div>
-          )}
+          <ReactApexChart options={options} series={series} type="radialBar" height={350}/>
         </div>
 
         {/* 하단 영역 - mt-auto로 하단에 고정 */}

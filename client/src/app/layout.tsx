@@ -13,8 +13,7 @@ import {cookies} from "next/headers";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 
-const inter = Inter({ subsets: ["latin"] });
-
+const inter = Inter({ subsets: ["latin"], adjustFontFallback: false});
 
 export const metadata: Metadata = {
     title: "E-Commerce Application",

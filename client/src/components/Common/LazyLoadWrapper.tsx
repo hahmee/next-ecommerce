@@ -1,7 +1,7 @@
 "use client";
 
-import { useInView } from "react-intersection-observer";
-import React, { ReactNode } from "react";
+import {useInView} from "react-intersection-observer";
+import React, {ReactNode} from "react";
 
 interface LazyLoadWrapperProps {
     children: ReactNode;
@@ -11,22 +11,22 @@ interface LazyLoadWrapperProps {
 }
 
 const LazyLoadWrapper = ({
-                             children,
-                             once = true,
-                             className,
-                             fallback = null,
+                           children,
+                           once = true,
+                           className,
+                           fallback = null,
                          }: LazyLoadWrapperProps) => {
 
-    const {ref, inView} = useInView({ // ref: 감시하고 싶은 DOM 요소, inView: 화면에 10% 이상보이면 true
-        triggerOnce: once,
-        threshold: 0.1, // 요소가 화면에 10%만 보여도 관찰 시작
-    });
+  const {ref, inView} = useInView({ // ref: 감시하고 싶은 DOM 요소, inView: 화면에 10% 이상보이면 true
+    triggerOnce: once,
+    threshold: 0.1, // 요소가 10%만 보여도 inView 처리
+  });
 
-    return (
-        <div ref={ref} className={`${className ?? ""}`}>
-            {inView ? children : fallback}
-        </div>
-    );
+  return (
+    <div ref={ref} className={`${className ?? ""}`}>
+      {inView ? children : fallback}
+    </div>
+  );
 };
 
 export default LazyLoadWrapper;

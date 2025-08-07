@@ -8,10 +8,6 @@ import {BarChartThin} from "@/components/Admin/Dashboard/Charts/BarChart";
 import Image from "next/image";
 
 const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
-  // const countries: Array<CountryChartDTO> = [
-  //   { key: "KR", value: 18, latlng: [37.0, 127.5] },
-  //   { key: "JP", value: 18, latlng: [36.0,138.0] },
-  // ];
 
   // 한 페이지에 보여줄 아이템 수
   const pageSize = 5;
@@ -63,16 +59,6 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
           fill: "#A2B6F2",
         },
       },
-      // markerStyle: {
-      //   initial: {
-      //     fill: "green", // 초기 색상
-      //     opacity: 0.6,  // 투명도 설정
-      //   },
-      //   hover: {
-      //     fill: "#FF5733", // 마우스 오버시 색상
-      //   },
-      // },
-
       markerShape: "circle", // 마커를 원형으로 설정
       focusOn: {
         animate: true,

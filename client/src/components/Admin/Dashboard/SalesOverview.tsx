@@ -24,7 +24,6 @@ const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
 
 const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
-
   const today = dayjs(); // 오늘
   const start = today.subtract(4, "month"); // 4개월 전
 

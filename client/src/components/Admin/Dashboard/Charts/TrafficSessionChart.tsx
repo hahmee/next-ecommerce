@@ -1,19 +1,15 @@
 "use client";
 
 import {ApexOptions} from "apexcharts";
-import React, {useEffect, useState} from "react";
+import React, { useMemo } from "react";
 import {SessionChart} from "@/interface/GAResponse";
 import {ChartFilter} from "@/types/chartFilter";
 import ReactApexChart from "@/components/Common/ReactApexChart";
 
 
 const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChart | undefined | null, filter: ChartFilter, filterChange: (filter:ChartFilter) => void }) => {
-  const [mounted, setMounted] = useState(false);
-
-
-  const options: ApexOptions = {
+  const options: ApexOptions  = useMemo(() => ({
     series: [{
-      // data:  [21, 22, 10, 28, 16, 21, 13, 30]
       data: chart?.data || [],
     }],
     chart: {
@@ -118,66 +114,63 @@ const TrafficSessionChart = ({chart ,filter, filterChange}: { chart: SessionChar
         }
       },
     },
-  };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  }), [chart]);
 
   return (
-      <div className=" col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
-        <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
-          <div className="flex w-full flex-wrap gap-3 sm:gap-5">
-            <div className="flex min-w-47.5">
-              <div className="w-full flex">
-                <p className="text-xl font-semibold text-black dark:text-white">Sessions over time</p>
-              </div>
-            </div>
-
-          </div>
-
-          <div className="flex w-full max-w-45 justify-end">
-            <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-              <button
-                  onClick={() => filterChange(ChartFilter.DAY)}
-                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.DAY ? "bg-white shadow-card" : ""}`}>
-                Day
-              </button>
-              <button
-                  onClick={() => filterChange(ChartFilter.WEEK)}
-                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.WEEK ? "bg-white shadow-card" : ""}`}>
-                Week
-              </button>
-              <button
-                  onClick={() => filterChange(ChartFilter.MONTH)}
-                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.MONTH ? "bg-white shadow-card" : ""}`}>
-                Month
-              </button>
-              <button
-                  onClick={() => filterChange(ChartFilter.YEAR)}
-                  className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.YEAR ? "bg-white shadow-card" : ""}`}>
-                Year
-              </button>
+    <div
+      className=" col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+      <div className="flex flex-wrap items-start justify-between gap-3 sm:flex-nowrap">
+        <div className="flex w-full flex-wrap gap-3 sm:gap-5">
+          <div className="flex min-w-47.5">
+            <div className="w-full flex">
+              <p className="text-xl font-semibold text-black dark:text-white">Sessions over time</p>
             </div>
           </div>
 
         </div>
 
-        <div>
-          <div id="chartOne" className="-ml-5">
-            {
-             mounted && chart &&  <ReactApexChart
-                    options={options}
-                    series={options.series}
-                    type={options.chart?.type}
-                    height={350}
-                    width={"100%"}
-                />
-            }
+        <div className="flex w-full max-w-45 justify-end">
+          <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
+            <button
+              onClick={() => filterChange(ChartFilter.DAY)}
+              className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.DAY ? "bg-white shadow-card" : ""}`}>
+              Day
+            </button>
+            <button
+              onClick={() => filterChange(ChartFilter.WEEK)}
+              className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.WEEK ? "bg-white shadow-card" : ""}`}>
+              Week
+            </button>
+            <button
+              onClick={() => filterChange(ChartFilter.MONTH)}
+              className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.MONTH ? "bg-white shadow-card" : ""}`}>
+              Month
+            </button>
+            <button
+              onClick={() => filterChange(ChartFilter.YEAR)}
+              className={`rounded px-3 py-1 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:bg-boxdark dark:text-white dark:hover:bg-boxdark ${filter === ChartFilter.YEAR ? "bg-white shadow-card" : ""}`}>
+              Year
+            </button>
           </div>
+        </div>
+
+      </div>
+
+      <div>
+        <div id="chartOne" className="-ml-5">
+          {
+            chart && <ReactApexChart
+              options={options}
+              series={options.series}
+              type={options.chart?.type}
+              height={350}
+              width={"100%"}
+            />
+          }
         </div>
       </div>
+    </div>
   );
 };
 
-export default TrafficSessionChart;
+export default React.memo(TrafficSessionChart);
