@@ -39,17 +39,17 @@ services:
     env_file:
       - ./back/.env.prod
 
-#  client:
-#    image: ${FRONT_IMAGE}
-#    container_name: client-container
-#    ports:
-#      - "3000:3000"
-#    networks:
-#      - app-network
-#    depends_on:
-#      - back
-#    env_file:
-#      - ./client/.env.production
+  client:
+    image: ${FRONT_IMAGE}
+    container_name: client-container
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    depends_on:
+      - back
+    env_file:
+      - ./client/.env.production
 
 networks:
   app-network:
