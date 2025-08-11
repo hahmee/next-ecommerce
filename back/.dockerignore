@@ -1,9 +1,9 @@
-# ✅ 빌드 결과물 및 캐시
+# 빌드 결과물 및 캐시
 build/
 .gradle/
 out/
 
-# ✅ 환경 설정 파일 (로컬/민감 설정 제외)
+# 환경 설정 파일 (로컬/민감 설정 제외)
 application.properties
 application-local.properties
 application-docker.properties
@@ -13,19 +13,19 @@ application-*.properties
 .env.local
 .env.*
 
-# ✅ Git 및 메타 정보
+# Git 및 메타 정보
 .git/
 .gitignore
 
-# ✅ IDE 및 편집기 설정
+# IDE 및 편집기 설정
 *.iml
 .idea/
 .vscode/
 
-# ✅ 로그 파일
+# 로그 파일
 *.log
 
-# ✅ 문서 파일
+# 문서 파일
 README.md
 *.md
 

@@ -83,12 +83,12 @@ const UserDashboard = () => {
                 </div>
             </div>
 
-            <div className="mt-6">
-                <h4 className="text-xl font-semibold text-gray-700 mb-2">User List</h4>
-                <UserListView users={users} onPageChange={(page) => {
-                    // router.push(`/admin/user?page=${page}`);
-                }} />
-            </div>
+            {/*<div className="mt-6">*/}
+            {/*    <h4 className="text-xl font-semibold text-gray-700 mb-2">User List</h4>*/}
+            {/*    <UserListView users={users} onPageChange={(page) => {*/}
+            {/*        // router.push(`/admin/user?page=${page}`);*/}
+            {/*    }} />*/}
+            {/*</div>*/}
 
         </div>
     );

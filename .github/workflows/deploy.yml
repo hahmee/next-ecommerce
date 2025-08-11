@@ -53,6 +53,7 @@ jobs:
         working-directory: client
         run: |
           docker build -t $FRONT_IMAGE -f Dockerfile .
+          rm .env.production
 
       # Java 설치
       - name: Set up Java
@@ -61,11 +62,11 @@ jobs:
           distribution: 'corretto'
           java-version: 17
 
-      # 백엔드 application-prod.properties 생성
-      - name: Create application-prod.properties
-        working-directory: back/src/main/resources
-        run: |
-          echo "${{ secrets.APP_PROD_PROPERTIES }}" > application-prod.properties
+      # 백엔드 application-prod.properties 생성 -> bootJar 할 때 JAR 안에 포함됨 -> Docker 이미지에 올라감
+#      - name: Create application-prod.properties
+#        working-directory: back/src/main/resources
+#        run: |
+#          echo "${{ secrets.APP_PROD_PROPERTIES }}" > application-prod.properties
 
       # 백엔드 테스트 todo
 #      - name: Run backend test
@@ -104,6 +105,10 @@ jobs:
             # 최신 코드 받아오기 (docker-compose.yml 반영)
             cd ~/next-ecommerce
             git pull origin master  # master 브랜치 기준 최신 코드 반영
+      
+            echo "application-prod.properties 생성"
+            echo "${APP_PROD_PROPERTIES}" > /home/ubuntu/application-prod.properties
+            chmod 600 /home/ubuntu/application-prod.properties
 
             echo "01-init-user.sh 실행 권한 부여"
             chmod +x ./script/01-init-user.sh

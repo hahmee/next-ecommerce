@@ -1,20 +1,22 @@
 package org.zerock.mallapi.util;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.HttpMethod;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.zerock.mallapi.dto.FileDTO;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3Utilities;
+import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
-import java.io.IOException;
-import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.*;
 
 @Component
@@ -24,152 +26,137 @@ public class AwsFileUtil {
 
   @Value("${cloud.aws.s3.bucket}")
   private String bucket;
-
-  private final AmazonS3 amazonS3;
-
+  private final S3Client s3;            // v2 클라이언트
+  private final S3Presigner presigner;  // v2 프리사이너
 
   /* 1-1. 파일 싱글 업로드 */
   public Map<String, String> uploadSingleFile(MultipartFile file, String dirName) throws RuntimeException {
-
-    if (file == null) {
-      return null;
-    }
-
-    String uploadName = "";
-    String uploadKey = "";
+    if (file == null || file.isEmpty()) return null;
 
     try {
+      String savedName = dirName + "/" + UUID.randomUUID() + "_" + Objects.requireNonNull(file.getOriginalFilename());
 
-        //키 값
-        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+      PutObjectRequest put = PutObjectRequest.builder()
+              .bucket(bucket)
+              .key(savedName)
+              .contentType(file.getContentType())
+              .build();
 
+      // 정확한 사이즈 사용
+      s3.putObject(put, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-        // 메타데이터 생성
-        ObjectMetadata objMeta = new ObjectMetadata();
+      S3Utilities util = s3.utilities();
+      String url = URLDecoder.decode(
+              util.getUrl(GetUrlRequest.builder().bucket(bucket).key(savedName).build()).toString(),
+              StandardCharsets.UTF_8
+      );
 
-        objMeta.setContentType(file.getContentType());
-        objMeta.setContentLength(file.getInputStream().available());
+      return Map.of("uploadName", url, "uploadKey", savedName);
 
-        // putObject(버킷명, 파일명, 파일데이터, 메타데이터)로 S3에 객체 등록
-        amazonS3.putObject(bucket, savedName, file.getInputStream(), objMeta);
-
-        // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
-        String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
-
-        uploadName = url;
-        uploadKey = savedName;
-
-    } catch (IOException e) {
+    } catch (Exception e) {
+      log.error("S3 upload error", e);
       throw new GeneralException(e.getMessage());
     }
-
-    return Map.of("uploadName", uploadName, "uploadKey", uploadKey);
-
   }
-
 
   /* 1-2. 파일 다중 업로드 */
   public Map<String, List<FileDTO<String>>> uploadFiles(List<FileDTO<MultipartFile>> files, String dirName) throws RuntimeException {
-
-    if (files == null || files.size() == 0) {
-      return null;
-    }
+    if (files == null || files.isEmpty()) return null;
 
     List<FileDTO<String>> uploadNames = new ArrayList<>();
     List<FileDTO<String>> uploadKeys = new ArrayList<>();
 
-
     try {
+      for (FileDTO<MultipartFile> mf : files) {
+        MultipartFile file = mf.getFile();
+        if (file == null || file.isEmpty()) continue;
 
-      for (FileDTO<MultipartFile> multipartFile : files) {
+        String savedName = dirName + "/" + UUID.randomUUID() + "_" + Objects.requireNonNull(file.getOriginalFilename());
 
-        //키 값
-        String savedName = dirName + "/" + UUID.randomUUID().toString() + "_" + multipartFile.getFile().getOriginalFilename();
+        PutObjectRequest put = PutObjectRequest.builder()
+                .bucket(bucket)
+                .key(savedName)
+                .contentType(file.getContentType())
+                .build();
 
+        s3.putObject(put, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-        // 메타데이터 생성
-        ObjectMetadata objMeta = new ObjectMetadata();
-
-        objMeta.setContentType(multipartFile.getFile().getContentType());
-        objMeta.setContentLength(multipartFile.getFile().getInputStream().available());
-
-        // putObject(버킷명, 파일명, 파일데이터, 메타데이터)로 S3에 객체 등록
-        amazonS3.putObject(bucket, savedName, multipartFile.getFile().getInputStream(), objMeta);
-
-        // 등록된 객체의 url 반환 (decoder: url 안의 한글or특수문자 깨짐 방지)
-        String url = URLDecoder.decode(amazonS3.getUrl(bucket, savedName).toString(), "utf-8");
+        String url = URLDecoder.decode(
+                s3.utilities().getUrl(GetUrlRequest.builder().bucket(bucket).key(savedName).build()).toString(),
+                StandardCharsets.UTF_8
+        );
 
         FileDTO<String> resultNames = new FileDTO<>();
-        resultNames.setOrd(multipartFile.getOrd());
+        resultNames.setOrd(mf.getOrd());
         resultNames.setFile(url);
 
         FileDTO<String> resultKeys = new FileDTO<>();
-        resultKeys.setOrd(multipartFile.getOrd());
+        resultKeys.setOrd(mf.getOrd());
         resultKeys.setFile(savedName);
 
         uploadNames.add(resultNames);
         uploadKeys.add(resultKeys);
-
       }
 
-    } catch (IOException e) {
+      return Map.of("uploadNames", uploadNames, "uploadKeys", uploadKeys);
+
+    } catch (Exception e) {
+      log.error("S3 multi upload error", e);
       throw new GeneralException(e.getMessage());
     }
-
-//    return uploadNames;
-    return Map.of("uploadNames", uploadNames, "uploadKeys", uploadKeys);
-
   }
 
   /* 2. 파일 여러개 삭제 */
-  public void deleteFiles (List<FileDTO<String>> fileKeys) {
+  public void deleteFiles(List<FileDTO<String>> fileKeys) {
+    if (fileKeys == null || fileKeys.isEmpty()) return;
+
     try {
+      List<ObjectIdentifier> objs = fileKeys.stream()
+              .map(f -> ObjectIdentifier.builder().key(f.getFile()).build())
+              .toList();
 
-      // deleteObject(버킷명, 키값)으로 객체 삭제
-      fileKeys.forEach(fileKey -> {
-        amazonS3.deleteObject(bucket, fileKey.getFile());
-      } );
+      DeleteObjectsRequest req = DeleteObjectsRequest.builder()
+              .bucket(bucket)
+              .delete(Delete.builder().objects(objs).build())
+              .build();
 
-    } catch (AmazonServiceException e) {
-      log.error(e.toString());
-      throw new GeneralException(e.getMessage());
+      s3.deleteObjects(req);
+
+    } catch (S3Exception e) {
+      log.error("S3 deleteObjects error", e);
+      throw new GeneralException(e.awsErrorDetails().errorMessage());
     }
   }
 
   /* 3. 파일 한개만 삭제 */
-  public void delete (String keyName) {
+  public void delete(String keyName) {
     try {
-      // deleteObject(버킷명, 키값)으로 객체 삭제
-      amazonS3.deleteObject(bucket, keyName);
-    } catch (AmazonServiceException e) {
-      log.error(e.toString());
+      s3.deleteObject(DeleteObjectRequest.builder().bucket(bucket).key(keyName).build());
+    } catch (S3Exception e) {
+      log.error("S3 deleteObject error", e);
     }
   }
 
-  /* 3. 파일의 presigned URL 반환 */
-  public String getPresignedURL (String keyName) {
-    String preSignedURL = "";
-    // presigned URL이 유효하게 동작할 만료기한 설정 (2분)
-    Date expiration = new Date();
-    Long expTimeMillis = expiration.getTime();
-    expTimeMillis += 1000 * 60 * 2;
-    expiration.setTime(expTimeMillis);
-
+  /* 4. 파일의 presigned URL 반환 (GET, 2분) */
+  public String getPresignedURL(String keyName) {
     try {
-      // presigned URL 발급
-      GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucket, keyName)
-              .withMethod(HttpMethod.GET)
-              .withExpiration(expiration);
-      URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
-      preSignedURL = url.toString();
+      GetObjectRequest get = GetObjectRequest.builder()
+              .bucket(bucket)
+              .key(keyName)
+              .build();
+
+      GetObjectPresignRequest preReq = GetObjectPresignRequest.builder()
+              .signatureDuration(Duration.ofMinutes(2))
+              .getObjectRequest(get)
+              .build();
+
+      PresignedGetObjectRequest pre = presigner.presignGetObject(preReq);
+      return pre.url().toString();
+
     } catch (Exception e) {
-      log.error(e.toString());
+      log.error("S3 presign error", e);
+      return "";
     }
-
-    return preSignedURL;
   }
-
-
-
 
 }

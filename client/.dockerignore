@@ -1,31 +1,31 @@
-# ✅ Next.js 빌드 산출물
+# Next.js 빌드 산출물
 .next/
 !.next/standalone
 !.next/static
 
-# ✅ 의존성
+# 의존성
 node_modules/
 
-# ✅ 빌드 캐시 / 로그
+# 빌드 캐시 / 로그
 .swc/
 *.log
 npm-debug.log
 yarn-debug.log
 
-# ✅ 테스트/커버리지 도구
+# 테스트/커버리지 도구
 coverage/
 cypress/
 
-# ✅ 환경 변수 파일 (절대 포함 금지)
+# 환경 변수 파일 (절대 포함 금지)
 .env
-# .env.* ← 모든 환경 파일을 제외하지 말고
-!.env.production  # 빌드에 필요한 것만 포함
+.env.*
+.env.production
 .env.docker
 .env.local
 .env.prod
-!.env.example
+.env.example
 
-# ✅ Git 및 문서
+# Git 및 문서
 .git/
 .gitignore
 README.md

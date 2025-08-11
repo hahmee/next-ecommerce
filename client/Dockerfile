@@ -6,9 +6,9 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-COPY .env.production .env.production
+#COPY .env.production .env.production
 
-RUN npm run build  # 여기서 빌드됨
+RUN npm run build
 
 #################################################
 # runner 단계 (실행만 담당)

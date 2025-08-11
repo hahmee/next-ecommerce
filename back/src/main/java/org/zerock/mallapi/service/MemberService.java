@@ -28,13 +28,13 @@ public interface MemberService {
 
   default MemberDTO entityToDTO(Member member) {
 
-    System.out.println("✅ member: " + member);
+    System.out.println("member: " + member);
 
     List<MemberRole> roles = Optional.ofNullable(member.getMemberRoleList())
             .filter(list -> !list.isEmpty())
             .orElse(List.of(MemberRole.USER));
 
-    System.out.println("✅ memberRoleList: " + roles);
+    System.out.println("memberRoleList: " + roles);
 
     MemberDTO dto = new MemberDTO(
             member.getEmail(),

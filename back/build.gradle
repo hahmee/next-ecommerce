@@ -56,6 +56,9 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	implementation("software.amazon.awssdk:s3:2.25.53")
+	implementation("software.amazon.awssdk:sts:2.25.53")
+
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
@@ -73,7 +76,13 @@ configurations.all {
 	}
 }
 
+
 bootJar {
 	archiveFileName = 'app.jar'
-	exclude('credentials/**') // JAR에 포함되지 않도록 함
+	// JAR에 포함되지 않도록 함
+	exclude('credentials/**')
+	exclude('application-prod.properties')
+	exclude('application.properties')
+	exclude('**/*.pem')
+	exclude('**/*.json')
 }
