@@ -19,11 +19,12 @@ cypress/
 # 환경 변수 파일 (절대 포함 금지)
 .env
 .env.*
-.env.production
 .env.docker
 .env.local
 .env.prod
 .env.example
+# .env.production은 빌드에 필요하므로 허용
+!.env.production
 
 # Git 및 문서
 .git/
