@@ -94,10 +94,6 @@ jobs:
             cd ~/next-ecommerce
             git pull origin master  # master 브랜치 기준 최신 코드 반영
       
-            echo "application-prod.properties 생성"
-            echo "${APP_PROD_PROPERTIES}" > /home/ubuntu/application-prod.properties
-            chmod 600 /home/ubuntu/application-prod.properties
-
             echo "01-init-user.sh 실행 권한 부여"
             chmod +x ./script/01-init-user.sh
 
