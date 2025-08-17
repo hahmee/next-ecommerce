@@ -7,11 +7,6 @@ pipeline {
   }
 
   stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/hamye4143/next-ecommerce.git'
-      }
-    }
 
     stage('Build Frontend') {
       steps {

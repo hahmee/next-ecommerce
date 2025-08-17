@@ -1,7 +1,7 @@
 "use client";
 
 import { sendGAEvent } from "@next/third-parties/google";
-import { usePathname } from "next/navigation";
+import {    usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 export default function useGAPageView() {

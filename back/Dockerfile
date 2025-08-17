@@ -5,8 +5,6 @@ WORKDIR /usr/src/app
 
 # Github Actions에서 빌드한 JAR 파일을 복사
 COPY app.jar ./app.jar
-# COPY build/libs/app.jar ./app.jar
-
 
 EXPOSE 8080
 # 실행 명령어

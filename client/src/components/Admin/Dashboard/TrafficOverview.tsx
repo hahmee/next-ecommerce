@@ -10,7 +10,11 @@ import dayjs from "dayjs";
 import {DatepickType} from "@/types/DatepickType";
 import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
 
-const CardTraffic = dynamic(() => import("./CardTraffic"), { ssr: false});
+const CardTraffic = dynamic(() => import("./CardTraffic"), {
+  ssr: true,
+  loading: () => <div className="min-h-[120px]"/>, // LCP 안정(레이아웃 고정)
+});
+
 const TrafficSessionChart = dynamic(() => import("./Charts/TrafficSessionChart"), { ssr: false, loading: () => <div className="min-h-[400px]"> 로딩중...</div> });
 const MultiCirclesChart = dynamic(() => import("./Charts/MultiCirclesChart"), { ssr: false,  loading: () => <div className="min-h-[400px]"> 로딩중...</div> });
 const TrafficMiddleOverview = dynamic(() => import("./TrafficMiddleOverview"), { ssr: false,  loading: () => <div className="min-h-[400px]"> 로딩중...</div> });

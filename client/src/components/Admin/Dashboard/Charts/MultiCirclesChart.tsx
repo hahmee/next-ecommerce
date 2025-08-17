@@ -1,7 +1,6 @@
-import React, {useEffect, useMemo, useState} from "react";
-import { ApexOptions } from "apexcharts";
-import {ArrowUpIcon} from "@heroicons/react/20/solid";
-import {ArrowDownIcon} from "@heroicons/react/20/solid";
+import React, {useMemo} from "react";
+import {ApexOptions} from "apexcharts";
+import {ArrowDownIcon, ArrowUpIcon} from "@heroicons/react/20/solid";
 import ReactApexChart from "@/components/Common/ReactApexChart";
 
 interface MultiRadialChartProps {
