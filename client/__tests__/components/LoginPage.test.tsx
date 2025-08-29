@@ -1,7 +1,7 @@
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
-import LoginPage from "@/app/(home)/login/page";
-import {MemberRole} from "@/types/memberRole";
-import {useRouter} from "next/navigation";
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import LoginPage from '@/app/(home)/login/page';
+import { MemberRole } from '@/types/memberRole';
+import { useRouter } from 'next/navigation';
 
 // mock fetch
 global.fetch = jest.fn();
@@ -20,7 +20,7 @@ jest.mock('@/store/userStore', () => ({
 // mock GTM
 // sendGTMEvent는 실제 GTM에 전송되면 안 되기 때문에 가짜 함수로 대체
 const sendGTMEvent = jest.fn();
-jest.mock("@next/third-parties/google", () => ({
+jest.mock('@next/third-parties/google', () => ({
   sendGTMEvent,
 }));
 
@@ -37,42 +37,42 @@ jest.mock('next/navigation', () => ({
 
 // mock user
 const mockUser = {
-  email: "user1@aaa.com",
+  email: 'user1@aaa.com',
   roleNames: [MemberRole.USER],
-  encryptedId: "encryptedId123",
-  password: "1111",
+  encryptedId: 'encryptedId123',
+  password: '1111',
 };
 
 const mockSetUser = jest.fn();
 
-describe("Login", () => {
-    beforeEach(() => {
-      jest.clearAllMocks(); // 테스트 전 Mock 초기화
+describe('Login', () => {
+  beforeEach(() => {
+    jest.clearAllMocks(); // 테스트 전 Mock 초기화
 
-      // useRouter()는 mockRouter 객체를 반환하게 설정
-      (useRouter as jest.Mock).mockReturnValue(mockRouter);
+    // useRouter()는 mockRouter 객체를 반환하게 설정
+    (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
-      // useUserStore()는 내부에 setUser(mock 함수)를 가진 객체를 반환하도록 설정
-      const { useUserStore } = require("@/store/userStore");
-      useUserStore.mockReturnValue({ setUser: mockSetUser });
-    });
+    // useUserStore()는 내부에 setUser(mock 함수)를 가진 객체를 반환하도록 설정
+    const { useUserStore } = require('@/store/userStore');
+    useUserStore.mockReturnValue({ setUser: mockSetUser });
+  });
 
-    it('renders the login form correctly', () => {
-      render(<LoginPage/>);
-      expect(screen.getByText("사용자 이메일")).toBeInTheDocument();
-      expect(screen.getByPlaceholderText('이메일')).toBeInTheDocument();
-      expect(screen.getByPlaceholderText('비밀번호')).toBeInTheDocument();
-      expect(screen.getByText('계정이 없으신가요?')).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "login" })).toBeInTheDocument();
-    });
+  it('renders the login form correctly', () => {
+    render(<LoginPage />);
+    expect(screen.getByText('사용자 이메일')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('이메일')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('비밀번호')).toBeInTheDocument();
+    expect(screen.getByText('계정이 없으신가요?')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'login' })).toBeInTheDocument();
+  });
 
-  it("should successfully login with correct credentials", async () => {
+  it('should successfully login with correct credentials', async () => {
     render(<LoginPage />);
 
-    fireEvent.change(screen.getByPlaceholderText("이메일"), {
+    fireEvent.change(screen.getByPlaceholderText('이메일'), {
       target: { value: mockUser.email },
     });
-    fireEvent.change(screen.getByPlaceholderText("비밀번호"), {
+    fireEvent.change(screen.getByPlaceholderText('비밀번호'), {
       target: { value: mockUser.password },
     });
 
@@ -86,42 +86,39 @@ describe("Login", () => {
     const { fetcher } = await import('@/utils/fetcher/fetcher');
     (fetcher as jest.Mock).mockResolvedValueOnce(mockUser);
 
-    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
-    //로그인 성공 후 상태 저장, 페이지 이동 확인
+    // 로그인 성공 후 상태 저장, 페이지 이동 확인
     await waitFor(() => {
       expect(mockSetUser).toHaveBeenCalledWith(mockUser);
-      expect(mockRouter.push).toHaveBeenCalledWith("/");
+      expect(mockRouter.push).toHaveBeenCalledWith('/');
     });
   });
 
-
-  it("should show error message when login fails", async () => {
+  it('should show error message when login fails', async () => {
     render(<LoginPage />);
-    fireEvent.change(screen.getByPlaceholderText("이메일"), {
-      target: { value: "wrong@example.com" },
+    fireEvent.change(screen.getByPlaceholderText('이메일'), {
+      target: { value: 'wrong@example.com' },
     });
-    fireEvent.change(screen.getByPlaceholderText("비밀번호"), {
-      target: { value: "wrongpass" },
+    fireEvent.change(screen.getByPlaceholderText('비밀번호'), {
+      target: { value: 'wrongpass' },
     });
 
     (fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
-      json: async () => ({ code: 401, success: false, message: "로그인 실패" }),
+      json: async () => ({ code: 401, success: false, message: '로그인 실패' }),
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+    fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
     await waitFor(() => {
-      expect(screen.getByText("알 수 없는 에러입니다.")).toBeInTheDocument();
+      expect(screen.getByText('알 수 없는 에러입니다.')).toBeInTheDocument();
     });
   });
 
   it('should navigate to signup page when "계정이 없으신가요?" is clicked', () => {
     render(<LoginPage />);
-    fireEvent.click(screen.getByText("계정이 없으신가요?"));
-    expect(mockRouter.push).toHaveBeenCalledWith("/signup");
+    fireEvent.click(screen.getByText('계정이 없으신가요?'));
+    expect(mockRouter.push).toHaveBeenCalledWith('/signup');
   });
-
 });
-

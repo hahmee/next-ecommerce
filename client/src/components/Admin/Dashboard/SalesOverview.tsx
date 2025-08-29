@@ -1,81 +1,82 @@
-"use client";
-import React, {useCallback, useState} from "react";
-import CardDataStats from "@/components/Admin/Dashboard/CardDataStats";
-import {useQuery} from "@tanstack/react-query";
-import {ChartResponse} from "@/interface/ChartResponse";
-import {ChartFilter} from "@/types/chartFilter";
-import {ChartContext} from "@/types/chartContext";
-import {CardResponse} from "@/interface/CardResponse";
-import dynamic from "next/dynamic";
-import {getSalesCards, getSalesCharts} from "@/apis/dashbaordAPI";
-import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
-import LazyLoadWrapper from "@/components/Common/LazyLoadWrapper";
-import dayjs from "dayjs";
-import {DatepickType} from "@/types/DatepickType";
+'use client';
 
-const SalesChart = dynamic(() => import("./Charts/SalesChart"), { ssr: false });
-const TopOrderTable = dynamic(() => import("../Tables/TopOrderTable"), { ssr: false });
-const TopCustomers = dynamic(() => import("./TopCustomers"), { ssr: false });
-const CountryChart = dynamic(() => import("./Charts/CountryChart"), { ssr: false });
+import React, { useCallback, useState } from 'react';
+import CardDataStats from '@/components/Admin/Dashboard/CardDataStats';
+import { useQuery } from '@tanstack/react-query';
+import { ChartResponse } from '@/interface/ChartResponse';
+import { ChartFilter } from '@/types/chartFilter';
+import { ChartContext } from '@/types/chartContext';
+import { CardResponse } from '@/interface/CardResponse';
+import dynamic from 'next/dynamic';
+import { getSalesCards, getSalesCharts } from '@/apis/dashbaordAPI';
+import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
+import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
+import dayjs from 'dayjs';
+import { DatepickType } from '@/types/DatepickType';
 
-const AdminDatePicker = dynamic(() => import('../Dashboard/AdminDatePicker'), {
+const SalesChart = dynamic(() => import('./Charts/SalesChart'), { ssr: false });
+const TopOrderTable = dynamic(() => import('../Tables/TopOrderTable'), { ssr: false });
+const TopCustomers = dynamic(() => import('./TopCustomers'), { ssr: false });
+const CountryChart = dynamic(() => import('./Charts/CountryChart'), { ssr: false });
+
+const AdminDatePicker = dynamic(() => import('./AdminDatePicker'), {
   ssr: false,
 });
 
 const SalesOverview: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<ChartContext>(ChartContext.TOPSALES);
   const today = dayjs(); // 오늘
-  const start = today.subtract(4, "month"); // 4개월 전
+  const start = today.subtract(4, 'month'); // 4개월 전
 
-  const comparedEnd = start.subtract(1, "day");
-  const comparedStart = comparedEnd.subtract(4, "month");
+  const comparedEnd = start.subtract(1, 'day');
+  const comparedStart = comparedEnd.subtract(4, 'month');
 
   const [currentFilter, setCurrentFilter] = useState<ChartFilter>(ChartFilter.DAY);
 
   const [date, setDate] = useState<DatepickType>({
-    startDate: start.format("YYYY-MM-DD"),
-    endDate: today.format("YYYY-MM-DD"),
+    startDate: start.format('YYYY-MM-DD'),
+    endDate: today.format('YYYY-MM-DD'),
   });
 
   const [comparedDate, setComparedDate] = useState<DatepickType>({
-    startDate: comparedStart.format("YYYY-MM-DD"),
-    endDate: comparedEnd.format("YYYY-MM-DD"),
+    startDate: comparedStart.format('YYYY-MM-DD'),
+    endDate: comparedEnd.format('YYYY-MM-DD'),
   });
 
-  const {
-    data: salesCards,
-  } = useQuery<CardResponse, Object, CardResponse>({
+  const { data: salesCards } = useQuery<CardResponse, Object, CardResponse>({
     queryKey: ['salesCards', currentFilter, date, selectedCard],
-    queryFn: () => getSalesCards({
-      startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ? date.endDate : "",
-      filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
-      comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
-      context: selectedCard,
-    }),
+    queryFn: () =>
+      getSalesCards({
+        startDate: date.startDate ? date.startDate : '',
+        endDate: date.endDate ? date.endDate : '',
+        filter: currentFilter,
+        comparedStartDate: comparedDate.startDate ? comparedDate.startDate : '',
+        comparedEndDate: comparedDate.endDate ? comparedDate.endDate : '',
+        context: selectedCard,
+      }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: true,
-    enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
+    enabled:
+      !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });
 
-  const {
-    data: salesCharts,
-  } = useQuery<ChartResponse, Object, ChartResponse>({
+  const { data: salesCharts } = useQuery<ChartResponse, Object, ChartResponse>({
     queryKey: ['salesCharts', currentFilter, date, selectedCard],
-    queryFn: () => getSalesCharts({
-      startDate: date.startDate ? date.startDate : "",
-      endDate: date.endDate ? date.endDate : "",
-      filter: currentFilter,
-      comparedStartDate: comparedDate.startDate ? comparedDate.startDate : "",
-      comparedEndDate: comparedDate.endDate ? comparedDate.endDate : "",
-      context: selectedCard,// ChartContext.TOPSALES,
-    }),
+    queryFn: () =>
+      getSalesCharts({
+        startDate: date.startDate ? date.startDate : '',
+        endDate: date.endDate ? date.endDate : '',
+        filter: currentFilter,
+        comparedStartDate: comparedDate.startDate ? comparedDate.startDate : '',
+        comparedEndDate: comparedDate.endDate ? comparedDate.endDate : '',
+        context: selectedCard, // ChartContext.TOPSALES,
+      }),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
     throwOnError: true,
-    enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
+    enabled:
+      !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });
 
   const dateChange = useCallback((value: DateValueType) => {
@@ -87,25 +88,24 @@ const SalesOverview: React.FC = () => {
     const end = dayjs(value.endDate);
 
     setDate({
-      startDate: start.format("YYYY-MM-DD"),
-      endDate: end.format("YYYY-MM-DD"),
+      startDate: start.format('YYYY-MM-DD'),
+      endDate: end.format('YYYY-MM-DD'),
     });
 
-    const diff = end.diff(start, "day"); // 일수 차이 계산
+    const diff = end.diff(start, 'day'); // 일수 차이 계산
 
-    const comparedEnd = start.subtract(1, "day");
-    const comparedStart = comparedEnd.subtract(diff, "day");
+    const comparedEnd = start.subtract(1, 'day');
+    const comparedStart = comparedEnd.subtract(diff, 'day');
 
     setComparedDate({
-      startDate: comparedStart.format("YYYY-MM-DD"),
-      endDate: comparedEnd.format("YYYY-MM-DD"),
+      startDate: comparedStart.format('YYYY-MM-DD'),
+      endDate: comparedEnd.format('YYYY-MM-DD'),
     });
   }, []);
 
-
   const filterChange = (filter: ChartFilter) => {
     setCurrentFilter(filter);
-  }
+  };
 
   const clickCard = (id: ChartContext) => {
     setSelectedCard(id);
@@ -114,14 +114,20 @@ const SalesOverview: React.FC = () => {
   return (
     <>
       <div>
-        <AdminDatePicker date={date} dateChange={dateChange} maxDate={today.toDate()}/>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">compared to previous period
-          ({comparedDate?.startDate} ~ {comparedDate?.endDate})
+        <AdminDatePicker date={date} dateChange={dateChange} maxDate={today.toDate()} />
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">
+          compared to previous period ({comparedDate?.startDate} ~ {comparedDate?.endDate})
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Sales" total={salesCards?.totalSales} rate={salesCards?.totalSalesCompared}
-                       id={ChartContext.TOPSALES} selectedCard={selectedCard} clickCard={clickCard}>
+        <CardDataStats
+          title="Total Sales"
+          total={salesCards?.totalSales}
+          rate={salesCards?.totalSalesCompared}
+          id={ChartContext.TOPSALES}
+          selectedCard={selectedCard}
+          clickCard={clickCard}
+        >
           <svg
             className="fill-primary-500 dark:fill-white"
             width="22"
@@ -140,8 +146,14 @@ const SalesOverview: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Number of Orders" total={salesCards?.totalOrders} rate={salesCards?.totalOrdersCompared}
-                       id={ChartContext.ORDERS} selectedCard={selectedCard} clickCard={clickCard}>
+        <CardDataStats
+          title="Number of Orders"
+          total={salesCards?.totalOrders}
+          rate={salesCards?.totalOrdersCompared}
+          id={ChartContext.ORDERS}
+          selectedCard={selectedCard}
+          clickCard={clickCard}
+        >
           <svg
             className="fill-primary-500 dark:fill-white"
             width="20"
@@ -164,8 +176,14 @@ const SalesOverview: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Avg. order value" total={salesCards?.avgOrders} rate={salesCards?.avgOrdersCompared}
-                       id={ChartContext.AVGORDERS} selectedCard={selectedCard} clickCard={clickCard}>
+        <CardDataStats
+          title="Avg. order value"
+          total={salesCards?.avgOrders}
+          rate={salesCards?.avgOrdersCompared}
+          id={ChartContext.AVGORDERS}
+          selectedCard={selectedCard}
+          clickCard={clickCard}
+        >
           <svg
             className="fill-primary-500 dark:fill-white"
             width="22"
@@ -184,8 +202,14 @@ const SalesOverview: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Refund Rate" total={0} rate={0.95} id={ChartContext.TOTALVIEWS}
-                       selectedCard={selectedCard} clickCard={clickCard}>
+        <CardDataStats
+          title="Refund Rate"
+          total={0}
+          rate={0.95}
+          id={ChartContext.TOTALVIEWS}
+          selectedCard={selectedCard}
+          clickCard={clickCard}
+        >
           <svg
             className="fill-primary-500 dark:fill-white"
             width="22"
@@ -211,25 +235,22 @@ const SalesOverview: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-        <div
-          className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+        <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
           <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
+            <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter} />
           </LazyLoadWrapper>
         </div>
 
-        <CountryChart date={date}/>
+        <CountryChart date={date} />
 
         <div className="col-span-12 xl:col-span-8">
           <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TopOrderTable date={date}/>
+            <TopOrderTable date={date} />
           </LazyLoadWrapper>
-
         </div>
-        <div
-          className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+        <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
           <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TopCustomers date={date}/>
+            <TopCustomers date={date} />
           </LazyLoadWrapper>
         </div>
       </div>

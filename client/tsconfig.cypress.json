@@ -6,5 +6,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.cy.ts","**/*.cy.tsx"]
+  "include": ["**/*.cy.ts", "**/*.cy.tsx"]
 }

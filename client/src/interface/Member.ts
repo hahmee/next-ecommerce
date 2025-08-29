@@ -1,4 +1,4 @@
-import {MemberRole} from "@/types/memberRole";
+import { MemberRole } from '@/types/memberRole';
 
 export interface Member {
   email: string;
@@ -13,4 +13,7 @@ export interface Member {
   updatedAt: string;
 }
 
-export type MemberModifyType = Omit<Member, 'social' | 'roleNames' | 'accessToken' | 'refreshToken' | 'error'>;
+export type MemberModifyType = Omit<
+  Member,
+  'social' | 'roleNames' | 'accessToken' | 'refreshToken' | 'error'
+>;

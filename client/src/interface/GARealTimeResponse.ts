@@ -1,4 +1,4 @@
-import {SessionChart, SessionDTO} from "@/interface/GAResponse";
+import { SessionChart, SessionDTO } from '@/interface/GAResponse';
 
 export interface GARealTimeResponse {
   recentVisitors: Array<SessionDTO<number>>;
@@ -18,4 +18,3 @@ export interface GARealTimeResponseBottom {
   recentVisitors: Array<SessionDTO<number>>;
   devices: Array<SessionDTO<number>>;
 }
-

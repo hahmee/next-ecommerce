@@ -36,7 +36,6 @@ public class ProductController {
   @PostMapping("/")
   public DataResponseDTO<ProductDTO> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
-
     List<FileDTO<MultipartFile>> files = productDTO.getFiles();//파일 객체들
 
     if (files != null && files.size() > 0) {

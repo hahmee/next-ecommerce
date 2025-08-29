@@ -1,13 +1,12 @@
 // 클라이언트 전용 fetcher (쿠키는 자동 포함)
 
-import {SessionExpiredError} from "@/libs/error/errors";
+import { SessionExpiredError } from '@/libs/error/errors';
 
 // accessToken refresh 해줌
 export const clientFetcher = async <T = any>(
   path: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T> => {
-
   const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
   let res = await fetch(finalUrl, {
     ...options,
@@ -16,7 +15,8 @@ export const clientFetcher = async <T = any>(
 
   let json: any = await res.json().catch(() => ({}));
 
-  if (res.status === 401) { // client에서 accessToken 복구한다.
+  if (res.status === 401) {
+    // client에서 accessToken 복구한다.
     console.log('accessToken 만료됨 → refresh 시도');
     const refresh = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/refresh`, {
       method: 'POST',
@@ -30,7 +30,8 @@ export const clientFetcher = async <T = any>(
         credentials: 'include',
       });
       json = await res.json().catch(() => ({}));
-    } else {   // refreshToken도 만료 → 로그아웃 처리
+    } else {
+      // refreshToken도 만료 → 로그아웃 처리
       console.log('refreshToken 만료 → 로그아웃 처리');
       throw new SessionExpiredError(); // SessionExpiredError 에러 발생
     }

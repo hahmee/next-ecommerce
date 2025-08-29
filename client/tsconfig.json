@@ -21,16 +21,11 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-//    "types": ["msw", "cypress"]
-    "types": ["msw", "cypress", "jest", "@testing-library/jest-dom"]
-
+    //    "types": ["msw", "cypress"]
+    //    "types": ["msw", "cypress", "jest", "@testing-library/jest-dom"]
+    "types": ["msw", "jest", "@testing-library/jest-dom", "node"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "cypress"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  //  "exclude": ["node_modules", "cypress"]
   "exclude": ["node_modules", "cypress"]
 }

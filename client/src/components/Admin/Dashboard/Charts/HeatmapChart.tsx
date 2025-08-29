@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, {useEffect, useState} from "react";
-import {ApexOptions} from "apexcharts";
-import ReactApexChart from "@/components/Common/ReactApexChart";
+import React, { useEffect, useState } from 'react';
+import type { ApexOptions } from 'apexcharts';
+import ReactApexChart from '@/components/Common/ReactApexChart';
 
 // 임의로 1년치 주차별 가입자 수를 생성하는 함수 (예시)
 function generateHeatmapData(): Array<{
   name: string;
   data: { x: string; y: number }[];
 }> {
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const totalWeeks = 52;
 
   return daysOfWeek.map((day) => {
@@ -48,7 +48,7 @@ export default function HeatmapChart() {
 
   const options: ApexOptions = {
     chart: {
-      type: "heatmap",
+      type: 'heatmap',
       toolbar: { show: false },
     },
     plotOptions: {
@@ -57,10 +57,10 @@ export default function HeatmapChart() {
         // 색상 범위에 따라 색을 변경할 수도 있음
         colorScale: {
           ranges: [
-            { from: 0, to: 0, color: "#f5f5f5" },   // 가입자 0명
-            { from: 1, to: 3, color: "#c3e6cb" },
-            { from: 4, to: 6, color: "#8fd3a7" },
-            { from: 7, to: 10, color: "#62c375" },  // 가입자 7~10명
+            { from: 0, to: 0, color: '#f5f5f5' }, // 가입자 0명
+            { from: 1, to: 3, color: '#c3e6cb' },
+            { from: 4, to: 6, color: '#8fd3a7' },
+            { from: 7, to: 10, color: '#62c375' }, // 가입자 7~10명
           ],
         },
       },
@@ -88,9 +88,9 @@ export default function HeatmapChart() {
   };
 
   return (
-      <div className="rounded-sm px-5 pb-5 pt-7.5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        {/*<h2 className="text-xl font-bold mb-4">Weekly Signups Heatmap</h2>*/}
-        <ReactApexChart options={options} series={series} type="heatmap" height={350} />
-      </div>
+    <div className="rounded-sm px-5 pb-5 pt-7.5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      {/* <h2 className="text-xl font-bold mb-4">Weekly Signups Heatmap</h2> */}
+      <ReactApexChart options={options} series={series} type="heatmap" height={350} />
+    </div>
   );
 }

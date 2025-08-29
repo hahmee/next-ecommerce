@@ -1,13 +1,8 @@
-
-import {NextRequest, NextResponse} from 'next/server';
-import {MemberRole} from '@/types/memberRole';
+import { NextRequest, NextResponse } from 'next/server';
+import { MemberRole } from '@/types/memberRole';
 
 // 여기에 포함되지 않은 모든 경로는 비로그인 사용자도 접근할 수 있음
-const AUTH_REQUIRED_ROUTES = [
-  '/admin',
-  '/shopping',
-  '/review',
-];
+const AUTH_REQUIRED_ROUTES = ['/admin', '/shopping', '/review'];
 const BACKEND_URL = process.env.BACKEND_URL!;
 
 // 특정 역할을 요구하는 경로와 역할 매핑
@@ -17,7 +12,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 현재 경로가 로그인이 필수인 경로인지 확인
-  const isAuthRequired = AUTH_REQUIRED_ROUTES.some(route => pathname.startsWith(route));
+  const isAuthRequired = AUTH_REQUIRED_ROUTES.some((route) => pathname.startsWith(route));
 
   // 로그인이 필수가 아닌 경로(메인, 상품 목록/상세 등)는 모두 통과
   if (!isAuthRequired) {
@@ -40,9 +35,8 @@ export async function middleware(request: NextRequest) {
   try {
     const response = await fetch(`${BACKEND_URL}/api/me`, {
       headers: { Cookie: `access_token=${accessToken}` },
-      cache: "no-store", // 캐시에 저장하지 않는다. -> 바로 최신 상태를 보여준다.
+      cache: 'no-store', // 캐시에 저장하지 않는다. -> 바로 최신 상태를 보여준다.
     });
-
 
     if (!response.ok) {
       return NextResponse.redirect(new URL('/login', request.url));
@@ -54,7 +48,7 @@ export async function middleware(request: NextRequest) {
 
     // 관리자 페이지에 접근하는 경우, 역할 확인
     if (pathname.startsWith('/admin')) {
-      const isAuthorized = roleNames?.some(role => ADMIN_ROLES.includes(role));
+      const isAuthorized = roleNames?.some((role) => ADMIN_ROLES.includes(role));
       if (!isAuthorized) {
         return NextResponse.redirect(new URL('/error', request.url));
       }

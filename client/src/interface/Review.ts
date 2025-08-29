@@ -1,5 +1,5 @@
-import {Member} from "@/interface/Member";
-import {Order} from "@/interface/Order";
+import { Member } from '@/interface/Member';
+import { Order } from '@/interface/Order';
 
 export interface Review {
   rno?: number;
@@ -10,6 +10,6 @@ export interface Review {
   pno: number;
   oid: number;
   owner: Member | null;
-  createdAt:string | null;
+  createdAt: string | null;
   updatedAt: string | null;
 }

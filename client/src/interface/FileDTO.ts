@@ -1,4 +1,4 @@
 export interface FileDTO<T> {
-    file: T;
-    ord: number;
+  file: T;
+  ord: number;
 }

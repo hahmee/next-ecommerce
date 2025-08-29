@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import React, {useEffect, useState} from "react";
-import {ApexOptions} from "apexcharts";
-import ReactApexChart from "@/components/Common/ReactApexChart";
-
+import React, { useEffect, useState } from 'react';
+import type { ApexOptions } from 'apexcharts';
+import ReactApexChart from '@/components/Common/ReactApexChart';
 
 const TestChart = () => {
   const [mounted, setMounted] = useState(false);
@@ -20,7 +19,7 @@ const TestChart = () => {
 
   const lineChartOptions: ApexOptions = {
     chart: {
-      type: "line",
+      type: 'line',
       toolbar: {
         show: false,
       },
@@ -29,18 +28,31 @@ const TestChart = () => {
       },
     },
     stroke: {
-      curve: "smooth",
+      curve: 'smooth',
       width: 3,
     },
     markers: {
       size: 5,
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      categories: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ],
       labels: {
         style: {
-          colors: "#9ca3af",
-          fontSize: "12px",
+          colors: '#9ca3af',
+          fontSize: '12px',
         },
       },
       axisBorder: {
@@ -53,35 +65,40 @@ const TestChart = () => {
     yaxis: {
       labels: {
         style: {
-          colors: "#9ca3af",
-          fontSize: "12px",
+          colors: '#9ca3af',
+          fontSize: '12px',
         },
       },
     },
     grid: {
-      borderColor: "#e5e7eb",
+      borderColor: '#e5e7eb',
       strokeDashArray: 4,
     },
     tooltip: {
-      theme: "light",
+      theme: 'light',
       x: {
         show: true,
       },
     },
-    colors: ["#3c50e0"],
+    colors: ['#3c50e0'],
   };
 
   const lineChartSeries = [
     {
-      name: "사용자 성장",
+      name: '사용자 성장',
       data: [1000, 1500, 1800, 2100, 2400, 2700, 3000, 3200, 3400, 3600, 3800, 4000],
     },
   ];
 
   return (
-      <div className="rounded-sm px-5 pb-5 pt-7.5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <ReactApexChart options={lineChartOptions} series={lineChartSeries} type="line" height={350} />
-      </div>
+    <div className="rounded-sm px-5 pb-5 pt-7.5 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <ReactApexChart
+        options={lineChartOptions}
+        series={lineChartSeries}
+        type="line"
+        height={350}
+      />
+    </div>
   );
 };
 

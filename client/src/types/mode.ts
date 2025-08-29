@@ -1,6 +1,5 @@
-
 export enum Mode {
-    ADD = 'add',
-    EDIT = 'edit',
-    READ = 'read',
+  ADD = 'add',
+  EDIT = 'edit',
+  READ = 'read',
 }

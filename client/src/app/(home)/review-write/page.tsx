@@ -1,18 +1,18 @@
-import React from "react";
-import ReviewModalPage from "@/app/(home)/@modal/(.)add-reveiw/[id]/page";
-import OrderPage from "@/app/(home)/order/[orderId]/page";
+import React from 'react';
+import ReviewModalPage from '@/app/(home)/@modal/(.)add-reveiw/[id]/page';
+import OrderPage from '@/app/(home)/order/[orderId]/page';
 
 interface Props {
-    searchParams: { [key: string]: string; }
+  searchParams: { [key: string]: string };
 }
 
-export default function AddReviewPage({searchParams}: Props) {
+export default function AddReviewPage({ searchParams }: Props) {
+  const { oid, orderId } = searchParams;
 
-    const {oid, orderId} = searchParams;
-
-    return (
-        <>
-            <OrderPage params={{orderId}}/>
-            <ReviewModalPage params={{id: oid, orderId:orderId}}/>
-        </>);
-};
+  return (
+    <>
+      <OrderPage params={{ orderId }} />
+      <ReviewModalPage params={{ id: oid, orderId }} />
+    </>
+  );
+}

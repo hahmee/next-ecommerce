@@ -1,22 +1,22 @@
-import {create} from "zustand";
-import {ImageType} from "@/components/Admin/Product/ImageUploadForm";
+import { create } from 'zustand';
+import { ImageType } from '@/components/Admin/Product/ImageUploadForm';
 
 type State = {
-    files: Array<ImageType>;
-}
+  files: Array<ImageType>;
+};
 
 type Action = {
-    setFiles: (files: Array<ImageType>) => void;
-    clear: () => void
-}
+  setFiles: (files: Array<ImageType>) => void;
+  clear: () => void;
+};
 
 export const useProductImageStore = create<State & Action>((set) => ({
-    files:[],
-    setFiles: (files) => {
-        set({files});
-    },
-    uploadFileNames: [],
-    clear: () => {
-        set({files: []});
-    }
+  files: [],
+  setFiles: (files) => {
+    set({ files });
+  },
+  uploadFileNames: [],
+  clear: () => {
+    set({ files: [] });
+  },
 }));

@@ -10,7 +10,6 @@
 //   uploadFileKey?: string | null;
 // };
 
-
 export interface Category {
   cno: number;
   cname: string;
@@ -21,4 +20,4 @@ export interface Category {
   file?: string | null;
   uploadFileName?: string | null;
   uploadFileKey?: string | null;
-};
+}

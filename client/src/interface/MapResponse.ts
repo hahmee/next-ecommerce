@@ -3,4 +3,4 @@ export interface MapResponse {
   totalSales: number;
 }
 
-//{CN: 12000}, {KR: 199}
+// {CN: 12000}, {KR: 199}

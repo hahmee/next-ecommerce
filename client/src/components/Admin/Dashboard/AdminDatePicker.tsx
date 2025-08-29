@@ -1,24 +1,31 @@
-import Datepicker from "react-tailwindcss-datepicker";
-import React from "react";
-import {DateType, DateValueType} from "react-tailwindcss-datepicker/dist/types";
-import dayjs from "dayjs";
-import { DatepickType } from "@/types/DatepickType";
+import Datepicker from 'react-tailwindcss-datepicker';
+import React from 'react';
+import { DateType, DateValueType } from 'react-tailwindcss-datepicker/dist/types';
+import dayjs from 'dayjs';
+import { DatepickType } from '@/types/DatepickType';
 
-const AdminDatePicker = ({date, dateChange, maxDate} : {date: DatepickType, dateChange: (value:DateValueType) => void, maxDate?: DateType}) => {
-    const value = {
-        startDate: dayjs(date.startDate).toDate(),
-        endDate: dayjs(date.endDate).toDate(),
-    };
+const AdminDatePicker = ({
+  date,
+  dateChange,
+  maxDate,
+}: {
+  date: DatepickType;
+  dateChange: (value: DateValueType) => void;
+  maxDate?: DateType;
+}) => {
+  const value = {
+    startDate: dayjs(date.startDate).toDate(),
+    endDate: dayjs(date.endDate).toDate(),
+  };
 
-    return (
-      <Datepicker
-        value={value}
-        onChange={(value) => dateChange(value)}
-        showShortcuts={true}
-        maxDate={maxDate}
-      />
-
-    );
+  return (
+    <Datepicker
+      value={value}
+      onChange={(value) => dateChange(value)}
+      showShortcuts
+      maxDate={maxDate}
+    />
+  );
 };
 
 export default AdminDatePicker;

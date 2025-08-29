@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import {useCartStore} from "@/store/cartStore";
-import React from "react";
-import CartItem from "@/components/Home/Cart/CartItem";
-import {useRouter} from "next/navigation";
-import GACta from "@/libs/ga-call-to-action/GACta";
-import {GA_CTA_EVENTS} from "@/constants";
+import { useCartStore } from '@/store/cartStore';
+import React from 'react';
+import CartItem from '@/components/Home/Cart/CartItem';
+import { useRouter } from 'next/navigation';
+import GACta from '@/libs/ga-call-to-action/GACta';
+import { GA_CTA_EVENTS } from '@/constants';
 
 const CartModal = () => {
   const { carts, isLoading, open, subtotal, changeOpen } = useCartStore();
@@ -21,17 +21,13 @@ const CartModal = () => {
 
   return (
     <>
-      {/*모달 바깥 클릭 */}
+      {/* 모달 바깥 클릭 */}
       <div
-        className={`z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${
-          !open && "hidden"
-        }`}
+        className={`z-10 fixed w-full overflow-hidden h-screen top-0 left-0 ${!open && 'hidden'}`}
         onClick={() => changeOpen(false)}
-      ></div>
+      />
 
-      <div
-        className={`w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 animate-fadeInUp max-h-[80vh] overflow-y-auto`}
-      >
+      <div className="w-max absolute p-4 rounded-md shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20 animate-fadeInUp max-h-[80vh] overflow-y-auto">
         {carts && carts.length < 1 ? (
           <div className="">Cart is Empty</div>
         ) : (
@@ -57,7 +53,8 @@ const CartModal = () => {
                 <GACta eventName={GA_CTA_EVENTS.onClickCartCTA}>
                   <button
                     className="rounded-md py-3 px-4 ring-1 ring-gray-300"
-                    onClick={() => handleMove("/cart")}>
+                    onClick={() => handleMove('/cart')}
+                  >
                     View Cart
                   </button>
                 </GACta>
@@ -65,7 +62,8 @@ const CartModal = () => {
                   <button
                     className="rounded-md py-3 px-4 bg-black text-white disabled:cursor-not-allowed disabled:opacity-75"
                     disabled={isLoading}
-                    onClick={() => handleMove("/checkout")}>
+                    onClick={() => handleMove('/checkout')}
+                  >
                     Checkout
                   </button>
                 </GACta>

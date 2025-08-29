@@ -1,4 +1,4 @@
-import {ColorTag} from "@/interface/ColorTag";
+import { ColorTag } from '@/interface/ColorTag';
 
 export interface CartItem {
   email: string;
@@ -7,5 +7,5 @@ export interface CartItem {
   cino?: number;
   color: ColorTag;
   size: string;
-  sellerEmail: string
+  sellerEmail: string;
 }

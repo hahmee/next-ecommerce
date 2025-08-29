@@ -6,4 +6,4 @@ export interface CategoryTree {
   subCategories: Array<CategoryTree>;
   uploadFileName: string;
   uploadFileKey: string;
-};
+}

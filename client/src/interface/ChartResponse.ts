@@ -2,7 +2,7 @@ export interface ChartResponse {
   startDate: string;
   endDate: string;
   filter: string;
-  xaxis : Array<string>;
+  xaxis: Array<string>;
   series: Array<Series>;
 }
 

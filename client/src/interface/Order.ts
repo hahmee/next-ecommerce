@@ -1,7 +1,7 @@
-import {OrderStatus} from "@/types/orderStatus";
-import {CartItemList} from "@/interface/CartItemList";
-import {Member} from "@/interface/Member";
-import {ColorTag} from "@/interface/ColorTag";
+import { OrderStatus } from '@/types/orderStatus';
+import { CartItemList } from '@/interface/CartItemList';
+import { Member } from '@/interface/Member';
+import { ColorTag } from '@/interface/ColorTag';
 
 export interface Order {
   id: number;
@@ -16,7 +16,6 @@ export interface Order {
   createdAt: string;
   updatedAt: string;
 }
-
 
 export interface OrderRequest {
   id?: number;

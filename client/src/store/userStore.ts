@@ -1,5 +1,5 @@
-import {create} from 'zustand';
-import {MemberPublic} from "@/interface/MemberPublic";
+import { create } from 'zustand';
+import { MemberPublic } from '@/interface/MemberPublic';
 
 interface UserState {
   user: MemberPublic | null;
@@ -20,5 +20,5 @@ export const useUserStore = create<UserState>((set) => ({
   setToken: (token) => set({ token }),
   isSessionExpired: false,
   setSessionExpired: () => set({ isSessionExpired: true }),
-  clearSessionExpired: () => set({isSessionExpired: false}),
+  clearSessionExpired: () => set({ isSessionExpired: false }),
 }));

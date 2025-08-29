@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -11,10 +11,7 @@ const Footer = () => {
           <Link href="/">
             <div className="text-2xl tracking-wide">E-COMMERCE</div>
           </Link>
-          <p>
-            3252 Winding Way, Central Plaza, Willowbrook, CA 90210, United
-            States
-          </p>
+          <p>3252 Winding Way, Central Plaza, Willowbrook, CA 90210, United States</p>
           <span className="font-semibold">hamye4143@gmail.com</span>
           <span className="font-semibold">+82 10 2111 1111</span>
           <div className="flex gap-6">
@@ -61,22 +58,13 @@ const Footer = () => {
         {/* RIGHT */}
         <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-8">
           <h1 className="font-medium text-lg">SUBSCRIBE</h1>
-          <p>
-            Be the first to get the latest news about trends, promotions, and
-            much more!
-          </p>
+          <p>Be the first to get the latest news about trends, promotions, and much more!</p>
           <div className="flex">
-            <input
-              type="text"
-              placeholder="Email address"
-              className="p-4 w-3/4"
-            />
+            <input type="text" placeholder="Email address" className="p-4 w-3/4" />
             <button className="w-1/4 bg-ecom text-white">JOIN</button>
           </div>
           <span className="font-semibold">Secure Payments</span>
-          <div className="flex justify-between">
-
-          </div>
+          <div className="flex justify-between" />
         </div>
       </div>
       {/* BOTTOM */}

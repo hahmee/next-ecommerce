@@ -1,4 +1,4 @@
-import {ChartFilter} from "@/types/chartFilter";
+import { ChartFilter } from '@/types/chartFilter';
 
 export interface GARequest {
   startDate: string;

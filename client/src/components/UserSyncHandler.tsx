@@ -4,24 +4,22 @@ import { useEffect } from 'react';
 import { useUserStore } from '@/store/userStore';
 import toast from 'react-hot-toast';
 import { fetcher } from '@/utils/fetcher/fetcher';
-import {useRouter} from "next/navigation";
-import {logout} from "@/apis/mallAPI";
-import {SessionExpiredError} from "@/libs/error/errors";
+import { useRouter } from 'next/navigation';
+import { logout } from '@/apis/mallAPI';
+import { SessionExpiredError } from '@/libs/error/errors';
 
-
-//새로고침하거나 CSR로 진입했을 때 로그인 상태를 복원해주는 역할
-//새로고침 등 최초 마운트 1회만 실행
+// 새로고침하거나 CSR로 진입했을 때 로그인 상태를 복원해주는 역할
+// 새로고침 등 최초 마운트 1회만 실행
 export default function UserSyncHandler() {
   const { setUser, resetUser } = useUserStore();
   const router = useRouter();
 
   useEffect(() => {
-
     console.log('[UserSyncHandler] 마운트됨');
 
     const sync = async () => {
       try {
-        const user = await fetcher("/api/me", {
+        const user = await fetcher('/api/me', {
           credentials: 'include', // 자동 쿠키 전송
         }); // 401 → refresh → 재시도는 fetcher가 자동 처리
         setUser(user);
@@ -39,7 +37,6 @@ export default function UserSyncHandler() {
         } else {
           toast.error(error.message || '사용자 정보 복구 실패');
         }
-
       }
     };
 
@@ -47,4 +44,4 @@ export default function UserSyncHandler() {
   }, []);
 
   return null;
-};
+}

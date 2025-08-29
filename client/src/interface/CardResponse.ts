@@ -8,4 +8,3 @@ export interface CardResponse {
   totalOrdersCompared: number;
   avgOrdersCompared: number;
 }
-
