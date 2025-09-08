@@ -35,7 +35,7 @@ services:
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/usr/src/app/credentials.json
     volumes:
-      - ./back/src/main/resources/credentials/credentials.json:/usr/src/app/credentials.json
+      - ./back/credentials/credentials.json:/usr/src/app/credentials.json
     env_file:
       - ./back/.env.prod
 
