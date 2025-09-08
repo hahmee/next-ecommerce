@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🛠️ Running init-user.sh..."
+echo "Running init-user.sh..."
 
 # 환경 변수 확인 로그 (디버깅용, 필요시 주석 처리)
 echo "Using DB_NAME=${DB_NAME}"
@@ -18,4 +18,4 @@ mariadb -u root -p"${DB_ROOT_PASSWORD}" <<-EOSQL
     FLUSH PRIVILEGES;
 EOSQL
 
-echo "✅ User and DB initialized."
+echo "User and DB initialized."

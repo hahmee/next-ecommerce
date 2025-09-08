@@ -22,7 +22,6 @@ export const clientFetcher = async <T = any>(
       method: 'POST',
       credentials: 'include', // 쿠키 포함
     });
-
     if (refresh.ok) {
       // accessToken 재발급 성공 → 재요청
       res = await fetch(finalUrl, {

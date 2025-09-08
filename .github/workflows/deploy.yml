@@ -11,8 +11,10 @@ jobs:
     env:
       FRONT_IMAGE: hamye4143/next-ecommerce-frontend
       BACK_IMAGE: hamye4143/next-ecommerce-backend
+      IMAGE_TAG: ${{ github.sha }}
 
     steps:
+      # 최신 코드 받기
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -27,18 +29,18 @@ jobs:
         working-directory: client
         run: echo "${{ secrets.DOT_ENV_PRODUCTION }}" > .env.production
 
-#      # CI: 테스팅
-#      - name: Run frontend test
-#        working-directory: client
-#        run: |
-#          npm ci
-#          npm run test
+      #      # 프론트엔드 테스팅
+      #      - name: Run frontend test
+      #        working-directory: client
+      #        run: |
+      #          npm ci
+      #          npm run test
 
       # 프론트 빌드 + Docker 이미지 만들기
       - name: Build frontend
         working-directory: client
         run: |
-          docker build -t $FRONT_IMAGE -f Dockerfile .
+          docker build -t $FRONT_IMAGE:$IMAGE_TAG -t $FRONT_IMAGE:latest -f Dockerfile .
 
       # Java 설치
       - name: Set up Java
@@ -48,10 +50,10 @@ jobs:
           java-version: 17
 
       # 백엔드 테스트 todo
-#      - name: Run backend test
-#        working-directory: back
-#        run: |
-#          ./gradlew test
+      #      - name: Run backend test
+      #        working-directory: back
+      #        run: |
+      #          ./gradlew test
 
       # 백엔드 빌드 + Docker 이미지 만들기
       - name: Build backend
@@ -59,7 +61,7 @@ jobs:
         run: |
           ./gradlew clean bootJar -x test
           cp build/libs/app.jar app.jar
-          docker build -t $BACK_IMAGE -f Dockerfile .
+          docker build -t $BACK_IMAGE:$IMAGE_TAG -t $BACK_IMAGE:latest -f Dockerfile .
 
       - name: Docker Hub 로그인
         uses: docker/login-action@v2
@@ -69,8 +71,20 @@ jobs:
 
       - name: Push Docker images
         run: |
-          docker push $FRONT_IMAGE
-          docker push $BACK_IMAGE
+          docker push $FRONT_IMAGE:$IMAGE_TAG
+          docker push $FRONT_IMAGE:latest
+          docker push $BACK_IMAGE:$IMAGE_TAG
+          docker push $BACK_IMAGE:latest
+
+      #CI 서버에서 EC2로 docker-compose.yml 파일을 복사
+      - name: Copy compose to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "~/next-ecommerce"
 
       # EC2에 접속해서 배포
       - name: Deploy to EC2
@@ -79,27 +93,21 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: FRONT_IMAGE,BACK_IMAGE
+          envs: FRONT_IMAGE,BACK_IMAGE,IMAGE_TAG
           script: |
-            # 최신 코드 받아오기 (docker-compose.yml 반영)
-            cd ~/next-ecommerce
-            git pull origin master  # master 브랜치 기준 최신 코드 반영
-      
-            echo "01-init-user.sh 실행 권한 부여"
-            chmod +x ./script/01-init-user.sh
-
-            echo "기존 컨테이너 종료 (볼륨은 유지)"
-            docker-compose -f docker-compose.yml down
-
-            echo "현재 볼륨 상태 확인"
-            docker volume ls | grep db-data || echo "db-data 볼륨이 존재하지 않습니다!"
-
-            echo "이미지/네트워크 정리"
-            docker system prune -f
-
-            echo "최신 이미지 풀링"
-            docker pull $FRONT_IMAGE
-            docker pull $BACK_IMAGE
-
-            echo "새 컨테이너 실행"
-            FRONT_IMAGE=$FRONT_IMAGE BACK_IMAGE=$BACK_IMAGE docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
+                    set -e
+                    echo "기존 컨테이너 종료 (볼륨은 유지)"
+                    docker-compose -f ~/next-ecommerce/docker-compose.yml down || true
+                    
+                    echo "현재 볼륨 상태 확인"
+                    docker volume ls | grep db-data || echo "db-data 볼륨이 존재하지 않습니다!"
+                    
+                    echo "이미지/네트워크 정리"
+                    docker system prune -f
+                    
+                    echo "최신 이미지 풀링"
+                    docker pull $FRONT_IMAGE:$IMAGE_TAG
+                    docker pull $BACK_IMAGE:$IMAGE_TAG
+                    
+                    echo "새 컨테이너 실행"
+                    FRONT_IMAGE=$FRONT_IMAGE:$IMAGE_TAG BACK_IMAGE=$BACK_IMAGE:$IMAGE_TAG docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
