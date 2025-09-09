@@ -94,10 +94,10 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           source: |
-            ${{ github.workspace }}/docker-compose.yml
-            ${{ github.workspace }}/script/**
-            ${{ github.workspace }}/.env
-          target: "~/next-ecommerce"
+            docker-compose.yml
+            script/
+            .env
+          target: "/home/ubuntu/next-ecommerce"
 
       # EC2에 접속해서 배포
       - name: Deploy to EC2
