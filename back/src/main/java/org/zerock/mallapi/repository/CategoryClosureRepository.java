@@ -7,12 +7,19 @@ import org.zerock.mallapi.domain.AdminCategory;
 import org.zerock.mallapi.domain.CategoryClosure;
 import org.zerock.mallapi.domain.CategoryClosureId;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 //각 카테고리의 조상-자손 관계를 관리하는 테이블에 대한 CRUD
 public interface CategoryClosureRepository extends JpaRepository<CategoryClosure, CategoryClosureId> {
 
+
+    // 조상 cno가 목록에 있고, depth가 주어진 값인 관계 전부
+    List<CategoryClosure> findByIdAncestorCnoInAndDepth(
+            Collection<Long> ancestorCnos,
+            int depth
+    );
 
     // 조상 ID 목록에 포함된 모든 관계를 가져오는 메서드
     List<CategoryClosure> findByIdAncestorCnoIn(List<Long> ancestorCnos);

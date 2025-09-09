@@ -27,16 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
   private final CategoryRepository categoryRepository;
   private final CategoryClosureRepository categoryClosureRepository;
 
-  // 루트 노드인지 판별한다.
-  private boolean noOtherNodeIsParentOf(CategoryTreeDTO targetNode, Map<Long, CategoryTreeDTO> map) {
-    for (CategoryTreeDTO node : map.values()) {
-      if (node.getSubCategories().contains(targetNode)) {
-        return false; // 누군가의 자식이면 루트가 아님
-      }
-    }
-    return true; // 아무 부모도 없음 → 루트 노드
-  }
-
 
   // 카테고리 및 자식 카테고리들 조회 및 변환 로직
   public CategoryDTO convertToDTO(AdminCategory category) {
@@ -65,56 +55,111 @@ public class CategoryServiceImpl implements CategoryService {
   public PageResponseDTO<CategoryTreeDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO) {
 
     Pageable pageable = PageRequest.of(
-            searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+            searchRequestDTO.getPage() - 1,  // 페이지 시작 0
             searchRequestDTO.getSize(),
             Sort.by("cno").descending());
 
     String search = searchRequestDTO.getSearch();
 
-    // 검색에 해당되는 노드들의 루트 노드들만 페이징한다.
+    // 1) 검색 결과: 루트 노드만 페이징 조회
     Page<AdminCategory> page = categoryRepository.searchAdminList(pageable, search);
 
-    // ancestorIds — 이 루트 노드들의 ID 추출
+    //  이번 페이지의 루트 ID들
     List<Long> ancestorIds = page.getContent().stream()
             .map(AdminCategory::getCno)
-            .toList(); // 검색된 루트 노드들의 ID
+            .toList();
 
-    // relations — 루트 노드들의 모든 후손 관계 조회
-    List<CategoryClosure> relations = categoryClosureRepository.findByIdAncestorCnoIn(ancestorIds);
+    //빈 페이지라면 바로 빈 결과 리턴
+    if (ancestorIds.isEmpty()) {
+      PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+              .page(searchRequestDTO.getPage())
+              .size(searchRequestDTO.getSize())
+              .build();
 
-    // allIds — 후손들 포함한 전체 관련 카테고리 ID 추출
-    Set<Long> allIds = relations.stream()
-            .map(cc -> cc.getId().getDescendant().getCno())
-            .collect(Collectors.toSet());
-
-    allIds.addAll(ancestorIds); //검색된 루트 노드들의 ID 도 넣는다.
-
-    // nodes — 해당 ID들에 해당하는 실제 카테고리 정보 조회
-    List<AdminCategory> nodes = categoryRepository.findByCnoIn(allIds);
-
-    // 트리 조립 — 모든 노드를 CategoryTreeDTO로 만들어 map에 저장
-    Map<Long, CategoryTreeDTO> map = new HashMap<>(); // 해시맵
-
-    for (AdminCategory c : nodes) {
-      map.put(c.getCno(), new CategoryTreeDTO(c.getCno(), c.getCname(), c.getCdesc(), c.isDelFlag(), c.getImage().getFileKey(), c.getImage().getFileName()));
+      return PageResponseDTO.<CategoryTreeDTO>withAll()
+              .dtoList(Collections.emptyList())
+              .totalCount(page.getTotalElements())
+              .pageRequestDTO(pageRequestDTO)
+              .build();
     }
 
-    for (CategoryClosure cc : relations) {
-      if (cc.getDepth() == 1) {
-        CategoryTreeDTO parent = map.get(cc.getId().getAncestor().getCno());
-        CategoryTreeDTO child = map.get(cc.getId().getDescendant().getCno());
-        parent.getSubCategories().add(child);
+    // 2) 루트 → 모든 후손 관계(깊이 상관없이 전부) 조회
+    List<CategoryClosure> relationsFromRoots = categoryClosureRepository.findByIdAncestorCnoIn(ancestorIds);
+
+    // 방금 모은 관계에서 등장하는 모든 노드의 ID를 뽑아 allIds
+    Set<Long> allIds = relationsFromRoots.stream()
+            .map(cc -> cc.getId().getDescendant().getCno())
+            .collect(Collectors.toSet());
+    allIds.addAll(ancestorIds);
+
+    log.info("allIds" + allIds); // [1, 2, 3, 5, 6, 7, 8]
+
+    // 실제 노드 엔티티 한 번에 로드 → DTO 맵 구성
+    List<AdminCategory> nodes = categoryRepository.findByCnoIn(allIds);
+
+    // 부모–자식 연결을 빠르게 하려고 map 생성
+    // 키: 카테고리의 고유 id, 값: 그 id에 해당하는 노드 객체
+    Map<Long, CategoryTreeDTO> map = new HashMap<>(nodes.size());
+    for (AdminCategory c : nodes) {
+      String fileKey = c.getImage() != null ? c.getImage().getFileKey() : null;
+      String fileName = c.getImage() != null ? c.getImage().getFileName() : null;
+
+      map.put(
+              c.getCno(),
+              new CategoryTreeDTO(
+                      c.getCno(),
+                      c.getCname(),
+                      c.getCdesc(),
+                      c.isDelFlag(),
+                      fileKey,
+                      fileName
+              )
+      );
+    }
+
+
+    // 3) 전체 트리 연결: edges = 부모–자식 연결선 목록
+    //    edges = "부모–자식 연결선 목록"
+    //    allIds에 들어있는 노드들을 조상으로 보고, depth = 1(= 직계)인 관계만 전부 모아놓은 리스트
+    //    allIds(이번 페이지에서 다룰 모든 노드)를 "조상"으로 하는 depth=1 엣지를 전부 가져온다.
+    //    edges = {(A,B), (B,C), (C,D)}
+    List<CategoryClosure> edges = categoryClosureRepository.findByIdAncestorCnoInAndDepth(new ArrayList<>(allIds), 1);
+
+    //  부모–자식 연결을 한 번에 구성 (O(E))
+    for (CategoryClosure e : edges) {
+      Long parentId = e.getId().getAncestor().getCno();
+      Long childId  = e.getId().getDescendant().getCno();
+
+      CategoryTreeDTO parent = map.get(parentId);
+      CategoryTreeDTO child  = map.get(childId);
+
+      if (parent != null && child != null) {
+        parent.getSubCategories().add(child); // 부모 노드의 children 배열에 자식 노드 넣기
       }
     }
 
-    //루트만 반환
+     // 형제 정렬
+     map.values().forEach(n ->
+         n.getSubCategories().sort(Comparator.comparing(CategoryTreeDTO::getCno))
+     );
+
+    // 4) 최종 루트만 반환
+    //    이번 페이지의 루트 집합 중, "부모가 있는(=누군가의 자식인)" 후보를 제거
+    Set<Long> hasParent = edges.stream()
+            .map(e -> e.getId().getDescendant().getCno())
+            .collect(Collectors.toSet());
+
     List<CategoryTreeDTO> roots = ancestorIds.stream()
+            .filter(id -> !hasParent.contains(id)) // 같은 페이지 안에서 우발적으로 자식으로 붙은 경우 방지
             .map(map::get)
             .filter(Objects::nonNull)
-            .filter(node -> noOtherNodeIsParentOf(node, map)) // 이건 여전히 필요
             .collect(Collectors.toList());
 
-    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
+
+    PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+            .page(searchRequestDTO.getPage())
+            .size(searchRequestDTO.getSize())
+            .build();
 
     return PageResponseDTO.<CategoryTreeDTO>withAll()
             .dtoList(roots)
@@ -123,39 +168,6 @@ public class CategoryServiceImpl implements CategoryService {
             .build();
   }
 
-
-  //모든 카테고리 다 가져오기
-  public PageResponseDTO<CategoryDTO> getSearchAdminList_(SearchRequestDTO searchRequestDTO) {
-
-    Pageable pageable = PageRequest.of(
-            searchRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
-            searchRequestDTO.getSize(),
-            Sort.by("cno").descending());
-
-    String search = searchRequestDTO.getSearch();
-
-
-    // 자신이 검색어에 매칭되지 않더라도, 자식 카테고리(subCategory)가 매칭되면 함께 검색됨
-    // 최상위 카테고리만 DTO로 보내고, 그 안에 자식들을 재귀적으로 채워 넣기
-    Page<AdminCategory> categories = categoryRepository.searchAdminList(pageable, search);
-    
-    //여기에서 subCategory있으면 넣어주기
-    //여기서 각 AdminCategory가 subCategory를 포함하는 형태로 DTO 변환
-    List<CategoryDTO> responseDTO = categories.stream()
-            .map(this::convertToDTO) // AdminCategory → CategoryDTO로 변환 (재귀 포함 가능)
-            .collect(Collectors.toList());
-
-    long totalCount = categories.getTotalElements();
-
-    PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(searchRequestDTO.getPage()).size(searchRequestDTO.getSize()).build();
-
-    return PageResponseDTO.<CategoryDTO>withAll()
-            .dtoList(responseDTO)
-            .totalCount(totalCount)
-            .pageRequestDTO(pageRequestDTO)
-            .build();
-
-  }
 
   @Override
   public List<CategoryDTO> getAllCategories() {
