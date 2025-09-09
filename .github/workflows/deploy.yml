@@ -96,7 +96,6 @@ jobs:
           source: |
             docker-compose.yml
             script/
-            .env
           target: "/home/ubuntu/next-ecommerce"
 
       # EC2에 접속해서 배포
