@@ -98,16 +98,19 @@ jobs:
                     set -e
                     echo "기존 컨테이너 종료 (볼륨은 유지)"
                     docker-compose -f ~/next-ecommerce/docker-compose.yml down || true
-                    
+            
+                    echo "DB 볼륨 삭제"
+                    docker volume rm -f next-ecommerce-db-data || true
+  
                     echo "현재 볼륨 상태 확인"
                     docker volume ls | grep db-data || echo "db-data 볼륨이 존재하지 않습니다!"
                     
                     echo "이미지/네트워크 정리"
-                    docker system prune -f
+                    docker system prune -f || true
                     
                     echo "최신 이미지 풀링"
-                    docker pull $FRONT_IMAGE:$IMAGE_TAG
-                    docker pull $BACK_IMAGE:$IMAGE_TAG
+                    docker pull $FRONT_IMAGE:$IMAGE_TAG || true
+                    docker pull $BACK_IMAGE:$IMAGE_TAG || true
                     
                     echo "새 컨테이너 실행"
                     FRONT_IMAGE=$FRONT_IMAGE:$IMAGE_TAG BACK_IMAGE=$BACK_IMAGE:$IMAGE_TAG docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
