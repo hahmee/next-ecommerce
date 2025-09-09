@@ -93,9 +93,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: |
-            docker-compose.yml
-            script/
+          source: "docker-compose.yml,script/,script/*"
           target: "/home/ubuntu/next-ecommerce"
 
       # EC2에 접속해서 배포
