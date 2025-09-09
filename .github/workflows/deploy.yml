@@ -85,8 +85,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           source: |
             docker-compose.yml
-            script/**   
-            .env
+            script/**
           target: "~/next-ecommerce"
 
       # EC2에 접속해서 배포
