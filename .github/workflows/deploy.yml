@@ -76,6 +76,16 @@ jobs:
           docker push $BACK_IMAGE:$IMAGE_TAG
           docker push $BACK_IMAGE:latest
 
+      - name: Debug workspace before scp
+        run: |
+          echo "WORKSPACE=$GITHUB_WORKSPACE"
+          pwd
+          ls -al
+          echo "---- script ----"
+          ls -al script || true
+          echo "---- find script ----"
+          find . -maxdepth 2 -type f -path "./script/*" -print || true
+
       #CI 서버에서 EC2로 docker-compose.yml 파일을 복사
       - name: Copy compose to EC2
         uses: appleboy/scp-action@v0.1.7
@@ -84,8 +94,9 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           source: |
-            docker-compose.yml
-            script/**
+            ${{ github.workspace }}/docker-compose.yml
+            ${{ github.workspace }}/script/**
+            ${{ github.workspace }}/.env
           target: "~/next-ecommerce"
 
       # EC2에 접속해서 배포
