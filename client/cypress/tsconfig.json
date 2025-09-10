@@ -3,5 +3,9 @@
   "compilerOptions": {
     "types": ["cypress", "node"]
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": [
+    "../next-env.d.ts",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ]
 }

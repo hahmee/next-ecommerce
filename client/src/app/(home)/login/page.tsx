@@ -72,7 +72,7 @@ export default function LoginPage() {
   return (
     <div className="h-[calc(100vh-80px)] px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 flex items-center justify-center">
       <form className="flex flex-col gap-8" onSubmit={onSubmit}>
-        <h1 className="text-2xl font-semibold">로그인</h1>
+        <h1 className="text-2xl font-semibold" >로그인</h1>
         <div className="flex flex-col gap-2">
           <label className="text-sm text-gray-700">사용자 이메일</label>
           <input
@@ -103,6 +103,7 @@ export default function LoginPage() {
           disabled={false}
           type="submit"
           aria-label="login"
+          data-testid="login-submit"
         >
           로그인
         </button>

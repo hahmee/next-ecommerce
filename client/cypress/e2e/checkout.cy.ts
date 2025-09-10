@@ -20,7 +20,7 @@ describe('장바구니 → 주문 → 결제 E2E 테스트', () => {
   it('주문 정보를 입력하고 결제 진행', () => {
     cy.visit('/checkout');
 
-    // 배송 정보 입력
+    // 배송 정보 입
     cy.get('input[name="receiver"]').type('홍길동', { force: true });
     cy.get('input[name="address"]').type('서울시 종로구 123', { force: true });
     cy.get('input[name="zipCode"]').type('12345', { force: true });

@@ -1,23 +1,22 @@
 Cypress.Commands.add('login', (email: string, password: string) => {
-  cy.visit(`${Cypress.config('baseUrl')}/login`); // 로그인 페이지에 접속합니다.
+  cy.visit('/login');
 
-  cy.get('input[name="email"]').clear().type(email);
-  cy.get('input[name="password"]').clear().type(password);
-  cy.get('button[type="submit"]').click();
-  cy.url().should('include', '/'); // 메인 페이지로 리디렉션되었는지 확인
+  // 로그인 API 대기
+  cy.intercept('POST', '**/api/member/login').as('loginReq');
 
-  cy.wait(1000); // 쿠키가 설정되기 전에 기다리기
+  cy.get('input[name="email"]').should('be.visible').clear().type(email);
+  cy.get('input[name="password"]').should('be.visible').clear().type(password);
+  cy.get('[data-testid="login-submit"]').should('be.enabled').click();
 
-  // 최대 10초 기다리며 쿠키 확인
-  cy.getCookie('member', { timeout: 10000 })
-    .should('exist')
-    .then((cookie: any) => {
-      // 쿠키가 존재하면, JSON으로 파싱한 후 email이 포함되어 있는지 확인
-      // URL-decoding the cookie value
-      const decodedCookie = decodeURIComponent(cookie.value);
-      const cookieValue = JSON.parse(decodedCookie);
-      expect(cookieValue).to.have.property('email', email);
-    });
+  // 서버 응답 먼저 확인
+  cy.wait('@loginReq').its('response.statusCode').should('be.oneOf', [200, 204, 302]);
+
+  // 라우팅 완료까지 동기화
+  cy.location('pathname', { timeout: 10000 }).should('not.include', '/login');
+
+  // 토큰 쿠키 존재만 확인
+  cy.getCookie('access_token', { timeout: 10000 }).should('exist');
+  cy.getCookie('refresh_token', { timeout: 10000 }).should('exist');
 });
 
 //최하위 카테고리 선택하기

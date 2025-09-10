@@ -61,56 +61,13 @@ const Checkout = () => {
           });
         } catch (error: any) {
           // 사용자가 결제를 취소하거나, 결제창 오류 등
-          toast.error(' Toss 결제 요청 실패 또는 취소');
-          console.warn('💳Toss 결제 요청 실패 또는 취소:', error.message);
+          toast.error('Toss 결제 요청 실패 또는 취소');
+          console.warn('Toss 결제 요청 실패 또는 취소:', error.message);
         }
       },
     });
 
-    //
-    // try {
-    //
-    //     await orderSave(newOrderId);
-    //
-    //     const tossPayments = await loadTossPayments(
-    //         process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
-    //     );
-    //
-    //     await tossPayments.requestPayment("카드", {
-    //         amount: total,
-    //         orderId: newOrderId,
-    //         orderName: carts.length > 1 ? `${carts[0].pname} 외 ${carts.length - 1}개` : `${carts[0].pname}`,
-    //         customerName: '판매자_테스트',
-    //         successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
-    //         failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
-    //     });
-    // } catch (error) {
-    //
-    //     toast.error((error as Error).message || "결제 요청 중 문제가 발생했습니다.");
-    //     console.error("결제 요청 중 에러 발생:", error);
-    // }
-  };
 
-  // 주문을 DB에 저장
-  const orderSave = async (orderId: string) => {
-    const order: OrderRequest = {
-      deliveryInfo: shippingInfo,
-      carts,
-      totalAmount: total,
-      shippingFee,
-      tax,
-      status: OrderStatus.ORDER_CHECKING,
-      orderId,
-    };
-
-    return fetcher(`/api/orders/`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(order),
-    });
   };
 
   return (

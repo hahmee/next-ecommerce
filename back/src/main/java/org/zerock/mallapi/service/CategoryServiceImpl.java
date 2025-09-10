@@ -99,6 +99,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     // 부모–자식 연결을 빠르게 하려고 map 생성
     // 키: 카테고리의 고유 id, 값: 그 id에 해당하는 노드 객체
+    // 트리구조 만들기 위해
+    /**
+     * map 초기 구조
+     * {
+     *   1: { "cno": 1, "cname": "전자제품", "subCategories": [] },
+     *   2: { "cno": 2, "cname": "노트북", "subCategories": [] },
+     * ....
+     */
     Map<Long, CategoryTreeDTO> map = new HashMap<>(nodes.size());
     for (AdminCategory c : nodes) {
       String fileKey = c.getImage() != null ? c.getImage().getFileKey() : null;
@@ -126,7 +134,7 @@ public class CategoryServiceImpl implements CategoryService {
     List<CategoryClosure> edges = categoryClosureRepository.findByIdAncestorCnoInAndDepth(new ArrayList<>(allIds), 1);
 
     //  부모–자식 연결을 한 번에 구성 (O(E))
-    for (CategoryClosure e : edges) {
+    for (CategoryClosure e : edges) { // edge 돌면서 연결하기
       Long parentId = e.getId().getAncestor().getCno();
       Long childId  = e.getId().getDescendant().getCno();
 
@@ -138,10 +146,25 @@ public class CategoryServiceImpl implements CategoryService {
       }
     }
 
+    log.info("map..."+ map);
+
      // 형제 정렬
+    /**
+     *{
+     *   1: {
+     *     "cno": 1,
+     *     "cname": "전자제품",
+     *     "subCategories": [
+     *       {
+     *         "cno": 2,
+     *         ....
+     *
+     *
+     */
      map.values().forEach(n ->
          n.getSubCategories().sort(Comparator.comparing(CategoryTreeDTO::getCno))
      );
+
 
     // 4) 최종 루트만 반환
     //    이번 페이지의 루트 집합 중, "부모가 있는(=누군가의 자식인)" 후보를 제거
@@ -149,6 +172,7 @@ public class CategoryServiceImpl implements CategoryService {
             .map(e -> e.getId().getDescendant().getCno())
             .collect(Collectors.toSet());
 
+    // map에서 루트를 찾는다.
     List<CategoryTreeDTO> roots = ancestorIds.stream()
             .filter(id -> !hasParent.contains(id)) // 같은 페이지 안에서 우발적으로 자식으로 붙은 경우 방지
             .map(map::get)
