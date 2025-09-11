@@ -7,11 +7,7 @@
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/Checkout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1088,7 +1084,7 @@
       <workItem from="1757477421182" duration="2179000" />
       <workItem from="1757479730991" duration="9144000" />
       <workItem from="1757492963568" duration="1097000" />
-      <workItem from="1757494367940" duration="6239000" />
+      <workItem from="1757494367940" duration="7589000" />
     </task>
     <servers />
   </component>

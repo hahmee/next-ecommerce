@@ -33,8 +33,6 @@ const Confirm = ({ paymentKey }: Props) => {
       const res = await getPayment({ paymentKey });
       return (res ?? FALLBACK);
     },
-    // 로딩 동안 깜빡임 줄이고 싶으면 placeholderData도 가능
-    // placeholderData: FALLBACK,
     retry: false,
     staleTime: 60_000,
     gcTime: 300_000,
