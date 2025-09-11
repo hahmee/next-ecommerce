@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="488e384e-6d2e-43ea-87f5-f873a60b3eba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../back/src/main/java/org/zerock/mallapi/service/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/checkout.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/payment.cy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/support/commands.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/commands.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/e2e/login.cy.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(home)/login/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Cart/Checkout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Cart/Checkout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/Confirm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Payment/SuccessPayment.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,104 +51,104 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Cypress.all tests in checkout.cy.ts (1).executor": "Run",
-    "Cypress.all tests in checkout.cy.ts (2).executor": "Run",
-    "Cypress.all tests in checkout.cy.ts (3).executor": "Run",
-    "Cypress.all tests in checkout.cy.ts.executor": "Run",
-    "Cypress.all tests in login.cy.ts (1).executor": "Run",
-    "Cypress.all tests in login.cy.ts.executor": "Run",
-    "Cypress.all tests in payment.cy.ts (1).executor": "Run",
-    "Cypress.all tests in payment.cy.ts.executor": "Run",
-    "Cypress.all tests in registerProduct.cy.ts (1).executor": "Run",
-    "Cypress.all tests in registerProduct.cy.ts.executor": "Run",
-    "Cypress.all tests in registerProduct.ts.executor": "Run",
-    "Docker.Dockerfile builder.executor": "Run",
-    "Docker.Dockerfile runner.executor": "Run",
-    "Docker.Dockerfile test.executor": "Run",
-    "Jest.<Categories/>.executor": "Run",
-    "Jest.<Categories/>.render component successfully.executor": "Run",
-    "Jest.<Home />.executor": "Run",
-    "Jest.<Home />.renders a heading.executor": "Run",
-    "Jest.API 응답 테스트.executor": "Run",
-    "Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다.executor": "Run",
-    "Jest.AddCart Component (1).executor": "Run",
-    "Jest.AddCart Component.executor": "Run",
-    "Jest.AddCart Component.should disable Add to Cart button if the status is not ONSALE.executor": "Run",
-    "Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor": "Run",
-    "Jest.AddCart Component.should increase quantity when the + button is clicked.executor": "Run",
-    "Jest.AddCart Component.should render the AddCart component (1).executor": "Run",
-    "Jest.AddCart Component.should render the AddCart component.executor": "Run",
-    "Jest.AddCart Component.should render the ll component.executor": "Run",
-    "Jest.AddCart.test.tsx.executor": "Run",
-    "Jest.Categories Component.executor": "Run",
-    "Jest.Categories Component.renders categories after fetching data.executor": "Run",
-    "Jest.Categories Component.renders loading state initially.executor": "Run",
-    "Jest.Categories 컴포넌트.executor": "Run",
-    "Jest.Categories 컴포넌트.초기에는 로딩 상태를 렌더링한다.executor": "Run",
-    "Jest.Categories.test.tsx.executor": "Run",
-    "Jest.Category 플로우.executor": "Run",
-    "Jest.Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동.executor": "Run",
-    "Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동.executor": "Run",
-    "Jest.Category 플로우.카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동.executor": "Run",
-    "Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동.executor": "Run",
-    "Jest.Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동.executor": "Run",
-    "Jest.Category 플로우.필수값 미입력 시 에러 메시지 노출.executor": "Run",
-    "Jest.CategoryForm.test.tsx.executor": "Run",
-    "Jest.E2E Login Test.executor": "Run",
-    "Jest.Login (1).executor": "Run",
-    "Jest.Login.executor": "Run",
-    "Jest.Login.login form should be in the document.executor": "Run",
-    "Jest.Login.renders the login form correctly.executor": "Run",
-    "Jest.Login.should redirect to signup page when \"계정이 없으신가요?\" is clicked.executor": "Run",
-    "Jest.Login.should show error message when login fails.executor": "Run",
-    "Jest.Login.should successfully login when correct credentials are provided.executor": "Run",
-    "Jest.Login.should successfully login with correct credentials.executor": "Run",
-    "Jest.LoginPage.test.tsx.executor": "Run",
-    "Jest.Product 플로우.executor": "Run",
-    "Jest.Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동.executor": "Run",
-    "Jest.Search Header.executor": "Run",
-    "Jest.Search Header.동적 url로 접속했을때 입력창에 keyword가 들어가는지 확인.executor": "Run",
-    "Jest.SearchBar Component.executor": "Run",
-    "Jest.SearchBar Component.submits the form and navigates to the correct URL.executor": "Run",
-    "Jest.SearchBar 컴포넌트 (1).executor": "Run",
-    "Jest.SearchBar 컴포넌트.executor": "Run",
-    "Jest.SearchBar.test.tsx.executor": "Run",
-    "Jest.Signup.executor": "Run",
-    "Jest.Signup.renders the signup form correctly.executor": "Run",
-    "Jest.Signup.should successfully signup when correct credentials are provided.executor": "Run",
-    "Jest.SignupPage (state 기반).executor": "Run",
-    "Jest.SingleCartItem Component.executor": "Run",
-    "Jest.SingleCartItem Component.should decrease quantity when the - button is clicked.executor": "Run",
-    "Jest.SingleCartItem Component.should increase quantity when the + button is clicked.executor": "Run",
-    "Jest.SingleCartItem Component.should not decrease quantity below 1.executor": "Run",
-    "Jest.SingleCartItem Component.should render the SingleCart component.executor": "Run",
-    "Jest.SingleCartItem Component.should render the SingleCartItem component.executor": "Run",
-    "Jest.Sum function.adds 1 + 2 to equal 3.executor": "Run",
-    "Jest.Sum function.executor": "Run",
-    "Jest.useCartStore.executor": "Run",
-    "Jest.수정일 때 .executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "last_opened_file_path": "C:/dev/youtube/next-ecommerce2/client",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs.jest.jest_package": "C:/dev/youtube/next-ecommerce2/client/node_modules/jest",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "ts.external.directory.path": "C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Cypress.all tests in checkout.cy.ts (1).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in checkout.cy.ts (2).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in checkout.cy.ts (3).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in checkout.cy.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in login.cy.ts (1).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in login.cy.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in payment.cy.ts (1).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in payment.cy.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in registerProduct.cy.ts (1).executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in registerProduct.cy.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Cypress.all tests in registerProduct.ts.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile builder.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile runner.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile test.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Categories/&gt;.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Categories/&gt;.render component successfully.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Home /&gt;.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.&lt;Home /&gt;.renders a heading.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.API 응답 테스트.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.API 응답 테스트.상품 조회에 성공하면 상품 정보가 렌더링된다.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should disable Add to Cart button if the status is not ONSALE.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should display success toast when Add to Cart button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should increase quantity when the + button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should render the AddCart component (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should render the AddCart component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart Component.should render the ll component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.AddCart.test.tsx.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.renders categories after fetching data.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories Component.renders loading state initially.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories 컴포넌트.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories 컴포넌트.초기에는 로딩 상태를 렌더링한다.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Categories.test.tsx.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.카테고리 삭제하면 카테고리 리스트로 이동.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.카테고리 수정 후 저장하면 카테고리 리스트로 이동.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.카테고리 추가 버튼을 누르면 CategoryForm(추가)로 이동.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.카테고리를 선택하면 CategoryForm(수정)으로 이동.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.카테고리를 추가하고 저장하면 카테고리 리스트로 이동.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Category 플로우.필수값 미입력 시 에러 메시지 노출.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.CategoryForm.test.tsx.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.E2E Login Test.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.login form should be in the document.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.renders the login form correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should redirect to signup page when \&quot;계정이 없으신가요?\&quot; is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should show error message when login fails.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should successfully login when correct credentials are provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Login.should successfully login with correct credentials.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.LoginPage.test.tsx.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Product 플로우.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Product 플로우.상품을 추가하고 저장하면 게시판 리스트로 이동.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Search Header.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Search Header.동적 url로 접속했을때 입력창에 keyword가 들어가는지 확인.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar Component.submits the form and navigates to the correct URL.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar 컴포넌트 (1).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar 컴포넌트.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SearchBar.test.tsx.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.renders the signup form correctly.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Signup.should successfully signup when correct credentials are provided.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SignupPage (state 기반).executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should decrease quantity when the - button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should increase quantity when the + button is clicked.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should not decrease quantity below 1.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should render the SingleCart component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.SingleCartItem Component.should render the SingleCartItem component.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Sum function.adds 1 + 2 to equal 3.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.Sum function.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.useCartStore.executor&quot;: &quot;Run&quot;,
+    &quot;Jest.수정일 때 .executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/dev/youtube/next-ecommerce2/client&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;C:/dev/youtube/next-ecommerce2/client/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Confirmation&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\dev\\youtube\\next-ecommerce2\\client\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\dev\youtube\next-ecommerce2\client" />
@@ -1090,7 +1086,9 @@
       <workItem from="1757427049129" duration="251000" />
       <workItem from="1757467567927" duration="4969000" />
       <workItem from="1757477421182" duration="2179000" />
-      <workItem from="1757479730991" duration="2586000" />
+      <workItem from="1757479730991" duration="9144000" />
+      <workItem from="1757492963568" duration="1097000" />
+      <workItem from="1757494367940" duration="6239000" />
     </task>
     <servers />
   </component>

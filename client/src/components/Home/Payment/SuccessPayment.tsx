@@ -20,7 +20,6 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
   useEffect(() => {
     if (!orderId || !paymentKey || !amount) return;
     if (isPending || isSuccess) return;
-
     mutate(
       { paymentKey, orderId, amount },
       {
