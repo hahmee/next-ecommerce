@@ -17,3 +17,8 @@ export type Payment = {
   orders?: Array<Order>;
   itemLength?: number;
 };
+
+export type PaymentFallback = Pick<
+  Payment,
+  'paymentKey' | 'orderId' | 'orderName' | 'totalAmount' | 'status'
+>;

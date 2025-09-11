@@ -32,8 +32,7 @@ describe('장바구니 → 주문 → 결제 E2E 테스트', () => {
           orderId: 'abc123',
           orderName: '장바구니 결제',
           totalAmount: 35175,
-          status: 'DONE',
-          approvedAt: new Date().toISOString(),
+          status: 'DONE'
         },
       });
     }).as('getPayment');

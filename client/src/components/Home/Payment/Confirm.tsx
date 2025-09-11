@@ -4,17 +4,17 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getPayment } from '@/apis/mallAPI';
-import { Payment } from '@/interface/Payment';
+import {Payment, PaymentFallback} from '@/interface/Payment';
+import {TossPaymentStatus} from "@/types/toss";
 
 interface Props { paymentKey: string; }
 
-const FALLBACK: Payment = {
+const FALLBACK: PaymentFallback = {
   paymentKey: 'pay_test_123',
   orderId: 'dummy',
   orderName: '테스트 결제',
   totalAmount: 35175,
-  status: 'DONE',
-  approvedAt: new Date().toISOString(),
+  status: TossPaymentStatus.DONE,
 };
 
 const Confirm = ({ paymentKey }: Props) => {
@@ -25,7 +25,7 @@ const Confirm = ({ paymentKey }: Props) => {
     isLoading,
     isError,
     error,
-  } = useQuery<Payment>({
+  } = useQuery<Payment | PaymentFallback>({
     queryKey: ['payment-confirm', paymentKey],
     enabled: !!paymentKey,
     // 네트워크/모킹이 비어도 항상 객체 반환
