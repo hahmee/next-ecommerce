@@ -6,6 +6,7 @@ import { Category } from '@/interface/Category';
 const BACKEND_URL =
   typeof window === 'undefined' ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL;
 
+
 // accessToken이 필요가 없어서 (만료되는지 확인안해도됨)
 // server, client fetcher 사용 안함
 export const getPublicProduct = async ({
@@ -63,6 +64,20 @@ export const getPublicNewProducts = async (): Promise<Product[]> => {
   const data: DataResponse<Product[]> = await res.json();
 
   return data.data;
+};
+
+export const getAllProductIds = async (): Promise<number[]> => {
+  const res = await fetch(`${BACKEND_URL}/api/public/products/pnoList`, {
+    method: 'GET',
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch pno List');
+  }
+
+  const data: number[] = await res.json();
+  return data;
 };
 
 export const getPublicFeaturedProducts = async (): Promise<Product[]> => {

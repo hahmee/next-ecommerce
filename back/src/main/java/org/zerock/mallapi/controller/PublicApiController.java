@@ -50,6 +50,12 @@ public class PublicApiController {
         return DataResponseDTO.of(productService.getList(pageCategoryRequestDTO));
     }
 
+    @GetMapping("/products/pnoList")
+    public List<Long> pnoList() {
+        return productService.getPnoList();
+    }
+
+
 
     @GetMapping("/reviews/list/{pno}")
     public DataResponseDTO<List<ReviewDTO>> list(@PathVariable(name="pno") Long pno) {

@@ -13,9 +13,9 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
+  @Query("SELECT p.pno FROM Product p WHERE p.delFlag = false")
+  List<Long> selectAllPnoWhereDelFlagFalse();
 
-//  @EntityGraph(attributePaths = "imageList")
-//  @Query("select p from Product p where p.pno = :pno")
   @Query("select p from Product p left join p.imageList left join p.colorList where p.pno = :pno")
   Optional<Product> selectOne(@Param("pno") Long pno);
 
@@ -60,7 +60,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
           "AND p.delFlag = false " +
           "GROUP BY p.pno " +
           "ORDER BY p DESC")
-  List<Object[]>  findNewProducts(Pageable pageable);
+  List<Object[]> findNewProducts(Pageable pageable);
 
 
   @Query("SELECT p, pi, AVG(COALESCE(r.rating, 0)) as avgRating, COUNT(DISTINCT r) as reviewCount " +

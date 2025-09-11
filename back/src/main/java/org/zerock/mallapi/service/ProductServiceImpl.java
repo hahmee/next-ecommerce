@@ -181,6 +181,11 @@ public class ProductServiceImpl implements ProductService{
                 .build();
   }
 
+  @Override
+  public List<Long> getPnoList() {
+    return productRepository.selectAllPnoWhereDelFlagFalse();
+  }
+
 
   @Override
   public PageResponseDTO<ProductDTO> getSearchAdminList(SearchRequestDTO searchRequestDTO, UserDetails userDetails) {
