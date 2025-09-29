@@ -103,7 +103,6 @@ const ProductForm = ({ type, id }: Props) => {
     isError: ctIsError,
   } = useQuery<Array<Category>, Object, Array<Category>>({
     queryKey: ['categories'],
-    // queryFn: () => getCategories(),
     queryFn: () => clientFetcher('/api/category/list'),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,

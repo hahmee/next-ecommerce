@@ -1,44 +1,34 @@
 // 클라이언트 전용 fetcher (쿠키는 자동 포함)
-
 import { SessionExpiredError } from '@/libs/error/errors';
 
-// accessToken refresh 해줌
 export const clientFetcher = async <T = any>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> => {
-  const finalUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
-  let res = await fetch(finalUrl, {
+  // BFF 경유
+  const finalUrl = `/api/bff${path}`;
+
+  const res = await fetch(finalUrl, {
     ...options,
     credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      ...(options.headers || {}),
+    },
   });
 
-  let json: any = await res.json().catch(() => ({}));
-
+  // BFF가 refresh 실패 시 401을 그대로 내려줌
   if (res.status === 401) {
-    // client에서 accessToken 복구한다.
-    console.log('accessToken 만료됨 → refresh 시도');
-    const refresh = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/member/refresh`, {
-      method: 'POST',
-      credentials: 'include', // 쿠키 포함
-    });
-    if (refresh.ok) {
-      // accessToken 재발급 성공 → 재요청
-      res = await fetch(finalUrl, {
-        ...options,
-        credentials: 'include',
-      });
-      json = await res.json().catch(() => ({}));
-    } else {
-      // refreshToken도 만료 → 로그아웃 처리
-      console.log('refreshToken 만료 → 로그아웃 처리');
-      throw new SessionExpiredError(); // SessionExpiredError 에러 발생
-    }
+    console.log('refresh 실패했습니다.');
+    throw new SessionExpiredError();
   }
+
+  const json: any = await res.json().catch(() => ({}));
 
   if (!res.ok || json?.success === false) {
     throw new Error(json?.message || '요청 실패');
   }
 
   return json.data;
+
 };
