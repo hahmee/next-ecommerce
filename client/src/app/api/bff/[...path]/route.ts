@@ -1,3 +1,5 @@
+// app/api/bff/[...path]/route.ts
+
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
@@ -74,6 +76,7 @@ async function handler(req: Request, path: string) {
   const cookieHeader = getAuthCookiesHeader();
   const response = await sendToBackend(path, req, cookieHeader, bodyBuf);
 
+  // 액세스토큰 만료 아닐때
   if (response.status !== 401) {
     const payload = await response.arrayBuffer(); // 원요청 응답의 body 전체를 ArrayBuffer로 읽음
     const bffRes = new NextResponse(payload, { status: response.status });

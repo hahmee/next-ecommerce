@@ -22,7 +22,7 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")
-    @PostMapping("/")
+    @PostMapping("")
     public DataResponseDTO<String> register(@RequestBody ReviewDTO reviewDTO, Principal principal) {
 
         //리뷰 쓴 사람은 -> 구매를 했는지 확인 하고 ..

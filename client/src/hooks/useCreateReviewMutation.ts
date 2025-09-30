@@ -10,7 +10,7 @@ export const useCreateReviewMutation = (orderId: string) => {
 
   return useMutation({
     mutationFn: (review: Review) =>
-      fetcher('/api/reviews/', {
+      fetcher('/api/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

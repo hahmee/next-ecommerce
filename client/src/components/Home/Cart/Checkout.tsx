@@ -65,8 +65,6 @@ const Checkout = () => {
         }
       },
     });
-
-
   };
 
   return (
@@ -125,7 +123,6 @@ const Checkout = () => {
                 onChange={handleInputChange}
                 required
               />
-
               <label className="block mb-2 mt-4">배송메시지</label>
               <input
                 className="w-full p-2 border border-gray-300"
@@ -139,7 +136,7 @@ const Checkout = () => {
           </div>
 
           {/* Cart Summary */}
-          <CartSummary type="Payment" />
+          <CartSummary type="Payment" disabled={createOrder.isPending} />
         </div>
       </div>
     </form>

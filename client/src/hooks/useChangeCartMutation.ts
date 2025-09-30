@@ -13,6 +13,7 @@ export const useChangeCartMutation = () => {
     mutationFn: (cartItem: CartItem) =>
       fetcher<CartItemList[]>('/api/cart/change', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
