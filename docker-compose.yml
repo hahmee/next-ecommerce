@@ -48,6 +48,8 @@ services:
       - app-network
     depends_on:
       - back
+    environment:
+      BACKEND_URL: http://back:8080
 
 networks:
   app-network:

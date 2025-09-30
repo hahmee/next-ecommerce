@@ -23,5 +23,5 @@ export async function getUserInfo() {
   if (!res.ok) return null;
 
   const data = await res.json();
-  return await data.data;
+  return data.data;
 }
