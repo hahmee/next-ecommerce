@@ -2,7 +2,7 @@ import { FC } from 'react';
 import Image from 'next/image';
 import { useCartStore } from '@/store/cartStore';
 import { CartItemList } from '@/interface/CartItemList';
-import { useDeleteCartMutation } from '@/hooks/useDeleteCartMutation';
+import { useDeleteCartMutation } from '@/shared/hooks/useDeleteCartMutation';
 
 interface Props {
   item: CartItemList;

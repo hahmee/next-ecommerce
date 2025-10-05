@@ -7,7 +7,7 @@ import { StarIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getOrder } from '@/apis/mallAPI';
-import { useCreateReviewMutation } from '@/hooks/useCreateReviewMutation';
+import { useCreateReviewMutation } from '@/shared/hooks/useCreateReviewMutation';
 import { Review } from '@/interface/Review';
 
 const ReviewAddModal = ({ id, orderId }: { id: string; orderId: string }) => {

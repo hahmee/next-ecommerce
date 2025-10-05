@@ -9,7 +9,7 @@ import { ColorTag } from '@/interface/ColorTag';
 import toast from 'react-hot-toast';
 import GACta from '@/libs/ga-call-to-action/GACta';
 import { useUserStore } from '@/store/userStore';
-import { useChangeCartMutation } from '@/hooks/useChangeCartMutation';
+import { useChangeCartMutation } from '@/shared/hooks/useChangeCartMutation';
 
 const AddCart = ({
   pno,

@@ -6,7 +6,7 @@ import {useCartStore} from '@/store/cartStore';
 import {OrderStatus} from '@/types/orderStatus';
 import {OrderRequest, OrderShippingAddressInfo} from '@/interface/Order';
 import {loadTossPayments} from '@tosspayments/payment-sdk';
-import {useCreateOrderMutation} from '@/hooks/useCreateOrderMutation';
+import {useCreateOrderMutation} from '@/shared/hooks/useCreateOrderMutation';
 import toast from 'react-hot-toast';
 
 const Checkout = () => {

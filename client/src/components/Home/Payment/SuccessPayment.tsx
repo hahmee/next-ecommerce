@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Loading from '@/app/loading';
 import React, { useEffect } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
-import { useConfirmPaymentMutation } from '@/hooks/useConfirmPaymentMutation';
+import { useConfirmPaymentMutation } from '@/shared/hooks/useConfirmPaymentMutation';
 import toast from 'react-hot-toast';
 
 interface Props {

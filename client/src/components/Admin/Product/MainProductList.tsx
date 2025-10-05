@@ -12,7 +12,7 @@ import Skeleton from '@/components/Skeleton/Skeleton';
 import React, { useEffect, useState } from 'react';
 import { getPublicFeaturedProducts, getPublicNewProducts } from '@/apis/publicAPI';
 import { useUserStore } from '@/store/userStore';
-import { useChangeCartMutation } from '@/hooks/useChangeCartMutation';
+import { useChangeCartMutation } from '@/shared/hooks/useChangeCartMutation';
 import FallbackImage from '@/components/Common/FallbackImage';
 
 const MainProductList = ({ type }: { type: 'new' | 'featured' }) => {

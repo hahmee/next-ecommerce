@@ -9,7 +9,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { SalesStatus } from '@/types/salesStatus';
 import toast from 'react-hot-toast';
 import { useUserStore } from '@/store/userStore';
-import { useChangeCartMutation } from '@/hooks/useChangeCartMutation';
+import { useChangeCartMutation } from '@/shared/hooks/useChangeCartMutation';
 import FallbackImage from '@/components/Common/FallbackImage';
 import { stripHtml } from 'string-strip-html';
 
