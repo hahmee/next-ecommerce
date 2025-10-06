@@ -33,7 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   } catch (e) {
     console.error('메타데이터 생성 실패', e);
-    // fallback 유지
   }
 
   return {

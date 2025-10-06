@@ -42,7 +42,6 @@ export default function SignupPage() {
       return;
     }
 
-    // ✅ FormData에 직접 추가 (서버 API 요구시)
     const formData = new FormData();
     formData.set('email', email);
     formData.set('nickname', nickname);

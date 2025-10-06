@@ -23,7 +23,6 @@ export default async function ModifyProductPage({ params }: Props) {
     },
     {
       queryKey: ['categories'],
-      // queryFn: () => getCategories()
       queryFn: () => clientFetcher('/api/category/list'),
     },
     {

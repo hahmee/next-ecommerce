@@ -3,10 +3,6 @@ import { cookies } from 'next/headers';
 
 const BACKEND_URL = process.env.BACKEND_URL!;
 
-// SSR 용 getUserInfo
-// access_token 있으면 API 요청
-// 없으면 null
-
 export async function getUserInfo() {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('access_token')?.value;

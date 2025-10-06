@@ -35,26 +35,3 @@ export default function Error({
     </div>
   );
 }
-
-// "use client"; // Error components must be Client Components
-// import CommonDialog from "@/app/_components/CommonDialog/index";
-// import { useState } from "react";
-//
-// export default function Error({
-//   error,
-// }: {
-//   error: Error & { digest?: string };
-//   reset: () => void;
-// }) {
-//   const [showDialog, setShowDialog] = useState(!!error.message);
-//
-//   return (
-//     <CommonDialog
-//       isShow={showDialog}
-//       contents={error.message}
-//       onClick={() => {
-//         setShowDialog(false);
-//       }}
-//     />
-//   );
-// }

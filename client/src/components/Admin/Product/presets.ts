@@ -1,4 +1,3 @@
-// components/Admin/Product/presets.ts
 import { Option } from '@/interface/Option';
 import { SalesStatus } from '@/types/salesStatus';
 import { Size } from '@/types/size';

@@ -8,7 +8,8 @@ import type { Product } from '@/interface/Product';
 import type { Category } from '@/interface/Category';
 import { useProductImageStore } from '@/store/productImageStore';
 import { useTagStore } from '@/store/tagStore';
-import {productApi} from "@/libs/services/productService";
+import {productApi} from "@/libs/services/productApi";
+import {categoryApi} from "@/libs/services/categoryApi";
 
 export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   const router = useRouter();
@@ -22,22 +23,28 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
 
   const { data: original, isLoading: loading } = useQuery<Product>({
     queryKey: ['productSingle', id!],
-    queryFn: () => productApi.getProduct(id!),
+    queryFn: () => productApi.byId(id!),
     enabled: !!id && type === Mode.EDIT,
-    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+    staleTime: 60_000,
+    gcTime: 300_000,
+    throwOnError: true,
   });
 
   const { data: categoryPaths } = useQuery<Category[]>({
     queryKey: ['categoryPaths', original ? String(original.categoryId) : '-1'],
-    queryFn: () => productApi.getCategoryPaths(String(original!.categoryId)),
+    queryFn: () => categoryApi.paths(String(original!.categoryId)),
     enabled: !!(id && type === Mode.EDIT && original),
-    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+    staleTime: 60_000,
+    gcTime: 300_000,
+    throwOnError: true,
   });
 
   const { data: categories } = useQuery<Category[]>({
     queryKey: ['categories'],
-    queryFn: () => productApi.getCategories(),
-    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+    queryFn: () => categoryApi.list(),
+    staleTime: 60_000,
+    gcTime: 300_000,
+    throwOnError: true,
   });
 
   useEffect(() => {
@@ -128,7 +135,8 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   return {
     loading,
     quillRef,
-    pdesc, setPdesc,
+    pdesc,
+    setPdesc,
     categories: categories ?? [],
     categoryPaths: categoryPaths ?? [],
     setLeafCategory,

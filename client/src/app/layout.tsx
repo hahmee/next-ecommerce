@@ -25,12 +25,7 @@ export const metadata: Metadata = {
   },
 };
 
-// 서버 컴포넌트는 계층적으로 다시 실행됨
-// 모든 상위 컴포넌트가 다시 실행됨
-// 해당 layout은 SSR 요청마다 항상 실행됨
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  // refresh_token이 없는 비로그인자는 /api/me 요청 자체를 아예 하지 않음
-  // 반면, refresh_token이 있는데 /api/me 요청이 실패한다면 → 세션 만료로 판단하고 로그아웃 처리
   const cookieStore = cookies();
   const refreshToken = cookieStore.get('refresh_token')?.value;
 

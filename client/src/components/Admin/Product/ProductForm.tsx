@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function ProductForm({ type, id }: Props) {
-  const vm = useProductForm({ type, id }); // 상태/핸들러/데이터 묶음
-  if (vm.loading) return 'Loading...';
-  return <ProductFormView {...vm} />;
+  const form = useProductForm({ type, id });
+  if (form.loading) return 'Loading...';
+  return <ProductFormView {...form} />;
 }

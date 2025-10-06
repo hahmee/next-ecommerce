@@ -134,7 +134,6 @@ export const getProduct = async ({ queryKey }: { queryKey: [string, string] }) =
     next: { revalidate: 60, tags: ['productSingle', pno] }, // ISR을 위해 revalidate 해서 60초마다 페이지 재생성
     method: 'GET',
     credentials: 'include',
-    // cache: 'no-store', //SSR 취소
   });
 };
 

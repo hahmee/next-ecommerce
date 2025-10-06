@@ -1,4 +1,3 @@
-// 검색에 노출되었으면 하는 경로들만 쓰면 됨
 
 import { MetadataRoute } from 'next';
 import { getAllProductIds, getPublicCategories } from '@/apis/publicAPI';
@@ -33,7 +32,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(new Date()),
   }));
 
-  // sitemap entry 형태로 가공
   const categoryPaths = categories.map((c) => ({
     url: `${baseUrl}/list?category_id=${c.cno}`,
     lastModified: new Date(new Date()),

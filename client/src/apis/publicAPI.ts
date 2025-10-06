@@ -7,8 +7,7 @@ const BACKEND_URL =
   typeof window === 'undefined' ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
-// accessToken이 필요가 없어서 (만료되는지 확인안해도됨)
-// server, client fetcher 사용 안함
+
 export const getPublicProduct = async ({
   queryKey,
 }: {
