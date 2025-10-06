@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import SidebarItem from '@/components/Sidebar/SidebarItem';
 import ClickOutside from '@/components/Common/ClickOutside';
-import useLocalStorage from '@/shared/hooks/useLocalStorage';
+import useLocalStorage from '@/hooks/useLocalStorage';
 import { BuildingStorefrontIcon } from '@heroicons/react/24/outline';
 import { logout } from '@/apis/mallAPI';
 import toast from 'react-hot-toast';
