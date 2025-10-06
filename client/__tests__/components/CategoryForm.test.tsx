@@ -43,7 +43,7 @@ jest.mock('@/utils/cookie', () => ({
 
 // 추가
 const server = setupServer(
-  http.post('/api/category/', async ({ request }) => {
+  http.post('/api/category', async ({ request }) => {
     const formData = await request.formData();
     return HttpResponse.json({
       success: true,

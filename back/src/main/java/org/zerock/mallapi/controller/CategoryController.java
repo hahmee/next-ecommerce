@@ -25,7 +25,7 @@ public class CategoryController {
 
 
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-  @PostMapping("/")
+  @PostMapping("")
   public DataResponseDTO<CategoryDTO> register(@Valid CategoryDTO categoryDTO) {
 
     MultipartFile file = categoryDTO.getFile();//파일 객체들

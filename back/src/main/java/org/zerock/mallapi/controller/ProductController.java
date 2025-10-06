@@ -33,7 +33,7 @@ public class ProductController {
   private final String PRODUCT_IMG_DIR = "product";
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN')")
-  @PostMapping("/")
+  @PostMapping("")
   public DataResponseDTO<ProductDTO> register(@Valid ProductDTO productDTO, @AuthenticationPrincipal UserDetails userDetails) {
 
     List<FileDTO<MultipartFile>> files = productDTO.getFiles();//파일 객체들
@@ -56,23 +56,6 @@ public class ProductController {
 
     return DataResponseDTO.of(result);
   }
-
-  
-  // @PostMapping("/")
-  // public Map<String, String> register(ProductDTO productDTO){
-    
-  //   log.info("rgister: " + productDTO);
-
-  //   List<MultipartFile> files = productDTO.getFiles();
-
-  //   List<String> uploadFileNames = fileUtil.saveFiles(files);
-
-  //   productDTO.setUploadFileNames(uploadFileNames);
-
-  //   log.info(uploadFileNames);
-
-  //   return Map.of("RESULT", "SUCCESS");
-  // }
 
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGER','ROLE_ADMIN','ROLE_DEMO')")

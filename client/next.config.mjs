@@ -26,7 +26,7 @@ const nextConfig = {
   eslint: {
     // TODO: 배포 때문에 일단 무시 설정.
     // ESLint 에러 정리 후 ignoreDuringBuilds 제거하기
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
 };
 

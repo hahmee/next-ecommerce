@@ -8,7 +8,6 @@ import PageComponent from '@/components/Admin/Tables/PageComponent';
 import { Paging } from '@/interface/Paging';
 import TableAddButton from '@/components/Admin/Tables/TableAddButton';
 import ViewButton from '@/components/Admin/Tables/ViewButton';
-import { salesOptions } from '@/components/Admin/Product/ProductForm';
 import { SalesStatus } from '@/types/salesStatus';
 import React, { useEffect, useState } from 'react';
 import TableSearch from '@/components/Admin/Tables/TableSearch';
@@ -19,6 +18,7 @@ import { getProductsByEmail } from '@/apis/adminAPI';
 import toast from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 import { fetcher } from '@/utils/fetcher/fetcher';
+import {salesOptions} from "@/components/Admin/Product/presets";
 
 const Dialog = dynamic(() => import('../Dialog'));
 
@@ -34,8 +34,6 @@ export const initalPagingData: Paging = {
 };
 
 const ProductTable = () => {
-  // {page, size, search} : PageParam
-
   const [paging, setPaging] = useState<Paging>(initalPagingData);
   const [page, setPage] = useState<number>(1);
   const [size, setSize] = useState<number>(10);

@@ -88,7 +88,7 @@ const CategoryForm = ({ type, id }: Props) => {
         }
         formData.append('file', image);
 
-        return fetcher(`/api/category/`, {
+        return fetcher(`/api/category`, {
           method: 'POST',
           credentials: 'include',
           body: formData,

@@ -1,0 +1,140 @@
+'use client';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+import { Mode } from '@/types/mode';
+import type { Product } from '@/interface/Product';
+import type { Category } from '@/interface/Category';
+import { useProductImageStore } from '@/store/productImageStore';
+import { useTagStore } from '@/store/tagStore';
+import {productApi} from "@/libs/services/productService";
+
+export function useProductForm({ type, id }: { type: Mode; id?: string }) {
+  const router = useRouter();
+  const qc = useQueryClient();
+  const imgStore = useProductImageStore();
+  const tagStore = useTagStore();
+
+  const quillRef = useRef<any>(null);
+  const [pdesc, setPdesc] = useState('');
+  const [leafCategory, setLeafCategory] = useState<Category | null>(null);
+
+  const { data: original, isLoading: loading } = useQuery<Product>({
+    queryKey: ['productSingle', id!],
+    queryFn: () => productApi.getProduct(id!),
+    enabled: !!id && type === Mode.EDIT,
+    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+  });
+
+  const { data: categoryPaths } = useQuery<Category[]>({
+    queryKey: ['categoryPaths', original ? String(original.categoryId) : '-1'],
+    queryFn: () => productApi.getCategoryPaths(String(original!.categoryId)),
+    enabled: !!(id && type === Mode.EDIT && original),
+    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+  });
+
+  const { data: categories } = useQuery<Category[]>({
+    queryKey: ['categories'],
+    queryFn: () => productApi.getCategories(),
+    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+  });
+
+  useEffect(() => {
+    if (!original) return;
+    const uploadFileNames = original.uploadFileNames?.map((name, idx) => ({
+      dataUrl: name.file, file: undefined,
+      uploadKey: original.uploadFileKeys?.[idx].file, id: name.ord,
+      size: undefined,
+    }));
+    imgStore.setFiles(uploadFileNames || []);
+    setPdesc(original.pdesc || '');
+  }, [original, imgStore]);
+
+  useEffect(() => {
+    if (categoryPaths?.length) setLeafCategory(categoryPaths.at(-1)!);
+  }, [categoryPaths]);
+
+  const buildFormData = (formEl: HTMLFormElement) => {
+    if (!leafCategory) throw new Error('최하단 카테고리를 선택해야합니다.');
+    if (imgStore.files.length < 1) throw new Error('이미지는 한 개 이상 첨부해주세요.');
+    const max = 10 * 1024 * 1024;
+    for (const f of imgStore.files) if (f?.size && f.size > max) throw new Error('파일의 크기가 10MB를 초과합니다.');
+
+    const form = new FormData(formEl);
+    const desc = quillRef.current ? quillRef.current.value : '';
+    form.append('pdesc', desc);
+    form.append('categoryId', String(leafCategory.cno));
+    form.append('categoryJson', JSON.stringify(leafCategory));
+    tagStore.tags.forEach((t, i) => {
+      form.append(`colorList[${i}].text`, t.text);
+      form.append(`colorList[${i}].color`, t.color);
+    });
+
+    if (type === Mode.ADD) {
+      imgStore.files.forEach((p, idx) => {
+        form.append(`files[${idx}].file`, p.file!);
+        form.append(`files[${idx}].ord`, String(idx));
+      });
+      return form;
+    }
+    let newIdx = 0, upIdx = 0;
+    imgStore.files.forEach((p, idx) => {
+      if (!p.file) {
+        form.append(`uploadFileNames[${upIdx}].file`, p.dataUrl);
+        form.append(`uploadFileNames[${upIdx}].ord`, String(idx));
+        form.append(`uploadFileKeys[${upIdx}].file`, p.uploadKey!);
+        form.append(`uploadFileKeys[${upIdx}].ord`, String(idx));
+        upIdx++;
+      } else {
+        form.append(`files[${newIdx}].file`, p.file!);
+        form.append(`files[${newIdx}].ord`, String(idx));
+        newIdx++;
+      }
+    });
+    return form;
+  };
+
+  const setCache = (np: Product) => {
+    const listKey = ['adminProducts', { page: 1, size: 10, search: '' }];
+    qc.setQueryData(listKey, (prev: any) => {
+      if (!prev) return prev;
+      const dtoList = [...prev.dtoList];
+      if (type === Mode.ADD) dtoList.unshift(np);
+      else prev.dtoList = dtoList.map((p: Product) => (p.pno === np.pno ? np : p));
+      return { ...prev, dtoList };
+    });
+    qc.setQueryData(['productSingle', String(np.pno)], np);
+  };
+
+  const mutation = useMutation({
+    mutationFn: async (formEl: HTMLFormElement) => {
+      const form = buildFormData(formEl);
+      const res = type === Mode.ADD
+        ? await productApi.create(form)
+        : await productApi.update(id!, form);
+      setCache(res);
+      return res;
+    },
+    onSuccess: () => { toast.success('업로드 성공했습니다.'); router.push('/admin/products'); },
+    onError: (e) => { console.error(e); toast.error(`업로드 중 에러가 발생했습니다. ${(e as Error).message}`); },
+  });
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutation.mutate(e.currentTarget);
+  };
+
+  return {
+    loading,
+    quillRef,
+    pdesc, setPdesc,
+    categories: categories ?? [],
+    categoryPaths: categoryPaths ?? [],
+    setLeafCategory,
+    original,
+    submitting: mutation.isPending,
+    type,
+    onSubmit
+  };
+}

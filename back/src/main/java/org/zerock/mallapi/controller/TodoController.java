@@ -46,7 +46,7 @@ public class TodoController {
     return service.list(pageRequestDTO);
   }
 
-  @PostMapping("/")
+  @PostMapping("")
   public Map<String, Long> register(@RequestBody TodoDTO todoDTO){
    
 

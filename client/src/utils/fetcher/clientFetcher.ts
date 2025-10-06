@@ -7,7 +7,7 @@ export const clientFetcher = async <T = any>(
 ): Promise<T> => {
   // BFF 경유
   const finalUrl = `/api/bff${path}`;
-
+  console.log('clientFetcher');
   const res = await fetch(finalUrl, {
     ...options,
     credentials: 'include',

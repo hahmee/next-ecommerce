@@ -14,7 +14,7 @@ export default function AddProductPage() {
   ];
 
   return (
-    <Suspense>
+    <Suspense fallback={<ProductFormSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
         <ProductForm type={Mode.ADD} />
       </PrefetchBoundary>
