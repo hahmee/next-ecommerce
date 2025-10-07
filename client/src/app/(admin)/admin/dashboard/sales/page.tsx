@@ -1,22 +1,19 @@
-'use server';
-
-import SalesOverview from '@/components/Admin/Dashboard/SalesOverview';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { ChartFilter } from '@/types/chartFilter';
-import { ChartContext } from '@/types/chartContext';
-import { getSalesCards, getSalesCharts } from '@/apis/dashbaordAPI';
 import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import dayjs from 'dayjs';
+import SalesOverview from '@/components/Admin/Dashboard/SalesOverview';
+import { ChartFilter } from '@/types/chartFilter';
+import { ChartContext } from '@/types/chartContext';
+import { dashboardApi } from '@/libs/services/dashboardApi';
 
 export default async function DashBoardSalesPage() {
-  const today = dayjs(); // 오늘 날짜
-  const startDate = today.subtract(4, 'month'); // 4개월 전
-
-  const comparedEndDate = startDate.subtract(1, 'day'); // startDate 하루 전
-  const comparedStartDate = comparedEndDate.subtract(4, 'month'); // 또 4개월 전
+  const today = dayjs();                     // 오늘
+  const startDate = today.subtract(4, 'month');
+  const comparedEndDate = startDate.subtract(1, 'day');
+  const comparedStartDate = comparedEndDate.subtract(4, 'month');
 
   const date = {
     startDate: startDate.format('YYYY-MM-DD'),
@@ -27,9 +24,9 @@ export default async function DashBoardSalesPage() {
     {
       queryKey: ['salesCards', ChartFilter.DAY, date, ChartContext.TOPSALES],
       queryFn: () =>
-        getSalesCards({
-          startDate: startDate.format('YYYY-MM-DD'),
-          endDate: today.format('YYYY-MM-DD'),
+        dashboardApi.salesCards({
+          startDate: date.startDate,
+          endDate: date.endDate,
           filter: ChartFilter.DAY,
           comparedStartDate: comparedStartDate.format('YYYY-MM-DD'),
           comparedEndDate: comparedEndDate.format('YYYY-MM-DD'),
@@ -39,9 +36,9 @@ export default async function DashBoardSalesPage() {
     {
       queryKey: ['salesCharts', ChartFilter.DAY, date, ChartContext.TOPSALES],
       queryFn: () =>
-        getSalesCharts({
-          startDate: startDate.format('YYYY-MM-DD'),
-          endDate: today.format('YYYY-MM-DD'),
+        dashboardApi.salesCharts({
+          startDate: date.startDate,
+          endDate: date.endDate,
           filter: ChartFilter.DAY,
           comparedStartDate: comparedStartDate.format('YYYY-MM-DD'),
           comparedEndDate: comparedEndDate.format('YYYY-MM-DD'),
@@ -57,7 +54,7 @@ export default async function DashBoardSalesPage() {
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
             <ErrorHandlingWrapper>
-              <SalesOverview />
+              <SalesOverview initialToday={today.format('YYYY-MM-DD')} />
             </ErrorHandlingWrapper>
           </PrefetchBoundary>
         </Suspense>

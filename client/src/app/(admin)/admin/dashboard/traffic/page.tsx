@@ -1,39 +1,36 @@
-'use server';
-
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
-import { getGoogleAnalyticsTop } from '@/apis/dashbaordAPI';
-import { ChartFilter } from '@/types/chartFilter';
-import dayjs from 'dayjs';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-import TrafficOverview from '@/components/Admin/Dashboard/TrafficOverview';
+import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import dayjs from 'dayjs';
+import { ChartFilter } from '@/types/chartFilter';
+import { dashboardApi } from '@/libs/services/dashboardApi';
+import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
 
 export default async function DashBoardTrafficPage() {
-  const today = dayjs(); // 오늘 기준
-  const todayStr = today.format('YYYY-MM-DD');
-  const endDate = today.subtract(1, 'day'); // 어제
-  const startDate = endDate.subtract(30, 'day'); // 어제 기준 30일 전 → 총 31일치
-  const comparedEndDate = startDate.subtract(1, 'day'); // 비교기간 끝
-  const comparedStartDate = comparedEndDate.subtract(30, 'day'); // 비교기간 시작
+  const today = dayjs();
+  const initialToday = today.format('YYYY-MM-DD');
 
-  const date = {
-    startDate: startDate.format('YYYY-MM-DD'),
-    endDate: endDate.format('YYYY-MM-DD'),
-  };
+  const end = today.subtract(1, 'day');
+  const start = end.subtract(30, 'day');
+  const comparedEnd = start.subtract(1, 'day');
+  const comparedStart = comparedEnd.subtract(30, 'day');
 
   const prefetchOptions = [
     {
-      queryKey: ['gaTop', date, ChartFilter.DAY],
+      queryKey: ['gaTop', { start: start.format('YYYY-MM-DD'), end: end.format('YYYY-MM-DD') }, ChartFilter.DAY],
       queryFn: () =>
-        getGoogleAnalyticsTop({
-          startDate: startDate.format('YYYY-MM-DD'),
-          endDate: endDate.format('YYYY-MM-DD'),
-          filter: ChartFilter.DAY,
-          comparedStartDate: comparedStartDate.format('YYYY-MM-DD'),
-          comparedEndDate: comparedEndDate.format('YYYY-MM-DD'),
-        }),
+        dashboardApi.googleAnalyticsTop(
+          {
+            startDate: start.format('YYYY-MM-DD'),
+            endDate: end.format('YYYY-MM-DD'),
+            comparedStartDate: comparedStart.format('YYYY-MM-DD'),
+            comparedEndDate: comparedEnd.format('YYYY-MM-DD'),
+            filter: ChartFilter.DAY,
+          },
+          { next: { revalidate: 60, tags: ['gaTop'] } },
+        ),
     },
   ];
 
@@ -44,7 +41,7 @@ export default async function DashBoardTrafficPage() {
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
             <ErrorHandlingWrapper>
-              <TrafficOverview initialToday={todayStr} />
+              <TrafficOverview initialToday={initialToday} />
             </ErrorHandlingWrapper>
           </PrefetchBoundary>
         </Suspense>

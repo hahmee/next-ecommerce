@@ -1,7 +1,7 @@
 import React from 'react';
 import { SessionDTO } from '@/interface/GAResponse';
 
-const ActiveVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
+const ActiveVisitorsView = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
   return (
     <div className="h-full col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
       <div className="justify-between grid grid-cols-2 row-span-2 ">
@@ -22,4 +22,4 @@ const ActiveVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefi
   );
 };
 
-export default ActiveVisitors;
+export default ActiveVisitorsView;

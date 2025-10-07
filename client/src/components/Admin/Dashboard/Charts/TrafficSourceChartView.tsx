@@ -2,7 +2,7 @@ import React from 'react';
 import { SessionDTO } from '@/interface/GAResponse';
 import HorizontalBarChart from '@/components/Admin/Dashboard/Charts/HorizontalBarChart';
 
-const TrafficSourceChart = ({ topSources }: { topSources: Array<SessionDTO<number>> | [] }) => {
+const TrafficSourceChartView = ({ topSources }: { topSources: Array<SessionDTO<number>> | [] }) => {
   const totalSources = topSources ? topSources.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
   return (
@@ -31,4 +31,4 @@ const TrafficSourceChart = ({ topSources }: { topSources: Array<SessionDTO<numbe
   );
 };
 
-export default TrafficSourceChart;
+export default TrafficSourceChartView;

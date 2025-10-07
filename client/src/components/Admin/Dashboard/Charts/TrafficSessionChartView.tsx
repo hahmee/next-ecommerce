@@ -6,7 +6,7 @@ import { SessionChart } from '@/interface/GAResponse';
 import { ChartFilter } from '@/types/chartFilter';
 import ReactApexChart from '@/components/Common/ReactApexChart';
 
-const TrafficSessionChart = ({
+const TrafficSessionChartView = ({
   chart,
   filter,
   filterChange,
@@ -185,4 +185,4 @@ const TrafficSessionChart = ({
   );
 };
 
-export default React.memo(TrafficSessionChart);
+export default React.memo(TrafficSessionChartView);

@@ -8,7 +8,7 @@ import { CountryChartDTO } from '@/interface/GAResponse';
 import { BarChartThin } from '@/components/Admin/Dashboard/Charts/BarChart';
 import Image from 'next/image';
 
-const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
+const CountryTrafficMapView = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
   // 한 페이지에 보여줄 아이템 수
   const pageSize = 5;
   // 총 페이지 수 계산
@@ -165,4 +165,4 @@ const CountryTrafficMap = ({ countries }: { countries: Array<CountryChartDTO> | 
   );
 };
 
-export default CountryTrafficMap;
+export default CountryTrafficMapView;

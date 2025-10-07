@@ -3,7 +3,7 @@ import { SessionChart } from '@/interface/GAResponse';
 import type { ApexOptions } from 'apexcharts';
 import ReactApexChart from '@/components/Common/ReactApexChart';
 
-const ActiveVisitChart = ({ chart }: { chart: SessionChart | undefined | null }) => {
+const ActiveVisitChartView = ({ chart }: { chart: SessionChart | undefined | null }) => {
   const options: ApexOptions = {
     series: [
       {
@@ -128,4 +128,4 @@ const ActiveVisitChart = ({ chart }: { chart: SessionChart | undefined | null })
   );
 };
 
-export default ActiveVisitChart;
+export default ActiveVisitChartView;

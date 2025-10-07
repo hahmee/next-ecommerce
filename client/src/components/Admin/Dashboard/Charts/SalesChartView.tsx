@@ -37,7 +37,7 @@ const data = {
   ],
 };
 
-const SalesChart = ({
+const SalesChartView = ({
   chart,
   filter,
   filterChange,
@@ -204,4 +204,4 @@ const SalesChart = ({
   );
 };
 
-export default SalesChart;
+export default SalesChartView;

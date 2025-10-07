@@ -1,38 +1,37 @@
 'use server';
 
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
+import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { ChartFilter } from '@/types/chartFilter';
-import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-import { getGARecentUsersTop } from '@/apis/dashbaordAPI';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import RealtimeOverview from '@/components/Admin/Dashboard/RealtimeOverview';
 import dayjs from 'dayjs';
+import RealtimeOverview from '@/components/Admin/Dashboard/RealtimeOverview';
+import { dashboardApi } from '@/libs/services/dashboardApi';
 
 export default async function DashBoardRealTimePage() {
-  const today = dayjs(); // 오늘
-  const endDate = today;
-  const startDate = today.subtract(30, 'day'); // 30일 전
-
-  const comparedEndDate = startDate.subtract(1, 'day');
-  const comparedStartDate = comparedEndDate.subtract(30, 'day');
+  const today = dayjs();
+  const end = today;
+  const start = end.subtract(30, 'day');
+  const comparedEnd = start.subtract(1, 'day');
+  const comparedStart = comparedEnd.subtract(30, 'day');
 
   const date = {
-    startDate: startDate.format('YYYY-MM-DD'),
-    endDate: endDate.format('YYYY-MM-DD'),
+    startDate: start.format('YYYY-MM-DD'),
+    endDate: end.format('YYYY-MM-DD'),
   };
 
   const prefetchOptions = [
     {
       queryKey: ['gaRecentUsersTop', date, ChartFilter.DAY],
       queryFn: () =>
-        getGARecentUsersTop({
-          startDate: startDate.format('YYYY-MM-DD'),
-          endDate: endDate.format('YYYY-MM-DD'),
+        dashboardApi.recentUsersTop({
+          startDate: date.startDate,
+          endDate: date.endDate,
           filter: ChartFilter.DAY,
-          comparedStartDate: comparedStartDate.format('YYYY-MM-DD'),
-          comparedEndDate: comparedEndDate.format('YYYY-MM-DD'),
+          comparedStartDate: comparedStart.format('YYYY-MM-DD'),
+          comparedEndDate: comparedEnd.format('YYYY-MM-DD'),
         }),
     },
   ];

@@ -11,7 +11,7 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 
-const SalesPieChart = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
+const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
   const series = countries?.map((c) => (c.totalSales === null ? 0 : c.totalSales)) || [];
   const labels = countries?.map((c) => (c.country === null ? '' : c.country)) || [];
 
@@ -109,4 +109,4 @@ const SalesPieChart = ({ countries }: { countries: Array<MapResponse> | undefine
   );
 };
 
-export default SalesPieChart;
+export default SalesPieChartView;
