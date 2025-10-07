@@ -13,7 +13,8 @@ export const categoryApi = {
     }),
 
   paths: (cno: string, init?: FetchOpts) =>
-    fetcher<Category[]>(`/api/category/paths?id=${cno}`, {
-      method: 'GET', ...(init ?? {})
+    fetcher<Category[]>(`/api/category/paths/${cno}`, {
+      method: 'GET',
+      ...(init ?? {})
     }),
 };

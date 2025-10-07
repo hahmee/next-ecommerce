@@ -10,7 +10,7 @@ export default function AddProductPage() {
   const prefetchOptions = [
     {
       queryKey: ['categories'],
-      queryFn: () => categoryApi.list({ cache: 'no-store' }),
+      queryFn: () => categoryApi.list(),
     },
   ];
 

@@ -1,13 +1,11 @@
-'use server';
-
-import React, { Suspense } from 'react';
+import React, {Suspense} from 'react';
 import ProductForm from '@/components/Admin/Product/ProductForm';
-import { Mode } from '@/types/mode';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { getCategories, getCategoryPaths, getProduct } from '@/apis/adminAPI';
+import {Mode} from '@/types/mode';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import ProductFormSkeleton from '@/components/Skeleton/ProductFormSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { clientFetcher } from '@/utils/fetcher/clientFetcher';
+import {categoryApi} from "@/libs/services/categoryApi";
+import {productApi} from "@/libs/services/productApi";
 
 interface Props {
   params: { id: string };
@@ -19,15 +17,15 @@ export default async function ModifyProductPage({ params }: Props) {
   const prefetchOptions = [
     {
       queryKey: ['productSingle', id],
-      queryFn: () => getProduct({ queryKey: ['productSingle', id] }), // queryKey를 전달하여 호출
+      queryFn: () => productApi.byId(id, { next: { revalidate: 60, tags: ['productSingle', id] } }),
     },
     {
       queryKey: ['categories'],
-      queryFn: () => clientFetcher('/api/category/list'),
+      queryFn: () => categoryApi.list(),
     },
     {
       queryKey: ['categoryPaths', id],
-      queryFn: () => getCategoryPaths({ queryKey: ['categoryPaths', id] }),
+      queryFn: () => categoryApi.paths(id),
     },
   ];
 

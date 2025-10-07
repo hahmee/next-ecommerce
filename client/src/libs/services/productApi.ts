@@ -3,7 +3,7 @@ import type { Product } from '@/interface/Product';
 import type { PageResponse } from '@/interface/PageResponse';
 
 type FetchOpts = RequestInit & {
-  next?: { revalidate?: number; tags?: string[] }; // 서버에서만 의미 있음
+  next?: { revalidate?: number; tags?: string[] };
 };
 
 export const productApi = {

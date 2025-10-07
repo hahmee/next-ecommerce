@@ -24,12 +24,12 @@ export const serverFetcher = async <T = any>(
   console.log('serverFetcher');
 
   const res = await fetch(finalUrl, {
+    cache: 'no-store', // 기본 SSR
     ...options,
     headers: {
       ...(options.headers || {}),
       cookie: cookieString,
     },
-    cache: 'no-store', // 기본 SSR
   });
 
   const json = await res.json().catch(() => ({}));
