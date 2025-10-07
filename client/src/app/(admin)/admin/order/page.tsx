@@ -1,4 +1,4 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+  import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import OrderTable from '@/components/Admin/Tables/OrderTable';
@@ -20,7 +20,6 @@ export default async function AdminOrderPage() {
 
   return (
     <>
-      {/* 포탈을 위한 DOM 요소 */}
       <div className="mx-auto my-auto hd-auto">
         <Breadcrumb pageName="Orders" />
         <div className="flex flex-col gap-10 ">

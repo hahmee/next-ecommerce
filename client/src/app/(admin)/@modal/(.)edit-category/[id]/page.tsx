@@ -22,7 +22,6 @@ export default async function CategoryEditModal({ params }: Props) {
     {
       queryKey: ['categoryPaths', id],
       queryFn: () => categoryApi.paths(id),
-
     },
   ];
 
