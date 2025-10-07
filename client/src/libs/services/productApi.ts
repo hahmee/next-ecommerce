@@ -48,4 +48,13 @@ export const productApi = {
       ...(init ?? {}),
       method: 'DELETE',
     }),
+
+  // 재고(판매상태) 변경
+  updateStock: (pno: number, salesStatus: string, init?: FetchOpts) =>
+    fetcher<Product>(`/api/products/stock/${pno}`, {
+      ...(init ?? {}),
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
+      body: JSON.stringify({ salesStatus, pno }),
+    }),
 };

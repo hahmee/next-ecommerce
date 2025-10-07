@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { productApi } from '@/libs/services/productApi';
 import type { Product } from '@/interface/Product';
 import type { Paging } from '@/interface/Paging';
+import type {PageResponse} from "@/interface/PageResponse";
 
 export const initialPaging: Paging = {
   totalCount: 0, prevPage: 0, nextPage: 0, totalPage: 0,
@@ -56,10 +57,10 @@ export function useProductsTable() {
 
   const deleteMutation = useMutation({
     mutationFn: (pno: number) => productApi.remove(pno),
+    // 낙관적 업데이트
     onMutate: async (pno) => {
-      // 낙관적 업데이트
       const key = ['adminProducts', { page, size, search }];
-      const prev = qc.getQueryData<any>(key);
+      const prev = qc.getQueryData<PageResponse<Product>>(key);
       if (prev) {
         qc.setQueryData(key, {
           ...prev,
