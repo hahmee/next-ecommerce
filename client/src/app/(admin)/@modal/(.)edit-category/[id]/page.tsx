@@ -1,12 +1,11 @@
-import React, { Suspense } from 'react';
-import { getCategory, getCategoryPaths } from '@/apis/adminAPI';
+import React, {Suspense} from 'react';
 import CategoryForm from '@/components/Admin/Category/CategoryForm';
-import { Mode } from '@/types/mode';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import Portal from '@/components/Common/Portal';
+import {Mode} from '@/types/mode';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import AdminModal from '@/components/Admin/AdminModal';
 import Loading from '@/app/loading';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+import {categoryApi} from "@/libs/services/categoryApi";
 
 interface Props {
   params: { id: string };
@@ -18,11 +17,12 @@ export default async function CategoryEditModal({ params }: Props) {
   const prefetchOptions = [
     {
       queryKey: ['category', id],
-      queryFn: () => getCategory({ queryKey: ['category', id] }),
+      queryFn: () => categoryApi.byId(id),
     },
     {
       queryKey: ['categoryPaths', id],
-      queryFn: () => getCategoryPaths({ queryKey: ['categoryPaths', id] }),
+      queryFn: () => categoryApi.paths(id),
+
     },
   ];
 

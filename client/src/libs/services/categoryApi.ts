@@ -8,6 +8,10 @@ type FetchOpts = RequestInit & {
 };
 
 export const categoryApi = {
+  byId: (cno: string, init?: FetchOpts) =>
+    fetcher<Category>(`/api/category/${cno}`, { ...(init ?? {}), method: 'GET' }),
+
+
   list: (init?: FetchOpts) =>
     fetcher<Category[]>('/api/category/list', {
       method: 'GET',
@@ -19,6 +23,12 @@ export const categoryApi = {
       method: 'GET',
       ...(init ?? {})
     }),
+
+  create: (form: FormData, init?: FetchOpts) =>
+    fetcher<Category>(`/api/category`, { ...(init ?? {}), method: 'POST', body: form }),
+
+  update: (cno: string, form: FormData, init?: FetchOpts) =>
+    fetcher<Category>(`/api/category/${cno}`, { ...(init ?? {}), method: 'PUT', body: form }),
 
   // 어드민 검색 목록
   searchAdmin: (page: number, size: number, search = '', init?: FetchOpts) => {
