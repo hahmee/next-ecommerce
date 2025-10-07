@@ -1,15 +1,16 @@
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import React, {Suspense} from 'react';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import CategoryTable from '@/components/Admin/Tables/CategoryTable';
-import { getAdminCategories } from '@/apis/adminAPI';
-import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
+import {getAdminCategories} from '@/apis/adminAPI';
+import {TableSkeleton} from '@/components/Skeleton/TableSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+import {categoryApi} from "@/libs/services/categoryApi";
 
 export default function CategoryPage() {
   const prefetchOptions = {
     queryKey: ['adminCategories', { page: 1, size: 10, search: '' }],
-    queryFn: () => getAdminCategories({ page: 1, size: 10, search: '' }),
+    queryFn: () => categoryApi.searchAdmin(1, 10, ''),
   };
 
   return (

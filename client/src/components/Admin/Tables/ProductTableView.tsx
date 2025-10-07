@@ -3,16 +3,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { StarIcon } from '@heroicons/react/20/solid';
+import {StarIcon} from '@heroicons/react/20/solid';
 import TableAddButton from '@/components/Admin/Tables/TableAddButton';
 import ViewButton from '@/components/Admin/Tables/ViewButton';
 import TableActions from '@/components/Admin/Tables/TableActions';
 import TableSearch from '@/components/Admin/Tables/TableSearch';
 import PageComponent from '@/components/Admin/Tables/PageComponent';
-import type { Paging } from '@/interface/Paging';
-import type { Product } from '@/interface/Product';
-import { SalesStatus } from '@/types/salesStatus';
-import { salesOptions } from '@/components/Admin/Product/presets';
+import type {Paging} from '@/interface/Paging';
+import type {Product} from '@/interface/Product';
+import {salesOptions} from '@/components/Admin/Product/presets';
 
 const Dialog = dynamic(() => import('../Dialog'));
 
