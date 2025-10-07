@@ -1,49 +1,30 @@
+// app/admin/payments/page.tsx
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import PaymentOverview from '@/components/Admin/Payment/PaymentOverview';
 import PaymentTable from '@/components/Admin/Tables/PaymentTable';
-import { getPaymentsByEmail, getPaymentsOverview } from '@/apis/adminAPI';
 import PaymentSkeleton from '@/components/Skeleton/PaymentSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import dayjs from 'dayjs';
+import { paymentsApi } from '@/libs/services/paymentsApi';
 
 export default async function AdminPaymentPage() {
   const today = dayjs();
-  const start = today.subtract(30, 'day'); // 30일 전
-  const end = today; // 오늘
-
-  // 테이블 기간
+  const start = today.subtract(30, 'day');
   const date = {
     startDate: start.format('YYYY-MM-DD'),
-    endDate: end.format('YYYY-MM-DD'),
-  };
-
-  // 오버뷰 기간 (현재와 동일하게 설정)
-  const overViewDate = {
-    startDate: start.format('YYYY-MM-DD'),
-    endDate: end.format('YYYY-MM-DD'),
+    endDate: today.format('YYYY-MM-DD'),
   };
 
   const prefetchOptions = [
     {
-      queryKey: ['adminPaymentOverview', { date: overViewDate }],
-      queryFn: () =>
-        getPaymentsOverview({
-          startDate: date.startDate,
-          endDate: date.endDate,
-        }),
+      queryKey: ['adminPaymentOverview', { date }],
+      queryFn: () => paymentsApi.overview(date.startDate, date.endDate, { cache: 'no-store' }),
     },
     {
       queryKey: ['adminPayments', { page: 1, size: 10, search: '', date }],
-      queryFn: () =>
-        getPaymentsByEmail({
-          page: 1,
-          size: 10,
-          search: '',
-          startDate: date.startDate,
-          endDate: date.endDate,
-        }),
+      queryFn: () => paymentsApi.searchAdmin(1, 10, '', date.startDate, date.endDate, { cache: 'no-store' }),
     },
   ];
 
