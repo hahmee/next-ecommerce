@@ -9,10 +9,10 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export interface ImageType {
   dataUrl: string; // blob or aws full path
-  uploadKey?: string; // file key
-  file: File | undefined;
-  id: number; // drag and drop
-  size: number | undefined;
+  uploadKey?: string;
+  file?: File;
+  id: number;
+  size?: number;
 }
 
 const ImageUploadForm = () => {

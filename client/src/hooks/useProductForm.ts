@@ -16,6 +16,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   const qc = useQueryClient();
   const imgStore = useProductImageStore();
   const tagStore = useTagStore();
+  const setFiles = useProductImageStore((s) => s.setFiles);
 
   const quillRef = useRef<any>(null);
   const [pdesc, setPdesc] = useState('');
@@ -49,14 +50,15 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
 
   useEffect(() => {
     if (!original) return;
-    const uploadFileNames = original.uploadFileNames?.map((name, idx) => ({
-      dataUrl: name.file, file: undefined,
-      uploadKey: original.uploadFileKeys?.[idx].file, id: name.ord,
-      size: undefined,
-    }));
-    imgStore.setFiles(uploadFileNames || []);
+    const mapped = original.uploadFileNames?.map((name, idx) => ({
+      dataUrl: name.file,
+      uploadKey: original.uploadFileKeys?.[idx]?.file,
+      id: name.ord,
+    })) ?? [];
+
+    setFiles(mapped);
     setPdesc(original.pdesc || '');
-  }, [original, imgStore]);
+  }, [original, setFiles]);
 
   useEffect(() => {
     if (categoryPaths?.length) setLeafCategory(categoryPaths.at(-1)!);
@@ -66,7 +68,10 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
     if (!leafCategory) throw new Error('최하단 카테고리를 선택해야합니다.');
     if (imgStore.files.length < 1) throw new Error('이미지는 한 개 이상 첨부해주세요.');
     const max = 10 * 1024 * 1024;
-    for (const f of imgStore.files) if (f?.size && f.size > max) throw new Error('파일의 크기가 10MB를 초과합니다.');
+    // 각 파일의 크기를 체크
+    for (const f of imgStore.files) {
+      if (f?.size && f.size > max) throw new Error('파일의 크기가 10MB를 초과합니다.');
+    }
 
     const form = new FormData(formEl);
     const desc = quillRef.current ? quillRef.current.value : '';

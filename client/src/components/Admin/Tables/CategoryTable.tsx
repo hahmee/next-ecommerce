@@ -12,13 +12,13 @@ import TableAddButton from '@/components/Admin/Tables/TableAddButton';
 import ViewButton from '@/components/Admin/Tables/ViewButton';
 import { PageResponse } from '@/interface/PageResponse';
 import { Paging } from '@/interface/Paging';
-import { initalPagingData } from '@/components/Admin/Tables/ProductTable';
 import PageComponent from '@/components/Admin/Tables/PageComponent';
 import TableActions from '@/components/Admin/Tables/TableActions';
 import { getAdminCategories } from '@/apis/adminAPI';
 import dynamic from 'next/dynamic';
 import { fetcher } from '@/utils/fetcher/fetcher';
 import { CategoryTree } from '@/interface/CategoryTree';
+import {initalPagingData} from "@/components/Admin/Tables/StockTable";
 
 const Dialog = dynamic(() => import('../Dialog'));
 
