@@ -1,21 +1,22 @@
 'use client';
 
 import React from 'react';
-import dynamic from 'next/dynamic';
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
+import type { DatepickType } from '@/types/DatepickType';
+import { ChartFilter } from '@/types/chartFilter';
 import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
-import type { GAResponseBottom } from '@/interface/GAResponse';
+import { useTrafficBottom } from '@/hooks/useTrafficBottom';
+import {TrafficBottomOverviewView} from "@/components/Admin/Dashboard/TrafficBottomOverviewView";
 
-const CountryTrafficMap = dynamic(() => import('./Maps/CountryTrafficMapView'), { ssr: false });
+export default function TrafficBottomOverview({
+                                                date,
+                                                comparedDate,
+                                              }: {
+  date: DatepickType;
+  comparedDate: DatepickType;
+}) {
+  const { data, isLoading, isFetching } = useTrafficBottom(date, comparedDate, ChartFilter.DAY);
 
-export function TrafficBottomOverviewView({ data }: { data?: GAResponseBottom }) {
-  if (!data) return <LoadingSkeleton />;
+  if (isLoading || isFetching) return <LoadingSkeleton />;
 
-  return (
-    <div className="col-span-12">
-      <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-        <CountryTrafficMap countries={data.countries} />
-      </LazyLoadWrapper>
-    </div>
-  );
+  return <TrafficBottomOverviewView data={data} />;
 }

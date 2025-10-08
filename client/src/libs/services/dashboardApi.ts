@@ -10,7 +10,6 @@ type FetchOpts = RequestInit & {
 
 export type QueryInit = Record<string, string | number | boolean | undefined | null>;
 
-
 export function qs(obj: QueryInit) {
   const p = new URLSearchParams();
   for (const [k, v] of Object.entries(obj)) {

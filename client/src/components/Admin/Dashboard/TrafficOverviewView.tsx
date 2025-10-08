@@ -6,13 +6,12 @@ import { ChartFilter } from '@/types/chartFilter';
 import type { DatepickType } from '@/types/DatepickType';
 import type { GAResponseTop } from '@/interface/GAResponse';
 
-const CardTraffic = dynamic(() => import('./CardTraffic'), { ssr: true, loading: () => <div className="min-h-[120px]" /> });
+const CardTraffic = dynamic(() => import('./CardTrafficView'), { ssr: true, loading: () => <div className="min-h-[120px]" /> });
 const TrafficSessionChart = dynamic(() => import('./Charts/TrafficSessionChartView'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
 const MultiCirclesChart = dynamic(() => import('./Charts/MultiCirclesChartView'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
 const TrafficMiddleOverview = dynamic(() => import('./TrafficMiddleOverview'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
 const TrafficBottomOverview = dynamic(() => import('./TrafficBottomOverview'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
 const AdminDatePicker = dynamic(() => import('./AdminDatePicker'), { ssr: false, loading: () => <div style={{ height: 20 }}>로딩중...</div> });
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
 
 export function TrafficOverviewView(props: {
   date: DatepickType;
@@ -55,15 +54,11 @@ export function TrafficOverviewView(props: {
         </div>
 
         <div className="col-span-12">
-          <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TrafficMiddleOverview date={date} comparedDate={comparedDate} />
-          </LazyLoadWrapper>
+          <TrafficMiddleOverview date={date} comparedDate={comparedDate} />
         </div>
 
         <div className="col-span-12">
-          <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TrafficBottomOverview date={date} comparedDate={comparedDate} />
-          </LazyLoadWrapper>
+          <TrafficBottomOverview date={date} comparedDate={comparedDate} />
         </div>
       </div>
     </>

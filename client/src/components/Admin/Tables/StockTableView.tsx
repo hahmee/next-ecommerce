@@ -1,4 +1,3 @@
-// src/components/Admin/Tables/StockTableView.tsx
 'use client';
 
 import Image from 'next/image';
