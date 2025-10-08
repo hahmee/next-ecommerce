@@ -1,159 +1,94 @@
-// app/api/bff/[...path]/route.ts
+import {NextResponse} from 'next/server';
+import {cookies} from 'next/headers';
+import {buildBackendUrlForBff} from "@/libs/proxy/url";
+import {buildAuthCookieHeader, pickTokensFromSetCookie, buildProxyHeaders} from "@/libs/proxy/headers";
+import {readBodyBuffer} from "@/libs/proxy/body";
+import {ACCESS_TOKEN_COOKIE, API_BASE_URL, REFRESH_TOKEN_COOKIE} from "@/libs/proxy/constants";
+import {guardHttpMethod} from "@/libs/proxy/methodGuard";
 
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-
-const API_BASE_URL = process.env.BACKEND_URL!;
-const ACCESS_TOKEN_COOKIE = 'access_token';
-const REFRESH_TOKEN_COOKIE = 'refresh_token';
-
-/** Set-Cookie 문자열에서 access/refresh 토큰만 뽑는다 */
-function parseTokensFromSetCookie(setCookieHeader: string) {
-  const map = new Map<string, string>();
-  // 여러 Set-Cookie가 하나의 헤더로 합쳐질 수 있음
-  const parts = setCookieHeader.split(/,(?=[^;]+=)/);
-
-  for (const p of parts) {
-    const [kv] = p.trim().split(';');
-    const eq = kv.indexOf('=');
-    if (eq > 0) {
-      const name = kv.slice(0, eq).trim();
-      const value = kv.slice(eq + 1).trim();
-      if (name === ACCESS_TOKEN_COOKIE || name === REFRESH_TOKEN_COOKIE) {
-        map.set(name, value);
-      }
-    }
-  }
-  return map;
-}
-
-/** 현재 요청에서 인증 쿠키를 읽어 Cookie 헤더로 만든다 */
-function getAuthCookiesHeader() {
-  const cookieStore = cookies();
-  const access = cookieStore.get(ACCESS_TOKEN_COOKIE)?.value;
-  const refresh = cookieStore.get(REFRESH_TOKEN_COOKIE)?.value;
-  return [
-    access && `${ACCESS_TOKEN_COOKIE}=${access}`,
-    refresh && `${REFRESH_TOKEN_COOKIE}=${refresh}`,
-  ]
-    .filter(Boolean)
-    .join('; ');
-}
-
-/** 업스트림(백엔드)으로 원요청을 1회 전달 */
-async function sendToBackend(
-  path: string,
-  req: Request,
-  cookieHeader?: string,
-  bodyBuf?: ArrayBuffer,
-) {
-  const url = new URL(req.url);
-  const backendURL = `${API_BASE_URL}${url.pathname.replace(/^\/api\/bff/, '')}${url.search || ''}`;
-
-  const headers = new Headers(req.headers);
-  // 브라우저가 보낸 도메인 지움 (Host → BFF 주소이므로)
-  headers.delete('host');
-  headers.delete('cookie');
-  // 필요한 헤더만 다시 세팅
-  if (cookieHeader) headers.set('cookie', cookieHeader);
-  headers.set('accept', headers.get('accept') ?? 'application/json');
-
-  const body =
-    req.method === 'GET' || req.method === 'HEAD'
-      ? undefined
-      : (bodyBuf ?? (await req.arrayBuffer()));
-
+// 원요청 시도한다.
+async function forwardOnce(req: Request, cookieHeader?: string, bodyBuf?: ArrayBuffer) {
+  const backendURL = buildBackendUrlForBff(req);
+  const headers = buildProxyHeaders(req, { cookieHeader });
+  const body = req.method === 'GET' || req.method === 'HEAD' ? undefined : (bodyBuf ?? (await req.arrayBuffer()));
   return fetch(backendURL, { method: req.method, headers, body });
 }
 
-/** 1) 원요청 호출 → 2) 401이면 refresh → 3) 성공 시 재시도 */
 async function handler(req: Request, path: string) {
-  // 재시도를 위해 요청 바디를 한 번만 읽어 보관
-  const bodyBuf =
-    req.method === 'GET' || req.method === 'HEAD' ? undefined : await req.arrayBuffer(); // 요청 body 전체를 ArrayBuffer로 읽어옴
 
-  // 1) 현재 쿠키로 원요청 호출
-  const cookieHeader = getAuthCookiesHeader();
-  const response = await sendToBackend(path, req, cookieHeader, bodyBuf);
+  // HTTP 메서드가 허용된 집합에 포함되어 있는지 검사
+  const methodError = guardHttpMethod(req);
+  if (methodError) return methodError;
 
-  // 액세스토큰 만료 아닐때
-  if (response.status !== 401) {
-    const payload = await response.arrayBuffer(); // 원요청 응답의 body 전체를 ArrayBuffer로 읽음
-    const bffRes = new NextResponse(payload, { status: response.status });
+  // 바디를 1회만 읽어 재사용
+  const bodyBuf = await readBodyBuffer(req);
 
-    const setCookie = response.headers.get('set-cookie');
-    if (setCookie) bffRes.headers.append('set-cookie', setCookie);
+  // 1) 현 쿠키로 원요청
+  // Next.js 서버 환경의 Cookie 헤더 문자열만든다.
+  const cookieHeader = buildAuthCookieHeader();
+  // 원요청
+  const res = await forwardOnce(req, cookieHeader, bodyBuf);
 
-    response.headers.forEach((v, k) => {
-      if (k.toLowerCase() !== 'set-cookie') bffRes.headers.set(k, v);
-    });
-    return bffRes;
+  if (res.status !== 401) {
+    const payload = await res.arrayBuffer(); // 응답 body를 ArrayBuffer로 읽음 (원본 그대로)
+    const out = new NextResponse(payload, { status: res.status });
+
+    //백엔드 응답에 Set-Cookie가 있다면 그대로 클라이언트에 전달
+    const sc = res.headers.get('set-cookie');
+    if (sc) out.headers.append('set-cookie', sc);
+
+    // 나머지 헤더들도 전부 복사
+    res.headers.forEach((v, k) => { if (k.toLowerCase() !== 'set-cookie') out.headers.set(k, v); });
+    return out;
   }
 
-  // 2) 401 → 토큰 리프레시 시도
-  console.log('[BFF] 401 Unauthorized → refresh 시도');
+  // 2) 401 → refresh
   const refreshHeaders = new Headers();
   if (cookieHeader) refreshHeaders.set('cookie', cookieHeader);
-  const refreshRes = await fetch(`${API_BASE_URL}/api/member/refresh`, {
-    method: 'POST',
-    headers: refreshHeaders,
-  });
-  console.log('[BFF] refresh 응답 상태:', refreshRes.status);
+
+  const refreshRes = await fetch(`${API_BASE_URL}/api/member/refresh`, { method: 'POST', headers: refreshHeaders });
 
   if (!refreshRes.ok) {
-    // 실패 → 세션 만료 처리
-    const bffRes = NextResponse.json({ error: 'session_expired' }, { status: 401 });
-    bffRes.cookies.set(ACCESS_TOKEN_COOKIE, '', { maxAge: 0, path: '/' });
-    bffRes.cookies.set(REFRESH_TOKEN_COOKIE, '', { maxAge: 0, path: '/' });
-    return bffRes;
+    const expired = NextResponse.json(
+      {
+        success: false,
+        code: 401,
+        message: '세션이 만료되었습니다.',
+      },
+      { status: 401 },
+    );
+
+    expired.cookies.set(ACCESS_TOKEN_COOKIE, '', { maxAge: 0, path: '/' });
+    expired.cookies.set(REFRESH_TOKEN_COOKIE, '', { maxAge: 0, path: '/' });
+    return expired;
   }
 
-  // 3) 리프레시 성공 → 새 쿠키 패스스루 + 원요청 재시도
+  // 3) refresh 성공 → 새 쿠키 반영 후 재시도
   const setCookie = refreshRes.headers.get('set-cookie');
-  let retryCookieHeader = cookieHeader;
-
-  if (setCookie) {
-    // refresh 응답의 Set-Cookie 문자열에서 access/refresh 토큰만 뽑아냄
-    const parsed = parseTokensFromSetCookie(setCookie);
-    const access = parsed.get(ACCESS_TOKEN_COOKIE) ?? cookies().get(ACCESS_TOKEN_COOKIE)?.value;
-    const refresh = parsed.get(REFRESH_TOKEN_COOKIE) ?? cookies().get(REFRESH_TOKEN_COOKIE)?.value;
-    retryCookieHeader = [
-      access && `${ACCESS_TOKEN_COOKIE}=${access}`,
-      refresh && `${REFRESH_TOKEN_COOKIE}=${refresh}`,
-    ]
-      .filter(Boolean)
-      .join('; ');
+  let retryCookieHeader = cookieHeader; // 우선 기존 쿠키헤더로 초기화
+  if (setCookie) { // 백엔드가 새 쿠키 줬다면
+    const parsed = pickTokensFromSetCookie(setCookie); // access_token, refresh_token만 파싱해서 꺼냄
+    const cookieStore = cookies();
+    const access = parsed.get(ACCESS_TOKEN_COOKIE) ?? cookieStore.get(ACCESS_TOKEN_COOKIE)?.value;
+    const refresh = parsed.get(REFRESH_TOKEN_COOKIE) ?? cookieStore.get(REFRESH_TOKEN_COOKIE)?.value;
+    // 최종 쿠키헤더 문자열 조립
+    retryCookieHeader = [access && `${ACCESS_TOKEN_COOKIE}=${access}`, refresh && `${REFRESH_TOKEN_COOKIE}=${refresh}`]
+      .filter(Boolean).join('; ');
   }
 
-  // 원래 요청을 새 토큰 쿠키로 다시 백엔드에 전달 (재시도)
-  const retryRes = await sendToBackend(path, req, retryCookieHeader, bodyBuf);
-  // 재시도 응답의 body 를 ArrayBuffer 로 읽음
-  const retryPayload = await retryRes.arrayBuffer();
-  // Next.js 응답 객체 생성해서 클라이언트로 돌려줄 준비
-  const resp = new NextResponse(retryPayload, { status: retryRes.status });
-  // refresh 응답에 Set-Cookie 가 있으면 그대로 브라우저로 전달해서 쿠키 갱신
-  if (setCookie) resp.headers.append('set-cookie', setCookie);
-  // 나머지 헤더들도 복사
-  retryRes.headers.forEach((v, k) => {
-    if (k.toLowerCase() !== 'set-cookie') resp.headers.set(k, v);
-  });
-  // 브라우저에 돌려줌
-  return resp;
+  // 재시도
+  const retry = await forwardOnce(req, retryCookieHeader, bodyBuf);
+  const retryPayload = await retry.arrayBuffer();
+  const out = new NextResponse(retryPayload, { status: retry.status });
+
+  if (setCookie) out.headers.append('set-cookie', setCookie);
+  retry.headers.forEach((v, k) => { if (k.toLowerCase() !== 'set-cookie') out.headers.set(k, v); });
+
+  return out;
 }
 
-// 라우트 엔트리
-export async function GET(req: Request, { params }: { params: { path: string[] } }) {
-  return handler(req, params.path.join('/'));
-}
-export async function POST(req: Request, { params }: { params: { path: string[] } }) {
-  return handler(req, params.path.join('/'));
-}
-export async function PUT(req: Request, { params }: { params: { path: string[] } }) {
-  return handler(req, params.path.join('/'));
-}
-export async function PATCH(req: Request, { params }: { params: { path: string[] } }) {
-  return handler(req, params.path.join('/'));
-}
-export async function DELETE(req: Request, { params }: { params: { path: string[] } }) {
-  return handler(req, params.path.join('/'));
-}
+export const GET = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path.join('/'));
+export const POST = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path.join('/'));
+export const PUT = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path.join('/'));
+export const PATCH = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path.join('/'));
+export const DELETE = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path.join('/'));

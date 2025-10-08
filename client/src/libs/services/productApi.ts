@@ -1,6 +1,7 @@
 import { fetcher } from '@/utils/fetcher/fetcher';
 import type { Product } from '@/interface/Product';
 import type { PageResponse } from '@/interface/PageResponse';
+import {DataResponse} from "@/interface/DataResponse";
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
@@ -56,5 +57,37 @@ export const productApi = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
       body: JSON.stringify({ salesStatus, pno }),
+    }),
+
+  // 공개 상세
+  byIdPublic: (pno: string, init?: FetchOpts) =>
+    fetcher<DataResponse<Product>>(`/api/public/products/${pno}`, {
+      method: 'GET',
+      ...(init ?? {}),
+    }).then((r) => r.data),
+
+  // 신상품/추천/전문가/전체 ID 등 (기존 시그니처 유지)
+  newList: (init?: FetchOpts) =>
+    fetcher<DataResponse<Product[]>>('/api/public/products/newProductList', {
+      method: 'GET',
+      ...(init ?? {}),
+    }).then((r) => r.data),
+
+  featuredList: (init?: FetchOpts) =>
+    fetcher<DataResponse<Product[]>>('/api/public/products/featuredProductList', {
+      method: 'GET',
+      ...(init ?? {}),
+    }).then((r) => r.data),
+
+  expertList: (init?: FetchOpts) =>
+    fetcher<DataResponse<Product[]>>('/api/public/products/expertProducts', {
+      method: 'GET',
+      ...(init ?? {}),
+    }).then((r) => r.data),
+
+  allIds: (init?: FetchOpts) =>
+    fetcher<number[]>('/api/public/products/pnoList', {
+      method: 'GET',
+      ...(init ?? {}),
     }),
 };

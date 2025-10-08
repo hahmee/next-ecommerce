@@ -3,10 +3,7 @@ import { DataResponse } from '@/interface/DataResponse';
 import { Review } from '@/interface/Review';
 import { Category } from '@/interface/Category';
 
-const BACKEND_URL =
-  typeof window === 'undefined' ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL;
-
-
+const BACKEND_URL = typeof window === 'undefined' ? process.env.BACKEND_URL : process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getPublicProduct = async ({
   queryKey,
