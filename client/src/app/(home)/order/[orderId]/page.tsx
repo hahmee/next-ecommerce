@@ -1,35 +1,22 @@
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import OrderDetail from '@/components/Home/Profile/OrderDetail';
-import { getOrders } from '@/apis/mallAPI';
 import OrderDetailSkeleton from '@/components/Skeleton/OrderDetailSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { cookies } from 'next/headers';
-import { getUserInfo } from '@/libs/auth';
+import {authApi} from "@/libs/services/authApi";
+import OrderDetail from "@/components/Home/Profile/OrderDetail";
+import {orderApi} from "@/libs/services/orderApi";
+
 
 interface Props {
   params: { orderId: string };
 }
 
 export async function generateMetadata({ params }: Props) {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get('access_token')?.value;
-  const refresToken = cookieStore.get('refresh_token')?.value;
-
   const { orderId } = params;
 
-  let nickname = '회원';
-  let email = 'unknown@example.com';
-
-  if (accessToken && refresToken) {
-    try {
-      const user = await getUserInfo();
-      nickname = user.nickname || nickname;
-      email = user.email || email;
-    } catch (e) {
-      console.warn('사용자 정보를 불러오지 못했습니다.', e);
-    }
-  }
+  const user = await authApi.me({ cache: 'no-store' }).catch(() => null);
+  const nickname = user?.nickname ?? '회원';
+  const email = user?.email ?? 'unknown@example.com';
 
   return {
     title: `${nickname}님의 주문 내역 #${orderId}`,
@@ -46,13 +33,14 @@ export async function generateMetadata({ params }: Props) {
     },
   };
 }
+
 export default async function OrderPage({ params }: Props) {
   const { orderId } = params;
 
   const prefetchOptions = [
     {
       queryKey: ['orders', orderId],
-      queryFn: () => getOrders({ orderId }), // getOrders() → accessToken 만료 → prefetch 실패
+      queryFn: () => orderApi.listByOrderId(orderId),
     },
   ];
 

@@ -7,7 +7,7 @@ import type { PageResponse } from '@/interface/PageResponse';
 import type { Payment } from '@/interface/Payment';
 import type { Paging } from '@/interface/Paging';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
-import { ordersApi } from '@/libs/services/ordersApi';
+import { orderApi } from '@/libs/services/orderApi';
 import { DatepickType } from '@/types/DatepickType';
 
 export const initialPagingData: Paging = {
@@ -30,7 +30,7 @@ export function useOrdersTable() {
 
   const { data, isFetching } = useQuery<PageResponse<Payment>>({
     queryKey: ['adminOrders', { page, size, search, ...keyDate }],
-    queryFn: () => ordersApi.searchAdmin(page, size, search, keyDate.startDate, keyDate.endDate),
+    queryFn: () => orderApi.searchAdmin(page, size, search, keyDate.startDate, keyDate.endDate),
     staleTime: 60_000, gcTime: 300_000, throwOnError: true,
   });
 

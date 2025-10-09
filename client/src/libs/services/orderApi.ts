@@ -1,10 +1,17 @@
 import { fetcher } from '@/utils/fetcher/fetcher';
 import type { PageResponse } from '@/interface/PageResponse';
 import type { Payment } from '@/interface/Payment';
+import type {Order} from "@/interface/Order";
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 
-export const ordersApi = {
+export const orderApi = {
+  listByOrderId: (orderId: string, init?: FetchOpts) =>
+    fetcher<Order[]>(`/api/orders/list/${orderId}`, {
+      method: 'GET',
+      ...(init ?? {}),
+    }),
+  
   // 어드민 주문 목록 검색
   searchAdmin: (
     page: number,
