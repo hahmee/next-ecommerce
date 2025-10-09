@@ -1,7 +1,6 @@
 // src/apis/reviewApi.ts
-import { fetcher } from '@/utils/fetcher/fetcher';
-import type { DataResponse } from '@/interface/DataResponse';
-import type { Review } from '@/interface/Review';
+import type {Review} from '@/interface/Review';
+import {publicFetcher} from "@/utils/fetcher/publicFetcher";
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
@@ -9,7 +8,7 @@ type FetchOpts = RequestInit & {
 
 export const reviewApi = {
   listByProduct: (pno: string, init?: FetchOpts) =>
-    fetcher<DataResponse<Review[]>>(`/api/public/reviews/list/${pno}`, {
+    publicFetcher<Review[]>(`/api/public/reviews/list/${pno}`, {
       method: 'GET',
       ...(init ?? {}),
     }),

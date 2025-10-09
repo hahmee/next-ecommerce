@@ -13,22 +13,21 @@ export async function publicFetcher<T>(path: string, init?: FetchOpts): Promise<
       : `/api/public${path}`; // 브라우저는 항상 BFF 경유
 
   const res = await fetch(url, {
-    credentials: 'omit', // 공개 API는 쿠키/세션 금지
-    method: init?.method ?? 'GET',
     ...init,
+    method: init?.method ?? 'GET',
+    credentials: 'omit', // 공개 API는 쿠키/세션 금지
+    headers: {
+      accept: 'application/json',
+      ...(init?.headers || {}),
+    },
   });
 
-  const text = await res.text();
-  const json = text ? JSON.parse(text) : null;
+  const json: any = await res.json().catch(() => ({}));
 
-  if (!res.ok) {
-    const msg = (json && (json.message || json.error)) || 'Public API 요청 실패';
-    throw new Error(msg);
+  if (!res.ok || json?.success === false) {
+    throw new Error(json?.message || '요청 실패');
   }
 
-  // { data: ... } 형태면 언랩, 아니면 그대로
-  if (json && typeof json === 'object' && 'data' in json) {
-    return (json.data ?? null) as T;
-  }
-  return json as T;
+  return json.data;
+
 }

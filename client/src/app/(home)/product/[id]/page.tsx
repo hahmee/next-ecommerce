@@ -1,39 +1,27 @@
 import React, { Suspense } from 'react';
-import ProductSingle from '@/components/Home/Product/ProductSingle';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import ProductSingleSkeleton from '@/components/Skeleton/ProductSingleSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { Metadata } from 'next';
-import { getPublicProduct, getPublicReviews } from '@/apis/publicAPI';
+import type { Metadata } from 'next';
+import ProductSingle from '@/components/Home/Product/ProductSingle';
+import { productApi } from '@/libs/services/productApi';
+import { reviewApi } from '@/libs/services/reviewApi';
 
 interface Props {
   params: { id: string };
 }
+const stripHtml = (html?: string) => (html ?? '').replace(/<[^>]*>/g, '').trim();
 
-// SEO 메타데이터를 동적으로 생성
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
 
-  let productName = '상품 정보';
-  let description = 'Next E-commerce의 다양한 상품 정보를 확인해보세요.';
-  let imageUrl = '';
-
-  try {
-    const product = await getPublicProduct({
-      queryKey: ['productSingle', id],
-    });
-
-    if (product) {
-      productName = product.pname || productName;
-      description = product.pdesc || description;
-
-      if (product.uploadFileNames && product.uploadFileNames.length > 0) {
-        imageUrl = product.uploadFileNames[0].file;
-      }
-    }
-  } catch (e) {
-    console.error('메타데이터 생성 실패', e);
-  }
+  const product = await productApi.byIdPublic(id, {
+    next: { revalidate: 60, tags: ['productCustomerSingle', id] },
+  }).catch(() => null);
+  
+  const productName = product?.pname ?? '상품 정보';
+  const description = stripHtml(product?.pdesc) || 'Next E-commerce의 다양한 상품 정보를 확인해보세요.';
+  const imageUrl = product?.uploadFileNames?.[0]?.file;
 
   return {
     title: `${productName} - Next E-commerce`,
@@ -42,16 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: productName,
       description,
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/product/${id}`,
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 800,
-              height: 600,
-              alt: productName,
-            },
-          ]
-        : [],
+      images: imageUrl ? [{ url: imageUrl, width: 800, height: 600, alt: productName }] : [],
     },
     twitter: {
       card: 'summary_large_image',
@@ -68,11 +47,17 @@ export default async function ProductSinglePage({ params }: Props) {
   const prefetchOptions = [
     {
       queryKey: ['productCustomerSingle', id],
-      queryFn: () => getPublicProduct({ queryKey: ['productCustomerSingle', id] }),
+      queryFn: () =>
+        productApi.byIdPublic(id, {
+          next: { revalidate: 60, tags: ['productCustomerSingle', id] },
+        }),
     },
     {
       queryKey: ['reviews', id],
-      queryFn: () => getPublicReviews({ queryKey: ['reviews', id] }),
+      queryFn: () =>
+        reviewApi.listByProduct(id, {
+          next: { revalidate: 60, tags: ['reviews', id] },
+        }),
     },
   ];
 
