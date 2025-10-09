@@ -1,13 +1,15 @@
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import React, {Suspense} from 'react';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import UserReviews from '@/components/Home/Profile/UserReviews';
-import { getUserReviews } from '@/apis/mallAPI';
 import Loading from '@/app/loading';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { cookies } from 'next/headers';
-import { getUserInfo } from '@/libs/auth';
+import {cookies} from 'next/headers';
+import type {Metadata} from 'next';
+import {reviewApi} from "@/libs/services/reviewApi";
+import {authApi} from "@/libs/services/authApi";
 
-export async function generateMetadata() {
+// 메타는 그대로 두되, 필요시 간소화 가능
+export async function generateMetadata(): Promise<Metadata> {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('access_token')?.value;
   const refresToken = cookieStore.get('refresh_token')?.value;
@@ -17,9 +19,9 @@ export async function generateMetadata() {
 
   if (accessToken && refresToken) {
     try {
-      const user = await getUserInfo();
-      nickname = user.nickname || nickname;
-      email = user.email || email;
+      const user = await authApi.me().catch(() => null);
+      nickname = user?.nickname || nickname;
+      email = user?.email || email;
     } catch (e) {
       console.warn('사용자 정보를 불러오지 못했습니다.', e);
     }
@@ -45,7 +47,7 @@ export default async function ReviewHistoryPage() {
   const prefetchOptions = [
     {
       queryKey: ['myReviews'],
-      queryFn: () => getUserReviews({ queryKey: ['myReviews'] }),
+      queryFn: () => reviewApi.myReviews(),
     },
   ];
 

@@ -21,7 +21,6 @@ export const serverFetcher = async <T = any>(
 ): Promise<T> => {
   const finalUrl = `${process.env.BACKEND_URL}${path}`;
   const cookieString = cookies().toString();
-  console.log('serverFetcher');
 
   const res = await fetch(finalUrl, {
     cache: 'no-store', // 기본 SSR

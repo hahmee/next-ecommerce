@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await productApi.byIdPublic(id, {
     next: { revalidate: 60, tags: ['productCustomerSingle', id] },
   }).catch(() => null);
-  
+
   const productName = product?.pname ?? '상품 정보';
   const description = stripHtml(product?.pdesc) || 'Next E-commerce의 다양한 상품 정보를 확인해보세요.';
   const imageUrl = product?.uploadFileNames?.[0]?.file;
