@@ -2,6 +2,7 @@ import {fetcher} from '@/utils/fetcher/fetcher';
 import type {Category} from '@/interface/Category';
 import type {PageResponse} from "@/interface/PageResponse";
 import {CategoryTree} from "@/interface/CategoryTree";
+import {publicFetcher} from "@/utils/fetcher/publicFetcher";
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
@@ -44,4 +45,17 @@ export const categoryApi = {
   remove: (cno: number, init?: FetchOpts) =>
     fetcher<number[] | void>(`/api/category/${cno}`, { ...(init ?? {}), method: 'DELETE' }),
 
+  // 공개 카테고리 목록
+  listPublic: (init?: FetchOpts) =>
+    publicFetcher<Category[]>('/api/public/category/list', {
+      method: 'GET',
+      ...(init ?? {}),
+    }),
+
+  // 공개 카테고리 단건
+  byIdPublic: (cno: string, init?: FetchOpts) =>
+    publicFetcher<Category>(`/api/public/category/${cno}`, {
+      method: 'GET',
+      ...(init ?? {}),
+    }),
 };

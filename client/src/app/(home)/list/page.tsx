@@ -1,11 +1,12 @@
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import ProductList from '@/components/Home/Product/ProductList';
-import { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { Metadata } from 'next';
-import { getPublicCategories, getPublicCategory, getPublicProductList } from '@/apis/publicAPI';
+import type { Metadata } from 'next';
+import { categoryApi } from '@/libs/services/categoryApi';
+import { productApi } from '@/libs/services/productApi';
+import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -17,21 +18,19 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     return { key, values };
   });
 
-  // 필요한 필드만 추출
   const query = filters.find((f) => f.key === 'query')?.values[0] || '';
   const categoryId = filters.find((f) => f.key === 'category_id')?.values[0] || '';
 
   let categoryName = '';
   try {
     if (categoryId) {
-      const categoryRes = await getPublicCategory({ queryKey: ['category', categoryId] });
+      const categoryRes = await categoryApi.byIdPublic(categoryId);
       categoryName = categoryRes?.cname || '전체';
     }
   } catch (e) {
     console.error('category fetch error:', e);
   }
 
-  // 제목용 필터 가공
   const filterSummary = filters
     .filter(({ key, values }) => key !== 'query' && key !== 'category_id' && values.length > 0)
     .map(({ key, values }) => `${key}: ${values.join(', ')}`)
@@ -64,48 +63,32 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   };
 }
 
+
 export default async function ListPage({ searchParams }: Props) {
-  // categoryId가 배열이면 첫 번째 값을, 아니면 그대로 사용
-  const categoryId = Array.isArray(searchParams.category_id)
-    ? searchParams.category_id[0] // 배열인 경우 첫 번째 값을 사용
-    : searchParams.category_id || ''; // undefined면 빈 문자열 처리
+  const get = (k: string) => {
+    const v = searchParams[k];
+    return Array.isArray(v) ? v[0] : v || '';
+  };
 
-  const colors = Array.isArray(searchParams.color)
-    ? searchParams.color
-    : searchParams.color
-      ? [searchParams.color]
-      : [];
-  const sizes = Array.isArray(searchParams.size)
-    ? searchParams.size
-    : searchParams.size
-      ? [searchParams.size]
-      : [];
+  const categoryId = get('category_id');
+  const colors = searchParams.color
+    ? Array.isArray(searchParams.color) ? searchParams.color : [searchParams.color]
+    : [];
+  const sizes = searchParams.size
+    ? Array.isArray(searchParams.size) ? searchParams.size : [searchParams.size]
+    : [];
+  const minPrice = get('minPrice');
+  const maxPrice = get('maxPrice');
+  const order = get('order');
+  const query = get('query');
 
-  const minPrice = Array.isArray(searchParams.minPrice)
-    ? searchParams.minPrice[0] // 배열인 경우 첫 번째 값을 사용
-    : searchParams.minPrice || ''; // undefined면 빈 문자열 처리
-
-  const maxPrice = Array.isArray(searchParams.maxPrice)
-    ? searchParams.maxPrice[0] // 배열인 경우 첫 번째 값을 사용
-    : searchParams.maxPrice || ''; // undefined면 빈 문자열 처리
-
-  const order = Array.isArray(searchParams.order)
-    ? searchParams.order[0] // 배열인 경우 첫 번째 값을 사용
-    : searchParams.order || ''; // undefined면 빈 문자열 처리
-
-  const query = Array.isArray(searchParams.query)
-    ? searchParams.query[0] // 배열인 경우 첫 번째 값을 사용
-    : searchParams.query || ''; // undefined면 빈 문자열 처리
-
-  // 초기 페이지만 미리 가져와서 hydartion
   const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
     {
       queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
       queryFn: ({ pageParam }) =>
-        getPublicProductList({
-          queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],
-          page: pageParam as number,
-          row: 1,
+        productApi.listPublic({
+          page: (pageParam as number) ?? 1,
+          row: 1, // 첫 페이지만 프리패치
           categoryId,
           colors,
           productSizes: sizes,
@@ -115,19 +98,13 @@ export default async function ListPage({ searchParams }: Props) {
           query,
         }),
       initialPageParam: 1,
-      staleTime: Infinity, // 30 * 1000, // 바로 stale 상태로 변경되는 것을 방지하기 위해 30초로 설정
+      staleTime: Infinity,
     },
   ];
 
   const prefetchOptions = [
-    {
-      queryKey: ['categories'],
-      queryFn: () => getPublicCategories(),
-    },
-    {
-      queryKey: ['category', categoryId],
-      queryFn: () => getPublicCategory({ queryKey: ['category', categoryId] }),
-    },
+    { queryKey: ['categories'], queryFn: () => categoryApi.listPublic() },
+    { queryKey: ['category', categoryId], queryFn: () => categoryApi.byIdPublic(categoryId), enabled: !!categoryId },
   ];
 
   return (

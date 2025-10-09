@@ -7,6 +7,19 @@ type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
 };
 
+type ListPublicArgs = {
+  page: number;
+  row: number;                 // ← API 쿼리에서는 size로 변환
+  categoryId: string;
+  colors?: string | string[];  // ← 쿼리 키: color
+  productSizes?: string | string[]; // ← 쿼리 키: productSize
+  minPrice: string;
+  maxPrice: string;
+  order: string;
+  query: string;
+};
+
+
 export const productApi = {
   // 단건 조회
   byId: (id: string, init?: FetchOpts) =>
@@ -90,4 +103,36 @@ export const productApi = {
       method: 'GET',
       ...(init ?? {}),
     }),
+
+  listPublic: (args: ListPublicArgs, init?: FetchOpts) => {
+    const {
+      page, row, categoryId,
+      colors, productSizes,
+      minPrice, maxPrice, order, query,
+    } = args;
+
+    const qs = new URLSearchParams();
+    qs.set('page', String(page));
+    qs.set('size', String(row));              // ← row를 size로
+    qs.set('categoryId', categoryId ?? '');
+    qs.set('minPrice', minPrice ?? '');
+    qs.set('maxPrice', maxPrice ?? '');
+    qs.set('order', order ?? '');
+    qs.set('query', query ?? '');
+
+    const colorArr = Array.isArray(colors) ? colors : colors ? [colors] : [];
+    colorArr.forEach((c) => qs.append('color', c)); // ← 키: color
+
+    const sizeArr = Array.isArray(productSizes) ? productSizes : productSizes ? [productSizes] : [];
+    sizeArr.forEach((s) => qs.append('productSize', s)); // ← 키: productSize
+
+    return publicFetcher<PageResponse<Product>>(
+      `/api/public/products/list?${qs.toString()}`,
+      {
+          method: 'GET',
+          ...(init ?? {})
+      },
+    );
+  },
+
 };
