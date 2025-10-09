@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import dayjs from 'dayjs';
 import SalesOverview from '@/components/Admin/Dashboard/SalesOverview';
 import { ChartFilter } from '@/types/chartFilter';
@@ -53,9 +53,9 @@ export default async function DashBoardSalesPage() {
       <div className="flex flex-col gap-5">
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <ErrorHandlingWrapper>
+            
               <SalesOverview initialToday={today.format('YYYY-MM-DD')} />
-            </ErrorHandlingWrapper>
+            
           </PrefetchBoundary>
         </Suspense>
       </div>

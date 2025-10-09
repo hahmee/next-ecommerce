@@ -27,7 +27,7 @@ export function useProductsTable() {
     queryFn: () => productApi.searchAdmin(page, size, search),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   const rows: Product[] = data?.dtoList ?? [];
@@ -60,25 +60,34 @@ export function useProductsTable() {
     // 낙관적 업데이트
     onMutate: async (pno) => {
       const key = ['adminProducts', { page, size, search }];
+      await qc.cancelQueries({ queryKey: key });
+
       const prev = qc.getQueryData<PageResponse<Product>>(key);
       if (prev) {
-        qc.setQueryData(key, {
-          ...prev,
-          dtoList: prev.dtoList.filter((p: Product) => p.pno !== pno),
-        });
+        const nextDto = prev.dtoList.filter((p) => p.pno !== pno);
+        const nextTotal =
+          typeof (prev as any).totalCount === 'number'
+            ? Math.max(0, (prev as any).totalCount - 1)
+            : (prev as any).totalCount;
+        qc.setQueryData(key, { ...prev, dtoList: nextDto, totalCount: nextTotal });
       }
       return { prev, key };
     },
+    // 에러 시: 이전 상태로 롤백만 (토스트/세션만료는 전역에서 처리)
     onError: (_err, _pno, ctx) => {
       if (ctx?.prev && ctx?.key) qc.setQueryData(ctx.key, ctx.prev);
-      toast.error('삭제 중 오류가 발생했습니다.');
     },
     onSuccess: () => {
       toast.success('삭제되었습니다.');
       setShowDialog(false);
       setDeleteId(null);
     },
+    onSettled: () => {
+      // 서버 소스와 동기화
+      qc.invalidateQueries({ queryKey: ['adminProducts'] });
+    },
   });
+
 
   const requestDelete = useCallback((pno: number) => {
     setDeleteId(pno);

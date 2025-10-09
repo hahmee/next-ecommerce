@@ -11,6 +11,6 @@ export function useTopCustomers(date: DatepickType) {
     enabled: !!date.startDate && !!date.endDate,
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 }

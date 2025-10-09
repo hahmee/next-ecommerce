@@ -19,10 +19,5 @@ export const useCreateOrderMutation = () => {
     onSuccess: () => {
       toast.success('주문이 저장되었습니다.');
     },
-    onError: (error: any) => {
-      if (!(error instanceof SessionExpiredError)) {
-        toast.error(error.message || '주문 저장 중 문제가 발생했습니다.');
-      }
-    },
   });
 };

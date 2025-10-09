@@ -10,7 +10,7 @@ export function useReviewOrder(id: string) {
     queryFn: () => orderApi.byId(id),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: !!id,
   });
 

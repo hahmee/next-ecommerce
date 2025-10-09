@@ -20,6 +20,6 @@ export function useTrafficBottom(date: DatepickType, comparedDate: DatepickType,
     enabled: !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 }

@@ -11,7 +11,7 @@ export function useProfile() {
     queryFn: () => profileApi.get(),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   return {

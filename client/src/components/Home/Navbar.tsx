@@ -6,7 +6,7 @@ import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import FullMenu from '@/components/Home/FullMenu';
 import {ShoppingBagIcon} from '@heroicons/react/24/outline';
 import NavIcons from '@/components/Home/NavIcons';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import FullMenuSkeleton from '../Skeleton/FullMenuSkeleton';
 import {categoryApi} from "@/libs/services/categoryApi";
 
@@ -50,9 +50,9 @@ const Navbar = () => {
           {/* FULL MENU */}
           <div className="hidden md:flex bg-white h-12 right-0 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 border-b border-gray-100 w-full items-center fixed top-20">
             <Suspense fallback={<FullMenuSkeleton />}>
-              <ErrorHandlingWrapper>
+              
                 <FullMenu />
-              </ErrorHandlingWrapper>
+              
             </Suspense>
           </div>
         </div>

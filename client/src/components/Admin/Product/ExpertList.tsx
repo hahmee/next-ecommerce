@@ -14,7 +14,7 @@ const ExpertList = () => {
     queryFn: () => getPublicExpertProducts(),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   // 현재 페이지 번호 (0부터 시작)

@@ -11,7 +11,7 @@ export function useUserOrders() {
     queryFn: () => paymentApi.list(),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   return {

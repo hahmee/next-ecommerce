@@ -34,7 +34,7 @@ export function useStockTable() {
     queryFn: () => productApi.searchAdmin(page, size, search),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   useEffect(() => {
@@ -69,7 +69,6 @@ export function useStockTable() {
     },
     onError: (_err, _vars, ctx) => {
       if (ctx?.prev) qc.setQueryData(queryKey, ctx.prev);
-      toast.error('수정 중 오류가 발생했습니다.');
     },
     onSuccess: (updated) => {
       // 서버 응답으로 한번 더 정합성 맞추기

@@ -3,7 +3,7 @@ import ProductForm from '@/components/Admin/Product/ProductForm';
 import {Mode} from '@/types/mode';
 import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import ProductFormSkeleton from '@/components/Skeleton/ProductFormSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import {categoryApi} from "@/libs/services/categoryApi";
 import {productApi} from "@/libs/services/productApi";
 
@@ -32,9 +32,9 @@ export default async function ModifyProductPage({ params }: Props) {
   return (
     <Suspense fallback={<ProductFormSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        <ErrorHandlingWrapper>
+        
           <ProductForm type={Mode.EDIT} id={id} />
-        </ErrorHandlingWrapper>
+        
       </PrefetchBoundary>
     </Suspense>
   );

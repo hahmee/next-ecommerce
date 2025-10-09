@@ -42,7 +42,7 @@ export function useTrafficOverview(initialToday: string) {
       }),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: Boolean(date.startDate && date.endDate && comparedDate.startDate && comparedDate.endDate),
   });
 

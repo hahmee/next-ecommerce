@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import ProductList from '@/components/Home/Product/ProductList';
 import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import type { Metadata } from 'next';
 import { categoryApi } from '@/libs/services/categoryApi';
 import { productApi } from '@/libs/services/productApi';
@@ -113,7 +113,7 @@ export default async function ListPage({ searchParams }: Props) {
         prefetchInfiniteOptions={prefetchInfiniteOptions}
         prefetchOptions={prefetchOptions}
       >
-        <ErrorHandlingWrapper>
+        
           <ProductList
             categoryId={categoryId}
             colors={colors}
@@ -123,7 +123,7 @@ export default async function ListPage({ searchParams }: Props) {
             order={order}
             query={query}
           />
-        </ErrorHandlingWrapper>
+        
       </PrefetchBoundary>
     </Suspense>
   );

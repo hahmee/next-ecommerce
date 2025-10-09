@@ -23,11 +23,5 @@ export const useConfirmPaymentMutation = () => {
     onSuccess: (data) => {
       toast.success('결제가 완료되었습니다.');
     },
-    onError: (error: any) => {
-      // SessionExpiredError는 전역에서 처리하므로 여기선 무시
-      if (!(error instanceof SessionExpiredError)) {
-        toast.error(error.message || '결제 완료 처리 실패');
-      }
-    },
   });
 };

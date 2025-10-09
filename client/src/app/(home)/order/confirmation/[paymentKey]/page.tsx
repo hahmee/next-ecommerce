@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { getPayment } from '@/apis/mallAPI';
 import Loading from '@/app/loading';
 import Confirm from '@/components/Home/Payment/Confirm';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 
 interface Props {
   params: { paymentKey: string };
@@ -24,9 +24,9 @@ export default async function ConfirmPage({ params }: Props) {
   return (
     <Suspense fallback={<Loading />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        <ErrorHandlingWrapper>
+        
           <Confirm paymentKey={paymentKey} />
-        </ErrorHandlingWrapper>
+        
       </PrefetchBoundary>
     </Suspense>
   );

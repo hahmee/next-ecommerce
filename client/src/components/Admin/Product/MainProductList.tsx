@@ -26,7 +26,7 @@ const MainProductList = ({ type }: { type: 'new' | 'featured' }) => {
     queryFn: () => getPublicNewProducts(),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: type === 'new',
   });
 
@@ -35,7 +35,7 @@ const MainProductList = ({ type }: { type: 'new' | 'featured' }) => {
     queryFn: () => getPublicFeaturedProducts(),
     staleTime: 60 * 1000,
     gcTime: 300 * 1000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: type === 'featured',
   });
 

@@ -21,7 +21,7 @@ export function useProductSingle(id: string) {
       }),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: !!id,
   });
 
@@ -33,7 +33,7 @@ export function useProductSingle(id: string) {
       }),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: !!id,
   });
 

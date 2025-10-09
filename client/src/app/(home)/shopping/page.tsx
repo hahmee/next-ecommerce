@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import UserOrders from '@/components/Home/Profile/UserOrders';
 import ShoppingSkeleton from '@/components/Skeleton/ShoppingSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import type { Metadata } from 'next';
 import {authApi} from "@/libs/services/authApi";
 import {paymentApi} from "@/libs/services/paymentApi";
@@ -39,13 +39,13 @@ export default async function OrderHistoryPage() {
   return (
     <Suspense fallback={<ShoppingSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        <ErrorHandlingWrapper>
+        
           <div className="container mx-auto px-4 py-8 ">
             <div className="flex flex-col lg:flex-row gap-8 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
               <UserOrders />
             </div>
           </div>
-        </ErrorHandlingWrapper>
+        
       </PrefetchBoundary>
     </Suspense>
   );

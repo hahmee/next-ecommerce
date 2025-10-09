@@ -10,7 +10,7 @@ export function useMyReviews() {
     queryFn: () => reviewApi.myReviews(),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   return {

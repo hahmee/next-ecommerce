@@ -28,7 +28,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
     enabled: !!id && type === Mode.EDIT,
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   const { data: categoryPaths } = useQuery<Category[]>({
@@ -37,7 +37,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
     enabled: !!(id && type === Mode.EDIT && original),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   const { data: categories } = useQuery<Category[]>({
@@ -45,7 +45,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
     queryFn: () => categoryApi.list(),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   useEffect(() => {
@@ -128,8 +128,10 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
       setCache(res);
       return res;
     },
-    onSuccess: () => { toast.success('업로드 성공했습니다.'); router.push('/admin/products'); },
-    onError: (e) => { console.error(e); toast.error(`업로드 중 에러가 발생했습니다. ${(e as Error).message}`); },
+    onSuccess: () => {
+      toast.success('업로드 성공했습니다.');
+      router.push('/admin/products');
+      },
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

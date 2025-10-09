@@ -44,20 +44,12 @@ const UserDashboard = () => {
   const [search, setSearch] = useState<string>('');
   const router = useRouter();
 
-  const {
-    isFetched,
-    isFetching,
-    data: users,
-    error,
-    isError,
-  } = useQuery<PageResponse<Member>, Object, PageResponse<Member>, [_1: string, _2: Object]>({
-    queryKey: ['adminMembers', { page, size, search }],
-    queryFn: () => getAllMembers({ page, size, search }),
+  useQuery<PageResponse<Member>, Object, PageResponse<Member>, [_1: string, _2: Object]>({
+    queryKey: ['adminMembers', {page, size, search}],
+    queryFn: () => getAllMembers({page, size, search}),
     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
     gcTime: 300 * 1000,
-    // 🚀 오직 서버 에러만 에러 바운더리로 전달된다.
-    // throwOnError: (error) => error. >= 500,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   return (

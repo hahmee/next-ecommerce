@@ -25,14 +25,18 @@ export function useCategoryForm({ type, id }: { type: Mode; id?: string }) {
     queryKey: ['category', id],
     queryFn: () => categoryApi.byId(id as string),
     enabled: type === Mode.EDIT && !!id,
-    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+    staleTime: 60_000,
+    gcTime: 300_000,
+    throwOnError: false,
   });
 
   const { data: categoryPaths = [] } = useQuery<Category[]>({
     queryKey: ['categoryPaths', id],
     queryFn: () => categoryApi.paths(id as string),
     enabled: !!id,
-    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+    staleTime: 60_000,
+    gcTime: 300_000,
+    throwOnError: false,
   });
 
   const form = useForm<CategoryFormValues>();
@@ -94,7 +98,6 @@ export function useCategoryForm({ type, id }: { type: Mode; id?: string }) {
 
       router.push('/admin/category');
     },
-    onError: (e: any) => toast.error(`오류 발생: ${e?.message ?? e}`),
   });
 
   const onSubmit = form.handleSubmit((v) => mutation.mutate(v), (errors) => {

@@ -31,7 +31,9 @@ export function useOrdersTable() {
   const { data, isFetching } = useQuery<PageResponse<Payment>>({
     queryKey: ['adminOrders', { page, size, search, ...keyDate }],
     queryFn: () => orderApi.searchAdmin(page, size, search, keyDate.startDate, keyDate.endDate),
-    staleTime: 60_000, gcTime: 300_000, throwOnError: true,
+    staleTime: 60_000,
+    gcTime: 300_000,
+    throwOnError: false,
   });
 
   useEffect(() => {

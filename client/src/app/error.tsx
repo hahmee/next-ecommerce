@@ -1,3 +1,4 @@
+//src/app/error.tsx
 'use client';
 
 // 서버 컴포넌트/라우팅/SSR 시점 에러 처리
@@ -12,7 +13,6 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
     toast.error(`오류가 발생했습니다: ${error.message}`);
   }, [error]);

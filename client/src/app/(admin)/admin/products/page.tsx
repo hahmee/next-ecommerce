@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import ProductTable from '@/components/Admin/Tables/ProductTable';
 import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import { productApi } from '@/libs/services/productApi';
 
 export default async function ProductsPage() {
@@ -18,9 +18,9 @@ export default async function ProductsPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<TableSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <ErrorHandlingWrapper>
+            
               <ProductTable />
-            </ErrorHandlingWrapper>
+            
           </PrefetchBoundary>
         </Suspense>
       </div>

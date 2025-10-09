@@ -22,7 +22,7 @@ export function useNavIcons() {
     queryFn: () => cartApi.list(),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: !!user,
   });
 

@@ -25,7 +25,7 @@ export function useCategoriesTable() {
     queryFn: () => categoryApi.searchAdmin(page, size, search),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   const paging: Paging = useMemo(() => {

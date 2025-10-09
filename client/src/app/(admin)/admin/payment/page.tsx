@@ -5,7 +5,7 @@ import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import PaymentOverview from '@/components/Admin/Payment/PaymentOverview';
 import PaymentTable from '@/components/Admin/Tables/PaymentTable';
 import PaymentSkeleton from '@/components/Skeleton/PaymentSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import dayjs from 'dayjs';
 import { paymentApi } from '@/libs/services/paymentApi';
 
@@ -34,14 +34,14 @@ export default async function AdminPaymentPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<PaymentSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <ErrorHandlingWrapper>
+            
               <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
                 <div className="col-span-12">
                   <PaymentOverview />
                   <PaymentTable />
                 </div>
               </div>
-            </ErrorHandlingWrapper>
+            
           </PrefetchBoundary>
         </Suspense>
       </div>

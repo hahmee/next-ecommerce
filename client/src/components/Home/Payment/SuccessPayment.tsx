@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { sendGAEvent } from '@next/third-parties/google';
 import { useConfirmPaymentMutation } from '@/hooks/useConfirmPaymentMutation';
 import toast from 'react-hot-toast';
+import { SessionExpiredError } from '@/libs/error/errors';
 
 interface Props {
   paymentKey: string;
@@ -39,12 +40,12 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
               },
             ],
           });
-
           router.replace(`/order/confirmation/${paymentKey}`);
         },
         onError: (error) => {
-          console.error('결제 승인 에러:', error);
-          toast.error(error.message || '결제 승인 실패');
+          // 세션 만료는 전역에서 상태 리셋/리다이렉트 처리 > 여기서 아무 것도 하지 않음
+          if (error instanceof SessionExpiredError) return;
+          // 그 외 실패는 홈 등으로 안전 이동만
           router.replace('/');
         },
       },

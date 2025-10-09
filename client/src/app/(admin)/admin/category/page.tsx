@@ -4,7 +4,7 @@ import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import CategoryTable from '@/components/Admin/Tables/CategoryTable';
 import {getAdminCategories} from '@/apis/adminAPI';
 import {TableSkeleton} from '@/components/Skeleton/TableSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import {categoryApi} from "@/libs/services/categoryApi";
 
 export default function CategoryPage() {
@@ -19,9 +19,9 @@ export default function CategoryPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<TableSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <ErrorHandlingWrapper>
+            
               <CategoryTable />
-            </ErrorHandlingWrapper>
+            
           </PrefetchBoundary>
         </Suspense>
       </div>

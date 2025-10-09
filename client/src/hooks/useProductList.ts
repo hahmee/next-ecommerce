@@ -71,7 +71,7 @@ export function useProductList({
     queryFn: () => categoryApi.listPublic(),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
   });
 
   const categoryQuery = useQuery<Category>({
@@ -79,7 +79,7 @@ export function useProductList({
     queryFn: () => categoryApi.byIdPublic(categoryId!),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled: !!categoryId,
   });
 

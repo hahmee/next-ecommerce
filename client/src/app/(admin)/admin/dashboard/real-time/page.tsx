@@ -3,7 +3,7 @@
 import React, { Suspense } from 'react';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { ChartFilter } from '@/types/chartFilter';
 import dayjs from 'dayjs';
@@ -42,9 +42,9 @@ export default async function DashBoardRealTimePage() {
       <div className="flex flex-col gap-5">
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <ErrorHandlingWrapper>
+            
               <RealtimeOverview />
-            </ErrorHandlingWrapper>
+            
           </PrefetchBoundary>
         </Suspense>
       </div>

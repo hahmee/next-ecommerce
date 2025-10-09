@@ -35,7 +35,7 @@ export const serverFetcher = async <T = any>(
 
   if (!res.ok || json?.success === false) {
     console.log('ssr 요청 실패..');
-    throw new Error(json?.message || '요청 실패');
+    throw new Error(json?.message || '요청 실패'); //React Query의 onError 핸들러나 ErrorBoundary로 전파
   }
 
   return json.data;

@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import ProductSingleSkeleton from '@/components/Skeleton/ProductSingleSkeleton';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import type { Metadata } from 'next';
 import ProductSingle from '@/components/Home/Product/ProductSingle';
 import { productApi } from '@/libs/services/productApi';
@@ -64,9 +64,9 @@ export default async function ProductSinglePage({ params }: Props) {
   return (
     <Suspense fallback={<ProductSingleSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        <ErrorHandlingWrapper>
+        
           <ProductSingle id={id} />
-        </ErrorHandlingWrapper>
+        
       </PrefetchBoundary>
     </Suspense>
   );

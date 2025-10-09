@@ -58,7 +58,7 @@ export function useSalesOverview({ initialToday }: { initialToday: string }) {
       }),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled:
       !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });
@@ -76,7 +76,7 @@ export function useSalesOverview({ initialToday }: { initialToday: string }) {
       }),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     enabled:
       !!date.startDate && !!date.endDate && !!comparedDate.startDate && !!comparedDate.endDate,
   });

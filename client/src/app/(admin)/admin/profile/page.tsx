@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import Profile from '@/components/Admin/Profile/Profile';
 import Loading from '@/app/loading';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import type { Metadata } from 'next';
 import {authApi} from "@/libs/services/authApi";
 import {profileApi} from "@/libs/services/profileApi";
@@ -42,9 +42,9 @@ export default async function ProfilePage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<Loading />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            <ErrorHandlingWrapper>
+            
               <Profile />
-            </ErrorHandlingWrapper>
+            
           </PrefetchBoundary>
         </Suspense>
       </div>

@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import Loading from '@/app/loading';
-import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+
 import ReviewAddModal from '@/components/Home/Profile/ReviewAddModal';
 import {orderApi} from "@/libs/services/orderApi";
 
@@ -20,9 +20,9 @@ export default function ReviewModalPage({ params }: Props) {
   return (
     <Suspense fallback={<Loading />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        <ErrorHandlingWrapper>
+        
           <ReviewAddModal id={id} orderId={orderId} />
-        </ErrorHandlingWrapper>
+        
       </PrefetchBoundary>
     </Suspense>
   );

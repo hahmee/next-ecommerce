@@ -1,38 +1,40 @@
-// components/Error/SessionExpiredRedirect.tsx
-
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/userStore';
-import { logout } from '@/apis/mallAPI'; // Zustand store
+import { authApi } from '@/libs/services/authApi';
 
-// SessionExpiredError 발생 시 setSessionExpired 감지함
+// SessionExpiredError 발생 시 setSessionExpired 플래그를 감지
+// 상태 정리 + 리다이렉트만 수행
 const SessionExpiredRedirect = () => {
   const router = useRouter();
   const { isSessionExpired, clearSessionExpired, resetUser } = useUserStore();
+  const running = useRef(false); // 중복 실행 방지
+
   useEffect(() => {
-    if (!isSessionExpired) return; // refreshToken까지 만료
+    if (!isSessionExpired || running.current) return;
+    running.current = true;
 
     const cleanUpSession = async () => {
-      console.warn('🔒 세션 만료 → 자동 로그아웃 처리 시작');
+      console.warn('세션 만료 → 자동 로그아웃 처리 시작');
 
       try {
-        await logout(); // 백엔드에 refreshToken 제거 요청
+        await authApi.logout();
       } catch (e) {
-        console.error('❗ 백엔드 로그아웃 실패', e);
+        console.error('백엔드 로그아웃 실패(무시 가능):', e);
+      } finally {
+        // 클라이언트 상태 초기화
+        resetUser();
+        clearSessionExpired();
+
+        router.replace('/login');
+        router.refresh(); // SSR에서 cookies() 읽는 곳 최신화
       }
-
-      // 상태 초기화
-      resetUser();
-      clearSessionExpired();
-
-      // 로그인 페이지로 이동
-      router.replace('/login');
     };
 
     cleanUpSession();
-  }, [isSessionExpired, router]);
+  }, [isSessionExpired, clearSessionExpired, resetUser, router]);
 
   return null;
 };

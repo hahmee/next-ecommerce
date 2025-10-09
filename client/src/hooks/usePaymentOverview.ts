@@ -31,7 +31,7 @@ export function usePaymentOverview() {
     queryFn: () => paymentApi.overview(date.startDate, date.endDate),
     staleTime: 60_000,
     gcTime: 300_000,
-    throwOnError: true,
+    throwOnError: false,
     retry: 1,
   });
 

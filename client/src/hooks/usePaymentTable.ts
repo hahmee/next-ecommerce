@@ -36,7 +36,7 @@ export function usePaymentTable() {
     staleTime: 60_000,
     gcTime: 300_000,
     enabled: !!keyDate, // date 준비됐을 때
-    throwOnError: true,
+    throwOnError: false,
   });
 
   useEffect(() => {

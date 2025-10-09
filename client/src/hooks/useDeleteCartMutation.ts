@@ -21,10 +21,5 @@ export const useDeleteCartMutation = () => {
       setCarts(data);
       toast.success('장바구니에서 삭제되었습니다.');
     },
-    onError: (error: any) => {
-      if (!(error instanceof SessionExpiredError)) {
-        toast.error(error.message || '장바구니 삭제 실패');
-      }
-    },
   });
 };

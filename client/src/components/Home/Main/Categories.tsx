@@ -22,7 +22,7 @@ const Categories = () => {
     queryFn: () => getPublicCategories(),
     staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
     gcTime: 300 * 1000,
-    throwOnError: true, // 에러 발생시 ErrorBoundary 로 전달
+    throwOnError: false, // 에러 발생시 ErrorBoundary 로 전달
   });
 
   if (!categories) {
