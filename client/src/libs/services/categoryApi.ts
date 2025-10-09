@@ -12,7 +12,6 @@ export const categoryApi = {
   byId: (cno: string, init?: FetchOpts) =>
     fetcher<Category>(`/api/category/${cno}`, { ...(init ?? {}), method: 'GET' }),
 
-
   list: (init?: FetchOpts) =>
     fetcher<Category[]>('/api/category/list', {
       method: 'GET',
@@ -53,8 +52,8 @@ export const categoryApi = {
     }),
 
   // 공개 카테고리 단건
-  byIdPublic: (cno: string, init?: FetchOpts) =>
-    publicFetcher<Category>(`/api/public/category/${cno}`, {
+  byIdPublic: (id: string, init?: FetchOpts) =>
+    publicFetcher<Category>(`/api/public/category/${id}`, {
       method: 'GET',
       ...(init ?? {}),
     }),

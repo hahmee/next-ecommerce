@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import Menu from '@/components/Home/Menu';
 import SearchBar from '@/components/Home/SearchBar';
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import React, {Suspense} from 'react';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import FullMenu from '@/components/Home/FullMenu';
-import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import {ShoppingBagIcon} from '@heroicons/react/24/outline';
 import NavIcons from '@/components/Home/NavIcons';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { getPublicCategories } from '@/apis/publicAPI';
 import FullMenuSkeleton from '../Skeleton/FullMenuSkeleton';
+import {categoryApi} from "@/libs/services/categoryApi";
 
 const Navbar = () => {
   const prefetchOptions = [
     {
       queryKey: ['categories'],
-      queryFn: () => getPublicCategories(),
+      queryFn: () => categoryApi.listPublic({ next: { revalidate: 60, tags: ['categories'] } }),
     },
   ];
 

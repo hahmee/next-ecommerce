@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
-import ReviewAddModal from '@/components/Home/Profile/ReviewAddModal';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { getOrder } from '@/apis/mallAPI';
 import Loading from '@/app/loading';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
+import ReviewAddModal from '@/components/Home/Profile/ReviewAddModal';
+import {orderApi} from "@/libs/services/orderApi";
 
 interface Props {
   params: { id: string; orderId: string };
@@ -14,8 +14,8 @@ export default function ReviewModalPage({ params }: Props) {
 
   const prefetchOptions = {
     queryKey: ['order', id],
-    queryFn: () => getOrder({ id }),
-  };
+    queryFn: () => orderApi.byId(id),
+  } as const;
 
   return (
     <Suspense fallback={<Loading />}>

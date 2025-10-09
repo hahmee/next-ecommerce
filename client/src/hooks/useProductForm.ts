@@ -19,7 +19,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   const setFiles = useProductImageStore((s) => s.setFiles);
 
   const quillRef = useRef<any>(null);
-  const [pdesc, setPdesc] = useState('');
+  const [pdesc, setPdesc  ] = useState('');
   const [leafCategory, setLeafCategory] = useState<Category | null>(null);
 
   const { data: original, isLoading: loading } = useQuery<Product>({

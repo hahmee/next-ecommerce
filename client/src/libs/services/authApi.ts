@@ -11,4 +11,10 @@ export const authApi = {
       method: 'GET',
       ...(init ?? {}),
     }),
+
+  logout: (init?: FetchOpts) =>
+    fetcher<void>('/api/member/logout', {
+      method: 'POST',
+      ...(init ?? {}),
+    }),
 };
