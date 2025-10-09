@@ -7,7 +7,7 @@ import type { PageResponse } from '@/interface/PageResponse';
 import type { Payment } from '@/interface/Payment';
 import type { Paging } from '@/interface/Paging';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
-import { paymentsApi } from '@/libs/services/paymentsApi';
+import { paymentApi } from '@/libs/services/paymentApi';
 import { DatepickType } from '@/types/DatepickType';
 
 export const initialPagingData: Paging = {
@@ -32,7 +32,7 @@ export function usePaymentTable() {
 
   const { data, isFetching } = useQuery<PageResponse<Payment>>({
     queryKey: ['adminPayments', { page, size, search, date: keyDate }],
-    queryFn: () => paymentsApi.searchAdmin(page, size, search, keyDate.startDate, keyDate.endDate),
+    queryFn: () => paymentApi.searchAdmin(page, size, search, keyDate.startDate, keyDate.endDate),
     staleTime: 60_000,
     gcTime: 300_000,
     enabled: !!keyDate, // date 준비됐을 때

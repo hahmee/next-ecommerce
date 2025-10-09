@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import type { Option } from '@/interface/Option';
 import type { PaymentSummaryDTO } from '@/interface/PaymentSummaryDTO';
-import { paymentsApi } from '@/libs/services/paymentsApi';
+import { paymentApi } from '@/libs/services/paymentApi';
 
 const mkRange = (days: number) => {
   const end = dayjs();
@@ -28,7 +28,7 @@ export function usePaymentOverview() {
 
   const { data, isFetching } = useQuery<PaymentSummaryDTO>({
     queryKey: ['adminPaymentOverview', { date }],
-    queryFn: () => paymentsApi.overview(date.startDate, date.endDate),
+    queryFn: () => paymentApi.overview(date.startDate, date.endDate),
     staleTime: 60_000,
     gcTime: 300_000,
     throwOnError: true,

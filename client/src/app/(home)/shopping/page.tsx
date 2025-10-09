@@ -1,30 +1,16 @@
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import UserOrders from '@/components/Home/Profile/UserOrders';
-import { getPayments } from '@/apis/mallAPI';
 import ShoppingSkeleton from '@/components/Skeleton/ShoppingSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { cookies } from 'next/headers';
-import { getUserInfo } from '@/libs/auth';
+import type { Metadata } from 'next';
+import {authApi} from "@/libs/services/authApi";
+import {paymentApi} from "@/libs/services/paymentApi";
 
-// <head> 메타태그 정보(title, description 등) 를 설정하는 함수
-export async function generateMetadata() {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get('access_token')?.value;
-  const refresToken = cookieStore.get('refresh_token')?.value;
-
-  let nickname = '사용자';
-  let email = '';
-
-  if (accessToken && refresToken) {
-    try {
-      const user = await getUserInfo();
-      nickname = user.nickname || nickname;
-      email = user.email || email;
-    } catch (e) {
-      console.warn('사용자 정보를 불러오지 못했습니다.', e);
-    }
-  }
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await authApi.me({ cache: 'no-store' }).catch(() => null);
+  const nickname = user?.nickname ?? '사용자';
+  const email = user?.email ?? '';
 
   return {
     title: `${nickname}님의 주문 내역`,
@@ -46,7 +32,7 @@ export default async function OrderHistoryPage() {
   const prefetchOptions = [
     {
       queryKey: ['payments'],
-      queryFn: () => getPayments({ queryKey: ['payments'] }),
+      queryFn: () => paymentApi.list(),
     },
   ];
 

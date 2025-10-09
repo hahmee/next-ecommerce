@@ -2,29 +2,17 @@ import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import Profile from '@/components/Admin/Profile/Profile';
-import { getUserProfile } from '@/apis/mallAPI';
 import Loading from '@/app/loading';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
-import { cookies } from 'next/headers';
-import { getUserInfo } from '@/libs/auth';
+import type { Metadata } from 'next';
+import {authApi} from "@/libs/services/authApi";
+import {profileApi} from "@/libs/services/profileApi";
 
-export async function generateMetadata() {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get('access_token')?.value;
-  const refresToken = cookieStore.get('refresh_token')?.value;
 
-  let nickname = '사용자';
-  let email = '';
-
-  if (accessToken && refresToken) {
-    try {
-      const user = await getUserInfo();
-      nickname = user.nickname || nickname;
-      email = user.email || email;
-    } catch (e) {
-      console.warn('사용자 정보를 불러오지 못했습니다.', e);
-    }
-  }
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await authApi.me({ cache: 'no-store' }).catch(() => null);
+  const nickname = user?.nickname ?? '사용자';
+  const email = user?.email ?? '';
 
   return {
     title: `${nickname} (${email})`,
@@ -41,11 +29,12 @@ export async function generateMetadata() {
     },
   };
 }
+
 export default async function ProfilePage() {
   const prefetchOptions = {
     queryKey: ['user'],
-    queryFn: () => getUserProfile(),
-  };
+    queryFn: () => profileApi.get(),
+  } as const;
 
   return (
     <div className="mx-auto">

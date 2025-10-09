@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import React, {Suspense} from 'react';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import OrderDetailSkeleton from '@/components/Skeleton/OrderDetailSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import {authApi} from "@/libs/services/authApi";

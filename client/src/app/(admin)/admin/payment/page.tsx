@@ -7,7 +7,7 @@ import PaymentTable from '@/components/Admin/Tables/PaymentTable';
 import PaymentSkeleton from '@/components/Skeleton/PaymentSkeleton';
 import ErrorHandlingWrapper from '@/components/ErrorHandlingWrapper';
 import dayjs from 'dayjs';
-import { paymentsApi } from '@/libs/services/paymentsApi';
+import { paymentApi } from '@/libs/services/paymentApi';
 
 export default async function AdminPaymentPage() {
   const today = dayjs();
@@ -20,11 +20,11 @@ export default async function AdminPaymentPage() {
   const prefetchOptions = [
     {
       queryKey: ['adminPaymentOverview', { date }],
-      queryFn: () => paymentsApi.overview(date.startDate, date.endDate, { cache: 'no-store' }),
+      queryFn: () => paymentApi.overview(date.startDate, date.endDate, { cache: 'no-store' }),
     },
     {
       queryKey: ['adminPayments', { page: 1, size: 10, search: '', date }],
-      queryFn: () => paymentsApi.searchAdmin(1, 10, '', date.startDate, date.endDate, { cache: 'no-store' }),
+      queryFn: () => paymentApi.searchAdmin(1, 10, '', date.startDate, date.endDate, { cache: 'no-store' }),
     },
   ];
 

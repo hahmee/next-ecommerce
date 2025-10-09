@@ -5,11 +5,19 @@ import type { PaymentSummaryDTO } from '@/interface/PaymentSummaryDTO';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 
-export const paymentsApi = {
+export const paymentApi = {
+  list: (init?: FetchOpts) =>
+    fetcher<Payment[]>('/api/payments/list', {
+      method: 'GET',
+      ...(init ?? {}),
+    }),
+
   overview: (startDate = '', endDate = '', init?: FetchOpts) =>
     fetcher<PaymentSummaryDTO>(
       `/api/payments/paymentsOverview?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`,
-      { ...(init ?? {}), method: 'GET' },
+      {
+        ...(init ?? {}),
+        method: 'GET' },
     ),
 
   searchAdmin: (page: number, size: number, search = '', startDate = '', endDate = '', init?: FetchOpts) => {
@@ -22,7 +30,9 @@ export const paymentsApi = {
     });
     return fetcher<PageResponse<Payment>>(
       `/api/payments/searchAdminPaymentList?${qs.toString()}`,
-      { ...(init ?? {}), method: 'GET' },
+      {
+        ...(init ?? {}),
+        method: 'GET' },
     );
   },
 };
