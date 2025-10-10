@@ -1,6 +1,6 @@
 'use client';
 
-import { useStockTable } from '@/hooks/useStockTable';
+import { useStockTable } from '@/hooks/admin/useStockTable';
 import { StockTableView } from './StockTableView';
 
 export default function StockTable() {

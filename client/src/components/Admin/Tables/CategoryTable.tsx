@@ -1,6 +1,6 @@
 'use client';
 
-import {useCategoriesTable} from '@/hooks/useCategoriesTable';
+import {useCategoriesTable} from '@/hooks/admin/useCategoriesTable';
 import {CategoryTableView} from "@/components/Admin/Category/CategoryTableView";
 
 export default function CategoryTable() {

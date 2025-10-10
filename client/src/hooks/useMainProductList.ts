@@ -2,14 +2,14 @@
 
 import { useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import type { Product } from '@/interface/Product';
 import type { ColorTag } from '@/interface/ColorTag';
 import type { CartItem } from '@/interface/CartItem';
 import { useCartStore } from '@/store/cartStore';
 import { useUserStore } from '@/store/userStore';
 import { SalesStatus } from '@/types/salesStatus';
-import { useChangeCartMutation } from '@/hooks/useChangeCartMutation';
+import { useChangeCartMutation } from '@/hooks/cart/useChangeCartMutation';
 
 type MainListType = 'new' | 'featured';
 

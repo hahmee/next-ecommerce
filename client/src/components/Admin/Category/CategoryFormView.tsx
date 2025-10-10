@@ -6,7 +6,7 @@ import { Mode } from '@/types/mode';
 import CategoryBreadcrumb from '@/components/Admin/Category/CategoryBreadcrumb';
 import type { UseFormReturn } from 'react-hook-form';
 import type { Category } from '@/interface/Category';
-import type { CategoryFormValues } from '@/hooks/useCategoryForm';
+import type { CategoryFormValues } from '@/hooks/admin/useCategoryForm';
 
 export function CategoryFormView(props: {
   type: Mode;

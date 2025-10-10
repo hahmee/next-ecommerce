@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState, useMemo, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import type { Product } from '@/interface/Product';
 import type { Paging } from '@/interface/Paging';
 import type {PageResponse} from "@/interface/PageResponse";

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import type { DatepickType } from '@/types/DatepickType';
-import {useTopProducts} from "@/hooks/useTopProducts";
+import {useTopProducts} from "@/hooks/admin/useTopProducts";
 import {TopOrderTableView} from "@/components/Admin/Tables/TopOrderTableView";
 
 

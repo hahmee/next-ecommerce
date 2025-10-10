@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import type { DatepickType } from '@/types/DatepickType';
-import {useTopCustomers} from "@/hooks/useTopCustomers";
+import {useTopCustomers} from "@/hooks/admin/useTopCustomers";
 import {TopCustomersView} from "@/components/Admin/Dashboard/TopCustomersView";
 
 export default function TopCustomers({ date }: { date: DatepickType }) {

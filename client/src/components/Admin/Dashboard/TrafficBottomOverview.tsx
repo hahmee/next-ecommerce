@@ -4,7 +4,7 @@ import React from 'react';
 import type { DatepickType } from '@/types/DatepickType';
 import { ChartFilter } from '@/types/chartFilter';
 import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
-import { useTrafficBottom } from '@/hooks/useTrafficBottom';
+import { useTrafficBottom } from '@/hooks/admin/useTrafficBottom';
 import {TrafficBottomOverviewView} from "@/components/Admin/Dashboard/TrafficBottomOverviewView";
 
 export default function TrafficBottomOverview({

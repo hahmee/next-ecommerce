@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useTrafficOverview } from '@/hooks/useTrafficOverview';
+import { useTrafficOverview } from '@/hooks/admin/useTrafficOverview';
 import {TrafficOverviewView} from "@/components/Admin/Dashboard/TrafficOverviewView";
 
 export default function TrafficOverview({ initialToday }: { initialToday: string }) {

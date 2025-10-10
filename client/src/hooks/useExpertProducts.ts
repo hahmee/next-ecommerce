@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import type { Product } from '@/interface/Product';
 
 export function useExpertProducts() {

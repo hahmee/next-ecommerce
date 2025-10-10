@@ -9,9 +9,9 @@ import Link from 'next/link';
 import { useCartStore } from '@/store/cartStore';
 import { ColorTag } from '@/interface/ColorTag';
 import { CartItem } from '@/interface/CartItem';
-import { useChangeCartMutation } from '@/hooks/useChangeCartMutation';
+import { useChangeCartMutation } from '@/hooks/cart/useChangeCartMutation';
 import { useUserStore } from '@/store/userStore';
-import { useDeleteCartMutation } from '@/hooks/useDeleteCartMutation';
+import { useDeleteCartMutation } from '@/hooks/cart/useDeleteCartMutation';
 
 const SingleCartItem = ({ cartItem }: { cartItem: CartItemList }) => {
   const { user } = useUserStore();

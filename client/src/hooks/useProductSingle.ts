@@ -6,7 +6,7 @@ import type { Product } from '@/interface/Product';
 import type { Review } from '@/interface/Review';
 import type { ColorTag } from '@/interface/ColorTag';
 import { SalesStatus } from '@/types/salesStatus';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import { reviewApi } from '@/libs/services/reviewApi';
 
 const EMPTY_COLOR: ColorTag = { id: 0, text: '', color: '' };

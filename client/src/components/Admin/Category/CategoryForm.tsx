@@ -1,7 +1,7 @@
 'use client';
 
 import { Mode } from '@/types/mode';
-import { useCategoryForm } from '@/hooks/useCategoryForm';
+import { useCategoryForm } from '@/hooks/admin/useCategoryForm';
 import { CategoryFormView } from './CategoryFormView';
 
 interface Props { type: Mode; id?: string }

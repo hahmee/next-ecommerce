@@ -6,7 +6,7 @@ import type {Product} from '@/interface/Product';
 import type {PageResponse} from '@/interface/PageResponse';
 import type {Category} from '@/interface/Category';
 import {useInView} from 'react-intersection-observer';
-import {productApi} from "@/libs/services/productApi";
+import {productApi} from "@/entities/product/api/productApi";
 import {categoryApi} from "@/libs/services/categoryApi";
 
 type Params = {

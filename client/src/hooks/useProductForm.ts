@@ -8,7 +8,7 @@ import type { Product } from '@/interface/Product';
 import type { Category } from '@/interface/Category';
 import { useProductImageStore } from '@/store/productImageStore';
 import { useTagStore } from '@/store/tagStore';
-import {productApi} from "@/libs/services/productApi";
+import {productApi} from "@/entities/product/api/productApi";
 import {categoryApi} from "@/libs/services/categoryApi";
 
 export function useProductForm({ type, id }: { type: Mode; id?: string }) {
