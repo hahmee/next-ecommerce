@@ -1,11 +1,12 @@
-import {NextResponse} from 'next/server';
-import {buildBackendUrlForPublic} from "@/libs/proxy/url";
-import {buildProxyHeaders} from "@/libs/proxy/headers";
-import {readBodyBuffer} from "@/libs/proxy/body";
-import {guardHttpMethod} from '@/libs/proxy/methodGuard';
+import { NextResponse } from 'next/server';
+
+import { readBodyBuffer } from '@/libs/proxy/body';
+import { buildProxyHeaders } from '@/libs/proxy/headers';
+import { guardHttpMethod } from '@/libs/proxy/methodGuard';
+import { buildBackendUrlForPublic } from '@/libs/proxy/url';
 
 async function handler(req: Request, path: string[]) {
-  console.log('public...')
+  console.log('public...');
   // HTTP 메서드가 허용된 집합에 포함되어 있는지 검사
   const methodError = guardHttpMethod(req);
   if (methodError) return methodError;
@@ -32,10 +33,17 @@ async function handler(req: Request, path: string[]) {
   return out;
 }
 
-export const GET = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
-export const POST = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
-export const PUT = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
-export const PATCH = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
-export const DELETE = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
-export const HEAD = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
-export const OPTIONS = (req: Request, { params }: { params: { path: string[] } }) => handler(req, params.path);
+export const GET = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);
+export const POST = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);
+export const PUT = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);
+export const PATCH = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);
+export const DELETE = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);
+export const HEAD = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);
+export const OPTIONS = (req: Request, { params }: { params: { path: string[] } }) =>
+  handler(req, params.path);

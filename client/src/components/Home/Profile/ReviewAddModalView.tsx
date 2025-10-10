@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import Image from 'next/image';
 import { StarIcon, XMarkIcon } from '@heroicons/react/20/solid';
+import Image from 'next/image';
+import React, { useState } from 'react';
+
 import type { Order } from '@/interface/Order';
 
 interface Props {
@@ -28,8 +29,14 @@ export function ReviewAddModalView({ order, orderId, isSubmitting, onClose, onSu
   const stars = [1, 2, 3, 4, 5];
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50" onClick={onClose}>
-      <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white w-full max-w-lg p-6 rounded-lg shadow-lg"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex justify-end">
           <XMarkIcon className="w-7 h-7 cursor-pointer" onClick={onClose} />
         </div>

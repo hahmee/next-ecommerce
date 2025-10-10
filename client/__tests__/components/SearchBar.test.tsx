@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import SearchBar from '@/components/Home/SearchBar';
 import { useRouter } from 'next/navigation';
+
+import SearchBar from '@/components/Home/Common/SearchBar';
 
 // Next.js 내비게이션 훅 모킹 (한글 설명)
 jest.mock('next/navigation', () => ({

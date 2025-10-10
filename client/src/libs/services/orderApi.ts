@@ -1,7 +1,7 @@
-import { fetcher } from '@/utils/fetcher/fetcher';
+import type { Order } from '@/interface/Order';
 import type { PageResponse } from '@/interface/PageResponse';
 import type { Payment } from '@/interface/Payment';
-import type {Order} from "@/interface/Order";
+import { fetcher } from '@/utils/fetcher/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 
@@ -11,7 +11,7 @@ export const orderApi = {
     fetcher<Order>(`/api/orders/${id}`, {
       method: 'GET',
       credentials: 'include', // 인증 필요
-      cache: 'no-store',      // 개인 데이터: 캐시 금지
+      cache: 'no-store', // 개인 데이터: 캐시 금지
       ...(init ?? {}),
     }),
 
@@ -37,9 +37,9 @@ export const orderApi = {
       startDate,
       endDate,
     });
-    return fetcher<PageResponse<Payment>>(
-      `/api/payments/searchAdminOrders?${qs.toString()}`,
-      { ...(init ?? {}), method: 'GET' },
-    );
+    return fetcher<PageResponse<Payment>>(`/api/payments/searchAdminOrders?${qs.toString()}`, {
+      ...(init ?? {}),
+      method: 'GET',
+    });
   },
 };

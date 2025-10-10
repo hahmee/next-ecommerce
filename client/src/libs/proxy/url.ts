@@ -10,7 +10,7 @@ export function buildBackendUrlForBff(req: Request) {
 /** /api/public/* → 백엔드 /api/public/* 로 변환 */
 export function buildBackendUrlForPublic(req: Request, path: string[]) {
   const url = new URL(req.url);
-  console.log('url',url)
+  console.log('url', url);
   const qs = url.search || '';
   return `${API_BASE_URL}/api/public/${path.join('/')}${qs}`;
 }

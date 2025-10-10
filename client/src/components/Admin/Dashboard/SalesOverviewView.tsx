@@ -1,16 +1,16 @@
 'use client';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import CardDataStats from '@/components/Admin/Dashboard/CardDataStats';
 import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
-import { ChartFilter } from '@/types/chartFilter';
-import { ChartContext } from '@/types/chartContext';
-import type { DatepickType } from '@/types/DatepickType';
 import type { CardResponse } from '@/interface/CardResponse';
 import type { ChartResponse } from '@/interface/ChartResponse';
-import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
+import { ChartContext } from '@/types/chartContext';
+import { ChartFilter } from '@/types/chartFilter';
+import type { DatepickType } from '@/types/DatepickType';
 
 const SalesChart = dynamic(() => import('../Dashboard/Charts/SalesChartView'), { ssr: false });
 const TopOrderTable = dynamic(() => import('../Tables/TopOrderTable'), { ssr: false });
@@ -173,25 +173,23 @@ export function SalesOverviewView(props: {
 
       {/* 차트 & 표 */}
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-        <div
-          className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
+        <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
           <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter}/>
+            <SalesChart chart={salesCharts} filterChange={filterChange} filter={currentFilter} />
           </LazyLoadWrapper>
         </div>
 
-        <CountryChart date={date}/>
+        <CountryChart date={date} />
 
         <div className="col-span-12 xl:col-span-8">
           <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TopOrderTable date={date}/>
+            <TopOrderTable date={date} />
           </LazyLoadWrapper>
         </div>
 
-        <div
-          className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+        <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
           <LazyLoadWrapper fallback={<div>Loading...</div>} className="min-h-[400px]">
-            <TopCustomers date={date}/>
+            <TopCustomers date={date} />
           </LazyLoadWrapper>
         </div>
       </div>

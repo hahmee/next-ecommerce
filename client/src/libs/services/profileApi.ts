@@ -1,5 +1,5 @@
+import { Member } from '@/interface/Member';
 import { fetcher } from '@/utils/fetcher/fetcher';
-import {Member} from "@/interface/Member";
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

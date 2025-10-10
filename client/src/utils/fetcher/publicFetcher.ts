@@ -29,5 +29,4 @@ export async function publicFetcher<T>(path: string, init?: FetchOpts): Promise<
   }
 
   return json.data;
-
 }

@@ -1,7 +1,7 @@
-import {fetcher} from '@/utils/fetcher/fetcher';
-import type {Product} from '@/interface/Product';
-import type {PageResponse} from '@/interface/PageResponse';
-import {publicFetcher} from "@/utils/fetcher/publicFetcher";
+import type { PageResponse } from '@/interface/PageResponse';
+import type { Product } from '@/interface/Product';
+import { fetcher } from '@/utils/fetcher/fetcher';
+import { publicFetcher } from '@/utils/fetcher/publicFetcher';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
@@ -9,16 +9,15 @@ type FetchOpts = RequestInit & {
 
 type ListPublicArgs = {
   page: number;
-  row: number;                 // ← API 쿼리에서는 size로 변환
+  row: number; // ← API 쿼리에서는 size로 변환
   categoryId: string;
-  colors?: string | string[];  // ← 쿼리 키: color
+  colors?: string | string[]; // ← 쿼리 키: color
   productSizes?: string | string[]; // ← 쿼리 키: productSize
   minPrice: string;
   maxPrice: string;
   order: string;
   query: string;
 };
-
 
 export const productApi = {
   // 단건 조회
@@ -47,13 +46,10 @@ export const productApi = {
   // 어드민 검색 목록
   searchAdmin: (page: number, size: number, search = '', init?: FetchOpts) => {
     const qs = new URLSearchParams({ page: String(page), size: String(size), search });
-    return fetcher<PageResponse<Product>>(
-      `/api/products/searchAdminList?${qs.toString()}`,
-      {
-        ...(init ?? {}),
-        method: 'GET',
-      },
-    );
+    return fetcher<PageResponse<Product>>(`/api/products/searchAdminList?${qs.toString()}`, {
+      ...(init ?? {}),
+      method: 'GET',
+    });
   },
 
   // 삭제
@@ -84,13 +80,13 @@ export const productApi = {
     publicFetcher<Product[]>('/api/public/products/newProductList', {
       method: 'GET',
       ...(init ?? {}),
-    }) ,
+    }),
 
   featuredList: (init?: FetchOpts) =>
     publicFetcher<Product[]>('/api/public/products/featuredProductList', {
       method: 'GET',
       ...(init ?? {}),
-    }) ,
+    }),
 
   expertList: (init?: FetchOpts) =>
     publicFetcher<Product[]>('/api/public/products/expertProducts', {
@@ -105,15 +101,11 @@ export const productApi = {
     }),
 
   listPublic: (args: ListPublicArgs, init?: FetchOpts) => {
-    const {
-      page, row, categoryId,
-      colors, productSizes,
-      minPrice, maxPrice, order, query,
-    } = args;
+    const { page, row, categoryId, colors, productSizes, minPrice, maxPrice, order, query } = args;
 
     const qs = new URLSearchParams();
     qs.set('page', String(page));
-    qs.set('size', String(row));              // ← row를 size로
+    qs.set('size', String(row)); // ← row를 size로
     qs.set('categoryId', categoryId ?? '');
     qs.set('minPrice', minPrice ?? '');
     qs.set('maxPrice', maxPrice ?? '');
@@ -126,13 +118,9 @@ export const productApi = {
     const sizeArr = Array.isArray(productSizes) ? productSizes : productSizes ? [productSizes] : [];
     sizeArr.forEach((s) => qs.append('productSize', s)); // ← 키: productSize
 
-    return publicFetcher<PageResponse<Product>>(
-      `/api/public/products/list?${qs.toString()}`,
-      {
-          method: 'GET',
-          ...(init ?? {})
-      },
-    );
+    return publicFetcher<PageResponse<Product>>(`/api/public/products/list?${qs.toString()}`, {
+      method: 'GET',
+      ...(init ?? {}),
+    });
   },
-
 };

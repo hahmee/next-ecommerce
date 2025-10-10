@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
-import type {Payment} from '@/interface/Payment';
-import type { PaymentConfirmVM } from '@/hooks/usePaymentConfirm';
+import React from 'react';
+
+import type { PaymentConfirmVM } from '@/hooks/home/payment/usePaymentConfirm';
 
 interface Props {
   payment: PaymentConfirmVM;
@@ -15,7 +15,9 @@ const ConfirmView = ({ payment }: Props) => {
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
         <h1 className="text-2xl font-bold text-green-600 mb-4">주문이 완료되었습니다!</h1>
         <p className="text-gray-700 mb-4">주문이름: {payment.orderName}</p>
-        <p className="text-gray-700 mb-4">주문번호: <strong>{payment.orderId}</strong></p>
+        <p className="text-gray-700 mb-4">
+          주문번호: <strong>{payment.orderId}</strong>
+        </p>
         <p className="text-gray-700 mb-4">
           총 결제 금액: <strong>{payment.totalAmount.toLocaleString()}원</strong>
         </p>

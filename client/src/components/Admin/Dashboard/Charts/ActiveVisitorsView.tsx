@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SessionDTO } from '@/interface/GAResponse';
 
 const ActiveVisitorsView = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {

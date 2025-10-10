@@ -1,9 +1,9 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 
 import Loading from '@/app/loading';
 import StockTable from '@/components/Admin/Tables/StockTable';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { productApi } from '@/libs/services/productApi';
 
 export default function StockPage() {
@@ -20,7 +20,7 @@ export default function StockPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<Loading />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-              <StockTable />
+            <StockTable />
           </PrefetchBoundary>
         </Suspense>
       </div>

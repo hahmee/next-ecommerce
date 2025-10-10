@@ -1,17 +1,18 @@
 'use client';
 
-import React, {Fragment} from 'react';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import TableSearch from '@/components/Admin/Tables/TableSearch';
-import TableAddButton from '@/components/Admin/Tables/TableAddButton';
-import ViewButton from '@/components/Admin/Tables/ViewButton';
+import React, { Fragment } from 'react';
+
 import PageComponent from '@/components/Admin/Tables/PageComponent';
 import TableActions from '@/components/Admin/Tables/TableActions';
-import {ChevronDownIcon, ChevronUpIcon} from '@heroicons/react/20/solid';
-import dynamic from 'next/dynamic';
-import type {CategoryTree} from '@/interface/CategoryTree';
-import type {Paging} from '@/interface/Paging';
+import TableAddButton from '@/components/Admin/Tables/TableAddButton';
+import TableSearch from '@/components/Admin/Tables/TableSearch';
+import ViewButton from '@/components/Admin/Tables/ViewButton';
+import type { CategoryTree } from '@/interface/CategoryTree';
+import type { Paging } from '@/interface/Paging';
 
 const Dialog = dynamic(() => import('../Dialog'));
 
@@ -34,14 +35,24 @@ export function CategoryTableView(props: {
   deleteCategory: () => void;
 }) {
   const {
-    dtoList, paging,size,
-    expandedRows, dropdownOpen, showDialog,
-    setDeleteId, handleSearch, changeSize, changePage,
-    clickModal, toggleRow, toggleDropdown, deleteCategory,
+    dtoList,
+    paging,
+    size,
+    expandedRows,
+    dropdownOpen,
+    showDialog,
+    setDeleteId,
+    handleSearch,
+    changeSize,
+    changePage,
+    clickModal,
+    toggleRow,
+    toggleDropdown,
+    deleteCategory,
   } = props;
 
   const renderRows = (categories: CategoryTree[], depth = 0) =>
-    categories.map(category => (
+    categories.map((category) => (
       <Fragment key={category.cno}>
         <tr
           className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -50,7 +61,9 @@ export function CategoryTableView(props: {
           <td className="px-4 py-3 whitespace-nowrap">
             <div className="flex items-center">
               <input id={`cb-${category.cno}`} type="checkbox" className="w-4 h-4" />
-              <label htmlFor={`cb-${category.cno}`} className="sr-only">checkbox</label>
+              <label htmlFor={`cb-${category.cno}`} className="sr-only">
+                checkbox
+              </label>
             </div>
           </td>
 
@@ -60,15 +73,17 @@ export function CategoryTableView(props: {
             style={{ paddingLeft: `${depth * 20}px` }}
           >
             <div className="w-7">
-              {!!category.subCategories?.length && (
-                expandedRows.includes(category.cno)
-                  ? <ChevronUpIcon className="h-7 w-7 text-gray-500" />
-                  : <ChevronDownIcon className="h-7 w-7 text-gray-500" />
-              )}
+              {!!category.subCategories?.length &&
+                (expandedRows.includes(category.cno) ? (
+                  <ChevronUpIcon className="h-7 w-7 text-gray-500" />
+                ) : (
+                  <ChevronDownIcon className="h-7 w-7 text-gray-500" />
+                ))}
             </div>
             <Image
               src={category.uploadFileName || '/images/mall/no_image.png'}
-              width={500} height={500}
+              width={500}
+              height={500}
               className="object-cover w-15 h-10 flex-none"
               alt="Category"
             />
@@ -93,7 +108,8 @@ export function CategoryTableView(props: {
                     서브 카테고리 추가
                   </Link>
                   <Link
-                    data-testid="edit-link" aria-label="edit-link"
+                    data-testid="edit-link"
+                    aria-label="edit-link"
                     href={`/admin/category/edit-category/${category.cno}`}
                     className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600"
                   >
@@ -102,9 +118,13 @@ export function CategoryTableView(props: {
                 </ul>
                 <div className="py-1">
                   <button
-                    data-testid="delete" aria-label="delete"
+                    data-testid="delete"
+                    aria-label="delete"
                     className="block w-full text-left py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"
-                    onClick={() => { setDeleteId(category.cno); clickModal(); }}
+                    onClick={() => {
+                      setDeleteId(category.cno);
+                      clickModal();
+                    }}
                   >
                     삭제
                   </button>
@@ -144,23 +164,27 @@ export function CategoryTableView(props: {
       <div className="w-auto overflow-x-auto overflow-y-hidden">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th className="p-4 py-3" />
-            <th className="px-4 py-3">카테고리명</th>
-            <th className="px-4 py-3">설명</th>
-            <th className="px-4 py-3">서브 카테고리</th>
-            <th className="px-4 py-3">사용여부</th>
-            <th className="px-4 py-3"><span className="sr-only">Actions</span></th>
-          </tr>
+            <tr>
+              <th className="p-4 py-3" />
+              <th className="px-4 py-3">카테고리명</th>
+              <th className="px-4 py-3">설명</th>
+              <th className="px-4 py-3">서브 카테고리</th>
+              <th className="px-4 py-3">사용여부</th>
+              <th className="px-4 py-3">
+                <span className="sr-only">Actions</span>
+              </th>
+            </tr>
           </thead>
           <tbody>
-          {dtoList.length > 0 ? (
-            renderRows(dtoList)
-          ) : (
-            <tr>
-              <td colSpan={6} className="text-center px-4 py-6">No results</td>
-            </tr>
-          )}
+            {dtoList.length > 0 ? (
+              renderRows(dtoList)
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center px-4 py-6">
+                  No results
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

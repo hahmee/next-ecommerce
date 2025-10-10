@@ -1,5 +1,5 @@
-import { useCartStore } from '@/store/cartStore';
 import { CartItemList } from '@/interface/CartItemList';
+import { useCartStore } from '@/store/cartStore';
 
 describe('useCartStore', () => {
   beforeEach(() => {

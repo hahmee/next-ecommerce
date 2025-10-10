@@ -2,6 +2,7 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
+
 import type { TopCustomerResponse } from '@/interface/TopCustomerResponse';
 
 export function TopCustomersView({ customers }: { customers: TopCustomerResponse[] }) {

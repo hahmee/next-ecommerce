@@ -1,7 +1,7 @@
 'use client';
 
-import { useCartStore } from '@/store/cartStore';
 import SingleCartItem from '@/components/Home/Cart/SingleCartItem';
+import { useCartStore } from '@/store/cartStore';
 
 const CartList = () => {
   const { carts } = useCartStore();

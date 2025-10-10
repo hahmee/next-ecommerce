@@ -1,12 +1,12 @@
+import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
+import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+
 import ProductList from '@/components/Home/Product/ProductList';
 import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
-
-import type { Metadata } from 'next';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { categoryApi } from '@/libs/services/categoryApi';
 import { productApi } from '@/libs/services/productApi';
-import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -63,7 +63,6 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   };
 }
 
-
 export default async function ListPage({ searchParams }: Props) {
   const get = (k: string) => {
     const v = searchParams[k];
@@ -72,10 +71,14 @@ export default async function ListPage({ searchParams }: Props) {
 
   const categoryId = get('category_id');
   const colors = searchParams.color
-    ? Array.isArray(searchParams.color) ? searchParams.color : [searchParams.color]
+    ? Array.isArray(searchParams.color)
+      ? searchParams.color
+      : [searchParams.color]
     : [];
   const sizes = searchParams.size
-    ? Array.isArray(searchParams.size) ? searchParams.size : [searchParams.size]
+    ? Array.isArray(searchParams.size)
+      ? searchParams.size
+      : [searchParams.size]
     : [];
   const minPrice = get('minPrice');
   const maxPrice = get('maxPrice');
@@ -104,7 +107,11 @@ export default async function ListPage({ searchParams }: Props) {
 
   const prefetchOptions = [
     { queryKey: ['categories'], queryFn: () => categoryApi.listPublic() },
-    { queryKey: ['category', categoryId], queryFn: () => categoryApi.byIdPublic(categoryId), enabled: !!categoryId },
+    {
+      queryKey: ['category', categoryId],
+      queryFn: () => categoryApi.byIdPublic(categoryId),
+      enabled: !!categoryId,
+    },
   ];
 
   return (
@@ -113,17 +120,15 @@ export default async function ListPage({ searchParams }: Props) {
         prefetchInfiniteOptions={prefetchInfiniteOptions}
         prefetchOptions={prefetchOptions}
       >
-        
-          <ProductList
-            categoryId={categoryId}
-            colors={colors}
-            sizes={sizes}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            order={order}
-            query={query}
-          />
-        
+        <ProductList
+          categoryId={categoryId}
+          colors={colors}
+          sizes={sizes}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+          order={order}
+          query={query}
+        />
       </PrefetchBoundary>
     </Suspense>
   );

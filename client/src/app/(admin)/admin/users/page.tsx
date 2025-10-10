@@ -1,10 +1,10 @@
-import React, {Suspense} from 'react';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import Loading from '@/app/loading';
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
-import UserDashbaord from '@/components/Admin/Users/UserDashbaord';
-import {memberApi} from "@/libs/services/memberApi";
+import React, { Suspense } from 'react';
 
+import Loading from '@/app/loading';
+import UserDashbaord from '@/components/Admin/Users/UserDashbaord';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { memberApi } from '@/libs/services/memberApi';
 
 const UserDashboardPage = () => {
   const prefetchOptions = {
@@ -18,7 +18,7 @@ const UserDashboardPage = () => {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<Loading />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-              <UserDashbaord />
+            <UserDashbaord />
           </PrefetchBoundary>
         </Suspense>
       </div>

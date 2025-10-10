@@ -1,7 +1,7 @@
 'use client';
 
-import { useInView } from 'react-intersection-observer';
 import React, { ReactNode } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 interface LazyLoadWrapperProps {
   children: ReactNode;

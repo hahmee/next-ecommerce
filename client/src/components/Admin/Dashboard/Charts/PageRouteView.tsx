@@ -1,5 +1,6 @@
-import { SessionDTO } from '@/interface/GAResponse';
 import React from 'react';
+
+import { SessionDTO } from '@/interface/GAResponse';
 
 const PageRouteView = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
   return (

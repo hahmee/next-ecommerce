@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
 import { Identifier, XYCoord } from 'dnd-core';
 import Image from 'next/image';
+import React, { useRef } from 'react';
+import { useDrag, useDrop } from 'react-dnd';
 
 interface Props {
   image: string;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { SessionDTO } from '@/interface/GAResponse';
+
 import HorizontalBarChart from '@/components/Admin/Dashboard/Charts/HorizontalBarChart';
+import { SessionDTO } from '@/interface/GAResponse';
 
 const TrafficPageChartView = ({ topPages }: { topPages: Array<SessionDTO<number>> | [] }) => {
   const totalSessions = topPages ? topPages.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;

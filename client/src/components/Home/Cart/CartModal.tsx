@@ -1,11 +1,12 @@
 'use client';
 
-import { useCartStore } from '@/store/cartStore';
-import React from 'react';
-import CartItem from '@/components/Home/Cart/CartItem';
 import { useRouter } from 'next/navigation';
-import GACta from '@/libs/ga-call-to-action/GACta';
+import React from 'react';
+
+import CartItem from '@/components/Home/Cart/CartItem';
 import { GA_CTA_EVENTS } from '@/constants';
+import GACta from '@/libs/ga-call-to-action/GACta';
+import { useCartStore } from '@/store/cartStore';
 
 const CartModal = () => {
   const { carts, isLoading, open, subtotal, changeOpen } = useCartStore();

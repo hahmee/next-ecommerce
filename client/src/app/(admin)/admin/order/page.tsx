@@ -1,10 +1,10 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import React, {Suspense} from 'react';
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
-import OrderTable from '@/components/Admin/Tables/OrderTable';
-import {TableSkeleton} from '@/components/Skeleton/TableSkeleton';
-import {orderApi} from "@/libs/services/orderApi";
+import React, { Suspense } from 'react';
 
+import OrderTable from '@/components/Admin/Tables/OrderTable';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { orderApi } from '@/libs/services/orderApi';
 
 export default async function AdminOrderPage() {
   // 테이블 기간
@@ -15,7 +15,7 @@ export default async function AdminOrderPage() {
 
   const prefetchOptions = {
     queryKey: ['adminOrders', { page: 1, size: 10, search: '', date }],
-    queryFn: () => orderApi.searchAdmin(1,10,'','',''),
+    queryFn: () => orderApi.searchAdmin(1, 10, '', '', ''),
   };
 
   return (
@@ -25,7 +25,7 @@ export default async function AdminOrderPage() {
         <div className="flex flex-col gap-10 ">
           <Suspense fallback={<TableSkeleton />}>
             <PrefetchBoundary prefetchOptions={prefetchOptions}>
-                <OrderTable />
+              <OrderTable />
             </PrefetchBoundary>
           </Suspense>
         </div>

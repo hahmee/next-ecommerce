@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
+
 import type { TopProductResponse } from '@/interface/TopProductResponse';
 
 export function TopOrderTableView({ products }: { products: TopProductResponse[] }) {
@@ -12,11 +13,21 @@ export function TopOrderTableView({ products }: { products: TopProductResponse[]
 
       <div className="flex flex-col">
         <div className="grid grid-cols-4 rounded-sm bg-gray-50 dark:bg-meta-4 sm:grid-cols-5">
-          <div className="p-2.5 text-center"><h5 className="text-sm font-bold uppercase xsm:text-base">Item name</h5></div>
-          <div className="p-2.5 text-center"><h5 className="text-sm font-bold uppercase xsm:text-base">Options</h5></div>
-          <div className="p-2.5 text-center"><h5 className="text-sm font-bold uppercase xsm:text-base">Quantity</h5></div>
-          <div className="p-2.5 text-center"><h5 className="text-sm font-bold uppercase xsm:text-base">% of total</h5></div>
-          <div className="hidden p-2.5 text-center sm:block "><h5 className="text-sm font-bold uppercase xsm:text-base">Gross sales</h5></div>
+          <div className="p-2.5 text-center">
+            <h5 className="text-sm font-bold uppercase xsm:text-base">Item name</h5>
+          </div>
+          <div className="p-2.5 text-center">
+            <h5 className="text-sm font-bold uppercase xsm:text-base">Options</h5>
+          </div>
+          <div className="p-2.5 text-center">
+            <h5 className="text-sm font-bold uppercase xsm:text-base">Quantity</h5>
+          </div>
+          <div className="p-2.5 text-center">
+            <h5 className="text-sm font-bold uppercase xsm:text-base">% of total</h5>
+          </div>
+          <div className="hidden p-2.5 text-center sm:block ">
+            <h5 className="text-sm font-bold uppercase xsm:text-base">Gross sales</h5>
+          </div>
         </div>
 
         {products.map((product, idx) => (

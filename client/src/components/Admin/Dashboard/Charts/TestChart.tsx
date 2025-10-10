@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import type { ApexOptions } from 'apexcharts';
+import React, { useEffect, useState } from 'react';
+
 import ReactApexChart from '@/components/Common/ReactApexChart';
 
 const TestChart = () => {

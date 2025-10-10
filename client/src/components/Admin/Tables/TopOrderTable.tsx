@@ -1,9 +1,9 @@
 'use client';
 import React from 'react';
-import type { DatepickType } from '@/types/DatepickType';
-import {useTopProducts} from "@/hooks/useTopProducts";
-import {TopOrderTableView} from "@/components/Admin/Tables/TopOrderTableView";
 
+import { TopOrderTableView } from '@/components/Admin/Tables/TopOrderTableView';
+import { useTopProducts } from '@/hooks/admin/product/useTopProducts';
+import type { DatepickType } from '@/types/DatepickType';
 
 export default function TopOrderTable({ date }: { date: DatepickType }) {
   const { data } = useTopProducts(date);

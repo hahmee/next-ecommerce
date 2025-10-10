@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import SignupPage from '@/app/(home)/signup/page';
 import { useRouter } from 'next/navigation';
+
+import SignupPage from '@/app/(home)/signup/page';
 import { DataResponse } from '@/interface/DataResponse';
 import { Member } from '@/interface/Member';
 import { MemberRole } from '@/types/memberRole';

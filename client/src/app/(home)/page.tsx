@@ -1,10 +1,11 @@
-import Slider from '@/components/Home/Slider';
-import React, {Suspense} from 'react';
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
-import Skeleton from '@/components/Skeleton/Skeleton';
+import React, { Suspense } from 'react';
+
+import Slider from '@/components/Home/Common/Slider';
 import Home from '@/components/Home/Main/Home';
-import {productApi} from "@/libs/services/productApi";
-import {categoryApi} from "@/libs/services/categoryApi";
+import Skeleton from '@/components/Skeleton/Skeleton';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { categoryApi } from '@/libs/services/categoryApi';
+import { productApi } from '@/libs/services/productApi';
 
 // 동적 데이터 없음 -> generateMetadata대신 meatadata 사용
 export const metadata = {

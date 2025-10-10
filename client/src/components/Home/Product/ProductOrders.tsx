@@ -1,6 +1,8 @@
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+
+import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
 
 export type OrderOption = {
   id: string;
@@ -36,7 +38,7 @@ const orders: OrderOption[] = [
 
 const ProductOrders = () => {
   const [sortOpen, setSortOpen] = useState<boolean>(false);
-  const searchParams = useSearchParams();
+  const searchParams = useSafeSearchParams();
   const router = useRouter();
   const [orderValue, setOrderValue] = useState<OrderOption>();
 

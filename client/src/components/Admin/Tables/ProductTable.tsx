@@ -1,5 +1,6 @@
 'use client';
-import { useProductsTable } from '@/hooks/useProductsTable';
+import { useProductsTable } from '@/hooks/admin/table/useProductsTable';
+
 import { ProductTableView } from './ProductTableView';
 
 const ProductTable = () => {

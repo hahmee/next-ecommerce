@@ -1,9 +1,10 @@
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
+
 import ProductForm from '@/components/Admin/Product/ProductForm';
-import {Mode} from '@/types/mode';
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import ProductFormSkeleton from '@/components/Skeleton/ProductFormSkeleton';
-import {categoryApi} from "@/libs/services/categoryApi";
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { categoryApi } from '@/libs/services/categoryApi';
+import { Mode } from '@/types/mode';
 
 export default function AddProductPage() {
   const prefetchOptions = [
@@ -16,9 +17,7 @@ export default function AddProductPage() {
   return (
     <Suspense fallback={<ProductFormSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        
-          <ProductForm type={Mode.ADD} />
-        
+        <ProductForm type={Mode.ADD} />
       </PrefetchBoundary>
     </Suspense>
   );

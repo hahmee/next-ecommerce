@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+
 import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
 import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
 import type { GAResponseMiddle } from '@/interface/GAResponse';
@@ -24,7 +25,11 @@ export function TrafficMiddleOverviewView({ data }: { data?: GAResponseMiddle })
       <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
         <div className="col-span-12 xl:col-span-4">
           <LazyLoadWrapper fallback={<LoadingSkeleton />} className="min-h-[400px]">
-            <PieChart data={data.visitors} title="New vs returning visitors" label="Site sessions" />
+            <PieChart
+              data={data.visitors}
+              title="New vs returning visitors"
+              label="Site sessions"
+            />
           </LazyLoadWrapper>
         </div>
 

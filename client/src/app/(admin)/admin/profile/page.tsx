@@ -1,13 +1,12 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import Profile from '@/components/Admin/Profile/Profile';
-import Loading from '@/app/loading';
-
 import type { Metadata } from 'next';
-import {authApi} from "@/libs/services/authApi";
-import {profileApi} from "@/libs/services/profileApi";
+import React, { Suspense } from 'react';
 
+import Loading from '@/app/loading';
+import Profile from '@/components/Admin/Profile/Profile';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { authApi } from '@/libs/services/authApi';
+import { profileApi } from '@/libs/services/profileApi';
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await authApi.me({ cache: 'no-store' }).catch(() => null);
@@ -42,9 +41,7 @@ export default async function ProfilePage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<Loading />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <Profile />
-            
+            <Profile />
           </PrefetchBoundary>
         </Suspense>
       </div>

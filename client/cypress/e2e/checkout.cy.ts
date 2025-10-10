@@ -27,12 +27,13 @@ describe('장바구니 → 주문 → 결제 E2E 테스트', () => {
       req.reply({
         statusCode: 200,
         headers: { 'content-type': 'application/json' },
-        body: { // 응답 생성
+        body: {
+          // 응답 생성
           paymentKey,
           orderId: 'abc123',
           orderName: '장바구니 결제',
           totalAmount: 35175,
-          status: 'DONE'
+          status: 'DONE',
         },
       });
     }).as('getPayment');
@@ -57,7 +58,8 @@ describe('장바구니 → 주문 → 결제 E2E 테스트', () => {
 
     // Toss SDK 스텁: 앱이 전달한 successUrl 그대로 사용
     cy.window().then((win: any) => {
-      win.TossPayments = () => ({ // 원래 SDK 대신 만든 가짜 객체
+      win.TossPayments = () => ({
+        // 원래 SDK 대신 만든 가짜 객체
         requestPayment: (_method: string, payload: any) => {
           // 실제 결제창 대신 successUrl로 강제 이동시킴
           const url = new URL(payload.successUrl, win.location.origin);
@@ -90,6 +92,5 @@ describe('장바구니 → 주문 → 결제 E2E 테스트', () => {
     //
     // // 성공 문구 확인
     // cy.contains(/주문이 완료되었습니다/i).should('be.visible');
-
   });
 });

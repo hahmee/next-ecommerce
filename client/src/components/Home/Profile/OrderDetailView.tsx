@@ -1,24 +1,35 @@
 // src/components/Home/Profile/OrderDetail/OrderDetailView.tsx
 'use client';
 
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import dayjs from 'dayjs';
+
 import type { Order } from '@/interface/Order';
 import { OrderStatus } from '@/types/orderStatus';
 
 const getOrderStatusText = (status: OrderStatus): string => {
   switch (status) {
-    case OrderStatus.ORDER_CHECKING: return '주문 확인';
-    case OrderStatus.PAYMENT_CONFIRMED: return '결제 완료';
-    case OrderStatus.PENDING: return '대기 중';
-    case OrderStatus.COMPLETED: return '완료됨';
-    case OrderStatus.CANCELLED: return '취소됨';
-    case OrderStatus.SHIPPED: return '배송 중';
-    case OrderStatus.DELIVERED: return '배송 완료';
-    case OrderStatus.RETURNED: return '반품됨';
-    case OrderStatus.REFUNDED: return '환불됨';
-    default: return '알 수 없는 상태';
+    case OrderStatus.ORDER_CHECKING:
+      return '주문 확인';
+    case OrderStatus.PAYMENT_CONFIRMED:
+      return '결제 완료';
+    case OrderStatus.PENDING:
+      return '대기 중';
+    case OrderStatus.COMPLETED:
+      return '완료됨';
+    case OrderStatus.CANCELLED:
+      return '취소됨';
+    case OrderStatus.SHIPPED:
+      return '배송 중';
+    case OrderStatus.DELIVERED:
+      return '배송 완료';
+    case OrderStatus.RETURNED:
+      return '반품됨';
+    case OrderStatus.REFUNDED:
+      return '환불됨';
+    default:
+      return '알 수 없는 상태';
   }
 };
 
@@ -65,7 +76,10 @@ export function OrderDetailView({ orders, isLoading }: Props) {
           <h2 className="text-lg font-semibold mb-2">주문 상품</h2>
           <ul>
             {orders.map((item) => (
-              <li key={item.id} className="flex flex-col p-3 mb-3 border gap-y-3 border-gray-200 rounded">
+              <li
+                key={item.id}
+                className="flex flex-col p-3 mb-3 border gap-y-3 border-gray-200 rounded"
+              >
                 <span className="text-xs font-black">구매확정</span>
                 <div className="flex gap-3 justify-between">
                   <div className="flex gap-x-3">
@@ -80,7 +94,9 @@ export function OrderDetailView({ orders, isLoading }: Props) {
                     </Link>
                     <div className="flex flex-col text-xs">
                       <span>{item.productInfo.pname}</span>
-                      <span className="text-gray-500">{item.productInfo.price.toLocaleString()} 원</span>
+                      <span className="text-gray-500">
+                        {item.productInfo.price.toLocaleString()} 원
+                      </span>
                       <span className="text-gray-500">{item.productInfo.size}</span>
                       <span className="text-gray-500">{item.productInfo.color.text}</span>
                       <span className="text-gray-500">{item.productInfo.qty} 개</span>

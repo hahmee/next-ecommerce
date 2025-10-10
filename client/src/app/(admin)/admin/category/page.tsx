@@ -1,10 +1,10 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import React, {Suspense} from 'react';
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
-import CategoryTable from '@/components/Admin/Tables/CategoryTable';
-import {TableSkeleton} from '@/components/Skeleton/TableSkeleton';
+import React, { Suspense } from 'react';
 
-import {categoryApi} from "@/libs/services/categoryApi";
+import CategoryTable from '@/components/Admin/Tables/CategoryTable';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { categoryApi } from '@/libs/services/categoryApi';
 
 export default function CategoryPage() {
   const prefetchOptions = {
@@ -18,9 +18,7 @@ export default function CategoryPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<TableSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <CategoryTable />
-            
+            <CategoryTable />
           </PrefetchBoundary>
         </Suspense>
       </div>

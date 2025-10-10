@@ -1,10 +1,11 @@
 'use client';
 
+import { ArrowLongLeftIcon, ArrowLongRightIcon, StarIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { ArrowLongLeftIcon, ArrowLongRightIcon, StarIcon } from '@heroicons/react/20/solid';
-import {useExpertProducts} from "@/hooks/useExpertProducts";
+
+import { useExpertProducts } from '@/hooks/home/product/useExpertProducts';
 
 const ExpertList = () => {
   const { data: products = [] } = useExpertProducts();

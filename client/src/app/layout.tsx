@@ -1,14 +1,16 @@
+import './globals.css';
+
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
-import React from 'react';
-import RQProvider from '@/components/Common/RQProvider';
-import { Toaster } from 'react-hot-toast';
-import { GoogleAnalytics } from '@next/third-parties/google';
-import { GAPageView } from '@/libs/ga-page-view/GAPageView';
-import UserSyncHandler from '@/components/UserSyncHandler';
-import SessionExpiredRedirect from '@/components/Error/SessionExpiredRedirect';
 import { cookies } from 'next/headers';
+import React from 'react';
+import { Toaster } from 'react-hot-toast';
+
+import RQProvider from '@/components/Common/RQProvider';
+import SessionExpiredRedirect from '@/components/Common/SessionExpiredRedirect';
+import UserSyncHandler from '@/components/Common/UserSyncHandler';
+import { GAPageView } from '@/libs/ga-page-view/GAPageView';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 

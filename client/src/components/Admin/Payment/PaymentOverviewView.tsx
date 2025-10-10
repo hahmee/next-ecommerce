@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import React from 'react';
+
 import ClickOutside from '@/components/Common/ClickOutside';
 import type { Option } from '@/interface/Option';
 

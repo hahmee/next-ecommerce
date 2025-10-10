@@ -1,6 +1,7 @@
-import { Category } from '@/interface/Category';
 import { useEffect, useState } from 'react';
+
 import CategoryList from '@/components/Admin/Product/CategoryList';
+import { Category } from '@/interface/Category';
 
 const CategorySelect = ({
   categories,

@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import ImagePreview from '@/components/Admin/Product/ImagePreview';
-import { useDropzone } from 'react-dropzone';
-import { useProductImageStore } from '@/store/productImageStore';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDropzone } from 'react-dropzone';
+
+import ImagePreview from '@/components/Admin/Product/ImagePreview';
+import { useProductImageStore } from '@/store/productImageStore';
 
 export interface ImageType {
   dataUrl: string; // blob or aws full path

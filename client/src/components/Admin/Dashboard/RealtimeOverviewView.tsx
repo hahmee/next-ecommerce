@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+
 import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
 import type { GARealTimeResponseTop } from '@/interface/GARealTimeResponse';
 

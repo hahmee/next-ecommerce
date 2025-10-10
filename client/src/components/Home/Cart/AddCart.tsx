@@ -1,15 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { SalesStatus, SalesStatusKor } from '@/types/salesStatus';
-import { CartItemList } from '@/interface/CartItemList';
-import { useCartStore } from '@/store/cartStore';
+
+import { useChangeCartMutation } from '@/hooks/home/cart/useChangeCartMutation';
 import { CartItem } from '@/interface/CartItem';
 import { ColorTag } from '@/interface/ColorTag';
-import toast from 'react-hot-toast';
 import GACta from '@/libs/ga-call-to-action/GACta';
+import { useCartStore } from '@/store/cartStore';
 import { useUserStore } from '@/store/userStore';
-import { useChangeCartMutation } from '@/hooks/useChangeCartMutation';
+import { SalesStatus, SalesStatusKor } from '@/types/salesStatus';
 
 const AddCart = ({
   pno,

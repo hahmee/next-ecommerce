@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import ProductSingleSkeleton from '@/components/Skeleton/ProductSingleSkeleton';
-
 import type { Metadata } from 'next';
+import React, { Suspense } from 'react';
+
 import ProductSingle from '@/components/Home/Product/ProductSingle';
+import ProductSingleSkeleton from '@/components/Skeleton/ProductSingleSkeleton';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { productApi } from '@/libs/services/productApi';
 import { reviewApi } from '@/libs/services/reviewApi';
 
@@ -15,12 +15,15 @@ const stripHtml = (html?: string) => (html ?? '').replace(/<[^>]*>/g, '').trim()
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
 
-  const product = await productApi.byIdPublic(id, {
-    next: { revalidate: 60, tags: ['productCustomerSingle', id] },
-  }).catch(() => null);
+  const product = await productApi
+    .byIdPublic(id, {
+      next: { revalidate: 60, tags: ['productCustomerSingle', id] },
+    })
+    .catch(() => null);
 
   const productName = product?.pname ?? '상품 정보';
-  const description = stripHtml(product?.pdesc) || 'Next E-commerce의 다양한 상품 정보를 확인해보세요.';
+  const description =
+    stripHtml(product?.pdesc) || 'Next E-commerce의 다양한 상품 정보를 확인해보세요.';
   const imageUrl = product?.uploadFileNames?.[0]?.file;
 
   return {
@@ -64,9 +67,7 @@ export default async function ProductSinglePage({ params }: Props) {
   return (
     <Suspense fallback={<ProductSingleSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        
-          <ProductSingle id={id} />
-        
+        <ProductSingle id={id} />
       </PrefetchBoundary>
     </Suspense>
   );

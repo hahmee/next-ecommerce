@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from './constants';
 
 /** 인증 쿠키만 Cookie 헤더 문자열로 만든다 (BFF 전용) */
@@ -20,7 +21,10 @@ export function buildAuthCookieHeader() {
  * 브라우저/클라이언트가 보낸 원본 헤더에는 프록시에 부적절하거나(Host),
  * 그대로 전달하면 위험/혼란을 줄 수 있는 값들(Cookie)이 있을 수 있음
  * * */
-export function buildProxyHeaders(req: Request, opts?: { cookieHeader?: string; dropCookies?: boolean }) {
+export function buildProxyHeaders(
+  req: Request,
+  opts?: { cookieHeader?: string; dropCookies?: boolean },
+) {
   const headers = new Headers(req.headers);
   // 프록시 특성상 원본 Host는 의미가 없고, 백엔드 서버의 Host로 교체되어야 하므로 제거
   headers.delete('host'); // ex: Host: localhost:3000: 지움

@@ -1,16 +1,17 @@
 'use client';
 
 import React from 'react';
-import type { DatepickType } from '@/types/DatepickType';
-import { ChartFilter } from '@/types/chartFilter';
+
+import { TrafficBottomOverviewView } from '@/components/Admin/Dashboard/TrafficBottomOverviewView';
 import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
-import { useTrafficBottom } from '@/hooks/useTrafficBottom';
-import {TrafficBottomOverviewView} from "@/components/Admin/Dashboard/TrafficBottomOverviewView";
+import { useTrafficBottom } from '@/hooks/admin/dashboard/useTrafficBottom';
+import { ChartFilter } from '@/types/chartFilter';
+import type { DatepickType } from '@/types/DatepickType';
 
 export default function TrafficBottomOverview({
-                                                date,
-                                                comparedDate,
-                                              }: {
+  date,
+  comparedDate,
+}: {
   date: DatepickType;
   comparedDate: DatepickType;
 }) {

@@ -1,16 +1,16 @@
-import React, { Suspense } from 'react';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-
 import dayjs from 'dayjs';
+import React, { Suspense } from 'react';
+
 import SalesOverview from '@/components/Admin/Dashboard/SalesOverview';
-import { ChartFilter } from '@/types/chartFilter';
-import { ChartContext } from '@/types/chartContext';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { dashboardApi } from '@/libs/services/dashboardApi';
+import { ChartContext } from '@/types/chartContext';
+import { ChartFilter } from '@/types/chartFilter';
 
 export default async function DashBoardSalesPage() {
-  const today = dayjs();                     // 오늘
+  const today = dayjs(); // 오늘
   const startDate = today.subtract(4, 'month');
   const comparedEndDate = startDate.subtract(1, 'day');
   const comparedStartDate = comparedEndDate.subtract(4, 'month');
@@ -53,9 +53,7 @@ export default async function DashBoardSalesPage() {
       <div className="flex flex-col gap-5">
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <SalesOverview initialToday={today.format('YYYY-MM-DD')} />
-            
+            <SalesOverview initialToday={today.format('YYYY-MM-DD')} />
           </PrefetchBoundary>
         </Suspense>
       </div>

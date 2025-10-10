@@ -30,5 +30,4 @@ export const clientFetcher = async <T = any>(
   }
 
   return json.data;
-
 };

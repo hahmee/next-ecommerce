@@ -4,8 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+
 import Skeleton from '@/components/Skeleton/Skeleton';
-import {useCategories} from "@/hooks/useCategories";
+import { useCategories } from '@/hooks/home/category/useCategories';
 
 const Categories = () => {
   const router = useRouter();

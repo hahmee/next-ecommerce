@@ -1,6 +1,7 @@
 'use client';
 
-import { useUserOrders } from '@/hooks/useUserOrders';
+import { useUserOrders } from '@/hooks/home/order/useUserOrders';
+
 import { UserOrdersView } from './UserOrdersView';
 
 export default function UserOrders() {

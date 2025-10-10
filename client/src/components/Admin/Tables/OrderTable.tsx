@@ -1,7 +1,7 @@
 'use client';
 
-import { useOrdersTable } from '@/hooks/useOrdersTable';
-import {OrderTableView} from "@/components/Admin/Tables/OderTableView";
+import { OrderTableView } from '@/components/Admin/Tables/OderTableView';
+import { useOrdersTable } from '@/hooks/admin/table/useOrdersTable';
 
 export default function OrderTable() {
   const ordersTable = useOrdersTable();

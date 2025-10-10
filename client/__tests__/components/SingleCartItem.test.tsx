@@ -1,10 +1,11 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import SingleCartItem from '@/components/Home/Cart/SingleCartItem';
+import userEvent from '@testing-library/user-event';
 import { getCookie } from 'cookies-next';
-import { useCartStore } from '@/store/cartStore';
+
+import SingleCartItem from '@/components/Home/Cart/SingleCartItem';
 import { CartItemList } from '@/interface/CartItemList';
 import { ColorTag } from '@/interface/ColorTag';
-import userEvent from '@testing-library/user-event';
+import { useCartStore } from '@/store/cartStore';
 // Mock 처리
 jest.mock('@tanstack/react-query', () => ({
   useQuery: jest.fn(),

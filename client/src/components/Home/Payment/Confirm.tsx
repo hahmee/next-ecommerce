@@ -1,10 +1,14 @@
 'use client';
 
 import React from 'react';
-import { usePaymentConfirm } from '@/hooks/usePaymentConfirm';
+
+import { usePaymentConfirm } from '@/hooks/home/payment/usePaymentConfirm';
+
 import ConfirmView from './ConfirmView';
 
-interface Props { paymentKey: string; }
+interface Props {
+  paymentKey: string;
+}
 
 const Confirm = ({ paymentKey }: Props) => {
   const { data: payment, isLoading, isError, error } = usePaymentConfirm(paymentKey);

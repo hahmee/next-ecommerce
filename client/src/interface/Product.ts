@@ -1,8 +1,8 @@
-import { SalesStatus } from '@/types/salesStatus';
-import { FileDTO } from '@/interface/FileDTO';
-import { ColorTag } from '@/interface/ColorTag';
 import { Category } from '@/interface/Category';
+import { ColorTag } from '@/interface/ColorTag';
+import { FileDTO } from '@/interface/FileDTO';
 import { Member } from '@/interface/Member';
+import { SalesStatus } from '@/types/salesStatus';
 
 export interface Product {
   pno: number;

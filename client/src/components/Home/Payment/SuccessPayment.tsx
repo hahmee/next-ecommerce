@@ -1,11 +1,12 @@
 'use client';
 
-import {useRouter} from 'next/navigation';
+import { sendGAEvent } from '@next/third-parties/google';
+import { useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
+
 import Loading from '@/app/loading';
-import React, {useEffect} from 'react';
-import {sendGAEvent} from '@next/third-parties/google';
-import {useConfirmPaymentMutation} from '@/hooks/useConfirmPaymentMutation';
-import {SessionExpiredError} from '@/libs/error/errors';
+import { useConfirmPaymentMutation } from '@/hooks/home/payment/useConfirmPaymentMutation';
+import { SessionExpiredError } from '@/libs/error/errors';
 
 interface Props {
   paymentKey: string;

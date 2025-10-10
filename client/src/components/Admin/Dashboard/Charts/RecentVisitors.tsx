@@ -1,6 +1,7 @@
-import React from 'react';
-import { SessionDTO } from '@/interface/GAResponse';
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
+import React from 'react';
+
+import { SessionDTO } from '@/interface/GAResponse';
 
 const RecentVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
   return (

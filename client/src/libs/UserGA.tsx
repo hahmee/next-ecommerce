@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import crypto from 'crypto';
+import React, { useEffect, useState } from 'react';
+
 import { useUserStore } from '@/store/userStore';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;

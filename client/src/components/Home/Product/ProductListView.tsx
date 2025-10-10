@@ -1,21 +1,25 @@
 'use client';
 
 import React, { Fragment, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import type { Product } from '@/interface/Product';
-import type { PageResponse } from '@/interface/PageResponse';
-import type { Category } from '@/interface/Category';
-import ProductCard from '@/components/Home/Product/ProductCard';
-import ProductFilters from '@/components/Home/Product/ProductFilters';
-import ProductCategories from '@/components/Home/Product/ProductCategories';
-import ProductOrders from '@/components/Home/Product/ProductOrders';
-import FiltersBadge from '@/components/Home/Product/FiltersBadge';
-import ProductCardSkeleton from '@/components/Skeleton/ProductCartSkeleton';
-import ProductCardListSkeleton from '@/components/Skeleton/ProductCartListSkeleton';
-import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
-import {Size} from "@/types/size";
 
-export interface Params { key: string; value: string; }
+import FiltersBadge from '@/components/Home/Product/FiltersBadge';
+import ProductCard from '@/components/Home/Product/ProductCard';
+import ProductCategories from '@/components/Home/Product/ProductCategories';
+import ProductFilters from '@/components/Home/Product/ProductFilters';
+import ProductOrders from '@/components/Home/Product/ProductOrders';
+import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
+import ProductCardListSkeleton from '@/components/Skeleton/ProductCartListSkeleton';
+import ProductCardSkeleton from '@/components/Skeleton/ProductCartSkeleton';
+import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
+import type { Category } from '@/interface/Category';
+import type { PageResponse } from '@/interface/PageResponse';
+import type { Product } from '@/interface/Product';
+import { Size } from '@/types/size';
+
+export interface Params {
+  key: string;
+  value: string;
+}
 
 type Props = {
   pages: PageResponse<Product>[];
@@ -89,21 +93,21 @@ const filters: FilterSection[] = [
   },
 ];
 export function ProductListView({
-                                  pages,
-                                  allProducts,
-                                  hasNextPage,
-                                  isFetchingNextPage,
-                                  isLoading,
-                                  loadMoreRef,
-                                  categories,
-                                  category,
-                                }: Props) {
-  const searchParams = useSearchParams();
+  pages,
+  allProducts,
+  hasNextPage,
+  isFetchingNextPage,
+  isLoading,
+  loadMoreRef,
+  categories,
+  category,
+}: Props) {
+  const searchParams = useSafeSearchParams();
   const searchValue = searchParams.get('query');
 
-  const paramsArray: Params[] = Array.from(searchParams.entries()).map(([key, value]) => ({
-    key, value,
-  }));
+  const paramsArray: Params[] = searchParams
+    ? Array.from(searchParams.entries()).map(([key, value]) => ({ key, value }))
+    : [];
 
   if (isLoading) return <ListPageSkeleton />;
 
@@ -129,7 +133,9 @@ export function ProductListView({
         </div>
 
         <section aria-labelledby="products-heading" className="pb-24 pt-6">
-          <h2 id="products-heading" className="sr-only">Products</h2>
+          <h2 id="products-heading" className="sr-only">
+            Products
+          </h2>
 
           <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
             {/* Filters */}

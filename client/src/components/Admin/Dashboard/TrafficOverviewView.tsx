@@ -1,17 +1,36 @@
 'use client';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+
+import type { GAResponseTop } from '@/interface/GAResponse';
 import { ChartFilter } from '@/types/chartFilter';
 import type { DatepickType } from '@/types/DatepickType';
-import type { GAResponseTop } from '@/interface/GAResponse';
 
-const CardTraffic = dynamic(() => import('./CardTrafficView'), { ssr: true, loading: () => <div className="min-h-[120px]" /> });
-const TrafficSessionChart = dynamic(() => import('./Charts/TrafficSessionChartView'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
-const MultiCirclesChart = dynamic(() => import('./Charts/MultiCirclesChartView'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
-const TrafficMiddleOverview = dynamic(() => import('./TrafficMiddleOverview'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
-const TrafficBottomOverview = dynamic(() => import('./TrafficBottomOverview'), { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> });
-const AdminDatePicker = dynamic(() => import('./AdminDatePicker'), { ssr: false, loading: () => <div style={{ height: 20 }}>로딩중...</div> });
+const CardTraffic = dynamic(() => import('./CardTrafficView'), {
+  ssr: true,
+  loading: () => <div className="min-h-[120px]" />,
+});
+const TrafficSessionChart = dynamic(() => import('./Charts/TrafficSessionChartView'), {
+  ssr: false,
+  loading: () => <div className="min-h-[400px]">로딩중...</div>,
+});
+const MultiCirclesChart = dynamic(() => import('./Charts/MultiCirclesChartView'), {
+  ssr: false,
+  loading: () => <div className="min-h-[400px]">로딩중...</div>,
+});
+const TrafficMiddleOverview = dynamic(() => import('./TrafficMiddleOverview'), {
+  ssr: false,
+  loading: () => <div className="min-h-[400px]">로딩중...</div>,
+});
+const TrafficBottomOverview = dynamic(() => import('./TrafficBottomOverview'), {
+  ssr: false,
+  loading: () => <div className="min-h-[400px]">로딩중...</div>,
+});
+const AdminDatePicker = dynamic(() => import('./AdminDatePicker'), {
+  ssr: false,
+  loading: () => <div style={{ height: 20 }}>로딩중...</div>,
+});
 
 export function TrafficOverviewView(props: {
   date: DatepickType;
@@ -23,7 +42,16 @@ export function TrafficOverviewView(props: {
   onDateChange: (v: any) => void;
   onFilterChange: (f: ChartFilter) => void;
 }) {
-  const { date, comparedDate, maxDate, filter, gaTopData, percentages, onDateChange, onFilterChange } = props;
+  const {
+    date,
+    comparedDate,
+    maxDate,
+    filter,
+    gaTopData,
+    percentages,
+    onDateChange,
+    onFilterChange,
+  } = props;
 
   return (
     <>

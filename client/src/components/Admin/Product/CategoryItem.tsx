@@ -1,6 +1,7 @@
 // components/Admin/Product/CategoryItem.js
 
 import React from 'react';
+
 import { Category } from '@/interface/Category';
 
 interface CategoryItemProps {

@@ -18,9 +18,11 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     },
+    "moduleResolution": "Bundler", // Next 14+ 권장
     //    "types": ["msw", "cypress"]
     //    "types": ["msw", "cypress", "jest", "@testing-library/jest-dom"]
     "types": ["msw", "jest", "@testing-library/jest-dom", "node"]

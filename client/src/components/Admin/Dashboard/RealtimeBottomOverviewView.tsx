@@ -1,8 +1,9 @@
 // src/components/Admin/Dashboard/RealtimeBottomOverviewView.tsx
 'use client';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+
 import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
 import type { GARealTimeResponseBottom } from '@/interface/GARealTimeResponse';
 
@@ -10,8 +11,8 @@ const RecentVisitors = dynamic(() => import('./Charts/RecentVisitors'), { ssr: f
 const PieChart = dynamic(() => import('./Charts/PieChart'), { ssr: false });
 
 export default function RealtimeBottomOverviewView({
-                                                     gaBottomData,
-                                                   }: {
+  gaBottomData,
+}: {
   gaBottomData?: GARealTimeResponseBottom;
 }) {
   return (

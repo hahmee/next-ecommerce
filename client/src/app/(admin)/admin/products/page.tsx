@@ -1,9 +1,9 @@
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import ProductTable from '@/components/Admin/Tables/ProductTable';
-import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
 
+import ProductTable from '@/components/Admin/Tables/ProductTable';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { productApi } from '@/libs/services/productApi';
 
 export default async function ProductsPage() {
@@ -18,9 +18,7 @@ export default async function ProductsPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<TableSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <ProductTable />
-            
+            <ProductTable />
           </PrefetchBoundary>
         </Suspense>
       </div>

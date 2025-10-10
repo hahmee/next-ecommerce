@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { useRouter } from 'next/navigation';
+
 import LoginPage from '@/app/(home)/login/page';
 import { MemberRole } from '@/types/memberRole';
-import { useRouter } from 'next/navigation';
 
 // mock fetch
 global.fetch = jest.fn();

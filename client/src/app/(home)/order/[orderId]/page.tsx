@@ -1,11 +1,10 @@
-import React, {Suspense} from 'react';
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
+import React, { Suspense } from 'react';
+
+import OrderDetail from '@/components/Home/Profile/OrderDetail';
 import OrderDetailSkeleton from '@/components/Skeleton/OrderDetailSkeleton';
-
-import {authApi} from "@/libs/services/authApi";
-import OrderDetail from "@/components/Home/Profile/OrderDetail";
-import {orderApi} from "@/libs/services/orderApi";
-
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { authApi } from '@/libs/services/authApi';
+import { orderApi } from '@/libs/services/orderApi';
 
 interface Props {
   params: { orderId: string };
@@ -47,9 +46,7 @@ export default async function OrderPage({ params }: Props) {
   return (
     <Suspense fallback={<OrderDetailSkeleton />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        
-          <OrderDetail orderId={orderId} />
-        
+        <OrderDetail orderId={orderId} />
       </PrefetchBoundary>
     </Suspense>
   );

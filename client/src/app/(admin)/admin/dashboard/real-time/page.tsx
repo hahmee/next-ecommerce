@@ -1,14 +1,14 @@
 'use server';
 
+import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
+
+import RealtimeOverview from '@/components/Admin/Dashboard/RealtimeOverview';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { ChartFilter } from '@/types/chartFilter';
-import dayjs from 'dayjs';
-import RealtimeOverview from '@/components/Admin/Dashboard/RealtimeOverview';
 import { dashboardApi } from '@/libs/services/dashboardApi';
+import { ChartFilter } from '@/types/chartFilter';
 
 export default async function DashBoardRealTimePage() {
   const today = dayjs();
@@ -42,9 +42,7 @@ export default async function DashBoardRealTimePage() {
       <div className="flex flex-col gap-5">
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <RealtimeOverview />
-            
+            <RealtimeOverview />
           </PrefetchBoundary>
         </Suspense>
       </div>

@@ -1,14 +1,20 @@
 'use client';
 
-import jsVectorMap from 'jsvectormap';
 import 'jsvectormap/dist/jsvectormap.css';
-import React, { useEffect, useState } from 'react';
 import '../../../../js/world'; // 지도 파일
-import { CountryChartDTO } from '@/interface/GAResponse';
-import { BarChartThin } from '@/components/Admin/Dashboard/Charts/BarChart';
-import Image from 'next/image';
 
-const CountryTrafficMapView = ({ countries }: { countries: Array<CountryChartDTO> | undefined }) => {
+import jsVectorMap from 'jsvectormap';
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+
+import { BarChartThin } from '@/components/Admin/Dashboard/Charts/BarChart';
+import { CountryChartDTO } from '@/interface/GAResponse';
+
+const CountryTrafficMapView = ({
+  countries,
+}: {
+  countries: Array<CountryChartDTO> | undefined;
+}) => {
   // 한 페이지에 보여줄 아이템 수
   const pageSize = 5;
   // 총 페이지 수 계산

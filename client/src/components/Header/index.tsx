@@ -1,7 +1,9 @@
+import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';
-import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+
 import AdminUser from '@/components/Header/AdminUser';
+
 import DarkModeSwitcher from './DarkModeSwitcher';
 
 const Header = (props: {

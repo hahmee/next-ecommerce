@@ -1,7 +1,8 @@
 'use client';
 
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React from 'react';
+
 import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
 import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
 import type { GAResponseBottom } from '@/interface/GAResponse';

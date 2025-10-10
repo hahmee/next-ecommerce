@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import {Member} from "@/interface/Member";
+import Link from 'next/link';
+
+import { Member } from '@/interface/Member';
 
 interface Props {
   member: Member | null;
@@ -66,10 +67,18 @@ export function ProfileView({ member, isLoading }: Props) {
             <div className="mt-6.5">
               <h4 className="mb-3.5 font-medium text-black dark:text-white">Follow me on</h4>
               <div className="flex items-center justify-center gap-3.5">
-                <Link href="#" className="hover:text-primary" aria-label="social-icon">{/* svg ... */}</Link>
-                <Link href="#" className="hover:text-primary" aria-label="social-icon">{/* svg ... */}</Link>
-                <Link href="#" className="hover:text-primary" aria-label="social-icon">{/* svg ... */}</Link>
-                <Link href="#" className="hover:text-primary" aria-label="social-icon">{/* svg ... */}</Link>
+                <Link href="#" className="hover:text-primary" aria-label="social-icon">
+                  {/* svg ... */}
+                </Link>
+                <Link href="#" className="hover:text-primary" aria-label="social-icon">
+                  {/* svg ... */}
+                </Link>
+                <Link href="#" className="hover:text-primary" aria-label="social-icon">
+                  {/* svg ... */}
+                </Link>
+                <Link href="#" className="hover:text-primary" aria-label="social-icon">
+                  {/* svg ... */}
+                </Link>
               </div>
             </div>
           </div>

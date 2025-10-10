@@ -1,5 +1,5 @@
-import { fetcher } from '@/utils/fetcher/fetcher';
 import type { CartItemList } from '@/interface/CartItemList';
+import { fetcher } from '@/utils/fetcher/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

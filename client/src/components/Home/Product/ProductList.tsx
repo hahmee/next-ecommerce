@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useProductList } from '@/hooks/useProductList';
+
+import { useProductList } from '@/hooks/home/product/useProductList';
+
 import { ProductListView } from './ProductListView';
 
 type Props = {

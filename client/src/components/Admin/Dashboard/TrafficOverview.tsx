@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { useTrafficOverview } from '@/hooks/useTrafficOverview';
-import {TrafficOverviewView} from "@/components/Admin/Dashboard/TrafficOverviewView";
+
+import { TrafficOverviewView } from '@/components/Admin/Dashboard/TrafficOverviewView';
+import { useTrafficOverview } from '@/hooks/admin/dashboard/useTrafficOverview';
 
 export default function TrafficOverview({ initialToday }: { initialToday: string }) {
   const trafficOverview = useTrafficOverview(initialToday);

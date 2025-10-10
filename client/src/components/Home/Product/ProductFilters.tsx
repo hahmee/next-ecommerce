@@ -1,9 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { FilterOption, FilterSection } from '@/components/Home/Product/ProductList';
-import { Category } from '@/interface/Category';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import React, { Fragment, useEffect, useState } from 'react';
+
 import PriceRange from '@/components/Home/Product/PriceRange';
+import { FilterOption, FilterSection } from '@/components/Home/Product/ProductListView';
+import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
+import { Category } from '@/interface/Category';
 
 type Props = {
   filters: FilterSection[];
@@ -14,7 +16,7 @@ const minPrice = 0;
 
 const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = useSafeSearchParams();
   const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
     category: filters[0].options,
     size: filters[1].options,
@@ -36,10 +38,6 @@ const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
         checked: currentFilters.includes(option.value),
       }));
     });
-
-    // colorFilter.map((color:any)=>{
-    //
-    // })
 
     setFilterStates(newFilterStates);
   }, [searchParams, filters]);

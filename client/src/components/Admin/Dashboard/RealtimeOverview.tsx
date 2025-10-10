@@ -1,6 +1,7 @@
 'use client';
 
-import { useRealtimeOverview } from '@/hooks/useRealtimeOverview';
+import { useRealtimeOverview } from '@/hooks/admin/dashboard/useRealtimeOverview';
+
 import { RealtimeOverviewView } from './RealtimeOverviewView';
 
 export default function RealtimeOverview() {

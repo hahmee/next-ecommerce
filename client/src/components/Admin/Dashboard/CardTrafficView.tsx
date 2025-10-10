@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { GAResponseTop } from '@/interface/GAResponse';
 
 const CardTrafficView = ({ gaData }: { gaData: GAResponseTop | undefined }) => {

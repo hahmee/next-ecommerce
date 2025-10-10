@@ -1,9 +1,9 @@
-import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
+
 import Loading from '@/app/loading';
 import Confirm from '@/components/Home/Payment/Confirm';
-import {paymentApi} from "@/libs/services/paymentApi";
-
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import { paymentApi } from '@/libs/services/paymentApi';
 
 interface Props {
   params: { paymentKey: string };

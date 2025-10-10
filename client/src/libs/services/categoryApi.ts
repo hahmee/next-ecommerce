@@ -1,8 +1,8 @@
-import {fetcher} from '@/utils/fetcher/fetcher';
-import type {Category} from '@/interface/Category';
-import type {PageResponse} from "@/interface/PageResponse";
-import {CategoryTree} from "@/interface/CategoryTree";
-import {publicFetcher} from "@/utils/fetcher/publicFetcher";
+import type { Category } from '@/interface/Category';
+import { CategoryTree } from '@/interface/CategoryTree';
+import type { PageResponse } from '@/interface/PageResponse';
+import { fetcher } from '@/utils/fetcher/fetcher';
+import { publicFetcher } from '@/utils/fetcher/publicFetcher';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
@@ -21,7 +21,7 @@ export const categoryApi = {
   paths: (cno: string, init?: FetchOpts) =>
     fetcher<Category[]>(`/api/category/paths/${cno}`, {
       method: 'GET',
-      ...(init ?? {})
+      ...(init ?? {}),
     }),
 
   create: (form: FormData, init?: FetchOpts) =>
@@ -33,13 +33,10 @@ export const categoryApi = {
   // 어드민 검색 목록
   searchAdmin: (page: number, size: number, search = '', init?: FetchOpts) => {
     const qs = new URLSearchParams({ page: String(page), size: String(size), search });
-    return fetcher<PageResponse<CategoryTree>>(
-      `/api/category/searchAdminList?${qs.toString()}`,
-      {
-        ...(init ?? {}),
-        method: 'GET',
-      },
-    );
+    return fetcher<PageResponse<CategoryTree>>(`/api/category/searchAdminList?${qs.toString()}`, {
+      ...(init ?? {}),
+      method: 'GET',
+    });
   },
   remove: (cno: number, init?: FetchOpts) =>
     fetcher<number[] | void>(`/api/category/${cno}`, { ...(init ?? {}), method: 'DELETE' }),

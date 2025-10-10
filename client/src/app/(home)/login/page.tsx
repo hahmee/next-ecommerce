@@ -1,9 +1,9 @@
 'use client';
 
+import React from 'react';
 
-import {useLoginForm} from "@/hooks/useLoginForm";
-import React from "react";
-import LoginView from "@/components/Home/Auth/LoginView";
+import LoginView from '@/components/Home/Auth/LoginView';
+import { useLoginForm } from '@/hooks/auth/useLoginForm';
 
 export default function LoginPage() {
   const form = useLoginForm();

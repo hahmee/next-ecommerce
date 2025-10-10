@@ -1,6 +1,7 @@
-import Image from 'next/image';
 import { StarIcon } from '@heroicons/react/20/solid';
+import Image from 'next/image';
 import React from 'react';
+
 import { Review } from '@/interface/Review';
 
 const ReviewSingle = ({ review }: { review: Review }) => {

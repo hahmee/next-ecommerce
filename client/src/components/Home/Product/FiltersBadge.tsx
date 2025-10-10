@@ -1,15 +1,17 @@
 import { XMarkIcon } from '@heroicons/react/20/solid';
-import React from 'react';
-import { Category } from '@/interface/Category';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Params } from '@/components/Home/Product/ProductList';
+import React from 'react';
+
+import { Category } from '@/interface/Category';
+
+import { Params } from './ProductListView';
 
 const FiltersBadge = ({ param, category }: { param: Params; category?: Category | undefined }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const deleteQueryString = () => {
-    const params = new URLSearchParams(searchParams); // 기존 쿼리스트링을 복사
+    const params = new URLSearchParams(searchParams!.toString());
     // param이 ['color', 'green'] 형태일 때 'color'의 모든 값을 가져옴
     const values = params.getAll(param.key); // 'color' 파라미터의 모든 값을 가져옴
 
@@ -25,15 +27,6 @@ const FiltersBadge = ({ param, category }: { param: Params; category?: Category 
     // URL 업데이트
     router.replace(`/list?${params.toString()}`);
   };
-
-  // if(category) {
-  //
-  //     return <div
-  //         className="flex cursor-pointer items-center w-auto text-sm rounded-full font-semibold text-white bg-primary-950  py-1 px-4 text-center">
-  //         <span>{category.cname}</span>
-  //         <XMarkIcon className="ml-2 h-5 w-5 cursor-pointer text-gray-300" onClick={deleteQueryString}/>
-  //     </div>
-  // }
 
   return (
     <div className="flex cursor-pointer items-center w-auto text-sm rounded-full font-semibold text-white bg-primary-950 py-1 px-4 text-center">

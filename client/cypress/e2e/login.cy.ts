@@ -7,16 +7,16 @@ describe('Login test', () => {
 
     it('Invalid user', () => {
       cy.visit(`${Cypress.config('baseUrl')}/login`);
-      cy.get('input[name="email"]').should('be.visible').clear().type("user1@aaa.com");
-      cy.get('input[name="password"]').should('be.visible').clear().type("0000");
+      cy.get('input[name="email"]').should('be.visible').clear().type('user1@aaa.com');
+      cy.get('input[name="password"]').should('be.visible').clear().type('0000');
       cy.get('[data-testid="login-submit"]').should('be.enabled').click();
       cy.contains('아이디 또는 비밀번호가 맞지 않습니다.');
     });
 
     it('Not existed Email', () => {
       cy.visit(`${Cypress.config('baseUrl')}/login`);
-      cy.get('input[name="email"]').should('be.visible').clear().type("noemail@aaa.com");
-      cy.get('input[name="password"]').should('be.visible').clear().type("0000");
+      cy.get('input[name="email"]').should('be.visible').clear().type('noemail@aaa.com');
+      cy.get('input[name="password"]').should('be.visible').clear().type('0000');
       cy.get('[data-testid="login-submit"]').should('be.enabled').click();
       cy.contains('존재하지 않는 계정입니다.');
     });

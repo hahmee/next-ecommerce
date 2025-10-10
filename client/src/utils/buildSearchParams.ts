@@ -13,7 +13,9 @@ export type QueryValue = QueryPrimitive | QueryPrimitive[];
  * const qs = buildSearchParams({ page: 1, q: 'hello', tags: ['a','b'], bool: false });
  * fetch(`/api/foo?${qs.toString()}`)
  */
-export function buildSearchParams<T extends Record<string, QueryValue>>(params: T): URLSearchParams {
+export function buildSearchParams<T extends Record<string, QueryValue>>(
+  params: T,
+): URLSearchParams {
   const qs = new URLSearchParams();
 
   const toStringVal = (v: QueryPrimitive) => {

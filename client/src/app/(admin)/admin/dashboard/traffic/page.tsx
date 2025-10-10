@@ -1,12 +1,12 @@
+import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
+
+import TrafficOverview from '@/components/Admin/Dashboard/TrafficOverview';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import dayjs from 'dayjs';
-import { ChartFilter } from '@/types/chartFilter';
 import { dashboardApi } from '@/libs/services/dashboardApi';
-import TrafficOverview from "@/components/Admin/Dashboard/TrafficOverview";
+import { ChartFilter } from '@/types/chartFilter';
 
 export default async function DashBoardTrafficPage() {
   const today = dayjs();
@@ -19,7 +19,11 @@ export default async function DashBoardTrafficPage() {
 
   const prefetchOptions = [
     {
-      queryKey: ['gaTop', { start: start.format('YYYY-MM-DD'), end: end.format('YYYY-MM-DD') }, ChartFilter.DAY],
+      queryKey: [
+        'gaTop',
+        { start: start.format('YYYY-MM-DD'), end: end.format('YYYY-MM-DD') },
+        ChartFilter.DAY,
+      ],
       queryFn: () =>
         dashboardApi.googleAnalyticsTop(
           {
@@ -40,9 +44,7 @@ export default async function DashBoardTrafficPage() {
       <div className="flex flex-col gap-5">
         <Suspense fallback={<DashboardSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <TrafficOverview initialToday={initialToday} />
-            
+            <TrafficOverview initialToday={initialToday} />
           </PrefetchBoundary>
         </Suspense>
       </div>

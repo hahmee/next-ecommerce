@@ -14,15 +14,15 @@ type Props = {
 };
 
 export default function LoginView({
-                                    email,
-                                    password,
-                                    message,
-                                    pending,
-                                    onEmail,
-                                    onPassword,
-                                    onSubmit,
-                                    onMoveSignup,
-                                  }: Props) {
+  email,
+  password,
+  message,
+  pending,
+  onEmail,
+  onPassword,
+  onSubmit,
+  onMoveSignup,
+}: Props) {
   return (
     <div className="h-[calc(100vh-80px)] flex items-center justify-center px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
       <form className="flex flex-col gap-8" onSubmit={onSubmit}>

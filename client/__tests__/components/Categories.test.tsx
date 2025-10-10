@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
 import { useQuery } from '@tanstack/react-query';
+import { render, screen } from '@testing-library/react';
+
 import Categories from '@/components/Home/Main/Categories';
 
 // Jest: 테스트 환경 제공 + mocking

@@ -1,8 +1,8 @@
-import { fetcher } from '@/utils/fetcher/fetcher';
+import type { ChartRequest } from '@/interface/ChartRequest';
 import type { GARequest } from '@/interface/GARequest';
 import type { TopCustomerRequest } from '@/interface/TopCustomerRequest';
-import type { ChartRequest } from '@/interface/ChartRequest';
 import buildSearchParams from '@/utils/buildSearchParams';
+import { fetcher } from '@/utils/fetcher/fetcher';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };
@@ -22,106 +22,142 @@ export function qs(obj: QueryInit) {
 export const dashboardApi = {
   // --- Real-time ---
   gaRecentUsersTop: (p: GARequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/real-time-top?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      filter: String(p.filter),
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/real-time-top?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        filter: String(p.filter),
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   gaRecentUsersBottom: (p: GARequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/real-time-bottom?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      filter: String(p.filter),
-    })}`, { method: 'GET',  ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/real-time-bottom?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        filter: String(p.filter),
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   // --- Traffic ---
   googleAnalytics: (p: GARequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/traffic?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      filter: String(p.filter),
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/traffic?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        filter: String(p.filter),
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   googleAnalyticsTop: (p: GARequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/trafficTop?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      filter: String(p.filter),
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/trafficTop?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        filter: String(p.filter),
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   googleAnalyticsMiddle: (p: GARequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/trafficMiddle?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      filter: String(p.filter),
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/trafficMiddle?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        filter: String(p.filter),
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   googleAnalyticsBottom: (p: GARequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/trafficBottom?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      filter: String(p.filter),
-    })}`, { method: 'GET',...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/trafficBottom?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        filter: String(p.filter),
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   // --- Sales ---
   salesByCountry: (p: TopCustomerRequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/salesByCountry?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/salesByCountry?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   salesCards: (p: ChartRequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/salesOverviewCard?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      filter: String(p.filter),
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      context: p.context,
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/salesOverviewCard?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        filter: String(p.filter),
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        context: p.context,
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   salesCharts: (p: ChartRequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/salesOverviewChart?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-      filter: String(p.filter),
-      comparedStartDate: p.comparedStartDate,
-      comparedEndDate: p.comparedEndDate,
-      context: p.context,
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/salesOverviewChart?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+        filter: String(p.filter),
+        comparedStartDate: p.comparedStartDate,
+        comparedEndDate: p.comparedEndDate,
+        context: p.context,
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   topCustomers: (p: TopCustomerRequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/salesCustomers?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/salesCustomers?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
   topProducts: (p: TopCustomerRequest, init?: FetchOpts) =>
-    fetcher(`/api/dashboard/salesProducts?${qs({
-      startDate: p.startDate,
-      endDate: p.endDate,
-    })}`, { method: 'GET', ...(init ?? {}) }),
+    fetcher(
+      `/api/dashboard/salesProducts?${qs({
+        startDate: p.startDate,
+        endDate: p.endDate,
+      })}`,
+      { method: 'GET', ...(init ?? {}) },
+    ),
 
-  recentUsersTop: (params: {
-    startDate: string;
-    endDate: string;
-    comparedStartDate: string;
-    comparedEndDate: string;
-    filter: string | number;
-  }, init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } }) => {
+  recentUsersTop: (
+    params: {
+      startDate: string;
+      endDate: string;
+      comparedStartDate: string;
+      comparedEndDate: string;
+      filter: string | number;
+    },
+    init?: RequestInit & { next?: { revalidate?: number; tags?: string[] } },
+  ) => {
     const qs = buildSearchParams(params);
     return fetcher(`/api/dashboard/real-time-top?${qs.toString()}`, {
       method: 'GET',
@@ -145,5 +181,4 @@ export const dashboardApi = {
       ...(init ?? {}),
     });
   },
-
 };

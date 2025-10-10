@@ -1,14 +1,13 @@
 'use client';
 
-import type { Product } from '@/interface/Product';
-import type { Review } from '@/interface/Review';
-import type { ColorTag } from '@/interface/ColorTag';
-import { SalesStatus } from '@/types/salesStatus';
-
+import AddCart from '@/components/Home/Cart/AddCart';
+import OptionSelect from '@/components/Home/Product/OptionSelect';
 import ProductImages from '@/components/Home/Product/ProductImags';
 import Reviews from '@/components/Home/Review/Reviews';
-import OptionSelect from '@/components/Home/Product/OptionSelect';
-import AddCart from '@/components/Home/Cart/AddCart';
+import type { ColorTag } from '@/interface/ColorTag';
+import type { Product } from '@/interface/Product';
+import type { Review } from '@/interface/Review';
+import { SalesStatus } from '@/types/salesStatus';
 
 interface Props {
   id: string;
@@ -26,17 +25,17 @@ interface Props {
 }
 
 export function ProductSingleView({
-                                    id,
-                                    product,
-                                    reviews,
-                                    priceText,
-                                    color,
-                                    size,
-                                    setColor,
-                                    setSize,
-                                    salesStatus,
-                                    sellerEmail,
-                                  }: Props) {
+  id,
+  product,
+  reviews,
+  priceText,
+  color,
+  size,
+  setColor,
+  setSize,
+  salesStatus,
+  sellerEmail,
+}: Props) {
   return (
     <div className="px-4 mt-8 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative flex flex-col lg:flex-row gap-16">
       {/* IMG */}
@@ -51,10 +50,7 @@ export function ProductSingleView({
         <h1 className="text-4xl font-medium">{product?.pname}</h1>
 
         {product?.pdesc && (
-          <div
-            dangerouslySetInnerHTML={{ __html: product.pdesc }}
-            className="text-gray-500"
-          />
+          <div dangerouslySetInnerHTML={{ __html: product.pdesc }} className="text-gray-500" />
         )}
 
         <div className="h-[1px] bg-gray-100" />

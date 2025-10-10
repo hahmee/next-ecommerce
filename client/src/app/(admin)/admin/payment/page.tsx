@@ -1,12 +1,12 @@
 // app/admin/payments/page.tsx
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+
 import PaymentOverview from '@/components/Admin/Payment/PaymentOverview';
 import PaymentTable from '@/components/Admin/Tables/PaymentTable';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import PaymentSkeleton from '@/components/Skeleton/PaymentSkeleton';
-
-import dayjs from 'dayjs';
+import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { paymentApi } from '@/libs/services/paymentApi';
 
 export default async function AdminPaymentPage() {
@@ -24,7 +24,8 @@ export default async function AdminPaymentPage() {
     },
     {
       queryKey: ['adminPayments', { page: 1, size: 10, search: '', date }],
-      queryFn: () => paymentApi.searchAdmin(1, 10, '', date.startDate, date.endDate, { cache: 'no-store' }),
+      queryFn: () =>
+        paymentApi.searchAdmin(1, 10, '', date.startDate, date.endDate, { cache: 'no-store' }),
     },
   ];
 
@@ -34,14 +35,12 @@ export default async function AdminPaymentPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<PaymentSkeleton />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
-              <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-                <div className="col-span-12">
-                  <PaymentOverview />
-                  <PaymentTable />
-                </div>
+            <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
+              <div className="col-span-12">
+                <PaymentOverview />
+                <PaymentTable />
               </div>
-            
+            </div>
           </PrefetchBoundary>
         </Suspense>
       </div>

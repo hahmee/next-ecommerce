@@ -1,10 +1,12 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { Mode } from '@/types/mode';
-import { setupServer } from 'msw/node';
 import { http, HttpResponse } from 'msw';
-import CategoryTable from '@/components/Admin/Tables/CategoryTable';
-import CategoryForm from '@/components/Admin/Category/CategoryForm';
+import { setupServer } from 'msw/node';
 import toast from 'react-hot-toast';
+
+import CategoryForm from '@/components/Admin/Category/CategoryForm';
+import CategoryTable from '@/components/Admin/Tables/CategoryTable';
+import { Mode } from '@/types/mode';
+
 import {
   mockCategories,
   mockCategoryPaths,

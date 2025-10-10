@@ -1,6 +1,7 @@
 'use client';
 
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks/home/member/useProfile';
+
 import { ProfileView } from './ProfileView';
 
 export default function Profile() {

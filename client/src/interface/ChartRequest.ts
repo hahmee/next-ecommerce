@@ -1,5 +1,5 @@
-import { ChartFilter } from '@/types/chartFilter';
 import { ChartContext } from '@/types/chartContext';
+import { ChartFilter } from '@/types/chartFilter';
 
 export interface ChartRequest {
   startDate: string;

@@ -1,6 +1,7 @@
 'use client';
 
-import { useSalesOverview } from '@/hooks/useSalesOverview';
+import { useSalesOverview } from '@/hooks/admin/dashboard/useSalesOverview';
+
 import { SalesOverviewView } from './SalesOverviewView';
 
 export default function SalesOverview({ initialToday }: { initialToday: string }) {

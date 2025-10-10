@@ -1,7 +1,7 @@
 'use client';
 
-import {useCategoriesTable} from '@/hooks/useCategoriesTable';
-import {CategoryTableView} from "@/components/Admin/Category/CategoryTableView";
+import { CategoryTableView } from '@/components/Admin/Category/CategoryTableView';
+import { useCategoriesTable } from '@/hooks/admin/table/useCategoriesTable';
 
 export default function CategoryTable() {
   const categoriesTable = useCategoriesTable();

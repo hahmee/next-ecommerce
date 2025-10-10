@@ -2,9 +2,10 @@
 
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
+
+import ReactApexChart from '@/components/Common/ReactApexChart';
 import { SessionChart } from '@/interface/GAResponse';
 import { ChartFilter } from '@/types/chartFilter';
-import ReactApexChart from '@/components/Common/ReactApexChart';
 
 const TrafficSessionChartView = ({
   chart,

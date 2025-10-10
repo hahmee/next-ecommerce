@@ -1,7 +1,9 @@
-import React, { Fragment, useState } from 'react';
-import { Category } from '@/interface/Category';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import React, { Fragment, useState } from 'react';
+
+import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
+import { Category } from '@/interface/Category';
 
 type Props = {
   categories: Category[];
@@ -9,9 +11,8 @@ type Props = {
 
 const ProductCategories: React.FC<Props> = ({ categories }: Props) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const categoryId = searchParams.get('category_id') || '';
-
+  const searchParams = useSafeSearchParams();
+  const categoryId = searchParams.get('category_id');
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
   // 행 클릭 시 확장 여부 토글
