@@ -4,7 +4,6 @@ import {Mode} from '@/types/mode';
 import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import AdminModal from '@/components/Admin/AdminModal';
 import Loading from '@/app/loading';
-
 import {categoryApi} from "@/libs/services/categoryApi";
 
 interface Props {

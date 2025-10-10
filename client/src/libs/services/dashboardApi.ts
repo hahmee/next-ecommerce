@@ -28,7 +28,7 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       filter: String(p.filter),
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   gaRecentUsersBottom: (p: GARequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/real-time-bottom?${qs({
@@ -37,7 +37,7 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       filter: String(p.filter),
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET',  ...(init ?? {}) }),
 
   // --- Traffic ---
   googleAnalytics: (p: GARequest, init?: FetchOpts) =>
@@ -47,7 +47,7 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       filter: String(p.filter),
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   googleAnalyticsTop: (p: GARequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/trafficTop?${qs({
@@ -56,7 +56,7 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       filter: String(p.filter),
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   googleAnalyticsMiddle: (p: GARequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/trafficMiddle?${qs({
@@ -65,7 +65,7 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       filter: String(p.filter),
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   googleAnalyticsBottom: (p: GARequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/trafficBottom?${qs({
@@ -74,14 +74,14 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       filter: String(p.filter),
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET',...(init ?? {}) }),
 
   // --- Sales ---
   salesByCountry: (p: TopCustomerRequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/salesByCountry?${qs({
       startDate: p.startDate,
       endDate: p.endDate,
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   salesCards: (p: ChartRequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/salesOverviewCard?${qs({
@@ -91,7 +91,7 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       context: p.context,
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   salesCharts: (p: ChartRequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/salesOverviewChart?${qs({
@@ -101,19 +101,19 @@ export const dashboardApi = {
       comparedStartDate: p.comparedStartDate,
       comparedEndDate: p.comparedEndDate,
       context: p.context,
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   topCustomers: (p: TopCustomerRequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/salesCustomers?${qs({
       startDate: p.startDate,
       endDate: p.endDate,
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   topProducts: (p: TopCustomerRequest, init?: FetchOpts) =>
     fetcher(`/api/dashboard/salesProducts?${qs({
       startDate: p.startDate,
       endDate: p.endDate,
-    })}`, { method: 'GET', credentials: 'include', ...(init ?? {}) }),
+    })}`, { method: 'GET', ...(init ?? {}) }),
 
   recentUsersTop: (params: {
     startDate: string;

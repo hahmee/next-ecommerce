@@ -1,14 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import TestChart from '@/components/Admin/Dashboard/Charts/TestChart';
-import UserListView from '@/components/Admin/Users/UserListVeiw';
 import HeatmapChart from '@/components/Admin/Dashboard/Charts/HeatmapChart';
-import { useQuery } from '@tanstack/react-query';
-import { PageResponse } from '@/interface/PageResponse';
-import { getAllMembers } from '@/apis/adminAPI';
-import { Member } from '@/interface/Member';
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
+import {useAdminMembers} from "@/hooks/useAdminMembers";
 
 const UserDashboard = () => {
   // 예시 데이터 (실제 데이터로 교체)
@@ -39,18 +35,11 @@ const UserDashboard = () => {
   //     // 더 많은 사용자...
   // ];
 
-  const [page, setPage] = useState<number>(1);
-  const [size, setSize] = useState<number>(10);
-  const [search, setSearch] = useState<string>('');
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(10);
+  const [search, setSearch] = useState('');
+  const { data, isLoading } = useAdminMembers({ page, size, search });
   const router = useRouter();
-
-  useQuery<PageResponse<Member>, Object, PageResponse<Member>, [_1: string, _2: Object]>({
-    queryKey: ['adminMembers', {page, size, search}],
-    queryFn: () => getAllMembers({page, size, search}),
-    staleTime: 60 * 1000, // fresh -> stale, 5분이라는 기준
-    gcTime: 300 * 1000,
-    throwOnError: false,
-  });
 
   return (
     <div className="p-6 bg-white shadow rounded-lg">

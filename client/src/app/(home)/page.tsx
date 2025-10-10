@@ -1,14 +1,10 @@
 import Slider from '@/components/Home/Slider';
-import React, { Suspense } from 'react';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
+import React, {Suspense} from 'react';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import Skeleton from '@/components/Skeleton/Skeleton';
-import {
-  getPublicCategories,
-  getPublicExpertProducts,
-  getPublicFeaturedProducts,
-  getPublicNewProducts,
-} from '@/apis/publicAPI';
 import Home from '@/components/Home/Main/Home';
+import {productApi} from "@/libs/services/productApi";
+import {categoryApi} from "@/libs/services/categoryApi";
 
 // 동적 데이터 없음 -> generateMetadata대신 meatadata 사용
 export const metadata = {
@@ -39,22 +35,10 @@ export const metadata = {
 
 const HomePage = () => {
   const prefetchOptions = [
-    {
-      queryKey: ['categories'],
-      queryFn: () => getPublicCategories(),
-    },
-    {
-      queryKey: ['expert-products'],
-      queryFn: () => getPublicExpertProducts(),
-    },
-    {
-      queryKey: ['new-products'],
-      queryFn: () => getPublicNewProducts(),
-    },
-    {
-      queryKey: ['featured-products'],
-      queryFn: () => getPublicFeaturedProducts(),
-    },
+    { queryKey: ['categories'], queryFn: () => categoryApi.list() },
+    { queryKey: ['expert-products'], queryFn: () => productApi.expertList() },
+    { queryKey: ['new-products'], queryFn: () => productApi.newList() },
+    { queryKey: ['featured-products'], queryFn: () => productApi.featuredList() },
   ];
 
   return (

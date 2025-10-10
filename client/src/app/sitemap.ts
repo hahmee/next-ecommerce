@@ -1,12 +1,13 @@
-
-import { MetadataRoute } from 'next';
-import { getAllProductIds, getPublicCategories } from '@/apis/publicAPI';
-import { Category } from '@/interface/Category';
+import {MetadataRoute} from 'next';
+import {Category} from '@/interface/Category';
+import {productApi} from "@/libs/services/productApi";
+import {categoryApi} from "@/libs/services/categoryApi";
 
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const now = new Date();
 
   // 1. 정적 페이지들(주소 고정)
   const staticPaths: MetadataRoute.Sitemap = [
@@ -16,12 +17,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 2. 동적 페이지들(주소가 동적으로 변경) — 상품 목록 (API 요청 or DB 등에서 가져오기)
   let pnoList: number[] = [];
-
   let categories: Category[] = [];
 
   try {
-    pnoList = await getAllProductIds();
-    categories = await getPublicCategories();
+    pnoList = await productApi.allIds();
+    categories = await categoryApi.listPublic();
   } catch (e) {
     console.error('Failed to fetch sitemap data:', e);
   }
@@ -29,12 +29,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // sitemap entry 형태로 가공
   const productPaths = pnoList.map((p) => ({
     url: `${baseUrl}/product/${p}`, // 각 상품 페이지
-    lastModified: new Date(new Date()),
+    lastModified: now,
   }));
 
   const categoryPaths = categories.map((c) => ({
     url: `${baseUrl}/list?category_id=${c.cno}`,
-    lastModified: new Date(new Date()),
+    lastModified: now,
   }));
 
   return [...staticPaths, ...productPaths, ...categoryPaths];

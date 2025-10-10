@@ -2,7 +2,6 @@ import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, {Suspense} from 'react';
 import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
 import CategoryTable from '@/components/Admin/Tables/CategoryTable';
-import {getAdminCategories} from '@/apis/adminAPI';
 import {TableSkeleton} from '@/components/Skeleton/TableSkeleton';
 
 import {categoryApi} from "@/libs/services/categoryApi";
