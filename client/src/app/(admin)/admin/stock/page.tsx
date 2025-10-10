@@ -1,4 +1,3 @@
-// app/admin/stock/page.tsx
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import React, { Suspense } from 'react';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
@@ -21,9 +20,7 @@ export default function StockPage() {
       <div className="flex flex-col gap-10">
         <Suspense fallback={<Loading />}>
           <PrefetchBoundary prefetchOptions={prefetchOptions}>
-            
               <StockTable />
-            
           </PrefetchBoundary>
         </Suspense>
       </div>

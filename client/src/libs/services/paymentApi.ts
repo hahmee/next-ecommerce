@@ -6,6 +6,11 @@ import type { PaymentSummaryDTO } from '@/interface/PaymentSummaryDTO';
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 
 export const paymentApi = {
+  byKey: (paymentKey: string) =>
+    fetcher<Payment>(`/api/payments/${encodeURIComponent(paymentKey)}`, {
+      method: 'GET',
+    }),
+
   list: (init?: FetchOpts) =>
     fetcher<Payment[]>('/api/payments/list', {
       method: 'GET',

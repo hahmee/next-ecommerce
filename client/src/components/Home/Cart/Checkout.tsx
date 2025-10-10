@@ -58,7 +58,7 @@ const Checkout = () => {
             successUrl: process.env.NEXT_PUBLIC_TOSS_SUCCESS as string,
             failUrl: process.env.NEXT_PUBLIC_TOSS_FAIL as string,
           });
-        } catch (error: any) {
+        } catch (error: unknown) {
           // 사용자가 결제를 취소하거나, 결제창 오류 등
           toast.error('Toss 결제 요청 실패 또는 취소');
           console.warn('Toss 결제 요청 실패 또는 취소:', error.message);

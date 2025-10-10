@@ -1,8 +1,8 @@
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import React, { Suspense } from 'react';
-import { getPayment } from '@/apis/mallAPI';
+import {PrefetchBoundary} from '@/libs/PrefetchBoundary';
+import React, {Suspense} from 'react';
 import Loading from '@/app/loading';
 import Confirm from '@/components/Home/Payment/Confirm';
+import {paymentApi} from "@/libs/services/paymentApi";
 
 
 interface Props {
@@ -17,16 +17,14 @@ export default async function ConfirmPage({ params }: Props) {
   const prefetchOptions = [
     {
       queryKey: ['payment-confirm', paymentKey],
-      queryFn: () => getPayment({ paymentKey }),
+      queryFn: () => paymentApi.byKey(paymentKey),
     },
   ];
 
   return (
     <Suspense fallback={<Loading />}>
       <PrefetchBoundary prefetchOptions={prefetchOptions}>
-        
-          <Confirm paymentKey={paymentKey} />
-        
+        <Confirm paymentKey={paymentKey} />
       </PrefetchBoundary>
     </Suspense>
   );

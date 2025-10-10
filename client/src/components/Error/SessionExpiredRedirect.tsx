@@ -27,7 +27,6 @@ const SessionExpiredRedirect = () => {
         // 클라이언트 상태 초기화
         resetUser();
         clearSessionExpired();
-
         router.replace('/login');
         router.refresh(); // SSR에서 cookies() 읽는 곳 최신화
       }

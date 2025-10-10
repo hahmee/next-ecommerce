@@ -1,9 +1,7 @@
-
-import { useMutation } from '@tanstack/react-query';
-import { fetcher } from '@/utils/fetcher/fetcher';
-import { OrderRequest } from '@/interface/Order';
-import { toast } from 'react-hot-toast';
-import { SessionExpiredError } from '@/libs/error/errors';
+import {useMutation} from '@tanstack/react-query';
+import {fetcher} from '@/utils/fetcher/fetcher';
+import {OrderRequest} from '@/interface/Order';
+import {toast} from 'react-hot-toast';
 
 export const useCreateOrderMutation = () => {
   return useMutation({

@@ -8,14 +8,15 @@ import { usePathname } from 'next/navigation';
 import GuestAuthButtons from '@/components/Home/GuestAuthButtons';
 import { useUserStore } from '@/store/userStore';
 import {useLogout} from "@/hooks/useLogout";
+import {isAdmin} from "@/utils/isAdmin";
 
 
 const Menu = () => {
   const pathname = usePathname();
   const { user } = useUserStore();
   const { logout, isPending } = useLogout();
-
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     setOpen(false); // 경로 바뀌면 메뉴 닫기
   }, [pathname]);

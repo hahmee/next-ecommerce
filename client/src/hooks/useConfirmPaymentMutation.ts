@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { fetcher } from '@/utils/fetcher/fetcher';
 import { toast } from 'react-hot-toast';
-import { SessionExpiredError } from '@/libs/error/errors';
 
 interface ConfirmPaymentParams {
   paymentKey: string;

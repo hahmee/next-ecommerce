@@ -1,13 +1,17 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {useMemo, useState} from 'react';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { categoryApi } from '@/libs/services/categoryApi';
-import type { PageResponse } from '@/interface/PageResponse';
-import type { CategoryTree } from '@/interface/CategoryTree';
-import type { Paging } from '@/interface/Paging';
-import { initalPagingData } from '@/components/Admin/Tables/StockTable';
+import {categoryApi} from '@/libs/services/categoryApi';
+import type {PageResponse} from '@/interface/PageResponse';
+import type {CategoryTree} from '@/interface/CategoryTree';
+import type {Paging} from '@/interface/Paging';
+
+export const initialPaging: Paging = {
+  totalCount: 0, prevPage: 0, nextPage: 0, totalPage: 0,
+  current: 0, prev: false, next: false, pageNumList: [0],
+};
 
 export function useCategoriesTable() {
   const qc = useQueryClient();
@@ -29,7 +33,7 @@ export function useCategoriesTable() {
   });
 
   const paging: Paging = useMemo(() => {
-    if (!data) return initalPagingData;
+    if (!data) return initialPaging;
     const { dtoList, ...rest } = data;
     return rest as Paging;
   }, [data]);

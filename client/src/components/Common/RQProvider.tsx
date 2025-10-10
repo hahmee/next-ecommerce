@@ -14,6 +14,10 @@ import toast from 'react-hot-toast';
 
 type Props = { children: React.ReactNode };
 
+//세션 만료 토스트 중복 방지 (여러 쿼리가 동시에 401일 경우)
+let sessionToastShown = false;
+
+
 const RQProvider = ({ children }: Props) => {
   const [client] = useState(
     new QueryClient({
@@ -24,12 +28,15 @@ const RQProvider = ({ children }: Props) => {
           if (error instanceof SessionExpiredError) {
             const store = useUserStore.getState();
             store.resetUser();
-            store.setSessionExpired();
-            toast.error('세션이 만료되었습니다.');
+            store.setSessionExpired();//SessionExpiredRedirect가 로그인 페이지로 이동시킴
+            if (!sessionToastShown) {
+              sessionToastShown = true;
+              toast.error(error.message);
+            }
             return;
           }
-          const msg = error instanceof Error ? error.message : '요청 실패';
-          toast.error(msg);
+          toast.error(error instanceof Error ? error.message : '요청 실패');
+
         },
       }),
       // useMutation
@@ -38,13 +45,15 @@ const RQProvider = ({ children }: Props) => {
           if (error instanceof SessionExpiredError) {
             const store = useUserStore.getState();
             store.resetUser();
-            store.setSessionExpired();
-            //SessionExpiredRedirect가 로그인 페이지로 이동시킴
-            toast.error('세션이 만료되었습니다.');
+            store.setSessionExpired();//SessionExpiredRedirect가 로그인 페이지로 이동시킴
+            if (!sessionToastShown) {
+              sessionToastShown = true;
+              toast.error(error.message);
+            }
             return;
           }
-          const msg = error instanceof Error ? error.message : '요청 실패';
-          toast.error(msg);
+          toast.error(error instanceof Error ? error.message : '요청 실패');
+
         },
       }),
       // 기본 동작 옵션을 전역으로 정의

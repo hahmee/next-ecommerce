@@ -1,6 +1,6 @@
 export class SessionExpiredError extends Error {
   constructor(message = '세션이 만료되었습니다.') {
-    super(message);
+    super(message); // Error.message 초기화
     this.name = 'SessionExpiredError';
   }
 }

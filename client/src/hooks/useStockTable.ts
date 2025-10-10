@@ -48,19 +48,18 @@ export function useStockTable() {
   const changePage = (n: number) => setPage(n);
 
   const mutation = useMutation({
-    mutationFn: ({ pno, salesStatus }: { pno: number; salesStatus: SalesStatus }) =>
+    mutationFn: ({ pno, salesStatus }: { pno: number; salesStatus: string }) =>
       productApi.updateStock(pno, salesStatus),
 
     // 낙관적 업데이트
     onMutate: async ({ pno, salesStatus }) => {
       await qc.cancelQueries({ queryKey });
       const prev = qc.getQueryData<PageResponse<Product>>(queryKey);
-
       if (prev) {
         const next: PageResponse<Product> = {
           ...prev,
           dtoList: prev.dtoList.map(p =>
-            p.pno === pno ? { ...p, salesStatus } : p
+            p.pno === pno ? { ...p, salesStatus: salesStatus as SalesStatus } : p
           ),
         };
         qc.setQueryData(queryKey, next);
@@ -84,7 +83,7 @@ export function useStockTable() {
   });
 
   const changeStock = useCallback(
-    (pno: number, salesStatus: SalesStatus ) => mutation.mutate({ pno, salesStatus }),
+    (pno: number, salesStatus: string ) => mutation.mutate({ pno, salesStatus }),
     [mutation],
   );
 
