@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import type { Product } from '@/interface/Product';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 
 export function useExpertProducts() {
   return useQuery<Product[]>({

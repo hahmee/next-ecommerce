@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Category } from '@/interface/Category';
 
-import { Params } from './ProductListView';
+import { Params } from '../../../features/product/manage/ui/ProductListView';
 
 const FiltersBadge = ({ param, category }: { param: Params; category?: Category | undefined }) => {
   const router = useRouter();

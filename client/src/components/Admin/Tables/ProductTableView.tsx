@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { salesOptions } from '@/components/Admin/Product/presets';
+import { salesOptions } from 'src/shared/types/presets';
 import PageComponent from '@/components/Admin/Tables/PageComponent';
 import TableActions from '@/components/Admin/Tables/TableActions';
 import TableAddButton from '@/components/Admin/Tables/TableAddButton';

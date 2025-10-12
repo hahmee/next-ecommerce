@@ -1,5 +1,5 @@
 'use client';
-import { useProductsTable } from '@/hooks/admin/table/useProductsTable';
+import { useProductsTable } from 'src/features/product/create/model/useProductsTable';
 
 import { ProductTableView } from './ProductTableView';
 

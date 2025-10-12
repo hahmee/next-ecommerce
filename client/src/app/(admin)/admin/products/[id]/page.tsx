@@ -4,7 +4,7 @@ import ProductForm from '@/components/Admin/Product/ProductForm';
 import ProductFormSkeleton from '@/components/Skeleton/ProductFormSkeleton';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import { Mode } from '@/types/mode';
 
 interface Props {

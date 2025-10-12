@@ -4,7 +4,7 @@ import ProductTable from '@/components/Admin/Tables/ProductTable';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 
 export default async function ProductsPage() {
   const prefetchOptions = {

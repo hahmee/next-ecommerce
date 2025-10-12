@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import { useExpertProducts } from '@/hooks/home/product/useExpertProducts';
+import { useExpertProducts } from 'src/features/product/create/model/useExpertProducts';
 
 const ExpertList = () => {
   const { data: products = [] } = useExpertProducts();

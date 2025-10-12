@@ -1,5 +1,5 @@
 'use client';
-import { useReviewAdd } from '@/hooks/home/review/useReviewAdd';
+import { useReviewAdd } from '@/features/review/add/model/useReviewAdd';
 
 import { ReviewAddModalView } from './ReviewAddModalView';
 

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import { salesOptions } from '@/components/Admin/Product/presets';
+import { salesOptions } from 'src/shared/types/presets';
 import Select from '@/components/Admin/Product/Select';
 import PageComponent from '@/components/Admin/Tables/PageComponent';
 import TableActions from '@/components/Admin/Tables/TableActions';

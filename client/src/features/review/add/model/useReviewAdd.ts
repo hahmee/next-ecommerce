@@ -1,8 +1,8 @@
 'use client';
 import { useRouter } from 'next/navigation';
 
-import { useCreateReviewMutation } from '@/hooks/home/review/useCreateReviewMutation';
-import { useReviewOrder } from '@/hooks/home/review/useReviewOrder';
+import { useCreateReviewMutation } from '@/features/review/add/model/useCreateReviewMutation';
+import { useReviewOrder } from '@/features/review/add/model/useReviewOrder';
 import type { Review } from '@/interface/Review';
 
 export function useReviewAdd(oid: string, orderId: string) {

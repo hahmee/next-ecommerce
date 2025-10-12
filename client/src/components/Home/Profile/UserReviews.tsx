@@ -1,6 +1,6 @@
 'use client';
 
-import { useMyReviews } from '@/hooks/home/review/useMyReviews';
+import { useMyReviews } from '@/features/review/add/model/useMyReviews';
 
 import { UserReviewsView } from './UserReviewsView';
 

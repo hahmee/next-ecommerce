@@ -8,7 +8,7 @@ import type { Category } from '@/interface/Category';
 import type { PageResponse } from '@/interface/PageResponse';
 import type { Product } from '@/interface/Product';
 import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 
 type Params = {
   categoryId?: string;

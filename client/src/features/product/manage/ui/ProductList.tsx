@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import { useProductList } from '@/hooks/home/product/useProductList';
+import { useProductList } from 'src/features/product/create/model/useProductList';
 
-import { ProductListView } from './ProductListView';
+import { ProductListView } from 'src/features/product/manage/ui/ProductListView';
 
 type Props = {
   categoryId?: string;

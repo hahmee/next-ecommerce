@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import type { PageResponse } from '@/interface/PageResponse';
 import type { Paging } from '@/interface/Paging';
 import type { Product } from '@/interface/Product';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import { SalesStatus } from '@/types/salesStatus';
 
 export const initialPagingData: Paging = {

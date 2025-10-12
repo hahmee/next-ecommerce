@@ -4,7 +4,7 @@ import Loading from '@/app/loading';
 import StockTable from '@/components/Admin/Tables/StockTable';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 
 export default function StockPage() {
   const prefetchOptions = [

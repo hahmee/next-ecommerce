@@ -6,7 +6,7 @@ import React from 'react';
 
 import FallbackImage from '@/components/Common/FallbackImage';
 import Skeleton from '@/components/Skeleton/Skeleton';
-import { useMainProductList } from '@/hooks/home/product/useMainProductList';
+import { useMainProductList } from 'src/features/product/create/model/useMainProductList';
 import type { Product } from '@/interface/Product';
 
 const MainProductList = ({ type }: { type: 'new' | 'featured' }) => {

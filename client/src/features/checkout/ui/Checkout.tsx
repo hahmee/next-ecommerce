@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useCheckout } from '@/hooks/home/checkout/useCheckout';
 
-import CheckoutView from './CheckoutView';
+import CheckoutView from 'src/features/checkout/ui/CheckoutView';
 
 export default function Checkout() {
   const { shippingInfo, handleInputChange, handleSubmit, isPending } = useCheckout();

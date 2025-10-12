@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { ColorTag } from '@/interface/ColorTag';
 import type { Product } from '@/interface/Product';
 import type { Review } from '@/interface/Review';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import { reviewApi } from '@/libs/services/reviewApi';
 import { SalesStatus } from '@/types/salesStatus';
 

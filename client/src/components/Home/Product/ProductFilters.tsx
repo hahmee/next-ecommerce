@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import PriceRange from '@/components/Home/Product/PriceRange';
-import { FilterOption, FilterSection } from '@/components/Home/Product/ProductListView';
+import { FilterOption, FilterSection } from 'src/features/product/manage/ui/ProductListView';
 import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
 import { Category } from '@/interface/Category';
 

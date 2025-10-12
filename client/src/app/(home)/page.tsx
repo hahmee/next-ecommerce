@@ -5,7 +5,7 @@ import Home from '@/components/Home/Main/Home';
 import Skeleton from '@/components/Skeleton/Skeleton';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 
 // 동적 데이터 없음 -> generateMetadata대신 meatadata 사용
 export const metadata = {

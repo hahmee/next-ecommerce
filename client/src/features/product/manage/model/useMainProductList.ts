@@ -7,7 +7,7 @@ import { useChangeCartMutation } from '@/hooks/home/cart/useChangeCartMutation';
 import type { CartItem } from '@/interface/CartItem';
 import type { ColorTag } from '@/interface/ColorTag';
 import type { Product } from '@/interface/Product';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import { useCartStore } from '@/store/cartStore';
 import { useUserStore } from '@/store/userStore';
 import { SalesStatus } from '@/types/salesStatus';

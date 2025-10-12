@@ -14,7 +14,7 @@ import type { Category } from '@/interface/Category';
 import type { Product } from '@/interface/Product';
 import { Mode } from '@/types/mode';
 
-import { salesOptions, sizeOptions } from './presets';
+import { salesOptions, sizeOptions } from '../../../shared/types/presets';
 
 export function ProductFormView(props: {
   type: Mode;

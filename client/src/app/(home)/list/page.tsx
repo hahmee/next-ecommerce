@@ -2,11 +2,11 @@ import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import ProductList from '@/components/Home/Product/ProductList';
+import ProductList from 'src/features/product/manage/ui/ProductList';
 import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
 import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
 import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };
