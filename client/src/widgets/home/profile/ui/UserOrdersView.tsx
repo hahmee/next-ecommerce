@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 
-import type { Payment } from '@/interface/Payment';
-import { TossPaymentStatus } from '@/types/toss';
+import type { Payment } from '@/entities/payment/model/types';
+import { TossPaymentStatus } from '@/entities/common/model/toss';
 
 interface Props {
   payments: Payment[];

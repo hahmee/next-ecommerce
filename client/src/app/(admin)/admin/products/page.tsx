@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
-import ProductTable from '@/components/Admin/Tables/ProductTable';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { productApi } from '@/libs/services/productApi';
+import ProductTable from '@/widgets/admin/products-table/ui/ProductsTable';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import { TableSkeleton } from '@/entities/common/ui/Skeletons/TableSkeleton';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { productApi } from '@/entities/product/model/service';
 
 export default async function ProductsPage() {
   const prefetchOptions = {

@@ -1,7 +1,7 @@
-'use client';
+﻿'use client';
 
-import { ProductSingleView } from '@/components/Home/Product/ProductSingleView';
-import { useProductSingle } from '@/hooks/home/product/useProductSingle';
+import { ProductSingleView } from '@/entities/product/ui/ProductSingleView';
+import { useProductSingle } from '@/features/product/read/model/useProductSingle';
 
 interface Props {
   id: string;

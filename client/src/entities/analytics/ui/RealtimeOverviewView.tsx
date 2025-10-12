@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
-import type { GARealTimeResponseTop } from '@/interface/GARealTimeResponse';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import type { GARealTimeResponseTop } from '@/entities/analytics/model/GARealTimeResponse';
 
 const ActiveVisitors = dynamic(() => import('./Charts/ActiveVisitorsView'), { ssr: false });
 const ActiveVisitChart = dynamic(() => import('./Charts/ActiveVisitChartView'), { ssr: false });

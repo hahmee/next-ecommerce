@@ -1,9 +1,9 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import ReviewAddModal from '@/components/Home/Profile/ReviewAddModal';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { orderApi } from '@/libs/services/orderApi';
+import ReviewAddModal from '@/features/review/add/ui/ReviewAddModal';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { orderApi } from '@/entities/order/model/service';
 
 interface Props {
   params: { id: string; orderId: string };

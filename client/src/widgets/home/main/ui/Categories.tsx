@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import Skeleton from '@/components/Skeleton/Skeleton';
-import { useCategories } from '@/hooks/home/category/useCategories';
+import Skeleton from '@/entities/common/ui/Skeletons/Skeleton';
+import { useCategories } from '@/features/category/read/model/useCategories';
 
 const Categories = () => {
   const router = useRouter();

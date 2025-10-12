@@ -1,7 +1,7 @@
-import { CartItemList } from '@/interface/CartItemList';
-import { ColorTag } from '@/interface/ColorTag';
-import { Member } from '@/interface/Member';
-import { OrderStatus } from '@/types/orderStatus';
+﻿import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { ColorTag } from '@/entities/common/model/ColorTag';
+import { Member } from '@/entities/member/model/Member';
+import { OrderStatus } from '@/entities/common/model/orderStatus';
 
 export interface Order {
   id: number;

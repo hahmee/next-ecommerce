@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import type { GARealTimeResponseBottom } from '@/interface/GARealTimeResponse';
-import { dashboardApi } from '@/libs/services/dashboardApi';
-import { ChartFilter } from '@/types/chartFilter';
+import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
+import { dashboardApi } from '@/entities/analytics/model/service';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 
 export function useRealtimeBottomOverview() {
   const today = dayjs();

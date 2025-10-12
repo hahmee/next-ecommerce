@@ -1,9 +1,9 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+﻿import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useState } from 'react';
 
-import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
-import { Category } from '@/interface/Category';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { Category } from '@/entities/category/model/types';
 
 type Props = {
   categories: Category[];

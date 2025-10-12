@@ -1,5 +1,5 @@
-import { ChartContext } from '@/types/chartContext';
-import { ChartFilter } from '@/types/chartFilter';
+﻿import { ChartContext } from '@/entities/analytics/model/chartContext';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 
 export interface ChartRequest {
   startDate: string;

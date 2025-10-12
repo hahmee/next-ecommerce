@@ -1,11 +1,11 @@
-// hooks/useDeleteCartMutation.ts
+﻿// hooks/useDeleteCartMutation.ts
 
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { CartItemList } from '@/interface/CartItemList';
-import { useCartStore } from '@/store/cartStore';
-import { fetcher } from '@/utils/fetcher/fetcher';
+import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { useCartStore } from '@/features/common/store/cartStore';
+import { fetcher } from '@/entities/http/fetcher';
 
 export const useDeleteCartMutation = () => {
   const setCarts = useCartStore((s) => s.setCarts);

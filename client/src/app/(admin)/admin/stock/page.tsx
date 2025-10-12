@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import StockTable from '@/components/Admin/Tables/StockTable';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { productApi } from '@/libs/services/productApi';
+import StockTable from '@/widgets/admin/stock-table/ui/StockTable';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { productApi } from '@/entities/product/model/service';
 
 export default function StockPage() {
   const prefetchOptions = [

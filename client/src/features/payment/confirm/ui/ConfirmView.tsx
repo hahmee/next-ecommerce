@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import React from 'react';
 
-import type { PaymentConfirmVM } from '@/hooks/home/payment/usePaymentConfirm';
+import type { PaymentConfirmVM } from '@/features/payment/confirm/model/usePaymentConfirm';
 
 interface Props {
   payment: PaymentConfirmVM;

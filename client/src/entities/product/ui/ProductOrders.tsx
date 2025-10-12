@@ -1,8 +1,8 @@
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+﻿import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
 
 export type OrderOption = {
   id: string;

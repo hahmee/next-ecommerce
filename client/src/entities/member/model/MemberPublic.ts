@@ -1,4 +1,4 @@
-import { MemberRole } from '@/types/memberRole';
+﻿import { MemberRole } from '@/entities/common/model/memberRole';
 
 export interface MemberPublic {
   email: string;

@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { SessionExpiredError } from '@/libs/error/errors';
-import { useUserStore } from '@/store/userStore';
+import { SessionExpiredError } from '@/entities/common/lib/errors';
+import { useUserStore } from '@/features/common/store/userStore';
 
 type Props = { children: React.ReactNode };
 

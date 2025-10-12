@@ -1,8 +1,8 @@
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
+﻿import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
 
-import ReactApexChart from '@/components/Common/ReactApexChart';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
 
 interface MultiRadialChartProps {
   percentages: number[];

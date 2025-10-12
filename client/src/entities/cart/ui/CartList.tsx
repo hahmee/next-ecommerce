@@ -1,7 +1,7 @@
-'use client';
+﻿'use client';
 
-import SingleCartItem from '@/components/Home/Cart/SingleCartItem';
-import { useCartStore } from '@/store/cartStore';
+import SingleCartItem from '@/entities/cart/ui/SingleCartItem';
+import { useCartStore } from '@/features/common/store/cartStore';
 
 const CartList = () => {
   const { carts } = useCartStore();

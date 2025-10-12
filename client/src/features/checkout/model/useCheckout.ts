@@ -1,13 +1,13 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { useCreateOrderMutation } from '@/hooks/home/order/useCreateOrderMutation';
-import { OrderRequest, OrderShippingAddressInfo } from '@/interface/Order';
-import { requestTossCardPayment } from '@/libs/services/paymentService';
-import { useCartStore } from '@/store/cartStore';
-import { OrderStatus } from '@/types/orderStatus';
+import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order/model/types';
+import { requestTossCardPayment } from '@/entities/payment/model/paymentService';
+import { useCartStore } from '@/features/common/store/cartStore';
+import { OrderStatus } from '@/entities/common/model/orderStatus';
 
 export function useCheckout() {
   const { carts, subtotal, tax, shippingFee, total } = useCartStore();

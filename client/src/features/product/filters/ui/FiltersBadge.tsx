@@ -1,8 +1,8 @@
-import { XMarkIcon } from '@heroicons/react/20/solid';
+﻿import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
-import { Category } from '@/interface/Category';
+import { Category } from '@/entities/category/model/types';
 
 import { Params } from './ProductListView';
 

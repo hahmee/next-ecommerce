@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
-import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
-import type { GAResponseBottom } from '@/interface/GAResponse';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import type { GAResponseBottom } from '@/entities/analytics/model/GAResponse';
 
 const CountryTrafficMap = dynamic(() => import('./Maps/CountryTrafficMapView'), { ssr: false });
 

@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import UserDashbaord from '@/components/Admin/Users/UserDashbaord';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { memberApi } from '@/libs/services/memberApi';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { memberApi } from '@/entities/member/model/memberApi';
 
 const UserDashboardPage = () => {
   const prefetchOptions = {

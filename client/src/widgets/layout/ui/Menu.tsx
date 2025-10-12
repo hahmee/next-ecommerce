@@ -1,14 +1,14 @@
-'use client';
+﻿'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import GuestAuthButtons from '@/components/Home/Common/GuestAuthButtons';
-import SearchBar from '@/components/Home/Search/SearchBar';
-import { useLogout } from '@/hooks/auth/useLogout';
-import { useUserStore } from '@/store/userStore';
+import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
+import SearchBar from '@/widgets/common/ui/SearchBar';
+import { useLogout } from '@/features/auth/model/useLogout';
+import { useUserStore } from '@/features/common/store/userStore';
 import { isAdmin } from '@/utils/isAdmin';
 
 const Menu = () => {

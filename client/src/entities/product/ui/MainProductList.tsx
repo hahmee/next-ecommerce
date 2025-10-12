@@ -1,13 +1,13 @@
-'use client';
+﻿'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import React from 'react';
 
-import FallbackImage from '@/components/Common/FallbackImage';
-import Skeleton from '@/components/Skeleton/Skeleton';
-import { useMainProductList } from '@/hooks/home/product/useMainProductList';
-import type { Product } from '@/interface/Product';
+import FallbackImage from '@/widgets/common/ui/FallbackImage';
+import Skeleton from '@/entities/common/ui/Skeletons/Skeleton';
+import { useMainProductList } from '@/features/product/read/model/useMainProductList';
+import type { Product } from '@/entities/product/model/types';
 
 const MainProductList = ({ type }: { type: 'new' | 'featured' }) => {
   const { products, isLoading, addToCart, isAddDisabled } = useMainProductList(type);

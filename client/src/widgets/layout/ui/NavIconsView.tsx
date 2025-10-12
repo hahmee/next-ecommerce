@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import { BuildingStorefrontIcon } from '@heroicons/react/24/outline';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import GuestAuthButtons from '@/components/Home/Common/GuestAuthButtons';
+import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
 
 const CartModal = dynamic(() => import('src/components/Home/Cart/CartModal'));
 

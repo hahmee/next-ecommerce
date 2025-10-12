@@ -1,7 +1,7 @@
-// src/libs/services/memberApi.ts
-import type { Member } from '@/interface/Member';
-import type { PageResponse } from '@/interface/PageResponse';
-import { fetcher } from '@/utils/fetcher/fetcher';
+﻿// src/libs/services/memberApi.ts
+import type { Member } from '@/entities/member/model/Member';
+import type { PageResponse } from '@/entities/order/model/PageResponse';
+import { fetcher } from '@/entities/http/fetcher';
 
 export type ListArgs = { page: number; size: number; search: string };
 

@@ -1,16 +1,16 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useCallback, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import type { CardResponse } from '@/interface/CardResponse';
-import type { ChartResponse } from '@/interface/ChartResponse';
-import { dashboardApi } from '@/libs/services/dashboardApi';
-import { ChartContext } from '@/types/chartContext';
-import { ChartFilter } from '@/types/chartFilter';
-import type { DatepickType } from '@/types/DatepickType';
+import type { CardResponse } from '@/entities/common/model/CardResponse';
+import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
+import { dashboardApi } from '@/entities/analytics/model/service';
+import { ChartContext } from '@/entities/analytics/model/chartContext';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import type { DatepickType } from '@/entities/common/model/DatepickType';
 
 function makeComparedRange(startStr: string, endStr: string) {
   const start = dayjs(startStr);

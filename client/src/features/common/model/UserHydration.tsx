@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useEffect } from 'react';
 
-import { Member } from '@/interface/Member';
-import { useUserStore } from '@/store/userStore';
+import { Member } from '@/entities/member/model/Member';
+import { useUserStore } from '@/features/common/store/userStore';
 
 // UserHydration (SSR → CSR 전달)
 // zustand에 user 정보 넣는다.

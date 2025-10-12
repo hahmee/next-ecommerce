@@ -1,18 +1,18 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 
-import BackButton from '@/components/Admin/Product/BackButton';
-import CategorySelect from '@/components/Admin/Product/CategorySelect';
-import ColorSelector from '@/components/Admin/Product/ColorSelector';
-import ImageUploadForm from '@/components/Admin/Product/ImageUploadForm';
-import MultiSelect from '@/components/Admin/Product/MultiSelect';
-import QuillEditor from '@/components/Admin/Product/QuillEditor';
-import RadioButton from '@/components/Admin/Product/RadioButton';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import type { Category } from '@/interface/Category';
-import type { Product } from '@/interface/Product';
-import { Mode } from '@/types/mode';
+import BackButton from '@/features/product/manage/ui/BackButton';
+import CategorySelect from '@/features/product/manage/ui/Select';
+import ColorSelector from '@/features/product/manage/ui/ColorSelector';
+import ImageUploadForm from '@/features/product/manage/ui/ImageUploadForm';
+import MultiSelect from '@/features/product/manage/ui/MultiSelect';
+import QuillEditor from '@/features/product/manage/ui/QuillEditor';
+import RadioButton from '@/features/product/manage/ui/RadioButton';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import type { Category } from '@/entities/category/model/types';
+import type { Product } from '@/entities/product/model/types';
+import { Mode } from '@/entities/common/model/mode';
 
 import { salesOptions, sizeOptions } from './presets';
 

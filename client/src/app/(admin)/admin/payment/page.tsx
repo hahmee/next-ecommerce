@@ -1,13 +1,13 @@
-// app/admin/payments/page.tsx
+﻿// app/admin/payments/page.tsx
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import PaymentOverview from '@/components/Admin/Payment/PaymentOverview';
-import PaymentTable from '@/components/Admin/Tables/PaymentTable';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import PaymentSkeleton from '@/components/Skeleton/PaymentSkeleton';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { paymentApi } from '@/libs/services/paymentApi';
+import PaymentOverview from '@/widgets/admin/payment-overview/ui/PaymentOverview';
+import PaymentTable from '@/widgets/admin/payments-table/ui/PaymentTable';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import PaymentSkeleton from '@/entities/common/ui/Skeletons/PaymentSkeleton';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { paymentApi } from '@/entities/payment/model/service';
 
 export default async function AdminPaymentPage() {
   const today = dayjs();

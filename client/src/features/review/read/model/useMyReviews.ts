@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import type { Review } from '@/interface/Review';
-import { reviewApi } from '@/libs/services/reviewApi';
+import type { Review } from '@/entities/review/model/types';
+import { reviewApi } from '@/entities/review/model/service';
 
 export function useMyReviews() {
   const query = useQuery<Review[], Error>({

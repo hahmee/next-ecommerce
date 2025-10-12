@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Option } from '@/interface/Option';
+import { Option } from '@/entities/common/model/Option';
 
 interface Options {
   value: string;

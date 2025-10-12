@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { GAResponseTop } from '@/interface/GAResponse';
-import { ChartFilter } from '@/types/chartFilter';
-import type { DatepickType } from '@/types/DatepickType';
+import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import type { DatepickType } from '@/entities/common/model/DatepickType';
 
 const CardTraffic = dynamic(() => import('./CardTrafficView'), {
   ssr: true,

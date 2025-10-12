@@ -1,4 +1,4 @@
-import FailPayment from '@/components/Home/Payment/FailPayment';
+﻿import FailPayment from '@/features/payment/confirm/ui/FailPayment';
 
 export default async function OrderFailPage() {
   return <FailPayment />;

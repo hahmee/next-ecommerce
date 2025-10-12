@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import type { Payment } from '@/interface/Payment';
-import { paymentApi } from '@/libs/services/paymentApi';
+import type { Payment } from '@/entities/payment/model/types';
+import { paymentApi } from '@/entities/payment/model/service';
 
 export type PaymentConfirmVM = {
   orderId: string;

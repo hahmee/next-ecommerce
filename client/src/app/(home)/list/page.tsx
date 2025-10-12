@@ -1,12 +1,12 @@
-import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
+﻿import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import ProductList from '@/components/Home/Product/ProductList';
-import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import ProductList from '@/entities/product/ui/ProductList';
+import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { categoryApi } from '@/entities/category/model/service';
+import { productApi } from '@/entities/product/model/service';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };

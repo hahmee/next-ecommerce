@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import CartList from '@/components/Home/Cart/CartList';
-import CartSummary from '@/components/Home/Cart/CartSummary';
+import CartList from '@/entities/cart/ui/CartList';
+import CartSummary from '@/entities/cart/ui/CartSummary';
 
 const Cart = () => {
   const router = useRouter();

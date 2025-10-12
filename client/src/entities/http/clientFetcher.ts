@@ -1,5 +1,5 @@
-// 클라이언트 전용 fetcher (쿠키는 자동 포함)
-import { SessionExpiredError } from '@/libs/error/errors';
+﻿// 클라이언트 전용 fetcher (쿠키는 자동 포함)
+import { SessionExpiredError } from '@/entities/common/lib/errors';
 
 export const clientFetcher = async <T = any>(
   path: string,

@@ -1,5 +1,5 @@
-import { MemberPublic } from '@/interface/MemberPublic';
-import { MemberRole } from '@/types/memberRole';
+﻿import { MemberPublic } from '@/entities/member/model/MemberPublic';
+import { MemberRole } from '@/entities/common/model/memberRole';
 
 export function isAdmin(user?: MemberPublic | null) {
   if (!user) return false;

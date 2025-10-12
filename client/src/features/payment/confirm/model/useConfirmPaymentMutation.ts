@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
+﻿import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { fetcher } from '@/utils/fetcher/fetcher';
+import { fetcher } from '@/entities/http/fetcher';
 
 interface ConfirmPaymentParams {
   paymentKey: string;

@@ -1,16 +1,16 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import type { CartItemList } from '@/interface/CartItemList';
-import { authApi } from '@/libs/services/authApi';
-import { cartApi } from '@/libs/services/cartApi';
-import { useCartStore } from '@/store/cartStore';
-import { useUserStore } from '@/store/userStore';
-import { MemberRole } from '@/types/memberRole';
+import type { CartItemList } from '@/entities/cart/model/CartItemList';
+import { authApi } from '@/entities/member/model/authService';
+import { cartApi } from '@/entities/cart/model/service';
+import { useCartStore } from '@/features/common/store/cartStore';
+import { useUserStore } from '@/features/common/store/userStore';
+import { MemberRole } from '@/entities/common/model/memberRole';
 
 export function useNavIcons() {
   const router = useRouter();

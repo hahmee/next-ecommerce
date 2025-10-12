@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import React from 'react';
 
-import { Member } from '@/interface/Member';
-import { PageResponse } from '@/interface/PageResponse';
+import { Member } from '@/entities/member/model/Member';
+import { PageResponse } from '@/entities/order/model/PageResponse';
 
 type Props = {
   users: PageResponse<Member> | undefined;

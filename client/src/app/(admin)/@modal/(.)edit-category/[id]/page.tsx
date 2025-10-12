@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import AdminModal from '@/components/Admin/AdminModal';
-import CategoryForm from '@/components/Admin/Category/CategoryForm';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { categoryApi } from '@/libs/services/categoryApi';
-import { Mode } from '@/types/mode';
+import AdminModal from '@/widgets/common/ui/AdminModal';
+import CategoryForm from '@/features/category/manage/ui/CategoryForm';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { categoryApi } from '@/entities/category/model/service';
+import { Mode } from '@/entities/common/model/mode';
 
 interface Props {
   params: { id: string };

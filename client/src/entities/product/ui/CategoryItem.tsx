@@ -1,8 +1,8 @@
-// components/Admin/Product/CategoryItem.js
+﻿// components/Admin/Product/CategoryItem.js
 
 import React from 'react';
 
-import { Category } from '@/interface/Category';
+import { Category } from '@/entities/category/model/types';
 
 interface CategoryItemProps {
   category: Category;

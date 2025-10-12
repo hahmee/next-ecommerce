@@ -1,16 +1,16 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import { useChangeCartMutation } from '@/hooks/home/cart/useChangeCartMutation';
-import type { CartItem } from '@/interface/CartItem';
-import type { ColorTag } from '@/interface/ColorTag';
-import type { Product } from '@/interface/Product';
-import { productApi } from '@/libs/services/productApi';
-import { useCartStore } from '@/store/cartStore';
-import { useUserStore } from '@/store/userStore';
-import { SalesStatus } from '@/types/salesStatus';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import type { CartItem } from '@/entities/cart/model/CartItem';
+import type { ColorTag } from '@/entities/common/model/ColorTag';
+import type { Product } from '@/entities/product/model/types';
+import { productApi } from '@/entities/product/model/service';
+import { useCartStore } from '@/features/common/store/cartStore';
+import { useUserStore } from '@/features/common/store/userStore';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
 
 type MainListType = 'new' | 'featured';
 

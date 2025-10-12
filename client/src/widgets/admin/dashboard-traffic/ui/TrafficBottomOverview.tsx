@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
-import { TrafficBottomOverviewView } from '@/components/Admin/Dashboard/TrafficBottomOverviewView';
-import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
-import { useTrafficBottom } from '@/hooks/admin/dashboard/useTrafficBottom';
-import { ChartFilter } from '@/types/chartFilter';
-import type { DatepickType } from '@/types/DatepickType';
+import { TrafficBottomOverviewView } from '@/widgets/admin/dashboard-traffic/ui/TrafficBottomOverviewView';
+import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import { useTrafficBottom } from '@/features/dashboard/model/useTrafficBottom';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import type { DatepickType } from '@/entities/common/model/DatepickType';
 
 export default function TrafficBottomOverview({
   date,

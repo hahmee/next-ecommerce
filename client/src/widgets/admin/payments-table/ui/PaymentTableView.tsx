@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import 'dayjs/locale/ko';
 
@@ -6,13 +6,13 @@ import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import PageComponent from '@/components/Admin/Tables/PageComponent';
-import TableSearch from '@/components/Admin/Tables/TableSearch';
-import ViewButton from '@/components/Admin/Tables/ViewButton';
-import type { Paging } from '@/interface/Paging';
-import type { Payment } from '@/interface/Payment';
-import type { DatepickType } from '@/types/DatepickType';
-import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/types/toss';
+import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
+import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
+import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
+import type { Paging } from '@/entities/order/model/Paging';
+import type { Payment } from '@/entities/payment/model/types';
+import type { DatepickType } from '@/entities/common/model/DatepickType';
+import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/entities/common/model/toss';
 
 const TableDatePicker = dynamic(() => import('./TableDatePicker'), { ssr: false });
 

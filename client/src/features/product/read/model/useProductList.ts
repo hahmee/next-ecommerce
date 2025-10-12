@@ -1,14 +1,14 @@
-'use client';
+﻿'use client';
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import type { Category } from '@/interface/Category';
-import type { PageResponse } from '@/interface/PageResponse';
-import type { Product } from '@/interface/Product';
-import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import type { Category } from '@/entities/category/model/types';
+import type { PageResponse } from '@/entities/order/model/PageResponse';
+import type { Product } from '@/entities/product/model/types';
+import { categoryApi } from '@/entities/category/model/service';
+import { productApi } from '@/entities/product/model/service';
 
 type Params = {
   categoryId?: string;

@@ -1,14 +1,14 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
-import type { ColorTag } from '@/interface/ColorTag';
-import type { Product } from '@/interface/Product';
-import type { Review } from '@/interface/Review';
-import { productApi } from '@/libs/services/productApi';
-import { reviewApi } from '@/libs/services/reviewApi';
-import { SalesStatus } from '@/types/salesStatus';
+import type { ColorTag } from '@/entities/common/model/ColorTag';
+import type { Product } from '@/entities/product/model/types';
+import type { Review } from '@/entities/review/model/types';
+import { productApi } from '@/entities/product/model/service';
+import { reviewApi } from '@/entities/review/model/service';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
 
 const EMPTY_COLOR: ColorTag = { id: 0, text: '', color: '' };
 

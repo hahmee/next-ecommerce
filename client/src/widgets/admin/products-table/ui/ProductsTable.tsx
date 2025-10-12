@@ -1,5 +1,5 @@
-'use client';
-import { useProductsTable } from '@/hooks/admin/table/useProductsTable';
+﻿'use client';
+import { useProductsTable } from '@/widgets/admin/products-table/model/useProductsTable';
 
 import { ProductTableView } from './ProductTableView';
 
@@ -9,3 +9,4 @@ const ProductTable = () => {
 };
 
 export default ProductTable;
+

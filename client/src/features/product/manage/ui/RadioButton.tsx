@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import { memo, useState } from 'react';
 
-import { Option } from '@/interface/Option';
+import { Option } from '@/entities/common/model/Option';
 
 interface CheckboxProps {
   options: Array<Option<string>>;

@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
-import { useCheckout } from '@/hooks/home/checkout/useCheckout';
+import { useCheckout } from '@/features/checkout/model/useCheckout';
 
 import CheckoutView from './CheckoutView';
 

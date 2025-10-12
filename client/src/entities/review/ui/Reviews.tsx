@@ -1,7 +1,7 @@
-import React from 'react';
+﻿import React from 'react';
 
-import ReviewSingle from '@/components/Home/Review/ReviewSingle';
-import { Review } from '@/interface/Review';
+import ReviewSingle from '@/entities/review/ui/ReviewSingle';
+import { Review } from '@/entities/review/model/types';
 
 const Reviews = ({ reviews }: { reviews: Array<Review> | undefined }) => {
   return reviews?.map((review: Review, index: number) => (

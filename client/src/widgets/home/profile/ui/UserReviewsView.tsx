@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';
@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import type { Review } from '@/interface/Review';
+import type { Review } from '@/entities/review/model/types';
 
 interface Props {
   myReviews: Review[];

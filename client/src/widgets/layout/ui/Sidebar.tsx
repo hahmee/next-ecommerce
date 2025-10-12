@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { BuildingStorefrontIcon } from '@heroicons/react/24/outline';
 import dynamic from 'next/dynamic';
@@ -6,11 +6,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import ClickOutside from '@/components/Common/ClickOutside';
-import SidebarItem from '@/components/Sidebar/SidebarItem';
-import { useLogout } from '@/hooks/auth/useLogout';
-import useLocalStorage from '@/hooks/common/useLocalStorage';
-import { useUserStore } from '@/store/userStore';
+import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import SidebarItem from '@/widgets/layout/ui/Sidebar/SidebarItem';
+import { useLogout } from '@/features/auth/model/useLogout';
+import useLocalStorage from '@/features/common/model/useLocalStorage';
+import { useUserStore } from '@/features/common/store/userStore';
 
 const Dialog = dynamic(() => import('../Admin/Dialog'));
 

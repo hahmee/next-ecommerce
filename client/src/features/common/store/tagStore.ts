@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+﻿import { create } from 'zustand';
 
-import { ColorTag } from '@/interface/ColorTag';
+import { ColorTag } from '@/entities/common/model/ColorTag';
 
 interface TagStore {
   tags: ColorTag[];

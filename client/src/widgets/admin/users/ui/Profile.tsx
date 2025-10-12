@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { useProfile } from '@/hooks/home/member/useProfile';
+import { useProfile } from '@/features/member/read/model/useProfile';
 
 import { ProfileView } from './ProfileView';
 

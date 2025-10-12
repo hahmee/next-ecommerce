@@ -1,7 +1,7 @@
-import type { PageResponse } from '@/interface/PageResponse';
-import type { Product } from '@/interface/Product';
-import { fetcher } from '@/utils/fetcher/fetcher';
-import { publicFetcher } from '@/utils/fetcher/publicFetcher';
+﻿import type { PageResponse } from '@/entities/order/model/PageResponse';
+import type { Product } from '@/entities/product/model/types';
+import { fetcher } from '@/entities/http/fetcher';
+import { publicFetcher } from '@/entities/http/publicFetcher';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };

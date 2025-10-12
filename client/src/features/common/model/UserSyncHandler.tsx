@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { authApi } from '@/libs/services/authApi';
-import { useUserStore } from '@/store/userStore';
+import { authApi } from '@/entities/member/model/authService';
+import { useUserStore } from '@/features/common/store/userStore';
 
 // 새로고침하거나 CSR로 진입했을 때 로그인 상태를 복원해주는 역할
 // 새로고침 등 최초 마운트 1회만 실행

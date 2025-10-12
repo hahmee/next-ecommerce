@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 
-import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
 
 export function useSearchBar() {
   const router = useRouter();

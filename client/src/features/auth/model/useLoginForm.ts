@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';
 
-import { DataResponse } from '@/interface/DataResponse';
-import { useUserStore } from '@/store/userStore';
-import { fetcher } from '@/utils/fetcher/fetcher';
+import { DataResponse } from '@/entities/common/model/DataResponse';
+import { useUserStore } from '@/features/common/store/userStore';
+import { fetcher } from '@/entities/http/fetcher';
 
 export function useLoginForm() {
   const router = useRouter();

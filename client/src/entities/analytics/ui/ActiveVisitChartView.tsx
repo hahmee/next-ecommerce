@@ -1,8 +1,8 @@
-import type { ApexOptions } from 'apexcharts';
+﻿import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import ReactApexChart from '@/components/Common/ReactApexChart';
-import { SessionChart } from '@/interface/GAResponse';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import { SessionChart } from '@/entities/analytics/model/GAResponse';
 
 const ActiveVisitChartView = ({ chart }: { chart: SessionChart | undefined | null }) => {
   const options: ApexOptions = {

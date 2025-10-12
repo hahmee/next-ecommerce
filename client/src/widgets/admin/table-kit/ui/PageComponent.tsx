@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { Paging } from '@/interface/Paging';
+import { Paging } from '@/entities/order/model/Paging';
 
 const PageComponent = ({
   pagingData,

@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+﻿import { useEffect } from 'react';
 
-import useLocalStorage from '@/hooks/common/useLocalStorage';
+import useLocalStorage from '@/features/common/model/useLocalStorage';
 
 const useColorMode = () => {
   const [colorMode, setColorMode] = useLocalStorage('color-theme', 'light');

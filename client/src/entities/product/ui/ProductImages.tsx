@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 
-import FallbackImage from '@/components/Common/FallbackImage';
-import { FileDTO } from '@/interface/FileDTO';
+import FallbackImage from '@/widgets/common/ui/FallbackImage';
+import { FileDTO } from '@/entities/common/model/FileDTO';
 
 const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
   const [index, setIndex] = useState(0);

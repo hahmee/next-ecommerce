@@ -1,11 +1,11 @@
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+﻿import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import PriceRange from '@/components/Home/Product/PriceRange';
-import { FilterOption, FilterSection } from '@/components/Home/Product/ProductListView';
-import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
-import { Category } from '@/interface/Category';
+import PriceRange from '@/features/product/filters/ui/PriceRange';
+import { FilterOption, FilterSection } from '@/entities/product/ui/ProductListView';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { Category } from '@/entities/category/model/types';
 
 type Props = {
   filters: FilterSection[];

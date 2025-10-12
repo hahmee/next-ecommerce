@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import ReactApexChart from '@/components/Common/ReactApexChart';
-import { ChartResponse } from '@/interface/ChartResponse';
-import { ChartFilter } from '@/types/chartFilter';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import { ChartResponse } from '@/entities/analytics/model/ChartResponse';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 
 const data = {
   startDate: '2024-10-01', // 해당 날짜

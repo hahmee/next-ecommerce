@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 import Image from 'next/image';
 import React from 'react';
 
-import type { TopProductResponse } from '@/interface/TopProductResponse';
+import type { TopProductResponse } from '@/entities/analytics/model/TopProductResponse';
 
 export function TopOrderTableView({ products }: { products: TopProductResponse[] }) {
   return (

@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
-import CartSummary from '@/components/Home/Cart/CartSummary';
-import type { OrderShippingAddressInfo } from '@/interface/Order';
+import CartSummary from '@/entities/cart/ui/CartSummary';
+import type { OrderShippingAddressInfo } from '@/entities/order/model/types';
 
 type Props = {
   shippingInfo: OrderShippingAddressInfo;

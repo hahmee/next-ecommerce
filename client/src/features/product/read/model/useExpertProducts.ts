@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import type { Product } from '@/interface/Product';
-import { productApi } from '@/libs/services/productApi';
+import type { Product } from '@/entities/product/model/types';
+import { productApi } from '@/entities/product/model/service';
 
 export function useExpertProducts() {
   return useQuery<Product[]>({

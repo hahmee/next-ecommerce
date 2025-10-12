@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 import { useQuery } from '@tanstack/react-query';
 
-import type { MapResponse } from '@/interface/MapResponse';
-import { dashboardApi } from '@/libs/services/dashboardApi';
-import type { DatepickType } from '@/types/DatepickType';
+import type { MapResponse } from '@/entities/analytics/model/MapResponse';
+import { dashboardApi } from '@/entities/analytics/model/service';
+import type { DatepickType } from '@/entities/common/model/DatepickType';
 
 export function useCountryChart(date: DatepickType) {
   return useQuery<MapResponse[], object, MapResponse[]>({

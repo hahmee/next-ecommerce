@@ -1,18 +1,18 @@
-import { StarIcon } from '@heroicons/react/20/solid';
+﻿import { StarIcon } from '@heroicons/react/20/solid';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { stripHtml } from 'string-strip-html';
 
-import FallbackImage from '@/components/Common/FallbackImage';
-import { useChangeCartMutation } from '@/hooks/home/cart/useChangeCartMutation';
-import { CartItem } from '@/interface/CartItem';
-import { ColorTag } from '@/interface/ColorTag';
-import { Product } from '@/interface/Product';
-import { useCartStore } from '@/store/cartStore';
-import { useUserStore } from '@/store/userStore';
-import { SalesStatus } from '@/types/salesStatus';
+import FallbackImage from '@/widgets/common/ui/FallbackImage';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { CartItem } from '@/entities/cart/model/CartItem';
+import { ColorTag } from '@/entities/common/model/ColorTag';
+import { Product } from '@/entities/product/model/types';
+import { useCartStore } from '@/features/common/store/cartStore';
+import { useUserStore } from '@/features/common/store/userStore';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
 
 type ProductCardProps = {
   product: Product;

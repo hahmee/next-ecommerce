@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+﻿import React, { ReactNode } from 'react';
 
-import { ChartContext } from '@/types/chartContext';
+import { ChartContext } from '@/entities/analytics/model/chartContext';
 
 interface CardDataStatsProps {
   title: string;

@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Member } from '@/interface/Member';
+import { Member } from '@/entities/member/model/Member';
 
 interface Props {
   member: Member | null;

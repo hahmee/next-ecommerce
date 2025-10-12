@@ -1,7 +1,7 @@
-'use client';
+﻿'use client';
 
-import SignupView from '@/components/Home/Auth/SignupView';
-import { useSignupForm } from '@/hooks/auth/useSignupForm';
+import SignupView from '@/features/auth/ui/SignupView';
+import { useSignupForm } from '@/features/auth/model/useSignupForm';
 
 export default function SignupPage() {
   const form = useSignupForm();

@@ -1,20 +1,20 @@
-'use client';
+﻿'use client';
 
 import React, { Fragment, Suspense } from 'react';
 
-import FiltersBadge from '@/components/Home/Product/FiltersBadge';
-import ProductCard from '@/components/Home/Product/ProductCard';
-import ProductCategories from '@/components/Home/Product/ProductCategories';
-import ProductFilters from '@/components/Home/Product/ProductFilters';
-import ProductOrders from '@/components/Home/Product/ProductOrders';
-import ListPageSkeleton from '@/components/Skeleton/ListPageSkeleton';
-import ProductCardListSkeleton from '@/components/Skeleton/ProductCartListSkeleton';
-import ProductCardSkeleton from '@/components/Skeleton/ProductCartSkeleton';
-import { useSafeSearchParams } from '@/hooks/common/useSafeSearchParams';
-import type { Category } from '@/interface/Category';
-import type { PageResponse } from '@/interface/PageResponse';
-import type { Product } from '@/interface/Product';
-import { Size } from '@/types/size';
+import FiltersBadge from '@/features/product/filters/ui/FiltersBadge';
+import ProductCard from '@/entities/product/ui/ProductCard';
+import ProductCategories from '@/entities/product/ui/ProductCategories';
+import ProductFilters from '@/features/product/filters/ui/ProductFilters';
+import ProductOrders from '@/entities/product/ui/ProductOrders';
+import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
+import ProductCardListSkeleton from '@/entities/common/ui/Skeletons/ProductCartListSkeleton';
+import ProductCardSkeleton from '@/entities/common/ui/Skeletons/ProductCartSkeleton';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import type { Category } from '@/entities/category/model/types';
+import type { PageResponse } from '@/entities/order/model/PageResponse';
+import type { Product } from '@/entities/product/model/types';
+import { Size } from '@/entities/common/model/size';
 
 export interface Params {
   key: string;

@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+﻿import { create } from 'zustand';
 
-import { MemberPublic } from '@/interface/MemberPublic';
+import { MemberPublic } from '@/entities/member/model/MemberPublic';
 
 interface UserState {
   user: MemberPublic | null;

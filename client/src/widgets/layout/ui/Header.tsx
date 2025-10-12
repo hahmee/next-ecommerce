@@ -1,8 +1,8 @@
-import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+﻿import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';
 
-import AdminUser from '@/components/Header/AdminUser';
+import AdminUser from '@/widgets/layout/ui/Header/AdminUser';
 
 import DarkModeSwitcher from './DarkModeSwitcher';
 

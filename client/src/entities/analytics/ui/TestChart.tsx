@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import type { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 
-import ReactApexChart from '@/components/Common/ReactApexChart';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
 
 const TestChart = () => {
   const [mounted, setMounted] = useState(false);

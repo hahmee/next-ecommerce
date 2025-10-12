@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { DataResponse } from '@/interface/DataResponse';
-import { Member } from '@/interface/Member';
-import { isBlank } from '@/utils/validation';
+import { DataResponse } from '@/entities/common/model/DataResponse';
+import { Member } from '@/entities/member/model/Member';
+import { isBlank } from '@/entities/common/lib/validation';
 
 export function useSignupForm() {
   const router = useRouter();

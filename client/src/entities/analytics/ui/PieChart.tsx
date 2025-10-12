@@ -1,8 +1,8 @@
-import type { ApexOptions } from 'apexcharts';
+﻿import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import ReactApexChart from '@/components/Common/ReactApexChart';
-import { SessionDTO } from '@/interface/GAResponse';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import { SessionDTO } from '@/entities/analytics/model/GAResponse';
 
 const colors = ['#c3d6f3', '#0FADCF', '#3C50E0', '#6577F3'];
 

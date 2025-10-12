@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 
-import type { Option } from '@/interface/Option';
-import type { PaymentSummaryDTO } from '@/interface/PaymentSummaryDTO';
-import { paymentApi } from '@/libs/services/paymentApi';
+import type { Option } from '@/entities/common/model/Option';
+import type { PaymentSummaryDTO } from '@/entities/payment/model/PaymentSummaryDTO';
+import { paymentApi } from '@/entities/payment/model/service';
 
 const mkRange = (days: number) => {
   const end = dayjs();

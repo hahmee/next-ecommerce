@@ -1,9 +1,9 @@
-// src/components/Admin/Dashboard/TopCustomers/TopCustomersView.tsx
+﻿// src/components/Admin/Dashboard/TopCustomers/TopCustomersView.tsx
 'use client';
 import Image from 'next/image';
 import React from 'react';
 
-import type { TopCustomerResponse } from '@/interface/TopCustomerResponse';
+import type { TopCustomerResponse } from '@/entities/analytics/model/TopCustomerResponse';
 
 export function TopCustomersView({ customers }: { customers: TopCustomerResponse[] }) {
   return (

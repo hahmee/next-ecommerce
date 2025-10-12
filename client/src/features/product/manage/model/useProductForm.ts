@@ -1,16 +1,16 @@
-'use client';
+﻿'use client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import type { Category } from '@/interface/Category';
-import type { Product } from '@/interface/Product';
-import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
-import { useProductImageStore } from '@/store/productImageStore';
-import { useTagStore } from '@/store/tagStore';
-import { Mode } from '@/types/mode';
+import type { Category } from '@/entities/category/model/types';
+import type { Product } from '@/entities/product/model/types';
+import { categoryApi } from '@/entities/category/model/service';
+import { productApi } from '@/entities/product/model/service';
+import { useProductImageStore } from '@/features/common/store/productImageStore';
+import { useTagStore } from '@/features/common/store/tagStore';
+import { Mode } from '@/entities/common/model/mode';
 
 export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   const router = useRouter();

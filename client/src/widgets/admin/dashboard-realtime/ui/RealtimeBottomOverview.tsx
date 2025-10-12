@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import dynamic from 'next/dynamic';
 
-import LoadingSkeleton from '@/components/Skeleton/LoadingSkeleton';
-import { useRealtimeBottomOverview } from '@/hooks/admin/dashboard/useRealtimeBottomOverview';
+import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import { useRealtimeBottomOverview } from '@/features/dashboard/model/useRealtimeBottomOverview';
 const RealtimeBottomOverviewView = dynamic(() => import('./RealtimeBottomOverviewView'), {
   ssr: false,
   loading: () => <LoadingSkeleton />,

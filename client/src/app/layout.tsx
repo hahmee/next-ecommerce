@@ -1,4 +1,4 @@
-import './globals.css';
+Ôªøimport './globals.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
@@ -10,7 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import RQProvider from '@/features/common/model/RQProvider';
 import SessionExpiredRedirect from '@/features/common/model/SessionExpiredRedirect';
 import UserSyncHandler from '@/features/common/model/UserSyncHandler';
-import { GAPageView } from '@/libs/ga-page-view/GAPageView';
+import { GAPageView } from '@/features/common/ga/GAPageView';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: 'E-Commerce Application',
   description: 'A e-commerce application with Next.js',
   icons: {
-    icon: '/images/main/logo.svg', // ?àÎ? Í≤ΩÎ°úÎ°??òÏ†ï
+    icon: '/images/main/logo.svg', // ?ÔøΩÔøΩ? Í≤ΩÎ°úÔøΩ??ÔøΩÏ†ï
   },
   other: {
     'google-site-verification': process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION ?? '',
@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
         {GA_TRACKING_ID && (
           <>
-            {/* ??Í∞??ôÏãú???∞Ï? ÎßêÍ≤É */}
+            {/* ??ÔøΩ??ÔøΩÏãú???ÔøΩÔøΩ? ÎßêÍ≤É */}
             {/* <GoogleTagManager gtmId={GTM_TRACKING_ID}/> */}
             <GoogleAnalytics gaId={GA_TRACKING_ID} />
           </>

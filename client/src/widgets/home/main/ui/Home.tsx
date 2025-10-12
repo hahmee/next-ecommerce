@@ -1,7 +1,7 @@
-import dynamic from 'next/dynamic';
+﻿import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
 const Categories = dynamic(() => import('./Categories'), { ssr: false });
 const ExpertList = dynamic(() => import('../../Admin/Product/ExpertList'), { ssr: false });

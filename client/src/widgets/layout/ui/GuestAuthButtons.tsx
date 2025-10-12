@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import { useUserStore } from '@/store/userStore';
+import { useUserStore } from '@/features/common/store/userStore';
 
 const GuestAuthButtons = () => {
   const pathname = usePathname();

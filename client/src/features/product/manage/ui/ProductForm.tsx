@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 import { useProductForm } from '@/hooks/admin/product/useProductForm';
-import { Mode } from '@/types/mode';
+import { Mode } from '@/entities/common/model/mode';
 
 import { ProductFormView } from './ProductFormView';
 

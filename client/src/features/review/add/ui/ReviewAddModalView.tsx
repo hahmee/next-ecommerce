@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { StarIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import type { Order } from '@/interface/Order';
+import type { Order } from '@/entities/order/model/types';
 
 interface Props {
   order: Order;

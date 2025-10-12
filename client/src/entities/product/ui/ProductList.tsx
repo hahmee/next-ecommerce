@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
-import { useProductList } from '@/hooks/home/product/useProductList';
+import { useProductList } from '@/features/product/read/model/useProductList';
 
 import { ProductListView } from './ProductListView';
 

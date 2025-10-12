@@ -1,12 +1,12 @@
-// src/components/Home/Profile/OrderDetail/OrderDetailView.tsx
+﻿// src/components/Home/Profile/OrderDetail/OrderDetailView.tsx
 'use client';
 
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Order } from '@/interface/Order';
-import { OrderStatus } from '@/types/orderStatus';
+import type { Order } from '@/entities/order/model/types';
+import { OrderStatus } from '@/entities/common/model/orderStatus';
 
 const getOrderStatusText = (status: OrderStatus): string => {
   switch (status) {

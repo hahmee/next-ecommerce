@@ -1,13 +1,13 @@
-'use client';
+﻿'use client';
 
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
-import ClickOutside from '@/components/Common/ClickOutside';
-import { ColorTag } from '@/interface/ColorTag';
-import { useTagStore } from '@/store/tagStore';
+import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import { ColorTag } from '@/entities/common/model/ColorTag';
+import { useTagStore } from '@/features/common/store/tagStore';
 
 interface DropdownProps {
   label: string;

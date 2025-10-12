@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-import { authApi } from '@/libs/services/authApi';
-import { useUserStore } from '@/store/userStore';
+import { authApi } from '@/entities/member/model/authService';
+import { useUserStore } from '@/features/common/store/userStore';
 
 // SessionExpiredError 발생 시 setSessionExpired 플래그를 감지
 // 상태 정리 + 리다이렉트만 수행

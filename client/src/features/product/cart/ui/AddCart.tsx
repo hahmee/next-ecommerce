@@ -1,14 +1,14 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 
-import { useChangeCartMutation } from '@/hooks/home/cart/useChangeCartMutation';
-import { CartItem } from '@/interface/CartItem';
-import { ColorTag } from '@/interface/ColorTag';
-import GACta from '@/libs/ga-call-to-action/GACta';
-import { useCartStore } from '@/store/cartStore';
-import { useUserStore } from '@/store/userStore';
-import { SalesStatus, SalesStatusKor } from '@/types/salesStatus';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { CartItem } from '@/entities/cart/model/CartItem';
+import { ColorTag } from '@/entities/common/model/ColorTag';
+import GACta from '@/features/common/ga/GACta';
+import { useCartStore } from '@/features/common/store/cartStore';
+import { useUserStore } from '@/features/common/store/userStore';
+import { SalesStatus, SalesStatusKor } from '@/entities/common/model/salesStatus';
 
 const AddCart = ({
   pno,

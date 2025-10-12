@@ -1,8 +1,8 @@
-import type { Category } from '@/interface/Category';
-import { CategoryTree } from '@/interface/CategoryTree';
-import type { PageResponse } from '@/interface/PageResponse';
-import { fetcher } from '@/utils/fetcher/fetcher';
-import { publicFetcher } from '@/utils/fetcher/publicFetcher';
+﻿import type { Category } from '@/entities/category/model/types';
+import { CategoryTree } from '@/entities/category/model/types';
+import type { PageResponse } from '@/entities/order/model/PageResponse';
+import { fetcher } from '@/entities/http/fetcher';
+import { publicFetcher } from '@/entities/http/publicFetcher';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };

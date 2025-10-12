@@ -1,4 +1,4 @@
-import { Category } from '@/interface/Category';
+﻿import { Category } from '@/entities/category/model/types';
 
 interface BreadcrumbProps {
   categoryPaths: Category[];

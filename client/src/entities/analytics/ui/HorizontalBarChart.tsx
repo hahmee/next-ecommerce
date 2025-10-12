@@ -1,7 +1,7 @@
-import type { ApexOptions } from 'apexcharts';
+﻿import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import ReactApexChart from '@/components/Common/ReactApexChart';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
 
 const HorizontalBarChart = ({ percentage, count }: { percentage: number; count: number }) => {
   const options: ApexOptions = {

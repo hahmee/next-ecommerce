@@ -1,6 +1,6 @@
-import { Option } from '@/interface/Option';
-import { SalesStatus } from '@/types/salesStatus';
-import { Size } from '@/types/size';
+﻿import { Option } from '@/entities/common/model/Option';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { Size } from '@/entities/common/model/size';
 
 // 드롭다운/라디오 등 선택지 모음
 export const sizeOptions: Array<Option<string>> = [

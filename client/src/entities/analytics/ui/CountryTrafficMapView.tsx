@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
 import '../../../../js/world'; // 지도 파일
@@ -7,8 +7,8 @@ import jsVectorMap from 'jsvectormap';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import { BarChartThin } from '@/components/Admin/Dashboard/Charts/BarChart';
-import { CountryChartDTO } from '@/interface/GAResponse';
+import { BarChartThin } from '@/entities/analytics/ui/BarChart';
+import { CountryChartDTO } from '@/entities/analytics/model/GAResponse';
 
 const CountryTrafficMapView = ({
   countries,

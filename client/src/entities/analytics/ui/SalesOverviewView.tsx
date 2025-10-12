@@ -1,16 +1,16 @@
-'use client';
+﻿'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import CardDataStats from '@/components/Admin/Dashboard/CardDataStats';
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
-import type { CardResponse } from '@/interface/CardResponse';
-import type { ChartResponse } from '@/interface/ChartResponse';
-import { ChartContext } from '@/types/chartContext';
-import { ChartFilter } from '@/types/chartFilter';
-import type { DatepickType } from '@/types/DatepickType';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import type { CardResponse } from '@/entities/common/model/CardResponse';
+import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
+import { ChartContext } from '@/entities/analytics/model/chartContext';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import type { DatepickType } from '@/entities/common/model/DatepickType';
 
 const SalesChart = dynamic(() => import('../Dashboard/Charts/SalesChartView'), { ssr: false });
 const TopOrderTable = dynamic(() => import('../Tables/TopOrderTable'), { ssr: false });

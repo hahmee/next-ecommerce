@@ -1,7 +1,7 @@
-'use client';
+﻿'use client';
 
-import { useCategoryForm } from '@/hooks/admin/category/useCategoryForm';
-import { Mode } from '@/types/mode';
+import { useCategoryForm } from '@/features/category/manage/model/useCategoryForm';
+import { Mode } from '@/entities/common/model/mode';
 
 import { CategoryFormView } from './CategoryFormView';
 

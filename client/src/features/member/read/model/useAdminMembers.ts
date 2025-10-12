@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import type { Member } from '@/interface/Member';
-import type { PageResponse } from '@/interface/PageResponse';
-import { type ListArgs, memberApi } from '@/libs/services/memberApi';
+import type { Member } from '@/entities/member/model/Member';
+import type { PageResponse } from '@/entities/order/model/PageResponse';
+import { type ListArgs, memberApi } from '@/entities/member/model/memberApi';
 
 export function useAdminMembers(params: ListArgs) {
   return useQuery<PageResponse<Member>>({

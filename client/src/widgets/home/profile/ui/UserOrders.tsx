@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { useUserOrders } from '@/hooks/home/order/useUserOrders';
+import { useUserOrders } from '@/features/order/read/model/useUserOrders';
 
 import { UserOrdersView } from './UserOrdersView';
 

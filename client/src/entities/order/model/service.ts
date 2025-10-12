@@ -1,7 +1,7 @@
-import type { Order } from '@/interface/Order';
-import type { PageResponse } from '@/interface/PageResponse';
-import type { Payment } from '@/interface/Payment';
-import { fetcher } from '@/utils/fetcher/fetcher';
+﻿import type { Order } from '@/entities/order/model/types';
+import type { PageResponse } from '@/entities/order/model/PageResponse';
+import type { Payment } from '@/entities/payment/model/types';
+import { fetcher } from '@/entities/http/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

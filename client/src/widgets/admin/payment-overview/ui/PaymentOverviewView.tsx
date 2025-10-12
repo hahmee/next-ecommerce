@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 
-import ClickOutside from '@/components/Common/ClickOutside';
-import type { Option } from '@/interface/Option';
+import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import type { Option } from '@/entities/common/model/Option';
 
 export function PaymentOverviewView(props: {
   totalAmount: number;

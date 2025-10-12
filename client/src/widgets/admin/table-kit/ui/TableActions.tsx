@@ -1,9 +1,9 @@
-import { autoUpdate, flip, offset, shift, useFloating } from '@floating-ui/react';
+﻿import { autoUpdate, flip, offset, shift, useFloating } from '@floating-ui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 
-import ClickOutside from '@/components/Common/ClickOutside';
-import Portal from '@/components/Common/Portal';
+import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import Portal from '@/widgets/common/ui/Portal';
 
 const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

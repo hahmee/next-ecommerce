@@ -1,10 +1,10 @@
-'use client';
+﻿'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import { useCartStore } from '@/store/cartStore';
+import { useCartStore } from '@/features/common/store/cartStore';
 
 const CartSummary = ({
   type,

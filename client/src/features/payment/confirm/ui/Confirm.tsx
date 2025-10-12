@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
-import { usePaymentConfirm } from '@/hooks/home/payment/usePaymentConfirm';
+import { usePaymentConfirm } from '@/features/payment/confirm/model/usePaymentConfirm';
 
 import ConfirmView from './ConfirmView';
 

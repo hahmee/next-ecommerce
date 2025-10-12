@@ -1,4 +1,4 @@
-import { ColorTag } from '@/interface/ColorTag';
+﻿import { ColorTag } from '@/entities/common/model/ColorTag';
 
 export interface CartItem {
   email: string;

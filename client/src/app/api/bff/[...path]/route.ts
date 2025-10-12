@@ -1,15 +1,15 @@
-import { cookies } from 'next/headers';
+﻿import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-import { readBodyBuffer } from '@/libs/proxy/body';
-import { ACCESS_TOKEN_COOKIE, API_BASE_URL, REFRESH_TOKEN_COOKIE } from '@/libs/proxy/constants';
+import { readBodyBuffer } from '@/entities/proxy/body';
+import { ACCESS_TOKEN_COOKIE, API_BASE_URL, REFRESH_TOKEN_COOKIE } from '@/entities/proxy/constants';
 import {
   buildAuthCookieHeader,
   buildProxyHeaders,
   pickTokensFromSetCookie,
-} from '@/libs/proxy/headers';
-import { guardHttpMethod } from '@/libs/proxy/methodGuard';
-import { buildBackendUrlForBff } from '@/libs/proxy/url';
+} from '@/entities/proxy/headers';
+import { guardHttpMethod } from '@/entities/proxy/methodGuard';
+import { buildBackendUrlForBff } from '@/entities/proxy/url';
 
 // 원요청 시도한다.
 async function forwardOnce(req: Request, cookieHeader?: string, bodyBuf?: ArrayBuffer) {

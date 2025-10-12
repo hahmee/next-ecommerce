@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import HeatmapChart from '@/components/Admin/Dashboard/Charts/HeatmapChart';
-import TestChart from '@/components/Admin/Dashboard/Charts/TestChart';
-import { useAdminMembers } from '@/hooks/admin/member/useAdminMembers';
+import HeatmapChart from '@/entities/analytics/ui/HeatmapChart';
+import TestChart from '@/entities/analytics/ui/TestChart';
+import { useAdminMembers } from '@/features/member/read/model/useAdminMembers';
 
 const UserDashboard = () => {
   // 예시 데이터 (실제 데이터로 교체)

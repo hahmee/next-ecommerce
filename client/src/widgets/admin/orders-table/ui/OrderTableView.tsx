@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';
@@ -6,12 +6,12 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { Fragment } from 'react';
 
-import PageComponent from '@/components/Admin/Tables/PageComponent';
-import TableSearch from '@/components/Admin/Tables/TableSearch';
-import ViewButton from '@/components/Admin/Tables/ViewButton';
-import type { Paging } from '@/interface/Paging';
-import type { Payment } from '@/interface/Payment';
-import { DatepickType } from '@/types/DatepickType';
+import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
+import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
+import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
+import type { Paging } from '@/entities/order/model/Paging';
+import type { Payment } from '@/entities/payment/model/types';
+import { DatepickType } from '@/entities/common/model/DatepickType';
 
 const TableDatePicker = dynamic(() => import('./TableDatePicker'), { ssr: false });
 

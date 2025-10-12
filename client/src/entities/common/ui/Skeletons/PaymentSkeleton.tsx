@@ -1,4 +1,4 @@
-import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
+﻿import { TableSkeleton } from '@/entities/common/ui/Skeletons/TableSkeleton';
 
 const PaymentSkeleton = () => {
   return (

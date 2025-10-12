@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { usePaymentOverview } from '@/hooks/admin/dashboard/usePaymentOverview';
+import { usePaymentOverview } from '@/features/dashboard/model/usePaymentOverview';
 
 import { PaymentOverviewView } from './PaymentOverviewView';
 

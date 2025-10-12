@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { useRealtimeOverview } from '@/hooks/admin/dashboard/useRealtimeOverview';
+import { useRealtimeOverview } from '@/features/dashboard/model/useRealtimeOverview';
 
 import { RealtimeOverviewView } from './RealtimeOverviewView';
 

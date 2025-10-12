@@ -1,5 +1,4 @@
-// src/hooks/useCategoryForm.ts
-'use client';
+﻿'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -7,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import type { Category } from '@/interface/Category';
-import { categoryApi } from '@/libs/services/categoryApi';
-import { Mode } from '@/types/mode';
+import type { Category } from '@/entities/category/model/types';
+import { categoryApi } from '@/entities/category/model/service';
+import { Mode } from '@/entities/common/model/mode';
 
 export interface CategoryFormValues {
   cname: string;

@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+﻿import { create } from 'zustand';
 
-import { CartItemList } from '@/interface/CartItemList';
+import { CartItemList } from '@/entities/cart/model/CartItemList';
 
 type CartState = {
   carts: CartItemList[];

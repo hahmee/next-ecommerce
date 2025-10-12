@@ -1,11 +1,11 @@
-// src/components/Admin/Dashboard/RealtimeBottomOverviewView.tsx
+﻿// src/components/Admin/Dashboard/RealtimeBottomOverviewView.tsx
 'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
-import type { GARealTimeResponseBottom } from '@/interface/GARealTimeResponse';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
 
 const RecentVisitors = dynamic(() => import('./Charts/RecentVisitors'), { ssr: false });
 const PieChart = dynamic(() => import('./Charts/PieChart'), { ssr: false });

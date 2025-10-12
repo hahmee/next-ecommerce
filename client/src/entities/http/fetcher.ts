@@ -1,4 +1,4 @@
-import { clientFetcher } from '@/utils/fetcher/clientFetcher';
-import { serverFetcher } from '@/utils/fetcher/serverFetcher';
+﻿import { clientFetcher } from '@/entities/http/clientFetcher';
+import { serverFetcher } from '@/entities/http/serverFetcher';
 
 export const fetcher = typeof window === 'undefined' ? serverFetcher : clientFetcher;

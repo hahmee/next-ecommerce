@@ -1,13 +1,13 @@
-'use client';
+﻿'use client';
 
 import Image from 'next/image';
 import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
 import CategoryBreadcrumb from '@/components/Admin/Category/CategoryBreadcrumb';
-import type { CategoryFormValues } from '@/hooks/admin/category/useCategoryForm';
-import type { Category } from '@/interface/Category';
-import { Mode } from '@/types/mode';
+import type { CategoryFormValues } from '@/features/category/manage/model/useCategoryForm';
+import type { Category } from '@/entities/category/model/types';
+import { Mode } from '@/entities/common/model/mode';
 
 export function CategoryFormView(props: {
   type: Mode;

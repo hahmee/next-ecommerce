@@ -1,10 +1,10 @@
-// src/components/Admin/Dashboard/Charts/CountryChart/CountryChartView.tsx
+﻿// src/components/Admin/Dashboard/Charts/CountryChart/CountryChartView.tsx
 'use client';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/components/Common/LazyLoadWrapper';
-import type { MapResponse } from '@/interface/MapResponse';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import type { MapResponse } from '@/entities/analytics/model/MapResponse';
 
 const SalesPieChart = dynamic(() => import('../Charts/SalesPieChartView'), { ssr: false });
 const CountryMap = dynamic(() => import('../Maps/CountryMapView'), { ssr: false });

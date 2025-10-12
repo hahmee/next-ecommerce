@@ -1,13 +1,13 @@
-'use client';
+﻿'use client';
 
-import AddCart from '@/components/Home/Cart/AddCart';
-import OptionSelect from '@/components/Home/Product/OptionSelect';
-import ProductImages from '@/components/Home/Product/ProductImags';
-import Reviews from '@/components/Home/Review/Reviews';
-import type { ColorTag } from '@/interface/ColorTag';
-import type { Product } from '@/interface/Product';
-import type { Review } from '@/interface/Review';
-import { SalesStatus } from '@/types/salesStatus';
+import AddCart from '@/features/product/cart/ui/AddCart';
+import OptionSelect from '@/features/product/filters/ui/OptionSelect';
+import ProductImages from '@/entities/product/ui/ProductImages';
+import Reviews from '@/entities/review/ui/Reviews';
+import type { ColorTag } from '@/entities/common/model/ColorTag';
+import type { Product } from '@/entities/product/model/types';
+import type { Review } from '@/entities/review/model/types';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
 
 interface Props {
   id: string;

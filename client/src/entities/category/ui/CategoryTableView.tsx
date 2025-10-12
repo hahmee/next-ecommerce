@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import dynamic from 'next/dynamic';
@@ -6,13 +6,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { Fragment } from 'react';
 
-import PageComponent from '@/components/Admin/Tables/PageComponent';
-import TableActions from '@/components/Admin/Tables/TableActions';
-import TableAddButton from '@/components/Admin/Tables/TableAddButton';
-import TableSearch from '@/components/Admin/Tables/TableSearch';
-import ViewButton from '@/components/Admin/Tables/ViewButton';
-import type { CategoryTree } from '@/interface/CategoryTree';
-import type { Paging } from '@/interface/Paging';
+import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
+import TableActions from '@/widgets/admin/table-kit/ui/TableActions';
+import TableAddButton from '@/widgets/admin/table-kit/ui/TableAddButton';
+import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
+import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
+import type { CategoryTree } from '@/entities/category/model/types';
+import type { Paging } from '@/entities/order/model/Paging';
 
 const Dialog = dynamic(() => import('../Dialog'));
 

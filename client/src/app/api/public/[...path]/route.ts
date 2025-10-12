@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
+﻿import { NextResponse } from 'next/server';
 
-import { readBodyBuffer } from '@/libs/proxy/body';
-import { buildProxyHeaders } from '@/libs/proxy/headers';
-import { guardHttpMethod } from '@/libs/proxy/methodGuard';
-import { buildBackendUrlForPublic } from '@/libs/proxy/url';
+import { readBodyBuffer } from '@/entities/proxy/body';
+import { buildProxyHeaders } from '@/entities/proxy/headers';
+import { guardHttpMethod } from '@/entities/proxy/methodGuard';
+import { buildBackendUrlForPublic } from '@/entities/proxy/url';
 
 async function handler(req: Request, path: string[]) {
   console.log('public...');

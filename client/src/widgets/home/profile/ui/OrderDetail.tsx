@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { useOrderDetail } from '@/hooks/home/order/useOrderDetail';
+import { useOrderDetail } from '@/features/order/read/model/useOrderDetail';
 
 import { OrderDetailView } from './OrderDetailView';
 

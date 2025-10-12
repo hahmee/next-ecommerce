@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import { useSalesOverview } from '@/hooks/admin/dashboard/useSalesOverview';
+import { useSalesOverview } from '@/features/dashboard/model/useSalesOverview';
 
 import { SalesOverviewView } from './SalesOverviewView';
 
