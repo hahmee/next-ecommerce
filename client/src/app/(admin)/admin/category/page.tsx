@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
-import CategoryTable from '@/components/Admin/Tables/CategoryTable';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { TableSkeleton } from '@/components/Skeleton/TableSkeleton';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { categoryApi } from '@/libs/services/categoryApi';
+import { categoryApi } from '@/entities/category/api/categoryApi';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
+import CategoryTable from '@/widgets/admin/categories-table/ui/CategoryTable';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default function CategoryPage() {
   const prefetchOptions = {

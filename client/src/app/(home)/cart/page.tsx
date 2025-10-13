@@ -1,4 +1,4 @@
-import Cart from '@/components/Home/Cart/Cart';
+﻿import Cart from '@/entities/cart/ui/Cart';
 
 export default async function CartPage() {
   return <Cart />;

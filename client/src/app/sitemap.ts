@@ -1,8 +1,8 @@
-import { MetadataRoute } from 'next';
+﻿import { MetadataRoute } from 'next';
 
-import { Category } from '@/interface/Category';
-import { categoryApi } from '@/libs/services/categoryApi';
-import { productApi } from '@/libs/services/productApi';
+import { categoryApi } from '@/entities/category/api/categoryApi';
+import { Category } from '@/entities/category/model/types';
+import { productApi } from '@/entities/product/api/productApi';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,14 +1,14 @@
-'use server';
+﻿'use server';
 
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import RealtimeOverview from '@/components/Admin/Dashboard/RealtimeOverview';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { dashboardApi } from '@/libs/services/dashboardApi';
-import { ChartFilter } from '@/types/chartFilter';
+import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import RealtimeOverview from '@/widgets/admin/dashboard-realtime/ui/RealtimeOverview';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default async function DashBoardRealTimePage() {
   const today = dayjs();

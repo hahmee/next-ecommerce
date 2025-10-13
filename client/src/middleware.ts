@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+﻿import { NextRequest, NextResponse } from 'next/server';
 
-import { MemberRole } from '@/types/memberRole';
+import { MemberRole } from '@/entities/member/consts/MemberRole';
 
 // 여기에 포함되지 않은 모든 경로는 비로그인 사용자도 접근할 수 있음
 const AUTH_REQUIRED_ROUTES = ['/admin', '/shopping', '/review'];

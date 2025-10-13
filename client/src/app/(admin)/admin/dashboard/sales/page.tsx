@@ -1,13 +1,13 @@
-import dayjs from 'dayjs';
+﻿import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import SalesOverview from '@/components/Admin/Dashboard/SalesOverview';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import DashboardSkeleton from '@/components/Skeleton/DashboardSkeleton';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { dashboardApi } from '@/libs/services/dashboardApi';
-import { ChartContext } from '@/types/chartContext';
-import { ChartFilter } from '@/types/chartFilter';
+import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
+import { ChartContext } from '@/entities/analytics/consts/ChartContext';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import SalesOverview from '@/widgets/admin/dashboard-sales/ui/SalesOverview';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default async function DashBoardSalesPage() {
   const today = dayjs(); // 오늘

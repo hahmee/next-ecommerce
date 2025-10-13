@@ -1,7 +1,7 @@
-import React from 'react';
+﻿import React from 'react';
 
-import Footer from '@/components/Home/Common/Footer';
-import Navbar from '@/components/Home/Common/Navbar';
+import Footer from '@/widgets/layout/ui/Footer';
+import Navbar from '@/widgets/layout/ui/Navbar';
 
 export default async function DefaultLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

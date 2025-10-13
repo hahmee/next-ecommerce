@@ -1,4 +1,4 @@
-import './globals.css';
+﻿import './globals.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
@@ -7,10 +7,10 @@ import { cookies } from 'next/headers';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
-import RQProvider from '@/components/Common/RQProvider';
-import SessionExpiredRedirect from '@/components/Common/SessionExpiredRedirect';
-import UserSyncHandler from '@/components/Common/UserSyncHandler';
-import { GAPageView } from '@/libs/ga-page-view/GAPageView';
+import RQProvider from '@/shared/ui/RQProvider';
+import SessionExpiredRedirect from '@/shared/ui/SessionExpiredRedirect';
+import UserSyncHandler from '@/shared/ui/UserSyncHandler';
+import { GAPageView } from '@/widgets/layout/ga/GAPageView';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: 'E-Commerce Application',
   description: 'A e-commerce application with Next.js',
   icons: {
-    icon: '/images/main/logo.svg', // 절대 경로로 수정
+    icon: '/images/main/logo.svg', // ?��? 경로�??�정
   },
   other: {
     'google-site-verification': process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION ?? '',
@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
         {GA_TRACKING_ID && (
           <>
-            {/* 두 개 동시에 쓰지 말것 */}
+            {/* ??�??�시???��? 말것 */}
             {/* <GoogleTagManager gtmId={GTM_TRACKING_ID}/> */}
             <GoogleAnalytics gaId={GA_TRACKING_ID} />
           </>

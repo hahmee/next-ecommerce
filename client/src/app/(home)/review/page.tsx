@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import UserReviews from '@/components/Home/Profile/UserReviews';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { authApi } from '@/libs/services/authApi';
-import { reviewApi } from '@/libs/services/reviewApi';
+import { authApi } from '@/entities/member/api/authApi';
+import { reviewApi } from '@/entities/review/api/reviewApi';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import UserReviews from '@/widgets/home/profile/ui/UserReviews';
 
 // 메타는 그대로 두되, 필요시 간소화 가능
 export async function generateMetadata(): Promise<Metadata> {

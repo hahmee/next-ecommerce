@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import Profile from '@/components/Admin/Profile/Profile';
-import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { PrefetchBoundary } from '@/libs/PrefetchBoundary';
-import { authApi } from '@/libs/services/authApi';
-import { profileApi } from '@/libs/services/profileApi';
+import { authApi } from '@/entities/member/api/authApi';
+import { profileApi } from '@/entities/member/api/profileApi';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import Profile from '@/widgets/admin/users/ui/Profile';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await authApi.me({ cache: 'no-store' }).catch(() => null);

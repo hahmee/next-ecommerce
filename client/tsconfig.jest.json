@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["jest", "@testing-library/jest-dom", "node"]
   },
-  "include": ["**/*.test.ts", "**/*.test.tsx", "jest.setup.ts", "global.d.ts"]
+  "include": ["**/*.test.ts", "**/*.test.tsx", "jest.setup.ts", "src/global.d.ts"]
 }

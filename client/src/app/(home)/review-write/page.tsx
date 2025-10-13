@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReviewModalPage from '@/app/(home)/@modal/(.)add-reveiw/[id]/page';
+import ReviewModalPage from '@/app/(home)/@modal/(.)add-review/[id]/page';
 import OrderPage from '@/app/(home)/order/[orderId]/page';
 
 interface Props {
