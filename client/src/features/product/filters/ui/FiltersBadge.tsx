@@ -3,8 +3,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 import { Category } from '@/entities/category/model/types';
+import {Params} from "@/entities/product/ui/ProductListView";
 
-import { Params } from './ProductListView';
 
 const FiltersBadge = ({ param, category }: { param: Params; category?: Category | undefined }) => {
   const router = useRouter();

@@ -1,8 +1,8 @@
 ﻿import { Category } from '@/entities/category/model/types';
 import { ColorTag } from '@/entities/common/model/ColorTag';
 import { FileDTO } from '@/entities/common/model/FileDTO';
-import { Member } from '@/entities/member/model/Member';
 import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { Member } from '@/entities/member/model/Member';
 
 export interface Product {
   pno: number;

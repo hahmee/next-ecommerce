@@ -2,12 +2,12 @@
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
+import PaymentSkeleton from '@/entities/common/ui/Skeletons/PaymentSkeleton';
+import { paymentApi } from '@/entities/payment/model/service';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import PaymentOverview from '@/widgets/admin/payment-overview/ui/PaymentOverview';
 import PaymentTable from '@/widgets/admin/payments-table/ui/PaymentTable';
 import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
-import PaymentSkeleton from '@/entities/common/ui/Skeletons/PaymentSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
-import { paymentApi } from '@/entities/payment/model/service';
 
 export default async function AdminPaymentPage() {
   const today = dayjs();

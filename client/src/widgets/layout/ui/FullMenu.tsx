@@ -1,8 +1,7 @@
 'use client';
 
-import { FullMenuView } from 'src/components/Home/Common/FullMenuView';
-
-import { useFullMenu } from '@/hooks/common/useFullMenu';
+import { useFullMenu } from '@/features/common/model/useFullMenu';
+import { FullMenuView } from '@/widgets/layout/ui/FullMenuView';
 
 export default function FullMenu() {
   const { categories } = useFullMenu();

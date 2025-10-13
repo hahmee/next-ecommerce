@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import type { Product } from '@/entities/product/model/types';
 import { productApi } from '@/entities/product/model/service';
+import type { Product } from '@/entities/product/model/types';
 
 export function useExpertProducts() {
   return useQuery<Product[]>({

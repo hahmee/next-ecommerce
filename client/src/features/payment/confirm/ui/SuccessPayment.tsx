@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import Loading from '@/app/loading';
-import { useConfirmPaymentMutation } from '@/features/payment/confirm/model/useConfirmPaymentMutation';
 import { SessionExpiredError } from '@/entities/common/lib/errors';
+import { useConfirmPaymentMutation } from '@/features/payment/confirm/model/useConfirmPaymentMutation';
 
 interface Props {
   paymentKey: string;

@@ -6,13 +6,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import ClickOutside from '@/widgets/common/ui/ClickOutside';
-import SidebarItem from '@/widgets/layout/ui/Sidebar/SidebarItem';
 import { useLogout } from '@/features/auth/model/useLogout';
 import useLocalStorage from '@/features/common/model/useLocalStorage';
 import { useUserStore } from '@/features/common/store/userStore';
+import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import SidebarItem from "@/widgets/layout/ui/SidebarItem";
 
-const Dialog = dynamic(() => import('../Admin/Dialog'));
+const Dialog = dynamic(() => import('@/widgets/common/ui/Dialog'));
 
 interface SidebarProps {
   sidebarOpen: boolean;

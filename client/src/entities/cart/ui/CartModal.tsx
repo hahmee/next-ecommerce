@@ -3,10 +3,11 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import CartItem from '@/entities/cart/ui/CartItem';
-import { GA_CTA_EVENTS } from '@/constants';
-import GACta from '@/features/common/ga/GACta';
-import { useCartStore } from '@/features/common/store/cartStore';
+import CartItem from "@/entities/cart/ui/CartItem";
+import {GA_CTA_EVENTS} from "@/entities/common/config";
+import GACta from "@/features/common/ga/GACta";
+import {useCartStore} from "@/features/common/store/cartStore";
+
 
 const CartModal = () => {
   const { carts, isLoading, open, subtotal, changeOpen } = useCartStore();

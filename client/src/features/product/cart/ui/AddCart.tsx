@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react';
 
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 import { CartItem } from '@/entities/cart/model/CartItem';
 import { ColorTag } from '@/entities/common/model/ColorTag';
+import { SalesStatus, SalesStatusKor } from '@/entities/common/model/salesStatus';
 import GACta from '@/features/common/ga/GACta';
 import { useCartStore } from '@/features/common/store/cartStore';
 import { useUserStore } from '@/features/common/store/userStore';
-import { SalesStatus, SalesStatusKor } from '@/entities/common/model/salesStatus';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 
 const AddCart = ({
   pno,

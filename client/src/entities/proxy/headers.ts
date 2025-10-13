@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 
-import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from './constants';
+import {ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE} from "@/entities/proxy/constants";
+
 
 /** 인증 쿠키만 Cookie 헤더 문자열로 만든다 (BFF 전용) */
 export function buildAuthCookieHeader() {

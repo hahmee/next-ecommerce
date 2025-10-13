@@ -3,13 +3,13 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 import type { GARealTimeResponseTop } from '@/entities/analytics/model/GARealTimeResponse';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
-const ActiveVisitors = dynamic(() => import('./Charts/ActiveVisitorsView'), { ssr: false });
-const ActiveVisitChart = dynamic(() => import('./Charts/ActiveVisitChartView'), { ssr: false });
-const PageRoute = dynamic(() => import('./Charts/PageRouteView'), { ssr: false });
-const RealtimeBottomOverview = dynamic(() => import('./RealtimeBottomOverview'), { ssr: false });
+const ActiveVisitors = dynamic(() => import('@/entities/analytics/ui/ActiveVisitorsView'), { ssr: false });
+const ActiveVisitChart = dynamic(() => import('@/entities/analytics/ui/ActiveVisitChartView'), { ssr: false });
+const PageRoute = dynamic(() => import('@/entities/analytics/ui/PageRouteView'), { ssr: false });
+const RealtimeBottomOverview = dynamic(() => import('@/widgets/admin/dashboard-realtime/ui/RealtimeBottomOverview'), { ssr: false });
 
 export function RealtimeOverviewView(props: { gaTopData?: GARealTimeResponseTop }) {
   const { gaTopData } = props;

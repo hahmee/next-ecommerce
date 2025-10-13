@@ -6,8 +6,8 @@ import toast from 'react-hot-toast';
 
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Paging } from '@/entities/order/model/Paging';
-import type { Product } from '@/entities/product/model/types';
 import { productApi } from '@/entities/product/model/service';
+import type { Product } from '@/entities/product/model/types';
 
 export const initialPaging: Paging = {
   totalCount: 0,

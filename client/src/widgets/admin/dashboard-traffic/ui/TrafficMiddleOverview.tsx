@@ -1,14 +1,13 @@
-﻿// src/components/Admin/Dashboard/TrafficMiddleOverview/index.tsx
-'use client';
+﻿'use client';
 
 import React from 'react';
 
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import {TrafficMiddleOverviewView} from "@/entities/analytics/ui/TrafficMiddleOverviewView";
+import type { DatepickType } from '@/entities/common/model/DatepickType';
 import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
 import { useTrafficMiddle } from '@/features/dashboard/model/useTrafficMiddle';
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
 
-import { TrafficMiddleOverviewView } from './TrafficMiddleOverviewView';
 
 export default function TrafficMiddleOverview({
   date,

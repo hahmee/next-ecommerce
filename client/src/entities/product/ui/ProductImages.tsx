@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import FallbackImage from '@/widgets/common/ui/FallbackImage';
 import { FileDTO } from '@/entities/common/model/FileDTO';
+import FallbackImage from '@/widgets/common/ui/FallbackImage';
 
 const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
   const [index, setIndex] = useState(0);

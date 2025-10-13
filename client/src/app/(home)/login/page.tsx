@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import LoginView from '@/features/auth/ui/LoginView';
 import { useLoginForm } from '@/features/auth/model/useLoginForm';
+import LoginView from '@/features/auth/ui/LoginView';
 
 export default function LoginPage() {
   const form = useLoginForm();

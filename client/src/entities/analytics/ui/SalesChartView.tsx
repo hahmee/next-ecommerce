@@ -3,9 +3,9 @@
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
-import { ChartResponse } from '@/entities/analytics/model/ChartResponse';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { ChartResponse } from '@/entities/analytics/model/ChartResponse';
+import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
 
 const data = {
   startDate: '2024-10-01', // 해당 날짜

@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
 import type { ColorTag } from '@/entities/common/model/ColorTag';
-import type { Product } from '@/entities/product/model/types';
-import type { Review } from '@/entities/review/model/types';
-import { productApi } from '@/entities/product/model/service';
-import { reviewApi } from '@/entities/review/model/service';
 import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { productApi } from '@/entities/product/model/service';
+import type { Product } from '@/entities/product/model/types';
+import { reviewApi } from '@/entities/review/model/service';
+import type { Review } from '@/entities/review/model/types';
 
 const EMPTY_COLOR: ColorTag = { id: 0, text: '', color: '' };
 

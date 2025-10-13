@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import type { Category } from '@/entities/category/model/types';
-import type { Product } from '@/entities/product/model/types';
 import { categoryApi } from '@/entities/category/model/service';
+import type { Category } from '@/entities/category/model/types';
+import { Mode } from '@/entities/common/model/mode';
 import { productApi } from '@/entities/product/model/service';
+import type { Product } from '@/entities/product/model/types';
 import { useProductImageStore } from '@/features/common/store/productImageStore';
 import { useTagStore } from '@/features/common/store/tagStore';
-import { Mode } from '@/entities/common/model/mode';
 
 export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   const router = useRouter();

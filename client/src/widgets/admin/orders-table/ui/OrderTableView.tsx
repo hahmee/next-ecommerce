@@ -6,14 +6,14 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { Fragment } from 'react';
 
+import { DatepickType } from '@/entities/common/model/DatepickType';
+import type { Paging } from '@/entities/order/model/Paging';
+import type { Payment } from '@/entities/payment/model/types';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
 import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
 import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
-import type { Paging } from '@/entities/order/model/Paging';
-import type { Payment } from '@/entities/payment/model/types';
-import { DatepickType } from '@/entities/common/model/DatepickType';
 
-const TableDatePicker = dynamic(() => import('./TableDatePicker'), { ssr: false });
+const TableDatePicker = dynamic(() => import('@/widgets/admin/table-kit/ui/TableDatePicker'), { ssr: false });
 
 export function OrderTableView(props: {
   list: Payment[];

@@ -3,11 +3,11 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
-import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
 import type { GAResponseBottom } from '@/entities/analytics/model/GAResponse';
+import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
-const CountryTrafficMap = dynamic(() => import('./Maps/CountryTrafficMapView'), { ssr: false });
+const CountryTrafficMap = dynamic(() => import('@/entities/analytics/ui/CountryTrafficMapView'), { ssr: false });
 
 export function TrafficBottomOverviewView({ data }: { data?: GAResponseBottom }) {
   if (!data) return <LoadingSkeleton />;

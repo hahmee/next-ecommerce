@@ -1,14 +1,14 @@
-﻿import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 import React from 'react';
 
 import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
-const Categories = dynamic(() => import('./Categories'), { ssr: false });
-const ExpertList = dynamic(() => import('../../Admin/Product/ExpertList'), { ssr: false });
-const MainProductList = dynamic(() => import('../../Admin/Product/MainProductList'), {
+const Categories = dynamic(() => import('@/widgets/home/main/ui/Categories'), { ssr: false });
+const ExpertList = dynamic(() => import('@/entities/product/ui/ExpertList'), { ssr: false });
+const MainProductList = dynamic(() => import('@/entities/product/ui/MainProductList'), {
   ssr: false,
 });
-const MainInfo = dynamic(() => import('../../Admin/Product/MainInfo'), { ssr: false });
+const MainInfo = dynamic(() => import('@/features/product/manage/ui/MainInfo'), { ssr: false });
 
 const Home = () => {
   return (

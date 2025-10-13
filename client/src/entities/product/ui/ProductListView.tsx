@@ -2,19 +2,19 @@
 
 import React, { Fragment, Suspense } from 'react';
 
-import FiltersBadge from '@/features/product/filters/ui/FiltersBadge';
-import ProductCard from '@/entities/product/ui/ProductCard';
-import ProductCategories from '@/entities/product/ui/ProductCategories';
-import ProductFilters from '@/features/product/filters/ui/ProductFilters';
-import ProductOrders from '@/entities/product/ui/ProductOrders';
+import type { Category } from '@/entities/category/model/types';
+import { Size } from '@/entities/common/model/size';
 import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
 import ProductCardListSkeleton from '@/entities/common/ui/Skeletons/ProductCartListSkeleton';
 import ProductCardSkeleton from '@/entities/common/ui/Skeletons/ProductCartSkeleton';
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
-import type { Category } from '@/entities/category/model/types';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Product } from '@/entities/product/model/types';
-import { Size } from '@/entities/common/model/size';
+import ProductCard from '@/entities/product/ui/ProductCard';
+import ProductCategories from '@/entities/product/ui/ProductCategories';
+import ProductOrders from '@/entities/product/ui/ProductOrders';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import FiltersBadge from '@/features/product/filters/ui/FiltersBadge';
+import ProductFilters from '@/features/product/filters/ui/ProductFilters';
 
 export interface Params {
   key: string;

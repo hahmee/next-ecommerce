@@ -2,11 +2,11 @@
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import ProductList from '@/entities/product/ui/ProductList';
-import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { categoryApi } from '@/entities/category/model/service';
+import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
 import { productApi } from '@/entities/product/model/service';
+import ProductList from '@/entities/product/ui/ProductList';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };

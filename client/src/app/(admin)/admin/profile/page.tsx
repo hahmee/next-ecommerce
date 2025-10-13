@@ -2,11 +2,11 @@
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import Profile from '@/widgets/admin/users/ui/Profile';
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { authApi } from '@/entities/member/model/authService';
 import { profileApi } from '@/entities/member/model/profileApi';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import Profile from '@/widgets/admin/users/ui/Profile';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await authApi.me({ cache: 'no-store' }).catch(() => null);

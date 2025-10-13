@@ -3,8 +3,8 @@
 import React from 'react';
 
 import { usePaymentConfirm } from '@/features/payment/confirm/model/usePaymentConfirm';
+import ConfirmView from "@/features/payment/confirm/ui/ConfirmView";
 
-import ConfirmView from './ConfirmView';
 
 interface Props {
   paymentKey: string;

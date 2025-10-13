@@ -5,14 +5,14 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { stripHtml } from 'string-strip-html';
 
-import FallbackImage from '@/widgets/common/ui/FallbackImage';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 import { CartItem } from '@/entities/cart/model/CartItem';
 import { ColorTag } from '@/entities/common/model/ColorTag';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
 import { Product } from '@/entities/product/model/types';
 import { useCartStore } from '@/features/common/store/cartStore';
 import { useUserStore } from '@/features/common/store/userStore';
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import FallbackImage from '@/widgets/common/ui/FallbackImage';
 
 type ProductCardProps = {
   product: Product;

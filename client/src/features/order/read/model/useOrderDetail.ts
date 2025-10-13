@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import type { Order } from '@/entities/order/model/types';
 import { orderApi } from '@/entities/order/model/service';
+import type { Order } from '@/entities/order/model/types';
 
 export function useOrderDetail(orderId: string) {
   const query = useQuery<Order[], Error>({

@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { useCreateOrderMutation } from '@/hooks/home/order/useCreateOrderMutation';
+import { OrderStatus } from '@/entities/common/model/orderStatus';
 import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order/model/types';
 import { requestTossCardPayment } from '@/entities/payment/model/paymentService';
 import { useCartStore } from '@/features/common/store/cartStore';
-import { OrderStatus } from '@/entities/common/model/orderStatus';
+import {useCreateOrderMutation} from "@/features/order/manage/model/useCreateOrderMutation";
 
 export function useCheckout() {
   const { carts, subtotal, tax, shippingFee, total } = useCartStore();

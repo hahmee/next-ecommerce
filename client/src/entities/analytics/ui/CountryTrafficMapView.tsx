@@ -1,14 +1,14 @@
 ﻿'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
-import '../../../../js/world'; // 지도 파일
+import '@/js/world';
 
-import jsVectorMap from 'jsvectormap';
+import jsVectorMap from "jsvectormap";
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import { BarChartThin } from '@/entities/analytics/ui/BarChart';
 import { CountryChartDTO } from '@/entities/analytics/model/GAResponse';
+import { BarChartThin } from '@/entities/analytics/ui/BarChart';
 
 const CountryTrafficMapView = ({
   countries,

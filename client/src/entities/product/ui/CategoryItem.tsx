@@ -1,5 +1,4 @@
-﻿// components/Admin/Product/CategoryItem.js
-
+﻿
 import React from 'react';
 
 import { Category } from '@/entities/category/model/types';

@@ -1,10 +1,10 @@
 ﻿import React, { Suspense } from 'react';
 
-import ProductForm from '@/features/product/manage/ui/ProductForm';
-import ProductFormSkeleton from '@/entities/common/ui/Skeletons/ProductFormSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { categoryApi } from '@/entities/category/model/service';
 import { Mode } from '@/entities/common/model/mode';
+import ProductFormSkeleton from '@/entities/common/ui/Skeletons/ProductFormSkeleton';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import ProductForm from '@/features/product/manage/ui/ProductForm';
 
 export default function AddProductPage() {
   const prefetchOptions = [

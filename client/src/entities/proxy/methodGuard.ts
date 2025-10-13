@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import { ALLOWED_METHODS } from './constants';
+import {ALLOWED_METHODS} from "@/entities/proxy/constants";
+
 
 /*API 라우트에 들어온 요청의 HTTP 메서드가 허용된 집합에 포함되어 있는지 검사한다.*/
 export function guardHttpMethod(req: Request) {

@@ -1,8 +1,8 @@
 ﻿import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { OrderRequest } from '@/entities/order/model/types';
 import { fetcher } from '@/entities/http/fetcher';
+import { OrderRequest } from '@/entities/order/model/types';
 
 export const useCreateOrderMutation = () => {
   return useMutation({

@@ -1,11 +1,11 @@
 ﻿import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import UserOrders from '@/widgets/home/profile/ui/UserOrders';
 import ShoppingSkeleton from '@/entities/common/ui/Skeletons/ShoppingSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { authApi } from '@/entities/member/model/authService';
 import { paymentApi } from '@/entities/payment/model/service';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import UserOrders from '@/widgets/home/profile/ui/UserOrders';
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await authApi.me({ cache: 'no-store' }).catch(() => null);

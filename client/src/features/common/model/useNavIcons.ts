@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import type { CartItemList } from '@/entities/cart/model/CartItemList';
-import { authApi } from '@/entities/member/model/authService';
 import { cartApi } from '@/entities/cart/model/service';
+import { MemberRole } from '@/entities/common/model/memberRole';
+import { authApi } from '@/entities/member/model/authService';
 import { useCartStore } from '@/features/common/store/cartStore';
 import { useUserStore } from '@/features/common/store/userStore';
-import { MemberRole } from '@/entities/common/model/memberRole';
 
 export function useNavIcons() {
   const router = useRouter();

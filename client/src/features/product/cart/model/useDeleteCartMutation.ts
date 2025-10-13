@@ -4,8 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
 import { CartItemList } from '@/entities/cart/model/CartItemList';
-import { useCartStore } from '@/features/common/store/cartStore';
 import { fetcher } from '@/entities/http/fetcher';
+import { useCartStore } from '@/features/common/store/cartStore';
 
 export const useDeleteCartMutation = () => {
   const setCarts = useCartStore((s) => s.setCarts);

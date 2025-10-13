@@ -1,8 +1,8 @@
 ﻿'use client';
-import { useProductForm } from '@/hooks/admin/product/useProductForm';
 import { Mode } from '@/entities/common/model/mode';
+import {useProductForm} from "@/features/product/manage/model/useProductForm";
+import {ProductFormView} from "@/features/product/manage/ui/ProductFormView";
 
-import { ProductFormView } from './ProductFormView';
 
 interface Props {
   type: Mode;

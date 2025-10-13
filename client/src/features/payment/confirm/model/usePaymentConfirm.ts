@@ -3,8 +3,8 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import type { Payment } from '@/entities/payment/model/types';
 import { paymentApi } from '@/entities/payment/model/service';
+import type { Payment } from '@/entities/payment/model/types';
 
 export type PaymentConfirmVM = {
   orderId: string;

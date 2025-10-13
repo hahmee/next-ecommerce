@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import ClickOutside from '../../Common/ClickOutside';
+import ClickOutside from "@/widgets/common/ui/ClickOutside";
+
 
 const ViewButton = ({ changeSize }: { changeSize: (size: number) => void }) => {
   const [open, setOpen] = useState(false);

@@ -12,25 +12,29 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "baseUrl": ".",
     "paths": {
+      // --- 현재 FSD 구조 ---
       "@/*": ["src/*"],
       "@/app/*": ["src/app/*"],
       "@/entities/*": ["src/entities/*"],
       "@/features/*": ["src/features/*"],
-      "@/widgets/*": ["src/widgets/*"]
+      "@/widgets/*": ["src/widgets/*"],
+      "@/libs/*": ["src/libs/*"],
     },
-    "moduleResolution": "Bundler", // Next 14+ 권장
-    //    "types": ["msw", "cypress"]
-    //    "types": ["msw", "cypress", "jest", "@testing-library/jest-dom"]
+    "moduleResolution": "Bundler",
     "types": ["msw", "jest", "@testing-library/jest-dom", "node"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  //  "exclude": ["node_modules", "cypress"]
+  // src 이하만 타겟팅 (루트에 불필요한 *.ts 포함 방지)
+  "include": [
+    "next-env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.d.ts",
+    ".next/types/**/*.ts"
+  ],
+
+  // 빌드/테스트 제외
   "exclude": ["node_modules", "cypress"]
 }

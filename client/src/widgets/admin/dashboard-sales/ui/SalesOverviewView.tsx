@@ -4,19 +4,19 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import CardDataStats from '@/components/Admin/Dashboard/CardDataStats';
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
-import type { CardResponse } from '@/entities/common/model/CardResponse';
-import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
 import { ChartContext } from '@/entities/analytics/model/chartContext';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
+import CardDataStats from "@/entities/analytics/ui/CardDataStats";
+import type { CardResponse } from '@/entities/common/model/CardResponse';
 import type { DatepickType } from '@/entities/common/model/DatepickType';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
-const SalesChart = dynamic(() => import('../Dashboard/Charts/SalesChartView'), { ssr: false });
-const TopOrderTable = dynamic(() => import('../Tables/TopOrderTable'), { ssr: false });
-const TopCustomers = dynamic(() => import('./TopCustomers'), { ssr: false });
-const CountryChart = dynamic(() => import('./Charts/CountryChart'), { ssr: false });
-const AdminDatePicker = dynamic(() => import('./AdminDatePicker'), { ssr: false });
+const SalesChart = dynamic(() => import('@/entities/analytics/ui/SalesChartView'), { ssr: false });
+const TopOrderTable = dynamic(() => import('@/widgets/admin/orders-table/ui/TopOrderTable'), { ssr: false });
+const TopCustomers = dynamic(() => import('@/entities/analytics/ui/TopCustomers'), { ssr: false });
+const CountryChart = dynamic(() => import('@/entities/analytics/ui/CountryChart'), { ssr: false });
+const AdminDatePicker = dynamic(() => import('@/entities/analytics/ui/AdminDatePicker'), { ssr: false });
 
 export function SalesOverviewView(props: {
   date: DatepickType;

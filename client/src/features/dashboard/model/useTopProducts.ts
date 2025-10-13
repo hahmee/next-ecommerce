@@ -1,8 +1,8 @@
 ﻿'use client';
 import { useQuery } from '@tanstack/react-query';
 
-import type { TopProductResponse } from '@/entities/analytics/model/TopProductResponse';
 import { dashboardApi } from '@/entities/analytics/model/service';
+import type { TopProductResponse } from '@/entities/analytics/model/TopProductResponse';
 import type { DatepickType } from '@/entities/common/model/DatepickType';
 
 export function useTopProducts(date: DatepickType) {

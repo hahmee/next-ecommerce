@@ -5,8 +5,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDropzone } from 'react-dropzone';
 
-import ImagePreview from '@/features/product/manage/ui/ImagePreview';
 import { useProductImageStore } from '@/features/common/store/productImageStore';
+import ImagePreview from '@/features/product/manage/ui/ImagePreview';
 
 export interface ImageType {
   dataUrl: string; // blob or aws full path

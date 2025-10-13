@@ -3,8 +3,8 @@
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 
-import type { Payment } from '@/entities/payment/model/types';
 import { TossPaymentStatus } from '@/entities/common/model/toss';
+import type { Payment } from '@/entities/payment/model/types';
 
 interface Props {
   payments: Payment[];

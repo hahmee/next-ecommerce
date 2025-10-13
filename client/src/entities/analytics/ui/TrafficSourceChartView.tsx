@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 
-import HorizontalBarChart from '@/entities/analytics/ui/HorizontalBarChart';
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+import HorizontalBarChart from '@/entities/analytics/ui/HorizontalBarChart';
 
 const TrafficSourceChartView = ({ topSources }: { topSources: Array<SessionDTO<number>> | [] }) => {
   const totalSources = topSources ? topSources.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;

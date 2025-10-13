@@ -3,12 +3,12 @@
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import RealtimeOverview from '@/widgets/admin/dashboard-realtime/ui/RealtimeOverview';
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { dashboardApi } from '@/entities/analytics/model/service';
 import DashboardSkeleton from '@/entities/common/ui/Skeletons/DashboardSkeleton';
 import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
-import { dashboardApi } from '@/entities/analytics/model/service';
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import RealtimeOverview from '@/widgets/admin/dashboard-realtime/ui/RealtimeOverview';
+import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
 
 export default async function DashBoardRealTimePage() {
   const today = dayjs();

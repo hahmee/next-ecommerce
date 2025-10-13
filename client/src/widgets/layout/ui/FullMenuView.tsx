@@ -4,8 +4,8 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
 import type { Category } from '@/entities/category/model/types';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
 
 interface Props {
   categories: Category[];

@@ -2,8 +2,8 @@
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useState } from 'react';
 
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
 import { Category } from '@/entities/category/model/types';
+import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
 
 type Props = {
   categories: Category[];

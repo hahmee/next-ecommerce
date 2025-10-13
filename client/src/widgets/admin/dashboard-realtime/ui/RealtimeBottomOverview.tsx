@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
 import { useRealtimeBottomOverview } from '@/features/dashboard/model/useRealtimeBottomOverview';
-const RealtimeBottomOverviewView = dynamic(() => import('./RealtimeBottomOverviewView'), {
+const RealtimeBottomOverviewView = dynamic(() => import('@/entities/analytics/ui/RealtimeBottomOverviewView'), {
   ssr: false,
   loading: () => <LoadingSkeleton />,
 });

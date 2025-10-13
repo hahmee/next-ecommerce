@@ -1,14 +1,13 @@
-﻿// src/components/Admin/Dashboard/RealtimeBottomOverviewView.tsx
-'use client';
+﻿'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
-const RecentVisitors = dynamic(() => import('./Charts/RecentVisitors'), { ssr: false });
-const PieChart = dynamic(() => import('./Charts/PieChart'), { ssr: false });
+const RecentVisitors = dynamic(() => import('@/entities/analytics/ui/RecentVisitors'), { ssr: false });
+const PieChart = dynamic(() => import('@/entities/analytics/ui/PieChart'), { ssr: false });
 
 export default function RealtimeBottomOverviewView({
   gaBottomData,

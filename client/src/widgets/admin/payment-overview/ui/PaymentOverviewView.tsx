@@ -3,8 +3,8 @@
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 
-import ClickOutside from '@/widgets/common/ui/ClickOutside';
 import type { Option } from '@/entities/common/model/Option';
+import ClickOutside from '@/widgets/common/ui/ClickOutside';
 
 export function PaymentOverviewView(props: {
   totalAmount: number;

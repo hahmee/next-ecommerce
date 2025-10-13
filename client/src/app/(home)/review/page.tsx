@@ -3,10 +3,10 @@ import { cookies } from 'next/headers';
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import UserReviews from '@/widgets/home/profile/ui/UserReviews';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { authApi } from '@/entities/member/model/authService';
 import { reviewApi } from '@/entities/review/model/service';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import UserReviews from '@/widgets/home/profile/ui/UserReviews';
 
 // 메타는 그대로 두되, 필요시 간소화 가능
 export async function generateMetadata(): Promise<Metadata> {

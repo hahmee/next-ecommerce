@@ -1,8 +1,8 @@
 ﻿'use client';
 
 import { useStockTable } from '@/widgets/admin/stock-table/model/useStockTable';
+import {StockTableView} from "@/widgets/admin/stock-table/ui/StockTableView";
 
-import { StockTableView } from './StockTableView';
 
 export default function StockTable() {
   const stockTable = useStockTable();

@@ -1,10 +1,10 @@
 ﻿import React, { Suspense } from 'react';
 
-import OrderDetail from '@/widgets/home/profile/ui/OrderDetail';
 import OrderDetailSkeleton from '@/entities/common/ui/Skeletons/OrderDetailSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { authApi } from '@/entities/member/model/authService';
 import { orderApi } from '@/entities/order/model/service';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import OrderDetail from '@/widgets/home/profile/ui/OrderDetail';
 
 interface Props {
   params: { orderId: string };

@@ -3,14 +3,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 import type { CartItem } from '@/entities/cart/model/CartItem';
 import type { ColorTag } from '@/entities/common/model/ColorTag';
-import type { Product } from '@/entities/product/model/types';
+import { SalesStatus } from '@/entities/common/model/salesStatus';
 import { productApi } from '@/entities/product/model/service';
+import type { Product } from '@/entities/product/model/types';
 import { useCartStore } from '@/features/common/store/cartStore';
 import { useUserStore } from '@/features/common/store/userStore';
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 
 type MainListType = 'new' | 'featured';
 

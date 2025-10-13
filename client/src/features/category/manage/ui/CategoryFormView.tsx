@@ -4,10 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
-import CategoryBreadcrumb from '@/components/Admin/Category/CategoryBreadcrumb';
-import type { CategoryFormValues } from '@/features/category/manage/model/useCategoryForm';
 import type { Category } from '@/entities/category/model/types';
+import CategoryBreadcrumb from "@/entities/category/ui/CategoryBreadcrumb";
 import { Mode } from '@/entities/common/model/mode';
+import type { CategoryFormValues } from '@/features/category/manage/model/useCategoryForm';
 
 export function CategoryFormView(props: {
   type: Mode;

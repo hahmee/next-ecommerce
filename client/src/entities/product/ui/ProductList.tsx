@@ -2,9 +2,9 @@
 
 import React from 'react';
 
+import {ProductListView} from "@/entities/product/ui/ProductListView";
 import { useProductList } from '@/features/product/read/model/useProductList';
 
-import { ProductListView } from './ProductListView';
 
 type Props = {
   categoryId?: string;

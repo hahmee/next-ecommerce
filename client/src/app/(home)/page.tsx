@@ -1,11 +1,11 @@
 ﻿import React, { Suspense } from 'react';
 
-import Slider from '@/widgets/home/main/ui/Slider';
-import Home from '@/widgets/home/main/ui/Home';
-import Skeleton from '@/entities/common/ui/Skeletons/Skeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
 import { categoryApi } from '@/entities/category/model/service';
+import Skeleton from '@/entities/common/ui/Skeletons/Skeleton';
 import { productApi } from '@/entities/product/model/service';
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import Home from '@/widgets/home/main/ui/Home';
+import Slider from '@/widgets/home/main/ui/Slider';
 
 // 동적 데이터 없음 -> generateMetadata대신 meatadata 사용
 export const metadata = {

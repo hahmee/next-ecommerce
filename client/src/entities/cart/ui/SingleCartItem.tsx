@@ -6,13 +6,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback } from 'react';
 
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
-import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 import { CartItem } from '@/entities/cart/model/CartItem';
 import { CartItemList } from '@/entities/cart/model/CartItemList';
 import { ColorTag } from '@/entities/common/model/ColorTag';
 import { useCartStore } from '@/features/common/store/cartStore';
 import { useUserStore } from '@/features/common/store/userStore';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 
 const SingleCartItem = ({ cartItem }: { cartItem: CartItemList }) => {
   const { user } = useUserStore();

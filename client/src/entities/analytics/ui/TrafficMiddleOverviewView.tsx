@@ -3,13 +3,13 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
-import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
 import type { GAResponseMiddle } from '@/entities/analytics/model/GAResponse';
+import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
 
-const TrafficPageChart = dynamic(() => import('./Charts/TrafficPageChartView'), { ssr: false });
-const TrafficSourceChart = dynamic(() => import('./Charts/TrafficSourceChartView'), { ssr: false });
-const PieChart = dynamic(() => import('./Charts/PieChart'), { ssr: false });
+const TrafficPageChart = dynamic(() => import('@/entities/analytics/ui/TrafficPageChartView'), { ssr: false });
+const TrafficSourceChart = dynamic(() => import('@/entities/analytics/ui/TrafficSourceChartView'), { ssr: false });
+const PieChart = dynamic(() => import('@/entities/analytics/ui/PieChart'), { ssr: false });
 
 export function TrafficMiddleOverviewView({ data }: { data?: GAResponseMiddle }) {
   if (!data) return <LoadingSkeleton />;

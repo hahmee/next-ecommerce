@@ -1,15 +1,15 @@
-﻿'use client';
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
-import SearchBar from '@/widgets/common/ui/SearchBar';
+import { isAdmin } from '@/entities/common/lib/isAdmin';
 import { useLogout } from '@/features/auth/model/useLogout';
 import { useUserStore } from '@/features/common/store/userStore';
-import { isAdmin } from '@/utils/isAdmin';
+import SearchBar from '@/widgets/common/ui/SearchBar';
+import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
 
 const Menu = () => {
   const pathname = usePathname();

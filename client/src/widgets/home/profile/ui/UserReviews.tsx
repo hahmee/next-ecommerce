@@ -1,8 +1,7 @@
 'use client';
 
-import { useMyReviews } from '@/hooks/home/review/useMyReviews';
-
-import { UserReviewsView } from './UserReviewsView';
+import {useMyReviews} from "@/features/review/read/model/useMyReviews";
+import {UserReviewsView} from "@/widgets/home/profile/ui/UserReviewsView";
 
 export default function UserReviews() {
   const reviews = useMyReviews();

@@ -1,9 +1,9 @@
 ﻿'use client';
 
-import { useCategoryForm } from '@/features/category/manage/model/useCategoryForm';
 import { Mode } from '@/entities/common/model/mode';
+import { useCategoryForm } from '@/features/category/manage/model/useCategoryForm';
+import {CategoryFormView} from "@/features/category/manage/ui/CategoryFormView";
 
-import { CategoryFormView } from './CategoryFormView';
 
 interface Props {
   type: Mode;

@@ -1,14 +1,14 @@
 ﻿import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { Suspense } from 'react';
-import FullMenuSkeleton from 'src/components/Skeleton/FullMenuSkeleton';
 
+import { categoryApi } from '@/entities/category/model/service';
+import FullMenuSkeleton from "@/entities/common/ui/Skeletons/FullMenuSkeleton";
+import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import SearchBar from '@/widgets/common/ui/SearchBar';
 import FullMenu from '@/widgets/layout/ui/FullMenu';
 import Menu from '@/widgets/layout/ui/Menu';
 import NavIcons from '@/widgets/layout/ui/NavIcons';
-import SearchBar from '@/widgets/common/ui/SearchBar';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
-import { categoryApi } from '@/entities/category/model/service';
 
 const Navbar = () => {
   const prefetchOptions = [

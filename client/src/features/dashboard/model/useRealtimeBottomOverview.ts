@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
+import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
 import { dashboardApi } from '@/entities/analytics/model/service';
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 
 export function useRealtimeBottomOverview() {
   const today = dayjs();
