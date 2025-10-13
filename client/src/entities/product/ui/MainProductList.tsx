@@ -4,10 +4,10 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import React from 'react';
 
-import Skeleton from '@/shared/ui/skeletons/Skeleton';
 import type { Product } from '@/entities/product/model/types';
 import { useMainProductList } from '@/features/product/read/model/useMainProductList';
 import FallbackImage from '@/shared/ui/FallbackImage';
+import Skeleton from '@/shared/ui/skeletons/Skeleton';
 
 const MainProductList = ({ type }: { type: 'new' | 'featured' }) => {
   const { products, isLoading, addToCart, isAddDisabled } = useMainProductList(type);

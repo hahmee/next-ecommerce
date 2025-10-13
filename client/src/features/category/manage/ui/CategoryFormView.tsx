@@ -5,9 +5,9 @@ import React from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
 import type { Category } from '@/entities/category/model/types';
-import CategoryBreadcrumb from "@/entities/category/ui/CategoryBreadcrumb";
-import { Mode } from '@/shared/model/mode';
+import CategoryBreadcrumb from '@/entities/category/ui/CategoryBreadcrumb';
 import type { CategoryFormValues } from '@/features/category/manage/model/useCategoryForm';
+import { Mode } from '@/shared/constants/mode';
 
 export function CategoryFormView(props: {
   type: Mode;

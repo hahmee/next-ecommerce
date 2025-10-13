@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-import { authApi } from '@/entities/member/model/authService';
+import { authApi } from '@/entities/member/api/authApi';
 import { useUserStore } from '@/shared/store/userStore';
 
 // SessionExpiredError 발생 시 setSessionExpired 플래그를 감지

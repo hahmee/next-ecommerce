@@ -1,9 +1,9 @@
 ﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { memberApi } from '@/entities/member/model/memberApi';
+import { memberApi } from '@/entities/member/api/memberApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import UserDashboard from "@/widgets/admin/users/ui/UserDashboard";
+import UserDashboard from '@/widgets/admin/users/ui/UserDashboard';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 const UserDashboardPage = () => {

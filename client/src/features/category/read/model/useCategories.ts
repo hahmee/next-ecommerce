@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { categoryApi } from '@/entities/category/model/service';
+import { categoryApi } from '@/entities/category/api/categoryApi';
 import type { Category } from '@/entities/category/model/types';
 
 export function useCategories() {

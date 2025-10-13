@@ -4,13 +4,13 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import type { CartItem } from '@/entities/cart/model/CartItem';
-import type { ColorTag } from '@/shared/model/ColorTag';
-import { SalesStatus } from '@/shared/model/salesStatus';
-import { productApi } from '@/entities/product/model/service';
+import { productApi } from '@/entities/product/api/productApi';
+import { SalesStatus } from '@/entities/product/consts/SalesStatus';
 import type { Product } from '@/entities/product/model/types';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import type { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 
 type MainListType = 'new' | 'featured';
 

@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';
 
-import { DataResponse } from '@/shared/model/DataResponse';
 import { fetcher } from '@/shared/http/fetcher';
+import { DataResponse } from '@/shared/model/DataResponse';
 import { useUserStore } from '@/shared/store/userStore';
 
 export function useLoginForm() {

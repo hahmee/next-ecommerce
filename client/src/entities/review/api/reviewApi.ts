@@ -1,7 +1,7 @@
 ﻿// src/apis/reviewApi.ts
+import type { Review } from '@/entities/review/model/types';
 import { fetcher } from '@/shared/http/fetcher';
 import { publicFetcher } from '@/shared/http/publicFetcher';
-import type { Review } from '@/entities/review/model/types';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };

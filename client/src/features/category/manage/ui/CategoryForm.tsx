@@ -1,9 +1,8 @@
 ﻿'use client';
 
-import { Mode } from '@/shared/model/mode';
 import { useCategoryForm } from '@/features/category/manage/model/useCategoryForm';
-import {CategoryFormView} from "@/features/category/manage/ui/CategoryFormView";
-
+import { CategoryFormView } from '@/features/category/manage/ui/CategoryFormView';
+import { Mode } from '@/shared/constants/mode';
 
 interface Props {
   type: Mode;

@@ -1,13 +1,13 @@
 ﻿'use client';
 
-import type { ColorTag } from '@/shared/model/ColorTag';
-import { SalesStatus } from '@/shared/model/salesStatus';
+import { SalesStatus } from '@/entities/product/consts/SalesStatus';
 import type { Product } from '@/entities/product/model/types';
 import ProductImages from '@/entities/product/ui/ProductImages';
 import type { Review } from '@/entities/review/model/types';
 import Reviews from '@/entities/review/ui/Reviews';
 import AddCart from '@/features/product/cart/ui/AddCart';
 import OptionSelect from '@/features/product/filters/ui/OptionSelect';
+import type { ColorTag } from '@/shared/model/ColorTag';
 
 interface Props {
   id: string;

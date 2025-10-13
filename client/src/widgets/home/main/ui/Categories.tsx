@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import Skeleton from '@/shared/ui/skeletons/Skeleton';
 import { useCategories } from '@/features/category/read/model/useCategories';
+import Skeleton from '@/shared/ui/skeletons/Skeleton';
 
 const Categories = () => {
   const router = useRouter();

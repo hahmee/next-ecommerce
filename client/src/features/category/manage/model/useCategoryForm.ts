@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { categoryApi } from '@/entities/category/model/service';
+import { categoryApi } from '@/entities/category/api/categoryApi';
 import type { Category } from '@/entities/category/model/types';
-import { Mode } from '@/shared/model/mode';
+import { Mode } from '@/shared/constants/mode';
 
 export interface CategoryFormValues {
   cname: string;

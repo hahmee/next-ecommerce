@@ -1,9 +1,9 @@
-﻿import {BuildingStorefrontIcon, ShoppingBagIcon} from '@heroicons/react/24/outline';
+﻿import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';
 
-import AdminUser from "@/widgets/layout/ui/AdminUser";
-import DarkModeSwitcher from "@/widgets/layout/ui/DarkModeSwitcher";
+import AdminUser from '@/widgets/layout/ui/AdminUser';
+import DarkModeSwitcher from '@/widgets/layout/ui/DarkModeSwitcher';
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;

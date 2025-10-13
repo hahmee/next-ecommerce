@@ -21,7 +21,7 @@
       "@/entities/*": ["src/entities/*"],
       "@/features/*": ["src/features/*"],
       "@/widgets/*": ["src/widgets/*"],
-      "@/libs/*": ["src/libs/*"],
+      "@/libs/*": ["src/libs/*"]
     },
     "moduleResolution": "Bundler",
     "types": ["msw", "jest", "@testing-library/jest-dom", "node"]

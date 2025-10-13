@@ -3,7 +3,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { paymentApi } from '@/entities/payment/model/service';
+import { paymentApi } from '@/entities/payment/api/paymentApi';
 import type { Payment } from '@/entities/payment/model/types';
 
 export function useUserOrders() {

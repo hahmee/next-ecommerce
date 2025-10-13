@@ -2,13 +2,13 @@
 import Link from 'next/link';
 import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/model/service';
-import FullMenuSkeleton from "@/shared/ui/skeletons/FullMenuSkeleton";
+import { categoryApi } from '@/entities/category/api/categoryApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import SearchBar from '@/widgets/layout/ui/SearchBar';
+import FullMenuSkeleton from '@/shared/ui/skeletons/FullMenuSkeleton';
 import FullMenu from '@/widgets/layout/ui/FullMenu';
 import Menu from '@/widgets/layout/ui/Menu';
 import NavIcons from '@/widgets/layout/ui/NavIcons';
+import SearchBar from '@/widgets/layout/ui/SearchBar';
 
 const Navbar = () => {
   const prefetchOptions = [

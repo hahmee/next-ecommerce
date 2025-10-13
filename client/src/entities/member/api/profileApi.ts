@@ -1,5 +1,5 @@
-﻿import { fetcher } from '@/shared/http/fetcher';
-import { Member } from '@/entities/member/model/Member';
+﻿import { Member } from '@/entities/member/model/Member';
+import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

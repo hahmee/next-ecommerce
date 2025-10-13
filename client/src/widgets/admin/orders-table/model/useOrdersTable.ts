@@ -5,11 +5,11 @@ import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { DatepickType } from '@/shared/model/DatepickType';
+import { orderApi } from '@/entities/order/api/orderApi';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Paging } from '@/entities/order/model/Paging';
-import { orderApi } from '@/entities/order/model/service';
 import type { Payment } from '@/entities/payment/model/types';
+import { DatepickType } from '@/shared/model/DatepickType';
 
 export const initialPagingData: Paging = {
   totalCount: 0,

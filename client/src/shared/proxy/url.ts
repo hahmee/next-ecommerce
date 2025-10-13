@@ -1,4 +1,4 @@
-import {API_BASE_URL} from "@/entities/proxy/constants";
+import { API_BASE_URL } from '@/shared/proxy/constants';
 
 /** /api/bff/* → 백엔드의 동일 경로로 변환 */
 export function buildBackendUrlForBff(req: Request) {

@@ -3,8 +3,8 @@ import { cookies } from 'next/headers';
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { authApi } from '@/entities/member/model/authService';
-import { reviewApi } from '@/entities/review/model/service';
+import { authApi } from '@/entities/member/api/authApi';
+import { reviewApi } from '@/entities/review/api/reviewApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import UserReviews from '@/widgets/home/profile/ui/UserReviews';
 

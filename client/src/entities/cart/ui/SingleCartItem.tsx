@@ -8,11 +8,11 @@ import React, { useCallback } from 'react';
 
 import { CartItem } from '@/entities/cart/model/CartItem';
 import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 import { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
-import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 
 const SingleCartItem = ({ cartItem }: { cartItem: CartItemList }) => {
   const { user } = useUserStore();

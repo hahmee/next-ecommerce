@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { reviewApi } from '@/entities/review/model/service';
+import { reviewApi } from '@/entities/review/api/reviewApi';
 import type { Review } from '@/entities/review/model/types';
 
 export function useMyReviews() {

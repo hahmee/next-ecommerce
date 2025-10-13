@@ -7,10 +7,10 @@ import { cookies } from 'next/headers';
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
-import { GAPageView } from '@/widgets/layout/ga/GAPageView';
 import RQProvider from '@/shared/ui/RQProvider';
 import SessionExpiredRedirect from '@/shared/ui/SessionExpiredRedirect';
 import UserSyncHandler from '@/shared/ui/UserSyncHandler';
+import { GAPageView } from '@/widgets/layout/ga/GAPageView';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 

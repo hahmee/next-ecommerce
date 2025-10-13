@@ -2,11 +2,11 @@
 
 import React from 'react';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
-import {TrafficBottomOverviewView} from "@/entities/analytics/ui/TrafficBottomOverviewView";
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
+import { TrafficBottomOverviewView } from '@/entities/analytics/ui/TrafficBottomOverviewView';
+import { useTrafficBottom } from '@/features/dashboard/model/useTrafficBottom';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
-import { useTrafficBottom } from '@/features/dashboard/model/useTrafficBottom';
 
 export default function TrafficBottomOverview({
   date,

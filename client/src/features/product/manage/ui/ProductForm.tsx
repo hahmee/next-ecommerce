@@ -1,8 +1,7 @@
 ﻿'use client';
-import { Mode } from '@/shared/model/mode';
-import {useProductForm} from "@/features/product/manage/model/useProductForm";
-import {ProductFormView} from "@/features/product/manage/ui/ProductFormView";
-
+import { useProductForm } from '@/features/product/manage/model/useProductForm';
+import { ProductFormView } from '@/features/product/manage/ui/ProductFormView';
+import { Mode } from '@/shared/constants/mode';
 
 interface Props {
   type: Mode;

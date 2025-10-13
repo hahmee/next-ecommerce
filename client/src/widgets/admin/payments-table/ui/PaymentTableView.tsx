@@ -6,15 +6,17 @@ import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { DatepickType } from '@/shared/model/DatepickType';
-import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/shared/model/toss';
 import type { Paging } from '@/entities/order/model/Paging';
+import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/entities/payment/consts/toss';
 import type { Payment } from '@/entities/payment/model/types';
+import type { DatepickType } from '@/shared/model/DatepickType';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
 import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
 import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
 
-const TableDatePicker = dynamic(() => import('@/widgets/admin/table-kit/ui/TableDatePicker'), { ssr: false });
+const TableDatePicker = dynamic(() => import('@/widgets/admin/table-kit/ui/TableDatePicker'), {
+  ssr: false,
+});
 
 export function PaymentTableView(props: {
   list: Payment[];

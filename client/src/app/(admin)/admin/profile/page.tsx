@@ -2,8 +2,8 @@
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { authApi } from '@/entities/member/model/authService';
-import { profileApi } from '@/entities/member/model/profileApi';
+import { authApi } from '@/entities/member/api/authApi';
+import { profileApi } from '@/entities/member/api/profileApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Profile from '@/widgets/admin/users/ui/Profile';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';

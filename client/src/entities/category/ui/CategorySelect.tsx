@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from 'react';
 
 import { Category } from '@/entities/category/model/types';
-import CategoryList from "@/entities/product/ui/CategoryList";
+import CategoryList from '@/entities/product/ui/CategoryList';
 
 const CategorySelect = ({
   categories,

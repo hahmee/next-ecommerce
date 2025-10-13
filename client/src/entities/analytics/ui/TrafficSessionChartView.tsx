@@ -3,7 +3,7 @@
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { SessionChart } from '@/entities/analytics/model/GAResponse';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 

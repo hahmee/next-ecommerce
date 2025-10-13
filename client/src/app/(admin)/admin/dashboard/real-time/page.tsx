@@ -3,10 +3,10 @@
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
-import { dashboardApi } from '@/entities/analytics/model/service';
-import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
 import RealtimeOverview from '@/widgets/admin/dashboard-realtime/ui/RealtimeOverview';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 

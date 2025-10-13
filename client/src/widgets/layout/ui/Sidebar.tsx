@@ -10,7 +10,7 @@ import { useLogout } from '@/features/auth/model/useLogout';
 import useLocalStorage from '@/shared/lib/useLocalStorage';
 import { useUserStore } from '@/shared/store/userStore';
 import ClickOutside from '@/shared/ui/ClickOutside';
-import SidebarItem from "@/widgets/layout/ui/SidebarItem";
+import SidebarItem from '@/widgets/layout/ui/SidebarItem';
 
 const Dialog = dynamic(() => import('@/shared/ui/Dialog'));
 

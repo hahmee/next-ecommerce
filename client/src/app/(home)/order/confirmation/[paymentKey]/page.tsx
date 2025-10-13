@@ -1,9 +1,9 @@
 ﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { paymentApi } from '@/entities/payment/model/service';
-import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import { paymentApi } from '@/entities/payment/api/paymentApi';
 import Confirm from '@/features/payment/confirm/ui/Confirm';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 
 interface Props {
   params: { paymentKey: string };

@@ -2,9 +2,9 @@
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import PaymentSkeleton from '@/shared/ui/skeletons/PaymentSkeleton';
-import { paymentApi } from '@/entities/payment/model/service';
+import { paymentApi } from '@/entities/payment/api/paymentApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import PaymentSkeleton from '@/shared/ui/skeletons/PaymentSkeleton';
 import PaymentOverview from '@/widgets/admin/payment-overview/ui/PaymentOverview';
 import PaymentTable from '@/widgets/admin/payments-table/ui/PaymentTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';

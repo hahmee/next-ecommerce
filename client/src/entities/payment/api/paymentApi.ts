@@ -1,7 +1,7 @@
-﻿import { fetcher } from '@/shared/http/fetcher';
-import type { PageResponse } from '@/entities/order/model/PageResponse';
+﻿import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { PaymentSummaryDTO } from '@/entities/payment/model/PaymentSummaryDTO';
 import type { Payment } from '@/entities/payment/model/types';
+import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

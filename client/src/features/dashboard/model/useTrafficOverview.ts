@@ -5,9 +5,9 @@ import dayjs from 'dayjs';
 import { useCallback, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
-import { dashboardApi } from '@/entities/analytics/model/service';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function useTrafficOverview(initialToday: string) {

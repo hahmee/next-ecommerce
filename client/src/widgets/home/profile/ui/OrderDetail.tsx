@@ -1,8 +1,7 @@
 ﻿'use client';
 
-import {OrderDetailView} from "@/entities/order/ui/OrderDetailView";
+import { OrderDetailView } from '@/entities/order/ui/OrderDetailView';
 import { useOrderDetail } from '@/features/order/read/model/useOrderDetail';
-
 
 export default function OrderDetail({ orderId }: { orderId: string }) {
   const orderDetail = useOrderDetail(orderId);

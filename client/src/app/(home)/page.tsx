@@ -1,9 +1,9 @@
 ﻿import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/model/service';
-import Skeleton from '@/shared/ui/skeletons/Skeleton';
-import { productApi } from '@/entities/product/model/service';
+import { categoryApi } from '@/entities/category/api/categoryApi';
+import { productApi } from '@/entities/product/api/productApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import Skeleton from '@/shared/ui/skeletons/Skeleton';
 import Home from '@/widgets/home/main/ui/Home';
 import Slider from '@/widgets/home/main/ui/Slider';
 

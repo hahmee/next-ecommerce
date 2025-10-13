@@ -4,10 +4,12 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import type { GAResponseBottom } from '@/entities/analytics/model/GAResponse';
-import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
+import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
-const CountryTrafficMap = dynamic(() => import('@/entities/analytics/ui/CountryTrafficMapView'), { ssr: false });
+const CountryTrafficMap = dynamic(() => import('@/entities/analytics/ui/CountryTrafficMapView'), {
+  ssr: false,
+});
 
 export function TrafficBottomOverviewView({ data }: { data?: GAResponseBottom }) {
   if (!data) return <LoadingSkeleton />;

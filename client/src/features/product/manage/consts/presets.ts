@@ -1,6 +1,6 @@
-﻿import { Option } from '@/shared/model/Option';
-import { SalesStatus } from '@/shared/model/salesStatus';
-import { Size } from '@/shared/model/size';
+﻿import { SalesStatus } from '@/entities/product/consts/SalesStatus';
+import { Size } from '@/shared/constants/size';
+import { Option } from '@/shared/model/Option';
 
 // 드롭다운/라디오 등 선택지 모음
 export const sizeOptions: Array<Option<string>> = [

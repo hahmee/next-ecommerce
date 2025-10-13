@@ -1,11 +1,11 @@
 ﻿import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/model/service';
-import { Mode } from '@/shared/model/mode';
-import ProductFormSkeleton from '@/shared/ui/skeletons/ProductFormSkeleton';
-import { productApi } from '@/entities/product/model/service';
-import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import { categoryApi } from '@/entities/category/api/categoryApi';
+import { productApi } from '@/entities/product/api/productApi';
 import ProductForm from '@/features/product/manage/ui/ProductForm';
+import { Mode } from '@/shared/constants/mode';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import ProductFormSkeleton from '@/shared/ui/skeletons/ProductFormSkeleton';
 
 interface Props {
   params: { id: string };

@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { orderApi } from '@/entities/order/model/service';
+import { orderApi } from '@/entities/order/api/orderApi';
 import type { Order } from '@/entities/order/model/types';
 
 export function useOrderDetail(orderId: string) {

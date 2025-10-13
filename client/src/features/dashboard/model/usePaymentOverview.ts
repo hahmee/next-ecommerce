@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 
-import type { Option } from '@/shared/model/Option';
+import { paymentApi } from '@/entities/payment/api/paymentApi';
 import type { PaymentSummaryDTO } from '@/entities/payment/model/PaymentSummaryDTO';
-import { paymentApi } from '@/entities/payment/model/service';
+import type { Option } from '@/shared/model/Option';
 
 const mkRange = (days: number) => {
   const end = dayjs();

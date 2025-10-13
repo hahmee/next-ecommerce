@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import { cartApi } from '@/entities/cart/api/cartApi';
 import type { CartItemList } from '@/entities/cart/model/CartItemList';
-import { cartApi } from '@/entities/cart/model/service';
-import { MemberRole } from '@/shared/model/memberRole';
-import { authApi } from '@/entities/member/model/authService';
+import { authApi } from '@/entities/member/api/authApi';
+import { MemberRole } from '@/entities/member/consts/MemberRole';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
 

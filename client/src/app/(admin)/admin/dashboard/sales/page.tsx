@@ -1,12 +1,12 @@
 ﻿import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import { ChartContext } from '@/entities/analytics/model/chartContext';
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
-import { dashboardApi } from '@/entities/analytics/model/service';
-import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
+import { ChartContext } from '@/entities/analytics/consts/ChartContext';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import SalesOverview from "@/widgets/admin/dashboard-sales/ui/SalesOverview";
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import SalesOverview from '@/widgets/admin/dashboard-sales/ui/SalesOverview';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default async function DashBoardSalesPage() {

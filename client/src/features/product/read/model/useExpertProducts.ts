@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { productApi } from '@/entities/product/model/service';
+import { productApi } from '@/entities/product/api/productApi';
 import type { Product } from '@/entities/product/model/types';
 
 export function useExpertProducts() {

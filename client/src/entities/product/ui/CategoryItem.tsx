@@ -1,5 +1,4 @@
-﻿
-import React from 'react';
+﻿import React from 'react';
 
 import { Category } from '@/entities/category/model/types';
 

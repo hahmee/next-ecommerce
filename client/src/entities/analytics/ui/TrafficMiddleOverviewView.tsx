@@ -4,11 +4,15 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import type { GAResponseMiddle } from '@/entities/analytics/model/GAResponse';
-import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
+import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
-const TrafficPageChart = dynamic(() => import('@/entities/analytics/ui/TrafficPageChartView'), { ssr: false });
-const TrafficSourceChart = dynamic(() => import('@/entities/analytics/ui/TrafficSourceChartView'), { ssr: false });
+const TrafficPageChart = dynamic(() => import('@/entities/analytics/ui/TrafficPageChartView'), {
+  ssr: false,
+});
+const TrafficSourceChart = dynamic(() => import('@/entities/analytics/ui/TrafficSourceChartView'), {
+  ssr: false,
+});
 const PieChart = dynamic(() => import('@/entities/analytics/ui/PieChart'), { ssr: false });
 
 export function TrafficMiddleOverviewView({ data }: { data?: GAResponseMiddle }) {

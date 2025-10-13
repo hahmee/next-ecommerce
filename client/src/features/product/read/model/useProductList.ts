@@ -4,10 +4,10 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { categoryApi } from '@/entities/category/model/service';
+import { categoryApi } from '@/entities/category/api/categoryApi';
 import type { Category } from '@/entities/category/model/types';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
-import { productApi } from '@/entities/product/model/service';
+import { productApi } from '@/entities/product/api/productApi';
 import type { Product } from '@/entities/product/model/types';
 
 type Params = {

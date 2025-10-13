@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { FileDTO } from '@/shared/model/FileDTO';
+import { FileDTO } from '@/entities/product/model/FileDTO';
 import FallbackImage from '@/shared/ui/FallbackImage';
 
 const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {

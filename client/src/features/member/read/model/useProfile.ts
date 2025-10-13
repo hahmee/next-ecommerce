@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import { profileApi } from '@/entities/member/api/profileApi';
 import { Member } from '@/entities/member/model/Member';
-import { profileApi } from '@/entities/member/model/profileApi';
 
 export function useProfile() {
   const query = useQuery<Member>({

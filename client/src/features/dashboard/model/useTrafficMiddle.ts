@@ -2,9 +2,9 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import type { GAResponseMiddle } from '@/entities/analytics/model/GAResponse';
-import { dashboardApi } from '@/entities/analytics/model/service';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function useTrafficMiddle(

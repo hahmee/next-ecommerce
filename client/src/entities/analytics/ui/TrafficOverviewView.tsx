@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
@@ -11,22 +11,31 @@ const CardTraffic = dynamic(() => import('@/entities/analytics/ui/CardTrafficVie
   ssr: true,
   loading: () => <div className="min-h-[120px]" />,
 });
-const TrafficSessionChart = dynamic(() => import('@/entities/analytics/ui/TrafficSessionChartView'), {
-  ssr: false,
-  loading: () => <div className="min-h-[400px]">로딩중...</div>,
-});
+const TrafficSessionChart = dynamic(
+  () => import('@/entities/analytics/ui/TrafficSessionChartView'),
+  {
+    ssr: false,
+    loading: () => <div className="min-h-[400px]">로딩중...</div>,
+  },
+);
 const MultiCirclesChart = dynamic(() => import('@/entities/analytics/ui/MultiCirclesChartView'), {
   ssr: false,
   loading: () => <div className="min-h-[400px]">로딩중...</div>,
 });
-const TrafficMiddleOverview = dynamic(() => import('@/widgets/admin/dashboard-traffic/ui/TrafficMiddleOverview'), {
-  ssr: false,
-  loading: () => <div className="min-h-[400px]">로딩중...</div>,
-});
-const TrafficBottomOverview = dynamic(() => import('@/widgets/admin/dashboard-traffic/ui/TrafficBottomOverview'), {
-  ssr: false,
-  loading: () => <div className="min-h-[400px]">로딩중...</div>,
-});
+const TrafficMiddleOverview = dynamic(
+  () => import('@/widgets/admin/dashboard-traffic/ui/TrafficMiddleOverview'),
+  {
+    ssr: false,
+    loading: () => <div className="min-h-[400px]">로딩중...</div>,
+  },
+);
+const TrafficBottomOverview = dynamic(
+  () => import('@/widgets/admin/dashboard-traffic/ui/TrafficBottomOverview'),
+  {
+    ssr: false,
+    loading: () => <div className="min-h-[400px]">로딩중...</div>,
+  },
+);
 const AdminDatePicker = dynamic(() => import('@/entities/analytics/ui/AdminDatePicker'), {
   ssr: false,
   loading: () => <div style={{ height: 20 }}>로딩중...</div>,

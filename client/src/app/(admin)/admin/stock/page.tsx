@@ -1,7 +1,7 @@
 ﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { productApi } from '@/entities/product/model/service';
+import { productApi } from '@/entities/product/api/productApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import StockTable from '@/widgets/admin/stock-table/ui/StockTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';

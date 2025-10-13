@@ -3,7 +3,7 @@
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import { ChartFilter } from '@/entities/analytics/model/chartFilter';
+import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { ChartResponse } from '@/entities/analytics/model/ChartResponse';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 

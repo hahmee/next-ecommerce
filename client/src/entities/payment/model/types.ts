@@ -1,6 +1,10 @@
-﻿import { TossPaymentMethod, TossPaymentStatus, TossPaymentType } from '@/shared/model/toss';
-import { Member } from '@/entities/member/model/Member';
+﻿import { Member } from '@/entities/member/model/Member';
 import { Order } from '@/entities/order/model/types';
+import {
+  TossPaymentMethod,
+  TossPaymentStatus,
+  TossPaymentType,
+} from '@/entities/payment/consts/toss';
 
 export type Payment = {
   id: number;

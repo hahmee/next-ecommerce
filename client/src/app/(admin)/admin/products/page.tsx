@@ -1,8 +1,8 @@
 ﻿import React, { Suspense } from 'react';
 
-import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
-import { productApi } from '@/entities/product/model/service';
+import { productApi } from '@/entities/product/api/productApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import ProductTable from '@/widgets/admin/products-table/ui/ProductsTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 

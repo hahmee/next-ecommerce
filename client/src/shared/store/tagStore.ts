@@ -1,6 +1,6 @@
 ﻿import { create } from 'zustand';
-import {ColorTag} from "@/shared/model/ColorTag";
 
+import { ColorTag } from '@/shared/model/ColorTag';
 
 interface TagStore {
   tags: ColorTag[];

@@ -7,4 +7,3 @@ export default function PaymentTable() {
   const table = usePaymentTable();
   return <PaymentTableView {...table} />;
 }
-

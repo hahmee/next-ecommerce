@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { isAdmin } from '@/shared/lib/isAdmin';
 import { useLogout } from '@/features/auth/model/useLogout';
+import { isAdmin } from '@/shared/lib/isAdmin';
 import { useUserStore } from '@/shared/store/userStore';
-import SearchBar from '@/widgets/layout/ui/SearchBar';
 import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
+import SearchBar from '@/widgets/layout/ui/SearchBar';
 
 const Menu = () => {
   const pathname = usePathname();
