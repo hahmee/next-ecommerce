@@ -64,24 +64,92 @@ Next.js와 Spring Boot 기반의 쇼핑몰 플랫폼 구축 프로젝트
 ```
 next-ecommerce/
 ├─ client/ # Frontend (Next.js)
-│ └─ src/
-│ ├─ app/ # App Router (pages, layouts, server components)
-│ ├─ components/ # 공용 UI 컴포넌트
-│ ├─ apis/ # API 호출 모듈
-│ ├─ store/ # Zustand 전역 상태 관리
-│ ├─ hooks/ # Custom hooks
-│ ├─ libs/ # 라이브러리 초기화 (axios, tanstack-query 등)
-│ ├─ constants/ # 상수 값
-│ ├─ utils/ # 유틸리티 함수
-│ ├─ types/ # 전역 타입 정의
-│ └─ middleware.ts # Next.js Middleware (인증/로깅 등)
+│  └─ src/
+│     ├─ app/ # App Router (pages, layouts, server components)
+│     │   ├─ (admin)
+│     │   │   ├─ @modal
+│     │   │   └─ admin
+│     │   │       ├─ category
+│     │   │       ├─ dashboard
+│     │   │       ├─ order
+│     │   │       ├─ payment
+│     │   │       ├─ products
+│     │   │       ├─ profile
+│     │   │       ├─ stock
+│     │   │       └─ users
+│     │   └─ (home)
+│     │       ├─ @modal
+│     │       ├─ cart
+│     │       ├─ checkout
+│     │       ├─ list
+│     │       ├─ login
+│     │       ├─ order
+│     │       ├─ product
+│     │       ├─ review
+│     │       └─ signup
+│     │
+│     ├─ entities/ # 핵심 도메인 모델
+│     │   ├─ analytics
+│     │   ├─ cart
+│     │   ├─ category
+│     │   ├─ member
+│     │   ├─ order
+│     │   ├─ payment
+│     │   ├─ product
+│     │   └─ review
+│     │
+│     ├─ features/ # 특정 use-case 단위 기능
+│     │   ├─ auth
+│     │   ├─ category
+│     │   ├─ checkout
+│     │   ├─ dashboard
+│     │   ├─ member
+│     │   ├─ order
+│     │   ├─ payment
+│     │   ├─ product
+│     │   └─ review
+│     │
+│     ├─ shared/ # 공용 모듈
+│     │   ├─ config
+│     │   ├─ constants
+│     │   ├─ ga
+│     │   ├─ http
+│     │   ├─ lib
+│     │   ├─ model
+│     │   ├─ proxy
+│     │   ├─ store
+│     │   ├─ types
+│     │   ├─ ui
+│     │   └─ utils
+│     │
+│     └─ widgets/ # 복합 UI 컴포넌트
+│         ├─ admin
+│         │   ├─ categories-table
+│         │   ├─ dashboard-realtime
+│         │   ├─ dashboard-sales
+│         │   ├─ dashboard-traffic
+│         │   ├─ orders-table
+│         │   ├─ payment-overview
+│         │   ├─ payments-table
+│         │   ├─ products-table
+│         │   ├─ stock-table
+│         │   ├─ table-kit
+│         │   └─ users
+│         ├─ home
+│         │   ├─ main
+│         │   └─ profile
+│         └─ layout
+│             ├─ ga
+│             ├─ model
+│             └─ ui
 │
 ├─ back/ # Backend (Spring Boot)
-│ ├─ src/main/java/... # Controller, Service, Repository, Security
-│ └─ build.gradle # Gradle 빌드 설정
+│  ├─ src/main/java/... # Controller, Service, Repository, Security
+│  └─ build.gradle # Gradle 빌드 설정
 │
 ├─ Jenkinsfile # CI/CD 파이프라인 정의
 └─ README.md
+
 ```
 
 
