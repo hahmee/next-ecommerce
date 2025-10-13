@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { dashboardApi } from '@/entities/analytics/model/service';
 import type { TopCustomerResponse } from '@/entities/analytics/model/TopCustomerResponse';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
+import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function useTopCustomers(date: DatepickType) {
   return useQuery<TopCustomerResponse[], object, TopCustomerResponse[]>({

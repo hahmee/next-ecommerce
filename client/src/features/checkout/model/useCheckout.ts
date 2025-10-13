@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { OrderStatus } from '@/entities/common/model/orderStatus';
+import { OrderStatus } from '@/shared/model/orderStatus';
 import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order/model/types';
 import { requestTossCardPayment } from '@/entities/payment/model/paymentService';
-import { useCartStore } from '@/features/common/store/cartStore';
+import { useCartStore } from '@/shared/store/cartStore';
 import {useCreateOrderMutation} from "@/features/order/manage/model/useCreateOrderMutation";
 
 export function useCheckout() {

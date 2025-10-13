@@ -1,4 +1,4 @@
-﻿import { ColorTag } from '@/entities/common/model/ColorTag';
+﻿import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface CartItemList {
   cino: number;

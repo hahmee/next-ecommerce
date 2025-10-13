@@ -1,6 +1,6 @@
 'use client';
 
-import { useFullMenu } from '@/features/common/model/useFullMenu';
+import { useFullMenu } from '@/widgets/layout/model/useFullMenu';
 import { FullMenuView } from '@/widgets/layout/ui/FullMenuView';
 
 export default function FullMenu() {

@@ -1,4 +1,4 @@
-﻿import useColorMode from '@/features/common/model/useColorMode';
+﻿import useColorMode from '@/shared/lib/useColorMode';
 
 const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();

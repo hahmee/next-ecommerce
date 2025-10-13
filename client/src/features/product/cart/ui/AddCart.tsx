@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 
 import { CartItem } from '@/entities/cart/model/CartItem';
-import { ColorTag } from '@/entities/common/model/ColorTag';
-import { SalesStatus, SalesStatusKor } from '@/entities/common/model/salesStatus';
-import GACta from '@/features/common/ga/GACta';
-import { useCartStore } from '@/features/common/store/cartStore';
-import { useUserStore } from '@/features/common/store/userStore';
+import { ColorTag } from '@/shared/model/ColorTag';
+import { SalesStatus, SalesStatusKor } from '@/shared/model/salesStatus';
+import GACta from '@/shared/ga/GACta';
+import { useCartStore } from '@/shared/store/cartStore';
+import { useUserStore } from '@/shared/store/userStore';
 import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 
 const AddCart = ({

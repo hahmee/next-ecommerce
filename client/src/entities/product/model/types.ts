@@ -1,7 +1,7 @@
 ﻿import { Category } from '@/entities/category/model/types';
-import { ColorTag } from '@/entities/common/model/ColorTag';
-import { FileDTO } from '@/entities/common/model/FileDTO';
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { ColorTag } from '@/shared/model/ColorTag';
+import { FileDTO } from '@/shared/model/FileDTO';
+import { SalesStatus } from '@/shared/model/salesStatus';
 import { Member } from '@/entities/member/model/Member';
 
 export interface Product {

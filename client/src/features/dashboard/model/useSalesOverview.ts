@@ -9,8 +9,8 @@ import { ChartContext } from '@/entities/analytics/model/chartContext';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
 import { dashboardApi } from '@/entities/analytics/model/service';
-import type { CardResponse } from '@/entities/common/model/CardResponse';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
+import type { CardResponse } from '@/shared/model/CardResponse';
+import type { DatepickType } from '@/shared/model/DatepickType';
 
 function makeComparedRange(startStr: string, endStr: string) {
   const start = dayjs(startStr);

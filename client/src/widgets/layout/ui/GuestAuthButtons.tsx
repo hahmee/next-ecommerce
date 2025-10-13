@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import { useUserStore } from '@/features/common/store/userStore';
+import { useUserStore } from '@/shared/store/userStore';
 
 const GuestAuthButtons = () => {
   const pathname = usePathname();

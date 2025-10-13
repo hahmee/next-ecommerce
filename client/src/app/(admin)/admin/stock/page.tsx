@@ -2,9 +2,9 @@
 
 import Loading from '@/app/loading';
 import { productApi } from '@/entities/product/model/service';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import StockTable from '@/widgets/admin/stock-table/ui/StockTable';
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default function StockPage() {
   const prefetchOptions = [

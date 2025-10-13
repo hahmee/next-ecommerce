@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { Fragment } from 'react';
 
-import { DatepickType } from '@/entities/common/model/DatepickType';
+import { DatepickType } from '@/shared/model/DatepickType';
 import type { Paging } from '@/entities/order/model/Paging';
 import type { Payment } from '@/entities/payment/model/types';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';

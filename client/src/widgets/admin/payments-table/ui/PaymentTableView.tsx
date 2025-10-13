@@ -6,8 +6,8 @@ import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { DatepickType } from '@/entities/common/model/DatepickType';
-import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/entities/common/model/toss';
+import type { DatepickType } from '@/shared/model/DatepickType';
+import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/shared/model/toss';
 import type { Paging } from '@/entities/order/model/Paging';
 import type { Payment } from '@/entities/payment/model/types';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';

@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDropzone } from 'react-dropzone';
 
-import { useProductImageStore } from '@/features/common/store/productImageStore';
+import { useProductImageStore } from '@/shared/store/productImageStore';
 import ImagePreview from '@/features/product/manage/ui/ImagePreview';
 
 export interface ImageType {

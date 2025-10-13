@@ -1,9 +1,9 @@
 ﻿import React, { Suspense } from 'react';
 
-import OrderDetailSkeleton from '@/entities/common/ui/Skeletons/OrderDetailSkeleton';
+import OrderDetailSkeleton from '@/shared/ui/skeletons/OrderDetailSkeleton';
 import { authApi } from '@/entities/member/model/authService';
 import { orderApi } from '@/entities/order/model/service';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import OrderDetail from '@/widgets/home/profile/ui/OrderDetail';
 
 interface Props {

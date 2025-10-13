@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 
-import type { Option } from '@/entities/common/model/Option';
+import type { Option } from '@/shared/model/Option';
 import type { PaymentSummaryDTO } from '@/entities/payment/model/PaymentSummaryDTO';
 import { paymentApi } from '@/entities/payment/model/service';
 

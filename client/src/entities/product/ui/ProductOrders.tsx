@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
 export type OrderOption = {
   id: string;

@@ -1,4 +1,4 @@
-﻿import { fetcher } from '@/entities/http/fetcher';
+﻿import { fetcher } from '@/shared/http/fetcher';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Order } from '@/entities/order/model/types';
 import type { Payment } from '@/entities/payment/model/types';

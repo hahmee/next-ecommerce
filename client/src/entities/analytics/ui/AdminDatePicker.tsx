@@ -3,7 +3,7 @@ import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 import { DateType, DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { DatepickType } from '@/entities/common/model/DatepickType';
+import { DatepickType } from '@/shared/model/DatepickType';
 
 const AdminDatePicker = ({
   date,

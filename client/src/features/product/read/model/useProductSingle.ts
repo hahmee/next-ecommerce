@@ -3,8 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
-import type { ColorTag } from '@/entities/common/model/ColorTag';
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import type { ColorTag } from '@/shared/model/ColorTag';
+import { SalesStatus } from '@/shared/model/salesStatus';
 import { productApi } from '@/entities/product/model/service';
 import type { Product } from '@/entities/product/model/types';
 import { reviewApi } from '@/entities/review/model/service';

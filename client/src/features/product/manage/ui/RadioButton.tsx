@@ -2,7 +2,7 @@
 
 import { memo, useState } from 'react';
 
-import { Option } from '@/entities/common/model/Option';
+import { Option } from '@/shared/model/Option';
 
 interface CheckboxProps {
   options: Array<Option<string>>;

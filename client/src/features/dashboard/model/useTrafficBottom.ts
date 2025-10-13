@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import type { GAResponseBottom } from '@/entities/analytics/model/GAResponse';
 import { dashboardApi } from '@/entities/analytics/model/service';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
+import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function useTrafficBottom(
   date: DatepickType,

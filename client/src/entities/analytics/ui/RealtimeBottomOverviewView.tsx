@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const RecentVisitors = dynamic(() => import('@/entities/analytics/ui/RecentVisitors'), { ssr: false });
 const PieChart = dynamic(() => import('@/entities/analytics/ui/PieChart'), { ssr: false });

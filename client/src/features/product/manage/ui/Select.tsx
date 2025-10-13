@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-import { Option } from '@/entities/common/model/Option';
+import { Option } from '@/shared/model/Option';
 
 interface SelectProps {
   label?: string;

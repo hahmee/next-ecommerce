@@ -4,8 +4,8 @@ import React from 'react';
 
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import {TrafficBottomOverviewView} from "@/entities/analytics/ui/TrafficBottomOverviewView";
-import type { DatepickType } from '@/entities/common/model/DatepickType';
-import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import type { DatepickType } from '@/shared/model/DatepickType';
+import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 import { useTrafficBottom } from '@/features/dashboard/model/useTrafficBottom';
 
 export default function TrafficBottomOverview({

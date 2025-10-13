@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
-import { fetcher } from '@/entities/http/fetcher';
+import { fetcher } from '@/shared/http/fetcher';
 import { Review } from '@/entities/review/model/types';
 
 export const useCreateReviewMutation = (orderId: string) => {

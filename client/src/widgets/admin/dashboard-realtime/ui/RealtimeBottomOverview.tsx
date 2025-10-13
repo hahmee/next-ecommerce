@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 import { useRealtimeBottomOverview } from '@/features/dashboard/model/useRealtimeBottomOverview';
 const RealtimeBottomOverviewView = dynamic(() => import('@/entities/analytics/ui/RealtimeBottomOverviewView'), {
   ssr: false,

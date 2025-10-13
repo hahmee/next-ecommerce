@@ -2,7 +2,7 @@
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
 
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 interface MultiRadialChartProps {
   percentages: number[];

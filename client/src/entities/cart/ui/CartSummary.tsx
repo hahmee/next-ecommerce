@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import { useCartStore } from '@/features/common/store/cartStore';
+import { useCartStore } from '@/shared/store/cartStore';
 
 const CartSummary = ({
   type,

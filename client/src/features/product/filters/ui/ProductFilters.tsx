@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import { Category } from '@/entities/category/model/types';
 import { FilterOption, FilterSection } from '@/entities/product/ui/ProductListView';
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 import PriceRange from '@/features/product/filters/ui/PriceRange';
 
 type Props = {

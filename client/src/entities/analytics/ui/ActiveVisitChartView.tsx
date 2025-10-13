@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { SessionChart } from '@/entities/analytics/model/GAResponse';
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const ActiveVisitChartView = ({ chart }: { chart: SessionChart | undefined | null }) => {
   const options: ApexOptions = {

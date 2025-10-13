@@ -5,10 +5,10 @@ import React, { Suspense } from 'react';
 
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import { dashboardApi } from '@/entities/analytics/model/service';
-import DashboardSkeleton from '@/entities/common/ui/Skeletons/DashboardSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import RealtimeOverview from '@/widgets/admin/dashboard-realtime/ui/RealtimeOverview';
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default async function DashBoardRealTimePage() {
   const today = dayjs();

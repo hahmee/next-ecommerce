@@ -3,9 +3,9 @@ import Link from 'next/link';
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category/model/service';
-import FullMenuSkeleton from "@/entities/common/ui/Skeletons/FullMenuSkeleton";
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
-import SearchBar from '@/widgets/common/ui/SearchBar';
+import FullMenuSkeleton from "@/shared/ui/skeletons/FullMenuSkeleton";
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import SearchBar from '@/widgets/layout/ui/SearchBar';
 import FullMenu from '@/widgets/layout/ui/FullMenu';
 import Menu from '@/widgets/layout/ui/Menu';
 import NavIcons from '@/widgets/layout/ui/NavIcons';

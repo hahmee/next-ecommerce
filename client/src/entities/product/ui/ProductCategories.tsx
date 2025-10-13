@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React, { Fragment, useState } from 'react';
 
 import { Category } from '@/entities/category/model/types';
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
 type Props = {
   categories: Category[];

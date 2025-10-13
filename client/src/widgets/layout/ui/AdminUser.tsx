@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { useUserStore } from '@/features/common/store/userStore';
-import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import { useUserStore } from '@/shared/store/userStore';
+import ClickOutside from '@/shared/ui/ClickOutside';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

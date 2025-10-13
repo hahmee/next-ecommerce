@@ -2,7 +2,7 @@
 
 import Loading from '@/app/loading';
 import { paymentApi } from '@/entities/payment/model/service';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Confirm from '@/features/payment/confirm/ui/Confirm';
 
 interface Props {

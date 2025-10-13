@@ -1,4 +1,4 @@
-﻿import { TossPaymentMethod, TossPaymentStatus, TossPaymentType } from '@/entities/common/model/toss';
+﻿import { TossPaymentMethod, TossPaymentStatus, TossPaymentType } from '@/shared/model/toss';
 import { Member } from '@/entities/member/model/Member';
 import { Order } from '@/entities/order/model/types';
 

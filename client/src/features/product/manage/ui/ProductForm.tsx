@@ -1,5 +1,5 @@
 ﻿'use client';
-import { Mode } from '@/entities/common/model/mode';
+import { Mode } from '@/shared/model/mode';
 import {useProductForm} from "@/features/product/manage/model/useProductForm";
 import {ProductFormView} from "@/features/product/manage/ui/ProductFormView";
 

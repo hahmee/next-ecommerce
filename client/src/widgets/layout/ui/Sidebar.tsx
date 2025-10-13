@@ -7,12 +7,12 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 import { useLogout } from '@/features/auth/model/useLogout';
-import useLocalStorage from '@/features/common/model/useLocalStorage';
-import { useUserStore } from '@/features/common/store/userStore';
-import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import useLocalStorage from '@/shared/lib/useLocalStorage';
+import { useUserStore } from '@/shared/store/userStore';
+import ClickOutside from '@/shared/ui/ClickOutside';
 import SidebarItem from "@/widgets/layout/ui/SidebarItem";
 
-const Dialog = dynamic(() => import('@/widgets/common/ui/Dialog'));
+const Dialog = dynamic(() => import('@/shared/ui/Dialog'));
 
 interface SidebarProps {
   sidebarOpen: boolean;

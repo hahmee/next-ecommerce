@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 import { authApi } from '@/entities/member/model/authService';
-import { useUserStore } from '@/features/common/store/userStore';
+import { useUserStore } from '@/shared/store/userStore';
 
 export function useLogout() {
   const router = useRouter();

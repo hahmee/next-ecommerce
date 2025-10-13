@@ -8,7 +8,7 @@ import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
 import { dashboardApi } from '@/entities/analytics/model/service';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
+import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function useTrafficOverview(initialToday: string) {
   const today = dayjs(initialToday);

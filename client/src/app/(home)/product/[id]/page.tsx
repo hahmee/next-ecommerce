@@ -1,11 +1,11 @@
 ﻿import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
-import ProductSingleSkeleton from '@/entities/common/ui/Skeletons/ProductSingleSkeleton';
+import ProductSingleSkeleton from '@/shared/ui/skeletons/ProductSingleSkeleton';
 import { productApi } from '@/entities/product/model/service';
 import ProductSingle from '@/entities/product/ui/ProductSingle';
 import { reviewApi } from '@/entities/review/model/service';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 
 interface Props {
   params: { id: string };

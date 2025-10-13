@@ -5,9 +5,9 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 
-import { ColorTag } from '@/entities/common/model/ColorTag';
-import { useTagStore } from '@/features/common/store/tagStore';
-import ClickOutside from '@/widgets/common/ui/ClickOutside';
+import { ColorTag } from '@/shared/model/ColorTag';
+import { useTagStore } from '@/shared/store/tagStore';
+import ClickOutside from '@/shared/ui/ClickOutside';
 
 interface DropdownProps {
   label: string;

@@ -1,7 +1,7 @@
 ﻿'use client';
 
-import type { ColorTag } from '@/entities/common/model/ColorTag';
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import type { ColorTag } from '@/shared/model/ColorTag';
+import { SalesStatus } from '@/shared/model/salesStatus';
 import type { Product } from '@/entities/product/model/types';
 import ProductImages from '@/entities/product/ui/ProductImages';
 import type { Review } from '@/entities/review/model/types';

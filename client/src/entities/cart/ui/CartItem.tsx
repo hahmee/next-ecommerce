@@ -2,7 +2,7 @@
 import { FC } from 'react';
 
 import { CartItemList } from '@/entities/cart/model/CartItemList';
-import { useCartStore } from '@/features/common/store/cartStore';
+import { useCartStore } from '@/shared/store/cartStore';
 import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 
 interface Props {

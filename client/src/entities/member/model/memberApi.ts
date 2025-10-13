@@ -1,5 +1,5 @@
 ﻿// src/libs/services/memberApi.ts
-import { fetcher } from '@/entities/http/fetcher';
+import { fetcher } from '@/shared/http/fetcher';
 import type { Member } from '@/entities/member/model/Member';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 

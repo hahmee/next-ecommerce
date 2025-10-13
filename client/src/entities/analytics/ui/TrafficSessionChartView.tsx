@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import { SessionChart } from '@/entities/analytics/model/GAResponse';
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const TrafficSessionChartView = ({
   chart,

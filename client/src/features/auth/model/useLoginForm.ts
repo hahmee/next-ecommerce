@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';
 
-import { DataResponse } from '@/entities/common/model/DataResponse';
-import { fetcher } from '@/entities/http/fetcher';
-import { useUserStore } from '@/features/common/store/userStore';
+import { DataResponse } from '@/shared/model/DataResponse';
+import { fetcher } from '@/shared/http/fetcher';
+import { useUserStore } from '@/shared/store/userStore';
 
 export function useLoginForm() {
   const router = useRouter();

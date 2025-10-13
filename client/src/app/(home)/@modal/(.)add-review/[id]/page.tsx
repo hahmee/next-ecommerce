@@ -2,7 +2,7 @@
 
 import Loading from '@/app/loading';
 import { orderApi } from '@/entities/order/model/service';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ReviewAddModal from '@/features/review/add/ui/ReviewAddModal';
 
 interface Props {

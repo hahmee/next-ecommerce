@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { MapResponse } from '@/entities/analytics/model/MapResponse';
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const colors = ['#3C50E0', '#6577F3', '#8FD0EF', '#0FADCF'];
 

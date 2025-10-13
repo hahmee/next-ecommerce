@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import ClickOutside from "@/widgets/common/ui/ClickOutside";
+import ClickOutside from "@/shared/ui/ClickOutside";
 
 
 const ViewButton = ({ changeSize }: { changeSize: (size: number) => void }) => {

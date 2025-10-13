@@ -4,10 +4,10 @@ import React, { Suspense } from 'react';
 import { ChartContext } from '@/entities/analytics/model/chartContext';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import { dashboardApi } from '@/entities/analytics/model/service';
-import DashboardSkeleton from '@/entities/common/ui/Skeletons/DashboardSkeleton';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import SalesOverview from "@/widgets/admin/dashboard-sales/ui/SalesOverview";
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default async function DashBoardSalesPage() {
   const today = dayjs(); // 오늘

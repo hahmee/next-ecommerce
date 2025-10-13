@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { ColorTag } from '@/entities/common/model/ColorTag';
+import { ColorTag } from '@/shared/model/ColorTag';
 
 interface Props {
   colorList: Array<ColorTag>;

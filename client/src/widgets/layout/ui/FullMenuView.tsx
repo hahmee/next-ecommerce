@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 import type { Category } from '@/entities/category/model/types';
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
 interface Props {
   categories: Category[];

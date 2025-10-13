@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { SalesStatus } from '@/shared/model/salesStatus';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Paging } from '@/entities/order/model/Paging';
 import { productApi } from '@/entities/product/model/service';

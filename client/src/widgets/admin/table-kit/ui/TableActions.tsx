@@ -2,8 +2,8 @@
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import React, { useState } from 'react';
 
-import ClickOutside from '@/widgets/common/ui/ClickOutside';
-import Portal from '@/widgets/common/ui/Portal';
+import ClickOutside from '@/shared/ui/ClickOutside';
+import Portal from '@/shared/ui/Portal';
 
 const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);

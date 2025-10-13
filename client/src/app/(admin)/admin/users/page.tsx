@@ -2,9 +2,9 @@
 
 import Loading from '@/app/loading';
 import { memberApi } from '@/entities/member/model/memberApi';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import UserDashboard from "@/widgets/admin/users/ui/UserDashboard";
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 const UserDashboardPage = () => {
   const prefetchOptions = {

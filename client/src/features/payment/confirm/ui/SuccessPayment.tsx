@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import Loading from '@/app/loading';
-import { SessionExpiredError } from '@/entities/common/lib/errors';
+import { SessionExpiredError } from '@/shared/lib/errors';
 import { useConfirmPaymentMutation } from '@/features/payment/confirm/model/useConfirmPaymentMutation';
 
 interface Props {

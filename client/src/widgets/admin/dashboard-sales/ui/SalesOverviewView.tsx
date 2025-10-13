@@ -8,9 +8,9 @@ import { ChartContext } from '@/entities/analytics/model/chartContext';
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
 import CardDataStats from "@/entities/analytics/ui/CardDataStats";
-import type { CardResponse } from '@/entities/common/model/CardResponse';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import type { CardResponse } from '@/shared/model/CardResponse';
+import type { DatepickType } from '@/shared/model/DatepickType';
+import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const SalesChart = dynamic(() => import('@/entities/analytics/ui/SalesChartView'), { ssr: false });
 const TopOrderTable = dynamic(() => import('@/widgets/admin/orders-table/ui/TopOrderTable'), { ssr: false });

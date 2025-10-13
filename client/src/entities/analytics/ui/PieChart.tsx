@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const colors = ['#c3d6f3', '#0FADCF', '#3C50E0', '#6577F3'];
 

@@ -1,7 +1,7 @@
 ﻿'use client';
 
-import { useSearchBar } from '@/features/common/model/useSearchBar';
-import { SearchBarView } from '@/widgets/common/ui/SearchBarView';
+import { SearchBarView } from '@/widgets/layout/ui/SearchBarView';
+import {useSearchBar} from "@/widgets/layout/model/useSearchBar";
 
 export default function SearchBar() {
   const { searchQuery, setSearchQuery, submit } = useSearchBar();

@@ -1,10 +1,10 @@
 ﻿import React, { Suspense } from 'react';
 
-import { TableSkeleton } from '@/entities/common/ui/Skeletons/TableSkeleton';
+import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import { orderApi } from '@/entities/order/model/service';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import OrderTable from '@/widgets/admin/orders-table/ui/OrderTable';
-import Breadcrumb from '@/widgets/common/ui/Breadcrumb';
+import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
 export default async function AdminOrderPage() {
   // 테이블 기간

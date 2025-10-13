@@ -1,7 +1,7 @@
 ﻿'use client';
 import React from 'react';
 
-import type { DatepickType } from '@/entities/common/model/DatepickType';
+import type { DatepickType } from '@/shared/model/DatepickType';
 import { useTopProducts } from '@/features/dashboard/model/useTopProducts';
 import { TopOrderTableView } from '@/widgets/admin/orders-table/ui/TopOrderTableView';
 

@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import type { GAResponseMiddle } from '@/entities/analytics/model/GAResponse';
-import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
+import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const TrafficPageChart = dynamic(() => import('@/entities/analytics/ui/TrafficPageChartView'), { ssr: false });
 const TrafficSourceChart = dynamic(() => import('@/entities/analytics/ui/TrafficSourceChartView'), { ssr: false });

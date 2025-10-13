@@ -3,10 +3,10 @@ import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category/model/service';
-import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
+import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
 import { productApi } from '@/entities/product/model/service';
 import ProductList from '@/entities/product/ui/ProductList';
-import { PrefetchBoundary } from '@/features/common/model/PrefetchBoundary';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 
 interface Props {
   searchParams: { [key: string]: string | string[] | undefined };

@@ -3,7 +3,7 @@
 import type { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 
-import ReactApexChart from '@/widgets/common/ui/ReactApexChart';
+import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 // 임의로 1년치 주차별 가입자 수를 생성하는 함수 (예시)
 function generateHeatmapData(): Array<{

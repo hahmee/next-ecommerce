@@ -1,4 +1,4 @@
-import LoadingSkeleton from '@/entities/common/ui/Skeletons/LoadingSkeleton';
+import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
 export default function Loading() {
   return <LoadingSkeleton />;

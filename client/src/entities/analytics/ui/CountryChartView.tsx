@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 
 import type { MapResponse } from '@/entities/analytics/model/MapResponse';
-import LazyLoadWrapper from '@/widgets/common/ui/LazyLoadWrapper';
+import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const SalesPieChart = dynamic(() => import('@/entities/analytics/ui/SalesPieChartView'), { ssr: false });
 const CountryMap = dynamic(() => import('@/entities/analytics/ui/CountryMapView'), { ssr: false });

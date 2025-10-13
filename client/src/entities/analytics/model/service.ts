@@ -1,8 +1,8 @@
 ﻿import type { ChartRequest } from '@/entities/analytics/model/ChartRequest';
 import type { GARequest } from '@/entities/analytics/model/GARequest';
 import type { TopCustomerRequest } from '@/entities/analytics/model/TopCustomerRequest';
-import buildSearchParams from '@/entities/common/lib/buildSearchParams';
-import { fetcher } from '@/entities/http/fetcher';
+import buildSearchParams from '@/shared/lib/buildSearchParams';
+import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & {
   next?: { revalidate?: number; tags?: string[] };

@@ -6,13 +6,13 @@ import toast from 'react-hot-toast';
 import { stripHtml } from 'string-strip-html';
 
 import { CartItem } from '@/entities/cart/model/CartItem';
-import { ColorTag } from '@/entities/common/model/ColorTag';
-import { SalesStatus } from '@/entities/common/model/salesStatus';
+import { ColorTag } from '@/shared/model/ColorTag';
+import { SalesStatus } from '@/shared/model/salesStatus';
 import { Product } from '@/entities/product/model/types';
-import { useCartStore } from '@/features/common/store/cartStore';
-import { useUserStore } from '@/features/common/store/userStore';
+import { useCartStore } from '@/shared/store/cartStore';
+import { useUserStore } from '@/shared/store/userStore';
 import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
-import FallbackImage from '@/widgets/common/ui/FallbackImage';
+import FallbackImage from '@/shared/ui/FallbackImage';
 
 type ProductCardProps = {
   product: Product;

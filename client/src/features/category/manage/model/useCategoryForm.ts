@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 import { categoryApi } from '@/entities/category/model/service';
 import type { Category } from '@/entities/category/model/types';
-import { Mode } from '@/entities/common/model/mode';
+import { Mode } from '@/shared/model/mode';
 
 export interface CategoryFormValues {
   cname: string;

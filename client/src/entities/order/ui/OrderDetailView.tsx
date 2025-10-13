@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { OrderStatus } from '@/entities/common/model/orderStatus';
+import { OrderStatus } from '@/shared/model/orderStatus';
 import type { Order } from '@/entities/order/model/types';
 
 const getOrderStatusText = (status: OrderStatus): string => {

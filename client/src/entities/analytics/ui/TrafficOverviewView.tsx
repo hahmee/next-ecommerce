@@ -5,7 +5,7 @@ import React from 'react';
 
 import { ChartFilter } from '@/entities/analytics/model/chartFilter';
 import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
-import type { DatepickType } from '@/entities/common/model/DatepickType';
+import type { DatepickType } from '@/shared/model/DatepickType';
 
 const CardTraffic = dynamic(() => import('@/entities/analytics/ui/CardTrafficView'), {
   ssr: true,

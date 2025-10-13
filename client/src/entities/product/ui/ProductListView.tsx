@@ -3,16 +3,16 @@
 import React, { Fragment, Suspense } from 'react';
 
 import type { Category } from '@/entities/category/model/types';
-import { Size } from '@/entities/common/model/size';
-import ListPageSkeleton from '@/entities/common/ui/Skeletons/ListPageSkeleton';
-import ProductCardListSkeleton from '@/entities/common/ui/Skeletons/ProductCartListSkeleton';
-import ProductCardSkeleton from '@/entities/common/ui/Skeletons/ProductCartSkeleton';
+import { Size } from '@/shared/model/size';
+import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
+import ProductCardListSkeleton from '@/shared/ui/skeletons/ProductCartListSkeleton';
+import ProductCardSkeleton from '@/shared/ui/skeletons/ProductCartSkeleton';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Product } from '@/entities/product/model/types';
 import ProductCard from '@/entities/product/ui/ProductCard';
 import ProductCategories from '@/entities/product/ui/ProductCategories';
 import ProductOrders from '@/entities/product/ui/ProductOrders';
-import { useSafeSearchParams } from '@/features/common/model/useSafeSearchParams';
+import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 import FiltersBadge from '@/features/product/filters/ui/FiltersBadge';
 import ProductFilters from '@/features/product/filters/ui/ProductFilters';
 
