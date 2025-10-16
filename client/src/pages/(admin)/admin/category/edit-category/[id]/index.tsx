@@ -1,6 +1,7 @@
 import React from 'react';
-import CategoryPage from "@/pages/(admin)/admin/category";
+
 import CategoryEditModal from "@/pages/(admin)/@modal/(.)edit-category/[id]";
+import CategoryPage from "@/pages/(admin)/admin/category";
 
 
 interface Props {
