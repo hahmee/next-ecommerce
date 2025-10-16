@@ -1,6 +1,6 @@
 ﻿'use server';
 
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { categoryApi } from '@/entities/category/api/categoryApi';

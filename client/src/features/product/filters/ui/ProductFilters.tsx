@@ -1,83 +1,65 @@
 ﻿import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 
 import { Category } from '@/entities/category/model/types';
 import { FilterOption, FilterSection } from '@/entities/product/ui/ProductListView';
 import PriceRange from '@/features/product/filters/ui/PriceRange';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
-type Props = {
-  filters: FilterSection[];
-};
+type Props = { filters: FilterSection[] };
 
-const maxPrice = 1000000;
+const maxPrice = 1_000_000;
 const minPrice = 0;
 
-const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
+const ProductFilters: React.FC<Props> = ({ filters }) => {
   const router = useRouter();
   const searchParams = useSafeSearchParams();
-  const [filterStates, setFilterStates] = useState<Record<string, FilterOption[]>>({
-    category: filters[0].options,
-    size: filters[1].options,
-    color: filters[2].options,
-  });
+
+  // searchParams 객체 레퍼런스가 매번 바뀌어도, 문자열 키는 같으면 그대로 유지됨
+  const searchKey = useMemo(() => searchParams.toString(), [searchParams]);
+
+  // 상태 대신 메모: filters + searchKey -> filterStates
+  const filterStates = useMemo<Record<string, FilterOption[]>>(() => {
+    const params = new URLSearchParams(searchKey);
+    const next: Record<string, FilterOption[]> = {};
+
+    for (const section of filters) {
+      const current = params.getAll(section.id);
+      next[section.id] = section.options.map((option) => ({
+        ...option,
+        checked: current.includes(option.value),
+      }));
+    }
+
+    return next;
+  }, [filters, searchKey]);
 
   const [values, setValues] = useState([minPrice, maxPrice]);
-
   const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
-  useEffect(() => {
-    // 쿼리 문자열에서 필터 값을 가져와서 필터 상태를 업데이트
-    const newFilterStates = { ...filterStates };
-
-    filters.forEach((section) => {
-      const currentFilters = searchParams.getAll(section.id);
-      newFilterStates[section.id] = section.options.map((option) => ({
-        ...option,
-        checked: currentFilters.includes(option.value),
-      }));
-    });
-
-    setFilterStates(newFilterStates);
-  }, [searchParams, filters]);
-
   const toggleFilter = (sectionId: string, value?: string) => {
-    if (value) {
-      const params = new URLSearchParams(searchParams.toString());
-      // console.log('params', params);
-      // console.log('params...', params);
-      // 현재 필터가 적용되어 있는지 확인
-      const currentFilters = params.getAll(sectionId);
+    if (!value) return;
+    const params = new URLSearchParams(searchKey);
 
-      if (currentFilters.includes(value)) {
-        // 필터가 이미 적용되어 있으면 제거
-        params.delete(sectionId);
-        currentFilters
-          .filter((filter) => filter !== value)
-          .forEach((filter) => params.append(sectionId, filter));
-      } else {
-        // 필터가 적용되어 있지 않으면 추가
-        params.append(sectionId, value);
-      }
-
-      // 새 쿼리스트링으로 URL 업데이트
-      router.push(`/list?${params.toString()}`);
+    const current = params.getAll(sectionId);
+    if (current.includes(value)) {
+      params.delete(sectionId);
+      current.filter((x) => x !== value).forEach((x) => params.append(sectionId, x));
+    } else {
+      params.append(sectionId, value);
     }
+    router.push(`/list?${params.toString()}`);
   };
 
-  // 행 클릭 시 확장 여부 토글
   const toggleRow = (id: number) => {
-    setExpandedRows((prevExpandedRows) =>
-      prevExpandedRows.includes(id)
-        ? prevExpandedRows.filter((rowId) => rowId !== id)
-        : [...prevExpandedRows, id],
+    setExpandedRows((prev) =>
+      prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id],
     );
   };
 
-  // 재귀적으로 하위 카테고리를 렌더링하는 함수
-  const renderCategoryRows = (categories: Category[], depth: number = 0) => {
-    return categories.map((category) => (
+  const renderCategoryRows = (categories: Category[], depth = 0) =>
+    categories.map((category) => (
       <Fragment key={category.cno}>
         <li
           className="flex items-center cursor-pointer justify-between"
@@ -88,8 +70,8 @@ const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
           {category.subCategories && (
             <div
               onClick={(e) => {
-                e.stopPropagation(); // 부모 onClick 이벤트 방지
-                toggleRow(category.cno); // toggleRow 함수 호출
+                e.stopPropagation();
+                toggleRow(category.cno);
               }}
             >
               {expandedRows.includes(category.cno) ? (
@@ -105,23 +87,15 @@ const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
           renderCategoryRows(category.subCategories, depth + 1)}
       </Fragment>
     ));
-  };
 
-  const onChangePrice = (values: number[]) => {
-    setValues(values);
-  };
+  const onChangePrice = (vals: number[]) => setValues(vals);
 
   const onClickPrice = () => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    // 기존 maxPrice, minPrice 필터 삭제
+    const params = new URLSearchParams(searchKey);
     params.delete('maxPrice');
     params.delete('minPrice');
-
-    // 새로운 maxPrice, minPrice 추가
-    params.append('minPrice', values[0].toString()); // 최소값
-    params.append('maxPrice', values[1].toString()); // 최대값
-
+    params.append('minPrice', String(values[0]));
+    params.append('maxPrice', String(values[1]));
     router.push(`/list?${params.toString()}`);
   };
 
@@ -137,7 +111,8 @@ const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
               <div key={index} className="flex items-center">
                 <input
                   checked={
-                    filterStates[section.id].find((o) => o.value === option.value)?.checked || false
+                    filterStates[section.id]?.find((o) => o.value === option.value)?.checked ??
+                    false
                   }
                   id={`filter-${section.id}-${option.value}`}
                   name={`${section.id}[]`}
@@ -170,7 +145,11 @@ const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
               onClick={() => toggleFilter('color', color.value)}
             >
               <div
-                className={`w-6 h-6 rounded-lg ring-black2-400 cursor-pointer ${filterStates.color.find((o) => o.value === color.value)?.checked ? 'ring-4' : 'ring-1'}`}
+                className={`w-6 h-6 rounded-lg ring-black2-400 cursor-pointer ${
+                  filterStates.color?.find((o) => o.value === color.value)?.checked
+                    ? 'ring-4'
+                    : 'ring-1'
+                }`}
                 style={{ backgroundColor: `${color.hexCode}` }}
               />
               <div className="text-sm cursor-pointer">{color.label}</div>
@@ -198,4 +177,5 @@ const ProductFilters: React.FC<Props> = ({ filters }: Props) => {
     </>
   );
 };
+
 export default ProductFilters;

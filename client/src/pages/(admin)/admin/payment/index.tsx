@@ -1,5 +1,4 @@
-﻿// app/admin/payments/page.tsx
-import dayjs from 'dayjs';
+﻿import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
 import { paymentApi } from '@/entities/payment/api/paymentApi';

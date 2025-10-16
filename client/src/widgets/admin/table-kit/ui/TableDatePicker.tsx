@@ -1,9 +1,11 @@
-﻿import dayjs from 'dayjs';
+﻿'use client';
+
+import dayjs from 'dayjs';
 import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
-import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import { DatepickType } from '@/shared/model/DatepickType';
+import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
 
 const TableDatePicker = ({
   date,
