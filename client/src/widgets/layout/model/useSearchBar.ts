@@ -12,15 +12,17 @@ export function useSearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    setSearchQuery(searchParams.get('query') || '');
-  }, [searchParams, pathname]);
+    const urlQ = searchParams.get('query') || '';
+    // 값이 실제로 달라졌을 때만 반영
+    setSearchQuery((prev) => (prev === urlQ ? prev : urlQ));
+  }, [pathname, searchParams.toString()]);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const q = searchQuery.trim();
     const params = new URLSearchParams(searchParams.toString());
-    params.delete('query');
-    if (q) params.append('query', q);
+    if (q) params.set('query', q);
+    else params.delete('query');
     router.push(`/list?${params.toString()}`);
   };
 
