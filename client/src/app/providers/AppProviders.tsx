@@ -24,13 +24,6 @@ export default function AppProviders({ children, hasRefreshToken, gaTrackingId }
         {children}
         <Toaster />
       </RQProvider>
-
-      {/* 페이지뷰 트래킹 (클라이언트) */}
-      <GAPageView />
-
-      {/* @next/third-parties/google 의 GA는 서버/클라이언트 모두 가능하지만,
-          여기선 루트 레이아웃에서 삽입되므로 서버에서 넣고, 필요하면 아래처럼 대체 가능 */}
-      {/* gaTrackingId && <SomeClientSideGA gaId={gaTrackingId} /> */}
     </>
   );
 }
