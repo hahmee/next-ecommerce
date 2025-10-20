@@ -1,3 +1,5 @@
+// src/entities/category/model/types.ts
+
 // export type Category = {
 //   cno: number;
 //   cname: string;

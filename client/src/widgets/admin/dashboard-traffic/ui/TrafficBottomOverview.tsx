@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/dashboard-traffic/ui/TrafficBottomOverview.tsx
+
+'use client';
 
 import React from 'react';
 

@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿// src/entities/product/ui/CategoryList.tsx
+
+import React from 'react';
 
 import { Category } from '@/entities/category/model/types';
 import CategoryItem from '@/entities/product/ui/CategoryItem';

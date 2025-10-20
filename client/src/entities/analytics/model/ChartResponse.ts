@@ -1,3 +1,5 @@
+// src/entities/analytics/model/ChartResponse.ts
+
 export interface ChartResponse {
   startDate: string;
   endDate: string;

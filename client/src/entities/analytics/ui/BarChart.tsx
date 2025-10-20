@@ -1,4 +1,6 @@
-﻿import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+﻿// src/entities/analytics/ui/BarChart.tsx
+
+import { SessionDTO } from '@/entities/analytics/model/GAResponse';
 
 const BarChart = ({ data, totalSessions }: { data: SessionDTO<number>; totalSessions: number }) => {
   const percentage = (Number(data.value) / totalSessions) * 100;

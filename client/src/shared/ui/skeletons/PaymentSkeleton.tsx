@@ -1,4 +1,6 @@
-﻿import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
+﻿// src/shared/ui/skeletons/PaymentSkeleton.tsx
+
+import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 
 const PaymentSkeleton = () => {
   return (

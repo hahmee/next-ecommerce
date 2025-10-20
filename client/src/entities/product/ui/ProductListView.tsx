@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/ProductListView.tsx
+
+'use client';
 
 import React, { Fragment, Suspense } from 'react';
 

@@ -1,4 +1,6 @@
-﻿import { ColorTag } from '@/shared/model/ColorTag';
+﻿// src/entities/cart/model/CartItemList.ts
+
+import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface CartItemList {
   cino: number;

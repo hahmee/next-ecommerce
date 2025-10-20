@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/manage/ui/ImageUploadForm.tsx
+
+'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';

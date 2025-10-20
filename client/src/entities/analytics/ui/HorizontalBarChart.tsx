@@ -1,4 +1,6 @@
-﻿import type { ApexOptions } from 'apexcharts';
+﻿// src/entities/analytics/ui/HorizontalBarChart.tsx
+
+import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
 import ReactApexChart from '@/shared/ui/ReactApexChart';

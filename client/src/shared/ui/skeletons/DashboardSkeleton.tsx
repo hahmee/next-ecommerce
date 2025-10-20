@@ -1,3 +1,5 @@
+// src/shared/ui/skeletons/DashboardSkeleton.tsx
+
 const DashboardSkeleton = () => {
   return (
     <>

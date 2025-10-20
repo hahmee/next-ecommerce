@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/category/ui/CategoryTableView.tsx
+
+'use client';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import dynamic from 'next/dynamic';

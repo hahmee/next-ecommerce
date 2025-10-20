@@ -1,4 +1,6 @@
-﻿import type { Metadata } from 'next';
+﻿// src/pages/(admin)/admin/profile/index.tsx
+
+import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';

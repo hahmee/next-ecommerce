@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/payment-overview/ui/PaymentOverviewView.tsx
+
+'use client';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React from 'react';

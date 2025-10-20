@@ -1,3 +1,5 @@
+// src/shared/proxy/body.ts
+
 /**
  * 요청 바디를 한 번만 읽어 재사용하기 위해 ArrayBuffer로 획득
  * POST/PUT/PATCH 요청일 때만 실제 ArrayBuffer 반환

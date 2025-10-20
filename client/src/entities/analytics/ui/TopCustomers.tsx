@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/TopCustomers.tsx
+
+'use client';
 import React from 'react';
 
 import { TopCustomersView } from '@/entities/analytics/ui/TopCustomersView';

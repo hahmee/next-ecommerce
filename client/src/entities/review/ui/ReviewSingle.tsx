@@ -1,4 +1,6 @@
-﻿import { StarIcon } from '@heroicons/react/20/solid';
+﻿// src/entities/review/ui/ReviewSingle.tsx
+
+import { StarIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import React from 'react';
 

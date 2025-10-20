@@ -1,3 +1,5 @@
+// src/features/auth/ui/LoginView.tsx
+
 'use client';
 
 import { FormEvent } from 'react';

@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/SidebarDropdown.tsx
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';

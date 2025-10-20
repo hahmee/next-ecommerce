@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/dashboard/model/useTopProducts.ts
+
+'use client';
 import { useQuery } from '@tanstack/react-query';
 
 import { dashboardApi } from '@/entities/analytics/api/dashboardApi';

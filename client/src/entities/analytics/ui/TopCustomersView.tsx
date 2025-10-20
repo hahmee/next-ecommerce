@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/TopCustomersView.tsx
+
+'use client';
 import Image from 'next/image';
 import React from 'react';
 

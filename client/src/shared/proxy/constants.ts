@@ -1,3 +1,5 @@
+// src/shared/proxy/constants.ts
+
 export const API_BASE_URL = process.env.BACKEND_URL!;
 
 export const ACCESS_TOKEN_COOKIE = 'access_token';

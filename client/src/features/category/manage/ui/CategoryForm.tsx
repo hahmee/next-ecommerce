@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/category/manage/ui/CategoryForm.tsx
+
+'use client';
 
 import { useCategoryForm } from '@/features/category/manage/model/useCategoryForm';
 import { CategoryFormView } from '@/features/category/manage/ui/CategoryFormView';

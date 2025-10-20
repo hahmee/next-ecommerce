@@ -1,4 +1,6 @@
-﻿import type { CartItemList } from '@/entities/cart/model/CartItemList';
+﻿// src/entities/cart/api/cartApi.ts
+
+import type { CartItemList } from '@/entities/cart/model/CartItemList';
 import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };

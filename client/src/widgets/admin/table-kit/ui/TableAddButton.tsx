@@ -1,3 +1,5 @@
+// src/widgets/admin/table-kit/ui/TableAddButton.tsx
+
 import Link from 'next/link';
 
 const TableAddButton = ({

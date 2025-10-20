@@ -1,4 +1,6 @@
-﻿'use server';
+﻿// src/pages/(admin)/@modal/(.)add-category/[id]/index.tsx
+
+'use server';
 
 import { Suspense } from 'react';
 

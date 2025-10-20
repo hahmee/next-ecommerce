@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/orders-table/ui/TopOrderTable.tsx
+
+'use client';
 import React from 'react';
 
 import { useTopProducts } from '@/features/dashboard/model/useTopProducts';

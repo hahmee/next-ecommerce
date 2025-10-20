@@ -1,3 +1,5 @@
+// app/error.tsx
+
 //src/app/error.tsx
 'use client';
 

@@ -1,4 +1,6 @@
-﻿import { MemberRole } from '@/entities/member/consts/MemberRole';
+﻿// src/shared/lib/isAdmin.ts
+
+import { MemberRole } from '@/entities/member/consts/MemberRole';
 import { MemberPublic } from '@/entities/member/model/MemberPublic';
 
 export function isAdmin(user?: MemberPublic | null) {

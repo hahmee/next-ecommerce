@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/payment/confirm/ui/ConfirmView.tsx
+
+'use client';
 
 import Link from 'next/link';
 import React from 'react';

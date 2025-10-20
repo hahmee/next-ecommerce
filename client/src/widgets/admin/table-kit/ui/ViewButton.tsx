@@ -1,3 +1,5 @@
+// src/widgets/admin/table-kit/ui/ViewButton.tsx
+
 import { useState } from 'react';
 
 import ClickOutside from '@/shared/ui/ClickOutside';

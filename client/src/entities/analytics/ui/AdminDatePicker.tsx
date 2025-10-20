@@ -1,4 +1,6 @@
-﻿import dayjs from 'dayjs';
+﻿// src/entities/analytics/ui/AdminDatePicker.tsx
+
+import dayjs from 'dayjs';
 import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
 import { DateType, DateValueType } from 'react-tailwindcss-datepicker/dist/types';

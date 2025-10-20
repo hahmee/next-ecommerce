@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/manage/ui/ProductForm.tsx
+
+'use client';
 import { useProductForm } from '@/features/product/manage/model/useProductForm';
 import { ProductFormView } from '@/features/product/manage/ui/ProductFormView';
 import { Mode } from '@/shared/constants/mode';

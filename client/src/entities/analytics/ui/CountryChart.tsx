@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/CountryChart.tsx
+
+'use client';
 import React from 'react';
 
 import { CountryChartView } from '@/entities/analytics/ui/CountryChartView';

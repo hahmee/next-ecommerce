@@ -1,4 +1,6 @@
-﻿import { MemberRole } from '@/entities/member/consts/MemberRole';
+﻿// src/entities/member/model/Member.ts
+
+import { MemberRole } from '@/entities/member/consts/MemberRole';
 
 export interface Member {
   email: string;

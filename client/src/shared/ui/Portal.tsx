@@ -1,3 +1,5 @@
+// src/shared/ui/Portal.tsx
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 

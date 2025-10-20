@@ -1,4 +1,6 @@
-﻿import React, { ReactNode } from 'react';
+﻿// src/entities/analytics/ui/CardDataStats.tsx
+
+import React, { ReactNode } from 'react';
 
 import { ChartContext } from '@/entities/analytics/consts/ChartContext';
 

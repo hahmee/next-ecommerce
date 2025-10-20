@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/dashboard/model/useSalesOverview.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';

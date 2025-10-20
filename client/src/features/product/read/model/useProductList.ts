@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/read/model/useProductList.ts
+
+'use client';
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';

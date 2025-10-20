@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/payments-table/model/usePaymentTable.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';

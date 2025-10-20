@@ -1,3 +1,5 @@
+// src/widgets/home/profile/ui/UserReviews.tsx
+
 'use client';
 
 import { useMyReviews } from '@/features/review/read/model/useMyReviews';

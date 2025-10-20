@@ -1,4 +1,5 @@
-// src/libs/services/utils/buildSearchParams.ts
+// src/shared/lib/buildSearchParams.ts
+
 
 export type QueryPrimitive = string | number | boolean | Date | null | undefined;
 export type QueryValue = QueryPrimitive | QueryPrimitive[];

@@ -1,4 +1,6 @@
-﻿import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+﻿// src/features/product/filters/ui/ProductFilters.tsx
+
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useMemo, useState } from 'react';
 

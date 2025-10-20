@@ -1,4 +1,5 @@
-﻿// src/hooks/useLogout.ts
+﻿// src/features/auth/model/useLogout.ts
+
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';

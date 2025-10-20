@@ -1,3 +1,5 @@
+// src/entities/payment/consts/toss.ts
+
 export enum TossPaymentMethod {
   CARD = '카드', // 카드 결제
   CASH = '현금', // 현금 결제

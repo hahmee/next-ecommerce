@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/FullMenu.tsx
+
 'use client';
 
 import { useFullMenu } from '@/widgets/layout/model/useFullMenu';

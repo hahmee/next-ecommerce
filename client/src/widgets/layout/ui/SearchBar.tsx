@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/layout/ui/SearchBar.tsx
+
+'use client';
 
 import { useSearchBar } from '@/widgets/layout/model/useSearchBar';
 import { SearchBarView } from '@/widgets/layout/ui/SearchBarView';

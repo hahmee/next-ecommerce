@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/cart/ui/CartModal.tsx
+
+'use client';
 
 import { useRouter } from 'next/navigation';
 import React from 'react';

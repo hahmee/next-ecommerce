@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/Menu.tsx
+
 'use client';
 
 import Image from 'next/image';

@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/shared/ui/UserSyncHandler.tsx
+
+'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';

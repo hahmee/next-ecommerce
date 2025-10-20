@@ -1,4 +1,6 @@
-﻿import { ColorTag } from '@/shared/model/ColorTag';
+﻿// src/entities/analytics/model/TopProductResponse.ts
+
+import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface TopProductResponse {
   pno: number;

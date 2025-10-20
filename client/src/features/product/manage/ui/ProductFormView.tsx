@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/manage/ui/ProductFormView.tsx
+
+'use client';
 
 import Link from 'next/link';
 

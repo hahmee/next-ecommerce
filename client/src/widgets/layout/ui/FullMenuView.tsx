@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/layout/ui/FullMenuView.tsx
+
+'use client';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';

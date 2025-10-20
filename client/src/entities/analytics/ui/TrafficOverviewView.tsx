@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/TrafficOverviewView.tsx
+
+'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';

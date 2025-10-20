@@ -1,4 +1,6 @@
-﻿import { StarIcon } from '@heroicons/react/20/solid';
+﻿// src/entities/product/ui/ProductCard.tsx
+
+import { StarIcon } from '@heroicons/react/20/solid';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { useState } from 'react';

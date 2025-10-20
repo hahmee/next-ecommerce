@@ -1,4 +1,6 @@
-﻿import type { ApexOptions } from 'apexcharts';
+﻿// src/entities/analytics/ui/SalesPieChartView.tsx
+
+import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
 import { MapResponse } from '@/entities/analytics/model/MapResponse';

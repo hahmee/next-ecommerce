@@ -1,3 +1,5 @@
+// src/shared/http/publicFetcher.ts
+
 const isServer = typeof window === 'undefined';
 const BASE = process.env.BACKEND_URL!; // 서버에서만 사용
 

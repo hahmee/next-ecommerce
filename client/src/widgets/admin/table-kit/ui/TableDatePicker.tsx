@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/table-kit/ui/TableDatePicker.tsx
+
+'use client';
 
 import dayjs from 'dayjs';
 import React from 'react';

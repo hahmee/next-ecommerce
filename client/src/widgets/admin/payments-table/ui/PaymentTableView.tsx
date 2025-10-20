@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/payments-table/ui/PaymentTableView.tsx
+
+'use client';
 
 import 'dayjs/locale/ko';
 

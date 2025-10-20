@@ -1,4 +1,5 @@
-﻿// src/components/Home/Profile/OrderDetail/OrderDetailView.tsx
+﻿// src/entities/order/ui/OrderDetailView.tsx
+
 'use client';
 
 import dayjs from 'dayjs';

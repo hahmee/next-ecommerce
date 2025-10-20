@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/stock-table/model/useStockTable.ts
+
+'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useEffect, useState } from 'react';

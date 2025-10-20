@@ -1,3 +1,5 @@
+// src/entities/order/model/PageResponse.ts
+
 export interface PageResponse<T> {
   totalCount: number;
   prevPage: number;

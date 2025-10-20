@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/manage/ui/Select.tsx
+
+'use client';
 
 import React, { useState } from 'react';
 

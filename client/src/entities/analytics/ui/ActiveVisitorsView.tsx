@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿// src/entities/analytics/ui/ActiveVisitorsView.tsx
+
+import React from 'react';
 
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';
 

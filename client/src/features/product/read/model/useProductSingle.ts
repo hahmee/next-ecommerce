@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/read/model/useProductSingle.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';

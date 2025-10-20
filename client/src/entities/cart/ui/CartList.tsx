@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/cart/ui/CartList.tsx
+
+'use client';
 
 import SingleCartItem from '@/entities/cart/ui/SingleCartItem';
 import { useCartStore } from '@/shared/store/cartStore';

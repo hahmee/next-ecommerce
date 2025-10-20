@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/CountryTrafficMapView.tsx
+
+'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
 import '@/shared/utils/js/world';

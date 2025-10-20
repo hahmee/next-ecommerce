@@ -1,4 +1,6 @@
-﻿import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
+﻿// src/widgets/layout/ui/Header.tsx
+
+import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';
 

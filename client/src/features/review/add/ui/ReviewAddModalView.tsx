@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/review/add/ui/ReviewAddModalView.tsx
+
+'use client';
 
 import { StarIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';

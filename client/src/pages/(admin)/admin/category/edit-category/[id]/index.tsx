@@ -1,3 +1,5 @@
+// src/pages/(admin)/admin/category/edit-category/[id]/index.tsx
+
 import React from 'react';
 
 import CategoryEditModal from "@/pages/(admin)/@modal/(.)edit-category/[id]";

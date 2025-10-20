@@ -1,4 +1,6 @@
-﻿import React, { Suspense } from 'react';
+﻿// src/pages/(admin)/admin/order/index.tsx
+
+import React, { Suspense } from 'react';
 
 import { orderApi } from '@/entities/order/api/orderApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';

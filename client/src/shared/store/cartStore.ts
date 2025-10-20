@@ -1,4 +1,6 @@
-﻿import { create } from 'zustand';
+﻿// src/shared/store/cartStore.ts
+
+import { create } from 'zustand';
 
 import { CartItemList } from '@/entities/cart/model/CartItemList';
 

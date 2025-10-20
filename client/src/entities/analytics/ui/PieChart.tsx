@@ -1,4 +1,6 @@
-﻿import type { ApexOptions } from 'apexcharts';
+﻿// src/entities/analytics/ui/PieChart.tsx
+
+import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';

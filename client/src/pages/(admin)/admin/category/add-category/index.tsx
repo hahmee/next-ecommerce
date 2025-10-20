@@ -1,4 +1,6 @@
-import CategoryAddModal from "@/pages/(admin)/@modal/(.)add-category/[id]";
+// src/pages/(admin)/admin/category/add-category/index.tsx
+
+import CategoryAddModal from "@/pages/(admin)/@modal/(.)add-category/[id]/add-category-page";
 import CategoryPage from "@/pages/(admin)/admin/category";
 
 

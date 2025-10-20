@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/categories-table/model/useCategoriesTable.ts
+
+'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';

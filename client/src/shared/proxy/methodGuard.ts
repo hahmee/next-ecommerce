@@ -1,3 +1,5 @@
+// src/shared/proxy/methodGuard.ts
+
 import { NextResponse } from 'next/server';
 
 import { ALLOWED_METHODS } from '@/shared/proxy/constants';

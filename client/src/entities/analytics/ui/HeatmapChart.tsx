@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/HeatmapChart.tsx
+
+'use client';
 
 import type { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';

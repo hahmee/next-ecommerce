@@ -1,3 +1,5 @@
+// src/shared/ui/skeletons/FullMenuSkeleton.tsx
+
 import { Fragment } from 'react';
 
 const FullMenuSkeleton = () => {

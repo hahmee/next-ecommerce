@@ -1,4 +1,6 @@
-﻿import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
+﻿// src/pages/(home)/list/index.tsx
+
+import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 

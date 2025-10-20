@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/review/read/model/useMyReviews.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 

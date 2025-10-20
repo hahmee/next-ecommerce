@@ -1,4 +1,6 @@
-﻿'use server';
+﻿// src/pages/(admin)/admin/dashboard/real-time/index.tsx
+
+'use server';
 
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';

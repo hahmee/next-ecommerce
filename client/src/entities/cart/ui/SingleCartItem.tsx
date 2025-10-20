@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/cart/ui/SingleCartItem.tsx
+
+'use client';
 
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
 import { TrashIcon } from '@heroicons/react/24/outline';

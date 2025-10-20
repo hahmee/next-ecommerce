@@ -1,4 +1,6 @@
-﻿import { useEffect, useState } from 'react';
+﻿// src/entities/category/ui/CategorySelect.tsx
+
+import { useEffect, useState } from 'react';
 
 import { Category } from '@/entities/category/model/types';
 import CategoryList from '@/entities/product/ui/CategoryList';

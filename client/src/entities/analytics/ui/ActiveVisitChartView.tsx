@@ -1,4 +1,6 @@
-﻿import type { ApexOptions } from 'apexcharts';
+﻿// src/entities/analytics/ui/ActiveVisitChartView.tsx
+
+import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
 import { SessionChart } from '@/entities/analytics/model/GAResponse';

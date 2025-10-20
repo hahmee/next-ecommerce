@@ -1,4 +1,6 @@
-﻿import React, { Suspense } from 'react';
+﻿// src/pages/(admin)/admin/products/add-product/index.tsx
+
+import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category/api/categoryApi';
 import ProductForm from '@/features/product/manage/ui/ProductForm';

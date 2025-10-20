@@ -1,3 +1,5 @@
+// src/shared/config/ga.ts
+
 export const GA_CTA_EVENTS = {
   onClickAppDownloadCTA: 'click_cta_app_download',
   onClickNavigationCTA: 'click_cta_navigation',

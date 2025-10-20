@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿// app/(home)/layout.tsx
+
+import React from 'react';
 
 import Footer from '@/widgets/layout/ui/Footer';
 import Navbar from '@/widgets/layout/ui/Navbar';

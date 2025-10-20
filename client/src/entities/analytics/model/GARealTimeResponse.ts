@@ -1,4 +1,6 @@
-﻿import { SessionChart, SessionDTO } from '@/entities/analytics/model/GAResponse';
+﻿// src/entities/analytics/model/GARealTimeResponse.ts
+
+import { SessionChart, SessionDTO } from '@/entities/analytics/model/GAResponse';
 
 export interface GARealTimeResponse {
   recentVisitors: Array<SessionDTO<number>>;

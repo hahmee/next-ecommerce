@@ -1,3 +1,5 @@
+// src/shared/ui/PrefetchBoundary.tsx
+
 'use server';
 import {
   dehydrate,

@@ -1,4 +1,6 @@
-﻿import Link from 'next/link';
+﻿// src/widgets/layout/ui/SidebarItem.tsx
+
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 

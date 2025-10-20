@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿// src/entities/review/ui/Reviews.tsx
+
+import React from 'react';
 
 import { Review } from '@/entities/review/model/types';
 import ReviewSingle from '@/entities/review/ui/ReviewSingle';

@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/review/read/model/useReviewAdd.ts
+
+'use client';
 import { useRouter } from 'next/navigation';
 
 import type { Review } from '@/entities/review/model/types';

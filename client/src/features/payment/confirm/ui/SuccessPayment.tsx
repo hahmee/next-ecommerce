@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/payment/confirm/ui/SuccessPayment.tsx
+
+'use client';
 
 import { sendGAEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';

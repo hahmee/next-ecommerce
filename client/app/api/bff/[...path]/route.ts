@@ -1,4 +1,6 @@
-﻿import { cookies } from 'next/headers';
+﻿// app/api/bff/[...path]/route.ts
+
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { readBodyBuffer } from '@/shared/proxy/body';

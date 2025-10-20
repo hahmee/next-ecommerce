@@ -1,4 +1,6 @@
-﻿import { MetadataRoute } from 'next';
+﻿// app/sitemap.ts
+
+import { MetadataRoute } from 'next';
 
 import { categoryApi } from '@/entities/category/api/categoryApi';
 import { Category } from '@/entities/category/model/types';

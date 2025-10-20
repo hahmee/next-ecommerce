@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/home/profile/ui/UserReviewsView.tsx
+
+'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
 import dayjs from 'dayjs';

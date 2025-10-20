@@ -1,4 +1,6 @@
-﻿// 클라이언트 전용 fetcher (쿠키는 자동 포함)
+﻿// src/shared/http/clientFetcher.ts
+
+// 클라이언트 전용 fetcher (쿠키는 자동 포함)
 import { SessionExpiredError } from '@/shared/lib/errors';
 
 export const clientFetcher = async <T = any>(

@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/category/manage/ui/CategoryFormView.tsx
+
+'use client';
 
 import Image from 'next/image';
 import React from 'react';

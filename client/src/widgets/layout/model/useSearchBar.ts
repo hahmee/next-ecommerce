@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/layout/model/useSearchBar.ts
+
+'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';

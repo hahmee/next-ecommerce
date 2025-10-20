@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/Footer.tsx
+
 import Image from 'next/image';
 import Link from 'next/link';
 

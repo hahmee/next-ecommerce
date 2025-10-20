@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/ProductSingleView.tsx
+
+'use client';
 
 import { SalesStatus } from '@/entities/product/consts/SalesStatus';
 import type { Product } from '@/entities/product/model/types';

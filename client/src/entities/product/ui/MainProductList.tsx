@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/MainProductList.tsx
+
+'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';

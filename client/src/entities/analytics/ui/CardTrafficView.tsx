@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿// src/entities/analytics/ui/CardTrafficView.tsx
+
+import React from 'react';
 
 import { GAResponseTop } from '@/entities/analytics/model/GAResponse';
 

@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/dashboard/model/useTrafficBottom.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 

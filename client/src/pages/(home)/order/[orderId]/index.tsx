@@ -1,4 +1,6 @@
-﻿import React, { Suspense } from 'react';
+﻿// src/pages/(home)/order/[orderId]/index.tsx
+
+import React, { Suspense } from 'react';
 
 import { authApi } from '@/entities/member/api/authApi';
 import { orderApi } from '@/entities/order/api/orderApi';

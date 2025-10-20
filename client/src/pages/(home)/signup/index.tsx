@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/pages/(home)/signup/index.tsx
+
+'use client';
 
 import { useSignupForm } from '@/features/auth/model/useSignupForm';
 import SignupView from '@/features/auth/ui/SignupView';

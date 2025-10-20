@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/shared/ui/SessionExpiredRedirect.tsx
+
+'use client';
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';

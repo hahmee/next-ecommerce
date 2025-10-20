@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/users/ui/UserListView.tsx
+
+'use client';
 
 import dayjs from 'dayjs';
 import Image from 'next/image';

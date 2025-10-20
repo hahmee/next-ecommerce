@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/products-table/model/useProductsTable.ts
+
+'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';

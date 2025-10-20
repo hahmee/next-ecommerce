@@ -1,4 +1,6 @@
-﻿import React, { Suspense } from 'react';
+﻿// src/pages/(home)/order/confirmation/[paymentKey]/index.tsx
+
+import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { paymentApi } from '@/entities/payment/api/paymentApi';

@@ -1,3 +1,5 @@
+// src/shared/lib/isAuthProtected.ts
+
 /** 인증이 필요한 API 경로인지 여부 판단 */
 export function isAuthProtected(path: string): boolean {
   const protectedPaths = [

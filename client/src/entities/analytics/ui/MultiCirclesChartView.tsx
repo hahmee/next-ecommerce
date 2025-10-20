@@ -1,4 +1,6 @@
-﻿import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
+﻿// src/entities/analytics/ui/MultiCirclesChartView.tsx
+
+import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
 

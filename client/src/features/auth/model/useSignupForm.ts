@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/auth/model/useSignupForm.ts
+
+'use client';
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';

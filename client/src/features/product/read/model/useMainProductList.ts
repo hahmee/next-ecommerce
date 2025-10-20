@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/read/model/useMainProductList.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';

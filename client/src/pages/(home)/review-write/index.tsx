@@ -1,3 +1,5 @@
+// src/pages/(home)/review-write/index.tsx
+
 import React from 'react';
 
 import ReviewModalPage from '@/app/(home)/@modal/(.)add-review/[id]/page';

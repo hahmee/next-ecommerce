@@ -1,3 +1,5 @@
+// src/features/product/filters/ui/PriceRange.tsx
+
 import React, { useState } from 'react';
 import { Range } from 'react-range';
 

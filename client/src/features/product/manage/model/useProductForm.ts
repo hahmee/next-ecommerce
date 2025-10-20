@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/manage/model/useProductForm.ts
+
+'use client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';

@@ -1,4 +1,6 @@
-﻿import Image from 'next/image';
+﻿// src/entities/cart/ui/CartItem.tsx
+
+import Image from 'next/image';
 import { FC } from 'react';
 
 import { CartItemList } from '@/entities/cart/model/CartItemList';

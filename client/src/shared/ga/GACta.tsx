@@ -1,3 +1,5 @@
+// src/shared/ga/GACta.tsx
+
 'use client';
 
 import { sendGAEvent } from '@next/third-parties/google';

@@ -1,4 +1,6 @@
-﻿import type { Metadata } from 'next';
+﻿// src/pages/(home)/product/[id]/index.tsx
+
+import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 
 import { productApi } from '@/entities/product/api/productApi';

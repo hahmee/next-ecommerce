@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/ProductSingle.tsx
+
+'use client';
 
 import { ProductSingleView } from '@/entities/product/ui/ProductSingleView';
 import { useProductSingle } from '@/features/product/read/model/useProductSingle';

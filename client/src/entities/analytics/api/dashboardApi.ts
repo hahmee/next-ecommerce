@@ -1,4 +1,6 @@
-﻿import type { ChartRequest } from '@/entities/analytics/model/ChartRequest';
+﻿// src/entities/analytics/api/dashboardApi.ts
+
+import type { ChartRequest } from '@/entities/analytics/model/ChartRequest';
 import type { GARequest } from '@/entities/analytics/model/GARequest';
 import type { TopCustomerRequest } from '@/entities/analytics/model/TopCustomerRequest';
 import { fetcher } from '@/shared/http/fetcher';

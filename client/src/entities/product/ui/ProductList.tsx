@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/ProductList.tsx
+
+'use client';
 
 import React from 'react';
 

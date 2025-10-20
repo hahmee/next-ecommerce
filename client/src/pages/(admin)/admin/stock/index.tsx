@@ -1,4 +1,6 @@
-﻿import React, { Suspense } from 'react';
+﻿// src/pages/(admin)/admin/stock/index.tsx
+
+import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { productApi } from '@/entities/product/api/productApi';

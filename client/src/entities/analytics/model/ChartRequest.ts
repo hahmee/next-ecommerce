@@ -1,4 +1,6 @@
-﻿import { ChartContext } from '@/entities/analytics/consts/ChartContext';
+﻿// src/entities/analytics/model/ChartRequest.ts
+
+import { ChartContext } from '@/entities/analytics/consts/ChartContext';
 import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 
 export interface ChartRequest {

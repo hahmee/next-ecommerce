@@ -1,3 +1,5 @@
+// src/shared/ui/skeletons/Skeleton.tsx
+
 const Skeleton = () => {
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap animate-pulse ">

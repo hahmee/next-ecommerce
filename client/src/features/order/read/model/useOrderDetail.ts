@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/order/read/model/useOrderDetail.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 

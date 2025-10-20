@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/users/ui/UserDashboard.tsx
+
+'use client';
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';

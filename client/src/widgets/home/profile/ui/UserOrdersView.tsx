@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/home/profile/ui/UserOrdersView.tsx
+
+'use client';
 
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';

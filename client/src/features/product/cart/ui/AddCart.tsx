@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/cart/ui/AddCart.tsx
+
+'use client';
 
 import React, { useState } from 'react';
 

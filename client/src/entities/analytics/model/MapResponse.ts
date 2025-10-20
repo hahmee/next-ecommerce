@@ -1,3 +1,5 @@
+// src/entities/analytics/model/MapResponse.ts
+
 export interface MapResponse {
   country: string;
   totalSales: number;

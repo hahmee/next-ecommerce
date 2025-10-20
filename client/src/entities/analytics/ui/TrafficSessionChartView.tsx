@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/analytics/ui/TrafficSessionChartView.tsx
+
+'use client';
 
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';

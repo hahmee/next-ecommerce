@@ -1,4 +1,6 @@
-﻿import { Suspense } from 'react';
+﻿// src/pages/(admin)/@modal/(.)edit-category/[id]/index.tsx
+
+import { Suspense } from 'react';
 
 import Loading from "@/app/loading";
 import { categoryApi } from '@/entities/category/api/categoryApi';

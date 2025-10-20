@@ -1,4 +1,6 @@
-﻿import { XMarkIcon } from '@heroicons/react/20/solid';
+﻿// src/features/product/filters/ui/FiltersBadge.tsx
+
+import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 

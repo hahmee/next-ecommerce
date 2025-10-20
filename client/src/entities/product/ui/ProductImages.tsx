@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/ProductImages.tsx
+
+'use client';
 
 import { useState } from 'react';
 

@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/products-table/ui/ProductsTableView.tsx
+
+'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
 import dynamic from 'next/dynamic';

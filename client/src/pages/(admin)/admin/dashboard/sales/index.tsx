@@ -1,4 +1,6 @@
-﻿import dayjs from 'dayjs';
+﻿// src/pages/(admin)/admin/dashboard/sales/index.tsx
+
+import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
 import { dashboardApi } from '@/entities/analytics/api/dashboardApi';

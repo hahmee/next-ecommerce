@@ -1,4 +1,6 @@
-﻿import React, { Suspense } from 'react';
+﻿// src/pages/(home)/@modal/(.)add-review/[id]/index.tsx
+
+import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { orderApi } from '@/entities/order/api/orderApi';

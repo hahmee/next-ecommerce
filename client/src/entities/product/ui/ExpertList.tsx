@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/entities/product/ui/ExpertList.tsx
+
+'use client';
 
 import { ArrowLongLeftIcon, ArrowLongRightIcon, StarIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';

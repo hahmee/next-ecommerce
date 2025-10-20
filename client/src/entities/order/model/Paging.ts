@@ -1,3 +1,5 @@
+// src/entities/order/model/Paging.ts
+
 export interface Paging {
   totalCount: number;
   prevPage: number;

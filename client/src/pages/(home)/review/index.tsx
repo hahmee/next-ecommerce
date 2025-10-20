@@ -1,4 +1,6 @@
-﻿import type { Metadata } from 'next';
+﻿// src/pages/(home)/review/index.tsx
+
+import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import React, { Suspense } from 'react';
 

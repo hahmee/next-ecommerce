@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/product/read/model/useExpertProducts.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 

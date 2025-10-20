@@ -1,3 +1,5 @@
+// src/widgets/admin/table-kit/ui/TableSearch.tsx
+
 import { useState } from 'react';
 
 const TableSearch = ({

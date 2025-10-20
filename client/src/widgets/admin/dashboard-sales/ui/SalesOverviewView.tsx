@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/widgets/admin/dashboard-sales/ui/SalesOverviewView.tsx
+
+'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';

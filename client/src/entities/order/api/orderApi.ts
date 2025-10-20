@@ -1,4 +1,6 @@
-﻿import type { PageResponse } from '@/entities/order/model/PageResponse';
+﻿// src/entities/order/api/orderApi.ts
+
+import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Order } from '@/entities/order/model/types';
 import type { Payment } from '@/entities/payment/model/types';
 import { fetcher } from '@/shared/http/fetcher';

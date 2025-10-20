@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/member/read/model/useProfile.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 

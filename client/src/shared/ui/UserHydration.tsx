@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/shared/ui/UserHydration.tsx
+
+'use client';
 
 import { useEffect } from 'react';
 

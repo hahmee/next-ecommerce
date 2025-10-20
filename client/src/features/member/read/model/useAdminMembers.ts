@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/member/read/model/useAdminMembers.ts
+
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 

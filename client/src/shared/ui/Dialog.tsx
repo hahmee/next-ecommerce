@@ -1,3 +1,5 @@
+// src/shared/ui/Dialog.tsx
+
 interface DialogProps {
   content: string;
   clickModal: () => void;

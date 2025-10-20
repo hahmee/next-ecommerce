@@ -1,4 +1,6 @@
-﻿import { Member } from '@/entities/member/model/Member';
+﻿// src/entities/review/model/types.ts
+
+import { Member } from '@/entities/member/model/Member';
 import { Order } from '@/entities/order/model/types';
 
 export interface Review {

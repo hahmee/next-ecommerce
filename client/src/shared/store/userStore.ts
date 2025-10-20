@@ -1,4 +1,6 @@
-﻿import { create } from 'zustand';
+﻿// src/shared/store/userStore.ts
+
+import { create } from 'zustand';
 
 import { MemberPublic } from '@/entities/member/model/MemberPublic';
 

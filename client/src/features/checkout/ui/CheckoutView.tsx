@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/checkout/ui/CheckoutView.tsx
+
+'use client';
 
 import React from 'react';
 

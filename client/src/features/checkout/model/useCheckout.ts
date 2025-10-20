@@ -1,4 +1,6 @@
-﻿'use client';
+﻿// src/features/checkout/model/useCheckout.ts
+
+'use client';
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';

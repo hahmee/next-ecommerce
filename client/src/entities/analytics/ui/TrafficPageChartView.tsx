@@ -1,4 +1,6 @@
-﻿import React from 'react';
+﻿// src/entities/analytics/ui/TrafficPageChartView.tsx
+
+import React from 'react';
 
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';
 import HorizontalBarChart from '@/entities/analytics/ui/HorizontalBarChart';

@@ -1,3 +1,5 @@
+// src/shared/ui/ClickOutside.tsx
+
 import React, { useEffect, useRef } from 'react';
 
 interface Props {
