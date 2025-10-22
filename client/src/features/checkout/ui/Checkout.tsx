@@ -1,3 +1,5 @@
+// src/features/checkout/ui/Checkout.tsx
+
 ﻿// src/features/checkout/ui/Checkout.tsx
 
 'use client';

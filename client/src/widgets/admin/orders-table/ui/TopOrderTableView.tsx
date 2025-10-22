@@ -1,3 +1,5 @@
+// src/widgets/admin/orders-table/ui/TopOrderTableView.tsx
+
 ﻿// src/widgets/admin/orders-table/ui/TopOrderTableView.tsx
 
 'use client';

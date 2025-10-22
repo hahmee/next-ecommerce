@@ -1,4 +1,5 @@
-﻿// src/entities/order/ui/OrderDetailView.tsx
+// src/entities/order/ui/OrderDetailView.tsx
+
 
 'use client';
 

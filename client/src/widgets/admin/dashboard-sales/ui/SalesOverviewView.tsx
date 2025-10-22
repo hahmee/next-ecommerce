@@ -1,3 +1,5 @@
+// src/widgets/admin/dashboard-sales/ui/SalesOverviewView.tsx
+
 ﻿// src/widgets/admin/dashboard-sales/ui/SalesOverviewView.tsx
 
 'use client';

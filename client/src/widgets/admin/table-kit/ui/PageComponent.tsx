@@ -1,3 +1,5 @@
+// src/widgets/admin/table-kit/ui/PageComponent.tsx
+
 ﻿// src/widgets/admin/table-kit/ui/PageComponent.tsx
 
 'use client';

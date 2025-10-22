@@ -1,3 +1,5 @@
+// src/shared/lib/isAdmin.ts
+
 ﻿// src/shared/lib/isAdmin.ts
 
 import { MemberRole } from '@/entities/member/consts/MemberRole';

@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/CardDataStats.tsx
+
 ﻿// src/entities/analytics/ui/CardDataStats.tsx
 
 import React, { ReactNode } from 'react';

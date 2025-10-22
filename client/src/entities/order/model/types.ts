@@ -1,3 +1,5 @@
+// src/entities/order/model/types.ts
+
 ﻿// src/entities/order/model/types.ts
 
 import { CartItemList } from '@/entities/cart/model/CartItemList';

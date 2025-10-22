@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/TrafficOverviewView.tsx
+
 ﻿// src/entities/analytics/ui/TrafficOverviewView.tsx
 
 'use client';

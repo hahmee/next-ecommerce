@@ -1,3 +1,5 @@
+// src/shared/ui/SessionExpiredRedirect.tsx
+
 ﻿// src/shared/ui/SessionExpiredRedirect.tsx
 
 'use client';

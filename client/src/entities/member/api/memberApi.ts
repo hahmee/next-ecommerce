@@ -1,3 +1,5 @@
+// src/entities/member/api/memberApi.ts
+
 ﻿// src/entities/member/api/memberApi.ts
 
 import type { Member } from '@/entities/member/model/Member';

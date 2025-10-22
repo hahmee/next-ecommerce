@@ -1,3 +1,5 @@
+// src/entities/category/api/categoryApi.ts
+
 ﻿// src/entities/category/api/categoryApi.ts
 
 import { CategoryTree } from '@/entities/category/model/categoryTree';

@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/ActiveVisitorsView.tsx
+
 ﻿// src/entities/analytics/ui/ActiveVisitorsView.tsx
 
 import React from 'react';

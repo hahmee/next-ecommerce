@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/Navbar.tsx
+
 ﻿// src/widgets/layout/ui/Navbar.tsx
 
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';

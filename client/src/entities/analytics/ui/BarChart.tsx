@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/BarChart.tsx
+
 ﻿// src/entities/analytics/ui/BarChart.tsx
 
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';

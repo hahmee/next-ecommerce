@@ -1,3 +1,5 @@
+// src/entities/member/model/MemberPublic.ts
+
 ﻿// src/entities/member/model/MemberPublic.ts
 
 import { MemberRole } from '@/entities/member/consts/MemberRole';

@@ -1,3 +1,5 @@
+// src/features/product/manage/ui/MultiSelect.tsx
+
 ﻿// src/features/product/manage/ui/MultiSelect.tsx
 
 'use client';

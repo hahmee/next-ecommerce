@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/AdminDatePicker.tsx
+
 ﻿// src/entities/analytics/ui/AdminDatePicker.tsx
 
 import dayjs from 'dayjs';

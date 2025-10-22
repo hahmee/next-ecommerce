@@ -1,3 +1,5 @@
+// src/shared/utils/js/world.js
+
 jsVectorMap.addMap('world', {
   insets: [
     {

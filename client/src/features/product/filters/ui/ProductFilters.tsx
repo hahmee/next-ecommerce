@@ -1,3 +1,5 @@
+// src/features/product/filters/ui/ProductFilters.tsx
+
 ﻿// src/features/product/filters/ui/ProductFilters.tsx
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';

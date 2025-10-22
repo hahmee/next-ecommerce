@@ -1,3 +1,5 @@
+// src/features/product/manage/ui/ProductForm.tsx
+
 ﻿// src/features/product/manage/ui/ProductForm.tsx
 
 'use client';

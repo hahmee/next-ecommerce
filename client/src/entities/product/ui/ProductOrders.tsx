@@ -1,3 +1,5 @@
+// src/entities/product/ui/ProductOrders.tsx
+
 ﻿// src/entities/product/ui/ProductOrders.tsx
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';

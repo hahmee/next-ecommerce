@@ -1,3 +1,5 @@
+// src/features/member/read/model/useProfile.ts
+
 ﻿// src/features/member/read/model/useProfile.ts
 
 'use client';

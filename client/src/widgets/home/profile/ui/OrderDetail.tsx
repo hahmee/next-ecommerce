@@ -1,4 +1,5 @@
-﻿// src/widgets/home/profile/ui/OrderDetail.tsx
+// src/widgets/home/profile/ui/OrderDetail.tsx
+
 
 'use client';
 

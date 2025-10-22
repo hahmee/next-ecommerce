@@ -1,3 +1,5 @@
+// src/entities/product/model/types.ts
+
 ﻿// src/entities/product/model/types.ts
 
 import { Category } from '@/entities/category/model/types';

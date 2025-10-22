@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/DarkModeSwitcher.tsx
+
 ﻿// src/widgets/layout/ui/DarkModeSwitcher.tsx
 
 import useColorMode from '@/shared/lib/useColorMode';

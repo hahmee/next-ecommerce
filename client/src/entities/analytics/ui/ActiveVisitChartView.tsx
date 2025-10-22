@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/ActiveVisitChartView.tsx
+
 ﻿// src/entities/analytics/ui/ActiveVisitChartView.tsx
 
 import type { ApexOptions } from 'apexcharts';

@@ -1,3 +1,5 @@
+// src/features/order/read/model/useOrderDetail.ts
+
 ﻿// src/features/order/read/model/useOrderDetail.ts
 
 'use client';

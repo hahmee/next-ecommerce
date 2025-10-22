@@ -1,3 +1,5 @@
+// src/entities/product/ui/ProductList.tsx
+
 ﻿// src/entities/product/ui/ProductList.tsx
 
 'use client';

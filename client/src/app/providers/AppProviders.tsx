@@ -5,7 +5,7 @@
 import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
-import RQProvider from '@/shared/ui/RQProvider';
+import RQProvider from '@/app/providers/RQProvider';
 import SessionExpiredRedirect from '@/shared/ui/SessionExpiredRedirect';
 import UserSyncHandler from '@/shared/ui/UserSyncHandler';
 

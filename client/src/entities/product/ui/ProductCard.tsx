@@ -1,3 +1,5 @@
+// src/entities/product/ui/ProductCard.tsx
+
 ﻿// src/entities/product/ui/ProductCard.tsx
 
 import { StarIcon } from '@heroicons/react/20/solid';

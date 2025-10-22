@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/RecentVisitors.tsx
+
 ﻿// src/entities/analytics/ui/RecentVisitors.tsx
 
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';

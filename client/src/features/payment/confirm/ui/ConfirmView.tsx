@@ -1,3 +1,5 @@
+// src/features/payment/confirm/ui/ConfirmView.tsx
+
 ﻿// src/features/payment/confirm/ui/ConfirmView.tsx
 
 'use client';
