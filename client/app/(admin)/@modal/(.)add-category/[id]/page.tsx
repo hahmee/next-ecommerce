@@ -1,3 +1,5 @@
-// app/(admin)/@modal/(.)add-category/[id]/page.tsx
-export { default } from '@/pages/(admin)/@modal/(.)add-category/[id]/add-category-page';
+import {AddCategoryPage} from '@/pages/admin/category/add-category';
 
+export default function Page(props: any) {
+  return <AddCategoryPage {...props} />;
+}
