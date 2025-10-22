@@ -1,6 +1,6 @@
-// src/entities/product/ui/CategoryItem.tsx
-
 ﻿// src/entities/product/ui/CategoryItem.tsx
+
+
 
 import React from 'react';
 

@@ -1,6 +1,6 @@
 // src/widgets/admin/orders-table/ui/OrderTable.tsx
 
-﻿// src/widgets/admin/orders-table/ui/OrderTable.tsx
+
 
 
 'use client';

@@ -1,6 +1,6 @@
-// src/entities/analytics/ui/SalesPieChartView.tsx
-
 ﻿// src/entities/analytics/ui/SalesPieChartView.tsx
+
+
 
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';

@@ -1,6 +1,5 @@
-// src/pages/home/review/ui/review-page.tsx
+﻿// src/pages/home/review/ui/review-page.tsx
 
-﻿// src/pages/(home)/review/index.tsx
 
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';

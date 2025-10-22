@@ -1,6 +1,6 @@
-// src/pages/home/signup/ui/signup-page.tsx
+﻿// src/pages/home/signup/ui/signup-page.tsx
 
-﻿// src/pages/(home)/signup/index.tsx
+
 
 'use client';
 

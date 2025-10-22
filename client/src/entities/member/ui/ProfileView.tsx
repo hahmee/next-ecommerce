@@ -1,6 +1,6 @@
-// src/entities/member/ui/ProfileView.tsx
-
 ﻿// src/entities/member/ui/ProfileView.tsx
+
+
 
 'use client';
 

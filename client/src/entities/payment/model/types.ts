@@ -1,6 +1,6 @@
-// src/entities/payment/model/types.ts
-
 ﻿// src/entities/payment/model/types.ts
+
+
 
 import { Member } from '@/entities/member/model/Member';
 import { Order } from '@/entities/order/model/types';

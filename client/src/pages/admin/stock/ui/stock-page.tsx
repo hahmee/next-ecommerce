@@ -1,6 +1,5 @@
-// src/pages/admin/stock/ui/stock-page.tsx
+﻿// src/pages/admin/stock/ui/stock-page.tsx
 
-﻿// src/pages/(admin)/admin/stock/index.tsx
 
 import React, { Suspense } from 'react';
 

@@ -1,6 +1,6 @@
-// src/shared/ui/UserSyncHandler.tsx
-
 ﻿// src/shared/ui/UserSyncHandler.tsx
+
+
 
 'use client';
 

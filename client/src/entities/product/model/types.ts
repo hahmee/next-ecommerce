@@ -1,6 +1,6 @@
-// src/entities/product/model/types.ts
-
 ﻿// src/entities/product/model/types.ts
+
+
 
 import { Category } from '@/entities/category/model/types';
 import { Member } from '@/entities/member/model/Member';

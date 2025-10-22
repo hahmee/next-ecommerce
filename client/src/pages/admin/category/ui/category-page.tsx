@@ -1,6 +1,6 @@
-// src/pages/admin/category/ui/category-page.tsx
+﻿// src/pages/admin/category/ui/category-page.tsx
 
-﻿// src/pages/(admin)/admin/category/index.tsx
+
 
 import React, { Suspense } from 'react';
 

@@ -1,3 +1,1 @@
-// src/pages/admin/users/index.ts
-
-export { default as UsersPagePage } from './ui/users-page';
+export { default as UsersPage } from './ui/users-page';

@@ -1,6 +1,5 @@
 // src/app/providers/RQProvider.tsx
 
-﻿
 
 'use client';
 

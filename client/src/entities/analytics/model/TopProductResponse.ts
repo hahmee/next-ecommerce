@@ -1,6 +1,6 @@
-// src/entities/analytics/model/TopProductResponse.ts
-
 ﻿// src/entities/analytics/model/TopProductResponse.ts
+
+
 
 import { ColorTag } from '@/shared/model/ColorTag';
 

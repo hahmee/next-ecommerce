@@ -1,6 +1,6 @@
-// src/entities/analytics/ui/TopCustomers.tsx
-
 ﻿// src/entities/analytics/ui/TopCustomers.tsx
+
+
 
 'use client';
 import React from 'react';

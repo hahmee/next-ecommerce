@@ -1,6 +1,6 @@
-// src/pages/admin/users/ui/users-page.tsx
+﻿// src/pages/admin/users/ui/users-page.tsx
 
-﻿// src/pages/(admin)/admin/users/index.tsx
+
 
 import React, { Suspense } from 'react';
 

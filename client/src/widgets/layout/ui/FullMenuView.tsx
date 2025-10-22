@@ -1,6 +1,6 @@
-// src/widgets/layout/ui/FullMenuView.tsx
-
 ﻿// src/widgets/layout/ui/FullMenuView.tsx
+
+
 
 'use client';
 

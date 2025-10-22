@@ -1,6 +1,6 @@
-// src/entities/member/api/authApi.ts
-
 ﻿// src/entities/member/api/authApi.ts
+
+
 
 import { Member } from '@/entities/member/model/Member';
 import { fetcher } from '@/shared/http/fetcher';

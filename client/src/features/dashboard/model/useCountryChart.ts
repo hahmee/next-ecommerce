@@ -1,6 +1,6 @@
-// src/features/dashboard/model/useCountryChart.ts
-
 ﻿// src/features/dashboard/model/useCountryChart.ts
+
+
 
 'use client';
 import { useQuery } from '@tanstack/react-query';

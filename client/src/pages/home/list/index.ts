@@ -1,3 +1,2 @@
 // src/pages/home/list/index.ts
-
-export { default } from './ui/list-page';
+export { ListPage } from './ui/list-page';

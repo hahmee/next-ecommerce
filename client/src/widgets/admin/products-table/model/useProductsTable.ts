@@ -1,6 +1,6 @@
-// src/widgets/admin/products-table/model/useProductsTable.ts
-
 ﻿// src/widgets/admin/products-table/model/useProductsTable.ts
+
+
 
 'use client';
 

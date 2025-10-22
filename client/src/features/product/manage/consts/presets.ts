@@ -1,6 +1,6 @@
-// src/features/product/manage/consts/presets.ts
-
 ﻿// src/features/product/manage/consts/presets.ts
+
+
 
 import { SalesStatus } from '@/entities/product/consts/SalesStatus';
 import { Size } from '@/shared/constants/size';

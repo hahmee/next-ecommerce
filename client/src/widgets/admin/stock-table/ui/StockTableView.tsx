@@ -1,6 +1,6 @@
-// src/widgets/admin/stock-table/ui/StockTableView.tsx
-
 ﻿// src/widgets/admin/stock-table/ui/StockTableView.tsx
+
+
 
 'use client';
 

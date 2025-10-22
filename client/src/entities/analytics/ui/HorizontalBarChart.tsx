@@ -1,6 +1,6 @@
-// src/entities/analytics/ui/HorizontalBarChart.tsx
-
 ﻿// src/entities/analytics/ui/HorizontalBarChart.tsx
+
+
 
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';

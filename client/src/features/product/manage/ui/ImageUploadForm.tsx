@@ -1,6 +1,6 @@
-// src/features/product/manage/ui/ImageUploadForm.tsx
-
 ﻿// src/features/product/manage/ui/ImageUploadForm.tsx
+
+
 
 'use client';
 

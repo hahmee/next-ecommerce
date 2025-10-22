@@ -1,6 +1,6 @@
-// src/entities/cart/ui/CartModal.tsx
-
 ﻿// src/entities/cart/ui/CartModal.tsx
+
+
 
 'use client';
 

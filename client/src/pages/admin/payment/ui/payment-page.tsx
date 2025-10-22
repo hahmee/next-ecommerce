@@ -1,6 +1,6 @@
 // src/pages/admin/payment/ui/payment-page.tsx
 
-﻿// src/pages/admin/payment/ui/payment-page.tsx
+
 
 
 import dayjs from 'dayjs';

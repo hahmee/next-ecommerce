@@ -1,3 +1,1 @@
-// src/pages/home/review/index.ts
-
-export { default as ReviewPagePage } from './ui/review-page';
+export { default as ReviewPage } from './ui/review-page';

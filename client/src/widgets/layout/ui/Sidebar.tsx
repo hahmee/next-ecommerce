@@ -1,6 +1,6 @@
-// src/widgets/layout/ui/Sidebar.tsx
-
 ﻿// src/widgets/layout/ui/Sidebar.tsx
+
+
 
 'use client';
 

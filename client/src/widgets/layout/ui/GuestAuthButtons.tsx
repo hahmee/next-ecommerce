@@ -1,6 +1,6 @@
-// src/widgets/layout/ui/GuestAuthButtons.tsx
-
 ﻿// src/widgets/layout/ui/GuestAuthButtons.tsx
+
+
 
 'use client';
 

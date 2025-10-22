@@ -1,6 +1,6 @@
-// src/entities/analytics/ui/SalesChartView.tsx
-
 ﻿// src/entities/analytics/ui/SalesChartView.tsx
+
+
 
 'use client';
 

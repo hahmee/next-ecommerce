@@ -1,6 +1,6 @@
-// src/pages/admin/profile/ui/profile-page.tsx
+﻿// src/pages/admin/profile/ui/profile-page.tsx
 
-﻿// src/pages/(admin)/admin/profile/index.tsx
+
 
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';

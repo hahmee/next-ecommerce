@@ -1,6 +1,6 @@
-// src/entities/analytics/ui/HeatmapChart.tsx
-
 ﻿// src/entities/analytics/ui/HeatmapChart.tsx
+
+
 
 'use client';
 

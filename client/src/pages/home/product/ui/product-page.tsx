@@ -1,6 +1,5 @@
 // src/pages/home/product/[id]/ui/product-page.tsx
 
-﻿// src/pages/(home)/product/[id]/index.tsx
 
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';

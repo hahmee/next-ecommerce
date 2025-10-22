@@ -1,6 +1,6 @@
 // src/pages/home/order/confirmation/[paymentKey]/ui/confirmation-page.tsx
 
-﻿// src/pages/(home)/order/confirmation/[paymentKey]/index.tsx
+
 
 import React, { Suspense } from 'react';
 
