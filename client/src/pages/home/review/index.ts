@@ -1,1 +1,1 @@
-export { default as ReviewPage } from './ui/review-page';
+export { ReviewHistoryPage } from './ui/review-page';

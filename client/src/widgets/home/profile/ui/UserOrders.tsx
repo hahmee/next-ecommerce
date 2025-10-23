@@ -1,6 +1,5 @@
 // src/widgets/home/profile/ui/UserOrders.tsx
 
-﻿// src/widgets/home/profile/ui/UserOrders.tsx
 
 
 

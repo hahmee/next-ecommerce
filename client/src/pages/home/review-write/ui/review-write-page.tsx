@@ -4,15 +4,12 @@
 
 import React from 'react';
 
-import ReviewModalPage from '@/app/(home)/@modal/(.)add-review/[id]/page';
 import OrderPage from '@/app/(home)/order/[orderId]/page';
+import {ReviewModalPage} from "@/pages/home/modal/add-review";
 
-interface Props {
-  searchParams: { [key: string]: string };
-}
 
-export default function AddReviewPage({ searchParams }: Props) {
-  const { oid, orderId } = searchParams;
+
+export function AddReviewPage({ oid, orderId }: {oid: string,orderId:string }) {
 
   return (
     <>

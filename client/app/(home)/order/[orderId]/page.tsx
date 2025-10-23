@@ -3,7 +3,7 @@
 import { OrderPage } from '@/pages/home/order';
 import { authApi } from '@/entities/member/api/authApi';
 
-type Props = { params: { orderId: string } };
+interface Props { params: { orderId: string } };
 
 export async function generateMetadata({ params }: Props) {
   const { orderId } = params;

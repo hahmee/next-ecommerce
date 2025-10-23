@@ -1,6 +1,5 @@
 // src/pages/admin/profile/ui/profile-page.tsx
 
-﻿// src/pages/admin/profile/ui/profile-page.tsx
 
 
 import React, {Suspense} from 'react';

@@ -7,7 +7,7 @@
 import { useSignupForm } from '@/features/auth/model/useSignupForm';
 import SignupView from '@/features/auth/ui/SignupView';
 
-export default function SignupPage() {
+export function SignupPage() {
   const form = useSignupForm();
   return (
     <SignupView
