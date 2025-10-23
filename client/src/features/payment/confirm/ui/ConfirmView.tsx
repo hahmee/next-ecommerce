@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import React from 'react';
-import {PaymentConfirmVM} from "@/features/payment/confirm";
-
+import { PaymentConfirmVM } from '@/features/payment/confirm';
 
 interface Props {
   payment: PaymentConfirmVM;
@@ -38,4 +37,3 @@ export const ConfirmView = ({ payment }: Props) => {
     </div>
   );
 };
-

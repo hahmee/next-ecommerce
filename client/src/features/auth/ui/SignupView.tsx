@@ -15,7 +15,7 @@ type Props = {
   onMoveLogin: () => void;
 };
 
-export default function SignupView({
+export function SignupView({
   email,
   nickname,
   password,

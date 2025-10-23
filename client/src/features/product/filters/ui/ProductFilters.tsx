@@ -5,7 +5,7 @@ import React, { Fragment, useMemo, useState } from 'react';
 import { Category } from '@/entities/category';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 import { FilterOption, FilterSection } from '@/features/product/filters';
-import {PriceRange} from '@/features/product/filters';
+import { PriceRange } from '@/features/product/filters';
 
 type Props = { filters: FilterSection[] };
 

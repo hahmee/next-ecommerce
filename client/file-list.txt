@@ -190,6 +190,7 @@
 /c/dev/private/next-ecommerce/client/src/features/order/read/model/useOrderDetail.ts
 /c/dev/private/next-ecommerce/client/src/features/order/read/model/useUserOrders.ts
 /c/dev/private/next-ecommerce/client/src/features/payment/confirm/index.ts
+/c/dev/private/next-ecommerce/client/src/features/payment/confirm/model/types.ts
 /c/dev/private/next-ecommerce/client/src/features/payment/confirm/model/useConfirmPaymentMutation.ts
 /c/dev/private/next-ecommerce/client/src/features/payment/confirm/model/usePaymentConfirm.ts
 /c/dev/private/next-ecommerce/client/src/features/payment/confirm/ui/Confirm.tsx

@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import ClickOutside from '@/shared/ui/ClickOutside';
 import Portal from '@/shared/ui/Portal';
 
-const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const { x, y, refs, strategy, update } = useFloating({
@@ -56,4 +56,3 @@ const TableActions: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   );
 };
 
-export default TableActions;

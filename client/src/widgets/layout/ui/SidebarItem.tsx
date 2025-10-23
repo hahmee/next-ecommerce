@@ -4,7 +4,7 @@ import React from 'react';
 
 import SidebarDropdown from '@/widgets/layout/ui/SidebarDropdown';
 
-const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => {
+export const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => {
   const handleClick = () => {
     const updatedPageName = pageName !== item.label.toLowerCase() ? item.label.toLowerCase() : '';
     return setPageName(updatedPageName);
@@ -60,4 +60,3 @@ const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => 
   );
 };
 
-export default SidebarItem;

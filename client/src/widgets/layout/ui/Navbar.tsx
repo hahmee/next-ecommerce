@@ -10,7 +10,7 @@ import Menu from '@/widgets/layout/ui/Menu';
 import NavIcons from '@/widgets/layout/ui/NavIcons';
 import SearchBar from '@/widgets/layout/ui/SearchBar';
 
-const Navbar = () => {
+export const Navbar = () => {
   const prefetchOptions = [
     {
       queryKey: ['categories'],
@@ -59,4 +59,3 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;

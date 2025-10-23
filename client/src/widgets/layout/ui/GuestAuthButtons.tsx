@@ -6,7 +6,7 @@ import React from 'react';
 
 import { useUserStore } from '@/shared/store/userStore';
 
-const GuestAuthButtons = () => {
+export const GuestAuthButtons = () => {
   const pathname = usePathname();
   const isAuthPage = pathname === '/login' || pathname === '/signup';
   const { user } = useUserStore();
@@ -40,4 +40,3 @@ const GuestAuthButtons = () => {
   );
 };
 
-export default GuestAuthButtons;

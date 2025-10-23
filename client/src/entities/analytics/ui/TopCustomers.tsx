@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { TopCustomersView } from '@/entities/analytics/ui/TopCustomersView';
-import { useTopCustomers } from '@/features/dashboard/model/useTopCustomers';
+import { useTopCustomers } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function TopCustomers({ date }: { date: DatepickType }) {

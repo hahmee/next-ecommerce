@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import {usePaymentConfirm} from "@/features/payment/confirm";
-import {ConfirmView} from "@/features/payment/confirm";
-
+import { usePaymentConfirm } from '@/features/payment/confirm';
+import { ConfirmView } from '@/features/payment/confirm';
 
 interface Props {
   paymentKey: string;

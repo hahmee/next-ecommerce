@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 
 import Loading from '@/app/loading';
 import { SessionExpiredError } from '@/shared/lib/errors';
-import {useConfirmPaymentMutation} from "@/features/payment/confirm";
+import { useConfirmPaymentMutation } from '@/features/payment/confirm';
 
 interface Props {
   paymentKey: string;

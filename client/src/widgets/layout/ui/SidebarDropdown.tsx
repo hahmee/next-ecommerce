@@ -13,7 +13,7 @@ interface SidebarDropdownProps {
   changeShowDialog: () => void;
 }
 
-const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ item, changeShowDialog }) => {
+export const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ item, changeShowDialog }) => {
   const pathname = usePathname();
   // const [showDialog, setShowDialog] = useState(false);
   // const toggleModal = () => setShowDialog((prev) => !prev);
@@ -44,4 +44,3 @@ const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ item, changeShowDialo
   );
 };
 
-export default SidebarDropdown;

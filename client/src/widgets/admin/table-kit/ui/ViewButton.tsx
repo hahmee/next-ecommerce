@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import ClickOutside from '@/shared/ui/ClickOutside';
 
-const ViewButton = ({ changeSize }: { changeSize: (size: number) => void }) => {
+export const ViewButton = ({ changeSize }: { changeSize: (size: number) => void }) => {
   const [open, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>('10');
 
@@ -113,4 +113,3 @@ const ViewButton = ({ changeSize }: { changeSize: (size: number) => void }) => {
     </div>
   );
 };
-export default ViewButton;

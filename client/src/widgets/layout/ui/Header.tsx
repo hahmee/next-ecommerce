@@ -5,7 +5,7 @@ import React from 'react';
 import AdminUser from '@/widgets/layout/ui/AdminUser';
 import DarkModeSwitcher from '@/widgets/layout/ui/DarkModeSwitcher';
 
-const Header = (props: {
+export const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
@@ -82,4 +82,3 @@ const Header = (props: {
   );
 };
 
-export default Header;

@@ -7,7 +7,7 @@ import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import { DatepickType } from '@/shared/model/DatepickType';
 
-const TableDatePicker = ({
+export const TableDatePicker = ({
   date,
   dateChange,
 }: {
@@ -30,4 +30,3 @@ const TableDatePicker = ({
   );
 };
 
-export default TableDatePicker;

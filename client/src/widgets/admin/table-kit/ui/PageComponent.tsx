@@ -2,7 +2,7 @@
 
 import { Paging } from '@/entities/order';
 
-const PageComponent = ({
+export const PageComponent = ({
   pagingData,
   size,
   search,
@@ -156,4 +156,3 @@ const PageComponent = ({
   );
 };
 
-export default PageComponent;

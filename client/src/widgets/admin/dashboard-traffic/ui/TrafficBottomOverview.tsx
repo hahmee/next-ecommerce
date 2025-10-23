@@ -4,11 +4,11 @@ import React from 'react';
 
 import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { TrafficBottomOverviewView } from '@/entities/analytics/ui/TrafficBottomOverviewView';
-import { useTrafficBottom } from '@/features/dashboard/model/useTrafficBottom';
+import { useTrafficBottom } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
-export default function TrafficBottomOverview({
+export  function TrafficBottomOverview({
   date,
   comparedDate,
 }: {

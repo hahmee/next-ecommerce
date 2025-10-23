@@ -268,4 +268,3 @@ export const MultiSelect: React.FC<DropdownProps> = ({
     </div>
   );
 };
-

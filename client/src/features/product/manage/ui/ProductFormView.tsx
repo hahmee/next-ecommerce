@@ -6,12 +6,12 @@ import type { Category } from '@/entities/category';
 import { CategorySelect } from '@/entities/category';
 import type { Product } from '@/entities/product';
 import { salesOptions, sizeOptions } from '@/features/product/manage';
-import {BackButton} from '@/features/product/manage';
-import {ColorSelector} from '@/features/product/manage';
-import {ImageUploadForm} from '@/features/product/manage';
-import {MultiSelect} from '@/features/product/manage';
-import {QuillEditor} from '@/features/product/manage';
-import {RadioButton} from '@/features/product/manage';
+import { BackButton } from '@/features/product/manage';
+import { ColorSelector } from '@/features/product/manage';
+import { ImageUploadForm } from '@/features/product/manage';
+import { MultiSelect } from '@/features/product/manage';
+import { QuillEditor } from '@/features/product/manage';
+import { RadioButton } from '@/features/product/manage';
 import { Mode } from '@/shared/constants/mode';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 

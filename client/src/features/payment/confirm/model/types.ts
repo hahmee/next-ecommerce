@@ -1,4 +1,4 @@
-import type {Payment} from "@/entities/payment";
+import type { Payment } from '@/entities/payment';
 
 export type PaymentConfirmVM = {
   orderId: string;

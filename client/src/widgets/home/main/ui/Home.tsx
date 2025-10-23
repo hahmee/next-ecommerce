@@ -10,7 +10,7 @@ const MainProductList = dynamic(() => import('@/entities/product/ui/MainProductL
 });
 const MainInfo = dynamic(() => import('@/features/product/manage/ui/MainInfo'), { ssr: false });
 
-const Home = () => {
+export const Home = () => {
   return (
     <>
       <div className="mt-24 bg-[#F9F9F9] m-auto py-10">
@@ -45,4 +45,3 @@ const Home = () => {
     </>
   );
 };
-export default Home;

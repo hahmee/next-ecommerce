@@ -1,6 +1,6 @@
 import useColorMode from '@/shared/lib/useColorMode';
 
-const DarkModeSwitcher = () => {
+export const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();
 
   return (
@@ -62,4 +62,3 @@ const DarkModeSwitcher = () => {
   );
 };
 
-export default DarkModeSwitcher;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TableSearch = ({
+export const TableSearch = ({
   onSearch,
   placeholder = 'Search',
 }: {
@@ -48,4 +48,3 @@ const TableSearch = ({
   );
 };
 
-export default TableSearch;

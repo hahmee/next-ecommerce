@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 
-import { useRealtimeBottomOverview } from '@/features/dashboard/model/useRealtimeBottomOverview';
+import { useRealtimeBottomOverview } from '@/features/dashboard';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 const RealtimeBottomOverviewView = dynamic(
   () => import('@/entities/analytics/ui/RealtimeBottomOverviewView'),
@@ -12,7 +12,7 @@ const RealtimeBottomOverviewView = dynamic(
   },
 );
 
-export default function RealtimeBottomOverview() {
+export function RealtimeBottomOverview() {
   const { gaBottomData, loading } = useRealtimeBottomOverview();
   if (loading) return <LoadingSkeleton />;
 

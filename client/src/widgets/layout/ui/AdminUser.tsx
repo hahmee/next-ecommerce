@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useUserStore } from '@/shared/store/userStore';
 import ClickOutside from '@/shared/ui/ClickOutside';
 
-const DropdownUser = () => {
+export const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user } = useUserStore();
 
@@ -39,4 +39,3 @@ const DropdownUser = () => {
   );
 };
 
-export default DropdownUser;

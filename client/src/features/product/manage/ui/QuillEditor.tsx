@@ -82,4 +82,3 @@ export const QuillEditor = React.memo(({ quillRef, originalData }: EditorProps) 
 
 // Memo 적용 시 displayName 설정
 QuillEditor.displayName = 'QuillEditor';
-

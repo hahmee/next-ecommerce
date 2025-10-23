@@ -1,9 +1,9 @@
 'use client';
 
 import { ProfileView } from '@/entities/member';
-import { useProfile } from '@/features/member/read/model/useProfile';
+import { useProfile } from '@/features/member/read';
 
-export default function Profile() {
+export function Profile() {
   const { member, isLoading } = useProfile();
   return <ProfileView member={member} isLoading={isLoading} />;
 }

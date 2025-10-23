@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { CountryChartView } from '@/entities/analytics/ui/CountryChartView';
-import { useCountryChart } from '@/features/dashboard/model/useCountryChart';
+import { useCountryChart } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function CountryChart({ date }: { date: DatepickType }) {

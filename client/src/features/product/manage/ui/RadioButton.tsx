@@ -38,4 +38,3 @@ export const RadioButton = memo(({ options, name, originalData }: CheckboxProps)
 });
 
 RadioButton.displayName = 'RadioButton';
-

@@ -172,4 +172,3 @@ export const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, o
     </div>
   );
 };
-

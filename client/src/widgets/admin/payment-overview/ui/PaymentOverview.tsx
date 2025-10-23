@@ -1,9 +1,9 @@
 'use client';
 
-import { usePaymentOverview } from '@/features/dashboard/model/usePaymentOverview';
+import { usePaymentOverview } from '@/features/dashboard';
 import { PaymentOverviewView } from '@/widgets/admin/payment-overview/ui/PaymentOverviewView';
 
-export default function PaymentOverview() {
+export function PaymentOverview() {
   const paymentOverview = usePaymentOverview();
   return <PaymentOverviewView {...paymentOverview} />;
 }
