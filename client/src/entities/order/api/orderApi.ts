@@ -1,9 +1,5 @@
-// src/entities/order/api/orderApi.ts
-
-// src/entities/order/api/orderApi.ts
-
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Order } from '@/entities/order/model/types';
+import type { PageResponse } from '@/entities/order';
+import type { Order } from '@/entities/order';
 import type { Payment } from '@/entities/payment/model/types';
 import { fetcher } from '@/shared/http/fetcher';
 

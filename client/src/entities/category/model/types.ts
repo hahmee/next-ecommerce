@@ -1,5 +1,3 @@
-
-
 export interface Category {
   cno: number;
   cname: string;

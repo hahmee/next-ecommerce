@@ -1,5 +1,3 @@
-// src/shared/lib/useSafeSearchParams.ts
-
 'use client';
 
 import { useSearchParams } from 'next/navigation';

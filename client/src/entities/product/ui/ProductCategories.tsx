@@ -1,7 +1,3 @@
-// src/entities/product/ui/ProductCategories.tsx
-
-// src/entities/product/ui/ProductCategories.tsx
-
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useState } from 'react';
@@ -13,7 +9,7 @@ type Props = {
   categories: Category[];
 };
 
-const ProductCategories: React.FC<Props> = ({ categories }: Props) => {
+export const ProductCategories: React.FC<Props> = ({ categories }: Props) => {
   const router = useRouter();
   const searchParams = useSafeSearchParams();
   const categoryId = searchParams.get('category_id');
@@ -84,4 +80,3 @@ const ProductCategories: React.FC<Props> = ({ categories }: Props) => {
     </>
   );
 };
-export default ProductCategories;

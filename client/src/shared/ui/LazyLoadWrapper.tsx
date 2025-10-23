@@ -1,5 +1,3 @@
-// src/shared/ui/LazyLoadWrapper.tsx
-
 'use client';
 
 import React, { ReactNode } from 'react';

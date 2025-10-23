@@ -1,12 +1,8 @@
-// src/shared/ui/UserHydration.tsx
-
-// src/shared/ui/UserHydration.tsx
-
 'use client';
 
 import { useEffect } from 'react';
 
-import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 import { useUserStore } from '@/shared/store/userStore';
 
 // UserHydration (SSR → CSR 전달)

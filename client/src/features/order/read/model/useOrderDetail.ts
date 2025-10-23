@@ -1,13 +1,9 @@
-// src/features/order/read/model/useOrderDetail.ts
-
-// src/features/order/read/model/useOrderDetail.ts
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { orderApi } from '@/entities/order/api/orderApi';
-import type { Order } from '@/entities/order/model/types';
+import { orderApi } from '@/entities/order';
+import type { Order } from '@/entities/order';
 
 export function useOrderDetail(orderId: string) {
   const query = useQuery<Order[], Error>({

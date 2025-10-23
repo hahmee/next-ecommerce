@@ -1,7 +1,3 @@
-// src/features/payment/confirm/ui/ConfirmView.tsx
-
-// src/features/payment/confirm/ui/ConfirmView.tsx
-
 'use client';
 
 import Link from 'next/link';

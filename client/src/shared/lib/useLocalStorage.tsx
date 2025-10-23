@@ -1,5 +1,3 @@
-// src/shared/lib/useLocalStorage.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';

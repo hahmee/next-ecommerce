@@ -1,7 +1,3 @@
-// src/shared/lib/useColorMode.tsx
-
-// src/shared/lib/useColorMode.tsx
-
 import { useEffect } from 'react';
 
 import useLocalStorage from '@/shared/lib/useLocalStorage';

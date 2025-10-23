@@ -1,5 +1,3 @@
-// src/pages/admin/products/add-product/ui/add-product-page.tsx
-
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category';

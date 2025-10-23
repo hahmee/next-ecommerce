@@ -1,7 +1,3 @@
-// src/widgets/admin/dashboard-sales/ui/SalesOverview.tsx
-
-// src/widgets/admin/dashboard-sales/ui/SalesOverview.tsx
-
 'use client';
 
 import { useSalesOverview } from '@/features/dashboard/model/useSalesOverview';

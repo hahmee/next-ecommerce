@@ -1,7 +1,3 @@
-// src/widgets/home/profile/ui/UserOrdersView.tsx
-
-// src/widgets/home/profile/ui/UserOrdersView.tsx
-
 'use client';
 
 import dayjs from 'dayjs';

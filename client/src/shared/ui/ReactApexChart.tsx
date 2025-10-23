@@ -1,5 +1,3 @@
-// src/shared/ui/ReactApexChart.tsx
-
 'use client';
 
 import dynamic from 'next/dynamic';

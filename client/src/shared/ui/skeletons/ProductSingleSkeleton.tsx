@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/ProductSingleSkeleton.tsx
-
 import React from 'react';
 
 const ProductSingleSkeleton = () => {

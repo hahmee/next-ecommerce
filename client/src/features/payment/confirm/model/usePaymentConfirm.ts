@@ -1,7 +1,3 @@
-// src/features/payment/confirm/model/usePaymentConfirm.ts
-
-// src/features/payment/confirm/model/usePaymentConfirm.ts
-
 'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';

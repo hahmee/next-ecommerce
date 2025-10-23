@@ -1,9 +1,7 @@
-// src/pages/home/modal/(.)add-review/[id]/ui/modal-page.tsx
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { orderApi } from '@/entities/order/api/orderApi';
+import { orderApi } from '@/entities/order';
 import ReviewAddModal from '@/features/review/add/ui/ReviewAddModal';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 

@@ -1,7 +1,3 @@
-// src/widgets/admin/orders-table/model/useOrdersTable.ts
-
-// src/widgets/admin/orders-table/model/useOrdersTable.ts
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
@@ -9,9 +5,9 @@ import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { orderApi } from '@/entities/order/api/orderApi';
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Paging } from '@/entities/order/model/Paging';
+import { orderApi } from '@/entities/order';
+import type { PageResponse } from '@/entities/order';
+import type { Paging } from '@/entities/order';
 import type { Payment } from '@/entities/payment/model/types';
 import { DatepickType } from '@/shared/model/DatepickType';
 

@@ -1,5 +1,3 @@
-// src/widgets/home/main/ui/Home.tsx
-
 import dynamic from 'next/dynamic';
 import React from 'react';
 

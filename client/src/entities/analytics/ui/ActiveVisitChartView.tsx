@@ -1,14 +1,10 @@
-// src/entities/analytics/ui/ActiveVisitChartView.tsx
-
-// src/entities/analytics/ui/ActiveVisitChartView.tsx
-
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
 import { SessionChart } from '@/entities/analytics/model/GAResponse';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 
-const ActiveVisitChartView = ({ chart }: { chart: SessionChart | undefined | null }) => {
+export const ActiveVisitChartView = ({ chart }: { chart: SessionChart | undefined | null }) => {
   const options: ApexOptions = {
     series: [
       {
@@ -132,5 +128,3 @@ const ActiveVisitChartView = ({ chart }: { chart: SessionChart | undefined | nul
     </div>
   );
 };
-
-export default ActiveVisitChartView;

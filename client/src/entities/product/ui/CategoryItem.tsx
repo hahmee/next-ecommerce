@@ -1,7 +1,3 @@
-// src/entities/product/ui/CategoryItem.tsx
-
-// src/entities/product/ui/CategoryItem.tsx
-
 import React from 'react';
 
 import { Category } from '@/entities/category';
@@ -13,7 +9,12 @@ interface CategoryItemProps {
   level: number;
 }
 
-const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelected, level }) => {
+export const CategoryItem: React.FC<CategoryItemProps> = ({
+  category,
+  onClick,
+  isSelected,
+  level,
+}) => {
   return (
     <li
       onClick={onClick}
@@ -27,5 +28,3 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category, onClick, isSelect
     </li>
   );
 };
-
-export default CategoryItem;

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { Category } from '@/entities/category';
-import CategoryList from '@/entities/product/ui/CategoryList';
+import { CategoryList } from '@/entities/product';
 
 export const CategorySelect = ({
   categories,
@@ -57,4 +57,3 @@ export const CategorySelect = ({
     </div>
   );
 };
-

@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/TrafficBottomOverviewView.tsx
-
-// src/entities/analytics/ui/TrafficBottomOverviewView.tsx
-
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -11,9 +7,10 @@ import type { GAResponseBottom } from '@/entities/analytics/model/GAResponse';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
-const CountryTrafficMap = dynamic(() => import('@/entities/analytics/ui/CountryTrafficMapView'), {
-  ssr: false,
-});
+const CountryTrafficMap = dynamic(
+  () => import('@/entities/analytics').then((m) => m.CountryTrafficMapView),
+  { ssr: false },
+);
 
 export function TrafficBottomOverviewView({ data }: { data?: GAResponseBottom }) {
   if (!data) return <LoadingSkeleton />;

@@ -1,15 +1,11 @@
-// src/widgets/admin/stock-table/ui/StockTableView.tsx
-
-// src/widgets/admin/stock-table/ui/StockTableView.tsx
-
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import type { Paging } from '@/entities/order/model/Paging';
-import type { Product } from '@/entities/product/model/types';
+import type { Paging } from '@/entities/order';
+import type { Product } from '@/entities/product';
 import { salesOptions } from '@/features/product/manage/consts/presets';
 import Select from '@/features/product/manage/ui/Select';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';

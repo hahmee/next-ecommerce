@@ -1,5 +1,3 @@
-// src/pages/admin/category/modal/edit-category/ui/category-edit-modal-page.tsx
-
 import { Suspense } from 'react';
 
 import Loading from '@/app/loading';

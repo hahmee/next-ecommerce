@@ -1,7 +1,3 @@
-// src/widgets/admin/payment-overview/ui/PaymentOverview.tsx
-
-// src/widgets/admin/payment-overview/ui/PaymentOverview.tsx
-
 'use client';
 
 import { usePaymentOverview } from '@/features/dashboard/model/usePaymentOverview';

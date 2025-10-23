@@ -1,8 +1,6 @@
-// src/widgets/home/profile/ui/OrderDetail.tsx
-
 'use client';
 
-import { OrderDetailView } from '@/entities/order/ui/OrderDetailView';
+import { OrderDetailView } from '@/entities/order';
 import { useOrderDetail } from '@/features/order/read/model/useOrderDetail';
 
 export default function OrderDetail({ orderId }: { orderId: string }) {

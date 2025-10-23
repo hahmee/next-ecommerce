@@ -1,12 +1,8 @@
-// src/features/product/cart/model/useChangeCartMutation.ts
-
-// src/features/product/cart/model/useChangeCartMutation.ts
-
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { CartItem } from '@/entities/cart/model/CartItem';
-import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { CartItem } from '@/entities/cart';
+import { CartItemList } from '@/entities/cart';
 import { fetcher } from '@/shared/http/fetcher';
 import { useCartStore } from '@/shared/store/cartStore';
 

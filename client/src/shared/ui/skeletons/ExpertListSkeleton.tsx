@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/ExpertListSkeleton.tsx
-
 import React from 'react';
 
 const ExpertListSkeleton = () => {

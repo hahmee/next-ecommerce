@@ -1,9 +1,7 @@
-﻿// src/pages/home/review/ui/review-page.tsx
-
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { reviewApi } from '@/entities/review/api/reviewApi';
+import { reviewApi } from '@/entities/review';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import UserReviews from '@/widgets/home/profile/ui/UserReviews';
 

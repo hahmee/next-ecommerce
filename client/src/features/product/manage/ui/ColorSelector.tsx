@@ -1,7 +1,3 @@
-// src/features/product/manage/ui/ColorSelector.tsx
-
-// src/features/product/manage/ui/ColorSelector.tsx
-
 'use client';
 
 import { XCircleIcon } from '@heroicons/react/24/outline';

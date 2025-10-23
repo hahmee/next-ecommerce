@@ -1,11 +1,7 @@
-// src/pages/admin/users/ui/users-page.tsx
-
-// src/pages/admin/users/ui/users-page.tsx
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { memberApi } from '@/entities/member/api/memberApi';
+import { memberApi } from '@/entities/member';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import UserDashboard from '@/widgets/admin/users/ui/UserDashboard';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';

@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/TrafficSessionChartView.tsx
-
-// src/entities/analytics/ui/TrafficSessionChartView.tsx
-
 'use client';
 
 import type { ApexOptions } from 'apexcharts';
@@ -11,7 +7,7 @@ import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { SessionChart } from '@/entities/analytics/model/GAResponse';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 
-const TrafficSessionChartView = ({
+const TrafficSessionChartViewComponent = ({
   chart,
   filter,
   filterChange,
@@ -190,4 +186,4 @@ const TrafficSessionChartView = ({
   );
 };
 
-export default React.memo(TrafficSessionChartView);
+export const TrafficSessionChartView = React.memo(TrafficSessionChartViewComponent);

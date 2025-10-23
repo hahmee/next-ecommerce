@@ -1,10 +1,6 @@
-// src/entities/order/model/types.ts
-
-// src/entities/order/model/types.ts
-
-import { CartItemList } from '@/entities/cart/model/CartItemList';
-import { Member } from '@/entities/member/model/Member';
-import { OrderStatus } from '@/entities/order/consts/OrderStatus';
+import { CartItemList } from '@/entities/cart';
+import { Member } from '@/entities/member';
+import { OrderStatus } from '@/entities/order';
 import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface Order {

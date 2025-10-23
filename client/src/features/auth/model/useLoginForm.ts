@@ -1,7 +1,3 @@
-// src/features/auth/model/useLoginForm.ts
-
-// src/features/auth/model/useLoginForm.ts
-
 'use client';
 
 import { useRouter } from 'next/navigation';

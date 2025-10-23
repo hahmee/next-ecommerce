@@ -1,5 +1,3 @@
-// src/entities/payment/model/paymentService.ts
-
 'use client';
 
 import { loadTossPayments } from '@tosspayments/payment-sdk';

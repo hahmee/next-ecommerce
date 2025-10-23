@@ -1,7 +1,3 @@
-// src/widgets/layout/ui/FullMenuView.tsx
-
-// src/widgets/layout/ui/FullMenuView.tsx
-
 'use client';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';

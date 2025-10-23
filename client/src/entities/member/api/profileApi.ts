@@ -1,8 +1,4 @@
-// src/entities/member/api/profileApi.ts
-
-// src/entities/member/api/profileApi.ts
-
-import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };

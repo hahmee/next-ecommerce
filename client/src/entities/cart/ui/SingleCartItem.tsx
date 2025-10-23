@@ -1,7 +1,3 @@
-// src/entities/cart/ui/SingleCartItem.tsx
-
-// src/entities/cart/ui/SingleCartItem.tsx
-
 'use client';
 
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid';
@@ -10,15 +6,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback } from 'react';
 
-import { CartItem } from '@/entities/cart/model/CartItem';
-import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { CartItem } from '@/entities/cart';
+import { CartItemList } from '@/entities/cart';
 import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 import { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
 
-const SingleCartItem = ({ cartItem }: { cartItem: CartItemList }) => {
+export const SingleCartItem = ({ cartItem }: { cartItem: CartItemList }) => {
   const { user } = useUserStore();
   const { carts, changeOpen, isLoading } = useCartStore();
   const { mutate: changeCart } = useChangeCartMutation();
@@ -118,4 +114,3 @@ const SingleCartItem = ({ cartItem }: { cartItem: CartItemList }) => {
     </div>
   );
 };
-export default SingleCartItem;

@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/ProductFormSkeleton.tsx
-
 const ProductFormSkeleton = () => {
   return (
     <div className="animate-pulse">

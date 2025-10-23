@@ -1,5 +1,3 @@
-// src/widgets/layout/ui/NavIcons.tsx
-
 'use client';
 
 import { useNavIcons } from '@/widgets/layout/model/useNavIcons';

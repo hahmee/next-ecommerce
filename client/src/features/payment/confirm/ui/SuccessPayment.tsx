@@ -1,7 +1,3 @@
-// src/features/payment/confirm/ui/SuccessPayment.tsx
-
-// src/features/payment/confirm/ui/SuccessPayment.tsx
-
 'use client';
 
 import { sendGAEvent } from '@next/third-parties/google';

@@ -1,13 +1,9 @@
-// src/features/product/cart/ui/AddCart.tsx
-
-// src/features/product/cart/ui/AddCart.tsx
-
 'use client';
 
 import React, { useState } from 'react';
 
-import { CartItem } from '@/entities/cart/model/CartItem';
-import { SalesStatus, SalesStatusKor } from '@/entities/product/consts/SalesStatus';
+import { CartItem } from '@/entities/cart';
+import { SalesStatus, SalesStatusKor } from '@/entities/product';
 import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 import GACta from '@/shared/ga/GACta';
 import { ColorTag } from '@/shared/model/ColorTag';

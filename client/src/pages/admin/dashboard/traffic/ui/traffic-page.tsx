@@ -1,7 +1,3 @@
-// src/pages/admin/dashboard/traffic/ui/traffic-page.tsx
-
-// src/pages/admin/dashboard/traffic/ui/traffic-page.tsx
-
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 

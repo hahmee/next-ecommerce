@@ -1,11 +1,7 @@
-// src/features/review/read/model/useReviewAdd.ts
-
-// src/features/review/read/model/useReviewAdd.ts
-
 'use client';
 import { useRouter } from 'next/navigation';
 
-import type { Review } from '@/entities/review/model/types';
+import type { Review } from '@/entities/review';
 import { useCreateReviewMutation } from '@/features/review/add/model/useCreateReview';
 import { useReviewOrder } from '@/features/review/read/model/useReviewOrder';
 

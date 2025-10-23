@@ -1,11 +1,7 @@
-// src/entities/cart/ui/CartItem.tsx
-
-// src/entities/cart/ui/CartItem.tsx
-
 import Image from 'next/image';
 import { FC } from 'react';
 
-import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { CartItemList } from '@/entities/cart';
 import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
 import { useCartStore } from '@/shared/store/cartStore';
 
@@ -13,7 +9,7 @@ interface Props {
   item: CartItemList;
 }
 
-const CartItem: FC<Props> = ({ item }) => {
+export const CartItem: FC<Props> = ({ item }) => {
   const { isLoading } = useCartStore();
   const { mutate: deleteCartItem } = useDeleteCartMutation();
 
@@ -66,5 +62,3 @@ const CartItem: FC<Props> = ({ item }) => {
     </div>
   );
 };
-
-export default CartItem;

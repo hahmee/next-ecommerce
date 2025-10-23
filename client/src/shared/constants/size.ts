@@ -1,5 +1,3 @@
-// src/shared/constants/size.ts
-
 export enum Size {
   XS = 'XS',
   S = 'S',

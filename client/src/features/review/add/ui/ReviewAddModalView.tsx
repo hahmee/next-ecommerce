@@ -1,14 +1,10 @@
-// src/features/review/add/ui/ReviewAddModalView.tsx
-
-// src/features/review/add/ui/ReviewAddModalView.tsx
-
 'use client';
 
 import { StarIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-import type { Order } from '@/entities/order/model/types';
+import type { Order } from '@/entities/order';
 
 interface Props {
   order: Order;

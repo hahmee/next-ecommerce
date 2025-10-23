@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/AdminDatePicker.tsx
-
-// src/entities/analytics/ui/AdminDatePicker.tsx
-
 import dayjs from 'dayjs';
 import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
@@ -9,7 +5,7 @@ import { DateType, DateValueType } from 'react-tailwindcss-datepicker/dist/types
 
 import { DatepickType } from '@/shared/model/DatepickType';
 
-const AdminDatePicker = ({
+export const AdminDatePicker = ({
   date,
   dateChange,
   maxDate,
@@ -32,5 +28,3 @@ const AdminDatePicker = ({
     />
   );
 };
-
-export default AdminDatePicker;

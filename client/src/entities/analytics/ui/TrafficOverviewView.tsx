@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/TrafficOverviewView.tsx
-
-// src/entities/analytics/ui/TrafficOverviewView.tsx
-
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -11,39 +7,35 @@ import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
-const CardTraffic = dynamic(() => import('@/entities/analytics/ui/CardTrafficView'), {
-  ssr: true,
-  loading: () => <div className="min-h-[120px]" />,
-});
+const CardTraffic = dynamic(
+  () => import('@/entities/analytics').then((mod) => mod.CardTrafficView),
+  { ssr: true, loading: () => <div className="min-h-[120px]" /> },
+);
+
 const TrafficSessionChart = dynamic(
-  () => import('@/entities/analytics/ui/TrafficSessionChartView'),
-  {
-    ssr: false,
-    loading: () => <div className="min-h-[400px]">로딩중...</div>,
-  },
+  () => import('@/entities/analytics').then((mod) => mod.TrafficSessionChartView),
+  { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
-const MultiCirclesChart = dynamic(() => import('@/entities/analytics/ui/MultiCirclesChartView'), {
-  ssr: false,
-  loading: () => <div className="min-h-[400px]">로딩중...</div>,
-});
+
+const MultiCirclesChart = dynamic(
+  () => import('@/entities/analytics').then((mod) => mod.MultiCirclesChartView),
+  { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
+);
+
 const TrafficMiddleOverview = dynamic(
-  () => import('@/widgets/admin/dashboard-traffic/ui/TrafficMiddleOverview'),
-  {
-    ssr: false,
-    loading: () => <div className="min-h-[400px]">로딩중...</div>,
-  },
+  () => import('@/widgets/admin/dashboard-traffic').then((mod) => mod.TrafficMiddleOverviewView),
+  { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
+
 const TrafficBottomOverview = dynamic(
-  () => import('@/widgets/admin/dashboard-traffic/ui/TrafficBottomOverview'),
-  {
-    ssr: false,
-    loading: () => <div className="min-h-[400px]">로딩중...</div>,
-  },
+  () => import('@/widgets/admin/dashboard-traffic').then((mod) => mod.TrafficBottomOverviewView),
+  { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
-const AdminDatePicker = dynamic(() => import('@/entities/analytics/ui/AdminDatePicker'), {
-  ssr: false,
-  loading: () => <div style={{ height: 20 }}>로딩중...</div>,
-});
+
+const AdminDatePicker = dynamic(
+  () => import('@/entities/analytics').then((mod) => mod.AdminDatePicker),
+  { ssr: false, loading: () => <div style={{ height: 20 }}>로딩중...</div> },
+);
 
 export function TrafficOverviewView(props: {
   date: DatepickType;

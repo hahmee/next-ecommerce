@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/CountryTrafficMapView.tsx
-
-// src/entities/analytics/ui/CountryTrafficMapView.tsx
-
 'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
@@ -14,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { CountryChartDTO } from '@/entities/analytics/model/GAResponse';
 import { BarChartThin } from '@/entities/analytics/ui/BarChart';
 
-const CountryTrafficMapView = ({
+export const CountryTrafficMapView = ({
   countries,
 }: {
   countries: Array<CountryChartDTO> | undefined;
@@ -174,5 +170,3 @@ const CountryTrafficMapView = ({
     </div>
   );
 };
-
-export default CountryTrafficMapView;

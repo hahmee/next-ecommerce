@@ -2,7 +2,6 @@
 
 import { AddReviewPage } from '@/pages/home/review-write/ui/review-write-page';
 
-
 interface Props {
   params: { oid: string; orderId: string };
 }

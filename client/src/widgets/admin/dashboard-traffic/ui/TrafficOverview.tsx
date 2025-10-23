@@ -1,7 +1,3 @@
-// src/widgets/admin/dashboard-traffic/ui/TrafficOverview.tsx
-
-// src/widgets/admin/dashboard-traffic/ui/TrafficOverview.tsx
-
 'use client';
 
 import React from 'react';

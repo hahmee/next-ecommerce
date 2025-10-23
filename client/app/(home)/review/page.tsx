@@ -3,7 +3,7 @@
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 
-import { authApi } from '@/entities/member/api/authApi';
+import { authApi } from '@/entities/member';
 import { ReviewHistoryPage } from '@/pages/home/review';
 
 export async function generateMetadata(): Promise<Metadata> {

@@ -1,10 +1,8 @@
-// src/pages/home/product/[id]/ui/product-page.tsx
-
 import React, { Suspense } from 'react';
 
-import { productApi } from '@/entities/product/api/productApi';
-import ProductSingle from '@/entities/product/ui/ProductSingle';
-import { reviewApi } from '@/entities/review/api/reviewApi';
+import { productApi } from '@/entities/product';
+import { ProductSingle } from '@/entities/product';
+import { reviewApi } from '@/entities/review';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ProductSingleSkeleton from '@/shared/ui/skeletons/ProductSingleSkeleton';
 

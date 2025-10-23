@@ -1,7 +1,3 @@
-// src/entities/cart/ui/CartSummary.tsx
-
-// src/entities/cart/ui/CartSummary.tsx
-
 'use client';
 
 import Image from 'next/image';
@@ -10,7 +6,7 @@ import React from 'react';
 
 import { useCartStore } from '@/shared/store/cartStore';
 
-const CartSummary = ({
+export const CartSummary = ({
   type,
   cartButtonClick,
   disabled = false,
@@ -90,4 +86,3 @@ const CartSummary = ({
     </div>
   );
 };
-export default CartSummary;

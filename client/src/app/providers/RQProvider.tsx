@@ -1,5 +1,3 @@
-// src/app/providers/RQProvider.tsx
-
 'use client';
 
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';

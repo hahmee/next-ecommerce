@@ -1,7 +1,3 @@
-// src/entities/category/ui/CategoryTableView.tsx
-
-// src/entities/category/ui/CategoryTableView.tsx
-
 'use client';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
@@ -11,7 +7,7 @@ import Link from 'next/link';
 import React, { Fragment } from 'react';
 
 import { CategoryTree } from '@/entities/category';
-import type { Paging } from '@/entities/order/model/Paging';
+import type { Paging } from '@/entities/order';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
 import TableActions from '@/widgets/admin/table-kit/ui/TableActions';
 import TableAddButton from '@/widgets/admin/table-kit/ui/TableAddButton';

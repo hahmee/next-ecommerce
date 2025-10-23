@@ -1,9 +1,7 @@
-// src/pages/admin/profile/ui/profile-page.tsx
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { profileApi } from '@/entities/member/api/profileApi';
+import { profileApi } from '@/entities/member';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Profile from '@/widgets/admin/users/ui/Profile';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';

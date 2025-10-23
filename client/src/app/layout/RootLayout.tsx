@@ -1,5 +1,3 @@
-// src/app/layout/RootLayout.tsx
-
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { cookies } from 'next/headers';
 import React from 'react';

@@ -1,7 +1,3 @@
-// src/entities/product/ui/ProductOrders.tsx
-
-// src/entities/product/ui/ProductOrders.tsx
-
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -40,7 +36,7 @@ const orders: OrderOption[] = [
   },
 ];
 
-const ProductOrders = () => {
+export const ProductOrders = () => {
   const [sortOpen, setSortOpen] = useState<boolean>(false);
   const searchParams = useSafeSearchParams();
   const router = useRouter();
@@ -105,5 +101,3 @@ const ProductOrders = () => {
     </div>
   );
 };
-
-export default ProductOrders;

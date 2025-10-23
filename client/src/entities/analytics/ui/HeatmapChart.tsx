@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/HeatmapChart.tsx
-
-// src/entities/analytics/ui/HeatmapChart.tsx
-
 'use client';
 
 import type { ApexOptions } from 'apexcharts';
@@ -34,7 +30,7 @@ function generateHeatmapData(): Array<{
   });
 }
 
-export default function HeatmapChart() {
+export function HeatmapChart() {
   const [series, setSeries] = useState<any[]>([]);
   const [mounted, setMounted] = useState(false);
 

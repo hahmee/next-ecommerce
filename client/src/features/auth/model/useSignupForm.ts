@@ -1,14 +1,10 @@
-// src/features/auth/model/useSignupForm.ts
-
-// src/features/auth/model/useSignupForm.ts
-
 'use client';
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useCallback, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 import { isBlank } from '@/shared/lib/validation';
 import { DataResponse } from '@/shared/model/DataResponse';
 

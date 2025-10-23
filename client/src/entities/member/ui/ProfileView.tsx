@@ -1,13 +1,9 @@
-// src/entities/member/ui/ProfileView.tsx
-
-// src/entities/member/ui/ProfileView.tsx
-
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 
 interface Props {
   member: Member | null;

@@ -1,9 +1,7 @@
-﻿// src/pages/home/ui/home-page.tsx
-
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category';
-import { productApi } from '@/entities/product/api/productApi';
+import { productApi } from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Skeleton from '@/shared/ui/skeletons/Skeleton';
 import Home from '@/widgets/home/main/ui/Home';

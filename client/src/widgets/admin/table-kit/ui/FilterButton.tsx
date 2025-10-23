@@ -1,5 +1,3 @@
-// src/widgets/admin/table-kit/ui/FilterButton.tsx
-
 import { FunnelIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 

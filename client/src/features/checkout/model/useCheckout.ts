@@ -1,14 +1,10 @@
-// src/features/checkout/model/useCheckout.ts
-
-// src/features/checkout/model/useCheckout.ts
-
 'use client';
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { OrderStatus } from '@/entities/order/consts/OrderStatus';
-import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order/model/types';
+import { OrderStatus } from '@/entities/order';
+import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order';
 import { requestTossCardPayment } from '@/entities/payment/model/paymentService';
 import { useCreateOrderMutation } from '@/features/order/manage/model/useCreateOrderMutation';
 import { useCartStore } from '@/shared/store/cartStore';

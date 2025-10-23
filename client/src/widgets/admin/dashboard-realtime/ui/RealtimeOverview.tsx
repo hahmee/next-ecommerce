@@ -1,7 +1,3 @@
-// src/widgets/admin/dashboard-realtime/ui/RealtimeOverview.tsx
-
-// src/widgets/admin/dashboard-realtime/ui/RealtimeOverview.tsx
-
 'use client';
 
 import { RealtimeOverviewView } from '@/entities/analytics/ui/RealtimeOverviewView';

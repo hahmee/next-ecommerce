@@ -1,5 +1,3 @@
-// src/features/product/manage/ui/QuillEditor.tsx
-
 'use client';
 
 import 'react-quill/dist/quill.snow.css';

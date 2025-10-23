@@ -1,5 +1,3 @@
-// src/entities/order/consts/OrderStatus.ts
-
 export enum OrderStatus {
   ORDER_CHECKING = 'ORDER_CHECKING', // 주문 확인
   PAYMENT_CONFIRMED = 'PAYMENT_CONFIRMED', // 지불 완료

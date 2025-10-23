@@ -1,5 +1,3 @@
-// src/shared/proxy/headers.ts
-
 import { cookies } from 'next/headers';
 
 import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '@/shared/proxy/constants';

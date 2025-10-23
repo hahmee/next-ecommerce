@@ -1,6 +1,5 @@
 // app/(home)/order/confirmation/[paymentKey]/page.tsx
 
-
 import { ConfirmPage } from '@/pages/home/order/confirmation';
 
 interface Props {

@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/ShoppingSkeleton.tsx
-
 const ShoppingSkeleton = () => {
   return (
     <section className="w-full bg-white">

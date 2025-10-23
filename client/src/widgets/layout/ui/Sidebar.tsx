@@ -1,7 +1,3 @@
-// src/widgets/layout/ui/Sidebar.tsx
-
-// src/widgets/layout/ui/Sidebar.tsx
-
 'use client';
 
 import { BuildingStorefrontIcon } from '@heroicons/react/24/outline';

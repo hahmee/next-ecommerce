@@ -1,7 +1,3 @@
-// src/features/payment/confirm/model/useConfirmPaymentMutation.ts
-
-// src/features/payment/confirm/model/useConfirmPaymentMutation.ts
-
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 

@@ -1,7 +1,3 @@
-// src/pages/home/review-write/ui/review-write-page.tsx
-
-// src/pages/(home)/review-write/index.tsx
-
 import React from 'react';
 
 import OrderPage from '@/app/(home)/order/[orderId]/page';

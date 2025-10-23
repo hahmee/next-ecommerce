@@ -1,7 +1,3 @@
-// src/entities/category/ui/CategoryBreadcrumb.tsx
-
-// src/entities/category/ui/CategoryBreadcrumb.tsx
-
 import { Category } from '@/entities/category';
 
 interface BreadcrumbProps {
@@ -79,4 +75,3 @@ export const CategoryBreadcrumb = ({ categoryPaths }: BreadcrumbProps) => {
     </nav>
   );
 };
-

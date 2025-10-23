@@ -1,5 +1,3 @@
-// src/shared/proxy/url.ts
-
 import { API_BASE_URL } from '@/shared/proxy/constants';
 
 /** /api/bff/* → 백엔드의 동일 경로로 변환 */

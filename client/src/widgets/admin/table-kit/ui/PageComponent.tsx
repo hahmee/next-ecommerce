@@ -1,10 +1,6 @@
-// src/widgets/admin/table-kit/ui/PageComponent.tsx
-
-// src/widgets/admin/table-kit/ui/PageComponent.tsx
-
 'use client';
 
-import { Paging } from '@/entities/order/model/Paging';
+import { Paging } from '@/entities/order';
 
 const PageComponent = ({
   pagingData,

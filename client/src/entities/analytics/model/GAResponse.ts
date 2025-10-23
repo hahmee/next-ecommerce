@@ -1,5 +1,3 @@
-// src/entities/analytics/model/GAResponse.ts
-
 export interface GAResponseTop {
   // 상단 데이터
   sessions: string;

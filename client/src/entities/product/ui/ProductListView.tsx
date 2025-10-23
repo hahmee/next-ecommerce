@@ -1,17 +1,13 @@
-// src/entities/product/ui/ProductListView.tsx
-
-// src/entities/product/ui/ProductListView.tsx
-
 'use client';
 
 import React, { Fragment, Suspense } from 'react';
 
 import type { Category } from '@/entities/category';
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Product } from '@/entities/product/model/types';
-import ProductCard from '@/entities/product/ui/ProductCard';
-import ProductCategories from '@/entities/product/ui/ProductCategories';
-import ProductOrders from '@/entities/product/ui/ProductOrders';
+import type { PageResponse } from '@/entities/order';
+import type { Product } from '@/entities/product';
+import { ProductCard } from '@/entities/product';
+import { ProductCategories } from '@/entities/product';
+import { ProductOrders } from '@/entities/product';
 import FiltersBadge from '@/features/product/filters/ui/FiltersBadge';
 import ProductFilters from '@/features/product/filters/ui/ProductFilters';
 import { Size } from '@/shared/constants/size';

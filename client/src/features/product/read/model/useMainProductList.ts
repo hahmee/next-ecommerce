@@ -1,16 +1,12 @@
-// src/features/product/read/model/useMainProductList.ts
-
-// src/features/product/read/model/useMainProductList.ts
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import type { CartItem } from '@/entities/cart/model/CartItem';
-import { productApi } from '@/entities/product/api/productApi';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import type { Product } from '@/entities/product/model/types';
+import type { CartItem } from '@/entities/cart';
+import { productApi } from '@/entities/product';
+import { SalesStatus } from '@/entities/product';
+import type { Product } from '@/entities/product';
 import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
 import type { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';

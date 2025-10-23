@@ -1,13 +1,9 @@
-// src/shared/ui/UserSyncHandler.tsx
-
-// src/shared/ui/UserSyncHandler.tsx
-
 'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { authApi } from '@/entities/member/api/authApi';
+import { authApi } from '@/entities/member';
 import { useUserStore } from '@/shared/store/userStore';
 
 // 새로고침하거나 CSR로 진입했을 때 로그인 상태를 복원해주는 역할

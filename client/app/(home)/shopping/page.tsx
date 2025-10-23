@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next';
 
-import { authApi } from '@/entities/member/api/authApi';
+import { authApi } from '@/entities/member';
 import { OrderHistoryPage } from '@/pages/home/shopping';
 
 export async function generateMetadata(): Promise<Metadata> {

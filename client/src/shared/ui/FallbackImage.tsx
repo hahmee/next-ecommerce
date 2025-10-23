@@ -1,5 +1,3 @@
-// src/shared/ui/FallbackImage.tsx
-
 'use client';
 
 import Image, { ImageProps } from 'next/image';

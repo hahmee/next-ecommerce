@@ -1,7 +1,3 @@
-// src/entities/product/ui/ExpertList.tsx
-
-// src/entities/product/ui/ExpertList.tsx
-
 'use client';
 
 import { ArrowLongLeftIcon, ArrowLongRightIcon, StarIcon } from '@heroicons/react/20/solid';
@@ -11,7 +7,7 @@ import React, { useState } from 'react';
 
 import { useExpertProducts } from '@/features/product/read/model/useExpertProducts';
 
-const ExpertList = () => {
+export const ExpertList = () => {
   const { data: products = [] } = useExpertProducts();
 
   const [page, setPage] = useState(0);
@@ -109,5 +105,3 @@ const ExpertList = () => {
     </div>
   );
 };
-
-export default ExpertList;

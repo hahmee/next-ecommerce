@@ -1,5 +1,3 @@
-// src/features/auth/ui/SignupView.tsx
-
 'use client';
 
 import { FormEvent } from 'react';

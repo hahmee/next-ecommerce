@@ -1,7 +1,3 @@
-// src/widgets/layout/model/useNavIcons.ts
-
-// src/widgets/layout/model/useNavIcons.ts
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
@@ -9,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { cartApi } from '@/entities/cart/api/cartApi';
-import type { CartItemList } from '@/entities/cart/model/CartItemList';
-import { authApi } from '@/entities/member/api/authApi';
-import { MemberRole } from '@/entities/member/consts/MemberRole';
+import { cartApi } from '@/entities/cart';
+import type { CartItemList } from '@/entities/cart';
+import { authApi } from '@/entities/member';
+import { MemberRole } from '@/entities/member';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
 

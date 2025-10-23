@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/SalesChartView.tsx
-
-// src/entities/analytics/ui/SalesChartView.tsx
-
 'use client';
 
 import type { ApexOptions } from 'apexcharts';
@@ -42,7 +38,7 @@ const data = {
   ],
 };
 
-const SalesChartView = ({
+export const SalesChartView = ({
   chart,
   filter,
   filterChange,
@@ -208,5 +204,3 @@ const SalesChartView = ({
     </>
   );
 };
-
-export default SalesChartView;

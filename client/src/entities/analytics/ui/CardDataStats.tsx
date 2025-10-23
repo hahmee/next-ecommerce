@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/CardDataStats.tsx
-
-// src/entities/analytics/ui/CardDataStats.tsx
-
 import React, { ReactNode } from 'react';
 
 import { ChartContext } from '@/entities/analytics/consts/ChartContext';
@@ -16,7 +12,7 @@ interface CardDataStatsProps {
   selectedCard: string;
 }
 
-const CardDataStats: React.FC<CardDataStatsProps> = ({
+export const CardDataStats: React.FC<CardDataStatsProps> = ({
   title,
   total,
   rate,
@@ -86,5 +82,3 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
     </div>
   );
 };
-
-export default CardDataStats;

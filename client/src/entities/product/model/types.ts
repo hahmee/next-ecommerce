@@ -1,11 +1,7 @@
-// src/entities/product/model/types.ts
-
-// src/entities/product/model/types.ts
-
 import { Category } from '@/entities/category';
-import { Member } from '@/entities/member/model/Member';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import { FileDTO } from '@/entities/product/model/FileDTO';
+import { Member } from '@/entities/member';
+import { SalesStatus } from '@/entities/product';
+import { FileDTO } from '@/entities/product';
 import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface Product {

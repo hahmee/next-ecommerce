@@ -1,17 +1,13 @@
-// src/features/product/read/model/useProductSingle.ts
-
-// src/features/product/read/model/useProductSingle.ts
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
-import { productApi } from '@/entities/product/api/productApi';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import type { Product } from '@/entities/product/model/types';
-import { reviewApi } from '@/entities/review/api/reviewApi';
-import type { Review } from '@/entities/review/model/types';
+import { productApi } from '@/entities/product';
+import { SalesStatus } from '@/entities/product';
+import type { Product } from '@/entities/product';
+import { reviewApi } from '@/entities/review';
+import type { Review } from '@/entities/review';
 import type { ColorTag } from '@/shared/model/ColorTag';
 
 const EMPTY_COLOR: ColorTag = { id: 0, text: '', color: '' };

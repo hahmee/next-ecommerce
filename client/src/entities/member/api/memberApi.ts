@@ -1,9 +1,5 @@
-// src/entities/member/api/memberApi.ts
-
-// src/entities/member/api/memberApi.ts
-
-import type { Member } from '@/entities/member/model/Member';
-import type { PageResponse } from '@/entities/order/model/PageResponse';
+import type { Member } from '@/entities/member';
+import type { PageResponse } from '@/entities/order';
 import { fetcher } from '@/shared/http/fetcher';
 
 export type ListArgs = { page: number; size: number; search: string };

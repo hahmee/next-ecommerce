@@ -1,5 +1,3 @@
-// src/pages/admin/category/modal/add-category/ui/category-add-modal-page.tsx
-
 'use server';
 
 import { Suspense } from 'react';

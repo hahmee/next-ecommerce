@@ -1,7 +1,3 @@
-// src/widgets/admin/orders-table/ui/TopOrderTable.tsx
-
-// src/widgets/admin/orders-table/ui/TopOrderTable.tsx
-
 'use client';
 import React from 'react';
 

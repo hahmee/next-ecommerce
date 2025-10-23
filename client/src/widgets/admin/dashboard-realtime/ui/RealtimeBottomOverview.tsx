@@ -1,7 +1,3 @@
-// src/widgets/admin/dashboard-realtime/ui/RealtimeBottomOverview.tsx
-
-// src/widgets/admin/dashboard-realtime/ui/RealtimeBottomOverview.tsx
-
 'use client';
 
 import dynamic from 'next/dynamic';

@@ -1,7 +1,3 @@
-// src/widgets/admin/payments-table/ui/PaymentTable.tsx
-
-// src/widgets/admin/payments-table/ui/PaymentTable.tsx
-
 'use client';
 
 import { usePaymentTable } from '@/widgets/admin/payments-table/model/usePaymentTable';

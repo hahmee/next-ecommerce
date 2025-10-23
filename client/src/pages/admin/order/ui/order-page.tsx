@@ -1,8 +1,6 @@
-// src/pages/admin/order/ui/order-page.tsx
-
 import React, { Suspense } from 'react';
 
-import { orderApi } from '@/entities/order/api/orderApi';
+import { orderApi } from '@/entities/order';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import OrderTable from '@/widgets/admin/orders-table/ui/OrderTable';

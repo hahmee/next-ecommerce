@@ -1,7 +1,3 @@
-// src/shared/store/productImageStore.ts
-
-// src/shared/store/productImageStore.ts
-
 import { create } from 'zustand';
 
 import { ImageType } from '@/features/product/manage/ui/ImageUploadForm';

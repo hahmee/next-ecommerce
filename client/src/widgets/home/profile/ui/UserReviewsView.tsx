@@ -1,7 +1,3 @@
-// src/widgets/home/profile/ui/UserReviewsView.tsx
-
-// src/widgets/home/profile/ui/UserReviewsView.tsx
-
 'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
@@ -10,7 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import type { Review } from '@/entities/review/model/types';
+import type { Review } from '@/entities/review';
 
 interface Props {
   myReviews: Review[];

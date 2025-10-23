@@ -1,5 +1,3 @@
-// src/widgets/admin/orders-table/ui/OrderTable.tsx
-
 'use client';
 
 import { useOrdersTable } from '@/widgets/admin/orders-table/model/useOrdersTable';

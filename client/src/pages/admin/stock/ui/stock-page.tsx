@@ -1,9 +1,7 @@
-// src/pages/admin/stock/ui/stock-page.tsx
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { productApi } from '@/entities/product/api/productApi';
+import { productApi } from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import StockTable from '@/widgets/admin/stock-table/ui/StockTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';

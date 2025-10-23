@@ -1,5 +1,3 @@
-// src/widgets/layout/ui/AdminModal.tsx
-
 'use client';
 
 import { useRouter } from 'next/navigation';

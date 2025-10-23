@@ -1,5 +1,3 @@
-// src/global.d.ts
-
 // global.d.ts
 declare module 'jsvectormap' {
   export default class JsVectorMap {

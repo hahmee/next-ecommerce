@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/ListPageSkeleton.tsx
-
 const ListPageSkeleton = () => {
   return (
     <div className="bg-white">

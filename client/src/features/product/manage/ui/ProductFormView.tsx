@@ -1,14 +1,10 @@
-// src/features/product/manage/ui/ProductFormView.tsx
-
-// src/features/product/manage/ui/ProductFormView.tsx
-
 'use client';
 
 import Link from 'next/link';
 
 import type { Category } from '@/entities/category';
-import {CategorySelect} from '@/entities/category';
-import type { Product } from '@/entities/product/model/types';
+import { CategorySelect } from '@/entities/category';
+import type { Product } from '@/entities/product';
 import { salesOptions, sizeOptions } from '@/features/product/manage/consts/presets';
 import BackButton from '@/features/product/manage/ui/BackButton';
 import ColorSelector from '@/features/product/manage/ui/ColorSelector';

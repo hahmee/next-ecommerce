@@ -1,7 +1,3 @@
-// src/widgets/admin/payments-table/ui/PaymentTableView.tsx
-
-// src/widgets/admin/payments-table/ui/PaymentTableView.tsx
-
 'use client';
 
 import 'dayjs/locale/ko';
@@ -10,7 +6,7 @@ import dayjs from 'dayjs';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { Paging } from '@/entities/order/model/Paging';
+import type { Paging } from '@/entities/order';
 import { TossPaymentStatusKR, TossPaymentTypeKR } from '@/entities/payment/consts/toss';
 import type { Payment } from '@/entities/payment/model/types';
 import type { DatepickType } from '@/shared/model/DatepickType';

@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/CountryMapView.tsx
-
-// src/entities/analytics/ui/CountryMapView.tsx
-
 'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
@@ -12,7 +8,7 @@ import React, { useEffect } from 'react';
 
 import { MapResponse } from '@/entities/analytics/model/MapResponse';
 
-const CountryMapView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
+export const CountryMapView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
   useEffect(() => {
     // const data = [{"country": "KR", totalSales: 123377},{"country": "AM", totalSales: 1000}]
     let result = {};
@@ -84,5 +80,3 @@ const CountryMapView = ({ countries }: { countries: Array<MapResponse> | undefin
     </>
   );
 };
-
-export default CountryMapView;

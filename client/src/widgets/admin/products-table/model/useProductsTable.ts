@@ -1,17 +1,13 @@
-// src/widgets/admin/products-table/model/useProductsTable.ts
-
-// src/widgets/admin/products-table/model/useProductsTable.ts
-
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Paging } from '@/entities/order/model/Paging';
-import { productApi } from '@/entities/product/api/productApi';
-import type { Product } from '@/entities/product/model/types';
+import type { PageResponse } from '@/entities/order';
+import type { Paging } from '@/entities/order';
+import { productApi } from '@/entities/product';
+import type { Product } from '@/entities/product';
 
 export const initialPaging: Paging = {
   totalCount: 0,

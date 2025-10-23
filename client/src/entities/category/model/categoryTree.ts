@@ -1,5 +1,3 @@
-// src/entities/category/model/categoryTree.ts
-
 export interface CategoryTree {
   cno: number;
   cname: string;

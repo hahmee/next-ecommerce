@@ -1,7 +1,3 @@
-// src/features/review/add/ui/ReviewAddModal.tsx
-
-// src/features/review/add/ui/ReviewAddModal.tsx
-
 'use client';
 import { ReviewAddModalView } from '@/features/review/add/ui/ReviewAddModalView';
 import { useReviewAdd } from '@/features/review/read/model/useReviewAdd';

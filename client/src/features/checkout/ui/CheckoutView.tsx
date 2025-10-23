@@ -1,13 +1,9 @@
-// src/features/checkout/ui/CheckoutView.tsx
-
-// src/features/checkout/ui/CheckoutView.tsx
-
 'use client';
 
 import React from 'react';
 
-import CartSummary from '@/entities/cart/ui/CartSummary';
-import type { OrderShippingAddressInfo } from '@/entities/order/model/types';
+import {CartSummary} from '@/entities/cart';
+import type { OrderShippingAddressInfo } from '@/entities/order';
 
 type Props = {
   shippingInfo: OrderShippingAddressInfo;

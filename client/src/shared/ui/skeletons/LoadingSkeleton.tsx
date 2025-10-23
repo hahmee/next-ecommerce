@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/LoadingSkeleton.tsx
-
 const LoadingSkeleton = () => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

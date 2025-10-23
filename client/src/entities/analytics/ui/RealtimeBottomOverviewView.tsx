@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/RealtimeBottomOverviewView.tsx
-
-// src/entities/analytics/ui/RealtimeBottomOverviewView.tsx
-
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -10,12 +6,16 @@ import React from 'react';
 import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const RecentVisitors = dynamic(() => import('@/entities/analytics/ui/RecentVisitors'), {
+const RecentVisitors = dynamic(
+  () => import('@/entities/analytics').then((mod) => mod.RecentVisitors),
+  { ssr: false },
+);
+
+const PieChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.PieChart), {
   ssr: false,
 });
-const PieChart = dynamic(() => import('@/entities/analytics/ui/PieChart'), { ssr: false });
 
-export default function RealtimeBottomOverviewView({
+export function RealtimeBottomOverviewView({
   gaBottomData,
 }: {
   gaBottomData?: GARealTimeResponseBottom;

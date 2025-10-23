@@ -1,12 +1,8 @@
-// src/entities/product/ui/ProductList.tsx
-
-// src/entities/product/ui/ProductList.tsx
-
 'use client';
 
 import React from 'react';
 
-import { ProductListView } from '@/entities/product/ui/ProductListView';
+import { ProductListView } from '@/entities/product';
 import { useProductList } from '@/features/product/read/model/useProductList';
 
 type Props = {
@@ -19,7 +15,7 @@ type Props = {
   query: string;
 };
 
-export default function ProductList(props: Props) {
+export function ProductList(props: Props) {
   const productList = useProductList({
     categoryId: props.categoryId,
     colors: props.colors,

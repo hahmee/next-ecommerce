@@ -1,7 +1,3 @@
-// src/features/category/read/model/useCategories.ts
-
-// src/features/category/read/model/useCategories.ts
-
 'use client';
 
 import { useQuery } from '@tanstack/react-query';

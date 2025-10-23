@@ -1,5 +1,3 @@
-// src/features/product/manage/ui/BackButton.tsx
-
 'use client';
 
 import { useRouter } from 'next/navigation';

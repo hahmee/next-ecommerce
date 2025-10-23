@@ -1,13 +1,13 @@
-// src/entities/analytics/ui/TrafficPageChartView.tsx
-
-// src/entities/analytics/ui/TrafficPageChartView.tsx
-
 import React from 'react';
 
 import { SessionDTO } from '@/entities/analytics/model/GAResponse';
 import HorizontalBarChart from '@/entities/analytics/ui/HorizontalBarChart';
 
-const TrafficPageChartView = ({ topPages }: { topPages: Array<SessionDTO<number>> | [] }) => {
+export const TrafficPageChartView = ({
+  topPages,
+}: {
+  topPages: Array<SessionDTO<number>> | [];
+}) => {
   const totalSessions = topPages ? topPages.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
   return (
@@ -37,5 +37,3 @@ const TrafficPageChartView = ({ topPages }: { topPages: Array<SessionDTO<number>
     </div>
   );
 };
-
-export default TrafficPageChartView;

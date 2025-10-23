@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/MultiCirclesChartView.tsx
-
-// src/entities/analytics/ui/MultiCirclesChartView.tsx
-
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
@@ -98,4 +94,4 @@ const MultiCirclesChartView = ({ percentages, title, labels, total }: MultiRadia
   );
 };
 
-export default React.memo(MultiCirclesChartView);
+export const MultiCirclesChartView = React.memo(MultiCirclesChartViewComponent);

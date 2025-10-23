@@ -1,7 +1,3 @@
-// src/features/product/read/model/useProductList.ts
-
-// src/features/product/read/model/useProductList.ts
-
 'use client';
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
@@ -10,9 +6,9 @@ import { useInView } from 'react-intersection-observer';
 
 import { categoryApi } from '@/entities/category';
 import type { Category } from '@/entities/category';
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import { productApi } from '@/entities/product/api/productApi';
-import type { Product } from '@/entities/product/model/types';
+import type { PageResponse } from '@/entities/order';
+import { productApi } from '@/entities/product';
+import type { Product } from '@/entities/product';
 
 type Params = {
   categoryId?: string;

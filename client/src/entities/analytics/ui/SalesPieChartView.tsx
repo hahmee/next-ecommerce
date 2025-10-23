@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/SalesPieChartView.tsx
-
-// src/entities/analytics/ui/SalesPieChartView.tsx
-
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
@@ -16,7 +12,7 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 
-const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
+export const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
   const series = countries?.map((c) => (c.totalSales === null ? 0 : c.totalSales)) || [];
   const labels = countries?.map((c) => (c.country === null ? '' : c.country)) || [];
 
@@ -113,5 +109,3 @@ const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | unde
     </>
   );
 };
-
-export default SalesPieChartView;

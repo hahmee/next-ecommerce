@@ -1,7 +1,3 @@
-// src/entities/analytics/model/ChartRequest.ts
-
-// src/entities/analytics/model/ChartRequest.ts
-
 import { ChartContext } from '@/entities/analytics/consts/ChartContext';
 import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 

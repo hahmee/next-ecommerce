@@ -1,7 +1,3 @@
-// src/entities/analytics/ui/PieChart.tsx
-
-// src/entities/analytics/ui/PieChart.tsx
-
 import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
@@ -15,7 +11,7 @@ const getRandomColor = (length: number) => {
   return colors.slice(0, length);
 };
 
-const PieChart = ({
+export const PieChart = ({
   data,
   title,
   label,
@@ -121,5 +117,3 @@ const PieChart = ({
     </div>
   );
 };
-
-export default PieChart;

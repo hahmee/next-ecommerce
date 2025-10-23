@@ -1,5 +1,3 @@
-// src/pages/admin/category/add-category/ui/add-category-page.tsx
-
 import { CategoryPage } from '@/pages/admin/category';
 import { CategoryAddModalPage } from '@/pages/admin/category/modal/add-category';
 

@@ -1,7 +1,3 @@
-// src/shared/ga/UserGA.tsx
-
-// src/shared/ga/UserGA.tsx
-
 'use client';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';

@@ -1,7 +1,3 @@
-// src/features/product/manage/model/useProductForm.ts
-
-// src/features/product/manage/model/useProductForm.ts
-
 'use client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -10,8 +6,8 @@ import toast from 'react-hot-toast';
 
 import { categoryApi } from '@/entities/category';
 import type { Category } from '@/entities/category';
-import { productApi } from '@/entities/product/api/productApi';
-import type { Product } from '@/entities/product/model/types';
+import { productApi } from '@/entities/product';
+import type { Product } from '@/entities/product';
 import { Mode } from '@/shared/constants/mode';
 import { useProductImageStore } from '@/shared/store/productImageStore';
 import { useTagStore } from '@/shared/store/tagStore';

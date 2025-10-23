@@ -1,14 +1,10 @@
-// src/entities/product/ui/ProductSingleView.tsx
-
-// src/entities/product/ui/ProductSingleView.tsx
-
 'use client';
 
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import type { Product } from '@/entities/product/model/types';
-import ProductImages from '@/entities/product/ui/ProductImages';
-import type { Review } from '@/entities/review/model/types';
-import Reviews from '@/entities/review/ui/Reviews';
+import { SalesStatus } from '@/entities/product';
+import type { Product } from '@/entities/product';
+import { ProductImages } from '@/entities/product';
+import type { Review } from '@/entities/review';
+import { Reviews } from '@/entities/review';
 import AddCart from '@/features/product/cart/ui/AddCart';
 import OptionSelect from '@/features/product/filters/ui/OptionSelect';
 import type { ColorTag } from '@/shared/model/ColorTag';

@@ -1,10 +1,9 @@
-﻿// src/pages/home/list/ui/list-page.tsx
-import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
+﻿import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category';
-import { productApi } from '@/entities/product/api/productApi';
-import ProductList from '@/entities/product/ui/ProductList';
+import { productApi } from '@/entities/product';
+import ProductList from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
 

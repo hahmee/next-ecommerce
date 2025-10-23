@@ -1,8 +1,4 @@
-// src/entities/member/api/authApi.ts
-
-// src/entities/member/api/authApi.ts
-
-import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & {

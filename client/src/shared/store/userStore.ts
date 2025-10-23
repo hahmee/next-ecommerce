@@ -1,10 +1,6 @@
-// src/shared/store/userStore.ts
-
-// src/shared/store/userStore.ts
-
 import { create } from 'zustand';
 
-import { MemberPublic } from '@/entities/member/model/MemberPublic';
+import { MemberPublic } from '@/entities/member';
 
 interface UserState {
   user: MemberPublic | null;

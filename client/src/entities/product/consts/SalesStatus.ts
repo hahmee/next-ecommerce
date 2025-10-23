@@ -1,5 +1,3 @@
-// src/entities/product/consts/SalesStatus.ts
-
 export enum SalesStatus {
   ONSALE = 'ONSALE',
   SOLDOUT = 'SOLDOUT',

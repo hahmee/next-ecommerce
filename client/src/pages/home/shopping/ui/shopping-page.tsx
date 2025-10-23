@@ -1,6 +1,4 @@
-﻿// src/pages/home/shopping/ui/shopping-page.tsx
-
-import React, { Suspense } from 'react';
+﻿import React, { Suspense } from 'react';
 
 import { paymentApi } from '@/entities/payment/api/paymentApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';

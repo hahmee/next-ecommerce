@@ -1,5 +1,3 @@
-// src/entities/analytics/model/CardResponse.ts
-
 export interface CardResponse {
   startDate: string;
   endDate: string;

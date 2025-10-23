@@ -1,5 +1,3 @@
-// src/features/product/manage/ui/MainInfo.tsx
-
 'use client';
 
 import Image from 'next/image';

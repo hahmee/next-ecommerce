@@ -1,5 +1,3 @@
-// src/shared/ui/skeletons/TableSkeleton.tsx
-
 export const TableSkeleton = () => {
   return (
     <div className="bg-white dark:bg-gray-800 shadow-md rounded-sm ">

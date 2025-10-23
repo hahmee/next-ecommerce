@@ -1,15 +1,17 @@
-// src/features/product/filters/ui/FiltersBadge.tsx
-
-// src/features/product/filters/ui/FiltersBadge.tsx
-
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
 import { Category } from '@/entities/category';
-import { Params } from '@/entities/product/ui/ProductListView';
+import { Params } from '@/entities/product';
 
-const FiltersBadge = ({ param, category }: { param: Params; category?: Category | undefined }) => {
+export const FiltersBadge = ({
+  param,
+  category,
+}: {
+  param: Params;
+  category?: Category | undefined;
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -42,4 +44,3 @@ const FiltersBadge = ({ param, category }: { param: Params; category?: Category 
     </div>
   );
 };
-export default FiltersBadge;

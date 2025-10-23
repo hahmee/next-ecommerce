@@ -1,9 +1,6 @@
-// src/widgets/admin/users/ui/Profile.tsx
-
-// src/widgets/admin/users/ui/Profile.tsx
 'use client';
 
-import { ProfileView } from '@/entities/member/ui/ProfileView';
+import { ProfileView } from '@/entities/member';
 import { useProfile } from '@/features/member/read/model/useProfile';
 
 export default function Profile() {

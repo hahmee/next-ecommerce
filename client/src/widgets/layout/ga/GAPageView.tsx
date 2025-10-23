@@ -1,5 +1,3 @@
-// src/widgets/layout/ga/GAPageView.tsx
-
 'use client';
 
 import { sendGAEvent } from '@next/third-parties/google';

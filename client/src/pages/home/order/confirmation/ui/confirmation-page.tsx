@@ -1,5 +1,3 @@
-// src/pages/home/order/confirmation/[paymentKey]/ui/confirmation-page.tsx
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';

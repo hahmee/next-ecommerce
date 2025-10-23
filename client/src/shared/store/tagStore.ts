@@ -1,7 +1,3 @@
-// src/shared/store/tagStore.ts
-
-// src/shared/store/tagStore.ts
-
 import { create } from 'zustand';
 
 import { ColorTag } from '@/shared/model/ColorTag';

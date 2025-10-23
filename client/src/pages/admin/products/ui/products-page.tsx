@@ -1,8 +1,6 @@
-// src/pages/admin/products/ui/products-page.tsx
-
 import React, { Suspense } from 'react';
 
-import { productApi } from '@/entities/product/api/productApi';
+import { productApi } from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import ProductTable from '@/widgets/admin/products-table/ui/ProductsTable';

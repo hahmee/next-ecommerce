@@ -1,5 +1,3 @@
-// src/pages/admin/category/edit-category/ui/edit-category-page.tsx
-
 import React from 'react';
 
 import { CategoryPage } from '@/pages/admin/category';

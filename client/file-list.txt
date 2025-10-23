@@ -53,6 +53,7 @@
 /c/dev/private/next-ecommerce/client/src/entities/analytics/api/dashboardApi.ts
 /c/dev/private/next-ecommerce/client/src/entities/analytics/consts/ChartContext.ts
 /c/dev/private/next-ecommerce/client/src/entities/analytics/consts/ChartFilter.ts
+/c/dev/private/next-ecommerce/client/src/entities/analytics/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/analytics/model/CardResponse.ts
 /c/dev/private/next-ecommerce/client/src/entities/analytics/model/ChartRequest.ts
 /c/dev/private/next-ecommerce/client/src/entities/analytics/model/ChartResponse.ts
@@ -84,7 +85,6 @@
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/RecentVisitors.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/SalesChartView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/SalesPieChartView.tsx
-/c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TestChart.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TopCustomers.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TopCustomersView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TrafficBottomOverviewView.tsx
@@ -94,6 +94,7 @@
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TrafficSessionChartView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TrafficSourceChartView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/cart/api/cartApi.ts
+/c/dev/private/next-ecommerce/client/src/entities/cart/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/cart/model/CartItem.ts
 /c/dev/private/next-ecommerce/client/src/entities/cart/model/CartItemList.ts
 /c/dev/private/next-ecommerce/client/src/entities/cart/ui/Cart.tsx
@@ -119,6 +120,7 @@
 /c/dev/private/next-ecommerce/client/src/entities/member/ui/ProfileView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/order/api/orderApi.ts
 /c/dev/private/next-ecommerce/client/src/entities/order/consts/OrderStatus.ts
+/c/dev/private/next-ecommerce/client/src/entities/order/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/order/model/PageParam.ts
 /c/dev/private/next-ecommerce/client/src/entities/order/model/PageResponse.ts
 /c/dev/private/next-ecommerce/client/src/entities/order/model/Paging.ts
@@ -126,13 +128,14 @@
 /c/dev/private/next-ecommerce/client/src/entities/order/ui/OrderDetailView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/payment/api/paymentApi.ts
 /c/dev/private/next-ecommerce/client/src/entities/payment/consts/toss.ts
+/c/dev/private/next-ecommerce/client/src/entities/payment/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/payment/model/paymentService.ts
 /c/dev/private/next-ecommerce/client/src/entities/payment/model/PaymentSummaryDTO.ts
 /c/dev/private/next-ecommerce/client/src/entities/payment/model/types.ts
 /c/dev/private/next-ecommerce/client/src/entities/product/api/productApi.ts
 /c/dev/private/next-ecommerce/client/src/entities/product/consts/SalesStatus.ts
+/c/dev/private/next-ecommerce/client/src/entities/product/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/product/model/FileDTO.ts
-/c/dev/private/next-ecommerce/client/src/entities/product/model/types.extra.ts
 /c/dev/private/next-ecommerce/client/src/entities/product/model/types.ts
 /c/dev/private/next-ecommerce/client/src/entities/product/ui/CategoryItem.tsx
 /c/dev/private/next-ecommerce/client/src/entities/product/ui/CategoryList.tsx
@@ -147,6 +150,7 @@
 /c/dev/private/next-ecommerce/client/src/entities/product/ui/ProductSingle.tsx
 /c/dev/private/next-ecommerce/client/src/entities/product/ui/ProductSingleView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/review/api/reviewApi.ts
+/c/dev/private/next-ecommerce/client/src/entities/review/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/review/model/types.ts
 /c/dev/private/next-ecommerce/client/src/entities/review/ui/Reviews.tsx
 /c/dev/private/next-ecommerce/client/src/entities/review/ui/ReviewSingle.tsx

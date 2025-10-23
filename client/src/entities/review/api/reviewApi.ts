@@ -1,8 +1,4 @@
-// src/entities/review/api/reviewApi.ts
-
-// src/entities/review/api/reviewApi.ts
-
-import type { Review } from '@/entities/review/model/types';
+import type { Review } from '@/entities/review';
 import { fetcher } from '@/shared/http/fetcher';
 import { publicFetcher } from '@/shared/http/publicFetcher';
 

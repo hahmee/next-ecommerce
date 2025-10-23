@@ -1,5 +1,3 @@
-// src/widgets/home/main/ui/Slider.tsx
-
 'use client';
 
 import Image from 'next/image';

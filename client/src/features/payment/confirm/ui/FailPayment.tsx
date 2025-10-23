@@ -1,5 +1,3 @@
-// src/features/payment/confirm/ui/FailPayment.tsx
-
 import Link from 'next/link';
 
 const FailPayment = () => {

@@ -1,7 +1,3 @@
-// src/features/product/manage/ui/RadioButton.tsx
-
-// src/features/product/manage/ui/RadioButton.tsx
-
 'use client';
 
 import { memo, useState } from 'react';
