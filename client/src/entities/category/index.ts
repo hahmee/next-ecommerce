@@ -2,8 +2,8 @@
 export { categoryApi } from './api/categoryApi';
 
 // model
-export * from './model/types';
 export * from './model/categoryTree';
+export * from './model/types';
 
 // ui
 export { CategoryBreadcrumb } from './ui/CategoryBreadcrumb';

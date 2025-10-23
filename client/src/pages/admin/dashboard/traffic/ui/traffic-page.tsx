@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 
-import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
+import { dashboardApi } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
-import TrafficOverview from '@/widgets/admin/users';users';/dashboard-traffic/ui/TrafficOverview';
-import Breadcrumb from '@/widgets/layout';
+import { TrafficOverview } from '@/widgets/admin/dashboard-traffic';
+import { Breadcrumb } from '@/widgets/layout';
 
 export async function DashBoardTrafficPage() {
   const today = dayjs();

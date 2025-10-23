@@ -1,17 +1,18 @@
 // app/(home)/layout.tsx
+import { Footer, Navbar } from '@/widgets/layout';
 
-// app/(home)/layout.tsx
-
-import React from 'react';
-
-import Footer from '@/widgets/layout';
-import Navbar from '@/widgets/layout';
-
-export default async function DefaultLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function HomeLayout({
+                                     children,
+                                     modal,            // ★ 추가
+                                   }: {
+  children: React.ReactNode;
+  modal: React.ReactNode; // ★ 타입 명시
+}) {
   return (
     <>
       <Navbar />
       {children}
+      {modal ?? null}
       <Footer />
     </>
   );

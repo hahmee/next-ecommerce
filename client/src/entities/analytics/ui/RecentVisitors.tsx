@@ -1,7 +1,7 @@
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+import { SessionDTO } from '@/entities/analytics';
 
 export const RecentVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
   return (

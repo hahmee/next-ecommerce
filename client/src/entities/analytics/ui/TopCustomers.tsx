@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import { TopCustomersView } from '@/entities/analytics/ui/TopCustomersView';
+import { TopCustomersView } from '@/entities/analytics';
 import { useTopCustomers } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 

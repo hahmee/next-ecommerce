@@ -3,12 +3,19 @@ import React from 'react';
 
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const Categories = dynamic(() => import('@/widgets/home/main';
-const ExpertList = dynamic(() => import('@/entities/product/ui/ExpertList'), { ssr: false });
-const MainProductList = dynamic(() => import('@/entities/product/ui/MainProductList'), {
+const Categories = dynamic(() => import('@/widgets/home/main').then((m) => m.Categories));
+const ExpertList = dynamic(() => import('@/entities/product').then((mod) => mod.ExpertList), {
   ssr: false,
 });
-const MainInfo = dynamic(() => import('@/features/product/manage/ui/MainInfo'), { ssr: false });
+const MainProductList = dynamic(
+  () => import('@/entities/product').then((mod) => mod.MainProductList),
+  {
+    ssr: false,
+  },
+);
+const MainInfo = dynamic(() => import('@/features/product/manage').then((mod) => mod.MainInfo), {
+  ssr: false,
+});
 
 export const Home = () => {
   return (

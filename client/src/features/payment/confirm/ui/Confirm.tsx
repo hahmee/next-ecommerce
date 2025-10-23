@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { usePaymentConfirm } from '@/features/payment/confirm';
 import { ConfirmView } from '@/features/payment/confirm';
 
@@ -25,4 +26,3 @@ export const Confirm = ({ paymentKey }: Props) => {
 
   return <ConfirmView payment={payment} />;
 };
-

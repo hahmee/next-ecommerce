@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import {HeatmapChart} from '@/entities/analytics';
-import {TestChart} from '@/entities/analytics';
+import { HeatmapChart } from '@/entities/analytics';
+import { TestChart } from '@/entities/analytics';
 import { useAdminMembers } from '@/features/member/read';
 
 export const UserDashboard = () => {
@@ -81,4 +81,3 @@ export const UserDashboard = () => {
     </div>
   );
 };
-

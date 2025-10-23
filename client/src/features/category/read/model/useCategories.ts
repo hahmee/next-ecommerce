@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { categoryApi } from '@/entities/category';
 import type { Category } from '@/entities/category';
+import { categoryApi } from '@/entities/category';
 
 export function useCategories() {
   return useQuery<Category[]>({

@@ -1,6 +1,8 @@
 // AUTO-GENERATED FILE. DO NOT EDIT.
 // Run: node scripts/generate-barrels.cjs --base src/widgets
 
+export * from './ga/GAPageView';
+export * from './model/types';
 export * from './model/useFullMenu';
 export * from './model/useNavIcons';
 export * from './model/useSearchBar';
@@ -22,4 +24,3 @@ export * from './ui/SearchBarView';
 export * from './ui/Sidebar';
 export * from './ui/SidebarDropdown';
 export * from './ui/SidebarItem';
-export * from './ga/GAPageView';

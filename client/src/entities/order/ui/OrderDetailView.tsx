@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { OrderStatus } from '@/entities/order';
 import type { Order } from '@/entities/order';
+import { OrderStatus } from '@/entities/order';
 
 const getOrderStatusText = (status: OrderStatus): string => {
   switch (status) {

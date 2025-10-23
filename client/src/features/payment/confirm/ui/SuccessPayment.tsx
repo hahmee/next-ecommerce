@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import Loading from '@/app/loading';
-import { SessionExpiredError } from '@/shared/lib/errors';
 import { useConfirmPaymentMutation } from '@/features/payment/confirm';
+import { SessionExpiredError } from '@/shared/lib/errors';
 
 interface Props {
   paymentKey: string;
@@ -54,4 +54,3 @@ export const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
 
   return <Loading />;
 };
-

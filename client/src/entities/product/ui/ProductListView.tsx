@@ -4,9 +4,9 @@ import React, { Fragment, Suspense } from 'react';
 
 import type { Category } from '@/entities/category';
 import type { PageResponse } from '@/entities/order';
-import type { Product } from '@/entities/product';
+import type { Params, Product } from '@/entities/product';
 import { ProductCard, ProductCategories, ProductOrders } from '@/entities/product';
-import ProductFilters, { filterPresets, FiltersBadge } from '@/features/product/filters';
+import { filterPresets, FiltersBadge, ProductFilters } from '@/features/product/filters';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
 import ProductCardListSkeleton from '@/shared/ui/skeletons/ProductCartListSkeleton';
@@ -19,7 +19,6 @@ type Props = {
   isFetchingNextPage: boolean;
   isLoading: boolean;
   loadMoreRef: (node?: Element | null) => void;
-  // ref: (node?: Element | null | undefined) => void;
   categories: Category[];
   category?: Category;
 };

@@ -8,8 +8,8 @@ import React, { useEffect, useState } from 'react';
 import { useLogout } from '@/features/auth';
 import { isAdmin } from '@/shared/lib/isAdmin';
 import { useUserStore } from '@/shared/store/userStore';
-import {GuestAuthButtons} from '@/widgets/layout';
-import {SearchBar} from '@/widgets/layout';
+import { GuestAuthButtons } from '@/widgets/layout';
+import { SearchBar } from '@/widgets/layout';
 
 export const Menu = () => {
   const pathname = usePathname();
@@ -68,4 +68,3 @@ export const Menu = () => {
     </div>
   );
 };
-

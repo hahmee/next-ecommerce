@@ -3,8 +3,8 @@ import React, { Suspense } from 'react';
 import Loading from '@/app/loading';
 import { profileApi } from '@/entities/member';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import {Profile} from '@/widgets/admin/users';
-import {Breadcrumb} from '@/widgets/layout';
+import { Profile } from '@/widgets/admin/users';
+import { Breadcrumb } from '@/widgets/layout';
 
 export async function ProfilePage() {
   const prefetchOptions = {

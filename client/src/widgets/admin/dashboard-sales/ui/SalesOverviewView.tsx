@@ -4,23 +4,35 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { ChartContext } from '@/entities/analytics/consts/ChartContext';
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import type { CardResponse } from '@/entities/analytics/model/CardResponse';
-import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
-import CardDataStats from '@/entities/analytics/ui/CardDataStats';
+import { ChartContext } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
+import type { CardResponse } from '@/entities/analytics';
+import type { ChartResponse } from '@/entities/analytics';
+import { CardDataStats } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const SalesChart = dynamic(() => import('@/entities/analytics/ui/SalesChartView'), { ssr: false });
-const TopOrderTable = dynamic(() => import('@/widgets/admin/orders-table/ui/TopOrderTable'), {
+const SalesChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.SalesChartView), {
   ssr: false,
 });
-const TopCustomers = dynamic(() => import('@/entities/analytics/ui/TopCustomers'), { ssr: false });
-const CountryChart = dynamic(() => import('@/entities/analytics/ui/CountryChart'), { ssr: false });
-const AdminDatePicker = dynamic(() => import('@/entities/analytics/ui/AdminDatePicker'), {
+const TopOrderTable = dynamic(
+  () => import('@/widgets/admin/orders-table').then((mod) => mod.TopOrderTable),
+  {
+    ssr: false,
+  },
+);
+const TopCustomers = dynamic(() => import('@/entities/analytics').then((mod) => mod.TopCustomers), {
   ssr: false,
 });
+const CountryChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.CountryChart), {
+  ssr: false,
+});
+const AdminDatePicker = dynamic(
+  () => import('@/entities/analytics').then((mod) => mod.AdminDatePicker),
+  {
+    ssr: false,
+  },
+);
 
 export function SalesOverviewView(props: {
   date: DatepickType;

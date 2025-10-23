@@ -3,11 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
 
+import type { Product } from '@/entities/product';
 import { productApi } from '@/entities/product';
 import { SalesStatus } from '@/entities/product';
-import type { Product } from '@/entities/product';
-import { reviewApi } from '@/entities/review';
 import type { Review } from '@/entities/review';
+import { reviewApi } from '@/entities/review';
 import type { ColorTag } from '@/shared/model/ColorTag';
 
 const EMPTY_COLOR: ColorTag = { id: 0, text: '', color: '' };

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import React from 'react';
+
 import { PaymentConfirmVM } from '@/features/payment/confirm';
 
 interface Props {

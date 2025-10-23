@@ -3,8 +3,8 @@
 import { categoryApi } from '@/entities/category';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
-import {CategoryTable} from '@/widgets/admin/categories-table';
-import {Breadcrumb} from '@/widgets/layout';
+import { CategoryTable } from '@/widgets/admin/categories-table';
+import { Breadcrumb } from '@/widgets/layout';
 
 export function CategoryPage() {
   const prefetchOptions = {

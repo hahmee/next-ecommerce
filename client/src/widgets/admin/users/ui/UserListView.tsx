@@ -97,4 +97,3 @@ export const UserListView = ({ users, onPageChange }: Props) => {
     </div>
   );
 };
-

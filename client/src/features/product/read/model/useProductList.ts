@@ -4,11 +4,11 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { categoryApi } from '@/entities/category';
 import type { Category } from '@/entities/category';
+import { categoryApi } from '@/entities/category';
 import type { PageResponse } from '@/entities/order';
-import { productApi } from '@/entities/product';
 import type { Product } from '@/entities/product';
+import { productApi } from '@/entities/product';
 
 type Params = {
   categoryId?: string;

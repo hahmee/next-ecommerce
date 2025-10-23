@@ -3,8 +3,8 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
+import { ChartFilter } from '@/entities/analytics';
+import type { GAResponseTop } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 const CardTraffic = dynamic(
@@ -23,12 +23,12 @@ const MultiCirclesChart = dynamic(
 );
 
 const TrafficMiddleOverview = dynamic(
-  () => import('@/widgets/admin/dashboard-traffic').then((mod) => mod.TrafficMiddleOverviewView),
+  () => import('@/widgets/admin/dashboard-traffic').then((mod) => mod.TrafficMiddleOverview),
   { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
 
 const TrafficBottomOverview = dynamic(
-  () => import('@/widgets/admin/dashboard-traffic').then((mod) => mod.TrafficBottomOverviewView),
+  () => import('@/widgets/admin/dashboard-traffic').then((mod) => mod.TrafficBottomOverview),
   { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
 

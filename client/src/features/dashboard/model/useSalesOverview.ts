@@ -5,11 +5,11 @@ import dayjs from 'dayjs';
 import { useCallback, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
-import { ChartContext } from '@/entities/analytics/consts/ChartContext';
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import type { CardResponse } from '@/entities/analytics/model/CardResponse';
-import type { ChartResponse } from '@/entities/analytics/model/ChartResponse';
+import { dashboardApi } from '@/entities/analytics';
+import { ChartContext } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
+import type { CardResponse } from '@/entities/analytics';
+import type { ChartResponse } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 function makeComparedRange(startStr: string, endStr: string) {

@@ -1,12 +1,13 @@
 'use server';
 
-import {Breadcrumb} from '@/widgets/layout';
-import dayjs from "dayjs";
-import {ChartFilter, dashboardApi} from "@/entities/analytics";
-import DashboardSkeleton from "@/shared/ui/skeletons/DashboardSkeleton";
-import {RealtimeOverview} from "@/widgets/admin/dashboard-realtime";
-import {PrefetchBoundary} from "@/shared/ui/PrefetchBoundary";
-import {Suspense} from "react";
+import dayjs from 'dayjs';
+import { Suspense } from 'react';
+
+import { ChartFilter, dashboardApi } from '@/entities/analytics';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
+import { RealtimeOverview } from '@/widgets/admin/dashboard-realtime';
+import { Breadcrumb } from '@/widgets/layout';
 
 export async function DashBoardRealTimePage() {
   const today = dayjs();

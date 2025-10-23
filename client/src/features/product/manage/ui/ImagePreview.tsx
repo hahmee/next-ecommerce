@@ -1,3 +1,5 @@
+'use client';
+
 import { Identifier, XYCoord } from 'dnd-core';
 import Image from 'next/image';
 import React, { useRef } from 'react';

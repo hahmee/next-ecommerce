@@ -3,8 +3,8 @@
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
 
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import { SessionChart } from '@/entities/analytics/model/GAResponse';
+import { ChartFilter } from '@/entities/analytics';
+import { SessionChart } from '@/entities/analytics';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const TrafficSessionChartViewComponent = ({

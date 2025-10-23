@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { useCheckout } from '@/features/checkout/model/useCheckout';
-import CheckoutView from '@/features/checkout/ui/CheckoutView';
+import { useCheckout } from '@/features/checkout';
+import {CheckoutView} from '@/features/checkout';
 
 export function Checkout() {
   const { shippingInfo, handleInputChange, handleSubmit, isPending } = useCheckout();

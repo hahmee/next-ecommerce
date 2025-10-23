@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+import { SessionDTO } from '@/entities/analytics';
 
 export const PageRouteView = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
   return (

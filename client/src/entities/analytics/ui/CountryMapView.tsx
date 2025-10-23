@@ -6,7 +6,7 @@ import '@/shared/utils/js/world';
 import jsVectorMap from 'jsvectormap';
 import React, { useEffect } from 'react';
 
-import { MapResponse } from '@/entities/analytics/model/MapResponse';
+import { MapResponse } from '@/entities/analytics';
 
 export const CountryMapView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
   useEffect(() => {

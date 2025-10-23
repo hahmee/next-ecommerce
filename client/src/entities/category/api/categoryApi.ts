@@ -1,5 +1,5 @@
-import { CategoryTree } from '@/entities/category';
 import type { Category } from '@/entities/category';
+import { CategoryTree } from '@/entities/category';
 import type { PageResponse } from '@/entities/order';
 import { fetcher } from '@/shared/http/fetcher';
 import { publicFetcher } from '@/shared/http/publicFetcher';

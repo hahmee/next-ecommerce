@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { orderApi } from '@/entities/order';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import OrderDetailSkeleton from '@/shared/ui/skeletons/OrderDetailSkeleton';
-import {OrderDetail} from "@/widgets/home/profile';
+import { OrderDetail } from '@/widgets/home/profile';
 
 export async function OrderPage({ orderId }: { orderId: string }) {
   const prefetchOptions = [

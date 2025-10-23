@@ -2,10 +2,10 @@ import { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { categoryApi } from '@/entities/category';
-import CategoryForm from '@/features/category/manage';
+import { CategoryForm } from '@/features/category/manage';
 import { Mode } from '@/shared/constants/mode';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import AdminModal from '@/widgets/layout';
+import { AdminModal } from '@/widgets/layout';
 
 export async function CategoryEditModalPage({ id }: { id: string }) {
   const prefetchOptions = [

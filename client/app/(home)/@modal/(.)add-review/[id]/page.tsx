@@ -1,6 +1,6 @@
 // app/(home)/@modal/(.)add-review/[id]/page.tsx
 
-import { AddReviewPage } from '@/pages/home/review-write/ui/review-write-page';
+import { AddReviewPage } from '@/pages/home/review-write';
 
 interface Props {
   params: { oid: string; orderId: string };

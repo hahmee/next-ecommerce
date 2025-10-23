@@ -13,7 +13,7 @@ type Props = {
   onMoveSignup: () => void;
 };
 
-export  function LoginView({
+export function LoginView({
   email,
   password,
   message,

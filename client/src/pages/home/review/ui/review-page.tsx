@@ -3,7 +3,7 @@
 import Loading from '@/app/loading';
 import { reviewApi } from '@/entities/review';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import {UserReviews} from '@/widgets/home/profile';
+import { UserReviews } from '@/widgets/home/profile';
 
 export async function ReviewHistoryPage() {
   const prefetchOptions = [

@@ -11,7 +11,12 @@ interface MultiRadialChartProps {
   total: string;
 }
 
-const MultiCirclesChartView = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
+const MultiCirclesChartViewComponent = ({
+  percentages,
+  title,
+  labels,
+  total,
+}: MultiRadialChartProps) => {
   const series = percentages;
   const options: ApexOptions = useMemo(
     () => ({

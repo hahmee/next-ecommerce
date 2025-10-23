@@ -1,4 +1,4 @@
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+import { SessionDTO } from '@/entities/analytics';
 
 export const BarChart = ({
   data,

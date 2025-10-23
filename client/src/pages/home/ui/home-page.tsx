@@ -4,8 +4,7 @@ import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Skeleton from '@/shared/ui/skeletons/Skeleton';
-import Home from '@/widgets/home/main';
-import Slider from '@/widgets/home/main';
+import { Home, Slider } from '@/widgets/home/main';
 
 export const HomePage = () => {
   const prefetchOptions = [

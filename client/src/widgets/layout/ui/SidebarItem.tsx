@@ -1,8 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import SidebarDropdown from '@/widgets/layout';
+import { SidebarDropdown } from '@/widgets/layout';
 
 export const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => {
   const handleClick = () => {
@@ -59,4 +61,3 @@ export const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: a
     </li>
   );
 };
-

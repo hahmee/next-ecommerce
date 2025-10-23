@@ -3,8 +3,8 @@ import React, { Suspense } from 'react';
 import { orderApi } from '@/entities/order';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
-import OrderTable from '@/widgets/admin/orders-table/ui/OrderTable';
-import Breadcrumb from '@/widgets/layout';
+import { OrderTable } from '@/widgets/admin/orders-table';
+import { Breadcrumb } from '@/widgets/layout';
 
 export async function AdminOrderPage() {
   // 테이블 기간

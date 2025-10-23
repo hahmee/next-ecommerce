@@ -8,11 +8,11 @@ import Link from 'next/link';
 import type { Paging } from '@/entities/order';
 import type { Product } from '@/entities/product';
 import { salesOptions } from '@/features/product/manage';
-import {PageComponent} from '@/widgets/admin/table-kit';
-import {TableActions} from '@/widgets/admin/table-kit';
-import {TableAddButton} from '@/widgets/admin/table-kit';
-import {TableSearch} from '@/widgets/admin/table-kit';
-import {ViewButton} from '@/widgets/admin/table-kit';
+import { PageComponent } from '@/widgets/admin/table-kit';
+import { TableActions } from '@/widgets/admin/table-kit';
+import { TableAddButton } from '@/widgets/admin/table-kit';
+import { TableSearch } from '@/widgets/admin/table-kit';
+import { ViewButton } from '@/widgets/admin/table-kit';
 
 const Dialog = dynamic(() => import('@/shared/ui/Dialog'));
 

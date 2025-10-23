@@ -1,3 +1,5 @@
+'use client';
+
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useState } from 'react';

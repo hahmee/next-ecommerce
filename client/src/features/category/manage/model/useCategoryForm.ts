@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { categoryApi } from '@/entities/category';
 import type { Category } from '@/entities/category';
+import { categoryApi } from '@/entities/category';
 import { Mode } from '@/shared/constants/mode';
 
 export interface CategoryFormValues {

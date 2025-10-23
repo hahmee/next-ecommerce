@@ -7,11 +7,11 @@ import React from 'react';
 import type { Paging } from '@/entities/order';
 import type { Product } from '@/entities/product';
 import { salesOptions } from '@/features/product/manage';
-import Select from '@/features/product/manage';
-import PageComponent from '@/widgets/admin/table-kit';
-import TableActions from '@/widgets/admin/table-kit';
-import TableSearch from '@/widgets/admin/table-kit';
-import ViewButton from '@/widgets/admin/table-kit';
+import { Select } from '@/features/product/manage';
+import { PageComponent } from '@/widgets/admin/table-kit';
+import { TableActions } from '@/widgets/admin/table-kit';
+import { TableSearch } from '@/widgets/admin/table-kit';
+import { ViewButton } from '@/widgets/admin/table-kit';
 
 export function StockTableView(props: {
   list: Product[];

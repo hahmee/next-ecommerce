@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import type { TopCustomerResponse } from '@/entities/analytics/model/TopCustomerResponse';
+import type { TopCustomerResponse } from '@/entities/analytics';
 
 export function TopCustomersView({ customers }: { customers: TopCustomerResponse[] }) {
   return (

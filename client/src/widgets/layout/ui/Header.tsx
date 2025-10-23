@@ -2,8 +2,8 @@ import { BuildingStorefrontIcon, ShoppingBagIcon } from '@heroicons/react/24/out
 import Link from 'next/link';
 import React from 'react';
 
-import AdminUser from '@/widgets/layout';
-import DarkModeSwitcher from '@/widgets/layout';
+import { AdminUser } from '@/widgets/layout';
+import { DarkModeSwitcher } from '@/widgets/layout';
 
 export const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -81,4 +81,3 @@ export const Header = (props: {
     </header>
   );
 };
-

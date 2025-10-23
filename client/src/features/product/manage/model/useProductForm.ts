@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { categoryApi } from '@/entities/category';
 import type { Category } from '@/entities/category';
-import { productApi } from '@/entities/product';
+import { categoryApi } from '@/entities/category';
 import type { Product } from '@/entities/product';
+import { productApi } from '@/entities/product';
 import { Mode } from '@/shared/constants/mode';
 import { useProductImageStore } from '@/shared/store/productImageStore';
 import { useTagStore } from '@/shared/store/tagStore';

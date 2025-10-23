@@ -10,7 +10,7 @@ import { useLogout } from '@/features/auth';
 import useLocalStorage from '@/shared/lib/useLocalStorage';
 import { useUserStore } from '@/shared/store/userStore';
 import ClickOutside from '@/shared/ui/ClickOutside';
-import {SidebarItem} from '@/widgets/layout';
+import { SidebarItem } from '@/widgets/layout';
 
 const Dialog = dynamic(() => import('@/shared/ui/Dialog'));
 
@@ -317,4 +317,3 @@ export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     </ClickOutside>
   );
 };
-

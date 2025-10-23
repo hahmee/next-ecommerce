@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import { CountryChartView } from '@/entities/analytics/ui/CountryChartView';
+import { CountryChartView } from '@/entities/analytics';
 import { useCountryChart } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 

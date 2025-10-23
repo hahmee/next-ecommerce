@@ -3,8 +3,8 @@ import React, { Suspense } from 'react';
 import Loading from '@/app/loading';
 import { memberApi } from '@/entities/member';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import {UserDashboard} from '@/widgets/admin/users';
-import {Breadcrumb} from '@/widgets/layout';
+import { UserDashboard } from '@/widgets/admin/users';
+import { Breadcrumb } from '@/widgets/layout';
 
 export const UserDashboardPage = () => {
   const prefetchOptions = {

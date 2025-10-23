@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { GAResponseBottom } from '@/entities/analytics/model/GAResponse';
+import type { GAResponseBottom } from '@/entities/analytics';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 

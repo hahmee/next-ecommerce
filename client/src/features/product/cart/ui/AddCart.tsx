@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 
 import { CartItem } from '@/entities/cart';
 import { SalesStatus } from '@/entities/product';
+import { SalesStatusKor } from '@/entities/product';
 import { useChangeCartMutation } from '@/features/product/cart';
 import GACta from '@/shared/ga/GACta';
 import { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
-import { SalesStatusKor } from '@/entities/product/consts/SalesStatus';
 
 export const AddCart = ({
   pno,

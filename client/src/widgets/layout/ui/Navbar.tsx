@@ -5,10 +5,10 @@ import React, { Suspense } from 'react';
 import { categoryApi } from '@/entities/category';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import FullMenuSkeleton from '@/shared/ui/skeletons/FullMenuSkeleton';
-import FullMenu from '@/widgets/layout';
-import Menu from '@/widgets/layout';
-import NavIcons from '@/widgets/layout';
-import SearchBar from '@/widgets/layout';
+import { FullMenu } from '@/widgets/layout';
+import { Menu } from '@/widgets/layout';
+import { NavIcons } from '@/widgets/layout';
+import { SearchBar } from '@/widgets/layout';
 
 export const Navbar = () => {
   const prefetchOptions = [
@@ -58,4 +58,3 @@ export const Navbar = () => {
     </div>
   );
 };
-

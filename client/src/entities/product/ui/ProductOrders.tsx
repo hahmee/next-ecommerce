@@ -1,6 +1,7 @@
+'use client';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 

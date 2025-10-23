@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { orderApi } from '@/entities/order';
 import type { Order } from '@/entities/order';
+import { orderApi } from '@/entities/order';
 
 export function useReviewOrder(id: string) {
   const query = useQuery<Order, Error>({

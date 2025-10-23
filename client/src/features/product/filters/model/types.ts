@@ -1,5 +1,3 @@
-import { Size } from '@/shared/constants/size';
-
 export type SortOption = {
   name: string;
   href: string;

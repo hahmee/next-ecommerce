@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -5,7 +7,7 @@ import { useState } from 'react';
 import { useUserStore } from '@/shared/store/userStore';
 import ClickOutside from '@/shared/ui/ClickOutside';
 
-export const DropdownUser = () => {
+export const AdminUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user } = useUserStore();
 
@@ -38,4 +40,3 @@ export const DropdownUser = () => {
     </ClickOutside>
   );
 };
-

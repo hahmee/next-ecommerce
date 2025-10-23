@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category';
-import ProductForm from '@/features/product/manage';
+import { ProductForm } from '@/features/product/manage';
 import { Mode } from '@/shared/constants/mode';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ProductFormSkeleton from '@/shared/ui/skeletons/ProductFormSkeleton';

@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-import type { TopProductResponse } from '@/entities/analytics/model/TopProductResponse';
+import type { TopProductResponse } from '@/entities/analytics';
 
 export function TopOrderTableView({ products }: { products: TopProductResponse[] }) {
   return (

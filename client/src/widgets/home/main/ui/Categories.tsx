@@ -51,4 +51,3 @@ export const Categories = () => {
     </section>
   );
 };
-

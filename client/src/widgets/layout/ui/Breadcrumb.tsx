@@ -21,4 +21,3 @@ export const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
     </div>
   );
 };
-

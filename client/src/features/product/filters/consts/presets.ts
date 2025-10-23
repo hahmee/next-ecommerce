@@ -1,5 +1,5 @@
-import { Size } from '@/shared/constants/size';
 import { FilterSection } from '@/features/product/filters';
+import { Size } from '@/shared/constants/size';
 
 export const filterPresets: FilterSection[] = [
   {

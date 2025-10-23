@@ -55,4 +55,3 @@ export const TableActions: React.FC<{ children: React.ReactNode }> = ({ children
     </ClickOutside>
   );
 };
-

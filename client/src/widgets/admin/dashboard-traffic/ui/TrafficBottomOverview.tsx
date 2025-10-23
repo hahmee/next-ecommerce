@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import { TrafficBottomOverviewView } from '@/entities/analytics/ui/TrafficBottomOverviewView';
+import { ChartFilter } from '@/entities/analytics';
+import { TrafficBottomOverviewView } from '@/entities/analytics';
 import { useTrafficBottom } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
-export  function TrafficBottomOverview({
+export function TrafficBottomOverview({
   date,
   comparedDate,
 }: {

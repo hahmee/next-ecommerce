@@ -6,4 +6,3 @@ export const ProductTable = () => {
   const table = useProductsTable();
   return <ProductTableView {...table} />;
 };
-

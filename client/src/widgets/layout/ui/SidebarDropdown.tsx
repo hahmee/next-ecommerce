@@ -1,15 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-interface SidebarItem {
-  label: string;
-  route: string;
-  click?: string; // 클릭 이벤트 관련 속성 (예: "logout")
-}
+import { SidebarItemType } from '@/widgets/layout';
 
 interface SidebarDropdownProps {
-  item: SidebarItem[];
+  item: SidebarItemType[];
   changeShowDialog: () => void;
 }
 
@@ -43,4 +41,3 @@ export const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ item, changeSh
     </ul>
   );
 };
-

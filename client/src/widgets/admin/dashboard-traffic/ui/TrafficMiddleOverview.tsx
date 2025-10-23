@@ -1,5 +1,7 @@
 'use client';
 
+import { ChartFilter, TrafficMiddleOverviewView } from '@/entities/analytics';
+import { useTrafficMiddle } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 

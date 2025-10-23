@@ -9,7 +9,7 @@ interface Props {
   id?: string;
 }
 
-export default function CategoryForm({ type, id }: Props) {
+export function CategoryForm({ type, id }: Props) {
   const form = useCategoryForm({ type, id });
   return <CategoryFormView {...form} />;
 }

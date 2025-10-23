@@ -12,7 +12,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export default function CheckoutView({ shippingInfo, onChange, onSubmit, disabled }: Props) {
+export function CheckoutView({ shippingInfo, onChange, onSubmit, disabled }: Props) {
   return (
     <form onSubmit={onSubmit}>
       <div className="bg-gray-50 min-h-screen">

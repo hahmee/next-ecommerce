@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { GARealTimeResponseBottom } from '@/entities/analytics/model/GARealTimeResponse';
+import type { GARealTimeResponseBottom } from '@/entities/analytics';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const RecentVisitors = dynamic(

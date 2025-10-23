@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
-import HorizontalBarChart from '@/entities/analytics/ui/HorizontalBarChart';
+import { SessionDTO } from '@/entities/analytics';
+import {HorizontalBarChart} from '@/entities/analytics';
 
 export const TrafficSourceChartView = ({
   topSources,

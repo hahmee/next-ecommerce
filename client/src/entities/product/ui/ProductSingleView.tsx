@@ -1,7 +1,7 @@
 'use client';
 
-import { SalesStatus } from '@/entities/product';
 import type { Product } from '@/entities/product';
+import { SalesStatus } from '@/entities/product';
 import { ProductImages } from '@/entities/product';
 import type { Review } from '@/entities/review';
 import { Reviews } from '@/entities/review';

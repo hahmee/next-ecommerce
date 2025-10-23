@@ -11,8 +11,8 @@
     * Name is inferred from the filename (e.g., './ui/OrderTable.tsx' → 'OrderTable')
 */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 // ===== CLI ARGS =====
 const args = process.argv.slice(2);
@@ -20,13 +20,13 @@ function argVal(flag, def) {
   const i = args.indexOf(flag);
   return i !== -1 && args[i + 1] ? args[i + 1] : def;
 }
-const BASE_DIR = argVal("--base", "src/widgets"); // <-- 기본값을 widgets로
-const ALIAS_DEFAULTS = args.includes("--alias-defaults");
+const BASE_DIR = argVal('--base', 'src/widgets'); // <-- 기본값을 widgets로
+const ALIAS_DEFAULTS = args.includes('--alias-defaults');
 
 const PROJECT_ROOT = process.cwd();
 const ROOT_DIR = path.join(PROJECT_ROOT, BASE_DIR);
 
-const EXTS = [".ts", ".tsx"];
+const EXTS = ['.ts', '.tsx'];
 const SKIP_FILE_PATTERNS = [
   /^index\.tsx?$/i,
   /\.d\.ts$/i,
@@ -34,7 +34,7 @@ const SKIP_FILE_PATTERNS = [
   /\.spec\.tsx?$/i,
   /\.stories\.tsx?$/i,
 ];
-const INTERNAL_DIRS = new Set(["model", "ui", "consts"]);
+const INTERNAL_DIRS = new Set(['model', 'ui', 'consts']);
 
 function isExportableFile(file) {
   const ext = path.extname(file);
@@ -64,20 +64,22 @@ function isInternalDir(dir) {
 }
 
 function posixRelNoExt(from, to) {
-  let rel = path.relative(from, to).replace(/\\/g, "/");
-  if (!rel.startsWith(".")) rel = "./" + rel;
-  return rel.replace(/\.(tsx?|ts)$/, "");
+  let rel = path.relative(from, to).replace(/\\/g, '/');
+  if (!rel.startsWith('.')) rel = './' + rel;
+  return rel.replace(/\.(tsx?|ts)$/, '');
 }
 
 function filenameToIdent(p) {
-  const base = path.basename(p).replace(/\.(tsx?|ts)$/, "");
+  const base = path.basename(p).replace(/\.(tsx?|ts)$/, '');
   // PascalCase 보정 정도만
-  return base.replace(/[^a-zA-Z0-9]+([a-zA-Z0-9])/g, (_, c) => c.toUpperCase()).replace(/^[a-z]/, (c) => c.toUpperCase());
+  return base
+    .replace(/[^a-zA-Z0-9]+([a-zA-Z0-9])/g, (_, c) => c.toUpperCase())
+    .replace(/^[a-z]/, (c) => c.toUpperCase());
 }
 
 function hasDefaultExport(filePath) {
   try {
-    const txt = fs.readFileSync(filePath, "utf8");
+    const txt = fs.readFileSync(filePath, 'utf8');
     return /\bexport\s+default\b/.test(txt);
   } catch {
     return false;
@@ -109,11 +111,15 @@ function writeSliceBarrel(sliceDir) {
   }
 
   const header =
-    "// AUTO-GENERATED FILE. DO NOT EDIT.\n" +
-    `// Run: node scripts/generate-barrels.cjs --base ${BASE_DIR}${ALIAS_DEFAULTS ? " --alias-defaults" : ""}\n\n`;
+    '// AUTO-GENERATED FILE. DO NOT EDIT.\n' +
+    `// Run: node scripts/generate-barrels.cjs --base ${BASE_DIR}${ALIAS_DEFAULTS ? ' --alias-defaults' : ''}\n\n`;
 
-  const content = header + exportLines.join("\n") + (aliasLines.length ? "\n\n" + aliasLines.join("\n") : "") + "\n";
-  fs.writeFileSync(path.join(sliceDir, "index.ts"), content, "utf8");
+  const content =
+    header +
+    exportLines.join('\n') +
+    (aliasLines.length ? '\n\n' + aliasLines.join('\n') : '') +
+    '\n';
+  fs.writeFileSync(path.join(sliceDir, 'index.ts'), content, 'utf8');
   return true;
 }
 
@@ -136,5 +142,7 @@ function walk(dir) {
     process.exit(1);
   }
   walk(ROOT_DIR);
-  console.log(`✅ Barrel generation complete for ${BASE_DIR}${ALIAS_DEFAULTS ? " (with default aliases)" : ""}.`);
+  console.log(
+    `✅ Barrel generation complete for ${BASE_DIR}${ALIAS_DEFAULTS ? ' (with default aliases)' : ''}.`,
+  );
 })();
