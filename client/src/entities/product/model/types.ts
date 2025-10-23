@@ -27,3 +27,8 @@ export interface Product {
   category: Category | null; // 최하위 카테고리
   owner: Member;
 }
+
+export interface Params {
+  key: string;
+  value: string;
+}

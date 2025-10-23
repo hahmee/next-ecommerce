@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import { useExpertProducts } from '@/features/product/read/model/useExpertProducts';
+import { useExpertProducts } from '@/features/product/read';
 
 export const ExpertList = () => {
   const { data: products = [] } = useExpertProducts();

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import {CartSummary} from '@/entities/cart';
+import { CartSummary } from '@/entities/cart';
 import type { OrderShippingAddressInfo } from '@/entities/order';
 
 type Props = {

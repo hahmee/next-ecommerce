@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { paymentApi } from '@/entities/payment/api/paymentApi';
-import Confirm from '@/features/payment/confirm/ui/Confirm';
+import Confirm from '@/features/product/confirm';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 
 // 결제 성공 페이지

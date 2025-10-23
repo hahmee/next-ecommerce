@@ -20,7 +20,7 @@ interface DropdownProps {
   originalData: string[] | undefined;
 }
 
-const MultiSelect: React.FC<DropdownProps> = ({
+export const MultiSelect: React.FC<DropdownProps> = ({
   id,
   label,
   name,
@@ -269,4 +269,3 @@ const MultiSelect: React.FC<DropdownProps> = ({
   );
 };
 
-export default MultiSelect;

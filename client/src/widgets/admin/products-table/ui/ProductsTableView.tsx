@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import type { Paging } from '@/entities/order';
 import type { Product } from '@/entities/product';
-import { salesOptions } from '@/features/product/manage/consts/presets';
+import { salesOptions } from '@/features/product/manage';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
 import TableActions from '@/widgets/admin/table-kit/ui/TableActions';
 import TableAddButton from '@/widgets/admin/table-kit/ui/TableAddButton';

@@ -24,7 +24,7 @@ export const ItemTypes = {
   IMAGE: 'image',
 };
 
-const ImagePreview = ({
+export const ImagePreview = ({
   image,
   deleteImage,
   handleMouseOver,
@@ -183,4 +183,3 @@ const ImagePreview = ({
   );
 };
 
-export default ImagePreview;

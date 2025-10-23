@@ -2,15 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
-
-import type { CartItem } from '@/entities/cart';
-import { productApi } from '@/entities/product';
-import { SalesStatus } from '@/entities/product';
 import type { Product } from '@/entities/product';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { productApi, SalesStatus } from '@/entities/product';
+import { useChangeCartMutation } from '@/features/product/cart';
 import type { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
+import { CartItem } from '@/entities/cart';
 
 type MainListType = 'new' | 'featured';
 

@@ -13,7 +13,7 @@ interface SelectProps {
   doAction?: (value: string) => void;
 }
 
-const Select = ({ label, options, defaultOption, name, originalData, doAction }: SelectProps) => {
+export const Select = ({ label, options, defaultOption, name, originalData, doAction }: SelectProps) => {
   const [selectedOption, setSelectedOption] = useState<string>(originalData || '');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -84,4 +84,3 @@ const Select = ({ label, options, defaultOption, name, originalData, doAction }:
   );
 };
 
-export default Select;

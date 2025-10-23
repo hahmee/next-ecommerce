@@ -1,10 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { CartItem } from '@/entities/cart';
-import { CartItemList } from '@/entities/cart';
 import { fetcher } from '@/shared/http/fetcher';
 import { useCartStore } from '@/shared/store/cartStore';
+import type { CartItem, CartItemList } from '@/entities/cart';
 
 export const useChangeCartMutation = () => {
   const setCarts = useCartStore((s) => s.setCarts);

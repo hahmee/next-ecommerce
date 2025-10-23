@@ -5,7 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useDropzone } from 'react-dropzone';
 
-import ImagePreview from '@/features/product/manage/ui/ImagePreview';
+import { ImagePreview } from '@/features/product/manage';
 import { useProductImageStore } from '@/shared/store/productImageStore';
 
 export interface ImageType {
@@ -16,7 +16,7 @@ export interface ImageType {
   size?: number;
 }
 
-const ImageUploadForm = () => {
+export const ImageUploadForm = () => {
   const productImageStore = useProductImageStore();
   const [images, setImages] = useState<Array<ImageType>>([]);
   const [hoveredImg, setHoveredImg] = useState<string>('');
@@ -156,4 +156,3 @@ const ImageUploadForm = () => {
   );
 };
 
-export default ImageUploadForm;

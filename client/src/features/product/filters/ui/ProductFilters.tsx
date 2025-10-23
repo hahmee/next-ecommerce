@@ -3,9 +3,9 @@ import { useRouter } from 'next/navigation';
 import React, { Fragment, useMemo, useState } from 'react';
 
 import { Category } from '@/entities/category';
-import PriceRange from '@/features/product/filters/ui/PriceRange';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
-import { FilterSection } from '@/entities/product/ui/ProductListView';
+import { FilterOption, FilterSection } from '@/features/product/filters';
+import {PriceRange} from '@/features/product/filters';
 
 type Props = { filters: FilterSection[] };
 

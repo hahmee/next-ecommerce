@@ -2,14 +2,14 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 import { CartItemList } from '@/entities/cart';
-import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
+import { useDeleteCartMutation } from '@/features/product/cart';
 import { useCartStore } from '@/shared/store/cartStore';
 
 interface Props {
   item: CartItemList;
 }
 
-export const CartItem: FC<Props> = ({ item }) => {
+export const CartItemCard: FC<Props> = ({ item }) => {
   const { isLoading } = useCartStore();
   const { mutate: deleteCartItem } = useDeleteCartMutation();
 

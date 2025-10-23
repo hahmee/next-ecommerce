@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { ProductListView } from '@/entities/product';
-import { useProductList } from '@/features/product/read/model/useProductList';
+import { useProductList } from '@/features/product/read';
 
 type Props = {
   categoryId?: string;

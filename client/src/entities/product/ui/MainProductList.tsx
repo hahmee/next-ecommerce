@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import type { Product } from '@/entities/product';
-import { useMainProductList } from '@/features/product/read/model/useMainProductList';
+import { useMainProductList } from '@/features/product/read';
 import FallbackImage from '@/shared/ui/FallbackImage';
 import Skeleton from '@/shared/ui/skeletons/Skeleton';
 

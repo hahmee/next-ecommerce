@@ -1,13 +1,13 @@
 // api
-export {} from './api/cartApi'; // 함수명을 export하려면 cartApi에서 export한 이름을 맞춰주세요.
+export { cartApi } from './api/cartApi';
 
 // model
-export * from './model/CartItem';
-export * from './model/CartItemList';
+export type { CartItem } from './model/CartItem';
+export type { CartItemList } from './model/CartItemList';
 
 // ui
 export { Cart } from './ui/Cart';
-export { CartItem } from './ui/CartItem';
+export { CartItemCard } from '@/entities/cart/ui/CartItemCard';
 export { CartList } from './ui/CartList';
 export { CartModal } from './ui/CartModal';
 export { CartSummary } from './ui/CartSummary';

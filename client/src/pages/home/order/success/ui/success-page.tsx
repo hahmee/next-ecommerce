@@ -2,7 +2,7 @@
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import SuccessPayment from '@/features/payment/confirm/ui/SuccessPayment';
+import SuccessPayment from '@/features/product/confirm';
 import { Props } from '@/app/(home)/order/success/page';
 
 // 결제 성공 페이지

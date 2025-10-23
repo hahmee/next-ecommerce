@@ -6,10 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback } from 'react';
 
-import { CartItem } from '@/entities/cart';
-import { CartItemList } from '@/entities/cart';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
-import { useDeleteCartMutation } from '@/features/product/cart/model/useDeleteCartMutation';
+import { CartItem, CartItemList } from '@/entities/cart';
+import { useChangeCartMutation } from '@/features/product/cart';
+import { useDeleteCartMutation } from '@/features/product/cart';
 import { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';

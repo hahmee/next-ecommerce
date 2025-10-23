@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import React from 'react';
+import {PaymentConfirmVM} from "@/features/payment/confirm";
 
-import type { PaymentConfirmVM } from '@/features/payment/confirm/model/usePaymentConfirm';
 
 interface Props {
   payment: PaymentConfirmVM;
 }
 
-const ConfirmView = ({ payment }: Props) => {
+export const ConfirmView = ({ payment }: Props) => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
@@ -39,4 +39,3 @@ const ConfirmView = ({ payment }: Props) => {
   );
 };
 
-export default ConfirmView;

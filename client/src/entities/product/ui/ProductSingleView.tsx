@@ -5,8 +5,8 @@ import type { Product } from '@/entities/product';
 import { ProductImages } from '@/entities/product';
 import type { Review } from '@/entities/review';
 import { Reviews } from '@/entities/review';
-import AddCart from '@/features/product/cart/ui/AddCart';
-import OptionSelect from '@/features/product/filters/ui/OptionSelect';
+import {AddCart} from '@/features/product/cart';
+import {OptionSelect} from '@/features/product/filters';
 import type { ColorTag } from '@/shared/model/ColorTag';
 
 interface Props {

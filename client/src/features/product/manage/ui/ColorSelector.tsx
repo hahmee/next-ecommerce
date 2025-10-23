@@ -15,7 +15,7 @@ interface DropdownProps {
   originalData: ColorTag[] | undefined;
 }
 
-const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
+export const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
   const { tags, addTag, removeTag, setTagColor, clear } = useTagStore();
   const [inputValue, setInputValue] = useState('');
   const [selectedTagIndex, setSelectedTagIndex] = useState<number | null>(null);
@@ -173,4 +173,3 @@ const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, original
   );
 };
 
-export default ColorSelector;
