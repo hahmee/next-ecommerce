@@ -19,6 +19,7 @@ import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
 import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
 
 const Dialog = dynamic(() => import('@/shared/ui/Dialog'), { ssr: false });
+
 export function CategoryTableView(props: {
   dtoList: CategoryTree[];
   paging: Paging;

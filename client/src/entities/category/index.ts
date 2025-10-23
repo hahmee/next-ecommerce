@@ -1,16 +1,13 @@
 // src/entities/category/index.ts
 
-export { categoryApi } from './api/categoryApi';
+// api
+export {categoryApi} from './api/categoryApi';
+
+// model
 export * from './model/types';
+export * from './model/categoryTree';
 
-// src/features/category/manage/index.ts
-export * from './model/useCategoryForm'; // 필요한 경우만
-export { CategoryForm } from './ui/CategoryForm';
-
-// src/widgets/layout/index.ts
-export { AdminModal } from './ui/AdminModal';
-export { Breadcrumb } from './ui/Breadcrumb';
-
-// src/shared/index.ts
-export { Mode } from './constants/mode';
-export { PrefetchBoundary } from './ui/PrefetchBoundary';
+// ui
+export { CategoryBreadcrumb } from './ui/CategoryBreadcrumb';
+export { CategorySelect } from './ui/CategorySelect';
+export {  CategoryTableView } from './ui/CategoryTableView';

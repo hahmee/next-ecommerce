@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Category } from '@/entities/category/model/types';
 import CategoryList from '@/entities/product/ui/CategoryList';
 
-const CategorySelect = ({
+export const CategorySelect = ({
   categories,
   setSelectedCategory,
   categoryPaths,
@@ -60,4 +60,3 @@ const CategorySelect = ({
   );
 };
 
-export default CategorySelect;
