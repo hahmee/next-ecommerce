@@ -1,10 +1,8 @@
-// src/entities/category/ui/CategorySelect.tsx
-
-// src/entities/category/ui/CategorySelect.tsx
+'use client';
 
 import { useEffect, useState } from 'react';
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 import CategoryList from '@/entities/product/ui/CategoryList';
 
 export const CategorySelect = ({

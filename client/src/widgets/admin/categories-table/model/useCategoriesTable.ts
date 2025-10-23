@@ -8,8 +8,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
-import { CategoryTree } from '@/entities/category/model/categoryTree';
+import { categoryApi } from '@/entities/category';
+import { CategoryTree } from '@/entities/category';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Paging } from '@/entities/order/model/Paging';
 

@@ -6,8 +6,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
-import type { Category } from '@/entities/category/model/types';
+import { categoryApi } from '@/entities/category';
+import type { Category } from '@/entities/category';
 
 export function useFullMenu() {
   const { data, isLoading, error } = useQuery<Category[], Error>({

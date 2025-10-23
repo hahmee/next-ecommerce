@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
+import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product/api/productApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Skeleton from '@/shared/ui/skeletons/Skeleton';

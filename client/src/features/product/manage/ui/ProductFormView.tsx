@@ -6,8 +6,8 @@
 
 import Link from 'next/link';
 
-import type { Category } from '@/entities/category/model/types';
-import CategorySelect from '@/entities/category/ui/CategorySelect';
+import type { Category } from '@/entities/category';
+import {CategorySelect} from '@/entities/category';
 import type { Product } from '@/entities/product/model/types';
 import { salesOptions, sizeOptions } from '@/features/product/manage/consts/presets';
 import BackButton from '@/features/product/manage/ui/BackButton';

@@ -4,7 +4,7 @@
 
 import React from 'react';
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 
 interface CategoryItemProps {
   category: Category;

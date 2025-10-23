@@ -4,7 +4,9 @@
 import { OrderSuccessPage } from '@/pages/home/order/success';
 
 export interface Props {
-  params: { [key: string]: string };
+  paymentKey: string;
+  orderId: string;
+  amount: string;
 }
 
 export default function Page({ params }: { params: Props }) {

@@ -6,7 +6,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useState } from 'react';
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
 type Props = {

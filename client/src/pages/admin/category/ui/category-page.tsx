@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
+import { categoryApi } from '@/entities/category';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import CategoryTable from '@/widgets/admin/categories-table/ui/CategoryTable';

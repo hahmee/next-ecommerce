@@ -6,7 +6,7 @@
 
 import React, { Fragment, Suspense } from 'react';
 
-import type { Category } from '@/entities/category/model/types';
+import type { Category } from '@/entities/category';
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Product } from '@/entities/product/model/types';
 import ProductCard from '@/entities/product/ui/ProductCard';

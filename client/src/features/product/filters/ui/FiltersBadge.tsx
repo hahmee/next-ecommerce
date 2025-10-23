@@ -6,7 +6,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 import { Params } from '@/entities/product/ui/ProductListView';
 
 const FiltersBadge = ({ param, category }: { param: Params; category?: Category | undefined }) => {

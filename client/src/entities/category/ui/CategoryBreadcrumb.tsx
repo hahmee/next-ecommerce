@@ -2,7 +2,7 @@
 
 // src/entities/category/ui/CategoryBreadcrumb.tsx
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 
 interface BreadcrumbProps {
   categoryPaths: Category[];

@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
-import type { Category } from '@/entities/category/model/types';
+import { categoryApi } from '@/entities/category';
+import type { Category } from '@/entities/category';
 import { productApi } from '@/entities/product/api/productApi';
 import type { Product } from '@/entities/product/model/types';
 import { Mode } from '@/shared/constants/mode';

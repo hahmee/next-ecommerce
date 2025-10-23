@@ -8,7 +8,7 @@ import SuccessPayment from '@/features/payment/confirm/ui/SuccessPayment';
 import { Props } from '@/app/(home)/order/success/page';
 
 // 결제 성공 페이지
-export async function OrderSuccessPage({ params }: Props) {
+export async function OrderSuccessPage(params : Props) {
   const { paymentKey, orderId, amount } = params;
 
   return (

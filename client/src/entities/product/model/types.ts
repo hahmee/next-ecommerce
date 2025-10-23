@@ -2,7 +2,7 @@
 
 // src/entities/product/model/types.ts
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 import { Member } from '@/entities/member/model/Member';
 import { SalesStatus } from '@/entities/product/consts/SalesStatus';
 import { FileDTO } from '@/entities/product/model/FileDTO';

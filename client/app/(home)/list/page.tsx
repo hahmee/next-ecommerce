@@ -1,7 +1,7 @@
 // app/(home)/list/page.tsx
 import type { Metadata } from 'next';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
+import { categoryApi } from '@/entities/category';
 import { ListPage } from '@/pages/home/list';
 
 interface SearchParams {

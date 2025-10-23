@@ -4,7 +4,7 @@
 
 'use client';
 
-import { CategoryTableView } from '@/entities/category/ui/CategoryTableView';
+import { CategoryTableView } from '@/entities/category';
 import { useCategoriesTable } from '@/widgets/admin/categories-table/model/useCategoriesTable';
 
 export default function CategoryTable() {

@@ -6,7 +6,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useMemo, useState } from 'react';
 
-import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 import { FilterOption, FilterSection } from '@/entities/product/ui/ProductListView';
 import PriceRange from '@/features/product/filters/ui/PriceRange';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';

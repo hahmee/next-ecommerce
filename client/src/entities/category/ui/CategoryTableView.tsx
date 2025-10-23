@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { Fragment } from 'react';
 
-import { CategoryTree } from '@/entities/category/model/categoryTree';
+import { CategoryTree } from '@/entities/category';
 import type { Paging } from '@/entities/order/model/Paging';
 import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
 import TableActions from '@/widgets/admin/table-kit/ui/TableActions';

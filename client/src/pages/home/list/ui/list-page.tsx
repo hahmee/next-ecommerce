@@ -2,7 +2,7 @@
 import type { FetchInfiniteQueryOptions } from '@tanstack/react-query';
 import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
+import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product/api/productApi';
 import ProductList from '@/entities/product/ui/ProductList';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
