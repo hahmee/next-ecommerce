@@ -1,8 +1,6 @@
 // src/entities/analytics/ui/CountryChart.tsx
 
-﻿// src/entities/analytics/ui/CountryChart.tsx
-
-
+// src/entities/analytics/ui/CountryChart.tsx
 
 'use client';
 import React from 'react';

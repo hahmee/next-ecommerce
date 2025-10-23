@@ -1,8 +1,6 @@
 // src/pages/admin/dashboard/real-time/ui/real-time-page.tsx
 
-﻿// src/pages/admin/dashboard/real-time/ui/real-time-page.tsx
-
-
+// src/pages/admin/dashboard/real-time/ui/real-time-page.tsx
 
 'use server';
 

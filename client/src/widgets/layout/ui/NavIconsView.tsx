@@ -1,8 +1,6 @@
 // src/widgets/layout/ui/NavIconsView.tsx
 
-﻿// src/widgets/layout/ui/NavIconsView.tsx
-
-
+// src/widgets/layout/ui/NavIconsView.tsx
 
 'use client';
 

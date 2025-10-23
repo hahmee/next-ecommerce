@@ -1,8 +1,6 @@
 // src/entities/analytics/ui/PageRouteView.tsx
 
-﻿// src/entities/analytics/ui/PageRouteView.tsx
-
-
+// src/entities/analytics/ui/PageRouteView.tsx
 
 import React from 'react';
 

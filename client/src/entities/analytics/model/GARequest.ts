@@ -1,8 +1,6 @@
 // src/entities/analytics/model/GARequest.ts
 
-﻿// src/entities/analytics/model/GARequest.ts
-
-
+// src/entities/analytics/model/GARequest.ts
 
 import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 

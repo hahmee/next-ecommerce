@@ -1,6 +1,5 @@
 // src/pages/admin/order/ui/order-page.tsx
 
-
 import React, { Suspense } from 'react';
 
 import { orderApi } from '@/entities/order/api/orderApi';

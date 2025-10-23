@@ -1,7 +1,5 @@
 ﻿// src/pages/home/signup/ui/signup-page.tsx
 
-
-
 'use client';
 
 import { useSignupForm } from '@/features/auth/model/useSignupForm';

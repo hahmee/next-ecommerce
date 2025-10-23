@@ -1,8 +1,6 @@
 // src/features/product/cart/ui/AddCart.tsx
 
-﻿// src/features/product/cart/ui/AddCart.tsx
-
-
+// src/features/product/cart/ui/AddCart.tsx
 
 'use client';
 

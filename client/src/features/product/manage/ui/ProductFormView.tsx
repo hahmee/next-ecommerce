@@ -1,8 +1,6 @@
 // src/features/product/manage/ui/ProductFormView.tsx
 
-﻿// src/features/product/manage/ui/ProductFormView.tsx
-
-
+// src/features/product/manage/ui/ProductFormView.tsx
 
 'use client';
 

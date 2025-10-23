@@ -1,8 +1,6 @@
 // src/features/category/manage/ui/CategoryFormView.tsx
 
-﻿// src/features/category/manage/ui/CategoryFormView.tsx
-
-
+// src/features/category/manage/ui/CategoryFormView.tsx
 
 'use client';
 

@@ -1,8 +1,6 @@
 // src/features/review/add/ui/ReviewAddModalView.tsx
 
-﻿// src/features/review/add/ui/ReviewAddModalView.tsx
-
-
+// src/features/review/add/ui/ReviewAddModalView.tsx
 
 'use client';
 

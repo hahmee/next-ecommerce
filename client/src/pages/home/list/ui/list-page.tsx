@@ -8,7 +8,7 @@ import ProductList from '@/entities/product/ui/ProductList';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
 
-type Props = {
+interface Props {
   categoryId: string;
   colors: string[];
   sizes: string[];
@@ -16,17 +16,17 @@ type Props = {
   maxPrice: string;
   order: string;
   query: string;
-};
+}
 
 export async function ListPage({
-                                         categoryId,
-                                         colors,
-                                         sizes,
-                                         minPrice,
-                                         maxPrice,
-                                         order,
-                                         query,
-                                       }: Props) {
+  categoryId,
+  colors,
+  sizes,
+  minPrice,
+  maxPrice,
+  order,
+  query,
+}: Props) {
   const prefetchInfiniteOptions: FetchInfiniteQueryOptions[] = [
     {
       queryKey: ['products', categoryId, colors, sizes, minPrice, maxPrice, order, query],

@@ -1,15 +1,13 @@
 // src/widgets/admin/table-kit/ui/TableDatePicker.tsx
 
-﻿// src/widgets/admin/table-kit/ui/TableDatePicker.tsx
-
-
+// src/widgets/admin/table-kit/ui/TableDatePicker.tsx
 
 'use client';
 
 import dayjs from 'dayjs';
 import React from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
-import {DateValueType} from "react-tailwindcss-datepicker/dist/types";
+import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import { DatepickType } from '@/shared/model/DatepickType';
 

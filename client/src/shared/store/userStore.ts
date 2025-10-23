@@ -1,8 +1,6 @@
 // src/shared/store/userStore.ts
 
-﻿// src/shared/store/userStore.ts
-
-
+// src/shared/store/userStore.ts
 
 import { create } from 'zustand';
 

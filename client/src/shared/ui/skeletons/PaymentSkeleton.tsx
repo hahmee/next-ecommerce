@@ -1,8 +1,6 @@
 // src/shared/ui/skeletons/PaymentSkeleton.tsx
 
-﻿// src/shared/ui/skeletons/PaymentSkeleton.tsx
-
-
+// src/shared/ui/skeletons/PaymentSkeleton.tsx
 
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 

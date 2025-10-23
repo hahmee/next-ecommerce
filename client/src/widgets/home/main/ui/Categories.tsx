@@ -1,8 +1,6 @@
 // src/widgets/home/main/ui/Categories.tsx
 
-﻿// src/widgets/home/main/ui/Categories.tsx
-
-
+// src/widgets/home/main/ui/Categories.tsx
 
 'use client';
 

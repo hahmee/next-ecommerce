@@ -1,6 +1,6 @@
 // src/widgets/admin/users/ui/Profile.tsx
 
-﻿// src/widgets/admin/users/ui/Profile.tsx
+// src/widgets/admin/users/ui/Profile.tsx
 'use client';
 
 import { ProfileView } from '@/entities/member/ui/ProfileView';

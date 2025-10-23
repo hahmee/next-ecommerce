@@ -1,8 +1,6 @@
 // src/features/order/read/model/useUserOrders.ts
 
-﻿// src/features/order/read/model/useUserOrders.ts
-
-
+// src/features/order/read/model/useUserOrders.ts
 
 'use client';
 

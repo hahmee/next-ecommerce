@@ -1,8 +1,6 @@
 // src/widgets/admin/payment-overview/ui/PaymentOverviewView.tsx
 
-﻿// src/widgets/admin/payment-overview/ui/PaymentOverviewView.tsx
-
-
+// src/widgets/admin/payment-overview/ui/PaymentOverviewView.tsx
 
 'use client';
 

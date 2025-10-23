@@ -1,8 +1,6 @@
 // src/entities/product/ui/ProductListView.tsx
 
-﻿// src/entities/product/ui/ProductListView.tsx
-
-
+// src/entities/product/ui/ProductListView.tsx
 
 'use client';
 

@@ -1,8 +1,6 @@
 // src/entities/product/api/productApi.ts
 
-﻿// src/entities/product/api/productApi.ts
-
-
+// src/entities/product/api/productApi.ts
 
 import type { PageResponse } from '@/entities/order/model/PageResponse';
 import type { Product } from '@/entities/product/model/types';

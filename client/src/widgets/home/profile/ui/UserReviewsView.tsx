@@ -1,8 +1,6 @@
 // src/widgets/home/profile/ui/UserReviewsView.tsx
 
-﻿// src/widgets/home/profile/ui/UserReviewsView.tsx
-
-
+// src/widgets/home/profile/ui/UserReviewsView.tsx
 
 'use client';
 

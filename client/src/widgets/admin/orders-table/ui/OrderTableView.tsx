@@ -1,8 +1,5 @@
 // src/widgets/admin/orders-table/ui/OrderTableView.tsx
 
-
-
-
 'use client';
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';

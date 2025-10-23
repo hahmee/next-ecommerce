@@ -1,8 +1,6 @@
 // src/entities/cart/api/cartApi.ts
 
-﻿// src/entities/cart/api/cartApi.ts
-
-
+// src/entities/cart/api/cartApi.ts
 
 import type { CartItemList } from '@/entities/cart/model/CartItemList';
 import { fetcher } from '@/shared/http/fetcher';

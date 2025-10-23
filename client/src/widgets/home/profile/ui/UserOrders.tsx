@@ -1,8 +1,5 @@
 // src/widgets/home/profile/ui/UserOrders.tsx
 
-
-
-
 'use client';
 
 import { useUserOrders } from '@/features/order/read/model/useUserOrders';

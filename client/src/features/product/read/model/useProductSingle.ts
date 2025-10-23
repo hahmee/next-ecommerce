@@ -1,8 +1,6 @@
 // src/features/product/read/model/useProductSingle.ts
 
-﻿// src/features/product/read/model/useProductSingle.ts
-
-
+// src/features/product/read/model/useProductSingle.ts
 
 'use client';
 

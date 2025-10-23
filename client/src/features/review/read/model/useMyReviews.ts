@@ -1,8 +1,6 @@
 // src/features/review/read/model/useMyReviews.ts
 
-﻿// src/features/review/read/model/useMyReviews.ts
-
-
+// src/features/review/read/model/useMyReviews.ts
 
 'use client';
 

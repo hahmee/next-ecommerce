@@ -1,9 +1,9 @@
 // app/(home)/product/[id]/page.tsx
 
+import type { Metadata } from 'next';
 
-import type {Metadata} from "next";
-import {productApi} from "@/entities/product/api/productApi";
-import {ProductSinglePage} from "@/pages/home/product";
+import { productApi } from '@/entities/product/api/productApi';
+import { ProductSinglePage } from '@/pages/home/product';
 
 interface Props {
   params: { id: string };

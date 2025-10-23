@@ -1,8 +1,6 @@
 // src/shared/ui/UserHydration.tsx
 
-﻿// src/shared/ui/UserHydration.tsx
-
-
+// src/shared/ui/UserHydration.tsx
 
 'use client';
 

@@ -1,8 +1,6 @@
 // src/features/product/filters/ui/OptionSelect.tsx
 
-﻿// src/features/product/filters/ui/OptionSelect.tsx
-
-
+// src/features/product/filters/ui/OptionSelect.tsx
 
 'use client';
 

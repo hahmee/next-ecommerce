@@ -1,8 +1,6 @@
 // src/entities/cart/ui/CartList.tsx
 
-﻿// src/entities/cart/ui/CartList.tsx
-
-
+// src/entities/cart/ui/CartList.tsx
 
 'use client';
 

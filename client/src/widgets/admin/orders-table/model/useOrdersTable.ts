@@ -1,8 +1,6 @@
 // src/widgets/admin/orders-table/model/useOrdersTable.ts
 
-﻿// src/widgets/admin/orders-table/model/useOrdersTable.ts
-
-
+// src/widgets/admin/orders-table/model/useOrdersTable.ts
 
 'use client';
 

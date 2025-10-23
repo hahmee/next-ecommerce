@@ -1,8 +1,6 @@
 // src/entities/cart/ui/CartItem.tsx
 
-﻿// src/entities/cart/ui/CartItem.tsx
-
-
+// src/entities/cart/ui/CartItem.tsx
 
 import Image from 'next/image';
 import { FC } from 'react';

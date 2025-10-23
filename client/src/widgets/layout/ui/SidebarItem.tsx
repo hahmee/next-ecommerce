@@ -1,8 +1,6 @@
 // src/widgets/layout/ui/SidebarItem.tsx
 
-﻿// src/widgets/layout/ui/SidebarItem.tsx
-
-
+// src/widgets/layout/ui/SidebarItem.tsx
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

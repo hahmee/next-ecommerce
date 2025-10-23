@@ -1,8 +1,6 @@
 // src/features/payment/confirm/ui/Confirm.tsx
 
-﻿// src/features/payment/confirm/ui/Confirm.tsx
-
-
+// src/features/payment/confirm/ui/Confirm.tsx
 
 'use client';
 

@@ -1,9 +1,12 @@
 // app/(home)/list/page.tsx
-import { categoryApi } from '@/entities/category/api/categoryApi';
 import type { Metadata } from 'next';
+
+import { categoryApi } from '@/entities/category/api/categoryApi';
 import { ListPage } from '@/pages/home/list';
 
-type SearchParams = { [key: string]: string | string[] | undefined };
+interface SearchParams {
+  [key: string]: string | string[] | undefined;
+}
 
 function get(sp: SearchParams, k: string) {
   const v = sp[k];
@@ -16,8 +19,8 @@ function getArray(sp: SearchParams, k: string) {
 }
 
 export async function generateMetadata({
-                                         searchParams,
-                                       }: {
+  searchParams,
+}: {
   searchParams: SearchParams;
 }): Promise<Metadata> {
   const query = get(searchParams, 'query');

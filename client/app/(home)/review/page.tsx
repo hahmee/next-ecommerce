@@ -1,9 +1,10 @@
 // app/(home)/review/page.tsx
 
-import {ReviewHistoryPage} from "@/pages/home/review";
-import {cookies} from "next/headers";
-import {Metadata} from "next";
-import {authApi} from "@/entities/member/api/authApi";
+import { Metadata } from 'next';
+import { cookies } from 'next/headers';
+
+import { authApi } from '@/entities/member/api/authApi';
+import { ReviewHistoryPage } from '@/pages/home/review';
 
 export async function generateMetadata(): Promise<Metadata> {
   const cookieStore = cookies();

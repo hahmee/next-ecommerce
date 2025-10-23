@@ -1,8 +1,5 @@
 // src/pages/admin/payment/ui/payment-page.tsx
 
-
-
-
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';
 

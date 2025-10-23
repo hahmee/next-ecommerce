@@ -1,8 +1,6 @@
 // src/features/auth/model/useLogout.ts
 
-﻿// src/features/auth/model/useLogout.ts
-
-
+// src/features/auth/model/useLogout.ts
 
 'use client';
 

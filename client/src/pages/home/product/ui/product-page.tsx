@@ -1,17 +1,14 @@
 // src/pages/home/product/[id]/ui/product-page.tsx
 
+import React, { Suspense } from 'react';
 
-import React, {Suspense} from 'react';
-
-import {productApi} from '@/entities/product/api/productApi';
+import { productApi } from '@/entities/product/api/productApi';
 import ProductSingle from '@/entities/product/ui/ProductSingle';
-import {reviewApi} from '@/entities/review/api/reviewApi';
-import {PrefetchBoundary} from '@/shared/ui/PrefetchBoundary';
+import { reviewApi } from '@/entities/review/api/reviewApi';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ProductSingleSkeleton from '@/shared/ui/skeletons/ProductSingleSkeleton';
 
-
-export async function ProductSinglePage({ id }: {id:string}) {
-
+export async function ProductSinglePage({ id }: { id: string }) {
   const prefetchOptions = [
     {
       queryKey: ['productCustomerSingle', id],

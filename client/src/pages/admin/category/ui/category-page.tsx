@@ -1,7 +1,5 @@
 ﻿// src/pages/admin/category/ui/category-page.tsx
 
-
-
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category/api/categoryApi';

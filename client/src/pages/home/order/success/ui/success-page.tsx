@@ -1,19 +1,15 @@
 ﻿// src/pages/home/order/success/ui/success-page.tsx
 
-
 // 결제 완료 페이지로 라우팅 시키기
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import SuccessPayment from '@/features/payment/confirm/ui/SuccessPayment';
-
-interface Props {
-  searchParams: { [key: string]: string };
-}
+import { Props } from '@/app/(home)/order/success/page';
 
 // 결제 성공 페이지
-export async function OrderSuccessPage({ searchParams }: Props) {
-  const { paymentKey, orderId, amount } = searchParams;
+export async function OrderSuccessPage({ params }: Props) {
+  const { paymentKey, orderId, amount } = params;
 
   return (
     <Suspense fallback={<Loading />}>

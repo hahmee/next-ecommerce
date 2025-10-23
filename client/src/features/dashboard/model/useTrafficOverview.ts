@@ -1,8 +1,6 @@
 // src/features/dashboard/model/useTrafficOverview.ts
 
-﻿// src/features/dashboard/model/useTrafficOverview.ts
-
-
+// src/features/dashboard/model/useTrafficOverview.ts
 
 'use client';
 

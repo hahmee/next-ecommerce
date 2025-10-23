@@ -1,8 +1,5 @@
 // src/features/checkout/ui/Checkout.tsx
 
-
-
-
 'use client';
 
 import React from 'react';

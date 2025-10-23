@@ -1,9 +1,9 @@
 ﻿// src/pages/home/shopping/ui/shopping-page.tsx
 
+import React, { Suspense } from 'react';
 
-import React, {Suspense} from 'react';
-import {paymentApi} from '@/entities/payment/api/paymentApi';
-import {PrefetchBoundary} from '@/shared/ui/PrefetchBoundary';
+import { paymentApi } from '@/entities/payment/api/paymentApi';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ShoppingSkeleton from '@/shared/ui/skeletons/ShoppingSkeleton';
 import UserOrders from '@/widgets/home/profile/ui/UserOrders';
 

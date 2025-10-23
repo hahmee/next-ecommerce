@@ -1,8 +1,6 @@
 // src/features/auth/model/useSignupForm.ts
 
-﻿// src/features/auth/model/useSignupForm.ts
-
-
+// src/features/auth/model/useSignupForm.ts
 
 'use client';
 

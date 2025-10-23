@@ -1,8 +1,6 @@
 // src/features/dashboard/model/useTopCustomers.ts
 
-﻿// src/features/dashboard/model/useTopCustomers.ts
-
-
+// src/features/dashboard/model/useTopCustomers.ts
 
 'use client';
 import { useQuery } from '@tanstack/react-query';

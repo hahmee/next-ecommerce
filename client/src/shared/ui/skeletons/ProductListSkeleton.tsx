@@ -1,8 +1,6 @@
 // src/shared/ui/skeletons/ProductListSkeleton.tsx
 
-﻿// src/shared/ui/skeletons/ProductListSkeleton.tsx
-
-
+// src/shared/ui/skeletons/ProductListSkeleton.tsx
 
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 

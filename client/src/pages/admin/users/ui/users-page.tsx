@@ -1,8 +1,6 @@
 // src/pages/admin/users/ui/users-page.tsx
 
-﻿// src/pages/admin/users/ui/users-page.tsx
-
-
+// src/pages/admin/users/ui/users-page.tsx
 
 import React, { Suspense } from 'react';
 
@@ -31,4 +29,3 @@ export const UserDashboardPage = () => {
     </div>
   );
 };
-

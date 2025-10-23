@@ -1,8 +1,6 @@
 // src/entities/analytics/model/GARealTimeResponse.ts
 
-﻿// src/entities/analytics/model/GARealTimeResponse.ts
-
-
+// src/entities/analytics/model/GARealTimeResponse.ts
 
 import { SessionChart, SessionDTO } from '@/entities/analytics/model/GAResponse';
 

@@ -1,7 +1,6 @@
 // src/entities/cart/model/CartItem.ts
 
-﻿// src/entities/cart/model/CartItem.ts
-
+// src/entities/cart/model/CartItem.ts
 
 import { ColorTag } from '@/shared/model/ColorTag';
 

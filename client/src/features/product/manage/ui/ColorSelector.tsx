@@ -1,8 +1,6 @@
 // src/features/product/manage/ui/ColorSelector.tsx
 
-﻿// src/features/product/manage/ui/ColorSelector.tsx
-
-
+// src/features/product/manage/ui/ColorSelector.tsx
 
 'use client';
 

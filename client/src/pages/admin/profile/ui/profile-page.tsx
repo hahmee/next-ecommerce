@@ -1,15 +1,12 @@
 // src/pages/admin/profile/ui/profile-page.tsx
 
-
-
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import {profileApi} from '@/entities/member/api/profileApi';
-import {PrefetchBoundary} from '@/shared/ui/PrefetchBoundary';
+import { profileApi } from '@/entities/member/api/profileApi';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import Profile from '@/widgets/admin/users/ui/Profile';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
-
 
 export async function ProfilePage() {
   const prefetchOptions = {

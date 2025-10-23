@@ -1,6 +1,5 @@
 // src/pages/admin/products/ui/products-page.tsx
 
-
 import React, { Suspense } from 'react';
 
 import { productApi } from '@/entities/product/api/productApi';

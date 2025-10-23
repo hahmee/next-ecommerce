@@ -1,9 +1,11 @@
 // app/(home)/order/[orderId]/page.tsx
 
-import { OrderPage } from '@/pages/home/order';
 import { authApi } from '@/entities/member/api/authApi';
+import { OrderPage } from '@/pages/home/order';
 
-interface Props { params: { orderId: string } };
+interface Props {
+  params: { orderId: string };
+}
 
 export async function generateMetadata({ params }: Props) {
   const { orderId } = params;

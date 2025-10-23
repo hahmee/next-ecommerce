@@ -1,7 +1,5 @@
 // src/pages/home/modal/(.)add-review/[id]/ui/modal-page.tsx
 
-
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';

@@ -1,8 +1,6 @@
 // src/entities/category/ui/CategoryTableView.tsx
 
-﻿// src/entities/category/ui/CategoryTableView.tsx
-
-
+// src/entities/category/ui/CategoryTableView.tsx
 
 'use client';
 

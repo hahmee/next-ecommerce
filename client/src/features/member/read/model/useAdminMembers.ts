@@ -1,8 +1,6 @@
 // src/features/member/read/model/useAdminMembers.ts
 
-﻿// src/features/member/read/model/useAdminMembers.ts
-
-
+// src/features/member/read/model/useAdminMembers.ts
 
 'use client';
 

@@ -1,8 +1,6 @@
 // src/pages/admin/dashboard/sales/ui/sales-page.tsx
 
-﻿// src/pages/admin/dashboard/sales/ui/sales-page.tsx
-
-
+// src/pages/admin/dashboard/sales/ui/sales-page.tsx
 
 import dayjs from 'dayjs';
 import React, { Suspense } from 'react';

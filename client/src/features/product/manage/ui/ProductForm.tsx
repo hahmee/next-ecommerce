@@ -1,8 +1,6 @@
 // src/features/product/manage/ui/ProductForm.tsx
 
-﻿// src/features/product/manage/ui/ProductForm.tsx
-
-
+// src/features/product/manage/ui/ProductForm.tsx
 
 'use client';
 import { useProductForm } from '@/features/product/manage/model/useProductForm';

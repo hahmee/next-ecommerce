@@ -1,8 +1,6 @@
 // src/entities/category/ui/CategorySelect.tsx
 
-﻿// src/entities/category/ui/CategorySelect.tsx
-
-
+// src/entities/category/ui/CategorySelect.tsx
 
 import { useEffect, useState } from 'react';
 

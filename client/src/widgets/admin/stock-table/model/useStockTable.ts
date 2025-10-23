@@ -1,8 +1,6 @@
 // src/widgets/admin/stock-table/model/useStockTable.ts
 
-﻿// src/widgets/admin/stock-table/model/useStockTable.ts
-
-
+// src/widgets/admin/stock-table/model/useStockTable.ts
 
 'use client';
 

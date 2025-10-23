@@ -1,8 +1,6 @@
 // src/shared/lib/useColorMode.tsx
 
-﻿// src/shared/lib/useColorMode.tsx
-
-
+// src/shared/lib/useColorMode.tsx
 
 import { useEffect } from 'react';
 

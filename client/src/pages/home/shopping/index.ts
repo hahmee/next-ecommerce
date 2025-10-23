@@ -1,1 +1,1 @@
-export {OrderHistoryPage } from './ui/shopping-page';
+export { OrderHistoryPage } from './ui/shopping-page';

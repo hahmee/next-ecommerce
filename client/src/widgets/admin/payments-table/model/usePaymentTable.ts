@@ -1,8 +1,6 @@
 // src/widgets/admin/payments-table/model/usePaymentTable.ts
 
-﻿// src/widgets/admin/payments-table/model/usePaymentTable.ts
-
-
+// src/widgets/admin/payments-table/model/usePaymentTable.ts
 
 'use client';
 

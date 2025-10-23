@@ -1,8 +1,6 @@
 // src/features/product/manage/model/useProductForm.ts
 
-﻿// src/features/product/manage/model/useProductForm.ts
-
-
+// src/features/product/manage/model/useProductForm.ts
 
 'use client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';

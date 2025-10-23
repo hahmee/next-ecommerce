@@ -38,7 +38,6 @@
     "middleware.ts"
   ],
 
-
   // 빌드/테스트 제외
   "exclude": ["node_modules", "cypress"]
 }

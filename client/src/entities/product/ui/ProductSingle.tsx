@@ -1,8 +1,5 @@
 // src/entities/product/ui/ProductSingle.tsx
 
-
-
-
 'use client';
 
 import { ProductSingleView } from '@/entities/product/ui/ProductSingleView';

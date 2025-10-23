@@ -1,7 +1,5 @@
 ﻿// src/pages/home/login/ui/login-page.tsx
 
-
-
 'use client';
 
 import React from 'react';

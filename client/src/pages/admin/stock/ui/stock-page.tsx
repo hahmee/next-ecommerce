@@ -1,7 +1,5 @@
 // src/pages/admin/stock/ui/stock-page.tsx
 
-
-
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';

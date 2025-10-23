@@ -1,8 +1,6 @@
 // src/entities/analytics/ui/TrafficSourceChartView.tsx
 
-﻿// src/entities/analytics/ui/TrafficSourceChartView.tsx
-
-
+// src/entities/analytics/ui/TrafficSourceChartView.tsx
 
 import React from 'react';
 

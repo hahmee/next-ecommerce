@@ -1,7 +1,8 @@
 // app/(admin)/admin/profile/page.tsx
 
-import type {Metadata} from "next";
-import {authApi} from "@/entities/member/api/authApi";
+import type { Metadata } from 'next';
+
+import { authApi } from '@/entities/member/api/authApi';
 import { ProfilePage } from '@/pages/admin/profile';
 
 export async function generateMetadata(): Promise<Metadata> {

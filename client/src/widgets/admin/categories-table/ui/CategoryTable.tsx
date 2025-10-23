@@ -1,8 +1,6 @@
 // src/widgets/admin/categories-table/ui/CategoryTable.tsx
 
-﻿// src/widgets/admin/categories-table/ui/CategoryTable.tsx
-
-
+// src/widgets/admin/categories-table/ui/CategoryTable.tsx
 
 'use client';
 

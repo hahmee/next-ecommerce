@@ -1,8 +1,6 @@
 // src/widgets/layout/model/useNavIcons.ts
 
-﻿// src/widgets/layout/model/useNavIcons.ts
-
-
+// src/widgets/layout/model/useNavIcons.ts
 
 'use client';
 

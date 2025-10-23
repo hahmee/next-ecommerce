@@ -1,8 +1,6 @@
 // src/widgets/layout/ui/AdminUser.tsx
 
-﻿// src/widgets/layout/ui/AdminUser.tsx
-
-
+// src/widgets/layout/ui/AdminUser.tsx
 
 import Image from 'next/image';
 import Link from 'next/link';

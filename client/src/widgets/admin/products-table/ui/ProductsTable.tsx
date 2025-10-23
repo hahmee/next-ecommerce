@@ -1,8 +1,6 @@
 // src/widgets/admin/products-table/ui/ProductsTable.tsx
 
-﻿// src/widgets/admin/products-table/ui/ProductsTable.tsx
-
-
+// src/widgets/admin/products-table/ui/ProductsTable.tsx
 
 'use client';
 import { useProductsTable } from '@/widgets/admin/products-table/model/useProductsTable';

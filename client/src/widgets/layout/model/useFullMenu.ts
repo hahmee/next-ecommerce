@@ -1,8 +1,6 @@
 // src/widgets/layout/model/useFullMenu.ts
 
-﻿// src/widgets/layout/model/useFullMenu.ts
-
-
+// src/widgets/layout/model/useFullMenu.ts
 
 'use client';
 

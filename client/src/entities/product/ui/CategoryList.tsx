@@ -1,8 +1,6 @@
 // src/entities/product/ui/CategoryList.tsx
 
-﻿// src/entities/product/ui/CategoryList.tsx
-
-
+// src/entities/product/ui/CategoryList.tsx
 
 import React from 'react';
 
