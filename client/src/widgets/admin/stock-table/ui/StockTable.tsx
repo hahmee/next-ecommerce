@@ -1,3 +1,5 @@
+// src/widgets/admin/stock-table/ui/StockTable.tsx
+
 ﻿// src/widgets/admin/stock-table/ui/StockTable.tsx
 
 

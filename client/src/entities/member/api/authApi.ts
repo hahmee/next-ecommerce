@@ -1,3 +1,5 @@
+// src/entities/member/api/authApi.ts
+
 ﻿// src/entities/member/api/authApi.ts
 
 

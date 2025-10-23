@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/PieChart.tsx
+
 ﻿// src/entities/analytics/ui/PieChart.tsx
 
 

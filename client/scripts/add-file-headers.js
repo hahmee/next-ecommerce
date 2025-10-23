@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const TARGET_EXTENSIONS = [".ts", ".tsx", ".js", ".jsx", ".css", ".scss"];
-const ROOT_DIR = path.resolve("src");
+const ROOT_DIR = path.resolve("app");
 
 function walk(dir) {
   const files = fs.readdirSync(dir);

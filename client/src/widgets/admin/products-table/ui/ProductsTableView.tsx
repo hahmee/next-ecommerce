@@ -1,3 +1,5 @@
+// src/widgets/admin/products-table/ui/ProductsTableView.tsx
+
 ﻿// src/widgets/admin/products-table/ui/ProductsTableView.tsx
 
 

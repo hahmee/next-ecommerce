@@ -13,7 +13,7 @@ import PaymentOverview from '@/widgets/admin/payment-overview/ui/PaymentOverview
 import PaymentTable from '@/widgets/admin/payments-table/ui/PaymentTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default async function AdminPaymentPage() {
+export async function AdminPaymentPage() {
   const today = dayjs();
   const start = today.subtract(30, 'day');
   const date = {

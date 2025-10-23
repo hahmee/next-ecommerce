@@ -1,3 +1,5 @@
+// src/entities/review/ui/Reviews.tsx
+
 ﻿// src/entities/review/ui/Reviews.tsx
 
 

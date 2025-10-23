@@ -1,3 +1,5 @@
+// src/entities/member/api/profileApi.ts
+
 ﻿// src/entities/member/api/profileApi.ts
 
 

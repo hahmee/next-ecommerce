@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/Header.tsx
+
 ﻿// src/widgets/layout/ui/Header.tsx
 
 

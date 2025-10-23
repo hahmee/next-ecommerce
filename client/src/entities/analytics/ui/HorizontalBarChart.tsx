@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/HorizontalBarChart.tsx
+
 ﻿// src/entities/analytics/ui/HorizontalBarChart.tsx
 
 

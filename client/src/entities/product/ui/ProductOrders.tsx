@@ -1,3 +1,5 @@
+// src/entities/product/ui/ProductOrders.tsx
+
 ﻿// src/entities/product/ui/ProductOrders.tsx
 
 

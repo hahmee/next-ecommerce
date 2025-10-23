@@ -1,3 +1,5 @@
+// src/pages/admin/dashboard/sales/ui/sales-page.tsx
+
 ﻿// src/pages/admin/dashboard/sales/ui/sales-page.tsx
 
 
@@ -13,7 +15,7 @@ import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
 import SalesOverview from '@/widgets/admin/dashboard-sales/ui/SalesOverview';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default async function DashBoardSalesPage() {
+export async function DashBoardSalesPage() {
   const today = dayjs(); // 오늘
   const startDate = today.subtract(4, 'month');
   const comparedEndDate = startDate.subtract(1, 'day');

@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/SalesPieChartView.tsx
+
 ﻿// src/entities/analytics/ui/SalesPieChartView.tsx
 
 

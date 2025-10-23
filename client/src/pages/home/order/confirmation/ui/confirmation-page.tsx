@@ -14,7 +14,7 @@ interface Props {
 }
 
 // 결제 성공 페이지
-export default async function ConfirmPage({ params }: Props) {
+export async function ConfirmPage({ params }: Props) {
   const { paymentKey } = params;
 
   // 결제 요청이 토스페이먼츠로 전송되고 성공했을 때 url로 orderId, paymentKey, amount가 나오는데 그 값들을 스프링으로 넘겨준다.

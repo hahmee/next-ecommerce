@@ -1,3 +1,5 @@
+// src/entities/product/ui/ProductSingleView.tsx
+
 ﻿// src/entities/product/ui/ProductSingleView.tsx
 
 

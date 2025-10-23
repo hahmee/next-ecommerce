@@ -1,3 +1,5 @@
+// src/widgets/layout/ui/SearchBar.tsx
+
 ﻿// src/widgets/layout/ui/SearchBar.tsx
 
 

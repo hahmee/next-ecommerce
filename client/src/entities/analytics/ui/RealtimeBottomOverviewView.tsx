@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/RealtimeBottomOverviewView.tsx
+
 ﻿// src/entities/analytics/ui/RealtimeBottomOverviewView.tsx
 
 

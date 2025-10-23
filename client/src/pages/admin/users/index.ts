@@ -1,1 +1,3 @@
-export { default as UsersPage } from './ui/users-page';
+// src/pages/admin/users/index.ts
+
+export { UserDashboardPage } from './ui/users-page';

@@ -1,22 +1,17 @@
-// src/pages/admin/category/edit-category/[id]/ui/edit-category-page.tsx
+// src/pages/admin/category/edit-category/ui/edit-category-page.tsx
 
-// src/pages/(admin)/admin/category/edit-category/[id]/index.tsx
 
 import React from 'react';
+import {CategoryPage} from "@/pages/admin/category";
+import {CategoryEditModalPage} from "@/pages/admin/category/modal/edit-category";
 
-import CategoryEditModal from "@/pages/(admin)/@modal/(.)edit-category/[id]";
-import CategoryPage from "@/pages/(admin)/admin/category";
 
 
-interface Props {
-  params: { id: string };
-}
-
-export default function EditCategoryPage({ params }: Props) {
+export function EditCategoryPage({ id }: {id: string}) {
   return (
     <>
       <CategoryPage />
-      <CategoryEditModal params={params} />
+      <CategoryEditModalPage id={id}  />
     </>
   );
 }

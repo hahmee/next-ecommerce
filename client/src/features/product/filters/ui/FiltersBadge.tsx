@@ -1,3 +1,5 @@
+// src/features/product/filters/ui/FiltersBadge.tsx
+
 ﻿// src/features/product/filters/ui/FiltersBadge.tsx
 
 

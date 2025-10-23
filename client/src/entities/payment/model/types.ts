@@ -1,3 +1,5 @@
+// src/entities/payment/model/types.ts
+
 ﻿// src/entities/payment/model/types.ts
 
 

@@ -1,3 +1,5 @@
+// src/pages/admin/dashboard/traffic/ui/traffic-page.tsx
+
 ﻿// src/pages/admin/dashboard/traffic/ui/traffic-page.tsx
 
 
@@ -12,7 +14,7 @@ import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
 import TrafficOverview from '@/widgets/admin/dashboard-traffic/ui/TrafficOverview';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default async function DashBoardTrafficPage() {
+export async function DashBoardTrafficPage() {
   const today = dayjs();
   const initialToday = today.format('YYYY-MM-DD');
 

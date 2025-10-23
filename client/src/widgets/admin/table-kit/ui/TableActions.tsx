@@ -1,3 +1,5 @@
+// src/widgets/admin/table-kit/ui/TableActions.tsx
+
 ﻿// src/widgets/admin/table-kit/ui/TableActions.tsx
 
 

@@ -13,7 +13,7 @@ interface Props {
   params: { id: string; orderId: string };
 }
 
-export default function ReviewModalPage({ params }: Props) {
+export function ReviewModalPage({ params }: Props) {
   const { id, orderId } = params;
 
   const prefetchOptions = {

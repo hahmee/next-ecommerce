@@ -1,3 +1,5 @@
+// src/pages/admin/dashboard/real-time/ui/real-time-page.tsx
+
 ﻿// src/pages/admin/dashboard/real-time/ui/real-time-page.tsx
 
 
@@ -14,7 +16,7 @@ import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
 import RealtimeOverview from '@/widgets/admin/dashboard-realtime/ui/RealtimeOverview';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default async function DashBoardRealTimePage() {
+export async function DashBoardRealTimePage() {
   const today = dayjs();
   const end = today;
   const start = end.subtract(30, 'day');

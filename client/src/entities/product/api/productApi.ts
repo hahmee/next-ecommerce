@@ -1,3 +1,5 @@
+// src/entities/product/api/productApi.ts
+
 ﻿// src/entities/product/api/productApi.ts
 
 

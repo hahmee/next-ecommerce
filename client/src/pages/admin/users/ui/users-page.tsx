@@ -1,3 +1,5 @@
+// src/pages/admin/users/ui/users-page.tsx
+
 ﻿// src/pages/admin/users/ui/users-page.tsx
 
 
@@ -10,7 +12,7 @@ import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import UserDashboard from '@/widgets/admin/users/ui/UserDashboard';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-const UserDashboardPage = () => {
+export const UserDashboardPage = () => {
   const prefetchOptions = {
     queryKey: ['members', { page: 1, size: 10, search: '' }],
     queryFn: () => memberApi.listAdmin({ page: 1, size: 10, search: '' }),
@@ -30,4 +32,3 @@ const UserDashboardPage = () => {
   );
 };
 
-export default UserDashboardPage;

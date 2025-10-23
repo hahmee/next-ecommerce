@@ -12,7 +12,7 @@ interface Props {
 }
 
 // 결제 성공 페이지
-export default async function OrderSuccessPage({ searchParams }: Props) {
+export async function OrderSuccessPage({ searchParams }: Props) {
   const { paymentKey, orderId, amount } = searchParams;
 
   return (

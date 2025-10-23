@@ -1,3 +1,5 @@
+// src/shared/ui/skeletons/ProductListSkeleton.tsx
+
 ﻿// src/shared/ui/skeletons/ProductListSkeleton.tsx
 
 

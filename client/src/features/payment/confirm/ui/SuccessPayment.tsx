@@ -1,3 +1,5 @@
+// src/features/payment/confirm/ui/SuccessPayment.tsx
+
 ﻿// src/features/payment/confirm/ui/SuccessPayment.tsx
 
 

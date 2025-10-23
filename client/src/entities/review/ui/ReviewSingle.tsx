@@ -1,3 +1,5 @@
+// src/entities/review/ui/ReviewSingle.tsx
+
 ﻿// src/entities/review/ui/ReviewSingle.tsx
 
 

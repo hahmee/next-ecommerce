@@ -1,3 +1,5 @@
+// src/shared/store/cartStore.ts
+
 ﻿// src/shared/store/cartStore.ts
 
 

@@ -1,1 +1,3 @@
-export { default as AdminPage } from './ui/admin-page';
+// src/pages/admin/index.ts
+
+export { AdminPage } from './ui/admin-page';

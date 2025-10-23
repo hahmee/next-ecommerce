@@ -5,6 +5,6 @@
 
 import FailPayment from '@/features/payment/confirm/ui/FailPayment';
 
-export default async function OrderFailPage() {
+export async function OrderFailPage() {
   return <FailPayment />;
 }

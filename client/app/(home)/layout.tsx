@@ -1,3 +1,5 @@
+// app/(home)/layout.tsx
+
 ﻿// app/(home)/layout.tsx
 
 import React from 'react';

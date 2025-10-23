@@ -1,3 +1,5 @@
+// src/entities/cart/ui/CartItem.tsx
+
 ﻿// src/entities/cart/ui/CartItem.tsx
 
 

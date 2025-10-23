@@ -1,3 +1,5 @@
+// src/entities/review/model/types.ts
+
 ﻿// src/entities/review/model/types.ts
 
 

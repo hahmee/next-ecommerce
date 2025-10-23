@@ -1,3 +1,5 @@
+// app/layout.tsx
+
 ﻿// app/layout.tsx
 
 export { metadata } from '@/app/layout/metadata';

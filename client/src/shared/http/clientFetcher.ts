@@ -1,3 +1,5 @@
+// src/shared/http/clientFetcher.ts
+
 ﻿// src/shared/http/clientFetcher.ts
 
 

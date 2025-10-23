@@ -1,3 +1,5 @@
+// src/widgets/layout/model/useSearchBar.ts
+
 ﻿// src/widgets/layout/model/useSearchBar.ts
 
 

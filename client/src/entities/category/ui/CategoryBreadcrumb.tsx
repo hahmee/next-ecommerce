@@ -1,3 +1,5 @@
+// src/entities/category/ui/CategoryBreadcrumb.tsx
+
 ﻿// src/entities/category/ui/CategoryBreadcrumb.tsx
 
 

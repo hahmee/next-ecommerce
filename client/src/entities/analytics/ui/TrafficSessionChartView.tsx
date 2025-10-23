@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/TrafficSessionChartView.tsx
+
 ﻿// src/entities/analytics/ui/TrafficSessionChartView.tsx
 
 

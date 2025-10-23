@@ -1,19 +1,16 @@
 // src/pages/admin/category/add-category/ui/add-category-page.tsx
 
 
-import CategoryAddModal from "@/pages/(admin)/@modal/(.)add-category/[id]/add-category-page";
-import CategoryPage from "@/pages/(admin)/admin/category";
 
 
-interface Props {
-  params: { id: string };
-}
+import {CategoryPage} from "@/pages/admin/category";
+import {CategoryAddModalPage} from "@/pages/admin/category/modal/add-category";
 
-export default function AddCategoryPage({ params }: Props) {
+export function AddCategoryPage({ id }: {id: string}) {
   return (
     <>
       <CategoryPage />
-      <CategoryAddModal params={params} />
+      <CategoryAddModalPage id={id}  />
     </>
   );
 }

@@ -1,3 +1,5 @@
+// src/widgets/admin/categories-table/model/useCategoriesTable.ts
+
 ﻿// src/widgets/admin/categories-table/model/useCategoriesTable.ts
 
 

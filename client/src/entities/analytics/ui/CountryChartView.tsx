@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/CountryChartView.tsx
+
 ﻿// src/entities/analytics/ui/CountryChartView.tsx
 
 

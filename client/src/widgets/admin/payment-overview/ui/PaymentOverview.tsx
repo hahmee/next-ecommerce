@@ -1,3 +1,5 @@
+// src/widgets/admin/payment-overview/ui/PaymentOverview.tsx
+
 ﻿// src/widgets/admin/payment-overview/ui/PaymentOverview.tsx
 
 

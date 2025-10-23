@@ -10,7 +10,7 @@ import { Mode } from '@/shared/constants/mode';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ProductFormSkeleton from '@/shared/ui/skeletons/ProductFormSkeleton';
 
-export default function AddProductPage() {
+export function AddProductPage() {
   const prefetchOptions = [
     {
       queryKey: ['categories'],

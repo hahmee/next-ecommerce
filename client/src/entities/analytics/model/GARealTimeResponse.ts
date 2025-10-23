@@ -1,3 +1,5 @@
+// src/entities/analytics/model/GARealTimeResponse.ts
+
 ﻿// src/entities/analytics/model/GARealTimeResponse.ts
 
 

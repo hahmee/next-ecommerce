@@ -1,4 +1,5 @@
-﻿// src/pages/admin/stock/ui/stock-page.tsx
+// src/pages/admin/stock/ui/stock-page.tsx
+
 
 
 import React, { Suspense } from 'react';
@@ -9,7 +10,7 @@ import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import StockTable from '@/widgets/admin/stock-table/ui/StockTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default function StockPage() {
+export function StockPage() {
   const prefetchOptions = [
     {
       queryKey: ['adminStockProducts', { page: 1, size: 10, search: '' }],

@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/TrafficBottomOverviewView.tsx
+
 ﻿// src/entities/analytics/ui/TrafficBottomOverviewView.tsx
 
 

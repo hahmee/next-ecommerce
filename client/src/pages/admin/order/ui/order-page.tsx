@@ -9,7 +9,7 @@ import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import OrderTable from '@/widgets/admin/orders-table/ui/OrderTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default async function AdminOrderPage() {
+export async function AdminOrderPage() {
   // 테이블 기간
   const date = {
     startDate: null,

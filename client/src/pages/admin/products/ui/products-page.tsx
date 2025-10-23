@@ -9,7 +9,7 @@ import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import ProductTable from '@/widgets/admin/products-table/ui/ProductsTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default async function ProductsPage() {
+export async function ProductsPage() {
   const prefetchOptions = {
     queryKey: ['adminProducts', { page: 1, size: 10, search: '' }],
     queryFn: () => productApi.searchAdmin(1, 10, ''),

@@ -1,3 +1,5 @@
+// src/pages/admin/profile/ui/profile-page.tsx
+
 ﻿// src/pages/admin/profile/ui/profile-page.tsx
 
 

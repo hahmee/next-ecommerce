@@ -1,3 +1,5 @@
+// src/shared/http/fetcher.ts
+
 ﻿// src/shared/http/fetcher.ts
 
 

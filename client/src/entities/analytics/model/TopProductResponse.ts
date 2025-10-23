@@ -1,3 +1,5 @@
+// src/entities/analytics/model/TopProductResponse.ts
+
 ﻿// src/entities/analytics/model/TopProductResponse.ts
 
 

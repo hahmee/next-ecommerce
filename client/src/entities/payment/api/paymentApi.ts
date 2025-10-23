@@ -1,3 +1,5 @@
+// src/entities/payment/api/paymentApi.ts
+
 ﻿// src/entities/payment/api/paymentApi.ts
 
 

@@ -9,7 +9,7 @@ import React from 'react';
 import { useLoginForm } from '@/features/auth/model/useLoginForm';
 import LoginView from '@/features/auth/ui/LoginView';
 
-export default function LoginPage() {
+export function LoginPage() {
   const form = useLoginForm();
   return (
     <LoginView

@@ -1,3 +1,5 @@
+// src/entities/analytics/ui/MultiCirclesChartView.tsx
+
 ﻿// src/entities/analytics/ui/MultiCirclesChartView.tsx
 
 

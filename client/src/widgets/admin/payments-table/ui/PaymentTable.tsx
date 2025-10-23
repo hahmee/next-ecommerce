@@ -1,3 +1,5 @@
+// src/widgets/admin/payments-table/ui/PaymentTable.tsx
+
 ﻿// src/widgets/admin/payments-table/ui/PaymentTable.tsx
 
 

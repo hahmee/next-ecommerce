@@ -1,3 +1,5 @@
+// src/entities/member/model/Member.ts
+
 ﻿// src/entities/member/model/Member.ts
 
 

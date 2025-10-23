@@ -10,7 +10,7 @@ import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 import CategoryTable from '@/widgets/admin/categories-table/ui/CategoryTable';
 import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
 
-export default function CategoryPage() {
+export function CategoryPage() {
   const prefetchOptions = {
     queryKey: ['adminCategories', { page: 1, size: 10, search: '' }],
     queryFn: () => categoryApi.searchAdmin(1, 10, ''),

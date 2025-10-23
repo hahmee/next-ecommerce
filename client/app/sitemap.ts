@@ -1,3 +1,5 @@
+// app/sitemap.ts
+
 ﻿// app/sitemap.ts
 
 import { MetadataRoute } from 'next';

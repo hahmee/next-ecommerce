@@ -1,3 +1,5 @@
+// src/widgets/admin/users/ui/Profile.tsx
+
 ﻿// src/widgets/admin/users/ui/Profile.tsx
 'use client';
 
