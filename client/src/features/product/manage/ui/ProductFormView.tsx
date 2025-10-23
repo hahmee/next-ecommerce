@@ -13,7 +13,7 @@ import { MultiSelect } from '@/features/product/manage';
 import { QuillEditor } from '@/features/product/manage';
 import { RadioButton } from '@/features/product/manage';
 import { Mode } from '@/shared/constants/mode';
-import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
+import Breadcrumb from '@/widgets/layout';
 
 export function ProductFormView(props: {
   type: Mode;

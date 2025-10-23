@@ -1,7 +1,7 @@
 'use client';
 
-import { useNavIcons } from '@/widgets/layout/model/useNavIcons';
-import { NavIconsView } from '@/widgets/layout/ui/NavIconsView';
+import { useNavIcons } from '@/widgets/layout';
+import { NavIconsView } from '@/widgets/layout';
 
 export function NavIcons() {
   const props = useNavIcons();

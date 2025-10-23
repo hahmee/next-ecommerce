@@ -3,7 +3,7 @@
 import { paymentApi } from '@/entities/payment/api/paymentApi';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ShoppingSkeleton from '@/shared/ui/skeletons/ShoppingSkeleton';
-import UserOrders from '@/widgets/home/profile/ui/UserOrders';
+import UserOrders from '@/widgets/home/profile';
 
 export async function OrderHistoryPage() {
   const prefetchOptions = [

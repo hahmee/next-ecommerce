@@ -2,8 +2,8 @@ import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { paymentApi } from '@/entities/payment/api/paymentApi';
-import Confirm from '@/features/product/confirm';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
+import {Confirm} from '@/features/payment/confirm';
 
 // 결제 성공 페이지
 export async function ConfirmPage({ paymentKey }: { paymentKey: string }) {

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import SidebarDropdown from '@/widgets/layout/ui/SidebarDropdown';
+import SidebarDropdown from '@/widgets/layout';
 
 export const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => {
   const handleClick = () => {

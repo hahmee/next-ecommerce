@@ -4,8 +4,8 @@
 
 import React from 'react';
 
-import Footer from '@/widgets/layout/ui/Footer';
-import Navbar from '@/widgets/layout/ui/Navbar';
+import Footer from '@/widgets/layout';
+import Navbar from '@/widgets/layout';
 
 export default async function DefaultLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

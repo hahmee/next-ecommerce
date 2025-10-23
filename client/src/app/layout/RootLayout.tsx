@@ -4,7 +4,7 @@ import React from 'react';
 
 import { inter } from '@/app/layout/fonts';
 import AppProviders from '@/app/providers/AppProviders';
-import { GAPageView } from '@/widgets/layout/ga/GAPageView';
+import { GAPageView } from '@/widgets/layout';
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_GA_TRACKING_ID;
 

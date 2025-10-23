@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { useLoginForm } from '@/features/auth';
-import LoginView from '@/features/auth';
+import {LoginView} from '@/features/auth';
 
 export function LoginPage() {
   const form = useLoginForm();

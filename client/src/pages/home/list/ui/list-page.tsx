@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category';
 import { productApi } from '@/entities/product';
-import ProductList from '@/entities/product';
+import {ProductList} from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
 

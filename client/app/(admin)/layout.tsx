@@ -6,8 +6,8 @@
 
 import React, { useState } from 'react';
 
-import Header from '@/widgets/layout/ui/Header';
-import Sidebar from '@/widgets/layout/ui/Sidebar';
+import Header from '@/widgets/layout';
+import Sidebar from '@/widgets/layout';
 
 export default function AdminLayout({
   children,

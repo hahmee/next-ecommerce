@@ -3,8 +3,8 @@ import React, { Suspense } from 'react';
 import Loading from '@/app/loading';
 import { productApi } from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
-import StockTable from '@/widgets/admin/stock-table/ui/StockTable';
-import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
+import {StockTable} from '@/widgets/admin/stock-table';
+import {Breadcrumb} from '@/widgets/layout';
 
 export function StockPage() {
   const prefetchOptions = [

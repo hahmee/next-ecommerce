@@ -14,7 +14,7 @@ interface Props {
   amount: string;
 }
 
-const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
+export const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
   const router = useRouter();
   const { mutate, isPending, isSuccess } = useConfirmPaymentMutation();
 
@@ -55,4 +55,3 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
   return <Loading />;
 };
 
-export default SuccessPayment;

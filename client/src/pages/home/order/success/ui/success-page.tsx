@@ -2,8 +2,8 @@
 import React, { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import SuccessPayment from '@/features/product/confirm';
 import { Props } from '@/app/(home)/order/success/page';
+import {SuccessPayment} from "@/features/payment/confirm/ui/SuccessPayment";
 
 // 결제 성공 페이지
 export async function OrderSuccessPage(params: Props) {

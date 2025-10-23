@@ -3,7 +3,7 @@ import React from 'react';
 
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const Categories = dynamic(() => import('@/widgets/home/main/ui/Categories'), { ssr: false });
+const Categories = dynamic(() => import('@/widgets/home/main';
 const ExpertList = dynamic(() => import('@/entities/product/ui/ExpertList'), { ssr: false });
 const MainProductList = dynamic(() => import('@/entities/product/ui/MainProductList'), {
   ssr: false,

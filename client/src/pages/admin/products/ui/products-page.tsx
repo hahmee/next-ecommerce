@@ -3,8 +3,8 @@ import React, { Suspense } from 'react';
 import { productApi } from '@/entities/product';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
-import ProductTable from '@/widgets/admin/products-table/ui/ProductsTable';
-import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
+import ProductTable from '@/widgets/admin/products-table';
+import Breadcrumb from '@/widgets/layout';
 
 export async function ProductsPage() {
   const prefetchOptions = {

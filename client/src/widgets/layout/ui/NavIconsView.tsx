@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
+import GuestAuthButtons from '@/widgets/layout';
 
 const CartModal = dynamic(() => import('@/entities/cart/ui/CartModal'));
 

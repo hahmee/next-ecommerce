@@ -5,8 +5,8 @@ import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
 import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
-import TrafficOverview from '@/widgets/admin/dashboard-traffic/ui/TrafficOverview';
-import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
+import TrafficOverview from '@/widgets/admin/users';users';/dashboard-traffic/ui/TrafficOverview';
+import Breadcrumb from '@/widgets/layout';
 
 export async function DashBoardTrafficPage() {
   const today = dayjs();

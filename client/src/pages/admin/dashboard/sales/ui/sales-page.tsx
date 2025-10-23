@@ -6,8 +6,8 @@ import { ChartContext } from '@/entities/analytics/consts/ChartContext';
 import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import DashboardSkeleton from '@/shared/ui/skeletons/DashboardSkeleton';
-import SalesOverview from '@/widgets/admin/dashboard-sales/ui/SalesOverview';
-import Breadcrumb from '@/widgets/layout/ui/Breadcrumb';
+import {Breadcrumb} from '@/widgets/layout';
+import {SalesOverview} from "@/widgets/admin/dashboard-sales";
 
 export async function DashBoardSalesPage() {
   const today = dayjs(); // 오늘

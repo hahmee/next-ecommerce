@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const FailPayment = () => {
+export const FailPayment = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-red-50">
       <div className="bg-white shadow-lg rounded-lg p-8 text-center">
@@ -15,4 +15,3 @@ const FailPayment = () => {
     </div>
   );
 };
-export default FailPayment;
