@@ -5,6 +5,8 @@ interface Props {
   orderId: string;
 }
 
-export default function Page({ params }: { params: Props }) {
-  return <AddReviewPage oid={params.oid} orderId={params.orderId} />;
+export default function Page({ searchParams }: { searchParams: Props }) {
+  const { oid, orderId } = searchParams;
+
+  return <AddReviewPage oid={oid} orderId={orderId} />;
 }
