@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GAResponseTop } from '@/entities/analytics';
+import type { GAResponseTop } from '@/entities/analytics';
 
 const CardTrafficViewComponent = ({ gaData }: { gaData: GAResponseTop | undefined }) => {
   return (

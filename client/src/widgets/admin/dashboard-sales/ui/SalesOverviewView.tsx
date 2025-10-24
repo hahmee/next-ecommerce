@@ -4,10 +4,10 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { ChartContext } from '@/entities/analytics';
-import { ChartFilter } from '@/entities/analytics';
 import type { CardResponse } from '@/entities/analytics';
 import type { ChartResponse } from '@/entities/analytics';
+import { ChartContext } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
 import { CardDataStats } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';

@@ -3,8 +3,8 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import { ChartFilter } from '@/entities/analytics';
 import type { GAResponseTop } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 const CardTraffic = dynamic(

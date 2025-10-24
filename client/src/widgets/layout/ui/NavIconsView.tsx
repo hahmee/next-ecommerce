@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import { GuestAuthButtons } from '@/widgets/layout';
 
-const CartModal = dynamic(() => import('@/entities/cart/ui/CartModal'));
+const CartModal = dynamic(() => import('@/entities/cart').then((m) => m.CartModal));
 
 interface Props {
   user: any;
