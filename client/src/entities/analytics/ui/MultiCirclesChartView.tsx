@@ -1,4 +1,4 @@
-﻿import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
+import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 import type { ApexOptions } from 'apexcharts';
 import React, { useMemo } from 'react';
 
@@ -11,7 +11,12 @@ interface MultiRadialChartProps {
   total: string;
 }
 
-const MultiCirclesChartView = ({ percentages, title, labels, total }: MultiRadialChartProps) => {
+const MultiCirclesChartViewComponent = ({
+  percentages,
+  title,
+  labels,
+  total,
+}: MultiRadialChartProps) => {
   const series = percentages;
   const options: ApexOptions = useMemo(
     () => ({
@@ -94,4 +99,4 @@ const MultiCirclesChartView = ({ percentages, title, labels, total }: MultiRadia
   );
 };
 
-export default React.memo(MultiCirclesChartView);
+export const MultiCirclesChartView = React.memo(MultiCirclesChartViewComponent);

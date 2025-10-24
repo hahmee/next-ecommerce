@@ -1,14 +1,14 @@
-﻿'use client';
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { useCategories } from '@/features/category/read/model/useCategories';
+import { useCategories } from '@/features/category/read';
 import Skeleton from '@/shared/ui/skeletons/Skeleton';
 
-const Categories = () => {
+export const Categories = () => {
   const router = useRouter();
   const { data: categories, isLoading } = useCategories();
 
@@ -51,5 +51,3 @@ const Categories = () => {
     </section>
   );
 };
-
-export default Categories;

@@ -9,9 +9,9 @@ export const mockCategories: any = {
       subCategories: null,
       file: null,
       uploadFileName:
-        'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png',
+        'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë
       uploadFileKey:
-        'category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png',
+        'category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë
     },
     {
       cno: 16,
@@ -86,9 +86,9 @@ export const mockCategories: any = {
       subCategories: null,
       file: null,
       uploadFileName:
-        'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/09f38e18-1406-4679-9133-51ca58970985_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_38_55.png',
+        'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/09f38e18-1406-4679-9133-51ca58970985_ChatGPT Image 2025ë
       uploadFileKey:
-        'category/09f38e18-1406-4679-9133-51ca58970985_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_38_55.png',
+        'category/09f38e18-1406-4679-9133-51ca58970985_ChatGPT Image 2025ë
     },
     {
       cno: 7,
@@ -167,9 +167,9 @@ export const mockGetCategory = {
   subCategories: null,
   file: null,
   uploadFileName:
-    'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png',
+    'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë
   uploadFileKey:
-    'category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png',
+    'category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë
 };
 
 export const mockCategoryPaths = [
@@ -182,8 +182,8 @@ export const mockCategoryPaths = [
     subCategories: null,
     file: null,
     uploadFileName:
-      'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png',
+      'https://e-commerce-nextjs.s3.ap-northeast-2.amazonaws.com/category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë
     uploadFileKey:
-      'category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë 4ì 27ì¼ ì¤ì  11_57_05.png',
+      'category/ebba1ecc-5e8b-4f62-b0af-e12be8530f73_ChatGPT Image 2025ë
   },
 ];

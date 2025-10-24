@@ -1,6 +1,6 @@
-﻿import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-import { ChartContext } from '@/entities/analytics/consts/ChartContext';
+import { ChartContext } from '@/entities/analytics';
 
 interface CardDataStatsProps {
   title: string;
@@ -12,7 +12,7 @@ interface CardDataStatsProps {
   selectedCard: string;
 }
 
-const CardDataStats: React.FC<CardDataStatsProps> = ({
+export const CardDataStats: React.FC<CardDataStatsProps> = ({
   title,
   total,
   rate,
@@ -82,5 +82,3 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
     </div>
   );
 };
-
-export default CardDataStats;

@@ -1,14 +1,14 @@
-﻿'use client';
+'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Paging } from '@/entities/order/model/Paging';
-import { productApi } from '@/entities/product/api/productApi';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import type { Product } from '@/entities/product/model/types';
+import type { PageResponse } from '@/entities/order';
+import type { Paging } from '@/entities/order';
+import type { Product } from '@/entities/product';
+import { productApi } from '@/entities/product';
+import { SalesStatus } from '@/entities/product';
 
 export const initialPagingData: Paging = {
   totalCount: 0,

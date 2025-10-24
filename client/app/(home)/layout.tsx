@@ -1,13 +1,17 @@
-﻿import React from 'react';
+import { Footer, Navbar } from '@/widgets/layout';
 
-import Footer from '@/widgets/layout/ui/Footer';
-import Navbar from '@/widgets/layout/ui/Navbar';
-
-export default async function DefaultLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function HomeLayout({
+  children,
+  modal, // ★ 추가
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode; // ★ 타입 명시
+}) {
   return (
     <>
       <Navbar />
       {children}
+      {modal ?? null}
       <Footer />
     </>
   );

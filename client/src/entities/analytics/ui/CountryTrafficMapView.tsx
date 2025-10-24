@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
 import '@/shared/utils/js/world';
@@ -7,10 +7,10 @@ import jsVectorMap from 'jsvectormap';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import { CountryChartDTO } from '@/entities/analytics/model/GAResponse';
-import { BarChartThin } from '@/entities/analytics/ui/BarChart';
+import { CountryChartDTO } from '@/entities/analytics';
+import { BarChartThin } from '@/entities/analytics/ui';
 
-const CountryTrafficMapView = ({
+export const CountryTrafficMapView = ({
   countries,
 }: {
   countries: Array<CountryChartDTO> | undefined;
@@ -170,5 +170,3 @@ const CountryTrafficMapView = ({
     </div>
   );
 };
-
-export default CountryTrafficMapView;

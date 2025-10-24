@@ -1,9 +1,13 @@
-﻿import React from 'react';
+import React from 'react';
 
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
-import HorizontalBarChart from '@/entities/analytics/ui/HorizontalBarChart';
+import { SessionDTO } from '@/entities/analytics';
+import { HorizontalBarChart } from '@/entities/analytics/ui';
 
-const TrafficSourceChartView = ({ topSources }: { topSources: Array<SessionDTO<number>> | [] }) => {
+export const TrafficSourceChartView = ({
+  topSources,
+}: {
+  topSources: Array<SessionDTO<number>> | [];
+}) => {
   const totalSources = topSources ? topSources.reduce((acc, cur) => acc + Number(cur.value), 0) : 0;
 
   return (
@@ -31,5 +35,3 @@ const TrafficSourceChartView = ({ topSources }: { topSources: Array<SessionDTO<n
     </div>
   );
 };
-
-export default TrafficSourceChartView;

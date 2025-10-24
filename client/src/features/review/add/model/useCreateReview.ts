@@ -1,8 +1,10 @@
-﻿import { useMutation } from '@tanstack/react-query';
+'use client';
+
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-hot-toast';
 
-import { Review } from '@/entities/review/model/types';
+import { Review } from '@/entities/review';
 import { fetcher } from '@/shared/http/fetcher';
 
 export const useCreateReviewMutation = (orderId: string) => {

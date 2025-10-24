@@ -1,16 +1,16 @@
-﻿import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { Suspense } from 'react';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
+import { categoryApi } from '@/entities/category';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import FullMenuSkeleton from '@/shared/ui/skeletons/FullMenuSkeleton';
-import FullMenu from '@/widgets/layout/ui/FullMenu';
-import Menu from '@/widgets/layout/ui/Menu';
-import NavIcons from '@/widgets/layout/ui/NavIcons';
-import SearchBar from '@/widgets/layout/ui/SearchBar';
+import { FullMenu } from '@/widgets/layout';
+import { Menu } from '@/widgets/layout';
+import { NavIcons } from '@/widgets/layout';
+import { SearchBar } from '@/widgets/layout';
 
-const Navbar = () => {
+export const Navbar = () => {
   const prefetchOptions = [
     {
       queryKey: ['categories'],
@@ -58,5 +58,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export default Navbar;

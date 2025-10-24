@@ -1,9 +1,11 @@
-﻿import { useEffect, useState } from 'react';
+'use client';
 
-import { Category } from '@/entities/category/model/types';
-import CategoryList from '@/entities/product/ui/CategoryList';
+import { useEffect, useState } from 'react';
 
-const CategorySelect = ({
+import { Category } from '@/entities/category';
+import { CategoryList } from '@/entities/product';
+
+export const CategorySelect = ({
   categories,
   setSelectedCategory,
   categoryPaths,
@@ -55,5 +57,3 @@ const CategorySelect = ({
     </div>
   );
 };
-
-export default CategorySelect;

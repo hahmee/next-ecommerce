@@ -1,17 +1,17 @@
-﻿'use client';
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import type { Paging } from '@/entities/order/model/Paging';
-import type { Product } from '@/entities/product/model/types';
-import { salesOptions } from '@/features/product/manage/consts/presets';
-import Select from '@/features/product/manage/ui/Select';
-import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
-import TableActions from '@/widgets/admin/table-kit/ui/TableActions';
-import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
-import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
+import type { Paging } from '@/entities/order';
+import type { Product } from '@/entities/product';
+import { salesOptions } from '@/features/product/manage';
+import { Select } from '@/features/product/manage';
+import { PageComponent } from '@/widgets/admin/table-kit';
+import { TableActions } from '@/widgets/admin/table-kit';
+import { TableSearch } from '@/widgets/admin/table-kit';
+import { ViewButton } from '@/widgets/admin/table-kit';
 
 export function StockTableView(props: {
   list: Product[];

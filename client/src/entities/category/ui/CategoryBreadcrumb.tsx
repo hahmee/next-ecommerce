@@ -1,10 +1,10 @@
-﻿import { Category } from '@/entities/category/model/types';
+import { Category } from '@/entities/category';
 
 interface BreadcrumbProps {
   categoryPaths: Category[];
 }
 
-const CategoryBreadcrumb = ({ categoryPaths }: BreadcrumbProps) => {
+export const CategoryBreadcrumb = ({ categoryPaths }: BreadcrumbProps) => {
   if (categoryPaths.length < 1) {
     return (
       <nav
@@ -75,5 +75,3 @@ const CategoryBreadcrumb = ({ categoryPaths }: BreadcrumbProps) => {
     </nav>
   );
 };
-
-export default CategoryBreadcrumb;

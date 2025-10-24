@@ -1,17 +1,10 @@
-﻿'use client';
+'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
-import { paymentApi } from '@/entities/payment/api/paymentApi';
-import type { Payment } from '@/entities/payment/model/types';
-
-export type PaymentConfirmVM = {
-  orderId: string;
-  orderName: string;
-  totalAmount: number;
-  raw: Payment;
-};
+import { paymentApi } from '@/entities/payment';
+import { PaymentConfirmVM } from '@/features/payment/confirm';
 
 export function usePaymentConfirm(paymentKey: string) {
   const qc = useQueryClient();

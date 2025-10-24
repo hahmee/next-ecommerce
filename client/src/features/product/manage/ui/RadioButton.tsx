@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { memo, useState } from 'react';
 
@@ -10,7 +10,7 @@ interface CheckboxProps {
   originalData: string | undefined;
 }
 
-const RadioButton = memo(({ options, name, originalData }: CheckboxProps) => {
+export const RadioButton = memo(({ options, name, originalData }: CheckboxProps) => {
   const [checkedValue, setCheckedValue] = useState<string>();
 
   return (
@@ -38,4 +38,3 @@ const RadioButton = memo(({ options, name, originalData }: CheckboxProps) => {
 });
 
 RadioButton.displayName = 'RadioButton';
-export default RadioButton;

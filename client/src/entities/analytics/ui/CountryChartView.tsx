@@ -1,14 +1,20 @@
-﻿'use client';
+'use client';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { MapResponse } from '@/entities/analytics/model/MapResponse';
+import type { MapResponse } from '@/entities/analytics';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const SalesPieChart = dynamic(() => import('@/entities/analytics/ui/SalesPieChartView'), {
-  ssr: false,
-});
-const CountryMap = dynamic(() => import('@/entities/analytics/ui/CountryMapView'), { ssr: false });
+const SalesPieChart = dynamic(
+  () => import('@/entities/analytics/ui').then((mod) => mod.SalesPieChartView),
+  {
+    ssr: false,
+  },
+);
+const CountryMap = dynamic(
+  () => import('@/entities/analytics/ui').then((mod) => mod.CountryMapView),
+  { ssr: false },
+);
 
 export function CountryChartView({ countries }: { countries: MapResponse[] }) {
   return (

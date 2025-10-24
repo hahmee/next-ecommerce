@@ -1,6 +1,6 @@
-﻿import { create } from 'zustand';
+import { create } from 'zustand';
 
-import { ImageType } from '@/features/product/manage/ui/ImageUploadForm';
+import { ImageType } from '@/features/product/manage';
 
 type State = {
   files: Array<ImageType>;

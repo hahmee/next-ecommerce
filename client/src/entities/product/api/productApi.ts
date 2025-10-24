@@ -1,5 +1,5 @@
-﻿import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Product } from '@/entities/product/model/types';
+import type { PageResponse } from '@/entities/order';
+import type { Product } from '@/entities/product';
 import { fetcher } from '@/shared/http/fetcher';
 import { publicFetcher } from '@/shared/http/publicFetcher';
 

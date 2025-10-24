@@ -31,7 +31,7 @@ const slides = [
   },
 ];
 
-const Slider = () => {
+export const Slider = () => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -91,5 +91,3 @@ const Slider = () => {
     </div>
   );
 };
-
-export default Slider;

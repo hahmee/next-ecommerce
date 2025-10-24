@@ -1,4 +1,4 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 import { readBodyBuffer } from '@/shared/proxy/body';
 import { buildProxyHeaders } from '@/shared/proxy/headers';

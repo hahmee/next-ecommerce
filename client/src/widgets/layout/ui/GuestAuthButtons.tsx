@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -6,7 +6,7 @@ import React from 'react';
 
 import { useUserStore } from '@/shared/store/userStore';
 
-const GuestAuthButtons = () => {
+export const GuestAuthButtons = () => {
   const pathname = usePathname();
   const isAuthPage = pathname === '/login' || pathname === '/signup';
   const { user } = useUserStore();
@@ -39,5 +39,3 @@ const GuestAuthButtons = () => {
     </div>
   );
 };
-
-export default GuestAuthButtons;

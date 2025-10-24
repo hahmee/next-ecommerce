@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
-import { usePaymentTable } from '@/widgets/admin/payments-table/model/usePaymentTable';
-import { PaymentTableView } from '@/widgets/admin/payments-table/ui/PaymentTableView';
+import { usePaymentTable } from '@/widgets/admin/payments-table';
+import { PaymentTableView } from '@/widgets/admin/payments-table';
 
-export default function PaymentTable() {
+export function PaymentTable() {
   const table = usePaymentTable();
   return <PaymentTableView {...table} />;
 }

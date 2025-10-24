@@ -1,0 +1,16 @@
+// AUTO-GENERATED FILE. DO NOT EDIT.
+// Run: node scripts/generate-feature-barrels.cjs
+
+export * from './consts/presets';
+export * from './model/useProductForm';
+export * from './ui/BackButton';
+export * from './ui/ColorSelector';
+export * from './ui/ImagePreview';
+export * from './ui/ImageUploadForm';
+export * from './ui/MainInfo';
+export * from './ui/MultiSelect';
+export * from './ui/ProductForm';
+export * from './ui/ProductFormView';
+export * from './ui/QuillEditor';
+export * from './ui/RadioButton';
+export * from './ui/Select';

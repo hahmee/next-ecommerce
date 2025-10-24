@@ -1,13 +1,13 @@
-﻿'use client';
+'use client';
 
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import HeatmapChart from '@/entities/analytics/ui/HeatmapChart';
-import TestChart from '@/entities/analytics/ui/TestChart';
-import { useAdminMembers } from '@/features/member/read/model/useAdminMembers';
+import { HeatmapChart } from '@/entities/analytics/ui';
+import { TestChart } from '@/entities/analytics/ui';
+import { useAdminMembers } from '@/features/member/read';
 
-const UserDashboard = () => {
+export const UserDashboard = () => {
   // 예시 데이터 (실제 데이터로 교체)
   const stats = {
     total: '12,345',
@@ -81,5 +81,3 @@ const UserDashboard = () => {
     </div>
   );
 };
-
-export default UserDashboard;

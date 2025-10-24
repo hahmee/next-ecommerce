@@ -1,4 +1,4 @@
-﻿import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
+import { ChartFilter } from '@/entities/analytics';
 
 export interface GARequest {
   startDate: string;

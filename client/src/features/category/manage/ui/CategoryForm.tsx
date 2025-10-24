@@ -1,7 +1,7 @@
-﻿'use client';
+'use client';
 
-import { useCategoryForm } from '@/features/category/manage/model/useCategoryForm';
-import { CategoryFormView } from '@/features/category/manage/ui/CategoryFormView';
+import { useCategoryForm } from '@/features/category/manage';
+import { CategoryFormView } from '@/features/category/manage';
 import { Mode } from '@/shared/constants/mode';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   id?: string;
 }
 
-export default function CategoryForm({ type, id }: Props) {
+export function CategoryForm({ type, id }: Props) {
   const form = useCategoryForm({ type, id });
   return <CategoryFormView {...form} />;
 }

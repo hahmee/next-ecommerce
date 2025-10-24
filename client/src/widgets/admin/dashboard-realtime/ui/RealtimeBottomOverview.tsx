@@ -1,18 +1,18 @@
-﻿'use client';
+'use client';
 
 import dynamic from 'next/dynamic';
 
-import { useRealtimeBottomOverview } from '@/features/dashboard/model/useRealtimeBottomOverview';
+import { useRealtimeBottomOverview } from '@/features/dashboard';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 const RealtimeBottomOverviewView = dynamic(
-  () => import('@/entities/analytics/ui/RealtimeBottomOverviewView'),
+  () => import('@/entities/analytics/ui').then((mod) => mod.RealtimeBottomOverviewView),
   {
     ssr: false,
     loading: () => <LoadingSkeleton />,
   },
 );
 
-export default function RealtimeBottomOverview() {
+export function RealtimeBottomOverview() {
   const { gaBottomData, loading } = useRealtimeBottomOverview();
   if (loading) return <LoadingSkeleton />;
 

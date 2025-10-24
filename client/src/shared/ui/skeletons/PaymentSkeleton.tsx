@@ -1,4 +1,4 @@
-﻿import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
+import { TableSkeleton } from '@/shared/ui/skeletons/TableSkeleton';
 
 const PaymentSkeleton = () => {
   return (

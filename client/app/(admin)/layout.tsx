@@ -1,9 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 
-import Header from '@/widgets/layout/ui/Header';
-import Sidebar from '@/widgets/layout/ui/Sidebar';
+import { Header, Sidebar } from '@/widgets/layout';
 
 export default function AdminLayout({
   children,

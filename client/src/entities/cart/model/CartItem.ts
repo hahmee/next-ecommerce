@@ -1,4 +1,4 @@
-﻿import { ColorTag } from '@/shared/model/ColorTag';
+import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface CartItem {
   email: string;

@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
-import { useSalesOverview } from '@/features/dashboard/model/useSalesOverview';
-import { SalesOverviewView } from '@/widgets/admin/dashboard-sales/ui/SalesOverviewView';
+import { useSalesOverview } from '@/features/dashboard';
+import { SalesOverviewView } from '@/widgets/admin/dashboard-sales';
 
-export default function SalesOverview({ initialToday }: { initialToday: string }) {
+export function SalesOverview({ initialToday }: { initialToday: string }) {
   const salesOverview = useSalesOverview({ initialToday });
   return <SalesOverviewView {...salesOverview} />;
 }

@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 
 import type { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
 
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 
-const TestChart = () => {
+export const TestChart = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -102,5 +102,3 @@ const TestChart = () => {
     </div>
   );
 };
-
-export default TestChart;

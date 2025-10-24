@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import type { ApexOptions } from 'apexcharts';
 import React, { useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ function generateHeatmapData(): Array<{
   });
 }
 
-export default function HeatmapChart() {
+export function HeatmapChart() {
   const [series, setSeries] = useState<any[]>([]);
   const [mounted, setMounted] = useState(false);
 

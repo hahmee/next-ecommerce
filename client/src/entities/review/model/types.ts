@@ -1,5 +1,5 @@
-﻿import { Member } from '@/entities/member/model/Member';
-import { Order } from '@/entities/order/model/types';
+import { Member } from '@/entities/member';
+import { Order } from '@/entities/order';
 
 export interface Review {
   rno?: number;

@@ -1,16 +1,17 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 
-import { CartItem } from '@/entities/cart/model/CartItem';
-import { SalesStatus, SalesStatusKor } from '@/entities/product/consts/SalesStatus';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { CartItem } from '@/entities/cart';
+import { SalesStatus } from '@/entities/product';
+import { SalesStatusKor } from '@/entities/product';
+import { useChangeCartMutation } from '@/features/product/cart';
 import GACta from '@/shared/ga/GACta';
 import { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
 
-const AddCart = ({
+export const AddCart = ({
   pno,
   salesStatus,
   options,
@@ -108,5 +109,3 @@ const AddCart = ({
     </div>
   );
 };
-
-export default AddCart;

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React from 'react';

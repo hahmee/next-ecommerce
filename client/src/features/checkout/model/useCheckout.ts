@@ -1,12 +1,12 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { OrderStatus } from '@/entities/order/consts/OrderStatus';
-import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order/model/types';
-import { requestTossCardPayment } from '@/entities/payment/model/paymentService';
-import { useCreateOrderMutation } from '@/features/order/manage/model/useCreateOrderMutation';
+import { OrderStatus } from '@/entities/order';
+import { OrderRequest, OrderShippingAddressInfo } from '@/entities/order';
+import { requestTossCardPayment } from '@/entities/payment';
+import { useCreateOrderMutation } from '@/features/order/manage';
 import { useCartStore } from '@/shared/store/cartStore';
 
 export function useCheckout() {

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { BuildingStorefrontIcon } from '@heroicons/react/24/outline';
 import dynamic from 'next/dynamic';
@@ -6,11 +6,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import { useLogout } from '@/features/auth/model/useLogout';
+import { useLogout } from '@/features/auth';
 import useLocalStorage from '@/shared/lib/useLocalStorage';
 import { useUserStore } from '@/shared/store/userStore';
 import ClickOutside from '@/shared/ui/ClickOutside';
-import SidebarItem from '@/widgets/layout/ui/SidebarItem';
+import { SidebarItem } from '@/widgets/layout';
 
 const Dialog = dynamic(() => import('@/shared/ui/Dialog'));
 
@@ -233,7 +233,7 @@ const menuGroups = [
   },
 ];
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
+export const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const [pageName, setPageName] = useLocalStorage('selectedMenu', 'admin');
   const [showDialog, setShowDialog] = useState(false);
   const { logout, isPending } = useLogout();
@@ -317,5 +317,3 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     </ClickOutside>
   );
 };
-
-export default Sidebar;

@@ -1,15 +1,15 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 
-import { usePaymentConfirm } from '@/features/payment/confirm/model/usePaymentConfirm';
-import ConfirmView from '@/features/payment/confirm/ui/ConfirmView';
+import { usePaymentConfirm } from '@/features/payment/confirm';
+import { ConfirmView } from '@/features/payment/confirm';
 
 interface Props {
   paymentKey: string;
 }
 
-const Confirm = ({ paymentKey }: Props) => {
+export const Confirm = ({ paymentKey }: Props) => {
   const { data: payment, isLoading, isError, error } = usePaymentConfirm(paymentKey);
 
   if (isLoading) return <div className="p-8 text-center">결제 확인 중…</div>;
@@ -26,5 +26,3 @@ const Confirm = ({ paymentKey }: Props) => {
 
   return <ConfirmView payment={payment} />;
 };
-
-export default Confirm;

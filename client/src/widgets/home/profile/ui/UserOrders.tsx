@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
-import { useUserOrders } from '@/features/order/read/model/useUserOrders';
-import { UserOrdersView } from '@/widgets/home/profile/ui/UserOrdersView';
+import { useUserOrders } from '@/features/order/read';
+import { UserOrdersView } from '@/widgets/home/profile';
 
-export default function UserOrders() {
+export function UserOrders() {
   const userOrders = useUserOrders();
   return <UserOrdersView {...userOrders} />;
 }

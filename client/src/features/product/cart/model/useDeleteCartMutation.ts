@@ -1,7 +1,7 @@
-﻿import { useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 
-import { CartItemList } from '@/entities/cart/model/CartItemList';
+import { CartItemList } from '@/entities/cart';
 import { fetcher } from '@/shared/http/fetcher';
 import { useCartStore } from '@/shared/store/cartStore';
 

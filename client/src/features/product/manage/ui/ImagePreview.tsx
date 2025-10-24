@@ -1,3 +1,5 @@
+'use client';
+
 import { Identifier, XYCoord } from 'dnd-core';
 import Image from 'next/image';
 import React, { useRef } from 'react';
@@ -24,7 +26,7 @@ export const ItemTypes = {
   IMAGE: 'image',
 };
 
-const ImagePreview = ({
+export const ImagePreview = ({
   image,
   deleteImage,
   handleMouseOver,
@@ -182,5 +184,3 @@ const ImagePreview = ({
     </>
   );
 };
-
-export default ImagePreview;

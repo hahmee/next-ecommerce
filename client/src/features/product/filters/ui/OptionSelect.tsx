@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { ColorTag } from '@/shared/model/ColorTag';
 

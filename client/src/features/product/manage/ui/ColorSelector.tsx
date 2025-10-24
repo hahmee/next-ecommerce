@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
@@ -15,7 +15,7 @@ interface DropdownProps {
   originalData: ColorTag[] | undefined;
 }
 
-const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
+export const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, originalData }) => {
   const { tags, addTag, removeTag, setTagColor, clear } = useTagStore();
   const [inputValue, setInputValue] = useState('');
   const [selectedTagIndex, setSelectedTagIndex] = useState<number | null>(null);
@@ -172,5 +172,3 @@ const ColorSelector: React.FC<DropdownProps> = ({ label, defaultOption, original
     </div>
   );
 };
-
-export default ColorSelector;

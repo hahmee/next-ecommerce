@@ -1,4 +1,4 @@
-﻿import { SalesStatus } from '@/entities/product/consts/SalesStatus';
+import { SalesStatus } from '@/entities/product';
 import { Size } from '@/shared/constants/size';
 import { Option } from '@/shared/model/Option';
 

@@ -1,7 +1,7 @@
-﻿import type { ApexOptions } from 'apexcharts';
+import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+import { SessionDTO } from '@/entities/analytics';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const colors = ['#c3d6f3', '#0FADCF', '#3C50E0', '#6577F3'];
@@ -11,7 +11,7 @@ const getRandomColor = (length: number) => {
   return colors.slice(0, length);
 };
 
-const PieChart = ({
+export const PieChart = ({
   data,
   title,
   label,
@@ -117,5 +117,3 @@ const PieChart = ({
     </div>
   );
 };
-
-export default PieChart;

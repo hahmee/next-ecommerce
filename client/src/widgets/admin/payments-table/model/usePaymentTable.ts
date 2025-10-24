@@ -1,12 +1,12 @@
-﻿'use client';
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Paging } from '@/entities/order/model/Paging';
+import type { PageResponse } from '@/entities/order';
+import type { Paging } from '@/entities/order';
 import { paymentApi } from '@/entities/payment/api/paymentApi';
 import type { Payment } from '@/entities/payment/model/types';
 import { DatepickType } from '@/shared/model/DatepickType';

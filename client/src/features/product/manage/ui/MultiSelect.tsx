@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 
@@ -20,7 +20,7 @@ interface DropdownProps {
   originalData: string[] | undefined;
 }
 
-const MultiSelect: React.FC<DropdownProps> = ({
+export const MultiSelect: React.FC<DropdownProps> = ({
   id,
   label,
   name,
@@ -268,5 +268,3 @@ const MultiSelect: React.FC<DropdownProps> = ({
     </div>
   );
 };
-
-export default MultiSelect;

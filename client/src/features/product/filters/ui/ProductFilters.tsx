@@ -1,10 +1,10 @@
-﻿import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { Fragment, useMemo, useState } from 'react';
 
-import { Category } from '@/entities/category/model/types';
-import { FilterOption, FilterSection } from '@/entities/product/ui/ProductListView';
-import PriceRange from '@/features/product/filters/ui/PriceRange';
+import { Category } from '@/entities/category';
+import { FilterOption, FilterSection } from '@/features/product/filters';
+import { PriceRange } from '@/features/product/filters';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
 type Props = { filters: FilterSection[] };
@@ -12,7 +12,7 @@ type Props = { filters: FilterSection[] };
 const maxPrice = 1_000_000;
 const minPrice = 0;
 
-const ProductFilters: React.FC<Props> = ({ filters }) => {
+export const ProductFilters: React.FC<Props> = ({ filters }) => {
   const router = useRouter();
   const searchParams = useSafeSearchParams();
 
@@ -177,5 +177,3 @@ const ProductFilters: React.FC<Props> = ({ filters }) => {
     </>
   );
 };
-
-export default ProductFilters;

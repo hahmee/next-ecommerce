@@ -1,4 +1,4 @@
-﻿import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 import { fetcher } from '@/shared/http/fetcher';
 
 type FetchOpts = RequestInit & {

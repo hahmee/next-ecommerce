@@ -1,10 +1,10 @@
-﻿import { StarIcon } from '@heroicons/react/20/solid';
+import { StarIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import React from 'react';
 
-import { Review } from '@/entities/review/model/types';
+import { Review } from '@/entities/review';
 
-const ReviewSingle = ({ review }: { review: Review }) => {
+export const ReviewSingle = ({ review }: { review: Review }) => {
   return (
     <div className="flex flex-col gap-4">
       {/* USER */}
@@ -29,4 +29,3 @@ const ReviewSingle = ({ review }: { review: Review }) => {
     </div>
   );
 };
-export default ReviewSingle;

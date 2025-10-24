@@ -1,14 +1,15 @@
-﻿import { StarIcon } from '@heroicons/react/20/solid';
+'use client';
+
+import { StarIcon } from '@heroicons/react/20/solid';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { stripHtml } from 'string-strip-html';
 
-import { CartItem } from '@/entities/cart/model/CartItem';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import { Product } from '@/entities/product/model/types';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { CartItem } from '@/entities/cart';
+import { Product, SalesStatus } from '@/entities/product';
+import { useChangeCartMutation } from '@/features/product/cart';
 import { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';
@@ -19,7 +20,7 @@ type ProductCardProps = {
   index: number;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
   const { carts, changeOpen, isLoading } = useCartStore();
   const [color, setColor] = useState<ColorTag>(product.colorList[0]);
   const { user } = useUserStore();
@@ -145,5 +146,3 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
     </div>
   );
 };
-
-export default ProductCard;

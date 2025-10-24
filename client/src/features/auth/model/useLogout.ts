@@ -1,11 +1,10 @@
-﻿// src/hooks/useLogout.ts
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-import { authApi } from '@/entities/member/api/authApi';
+import { authApi } from '@/entities/member';
 import { useUserStore } from '@/shared/store/userStore';
 
 export function useLogout() {

@@ -22,7 +22,7 @@ interface ReactQuillComponentProps {
 }
 
 // QuillEditor를 memo로 감싸서 리렌더링 방지
-const QuillEditor = React.memo(({ quillRef, originalData }: EditorProps) => {
+export const QuillEditor = React.memo(({ quillRef, originalData }: EditorProps) => {
   const modules = {
     toolbar: [
       [{ header: '1' }, { header: '2' }],
@@ -82,5 +82,3 @@ const QuillEditor = React.memo(({ quillRef, originalData }: EditorProps) => {
 
 // Memo 적용 시 displayName 설정
 QuillEditor.displayName = 'QuillEditor';
-
-export default QuillEditor;

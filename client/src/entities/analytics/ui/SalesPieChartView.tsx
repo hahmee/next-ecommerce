@@ -1,7 +1,7 @@
-﻿import type { ApexOptions } from 'apexcharts';
+import type { ApexOptions } from 'apexcharts';
 import React from 'react';
 
-import { MapResponse } from '@/entities/analytics/model/MapResponse';
+import { MapResponse } from '@/entities/analytics';
 import ReactApexChart from '@/shared/ui/ReactApexChart';
 
 const colors = ['#3C50E0', '#6577F3', '#8FD0EF', '#0FADCF'];
@@ -12,7 +12,7 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 
-const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
+export const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {
   const series = countries?.map((c) => (c.totalSales === null ? 0 : c.totalSales)) || [];
   const labels = countries?.map((c) => (c.country === null ? '' : c.country)) || [];
 
@@ -109,5 +109,3 @@ const SalesPieChartView = ({ countries }: { countries: Array<MapResponse> | unde
     </>
   );
 };
-
-export default SalesPieChartView;

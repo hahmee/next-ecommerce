@@ -1,13 +1,13 @@
-﻿'use client';
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useCallback, useMemo, useState } from 'react';
 import type { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
-import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import type { GAResponseTop } from '@/entities/analytics/model/GAResponse';
+import type { GAResponseTop } from '@/entities/analytics';
+import { dashboardApi } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 export function useTrafficOverview(initialToday: string) {

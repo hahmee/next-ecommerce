@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
-const AdminModal = ({
+export const AdminModal = ({
   children,
   modalTitle,
 }: {
@@ -65,5 +65,3 @@ const AdminModal = ({
     </div>
   );
 };
-
-export default AdminModal;

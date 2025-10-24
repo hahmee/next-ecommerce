@@ -1,4 +1,4 @@
-﻿import { MemberRole } from '@/entities/member/consts/MemberRole';
+import { MemberRole } from '@/entities/member';
 
 export interface MemberPublic {
   email: string;

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
-import type { Category } from '@/entities/category/model/types';
+import type { Category } from '@/entities/category';
+import { categoryApi } from '@/entities/category';
 import { Mode } from '@/shared/constants/mode';
 
 export interface CategoryFormValues {

@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
-import SingleCartItem from '@/entities/cart/ui/SingleCartItem';
+import { SingleCartItem } from '@/entities/cart';
 import { useCartStore } from '@/shared/store/cartStore';
 
-const CartList = () => {
+export const CartList = () => {
   const { carts } = useCartStore();
 
   if (carts.length === 0) {
@@ -12,4 +12,3 @@ const CartList = () => {
 
   return carts.map((cartItem) => <SingleCartItem cartItem={cartItem} key={cartItem.cino} />);
 };
-export default CartList;

@@ -1,10 +1,10 @@
-﻿'use client';
+'use client';
 
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-import type { Category } from '@/entities/category/model/types';
+import type { Category } from '@/entities/category';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
 interface Props {

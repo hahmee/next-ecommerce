@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin/dashboard/real-time';
+import { DashBoardRealTimePage } from '@/pages/admin/dashboard/real-time';
+
+export default function Page() {
+  return <DashBoardRealTimePage />;
+}

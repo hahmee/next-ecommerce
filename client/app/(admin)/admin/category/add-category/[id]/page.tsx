@@ -1,1 +1,8 @@
-export { default } from '@/pages/(admin)/admin/category/add-category/[id]';
+import { AddCategoryPage } from '@/pages/admin/category/add-category';
+
+interface Props {
+  params: { id: string };
+}
+export default function Page({ params }: Props) {
+  return <AddCategoryPage id={params.id} />;
+}

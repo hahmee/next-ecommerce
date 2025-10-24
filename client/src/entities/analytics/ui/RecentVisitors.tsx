@@ -1,9 +1,9 @@
-﻿import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
+import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 
-import { SessionDTO } from '@/entities/analytics/model/GAResponse';
+import { SessionDTO } from '@/entities/analytics';
 
-const RecentVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
+export const RecentVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefined }) => {
   return (
     <div className="h-full col-span-2 mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-1">
       <div className="justify-between flex flex-col border-b border-stroke dark:border-strokedark">
@@ -33,5 +33,3 @@ const RecentVisitors = ({ gaData }: { gaData: Array<SessionDTO<number>> | undefi
     </div>
   );
 };
-
-export default RecentVisitors;

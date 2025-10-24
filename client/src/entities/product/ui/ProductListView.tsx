@@ -1,25 +1,16 @@
-﻿'use client';
+'use client';
 
 import React, { Fragment, Suspense } from 'react';
 
-import type { Category } from '@/entities/category/model/types';
-import type { PageResponse } from '@/entities/order/model/PageResponse';
-import type { Product } from '@/entities/product/model/types';
-import ProductCard from '@/entities/product/ui/ProductCard';
-import ProductCategories from '@/entities/product/ui/ProductCategories';
-import ProductOrders from '@/entities/product/ui/ProductOrders';
-import FiltersBadge from '@/features/product/filters/ui/FiltersBadge';
-import ProductFilters from '@/features/product/filters/ui/ProductFilters';
-import { Size } from '@/shared/constants/size';
+import type { Category } from '@/entities/category';
+import type { PageResponse } from '@/entities/order';
+import type { Params, Product } from '@/entities/product';
+import { ProductCard, ProductCategories, ProductOrders } from '@/entities/product';
+import { filterPresets, FiltersBadge, ProductFilters } from '@/features/product/filters';
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 import ListPageSkeleton from '@/shared/ui/skeletons/ListPageSkeleton';
 import ProductCardListSkeleton from '@/shared/ui/skeletons/ProductCartListSkeleton';
 import ProductCardSkeleton from '@/shared/ui/skeletons/ProductCartSkeleton';
-
-export interface Params {
-  key: string;
-  value: string;
-}
 
 type Props = {
   pages: PageResponse<Product>[];
@@ -28,70 +19,10 @@ type Props = {
   isFetchingNextPage: boolean;
   isLoading: boolean;
   loadMoreRef: (node?: Element | null) => void;
-  // ref: (node?: Element | null | undefined) => void;
   categories: Category[];
   category?: Category;
 };
 
-export type SortOption = {
-  name: string;
-  href: string;
-  current: boolean;
-};
-
-export type FilterOption = {
-  value: string;
-  label: string;
-  hexCode?: string;
-  checked: boolean;
-};
-
-export type FilterSection = {
-  id: string;
-  name: string;
-  options: FilterOption[];
-};
-
-const filters: FilterSection[] = [
-  {
-    id: 'size',
-    name: 'Size',
-    options: [
-      { value: Size.XS, label: 'XS', checked: false },
-      { value: Size.S, label: 'S', checked: false },
-      { value: Size.M, label: 'M', checked: false },
-      { value: Size.L, label: 'L', checked: false },
-      { value: Size.XL, label: 'XL', checked: false },
-      { value: Size.XXL, label: '2XL', checked: false },
-      { value: Size.XXXL, label: '3XL', checked: false },
-      { value: Size.FREE, label: 'FREE', checked: false },
-    ],
-  },
-  {
-    id: 'category',
-    name: 'Category',
-    options: [
-      { value: 'new-arrivals', label: 'New Arrivals', checked: false },
-      { value: 'sale', label: 'Sale', checked: false },
-      { value: 'travel', label: 'Travel', checked: true },
-      { value: 'organization', label: 'Organization', checked: false },
-      { value: 'accessories', label: 'Accessories', checked: false },
-    ],
-  },
-  {
-    id: 'color',
-    name: 'Color',
-    options: [
-      { value: 'white', label: 'White', hexCode: '#FFFFFF', checked: false },
-      { value: 'red', label: 'Red', hexCode: '#FF6961', checked: false },
-      { value: 'beige', label: 'Beige', hexCode: '#F5F5DC', checked: false },
-      { value: 'blue', label: 'Blue', hexCode: '#AEC6CF', checked: false },
-      { value: 'brown', label: 'Brown', hexCode: '#cebaa0', checked: false },
-      { value: 'green', label: 'Green', hexCode: '#77DD77', checked: false },
-      { value: 'purple', label: 'Purple', hexCode: '#C3B1E1', checked: false },
-    ],
-  },
-];
 export function ProductListView({
   pages,
   allProducts,
@@ -141,7 +72,7 @@ export function ProductListView({
             {/* Filters */}
             <form className="hidden lg:block">
               <ProductCategories categories={categories} />
-              <ProductFilters filters={filters as any} />
+              <ProductFilters filters={filterPresets as any} />
             </form>
 
             {/* Product Grid */}

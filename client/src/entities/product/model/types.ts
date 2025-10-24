@@ -1,7 +1,7 @@
-﻿import { Category } from '@/entities/category/model/types';
-import { Member } from '@/entities/member/model/Member';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import { FileDTO } from '@/entities/product/model/FileDTO';
+import { Category } from '@/entities/category';
+import { Member } from '@/entities/member';
+import { SalesStatus } from '@/entities/product';
+import { FileDTO } from '@/entities/product';
 import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface Product {
@@ -26,4 +26,9 @@ export interface Product {
   reviewCount: number | null;
   category: Category | null; // 최하위 카테고리
   owner: Member;
+}
+
+export interface Params {
+  key: string;
+  value: string;
 }

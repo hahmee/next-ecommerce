@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { orderApi } from '@/entities/order/api/orderApi';
-import type { Order } from '@/entities/order/model/types';
+import type { Order } from '@/entities/order';
+import { orderApi } from '@/entities/order';
 
 export function useReviewOrder(id: string) {
   const query = useQuery<Order, Error>({

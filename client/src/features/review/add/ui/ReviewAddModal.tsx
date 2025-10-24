@@ -1,8 +1,8 @@
-﻿'use client';
-import { ReviewAddModalView } from '@/features/review/add/ui/ReviewAddModalView';
-import { useReviewAdd } from '@/features/review/read/model/useReviewAdd';
+'use client';
+import { ReviewAddModalView } from '@/features/review/add';
+import { useReviewAdd } from '@/features/review/read';
 
-export default function ReviewAddModal({ id, orderId }: { id: string; orderId: string }) {
+export function ReviewAddModal({ id, orderId }: { id: string; orderId: string }) {
   const { order, isOrderLoading, isSubmitting, submit, close } = useReviewAdd(id, orderId);
   if (isOrderLoading || !order) return null;
 

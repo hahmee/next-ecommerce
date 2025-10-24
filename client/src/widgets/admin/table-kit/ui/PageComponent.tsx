@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
-import { Paging } from '@/entities/order/model/Paging';
+import { Paging } from '@/entities/order';
 
-const PageComponent = ({
+export const PageComponent = ({
   pagingData,
   size,
   search,
@@ -155,5 +155,3 @@ const PageComponent = ({
     </>
   );
 };
-
-export default PageComponent;

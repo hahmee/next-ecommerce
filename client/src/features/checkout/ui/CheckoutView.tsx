@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 
-import CartSummary from '@/entities/cart/ui/CartSummary';
-import type { OrderShippingAddressInfo } from '@/entities/order/model/types';
+import { CartSummary } from '@/entities/cart';
+import type { OrderShippingAddressInfo } from '@/entities/order';
 
 type Props = {
   shippingInfo: OrderShippingAddressInfo;
@@ -12,7 +12,7 @@ type Props = {
   disabled?: boolean;
 };
 
-export default function CheckoutView({ shippingInfo, onChange, onSubmit, disabled }: Props) {
+export function CheckoutView({ shippingInfo, onChange, onSubmit, disabled }: Props) {
   return (
     <form onSubmit={onSubmit}>
       <div className="bg-gray-50 min-h-screen">

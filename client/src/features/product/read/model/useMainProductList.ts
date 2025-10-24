@@ -1,13 +1,12 @@
-﻿'use client';
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import type { CartItem } from '@/entities/cart/model/CartItem';
-import { productApi } from '@/entities/product/api/productApi';
-import { SalesStatus } from '@/entities/product/consts/SalesStatus';
-import type { Product } from '@/entities/product/model/types';
-import { useChangeCartMutation } from '@/features/product/cart/model/useChangeCartMutation';
+import { CartItem } from '@/entities/cart';
+import type { Product } from '@/entities/product';
+import { productApi, SalesStatus } from '@/entities/product';
+import { useChangeCartMutation } from '@/features/product/cart';
 import type { ColorTag } from '@/shared/model/ColorTag';
 import { useCartStore } from '@/shared/store/cartStore';
 import { useUserStore } from '@/shared/store/userStore';

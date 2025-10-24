@@ -1,8 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 
-import { GAResponseTop } from '@/entities/analytics/model/GAResponse';
+import type { GAResponseTop } from '@/entities/analytics';
 
-const CardTrafficView = ({ gaData }: { gaData: GAResponseTop | undefined }) => {
+const CardTrafficViewComponent = ({ gaData }: { gaData: GAResponseTop | undefined }) => {
   return (
     <div className="grid grid-cols-3 divide-x mb-4 md:mb-6 2xl:mb-7.5 rounded-sm border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark bg-white">
       <div className="pr-7.5">
@@ -30,7 +30,7 @@ const CardTrafficView = ({ gaData }: { gaData: GAResponseTop | undefined }) => {
   );
 };
 
-export default React.memo(CardTrafficView);
+export const CardTrafficView = React.memo(CardTrafficViewComponent);
 
 export const CardItemTraffic = ({
   title,

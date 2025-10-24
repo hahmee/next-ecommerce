@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 
-import { FileDTO } from '@/entities/product/model/FileDTO';
+import { FileDTO } from '@/entities/product';
 import FallbackImage from '@/shared/ui/FallbackImage';
 
-const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
+export const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
   const [index, setIndex] = useState(0);
   const fallbackSrc = '/images/mall/product.png';
 
@@ -45,5 +45,3 @@ const ProductImages = ({ items }: { items: Array<FileDTO<string>> }) => {
     </div>
   );
 };
-
-export default ProductImages;

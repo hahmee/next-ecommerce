@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin/dashboard/traffic';
+import { DashBoardTrafficPage } from '@/pages/admin/dashboard/traffic';
+
+export default function Page() {
+  return <DashBoardTrafficPage />;
+}

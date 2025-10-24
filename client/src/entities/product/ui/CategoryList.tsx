@@ -1,7 +1,7 @@
-﻿import React from 'react';
+import React from 'react';
 
-import { Category } from '@/entities/category/model/types';
-import CategoryItem from '@/entities/product/ui/CategoryItem';
+import { Category } from '@/entities/category';
+import { CategoryItem } from '@/entities/product';
 
 interface CategoryListProps {
   categories: Category[];
@@ -10,7 +10,7 @@ interface CategoryListProps {
   selectedCategories: Category[]; // 선택된 모든 카테고리 배열
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({
+export const CategoryList: React.FC<CategoryListProps> = ({
   categories,
   level,
   onSelect,
@@ -36,5 +36,3 @@ const CategoryList: React.FC<CategoryListProps> = ({
     </div>
   );
 };
-
-export default CategoryList;

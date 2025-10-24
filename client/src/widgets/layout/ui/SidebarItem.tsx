@@ -1,10 +1,12 @@
-﻿import Link from 'next/link';
+'use client';
+
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import SidebarDropdown from '@/widgets/layout/ui/SidebarDropdown';
+import { SidebarDropdown } from '@/widgets/layout';
 
-const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => {
+export const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => {
   const handleClick = () => {
     const updatedPageName = pageName !== item.label.toLowerCase() ? item.label.toLowerCase() : '';
     return setPageName(updatedPageName);
@@ -59,5 +61,3 @@ const SidebarItem = ({ item, pageName, setPageName, changeShowDialog }: any) => 
     </li>
   );
 };
-
-export default SidebarItem;

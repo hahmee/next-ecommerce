@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 
 import { sendGAEvent } from '@next/third-parties/google';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 import Loading from '@/app/loading';
-import { useConfirmPaymentMutation } from '@/features/payment/confirm/model/useConfirmPaymentMutation';
+import { useConfirmPaymentMutation } from '@/features/payment/confirm';
 import { SessionExpiredError } from '@/shared/lib/errors';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   amount: string;
 }
 
-const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
+export const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
   const router = useRouter();
   const { mutate, isPending, isSuccess } = useConfirmPaymentMutation();
 
@@ -54,5 +54,3 @@ const SuccessPayment = ({ paymentKey, orderId, amount }: Props) => {
 
   return <Loading />;
 };
-
-export default SuccessPayment;

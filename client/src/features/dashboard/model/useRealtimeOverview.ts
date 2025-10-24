@@ -1,12 +1,12 @@
-﻿'use client';
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import { dashboardApi } from '@/entities/analytics/api/dashboardApi';
-import { ChartFilter } from '@/entities/analytics/consts/ChartFilter';
-import type { GARealTimeResponseTop } from '@/entities/analytics/model/GARealTimeResponse';
+import type { GARealTimeResponseTop } from '@/entities/analytics';
+import { dashboardApi } from '@/entities/analytics';
+import { ChartFilter } from '@/entities/analytics';
 
 export function useRealtimeOverview() {
   const today = dayjs();

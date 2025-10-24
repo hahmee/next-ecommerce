@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import { useEffect } from 'react';
 
-import { Member } from '@/entities/member/model/Member';
+import { Member } from '@/entities/member';
 import { useUserStore } from '@/shared/store/userStore';
 
 // UserHydration (SSR → CSR 전달)
@@ -12,7 +12,7 @@ export const UserHydration = ({ user }: { user: Member }) => {
 
   useEffect(() => {
     if (user) setUser(user);
-  }, [user]);
+  }, [user, setUser]);
 
   return null;
 };

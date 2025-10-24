@@ -1,12 +1,12 @@
-﻿'use client';
+'use client';
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import CartList from '@/entities/cart/ui/CartList';
-import CartSummary from '@/entities/cart/ui/CartSummary';
+import { CartList } from '@/entities/cart';
+import { CartSummary } from '@/entities/cart';
 
-const Cart = () => {
+export const Cart = () => {
   const router = useRouter();
 
   const cartButtonClick = () => {
@@ -34,4 +34,3 @@ const Cart = () => {
     </div>
   );
 };
-export default Cart;

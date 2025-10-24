@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { categoryApi } from '@/entities/category/api/categoryApi';
-import type { Category } from '@/entities/category/model/types';
+import type { Category } from '@/entities/category';
+import { categoryApi } from '@/entities/category';
 
 export function useFullMenu() {
   const { data, isLoading, error } = useQuery<Category[], Error>({

@@ -1,1 +1,5 @@
-export { default } from '@/pages/(home)/cart';
+import { CartPage } from '@/pages/home/cart';
+
+export default function Page() {
+  return <CartPage />;
+}

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const MainInfo = () => {
+export const MainInfo = () => {
   const router = useRouter();
 
   return (
@@ -43,5 +43,3 @@ const MainInfo = () => {
     </div>
   );
 };
-
-export default MainInfo;

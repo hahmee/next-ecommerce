@@ -1,6 +1,6 @@
-﻿import type { ChartRequest } from '@/entities/analytics/model/ChartRequest';
-import type { GARequest } from '@/entities/analytics/model/GARequest';
-import type { TopCustomerRequest } from '@/entities/analytics/model/TopCustomerRequest';
+import type { ChartRequest } from '@/entities/analytics';
+import type { GARequest } from '@/entities/analytics';
+import type { TopCustomerRequest } from '@/entities/analytics';
 import { fetcher } from '@/shared/http/fetcher';
 import buildSearchParams from '@/shared/lib/buildSearchParams';
 

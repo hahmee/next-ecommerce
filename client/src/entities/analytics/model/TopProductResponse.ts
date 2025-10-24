@@ -1,4 +1,4 @@
-﻿import { ColorTag } from '@/shared/model/ColorTag';
+import { ColorTag } from '@/shared/model/ColorTag';
 
 export interface TopProductResponse {
   pno: number;

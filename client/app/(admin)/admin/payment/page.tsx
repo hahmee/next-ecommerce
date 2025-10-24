@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin/payment';
+import { AdminPaymentPage } from '@/pages/admin/payment';
+
+export default function Page() {
+  return <AdminPaymentPage />;
+}

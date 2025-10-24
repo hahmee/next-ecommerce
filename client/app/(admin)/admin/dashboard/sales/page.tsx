@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin/dashboard/sales';
+import { DashBoardSalesPage } from '@/pages/admin/dashboard/sales';
+
+export default function Page() {
+  return <DashBoardSalesPage />;
+}

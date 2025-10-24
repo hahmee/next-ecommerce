@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';

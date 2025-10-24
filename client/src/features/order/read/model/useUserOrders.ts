@@ -1,10 +1,9 @@
-﻿// src/hooks/useUserOrders.ts
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { paymentApi } from '@/entities/payment/api/paymentApi';
-import type { Payment } from '@/entities/payment/model/types';
+import type { Payment } from '@/entities/payment';
+import { paymentApi } from '@/entities/payment';
 
 export function useUserOrders() {
   const query = useQuery<Payment[], Error>({

@@ -1,9 +1,9 @@
 'use client';
 
-import { useFullMenu } from '@/widgets/layout/model/useFullMenu';
-import { FullMenuView } from '@/widgets/layout/ui/FullMenuView';
+import { useFullMenu } from '@/widgets/layout';
+import { FullMenuView } from '@/widgets/layout';
 
-export default function FullMenu() {
+export function FullMenu() {
   const { categories } = useFullMenu();
   return <FullMenuView categories={categories} />;
 }

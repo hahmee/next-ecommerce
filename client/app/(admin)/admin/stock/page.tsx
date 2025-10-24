@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin/stock';
+import { StockPage } from '@/pages/admin/stock';
+
+export default function Page() {
+  return <StockPage />;
+}

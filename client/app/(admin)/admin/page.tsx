@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin';
+import { redirect } from 'next/navigation';
+
+export default function Page() {
+  redirect('/admin/products');
+}

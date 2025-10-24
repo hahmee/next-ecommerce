@@ -1,18 +1,18 @@
-﻿'use client';
+'use client';
 
 import { StarIcon } from '@heroicons/react/20/solid';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Paging } from '@/entities/order/model/Paging';
-import type { Product } from '@/entities/product/model/types';
-import { salesOptions } from '@/features/product/manage/consts/presets';
-import PageComponent from '@/widgets/admin/table-kit/ui/PageComponent';
-import TableActions from '@/widgets/admin/table-kit/ui/TableActions';
-import TableAddButton from '@/widgets/admin/table-kit/ui/TableAddButton';
-import TableSearch from '@/widgets/admin/table-kit/ui/TableSearch';
-import ViewButton from '@/widgets/admin/table-kit/ui/ViewButton';
+import type { Paging } from '@/entities/order';
+import type { Product } from '@/entities/product';
+import { salesOptions } from '@/features/product/manage';
+import { PageComponent } from '@/widgets/admin/table-kit';
+import { TableActions } from '@/widgets/admin/table-kit';
+import { TableAddButton } from '@/widgets/admin/table-kit';
+import { TableSearch } from '@/widgets/admin/table-kit';
+import { ViewButton } from '@/widgets/admin/table-kit';
 
 const Dialog = dynamic(() => import('@/shared/ui/Dialog'));
 

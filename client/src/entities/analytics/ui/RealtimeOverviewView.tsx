@@ -1,20 +1,27 @@
-﻿'use client';
+'use client';
 
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-import type { GARealTimeResponseTop } from '@/entities/analytics/model/GARealTimeResponse';
+import type { GARealTimeResponseTop } from '@/entities/analytics';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const ActiveVisitors = dynamic(() => import('@/entities/analytics/ui/ActiveVisitorsView'), {
+const ActiveVisitors = dynamic(
+  () => import('@/entities/analytics/ui').then((m) => m.ActiveVisitorsView),
+  { ssr: false },
+);
+
+const ActiveVisitChart = dynamic(
+  () => import('@/entities/analytics/ui').then((m) => m.ActiveVisitChartView),
+  { ssr: false },
+);
+
+const PageRoute = dynamic(() => import('@/entities/analytics/ui').then((m) => m.PageRouteView), {
   ssr: false,
 });
-const ActiveVisitChart = dynamic(() => import('@/entities/analytics/ui/ActiveVisitChartView'), {
-  ssr: false,
-});
-const PageRoute = dynamic(() => import('@/entities/analytics/ui/PageRouteView'), { ssr: false });
+
 const RealtimeBottomOverview = dynamic(
-  () => import('@/widgets/admin/dashboard-realtime/ui/RealtimeBottomOverview'),
+  () => import('@/widgets/admin/dashboard-realtime').then((m) => m.RealtimeBottomOverview),
   { ssr: false },
 );
 

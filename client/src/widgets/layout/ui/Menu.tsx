@@ -5,13 +5,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { useLogout } from '@/features/auth/model/useLogout';
+import { useLogout } from '@/features/auth';
 import { isAdmin } from '@/shared/lib/isAdmin';
 import { useUserStore } from '@/shared/store/userStore';
-import GuestAuthButtons from '@/widgets/layout/ui/GuestAuthButtons';
-import SearchBar from '@/widgets/layout/ui/SearchBar';
+import { GuestAuthButtons } from '@/widgets/layout';
+import { SearchBar } from '@/widgets/layout';
 
-const Menu = () => {
+export const Menu = () => {
   const pathname = usePathname();
   const { user } = useUserStore();
   const { logout, isPending } = useLogout();
@@ -68,5 +68,3 @@ const Menu = () => {
     </div>
   );
 };
-
-export default Menu;

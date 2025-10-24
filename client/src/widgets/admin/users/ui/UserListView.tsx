@@ -1,18 +1,18 @@
-﻿'use client';
+'use client';
 
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import React from 'react';
 
-import { Member } from '@/entities/member/model/Member';
-import { PageResponse } from '@/entities/order/model/PageResponse';
+import { Member } from '@/entities/member';
+import { PageResponse } from '@/entities/order';
 
 type Props = {
   users: PageResponse<Member> | undefined;
   onPageChange?: (page: number) => void; // 필요한 경우 콜백으로 페이지 이동 처리 가능
 };
 
-const UserListView = ({ users, onPageChange }: Props) => {
+export const UserListView = ({ users, onPageChange }: Props) => {
   return (
     <div className="p-6 space-y-6">
       {/* 헤더 */}
@@ -97,5 +97,3 @@ const UserListView = ({ users, onPageChange }: Props) => {
     </div>
   );
 };
-
-export default UserListView;

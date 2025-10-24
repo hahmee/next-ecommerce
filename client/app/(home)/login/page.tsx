@@ -1,1 +1,5 @@
-export { default } from '@/pages/(home)/login';
+import { LoginPage } from '@/pages/home/login';
+
+export default function Page() {
+  return <LoginPage />;
+}

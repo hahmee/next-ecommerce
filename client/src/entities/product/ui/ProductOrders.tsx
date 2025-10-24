@@ -1,6 +1,7 @@
-﻿import { ChevronDownIcon } from '@heroicons/react/20/solid';
+'use client';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useSafeSearchParams } from '@/shared/lib/useSafeSearchParams';
 
@@ -36,7 +37,7 @@ const orders: OrderOption[] = [
   },
 ];
 
-const ProductOrders = () => {
+export const ProductOrders = () => {
   const [sortOpen, setSortOpen] = useState<boolean>(false);
   const searchParams = useSafeSearchParams();
   const router = useRouter();
@@ -101,5 +102,3 @@ const ProductOrders = () => {
     </div>
   );
 };
-
-export default ProductOrders;

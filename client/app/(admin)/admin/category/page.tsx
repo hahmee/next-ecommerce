@@ -1,1 +1,5 @@
-export { default } from '@/pages/(admin)/admin/category';
+import { CategoryPage } from '@/pages/admin/category';
+
+export default function Page() {
+  return <CategoryPage />;
+}

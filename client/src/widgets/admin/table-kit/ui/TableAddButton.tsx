@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const TableAddButton = ({
+export const TableAddButton = ({
   content,
   location,
   ariaLabel = '',
@@ -34,4 +34,3 @@ const TableAddButton = ({
     </Link>
   );
 };
-export default TableAddButton;
