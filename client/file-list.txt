@@ -260,7 +260,7 @@
 /c/dev/private/next-ecommerce/client/src/pages/admin/payment/index.ts
 /c/dev/private/next-ecommerce/client/src/pages/admin/payment/ui/payment-page.tsx
 /c/dev/private/next-ecommerce/client/src/pages/admin/products/add-product/index.ts
-/c/dev/private/next-ecommerce/client/src/pages/admin/products/add-product/ui/add-product-page.tsx
+/c/dev/private/next-ecommerce/client/src/pages/admin/products/add-product/ui/edit-product-page.tsx
 /c/dev/private/next-ecommerce/client/src/pages/admin/products/index.ts
 /c/dev/private/next-ecommerce/client/src/pages/admin/products/ui/products-page.tsx
 /c/dev/private/next-ecommerce/client/src/pages/admin/profile/index.ts

@@ -1,5 +1,9 @@
-import { ProductsPage } from '@/pages/admin/products';
+import {EditProductPage} from "@/pages/admin/products/edit-product";
 
-export default function Page() {
-  return <ProductsPage />;
+interface Props {
+    params: { id: string };
+}
+
+export default function Page({ params }: Props) {
+    return <EditProductPage id={params.id} />;
 }
