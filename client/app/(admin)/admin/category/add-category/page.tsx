@@ -1,5 +1,3 @@
-// app/(admin)/admin/category/add-category/page.tsx
-
 import { AddCategoryPage } from '@/pages/admin/category/add-category';
 
 interface Props {

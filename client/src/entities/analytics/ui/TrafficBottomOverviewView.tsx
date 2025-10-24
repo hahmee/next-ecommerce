@@ -8,7 +8,7 @@ import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
 const CountryTrafficMap = dynamic(
-  () => import('@/entities/analytics').then((m) => m.CountryTrafficMapView),
+  () => import('@/entities/analytics/ui').then((m) => m.CountryTrafficMapView),
   { ssr: false },
 );
 

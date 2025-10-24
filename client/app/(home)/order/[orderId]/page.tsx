@@ -1,5 +1,3 @@
-// app/(home)/order/[orderId]/page.tsx
-
 import { authApi } from '@/entities/member';
 import { OrderPage } from '@/pages/home/order';
 

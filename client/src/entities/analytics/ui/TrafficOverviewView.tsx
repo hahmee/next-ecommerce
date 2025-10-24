@@ -8,17 +8,17 @@ import { ChartFilter } from '@/entities/analytics';
 import type { DatepickType } from '@/shared/model/DatepickType';
 
 const CardTraffic = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.CardTrafficView),
+  () => import('@/entities/analytics/ui').then((mod) => mod.CardTrafficView),
   { ssr: true, loading: () => <div className="min-h-[120px]" /> },
 );
 
 const TrafficSessionChart = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.TrafficSessionChartView),
+  () => import('@/entities/analytics/ui').then((mod) => mod.TrafficSessionChartView),
   { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
 
 const MultiCirclesChart = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.MultiCirclesChartView),
+  () => import('@/entities/analytics/ui').then((mod) => mod.MultiCirclesChartView),
   { ssr: false, loading: () => <div className="min-h-[400px]">로딩중...</div> },
 );
 
@@ -33,7 +33,7 @@ const TrafficBottomOverview = dynamic(
 );
 
 const AdminDatePicker = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.AdminDatePicker),
+  () => import('@/entities/analytics/ui').then((mod) => mod.AdminDatePicker),
   { ssr: false, loading: () => <div style={{ height: 20 }}>로딩중...</div> },
 );
 

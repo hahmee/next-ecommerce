@@ -1,5 +1,3 @@
-// app/(home)/product/[id]/page.tsx
-
 import type { Metadata } from 'next';
 
 import { productApi } from '@/entities/product';

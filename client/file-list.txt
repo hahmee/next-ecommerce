@@ -94,6 +94,7 @@
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TrafficPageChartView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TrafficSessionChartView.tsx
 /c/dev/private/next-ecommerce/client/src/entities/analytics/ui/TrafficSourceChartView.tsx
+/c/dev/private/next-ecommerce/client/src/entities/analytics/ui.ts
 /c/dev/private/next-ecommerce/client/src/entities/cart/api/cartApi.ts
 /c/dev/private/next-ecommerce/client/src/entities/cart/index.ts
 /c/dev/private/next-ecommerce/client/src/entities/cart/model/CartItem.ts

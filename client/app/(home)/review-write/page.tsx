@@ -1,5 +1,3 @@
-// app/(home)/review-write/page.tsx
-
 import { AddReviewPage } from '@/pages/home/review-write';
 
 interface Props {

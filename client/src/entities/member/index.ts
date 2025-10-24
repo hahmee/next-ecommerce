@@ -11,6 +11,5 @@ export * from './model/Member';
 export * from './model/MemberPublic';
 export * from './model/types';
 
-
 // ui
 export { ProfileView } from './ui/ProfileView';

@@ -1,5 +1,3 @@
-// app/(home)/review/page.tsx
-
 import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 

@@ -8,27 +8,36 @@ import type { CardResponse } from '@/entities/analytics';
 import type { ChartResponse } from '@/entities/analytics';
 import { ChartContext } from '@/entities/analytics';
 import { ChartFilter } from '@/entities/analytics';
-import { CardDataStats } from '@/entities/analytics';
+import { CardDataStats } from '@/entities/analytics/ui';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
-const SalesChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.SalesChartView), {
-  ssr: false,
-});
+const SalesChart = dynamic(
+  () => import('@/entities/analytics/ui').then((mod) => mod.SalesChartView),
+  {
+    ssr: false,
+  },
+);
 const TopOrderTable = dynamic(
   () => import('@/widgets/admin/orders-table').then((mod) => mod.TopOrderTable),
   {
     ssr: false,
   },
 );
-const TopCustomers = dynamic(() => import('@/entities/analytics').then((mod) => mod.TopCustomers), {
-  ssr: false,
-});
-const CountryChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.CountryChart), {
-  ssr: false,
-});
+const TopCustomers = dynamic(
+  () => import('@/entities/analytics/ui').then((mod) => mod.TopCustomers),
+  {
+    ssr: false,
+  },
+);
+const CountryChart = dynamic(
+  () => import('@/entities/analytics/ui').then((mod) => mod.CountryChart),
+  {
+    ssr: false,
+  },
+);
 const AdminDatePicker = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.AdminDatePicker),
+  () => import('@/entities/analytics/ui').then((mod) => mod.AdminDatePicker),
   {
     ssr: false,
   },

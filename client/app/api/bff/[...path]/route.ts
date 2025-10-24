@@ -1,7 +1,3 @@
-// app/api/bff/[...path]/route.ts
-
-// app/api/bff/[...path]/route.ts
-
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 

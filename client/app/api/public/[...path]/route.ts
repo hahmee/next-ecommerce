@@ -1,5 +1,3 @@
-// app/api/public/[...path]/route.ts
-
 import { NextResponse } from 'next/server';
 
 import { readBodyBuffer } from '@/shared/proxy/body';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SessionDTO } from '@/entities/analytics';
-import {HorizontalBarChart} from '@/entities/analytics';
+import { HorizontalBarChart } from '@/entities/analytics/ui';
 
 export const TrafficSourceChartView = ({
   topSources,

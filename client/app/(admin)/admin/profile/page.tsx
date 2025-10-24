@@ -1,5 +1,3 @@
-// app/(admin)/admin/profile/page.tsx
-
 import type { Metadata } from 'next';
 
 import { authApi } from '@/entities/member';

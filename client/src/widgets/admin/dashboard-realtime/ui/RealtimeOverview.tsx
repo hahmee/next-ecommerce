@@ -1,6 +1,6 @@
 'use client';
 
-import { RealtimeOverviewView } from '@/entities/analytics';
+import { RealtimeOverviewView } from '@/entities/analytics/ui';
 import { useRealtimeOverview } from '@/features/dashboard';
 
 export function RealtimeOverview() {

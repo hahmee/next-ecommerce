@@ -1,5 +1,3 @@
-// app/(admin)/@modal/(.)edit-category/[id]/page.tsx
-
 import { EditCategoryPage } from '@/pages/admin/category/edit-category';
 
 interface Props {

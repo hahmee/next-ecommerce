@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { TrafficOverviewView } from '@/entities/analytics';
+import { TrafficOverviewView } from '@/entities/analytics/ui';
 import { useTrafficOverview } from '@/features/dashboard';
 
 export function TrafficOverview({ initialToday }: { initialToday: string }) {

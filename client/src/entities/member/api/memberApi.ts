@@ -1,7 +1,6 @@
-import type {ListArgs, Member} from '@/entities/member';
+import type { ListArgs, Member } from '@/entities/member';
 import type { PageResponse } from '@/entities/order';
 import { fetcher } from '@/shared/http/fetcher';
-
 
 type FetchOpts = RequestInit & { next?: { revalidate?: number; tags?: string[] } };
 

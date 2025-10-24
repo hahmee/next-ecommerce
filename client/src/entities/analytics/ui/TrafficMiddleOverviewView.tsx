@@ -8,18 +8,18 @@ import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';
 
 const TrafficPageChart = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.TrafficPageChartView),
+  () => import('@/entities/analytics/ui').then((mod) => mod.TrafficPageChartView),
   {
     ssr: false,
   },
 );
 const TrafficSourceChart = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.TrafficSourceChartView),
+  () => import('@/entities/analytics/ui').then((mod) => mod.TrafficSourceChartView),
   {
     ssr: false,
   },
 );
-const PieChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.PieChart), {
+const PieChart = dynamic(() => import('@/entities/analytics/ui').then((mod) => mod.PieChart), {
   ssr: false,
 });
 

@@ -12,7 +12,7 @@ export const UserHydration = ({ user }: { user: Member }) => {
 
   useEffect(() => {
     if (user) setUser(user);
-  }, [user]);
+  }, [user, setUser]);
 
   return null;
 };

@@ -2,7 +2,7 @@
 export { productApi } from './api/productApi';
 
 // consts
-export { SalesStatus,SalesStatusKor } from './consts/SalesStatus';
+export { SalesStatus, SalesStatusKor } from './consts/SalesStatus';
 
 // model
 export * from './model/FileDTO';

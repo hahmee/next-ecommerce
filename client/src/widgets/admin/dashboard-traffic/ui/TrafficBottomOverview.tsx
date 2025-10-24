@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { ChartFilter } from '@/entities/analytics';
-import { TrafficBottomOverviewView } from '@/entities/analytics';
+import { TrafficBottomOverviewView } from '@/entities/analytics/ui';
 import { useTrafficBottom } from '@/features/dashboard';
 import type { DatepickType } from '@/shared/model/DatepickType';
 import LoadingSkeleton from '@/shared/ui/skeletons/LoadingSkeleton';

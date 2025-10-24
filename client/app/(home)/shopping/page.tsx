@@ -1,5 +1,3 @@
-// app/(home)/shopping/page.tsx
-
 import type { Metadata } from 'next';
 
 import { authApi } from '@/entities/member';

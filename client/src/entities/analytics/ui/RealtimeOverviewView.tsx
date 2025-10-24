@@ -7,16 +7,16 @@ import type { GARealTimeResponseTop } from '@/entities/analytics';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const ActiveVisitors = dynamic(
-  () => import('@/entities/analytics').then((m) => m.ActiveVisitorsView),
+  () => import('@/entities/analytics/ui').then((m) => m.ActiveVisitorsView),
   { ssr: false },
 );
 
 const ActiveVisitChart = dynamic(
-  () => import('@/entities/analytics').then((m) => m.ActiveVisitChartView),
+  () => import('@/entities/analytics/ui').then((m) => m.ActiveVisitChartView),
   { ssr: false },
 );
 
-const PageRoute = dynamic(() => import('@/entities/analytics').then((m) => m.PageRouteView), {
+const PageRoute = dynamic(() => import('@/entities/analytics/ui').then((m) => m.PageRouteView), {
   ssr: false,
 });
 

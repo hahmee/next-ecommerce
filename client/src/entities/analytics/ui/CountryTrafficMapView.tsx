@@ -8,7 +8,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import { CountryChartDTO } from '@/entities/analytics';
-import { BarChartThin } from '@/entities/analytics';
+import { BarChartThin } from '@/entities/analytics/ui';
 
 export const CountryTrafficMapView = ({
   countries,

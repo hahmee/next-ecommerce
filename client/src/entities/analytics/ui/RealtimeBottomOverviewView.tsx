@@ -7,11 +7,11 @@ import type { GARealTimeResponseBottom } from '@/entities/analytics';
 import LazyLoadWrapper from '@/shared/ui/LazyLoadWrapper';
 
 const RecentVisitors = dynamic(
-  () => import('@/entities/analytics').then((mod) => mod.RecentVisitors),
+  () => import('@/entities/analytics/ui').then((mod) => mod.RecentVisitors),
   { ssr: false },
 );
 
-const PieChart = dynamic(() => import('@/entities/analytics').then((mod) => mod.PieChart), {
+const PieChart = dynamic(() => import('@/entities/analytics/ui').then((mod) => mod.PieChart), {
   ssr: false,
 });
 

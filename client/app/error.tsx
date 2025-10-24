@@ -1,5 +1,3 @@
-// app/error.tsx
-
 'use client';
 
 // 서버 컴포넌트/라우팅/SSR 시점 에러 처리

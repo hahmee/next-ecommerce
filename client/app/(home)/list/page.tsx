@@ -1,4 +1,3 @@
-// app/(home)/list/page.tsx
 import type { Metadata } from 'next';
 
 import { categoryApi } from '@/entities/category';

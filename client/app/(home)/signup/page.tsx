@@ -1,5 +1,3 @@
-// app/(home)/signup/page.tsx
-
 import { SignupPage } from '@/pages/home/signup';
 
 export default function Page() {
