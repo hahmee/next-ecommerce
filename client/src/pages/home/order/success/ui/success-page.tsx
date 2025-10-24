@@ -6,8 +6,7 @@ import Loading from '@/app/loading';
 import { SuccessPayment } from '@/features/payment/confirm';
 
 // 결제 성공 페이지
-export async function OrderSuccessPage(params: Props) {
-  const { paymentKey, orderId, amount } = params;
+export async function OrderSuccessPage({ paymentKey, orderId, amount }: Props) {
 
   return (
     <Suspense fallback={<Loading />}>

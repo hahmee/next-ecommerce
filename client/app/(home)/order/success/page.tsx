@@ -6,6 +6,6 @@ export interface Props {
   amount: string;
 }
 
-export default function Page({ params }: { params: Props }) {
-  return <OrderSuccessPage {...params} />;
+export default function Page({ searchParams }: { searchParams: Props }) {
+  return <OrderSuccessPage {...searchParams} />;
 }

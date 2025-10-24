@@ -2,10 +2,10 @@ import { Footer, Navbar } from '@/widgets/layout';
 
 export default function HomeLayout({
   children,
-  modal, // ★ 추가
+  modal,
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode; // ★ 타입 명시
+  modal: React.ReactNode;
 }) {
   return (
     <>
