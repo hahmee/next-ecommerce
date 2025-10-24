@@ -1,6 +1,3 @@
-// AUTO-GENERATED FILE. DO NOT EDIT.
-// Run: node scripts/generate-feature-barrels.cjs
-
 export * from './consts/presets';
 export * from './model/useProductForm';
 export * from './ui/BackButton';

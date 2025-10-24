@@ -64,11 +64,12 @@ export function useProductsTable() {
 
   const deleteMutation = useMutation({
     mutationFn: (pno: number) => productApi.remove(pno),
+
     // 낙관적 업데이트
     onMutate: async (pno) => {
       const key = ['adminProducts', { page, size, search }];
+      // 관련 쿼리들 잠깐 정지(경합 방지)
       await qc.cancelQueries({ queryKey: key });
-
       const prev = qc.getQueryData<PageResponse<Product>>(key);
       if (prev) {
         const nextDto = prev.dtoList.filter((p) => p.pno !== pno);

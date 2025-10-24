@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 
 import { categoryApi } from '@/entities/category';
+import { productApi } from '@/entities/product';
 import { ProductForm } from '@/features/product/manage';
 import { Mode } from '@/shared/constants/mode';
 import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ProductFormSkeleton from '@/shared/ui/skeletons/ProductFormSkeleton';
-import {productApi} from "@/entities/product";
 
-export function EditProductPage({id}: {id:string}) {
+export function EditProductPage({ id }: { id: string }) {
   const prefetchOptions = [
     {
       queryKey: ['productSingle', id],
@@ -22,7 +22,6 @@ export function EditProductPage({id}: {id:string}) {
       queryFn: () => categoryApi.paths(id),
     },
   ];
-
 
   return (
     <Suspense fallback={<ProductFormSkeleton />}>

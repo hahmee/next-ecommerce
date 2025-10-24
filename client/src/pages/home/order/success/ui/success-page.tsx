@@ -7,7 +7,6 @@ import { SuccessPayment } from '@/features/payment/confirm';
 
 // 결제 성공 페이지
 export async function OrderSuccessPage({ paymentKey, orderId, amount }: Props) {
-
   return (
     <Suspense fallback={<Loading />}>
       <SuccessPayment paymentKey={paymentKey} orderId={orderId} amount={amount} />
