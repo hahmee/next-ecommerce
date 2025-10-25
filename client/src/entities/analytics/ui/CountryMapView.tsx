@@ -1,11 +1,10 @@
 'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
-import '@/shared/utils/js/world';
-
 import jsVectorMap from 'jsvectormap';
-import React, { useEffect } from 'react';
+import 'jsvectormap/dist/maps/world.js';
 
+import React, { useEffect } from 'react';
 import { MapResponse } from '@/entities/analytics';
 
 export const CountryMapView = ({ countries }: { countries: Array<MapResponse> | undefined }) => {

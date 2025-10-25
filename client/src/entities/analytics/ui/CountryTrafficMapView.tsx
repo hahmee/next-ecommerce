@@ -1,9 +1,9 @@
 'use client';
 
 import 'jsvectormap/dist/jsvectormap.css';
-import '@/shared/utils/js/world';
-
 import jsVectorMap from 'jsvectormap';
+import 'jsvectormap/dist/maps/world.js';
+
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 

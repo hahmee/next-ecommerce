@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
+import type {Metadata} from 'next';
 
-import { productApi } from '@/entities/product';
-import { ProductSinglePage } from '@/pages/home/product';
+import {productApi} from '@/entities/product';
+import {ProductSinglePage} from '@/pages/home/product';
 
 interface Props {
   params: { id: string };
@@ -40,6 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
   return <ProductSinglePage id={params.id} />;
 }

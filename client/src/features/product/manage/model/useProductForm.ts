@@ -110,7 +110,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
     return form;
   };
 
-  // 리스트/단건 키: 실제 리스트 쿼리와 100% 동일해야 낙관적 업데이트가 보임
+  // 리스트/단건 키: 실제 리스트 쿼리와 동일해야 낙관적 업데이트가 보임
   const listKey = ['adminProducts', { page: 1, size: 10, search: '' }] as const;
   const singleKey = id ? (['productSingle', String(id)] as const) : null;
 
@@ -122,15 +122,15 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
 
     // 낙관적 업데이트
     onMutate: async (formEl) => {
-      // 1) 관련 쿼리들 잠깐 정지(경합 방지)
+      // 관련 쿼리들 잠깐 정지(경합 방지)
       await qc.cancelQueries({ queryKey: listKey });
       if (singleKey) await qc.cancelQueries({ queryKey: singleKey });
 
-      // 2) 롤백을 위한 스냅샷
+      // 롤백을 위한 스냅샷
       const prevList = qc.getQueryData<any>(listKey);
       const prevSingle = singleKey ? qc.getQueryData<Product>(singleKey) : undefined;
 
-      // 3) 폼에서 최소 정보 뽑아 임시(optimistic) 객체 만들기
+      // 폼에서 최소 정보 뽑아 임시 객체 만들기
       const fd = new FormData(formEl);
       const optimistic: Product =
         type === Mode.ADD
@@ -148,7 +148,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
               categoryId: Number(leafCategory?.cno ?? (prevSingle as Product)?.categoryId ?? 0),
             } as Product);
 
-      // 4) 리스트 캐시 먼저 갱신
+      // 리스트 캐시 먼저 갱신
       qc.setQueryData(listKey, (old: any) => {
         if (!old) return old;
         const dtoList: Product[] = old.dtoList ? [...old.dtoList] : [];
@@ -160,10 +160,10 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
         return { ...old, dtoList };
       });
 
-      // 5) 단건 캐시도 갱신
+      // 단건 캐시도 갱신
       if (singleKey) qc.setQueryData(singleKey, optimistic);
 
-      // 6) 컨텍스트로 롤백 데이터 반환
+      // 컨텍스트로 롤백 데이터 반환
       return { prevList, prevSingle };
     },
 
@@ -190,6 +190,7 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
       router.push('/admin/products');
     },
   });
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutation.mutate(e.currentTarget);
