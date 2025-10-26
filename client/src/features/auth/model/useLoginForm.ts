@@ -39,7 +39,9 @@ export function useLoginForm() {
         // 로그인 성공 → 사용자 정보 조회
         const me = await fetcher('/api/me', { credentials: 'include' });
         setUser(me);
-        router.push('/');
+        router.replace('/');
+        router.refresh();
+
       } catch (error: unknown) {
         setMessage(error instanceof Error ? error.message : '알 수 없는 에러가 발생했습니다.');
       } finally {
