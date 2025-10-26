@@ -40,7 +40,6 @@ const RQProvider = ({ children }: Props) => {
             return;
           }
 
-
           toast.error(error instanceof Error ? error.message : '요청 실패');
         },
       }),

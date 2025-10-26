@@ -2,7 +2,7 @@
 import { useProductForm } from '@/features/product/manage';
 import { ProductFormView } from '@/features/product/manage';
 import { Mode } from '@/shared/constants/mode';
-import {Product} from "@/entities/product";
+import { Product } from '@/entities/product';
 
 interface Props {
   type: Mode;
