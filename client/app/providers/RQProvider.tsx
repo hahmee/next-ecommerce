@@ -4,6 +4,7 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 import { SessionExpiredError } from '@/shared/lib/errors';
 import { useUserStore } from '@/shared/store/userStore';
@@ -14,6 +15,8 @@ type Props = { children: React.ReactNode };
 let sessionToastShown = false;
 
 const RQProvider = ({ children }: Props) => {
+  const router = useRouter();
+
   const [client] = useState(
     new QueryClient({
       // useQuery
@@ -30,6 +33,14 @@ const RQProvider = ({ children }: Props) => {
             }
             return;
           }
+
+          // 공통 404 처리
+          if ((error as any)?.status === 404) {
+            router.push('/not-found');
+            return;
+          }
+
+
           toast.error(error instanceof Error ? error.message : '요청 실패');
         },
       }),
@@ -46,6 +57,12 @@ const RQProvider = ({ children }: Props) => {
             }
             return;
           }
+
+          if ((error as any)?.status === 404) {
+            router.push('/not-found');
+            return;
+          }
+
           toast.error(error instanceof Error ? error.message : '요청 실패');
         },
       }),

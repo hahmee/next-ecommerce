@@ -26,7 +26,11 @@ export const clientFetcher = async <T = any>(
   const json: any = await res.json().catch(() => ({}));
 
   if (!res.ok || json?.success === false) {
-    throw new Error(json?.message || '요청 실패');
+    const err: any = new Error(json?.message || '요청 실패');
+    err.status = res.status;
+    err.code = json?.code;
+    err.body = json;
+    throw err;
   }
 
   return json.data;

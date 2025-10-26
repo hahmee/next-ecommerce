@@ -11,7 +11,7 @@ import { Mode } from '@/shared/constants/mode';
 import { useProductImageStore } from '@/shared/store/productImageStore';
 import { useTagStore } from '@/shared/store/tagStore';
 
-export function useProductForm({ type, id }: { type: Mode; id?: string }) {
+export function useProductForm({ type, id, initialProduct }: { type: Mode; id?: string, initialProduct?: Product }) {
   const router = useRouter();
   const qc = useQueryClient();
   const imgStore = useProductImageStore();
@@ -25,8 +25,10 @@ export function useProductForm({ type, id }: { type: Mode; id?: string }) {
   const { data: original, isLoading: loading } = useQuery<Product>({
     queryKey: ['productSingle', id!],
     queryFn: () => productApi.byId(id!),
-    enabled: !!id && type === Mode.EDIT,
+    // enabled: !!id && type === Mode.EDIT,
+    enabled: !!id && type === Mode.EDIT && !initialProduct,
     staleTime: 60_000,
+    initialData: initialProduct,
     gcTime: 300_000,
     throwOnError: false,
   });

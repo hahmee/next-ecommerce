@@ -23,19 +23,26 @@ export const serverFetcher = async <T = any>(
   const cookieString = cookies().toString();
 
   const res = await fetch(finalUrl, {
-    cache: 'no-store', // 기본 SSR
     ...options,
     headers: {
       ...(options.headers || {}),
       cookie: cookieString,
     },
+    // 기본은 SSR → no-store
+    // 만약 options.next 가 있으면 (ISR/태그 캐시) cache는 빼줌
+    ...(options as any).next ? {} : { cache: 'no-store' },
   });
+
 
   const json = await res.json().catch(() => ({}));
 
   if (!res.ok || json?.success === false) {
-    console.log('ssr 요청 실패..');
-    throw new Error(json?.message || '요청 실패'); //React Query의 onError 핸들러나 ErrorBoundary로 전파
+    const err: any = new Error(json?.message || '요청 실패');  //React Query의 onError 핸들러나 ErrorBoundary로 전파
+    console.log('err', err);
+    err.status = res.status;         // page.tsx에서 e.status===404 체크용
+    err.code = json?.code;
+    err.body = json;
+    throw err; // status, code를 붙여서 throw
   }
 
   return json.data;
