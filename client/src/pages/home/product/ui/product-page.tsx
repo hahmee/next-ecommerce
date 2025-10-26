@@ -1,8 +1,8 @@
-import React, {Suspense} from 'react';
+import React, { Suspense } from 'react';
 
-import {productApi, ProductSingle} from '@/entities/product';
-import {reviewApi} from '@/entities/review';
-import {PrefetchBoundary} from '@/shared/ui/PrefetchBoundary';
+import { productApi, ProductSingle } from '@/entities/product';
+import { reviewApi } from '@/entities/review';
+import { PrefetchBoundary } from '@/shared/ui/PrefetchBoundary';
 import ProductSingleSkeleton from '@/shared/ui/skeletons/ProductSingleSkeleton';
 
 export async function ProductSinglePage({ id }: { id: string }) {

@@ -41,7 +41,6 @@ export function useLoginForm() {
         setUser(me);
         router.replace('/');
         router.refresh();
-
       } catch (error: unknown) {
         setMessage(error instanceof Error ? error.message : '알 수 없는 에러가 발생했습니다.');
       } finally {

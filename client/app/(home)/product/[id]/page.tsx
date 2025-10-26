@@ -1,7 +1,7 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 
-import {productApi} from '@/entities/product';
-import {ProductSinglePage} from '@/pages/home/product';
+import { productApi } from '@/entities/product';
+import { ProductSinglePage } from '@/pages/home/product';
 
 interface Props {
   params: { id: string };

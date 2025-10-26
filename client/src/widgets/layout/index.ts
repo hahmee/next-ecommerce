@@ -14,6 +14,7 @@ export * from './ui/FullMenu';
 export * from './ui/FullMenuView';
 export * from './ui/GuestAuthButtons';
 export * from './ui/Header';
+export * from './ui/AdminWrapper';
 export * from './ui/Menu';
 export * from './ui/Navbar';
 export * from './ui/NavIcons';
