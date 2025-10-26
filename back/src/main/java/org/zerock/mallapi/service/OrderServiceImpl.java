@@ -77,7 +77,12 @@ public class OrderServiceImpl implements OrderService{
     //read
     Optional<Order> result = orderRepository.findById(id);
 
-    Order order = result.orElseThrow();
+
+    Order order = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "주문을 찾을 수 없습니다. id=" + id)
+    );
+
+
 
     //dto 변환
     OrderDTO orderDTO = convertToDTO(order);

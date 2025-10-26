@@ -83,7 +83,9 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> result = Optional.ofNullable(memberRepository.getWithRoles(email));
 
 
-        Member member = result.orElseThrow();
+        Member member = result.orElseThrow(
+                () -> new GeneralException(ErrorCode.NOT_FOUND, "해당 멤버를 찾을 수 없습니다.")
+        );
 
         MemberDTO memberDTO = entityToDTO(member);
 
@@ -205,7 +207,10 @@ public class MemberServiceImpl implements MemberService {
 
         java.util.Optional<Member> result = memberRepository.selectOne(email);
 
-        Member member = result.orElseThrow();
+
+        Member member = result.orElseThrow(
+                () -> new GeneralException(ErrorCode.NOT_FOUND, "멤버를 찾을 수 없습니다.")
+        );
 
         MemberDTO memberDTO = entityToDTO(member);
 
@@ -251,7 +256,10 @@ public class MemberServiceImpl implements MemberService {
 
     Optional<Member> result = memberRepository.findById(memberModifyDTO.getEmail());
 
-    Member member = result.orElseThrow();
+
+    Member member  = result.orElseThrow(
+                () -> new GeneralException(ErrorCode.NOT_FOUND, "멤버를 찾을 수 없습니다.")
+    );
 
     member.changePassword(passwordEncoder.encode(memberModifyDTO.getPassword()));
     member.changeSocial(false);

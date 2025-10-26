@@ -7,13 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.zerock.mallapi.domain.AdminCategory;
-import org.zerock.mallapi.domain.CategoryClosure;
-import org.zerock.mallapi.domain.CategoryClosureId;
-import org.zerock.mallapi.domain.CategoryImage;
+import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.CategoryClosureRepository;
 import org.zerock.mallapi.repository.CategoryRepository;
+import org.zerock.mallapi.util.GeneralException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -209,7 +208,10 @@ public class CategoryServiceImpl implements CategoryService {
   public CategoryDTO get(Long cno) {
     Optional<AdminCategory> result = categoryRepository.selectOne(cno);
 
-    AdminCategory category = result.orElseThrow();
+    AdminCategory category = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "카테고리를 찾을 수 없습니다. cno=" + cno)
+    );
+
 
     CategoryDTO categoryDTO = convertToDTO(category);
 
@@ -238,7 +240,9 @@ public class CategoryServiceImpl implements CategoryService {
     //step1 read
     Optional<AdminCategory> result = categoryRepository.findById(cno);
 
-    AdminCategory adminCategory = result.orElseThrow();
+    AdminCategory adminCategory = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "카테고리를 찾을 수 없습니다.")
+    );
 
     List<CategoryClosure> ancestors = categoryClosureRepository.findAncestorsDesc(adminCategory);
 
@@ -277,7 +281,10 @@ public class CategoryServiceImpl implements CategoryService {
     //step1 read
     Optional<AdminCategory> result = categoryRepository.findById(categoryDTO.getCno());
 
-    AdminCategory adminCategory = result.orElseThrow();
+    AdminCategory adminCategory = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "카테고리를 찾을 수 없습니다.")
+    );
+
 
     CategoryImage categoryImage = CategoryImage.builder().fileName(categoryDTO.getUploadFileName()).fileKey(categoryDTO.getUploadFileKey()).build();
 
@@ -316,7 +323,11 @@ public class CategoryServiceImpl implements CategoryService {
 
       //부모 카테고리 데이터 조회
       java.util.Optional<AdminCategory> result = categoryRepository.selectOne(parentId);
-      parentCategory = result.orElseThrow();
+
+      parentCategory = result.orElseThrow(
+              () -> new GeneralException(ErrorCode.NOT_FOUND, "카테고리를 찾을 수 없습니다.")
+      );
+
 
     }
 
@@ -384,7 +395,10 @@ public class CategoryServiceImpl implements CategoryService {
     //step1 read
     Optional<AdminCategory> result = categoryRepository.findById(cno);
 
-    AdminCategory adminCategory = result.orElseThrow();
+    AdminCategory adminCategory = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "카테고리를 찾을 수 없습니다.")
+    );
+
 
     //만약, 자식이 있다면 해당하는 모든 자식들까지 true로 만들기
     List<CategoryClosure> descendants =  findDescendants(adminCategory);

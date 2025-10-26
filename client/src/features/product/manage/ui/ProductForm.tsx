@@ -10,6 +10,7 @@ interface Props {
 
 export function ProductForm({ type, id }: Props) {
   const form = useProductForm({ type, id });
+  console.log('form..', form);
   if (form.loading) return 'Loading...';
   return <ProductFormView {...form} />;
 }

@@ -240,7 +240,9 @@ public class PaymentServiceImpl implements PaymentService{
     Optional<Payment> result = paymentRepository.findByPaymentKey(paymentKey);
 
 
-    Payment payment = result.orElseThrow();// 없으면 에러
+    Payment payment = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "결제를 찾을 수 없습니다. paymentKey=" + paymentKey)
+    );
 
 
     PaymentDTO paymentDTO = convertToDTO(payment);
@@ -254,7 +256,9 @@ public class PaymentServiceImpl implements PaymentService{
 
     Optional<Payment> result = paymentRepository.findByEmailAndOrderId(email, orderId);
 
-    Payment payment = result.orElseThrow();// 없으면 에러
+    Payment payment  = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "결제 정보를 찾을 수 없습니다.")
+    );
 
     PaymentDTO paymentDTO = convertToDTO(payment);
 

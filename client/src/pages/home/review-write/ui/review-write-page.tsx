@@ -1,11 +1,9 @@
-import { notFound } from 'next/navigation';
 import React from 'react';
 
 import OrderPage from '@/app/(home)/order/[orderId]/page';
-import { ReviewModalPage } from '@/pages/home/modal/add-review';
+import {ReviewModalPage} from '@/pages/home/modal/add-review';
 
 export function AddReviewPage({ oid, orderId }: { oid: string; orderId: string }) {
-  if (!oid || !orderId) notFound();
 
   return (
     <>

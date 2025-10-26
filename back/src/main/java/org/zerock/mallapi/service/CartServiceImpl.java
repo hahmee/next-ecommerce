@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import org.zerock.mallapi.domain.*;
 import org.zerock.mallapi.dto.*;
+import org.zerock.mallapi.exception.ErrorCode;
 import org.zerock.mallapi.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.zerock.mallapi.util.GeneralException;
 
 @RequiredArgsConstructor
 @Service
@@ -47,7 +49,10 @@ public class CartServiceImpl implements CartService {
 
             Optional<CartItem> cartItemResult = cartItemRepository.findById(cino);
 
-            CartItem cartItem = cartItemResult.orElseThrow();
+            CartItem cartItem = cartItemResult.orElseThrow(
+                    () -> new GeneralException(ErrorCode.NOT_FOUND, "카트 상품을 찾을 수 없습니다.")
+            );
+
 
             cartItem.changeQty(qty);
 

@@ -363,8 +363,12 @@ public class ProductServiceImpl implements ProductService{
     
     java.util.Optional<Product> result = productRepository.selectOne(pno);
 
-    Product product = result.orElseThrow();
-    
+//    Product product = result.orElseThrow();
+
+    Product product = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "상품을 찾을 수 없습니다. pno=" + pno)
+    );
+
     ProductDTO productDTO = entityToDTO(product);
 
     return productDTO;
@@ -544,7 +548,9 @@ public class ProductServiceImpl implements ProductService{
     //step1 read
     Optional<Product> result = productRepository.findById(stockRequestDTO.getPno());
 
-    Product product = result.orElseThrow();
+    Product product = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "해당 상품을 찾을 수 없습니다.")
+    );
 
     product.changeSalesStatus(stockRequestDTO.getSalesStatus());
 
@@ -565,7 +571,10 @@ public class ProductServiceImpl implements ProductService{
 
     //step1 read
     Optional<Product> result = productRepository.findById(productDTO.getPno());
-    Product product = result.orElseThrow();
+
+    Product product = result.orElseThrow(
+            () -> new GeneralException(ErrorCode.NOT_FOUND, "해당 상품을 찾을 수 없습니다.")
+    );
 
     AdminCategory adminCategory = AdminCategory.builder()
             .cno(productDTO.getCategoryId())
