@@ -3,13 +3,6 @@ name: Deploy CI/CD
 on:
   push:
     branches: [ "master" ]  # master에 push할 때 실행됨
-  workflow_dispatch:
-    inputs:
-      force_healthcheck_failure:
-        description: "Rollback 검증용: Healthcheck 단계 강제 실패"
-        required: false
-        default: false
-        type: boolean
 
 jobs:
   deploy:
@@ -19,7 +12,6 @@ jobs:
       FRONT_IMAGE: hamye4143/next-ecommerce-frontend
       BACK_IMAGE: hamye4143/next-ecommerce-backend
       IMAGE_TAG: ${{ github.sha }}
-      FORCE_HEALTHCHECK_FAILURE: ${{ github.event.inputs.force_healthcheck_failure == 'true' }}
 
     steps:
       # 최신 코드 받기
@@ -95,7 +87,6 @@ jobs:
 
       # EC2에 접속해서 :sha 이미지로 배포
       - name: Deploy :sha to EC2
-        id: deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -125,19 +116,12 @@ jobs:
 
       # 헬스체크: 컨테이너가 떴어도 앱이 살아있지 않을 수 있으므로 실제 포트 응답 확인
       - name: Healthcheck
-        id: healthcheck
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: FORCE_HEALTHCHECK_FAILURE
           script: |
-                    if [ "$FORCE_HEALTHCHECK_FAILURE" = "true" ]; then
-                      echo "Rollback 검증용 강제 실패 — :sha 배포 후 Healthcheck를 실패 처리합니다."
-                      exit 1
-                    fi
-
                     for i in $(seq 1 18); do
                       FRONT_OK=false
                       BACK_OK=false
@@ -174,10 +158,9 @@ jobs:
           docker push $FRONT_IMAGE:latest
           docker push $BACK_IMAGE:latest
 
-      # EC2 배포 이후 단계가 실패한 경우에만 :latest(이전 성공 버전)로 자동 롤백
-      # 빌드/푸시 실패처럼 EC2를 건드리기 전의 실패에서는 운영 컨테이너를 재시작하지 않음
+      # 어느 단계든 실패하면 :latest(이전 성공 버전)로 자동 롤백
       - name: Rollback (실패 시)
-        if: failure() && (steps.deploy.outcome == 'failure' || steps.healthcheck.outcome == 'failure')
+        if: failure()
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -192,30 +175,3 @@ jobs:
                     FRONT_IMAGE=$FRONT_IMAGE:latest BACK_IMAGE=$BACK_IMAGE:latest \
                       docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
                     echo "롤백 완료 — :latest로 재기동됨"
-
-                    echo "롤백 후 헬스체크"
-                    for i in $(seq 1 18); do
-                      FRONT_OK=false
-                      BACK_OK=false
-
-                      if curl -fsS -m 5 http://localhost:3000 > /dev/null 2>&1; then
-                        FRONT_OK=true
-                      fi
-
-                      BACK_HTTP=$(curl -s -o /dev/null -w "%{http_code}" -m 5 http://localhost:8080 || echo "000")
-                      if [ "$BACK_HTTP" != "000" ]; then
-                        BACK_OK=true
-                      fi
-
-                      if $FRONT_OK && $BACK_OK; then
-                        echo "롤백 헬스체크 통과 ($i회차) front=$FRONT_OK back=$BACK_OK(http=$BACK_HTTP)"
-                        exit 0
-                      fi
-
-                      echo "롤백 후 대기 중 ($i/18) front=$FRONT_OK back=$BACK_OK(http=$BACK_HTTP)"
-                      sleep 10
-                    done
-
-                    echo "롤백 헬스체크 실패 — 컨테이너 로그:"
-                    docker-compose -f ~/next-ecommerce/docker-compose.yml logs --tail 80
-                    exit 1
