@@ -87,6 +87,7 @@ jobs:
 
       # EC2에 접속해서 :sha 이미지로 배포
       - name: Deploy :sha to EC2
+        id: deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -116,6 +117,7 @@ jobs:
 
       # 헬스체크: 컨테이너가 떴어도 앱이 살아있지 않을 수 있으므로 실제 포트 응답 확인
       - name: Healthcheck
+        id: healthcheck
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -158,9 +160,10 @@ jobs:
           docker push $FRONT_IMAGE:latest
           docker push $BACK_IMAGE:latest
 
-      # 어느 단계든 실패하면 :latest(이전 성공 버전)로 자동 롤백
+      # EC2 배포 이후 단계가 실패한 경우에만 :latest(이전 성공 버전)로 자동 롤백
+      # 빌드/푸시 실패처럼 EC2를 건드리기 전의 실패에서는 운영 컨테이너를 재시작하지 않음
       - name: Rollback (실패 시)
-        if: failure()
+        if: failure() && (steps.deploy.outcome == 'failure' || steps.healthcheck.outcome == 'failure')
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
