@@ -1,6 +1,7 @@
 .idea/
 node_modules/
 *.log
+!load-test/results/*.log
 .env
 .env.local
 .env.docker
