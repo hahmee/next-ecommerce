@@ -7,3 +7,6 @@ node_modules/
 .env.production
 .env.prod
 .env.*
+
+# Google Cloud 서비스 계정 키 (호스트에 두고 볼륨 마운트로만 사용)
+back/credentials/
