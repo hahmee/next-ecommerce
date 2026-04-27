@@ -124,6 +124,10 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+                    # TEMP: 롤백 검증용 강제 실패 — 검증 후 이 블록 제거 예정
+                    echo "강제 실패 테스트 — Rollback 단계 발동 확인"
+                    exit 1
+
                     for i in $(seq 1 18); do
                       FRONT_OK=false
                       BACK_OK=false
