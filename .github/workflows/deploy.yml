@@ -69,12 +69,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push Docker images
+      # :sha만 먼저 push — :latest는 헬스체크 통과 후에 갱신 (항상 "직전 성공 버전"을 가리키도록)
+      - name: Push :sha images
         run: |
           docker push $FRONT_IMAGE:$IMAGE_TAG
-          docker push $FRONT_IMAGE:latest
           docker push $BACK_IMAGE:$IMAGE_TAG
-          docker push $BACK_IMAGE:latest
 
       #CI 서버에서 EC2로 docker-compose.yml 파일을 복사
       - name: Copy compose to EC2
@@ -86,8 +85,8 @@ jobs:
           source: "docker-compose.yml,script/,script/*"
           target: "/home/ubuntu/next-ecommerce"
 
-      # EC2에 접속해서 배포
-      - name: Deploy to EC2
+      # EC2에 접속해서 :sha 이미지로 배포
+      - name: Deploy :sha to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -98,19 +97,81 @@ jobs:
                     set -e
                     echo "기존 컨테이너 종료 (볼륨은 유지)"
                     docker-compose -f ~/next-ecommerce/docker-compose.yml down || true
-            
+
                     echo "DB 볼륨 삭제"
                     docker volume rm -f next-ecommerce-db-data || true
-  
+
                     echo "현재 볼륨 상태 확인"
                     docker volume ls | grep db-data || echo "db-data 볼륨이 존재하지 않습니다!"
-                    
+
                     echo "이미지/네트워크 정리"
                     docker system prune -f || true
-                    
-                    echo "최신 이미지 풀링"
-                    docker pull $FRONT_IMAGE:$IMAGE_TAG || true
-                    docker pull $BACK_IMAGE:$IMAGE_TAG || true
-                    
+
+                    echo "최신 :sha 이미지 풀링"
+                    docker pull $FRONT_IMAGE:$IMAGE_TAG
+                    docker pull $BACK_IMAGE:$IMAGE_TAG
+
                     echo "새 컨테이너 실행"
                     FRONT_IMAGE=$FRONT_IMAGE:$IMAGE_TAG BACK_IMAGE=$BACK_IMAGE:$IMAGE_TAG docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
+
+      # 헬스체크: 컨테이너가 떴어도 앱이 살아있지 않을 수 있으므로 실제 포트 응답 확인
+      - name: Healthcheck
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+                    for i in $(seq 1 18); do
+                      FRONT_OK=false
+                      BACK_OK=false
+
+                      # 프론트(Next.js): / 가 200/304 반환하면 OK
+                      if curl -fsS -m 5 http://localhost:3000 > /dev/null 2>&1; then
+                        FRONT_OK=true
+                      fi
+
+                      # 백엔드(Spring Boot): actuator 미사용 → 어떤 HTTP 응답이든 오면 살아있는 것 (000은 연결 실패)
+                      BACK_HTTP=$(curl -s -o /dev/null -w "%{http_code}" -m 5 http://localhost:8080 || echo "000")
+                      if [ "$BACK_HTTP" != "000" ]; then
+                        BACK_OK=true
+                      fi
+
+                      if $FRONT_OK && $BACK_OK; then
+                        echo "헬스체크 통과 ($i회차) front=$FRONT_OK back=$BACK_OK(http=$BACK_HTTP)"
+                        exit 0
+                      fi
+
+                      echo "대기 중 ($i/18) front=$FRONT_OK back=$BACK_OK(http=$BACK_HTTP)"
+                      sleep 10
+                    done
+
+                    echo "헬스체크 실패 — 컨테이너 로그:"
+                    docker-compose -f ~/next-ecommerce/docker-compose.yml logs --tail 80
+                    exit 1
+
+      # 배포 + 헬스체크 모두 통과한 경우에만 :latest 갱신
+      # → :latest는 항상 "마지막으로 배포에 성공한 버전"을 가리킴 → 롤백 안전망
+      - name: Promote :latest (성공 시에만)
+        if: success()
+        run: |
+          docker push $FRONT_IMAGE:latest
+          docker push $BACK_IMAGE:latest
+
+      # 어느 단계든 실패하면 :latest(이전 성공 버전)로 자동 롤백
+      - name: Rollback (실패 시)
+        if: failure()
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: FRONT_IMAGE,BACK_IMAGE
+          script: |
+                    echo "롤백 시작 — :latest(이전 성공 버전)로 복구"
+                    docker-compose -f ~/next-ecommerce/docker-compose.yml down || true
+                    docker pull $FRONT_IMAGE:latest
+                    docker pull $BACK_IMAGE:latest
+                    FRONT_IMAGE=$FRONT_IMAGE:latest BACK_IMAGE=$BACK_IMAGE:latest \
+                      docker-compose -f ~/next-ecommerce/docker-compose.yml up -d
+                    echo "롤백 완료 — :latest로 재기동됨"
