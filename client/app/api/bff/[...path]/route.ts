@@ -11,6 +11,10 @@ import {
 import { guardHttpMethod } from '@/shared/proxy/methodGuard';
 import { buildBackendUrlForBff } from '@/shared/proxy/url';
 
+/**
+ * 프록시 + 토큰 자동 갱신
+ * 
+ */
 // 원요청 시도한다.
 async function forwardOnce(req: Request, cookieHeader?: string, bodyBuf?: ArrayBuffer) {
   const backendURL = buildBackendUrlForBff(req);
@@ -33,6 +37,7 @@ async function handler(req: Request, path: string) {
   // 1) 현 쿠키로 원요청
   // Next.js 서버 환경의 Cookie 헤더 문자열만든다.
   const cookieHeader = buildAuthCookieHeader();
+  
   // 원요청
   const res = await forwardOnce(req, cookieHeader, bodyBuf);
 
