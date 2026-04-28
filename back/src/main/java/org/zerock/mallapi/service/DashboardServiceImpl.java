@@ -25,8 +25,10 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +53,10 @@ public class DashboardServiceImpl implements DashboardService{
 
   @Value("${google.cloud.projectId}")
   private String projectId;
+
+  private final Map<String, CountryDataDTO> countryDataCache = new ConcurrentHashMap<>();
+
+  private final RestTemplate countryDataRestTemplate = new RestTemplate();
 
   @Override
   public CardResponseDTO getSalesCardList(ChartRequestDTO chartRequestDTO, String sellerEmail) {
@@ -1232,9 +1238,9 @@ public class DashboardServiceImpl implements DashboardService{
       String countryName = (row.get("country") == null || row.get("country").isNull()) ? "Unknown" : row.get("country").getStringValue();
       String sessions = (row.get("sessions") == null || row.get("sessions").isNull()) ? "0" : row.get("sessions").getStringValue();
 
-      // 예시: countryCode에 따른 좌표를 가져오는 메서드 호출
-      List<Double> coordinates = getCountryData(countryName).getCoordinates();
-      String svg = getCountryData(countryName).getSvg();
+      CountryDataDTO countryData = getCountryData(countryName);
+      List<Double> coordinates = countryData.getCoordinates();
+      String svg = countryData.getSvg();
 
       // CountryChartDTO 객체 생성 (필드: country, sessions, coordinates)
       countries.add(new CountryChartDTO(countryName, sessions, coordinates, svg));
@@ -1887,12 +1893,22 @@ public class DashboardServiceImpl implements DashboardService{
 
 
   public CountryDataDTO getCountryData(String countryName) {
+    if (countryName == null || countryName.isBlank() || "Unknown".equalsIgnoreCase(countryName)) {
+      return defaultCountryData();
+    }
+
+    String normalizedCountryName = countryName.trim();
+    String cacheKey = normalizedCountryName.toLowerCase();
+
+    return countryDataCache.computeIfAbsent(cacheKey, ignored -> fetchCountryData(normalizedCountryName));
+  }
+
+  private CountryDataDTO fetchCountryData(String countryName) {
     try {
 
-      String url = String.format("https://restcountries.com/v3.1/name/" + countryName + "?fullText=true");
+      String url = "https://restcountries.com/v3.1/name/" + countryName + "?fullText=true";
 
-      RestTemplate restTemplate = new RestTemplate();
-      ResponseEntity<CountryResponseDTO[]> responseEntity = restTemplate.getForEntity(url, CountryResponseDTO[].class);
+      ResponseEntity<CountryResponseDTO[]> responseEntity = countryDataRestTemplate.getForEntity(url, CountryResponseDTO[].class);
       CountryResponseDTO[] response = responseEntity.getBody();
 
       if (response != null && response.length > 0) {
@@ -1906,10 +1922,13 @@ public class DashboardServiceImpl implements DashboardService{
         }
       }
     } catch (Exception e) {
-      System.out.println("Error fetching data for country: " + countryName + ". Returning default values.");
+      log.warn("Error fetching data for country: {}. Returning default values.", countryName);
     }
 
-    // 기본값 반환
+    return defaultCountryData();
+  }
+
+  private CountryDataDTO defaultCountryData() {
     return new CountryDataDTO(Arrays.asList(0.0, 0.0), "");
   }
 
